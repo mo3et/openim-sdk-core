@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	pconstant "github.com/openimsdk/protocol/constant"
 	"math"
 	"sync"
 
@@ -43,7 +44,7 @@ import (
 
 const (
 	conversationSyncLimit       int64 = math.MaxInt64
-	searchMessageGoroutineLimit       = 10
+	searchMessageGoroutineLimit int   = 10
 )
 
 var SearchContentType = []int{constant.Text, constant.AtText, constant.File}
@@ -71,6 +72,7 @@ type Conversation struct {
 	msgOffset             int
 	progress              int
 	conversationSyncMutex sync.Mutex
+	streamMsgMutex        sync.Mutex
 
 	startTime time.Time
 
@@ -882,6 +884,10 @@ func (c *Conversation) msgHandleByContentType(msg *sdk_struct.MsgStruct) (err er
 		t := sdk_struct.CardElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.CardElem = &t
+	case pconstant.Stream:
+		t := sdk_struct.StreamElem{}
+		err = utils.JsonStringToStruct(msg.Content, &t)
+		msg.StreamElem = &t
 	default:
 		t := sdk_struct.NotificationElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
@@ -939,6 +945,7 @@ func (c *Conversation) batchAddFaceURLAndName(ctx context.Context, conversations
 	if err != nil {
 		return err
 	}
+
 	groups := datautil.SliceToMap(groupInfoList, func(groupInfo *model_struct.LocalGroup) string {
 		return groupInfo.GroupID
 	})
@@ -950,8 +957,10 @@ func (c *Conversation) batchAddFaceURLAndName(ctx context.Context, conversations
 				conversation.FaceURL = v.FaceURL
 				conversation.ShowName = v.Nickname
 			} else {
-				log.ZWarn(ctx, "user info not found", errors.New("user not found"),
-					"userID", conversation.UserID)
+				log.ZWarn(ctx, "user info not found", errors.New("user not found"), "userID", conversation.UserID)
+
+				conversation.FaceURL = ""
+				conversation.ShowName = "UserNotFound"
 			}
 		} else if conversation.ConversationType == constant.ReadGroupChatType {
 			if v, ok := groups[conversation.GroupID]; ok {
@@ -964,6 +973,7 @@ func (c *Conversation) batchAddFaceURLAndName(ctx context.Context, conversations
 
 		}
 	}
+
 	return nil
 }
 
@@ -994,10 +1004,12 @@ func (c *Conversation) batchGetUserNameAndFaceURL(ctx context.Context, userIDs .
 		}
 		m[localFriend.FriendUserID] = userInfo
 	}
+
 	usersInfo, err := c.user.GetUsersInfoWithCache(ctx, notInFriend)
 	if err != nil {
 		return nil, err
 	}
+
 	for _, userInfo := range usersInfo {
 		m[userInfo.UserID] = userInfo
 	}

@@ -3,6 +3,7 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
+	pconstant "github.com/openimsdk/protocol/constant"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -210,6 +211,8 @@ func (c *Conversation) msgStructToLocalChatLog(src *sdk_struct.MsgStruct) *model
 		lc.Content = utils.StructToJsonString(src.FaceElem)
 	case constant.AdvancedText:
 		lc.Content = utils.StructToJsonString(src.AdvancedTextElem)
+	case pconstant.Stream:
+		lc.Content = utils.StructToJsonString(src.StreamElem)
 	default:
 		lc.Content = utils.StructToJsonString(src.NotificationElem)
 	}
@@ -550,12 +553,16 @@ func (c *Conversation) SendMessage(ctx context.Context, s *sdk_struct.MsgStruct,
 			break
 		}
 		name := s.FileElem.FileName
+
 		if name == "" {
 			name = s.FileElem.FilePath
 		}
 		if name == "" {
 			name = fmt.Sprintf("msg_file_%s.unknown", s.ClientMsgID)
 		}
+
+		delFile = append(delFile, s.FileElem.FilePath)
+
 		res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
 			ContentType: content_type.GetType(s.FileElem.FileType, filepath.Ext(s.FileElem.FilePath), filepath.Ext(s.FileElem.FileName)),
 			Filepath:    s.FileElem.FilePath,
@@ -587,6 +594,8 @@ func (c *Conversation) SendMessage(ctx context.Context, s *sdk_struct.MsgStruct,
 		s.Content = utils.StructToJsonString(s.FaceElem)
 	case constant.AdvancedText:
 		s.Content = utils.StructToJsonString(s.AdvancedTextElem)
+	case pconstant.Stream:
+		s.Content = utils.StructToJsonString(s.StreamElem)
 	default:
 		return nil, sdkerrs.ErrMsgContentTypeNotSupport
 	}
@@ -671,6 +680,8 @@ func (c *Conversation) SendMessageNotOss(ctx context.Context, s *sdk_struct.MsgS
 		s.Content = utils.StructToJsonString(s.FaceElem)
 	case constant.AdvancedText:
 		s.Content = utils.StructToJsonString(s.AdvancedTextElem)
+	case pconstant.Stream:
+		s.Content = utils.StructToJsonString(s.StreamElem)
 	default:
 		return nil, sdkerrs.ErrMsgContentTypeNotSupport
 	}
@@ -687,7 +698,7 @@ func (c *Conversation) SendMessageNotOss(ctx context.Context, s *sdk_struct.MsgS
 }
 
 func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdk_struct.MsgStruct, lc *model_struct.LocalConversation, callback open_im_sdk_callback.SendMsgCallBack,
-	delFile []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdk_struct.MsgStruct, error) {
+	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdk_struct.MsgStruct, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 		utils.SetSwitchFromOptions(options, constant.IsPersistent, false)
@@ -739,13 +750,14 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdk_struct.Ms
 	s.ServerMsgID = sendMsgResp.ServerMsgID
 	go func() {
 		//remove media cache file
-		for _, v := range delFile {
-			err := os.Remove(v)
+		for _, file := range delFiles {
+			err := os.Remove(file)
 			if err != nil {
-				// log.Error("", "remove failed,", err.Error(), v)
+				log.ZError(ctx, "delete temp File is failed", err, "filePath", file)
 			}
-			// log.Debug("", "remove file: ", v)
+			// log.ZDebug(ctx, "remove temp file:", "file", file)
 		}
+
 		c.updateMsgStatusAndTriggerConversation(ctx, sendMsgResp.ClientMsgID, sendMsgResp.ServerMsgID, sendMsgResp.SendTime, constant.MsgStatusSendSuccess, s, lc, isOnlineOnly)
 	}()
 	return s, nil
@@ -835,6 +847,7 @@ func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req sd
 		s := make([]*sdk_struct.MsgStruct, 0)
 		result.MessageList = s
 	}
+	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
 	return result, nil
 }
 
@@ -847,6 +860,7 @@ func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context,
 		s := make([]*sdk_struct.MsgStruct, 0)
 		result.MessageList = s
 	}
+	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
 	return result, nil
 }
 
@@ -860,6 +874,19 @@ func (c *Conversation) TypingStatusUpdate(ctx context.Context, recvID, msgTip st
 
 func (c *Conversation) MarkConversationMessageAsRead(ctx context.Context, conversationID string) error {
 	return c.markConversationMessageAsRead(ctx, conversationID)
+}
+
+func (c *Conversation) MarkAllConversationMessageAsRead(ctx context.Context) error {
+	conversationIDs, err := c.db.FindAllUnreadConversationConversationID(ctx)
+	if err != nil {
+		return err
+	}
+	for _, conversationID := range conversationIDs {
+		if err = c.markConversationMessageAsRead(ctx, conversationID); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // deprecated
