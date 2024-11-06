@@ -30,8 +30,8 @@ import (
 )
 
 // NewUser creates a new User object.
-func NewUser(dataBase db_interface.DataBase, loginUserID string, conversationCh chan common.Cmd2Value) *User {
-	user := &User{DataBase: dataBase, loginUserID: loginUserID, conversationCh: conversationCh}
+func NewUser(conversationCh chan common.Cmd2Value) *User {
+	user := &User{conversationCh: conversationCh}
 	user.initSyncer()
 	//user.OnlineStatusCache = cache.NewCache[string, *userPb.OnlineStatus]()
 	user.UserCache = cache.NewManager[string, *model_struct.LocalUser](
@@ -53,6 +53,16 @@ type User struct {
 	UserCache      *cache.Manager[string, *model_struct.LocalUser]
 
 	//OnlineStatusCache *cache.Cache[string, *userPb.OnlineStatus]
+}
+
+// SetDataBase sets the DataBase field in User struct
+func (u *User) SetDataBase(db db_interface.DataBase) {
+	u.DataBase = db
+}
+
+// SetLoginUserID sets the loginUserID field in User struct
+func (u *User) SetLoginUserID(loginUserID string) {
+	u.loginUserID = loginUserID
 }
 
 // SetListener sets the user's listener.

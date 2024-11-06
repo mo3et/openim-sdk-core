@@ -18,8 +18,7 @@ import (
 	"context"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/tools/mcontext"
 )
 
@@ -31,7 +30,7 @@ type GlobalConfig struct {
 	UserID string
 	Token  string
 
-	sdk_struct.IMConfig
+	*pb.IMConfig
 }
 
 type ContextInfo interface {
@@ -93,7 +92,7 @@ func (i *info) Token() string {
 }
 
 func (i *info) PlatformID() int32 {
-	return i.conf.PlatformID
+	return int32(i.conf.PlatformID)
 }
 
 func (i *info) ApiAddr() string {

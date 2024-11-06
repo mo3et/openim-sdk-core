@@ -24,6 +24,38 @@ import (
 
 var ErrNotImplemented = errors.New("not set listener")
 
+type emptyConnListener struct {
+	ctx context.Context
+}
+
+func newEmptyConnListener(ctx context.Context) open_im_sdk_callback.OnConnListener {
+	return &emptyConnListener{ctx}
+}
+
+func (e emptyConnListener) OnConnecting() {
+	log.ZWarn(e.ctx, "ConnListener is not implemented", nil)
+}
+
+func (e emptyConnListener) OnConnectSuccess() {
+	log.ZWarn(e.ctx, "ConnListener is not implemented", nil)
+}
+
+func (e emptyConnListener) OnConnectFailed(errCode int32, errMsg string) {
+	log.ZWarn(e.ctx, "ConnListener is not implemented", nil, "errCode", errCode, "errMsg", errMsg)
+}
+
+func (e emptyConnListener) OnKickedOffline() {
+	log.ZWarn(e.ctx, "ConnListener is not implemented", nil)
+}
+
+func (e emptyConnListener) OnUserTokenExpired() {
+	log.ZWarn(e.ctx, "ConnListener is not implemented", nil)
+}
+
+func (e emptyConnListener) OnUserTokenInvalid(errMsg string) {
+	log.ZWarn(e.ctx, "ConnListener is not implemented", nil, "errMsg", errMsg)
+}
+
 type emptyGroupListener struct {
 	ctx context.Context
 }

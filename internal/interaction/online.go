@@ -2,15 +2,16 @@ package interaction
 
 import (
 	"context"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	userPb "github.com/openimsdk/protocol/user"
 )
 
-func (c *LongConnMgr) subscribeUsersStatus(ctx context.Context, userIDs []string) ([]*userPb.OnlineStatus, error) {
+func (l *LongConnMgr) subscribeUsersStatus(ctx context.Context, userIDs []string) ([]*userPb.OnlineStatus, error) {
 	if len(userIDs) == 0 {
 		return []*userPb.OnlineStatus{}, nil
 	}
-	res, err := c.GetUserOnlinePlatformIDs(ctx, userIDs)
+	res, err := l.GetUserOnlinePlatformIDs(ctx, userIDs)
 	if err != nil {
 		return nil, err
 	}
@@ -30,17 +31,17 @@ func (c *LongConnMgr) subscribeUsersStatus(ctx context.Context, userIDs []string
 	return status, nil
 }
 
-func (c *LongConnMgr) UnsubscribeUsersStatus(ctx context.Context, userIDs []string) error {
-	return c.UnsubscribeUserOnlinePlatformIDs(ctx, userIDs)
+func (l *LongConnMgr) UnsubscribeUsersStatus(ctx context.Context, userIDs []string) error {
+	return l.UnsubscribeUserOnlinePlatformIDs(ctx, userIDs)
 }
 
-func (c *LongConnMgr) SubscribeUsersStatus(ctx context.Context, userIDs []string) ([]*userPb.OnlineStatus, error) {
+func (l *LongConnMgr) SubscribeUsersStatus(ctx context.Context, userIDs []string) ([]*userPb.OnlineStatus, error) {
 	if len(userIDs) == 0 {
 		return []*userPb.OnlineStatus{}, nil
 	}
-	return c.subscribeUsersStatus(ctx, userIDs)
+	return l.subscribeUsersStatus(ctx, userIDs)
 }
 
-func (c *LongConnMgr) GetSubscribeUsersStatus(ctx context.Context) ([]*userPb.OnlineStatus, error) {
-	return c.subscribeUsersStatus(ctx, nil)
+func (l *LongConnMgr) GetSubscribeUsersStatus(ctx context.Context) ([]*userPb.OnlineStatus, error) {
+	return l.subscribeUsersStatus(ctx, nil)
 }

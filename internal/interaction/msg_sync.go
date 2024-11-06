@@ -53,7 +53,6 @@ type MsgSyncer struct {
 	syncedMaxSeqs      map[string]int64      // map of the maximum synced SEQ numbers for all group IDs
 	syncedMaxSeqsLock  sync.RWMutex          // syncedMaxSeqs map lock
 	db                 db_interface.DataBase // data store
-	syncTimes          int                   // times of sync
 	ctx                context.Context       // context
 	reinstalled        bool                  //true if the app was uninstalled and reinstalled
 	isSyncing          bool                  // indicates whether data is being synced
@@ -61,28 +60,28 @@ type MsgSyncer struct {
 
 }
 
+func (m *MsgSyncer) SetLoginUserID(loginUserID string) {
+	m.loginUserID = loginUserID
+}
+
+func (m *MsgSyncer) SetDataBase(db db_interface.DataBase) {
+	m.db = db
+}
+
 // NewMsgSyncer creates a new instance of the message synchronizer.
 func NewMsgSyncer(ctx context.Context, conversationCh, PushMsgAndMaxSeqCh chan common.Cmd2Value,
-	loginUserID string, longConnMgr *LongConnMgr, db db_interface.DataBase, syncTimes int) (*MsgSyncer, error) {
-	m := &MsgSyncer{
-		loginUserID:        loginUserID,
+	longConnMgr *LongConnMgr) *MsgSyncer {
+	return &MsgSyncer{
 		longConnMgr:        longConnMgr,
 		PushMsgAndMaxSeqCh: PushMsgAndMaxSeqCh,
 		conversationCh:     conversationCh,
 		ctx:                ctx,
 		syncedMaxSeqs:      make(map[string]int64),
-		db:                 db,
-		syncTimes:          syncTimes,
 	}
-	if err := m.loadSeq(ctx); err != nil {
-		log.ZError(ctx, "loadSeq err", err)
-		return nil, err
-	}
-	return m, nil
 }
 
-// seq The db reads the data to the memory,set syncedMaxSeqs
-func (m *MsgSyncer) loadSeq(ctx context.Context) error {
+// LoadSeq seq The db reads the data to the memory,set syncedMaxSeqs
+func (m *MsgSyncer) LoadSeq(ctx context.Context) error {
 	conversationIDList, err := m.db.GetAllConversationIDList(ctx)
 	if err != nil {
 		log.ZError(ctx, "get conversation id list failed", err)

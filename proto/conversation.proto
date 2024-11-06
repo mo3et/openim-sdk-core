@@ -1,0 +1,76 @@
+syntax = "proto3";
+package openim.sdk.conversation;
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+option csharp_namespace = "OpenIM";
+
+enum SessionType {
+  SessionType_None = 0;
+  SessionType_Single = 1;
+  SessionType_Group = 2;
+  SessionType_SuperGroup = 3;
+  SessionType_Notification = 4;
+}
+
+message Conversation {
+  string conversationID = 1;
+  int32 conversationType = 2;
+  string userID = 3;
+  string groupID = 4;
+  string showName = 5;
+  string faceURL = 6;
+  int32 recvMsgOpt = 7;
+  int32 unreadCount = 8;
+  int32 groupAtType = 9;
+  string latestMsg = 10;
+  int64 latestMsgSendTime = 11;
+  string draftText = 12;
+  int64 draftTextTime = 13;
+  bool isPinned = 14;
+  bool isPrivateChat = 15;
+  int32 burnDuration = 16;
+  bool isNotInGroup = 17;
+  int64 updateUnreadCountTime = 18;
+  string attachedInfo = 19;
+  string ex = 20;
+  int64 maxSeq = 21;
+  int64 minSeq = 22;
+  int64 hasReadSeq = 23;
+  int64 msgDestructTime = 24;
+  bool isMsgDestruct = 25;
+}
+
+
+message GetAllConversationListReq{}
+message GetAllConversationListResp{
+  repeated Conversation conversationList = 1;
+}
+
+message Event_SyncServerStart {}
+message Event_SyncServerFinish {}
+message Event_SyncServerFailed {}
+message Event_NewConversation {}
+message Event_ConversationChanged {}
+message Event_UnreadCountChanged {}
+message Event_UserInputStatusChanged {};
+
+enum FuncRequestEventName{
+  None = 0;
+  GetAllConversationList = 1;
+  GetConversationList = 2;
+  GetConversation = 3;
+  InitSDK = 4;
+  Login = 5;
+};
+
+message ConversationEvent {
+  int64 handle = 1;
+  oneof message {
+    Event_SyncServerStart syncServerStart = 2;
+    Event_SyncServerFinish syncServerFinish = 3;
+    Event_SyncServerFailed syncServerFailed = 4;
+    Event_NewConversation newConversation = 5;
+    Event_ConversationChanged conversationChanged = 6;
+    Event_UnreadCountChanged unreadCountChanged = 7;
+    Event_UserInputStatusChanged userInputStatusChanged = 8;
+  }
+}

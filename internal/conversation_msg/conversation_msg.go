@@ -5,9 +5,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	sdk "github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
 	"math"
 	"sync"
+
+	sdk "github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/cache"
@@ -19,7 +20,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	"github.com/openimsdk/openim-sdk-core/v3/internal/user"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/db_interface"
@@ -77,6 +77,46 @@ type Conversation struct {
 	typing *typing
 }
 
+func NewConversation(longConnMgr *interaction.LongConnMgr,
+	ch chan common.Cmd2Value, relation *relation.Relation, group *group.Group, user *user.User,
+	file *file.File) *Conversation {
+	n := &Conversation{
+		LongConnMgr:    longConnMgr,
+		recvCH:         ch,
+		relation:       relation,
+		group:          group,
+		user:           user,
+		file:           file,
+		maxSeqRecorder: NewMaxSeqRecorder(),
+		msgOffset:      0,
+		progress:       0,
+	}
+	n.typing = newTyping(n)
+	n.initSyncer()
+	n.cache = cache.NewCache[string, *model_struct.LocalConversation]()
+	return n
+}
+
+func (c *Conversation) SetDataBase(db db_interface.DataBase) {
+	c.db = db
+}
+
+func (c *Conversation) SetLoginUserID(loginUserID string) {
+	c.loginUserID = loginUserID
+}
+
+func (c *Conversation) SetPlatformID(platformID int32) {
+	c.platformID = platformID
+}
+
+func (c *Conversation) SetDataDir(DataDir string) {
+	c.DataDir = DataDir
+}
+
+func (c *Conversation) SetIsExternalExtensions(IsExternalExtensions bool) {
+	c.IsExternalExtensions = IsExternalExtensions
+}
+
 func (c *Conversation) SetMsgListener(msgListener func() open_im_sdk_callback.OnAdvancedMsgListener) {
 	c.msgListener = msgListener
 }
@@ -91,31 +131,6 @@ func (c *Conversation) SetBatchMsgListener(batchMsgListener func() open_im_sdk_c
 
 func (c *Conversation) SetBusinessListener(businessListener func() open_im_sdk_callback.OnCustomBusinessListener) {
 	c.businessListener = businessListener
-}
-
-func NewConversation(ctx context.Context, longConnMgr *interaction.LongConnMgr, db db_interface.DataBase,
-	ch chan common.Cmd2Value, relation *relation.Relation, group *group.Group, user *user.User,
-	file *file.File) *Conversation {
-	info := ccontext.Info(ctx)
-	n := &Conversation{db: db,
-		LongConnMgr:          longConnMgr,
-		recvCH:               ch,
-		loginUserID:          info.UserID(),
-		platformID:           info.PlatformID(),
-		DataDir:              info.DataDir(),
-		relation:             relation,
-		group:                group,
-		user:                 user,
-		file:                 file,
-		IsExternalExtensions: info.IsExternalExtensions(),
-		maxSeqRecorder:       NewMaxSeqRecorder(),
-		msgOffset:            0,
-		progress:             0,
-	}
-	n.typing = newTyping(n)
-	n.initSyncer()
-	n.cache = cache.NewCache[string, *model_struct.LocalConversation]()
-	return n
 }
 
 func (c *Conversation) initSyncer() {

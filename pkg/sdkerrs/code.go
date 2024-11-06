@@ -24,8 +24,9 @@ const (
 	ResourceLoadNotCompleteError = 10004 // Resource initialization incomplete
 	UnknownCode                  = 10005 // Unrecognized code
 	SdkInternalError             = 10006 // SDK internal error
-
-	NoUpdateError = 10007 // No updates available
+	SdkFuncNotFoundError         = 10007 // SDK function not found
+	SdkNotInitError              = 10008 // SDK not initialized
+	SdkNotLoginError             = 10009 // SDK not logged in
 
 	UserIDNotFoundError = 10100 // UserID not found or not registered
 	LoginOutError       = 10101 // User has logged out

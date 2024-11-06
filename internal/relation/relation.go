@@ -4,7 +4,6 @@ import (
 	"context"
 	"sync"
 
-	"github.com/openimsdk/openim-sdk-core/v3/internal/user"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
@@ -24,8 +23,8 @@ const (
 	friendSyncLimit int64 = 10000
 )
 
-func NewFriend(loginUserID string, db db_interface.DataBase, user *user.User, conversationCh chan common.Cmd2Value) *Relation {
-	r := &Relation{loginUserID: loginUserID, db: db, user: user, conversationCh: conversationCh}
+func NewRelation(conversationCh chan common.Cmd2Value) *Relation {
+	r := &Relation{conversationCh: conversationCh}
 	r.initSyncer()
 	return r
 }
@@ -34,7 +33,6 @@ type Relation struct {
 	friendshipListener open_im_sdk_callback.OnFriendshipListenerSdk
 	loginUserID        string
 	db                 db_interface.DataBase
-	user               *user.User
 	friendSyncer       *syncer.Syncer[*model_struct.LocalFriend, relation.GetPaginationFriendsResp, [2]string]
 	blockSyncer        *syncer.Syncer[*model_struct.LocalBlack, syncer.NoResp, [2]string]
 	requestRecvSyncer  *syncer.Syncer[*model_struct.LocalFriendRequest, syncer.NoResp, [2]string]
@@ -190,4 +188,14 @@ func (r *Relation) SetListener(listener func() open_im_sdk_callback.OnFriendship
 
 func (r *Relation) SetListenerForService(listener open_im_sdk_callback.OnListenerForService) {
 	r.listenerForService = listener
+}
+
+// SetDataBase sets the DataBase field in Relation struct
+func (r *Relation) SetDataBase(db db_interface.DataBase) {
+	r.db = db
+}
+
+// SetLoginUserID sets the loginUserID field in Relation struct
+func (r *Relation) SetLoginUserID(loginUserID string) {
+	r.loginUserID = loginUserID
 }

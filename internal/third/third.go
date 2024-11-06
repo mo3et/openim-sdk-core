@@ -15,8 +15,9 @@
 package third
 
 import (
-	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	"sync"
+
+	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 )
 
 type Third struct {
@@ -28,6 +29,26 @@ type Third struct {
 	logUploadLock sync.Mutex
 }
 
-func NewThird(platformID int32, loginUserID, systemType, LogFilePath string, fileUploader *file.File) *Third {
-	return &Third{platformID: platformID, loginUserID: loginUserID, systemType: systemType, LogFilePath: LogFilePath, fileUploader: fileUploader}
+func (c *Third) SetPlatformID(platformID int32) {
+	c.platformID = platformID
 }
+
+func (c *Third) SetLoginUserID(loginUserID string) {
+	c.loginUserID = loginUserID
+}
+
+func (c *Third) SetSystemType(systemType string) {
+	c.systemType = systemType
+}
+
+func (c *Third) SetLogFilePath(LogFilePath string) {
+	c.LogFilePath = LogFilePath
+}
+
+func NewThird(fileUploader *file.File) *Third {
+	return &Third{fileUploader: fileUploader}
+}
+
+//func NewThird(platformID int32, loginUserID, systemType, LogFilePath string, fileUploader *file.File) *Third {
+//	return &Third{platformID: platformID, loginUserID: loginUserID, systemType: systemType, LogFilePath: LogFilePath, fileUploader: fileUploader}
+//}

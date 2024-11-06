@@ -18,11 +18,14 @@ import "github.com/openimsdk/tools/errs"
 
 var (
 	// Common errors
-	ErrArgs           = errs.NewCodeError(ArgsError, "Invalid input arguments")
-	ErrCtxDeadline    = errs.NewCodeError(CtxDeadlineExceededError, "Context deadline exceeded")
-	ErrSdkInternal    = errs.NewCodeError(SdkInternalError, "Internal SDK error")
-	ErrNetwork        = errs.NewCodeError(NetworkError, "Network error")
-	ErrNetworkTimeOut = errs.NewCodeError(NetworkTimeoutError, "Network timeout error")
+	ErrArgs            = errs.NewCodeError(ArgsError, "Invalid input arguments")
+	ErrCtxDeadline     = errs.NewCodeError(CtxDeadlineExceededError, "Context deadline exceeded")
+	ErrSdkInternal     = errs.NewCodeError(SdkInternalError, "Internal SDK error")
+	ErrSdkFuncNotFound = errs.NewCodeError(SdkFuncNotFoundError, "Function not found")
+	ErrSdkNotInit      = errs.NewCodeError(SdkNotInitError, "SDK not initialized")
+	ErrSdkNotLogin     = errs.NewCodeError(SdkNotLoginError, "User not logged in")
+	ErrNetwork         = errs.NewCodeError(NetworkError, "Network error")
+	ErrNetworkTimeOut  = errs.NewCodeError(NetworkTimeoutError, "Network timeout error")
 
 	ErrGroupIDNotFound = errs.NewCodeError(GroupIDNotFoundError, "Group ID not found")
 	ErrUserIDNotFound  = errs.NewCodeError(UserIDNotFoundError, "User ID not found")
