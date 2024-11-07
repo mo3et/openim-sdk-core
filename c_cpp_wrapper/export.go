@@ -38,12 +38,170 @@ var (
 	FuncMap       = make(map[pb.FuncRequestEventName]callFunc)
 )
 
+type ConnCallback struct{}
+
+func NewConnCallback() *ConnCallback {
+	return &ConnCallback{}
+}
+
+func (c ConnCallback) OnConnecting() {
+	eventResp(pb.FuncRequestEventName_EventOnConnecting, &pb.EventOnConnectingData{})
+}
+
+func (c ConnCallback) OnConnectSuccess() {
+	eventResp(pb.FuncRequestEventName_EventOnConnectSuccess, &pb.EventOnConnectSuccessData{})
+}
+
+func (c ConnCallback) OnConnectFailed(errCode int32, errMsg string) {
+	eventResp(pb.FuncRequestEventName_EventOnConnectFailed, &pb.EventOnConnectFailedData{
+		ErrCode: errCode,
+		ErrMsg:  errMsg,
+	})
+}
+
+func (c ConnCallback) OnKickedOffline() {
+	eventResp(pb.FuncRequestEventName_EventOnKickedOffline, &pb.EventOnKickedOfflineData{})
+}
+
+func (c ConnCallback) OnUserTokenExpired() {
+	eventResp(pb.FuncRequestEventName_EventOnUserTokenExpired, &pb.EventOnUserTokenExpiredData{})
+}
+
+func (c ConnCallback) OnUserTokenInvalid(errMsg string) {
+	eventResp(pb.FuncRequestEventName_EventOnUserTokenInvalid, &pb.EventOnUserTokenInvalidData{
+		ErrMsg: errMsg,
+	})
+}
+
+type ConversationCallback struct {
+}
+
+func NewConversationCallback() *ConversationCallback {
+	return &ConversationCallback{}
+}
+
+func (c ConversationCallback) OnSyncServerStart(reinstalled bool) {
+	eventResp(pb.FuncRequestEventName_EventOnSyncServerStart, &pb.EventOnSyncServerStartData{
+		Reinstalled: reinstalled,
+	})
+}
+
+func (c ConversationCallback) OnSyncServerProgress(progress int) {
+	eventResp(pb.FuncRequestEventName_EventOnSyncServerProgress, &pb.EventOnSyncServerProgressData{
+		Progress: int32(progress),
+	})
+}
+
+func (c ConversationCallback) OnSyncServerFinish(reinstalled bool) {
+	eventResp(pb.FuncRequestEventName_EventOnSyncServerFinish, &pb.EventOnSyncServerFinishData{
+		Reinstalled: reinstalled,
+	})
+}
+
+func (c ConversationCallback) OnSyncServerFailed(reinstalled bool) {
+	eventResp(pb.FuncRequestEventName_EventOnSyncServerFailed, &pb.EventOnSyncServerFailedData{
+		Reinstalled: reinstalled,
+	})
+}
+
+func (c ConversationCallback) OnNewConversation(conversationList string) {
+	eventResp(pb.FuncRequestEventName_EventOnNewConversation, &pb.EventOnNewConversationData{
+		ConversationList: conversationList,
+	})
+}
+
+func (c ConversationCallback) OnConversationChanged(conversationList string) {
+	eventResp(pb.FuncRequestEventName_EventOnConversationChanged, &pb.EventOnConversationChangedData{
+		ConversationList: conversationList,
+	})
+}
+
+func (c ConversationCallback) OnTotalUnreadMessageCountChanged(totalUnreadCount int32) {
+	eventResp(pb.FuncRequestEventName_EventOnTotalUnreadMessageCountChanged, &pb.EventOnTotalUnreadMessageCountChangedData{
+		TotalUnreadCount: totalUnreadCount,
+	})
+}
+
+func (c ConversationCallback) OnConversationUserInputStatusChanged(change string) {
+	eventResp(pb.FuncRequestEventName_EventOnConversationUserInputStatusChanged, &pb.EventOnConversationUserInputStatusChangedData{
+		Change: change,
+	})
+}
+
+type AdvancedMsgCallback struct {
+}
+
+func (a AdvancedMsgCallback) OnRecvOfflineNewMessage(message string) {
+	eventResp(pb.FuncRequestEventName_EventOnRecvOfflineNewMessage, &pb.EventOnRecvOfflineNewMessageData{
+		Message: message,
+	})
+}
+
+func (a AdvancedMsgCallback) OnMsgDeleted(message string) {
+	eventResp(pb.FuncRequestEventName_EventOnMsgDeleted, &pb.EventOnMsgDeletedData{
+		Message: message,
+	})
+}
+
+func (a AdvancedMsgCallback) OnRecvOnlineOnlyMessage(message string) {
+	eventResp(pb.FuncRequestEventName_EventOnRecvOnlineOnlyMessage, &pb.EventOnRecvOnlineOnlyMessageData{
+		Message: message,
+	})
+}
+
+func (a AdvancedMsgCallback) OnMsgEdited(message string) {
+	eventResp(pb.FuncRequestEventName_EventOnMsgEdited, &pb.EventOnMsgEditedData{
+		Message: message,
+	})
+}
+
+func NewAdvancedMsgCallback() *AdvancedMsgCallback {
+	return &AdvancedMsgCallback{}
+}
+
+func (a AdvancedMsgCallback) OnRecvNewMessage(message string) {
+	eventResp(pb.FuncRequestEventName_EventOnRecvNewMessage, &pb.EventOnRecvNewMessageData{
+		Message: message,
+	})
+}
+
+func (a AdvancedMsgCallback) OnRecvC2CReadReceipt(msgReceiptList string) {
+	eventResp(pb.FuncRequestEventName_EventOnRecvC2CReadReceipt, &pb.EventOnRecvC2CReadReceiptData{
+		MsgReceiptList: msgReceiptList,
+	})
+}
+
+func (a AdvancedMsgCallback) OnNewRecvMessageRevoked(messageRevoked string) {
+	eventResp(pb.FuncRequestEventName_EventOnNewRecvMessageRevoked, &pb.EventOnNewRecvMessageRevokedData{
+		MessageRevoked: messageRevoked,
+	})
+}
+
+func setConnListener(_ context.Context, _ *pb.SetConnListenerReq) (*pb.SetConnListenerResp, error) {
+	open_im_sdk.UserForSDK.SetConnListener(NewConnCallback())
+	return &pb.SetConnListenerResp{}, nil
+}
+
+func setConversationListener(_ context.Context, _ *pb.SetConversationListenerReq) (*pb.SetConversationListenerResp, error) {
+	open_im_sdk.UserForSDK.SetConversationListener(NewConversationCallback())
+	return &pb.SetConversationListenerResp{}, nil
+}
+
+func setAdvancedMsgListener(_ context.Context, req *pb.SetAdvancedMsgListenerReq) (*pb.SetAdvancedMsgListenerResp, error) {
+	open_im_sdk.UserForSDK.SetAdvancedMsgListener(NewAdvancedMsgCallback())
+	return &pb.SetAdvancedMsgListenerResp{}, nil
+}
+
 type callFunc func(ctx context.Context, req []byte) ([]byte, error)
 
 func init() {
+
 	FuncMap[pb.FuncRequestEventName_InitSDK] = Func(open_im_sdk.UserForSDK.InitSDK)
 	FuncMap[pb.FuncRequestEventName_Login] = Func(open_im_sdk.UserForSDK.Login)
 	FuncMap[pb.FuncRequestEventName_GetAllConversationList] = Func(open_im_sdk.UserForSDK.Conversation().GetAllConversationList)
+	FuncMap[pb.FuncRequestEventName_SetConnListener] = Func(setConnListener)
+	FuncMap[pb.FuncRequestEventName_SetConversationListener] = Func(setConversationListener)
+	FuncMap[pb.FuncRequestEventName_SetAdvancedMsgListener] = Func(setAdvancedMsgListener)
 
 }
 
@@ -83,8 +241,10 @@ func errResp(handleID uint64, funcName pb.FuncRequestEventName, err error) {
 		ffiResult.ErrCode = int32(code.Code())
 		ffiResult.ErrMsg = code.Error()
 	} else {
-		//callback.OnError(sdkerrs.UnknownCode, fmt.Sprintf("error %T not implement CodeError: %s", err, err))
+		ffiResult.ErrCode = sdkerrs.UnknownCode
+		ffiResult.ErrMsg = fmt.Sprintf("error %T not implement CodeError: %s", err, err)
 	}
+	dispatchFfiResult(handleID, &ffiResult)
 
 }
 func successResp(handleID uint64, funcName pb.FuncRequestEventName, res []byte) {
@@ -93,11 +253,29 @@ func successResp(handleID uint64, funcName pb.FuncRequestEventName, res []byte) 
 	ffiResponse.Data = res
 	ffiResponse.FuncName = funcName
 	ffiResponse.HandleID = handleID
-	dispatchFfiResult(handleID, ffiResponse)
+	dispatchFfiResult(handleID, &ffiResponse)
 }
 
-func dispatchFfiResult(handleID uint64, ffiResponse pb.FfiResult) {
-	data, err := proto.Marshal(&ffiResponse)
+func eventResp(eventName pb.FuncRequestEventName, data any) {
+	var ffiResponse pb.FfiResult
+	var err error
+	if v, ok := data.(proto.Message); ok {
+		ffiResponse.Data, err = proto.Marshal(v)
+		if err != nil {
+			ffiResponse.ErrCode = sdkerrs.ArgsError
+			ffiResponse.ErrMsg = "data marshal error"
+		}
+	} else {
+		ffiResponse.ErrCode = sdkerrs.ArgsError
+		ffiResponse.ErrMsg = "data is not proto.Message"
+	}
+	ffiResponse.FuncName = eventName
+	ffiResponse.HandleID = generateHandleID()
+	dispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
+}
+
+func dispatchFfiResult(handleID uint64, ffiResponse *pb.FfiResult) {
+	data, err := proto.Marshal(ffiResponse)
 	if err != nil {
 	}
 	cData := (*C.uint8_t)(C.malloc(C.size_t(len(data))))
@@ -179,9 +357,9 @@ func checkResourceLoad(funcName pb.FuncRequestEventName) error {
 	if funcName == pb.FuncRequestEventName_Login {
 		return nil
 	}
-	if open_im_sdk.UserForSDK.GetLoginStatus(context.Background()) != open_im_sdk.Logged {
-		return sdkerrs.ErrSdkNotLogin.WrapMsg("SDK not login", "funcName", funcName.String())
-	}
+	//if open_im_sdk.UserForSDK.GetLoginStatus(context.Background()) != open_im_sdk.Logged {
+	//	return sdkerrs.ErrSdkNotLogin.WrapMsg("SDK not login", "funcName", funcName.String())
+	//}
 	return nil
 }
 

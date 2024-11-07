@@ -4,6 +4,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/openimsdk/openim-sdk-core/v3/internal/user"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
@@ -23,8 +24,8 @@ const (
 	friendSyncLimit int64 = 10000
 )
 
-func NewRelation(conversationCh chan common.Cmd2Value) *Relation {
-	r := &Relation{conversationCh: conversationCh}
+func NewRelation(conversationCh chan common.Cmd2Value, user *user.User) *Relation {
+	r := &Relation{conversationCh: conversationCh, user: user}
 	r.initSyncer()
 	return r
 }
@@ -33,6 +34,7 @@ type Relation struct {
 	friendshipListener open_im_sdk_callback.OnFriendshipListenerSdk
 	loginUserID        string
 	db                 db_interface.DataBase
+	user               *user.User
 	friendSyncer       *syncer.Syncer[*model_struct.LocalFriend, relation.GetPaginationFriendsResp, [2]string]
 	blackSyncer        *syncer.Syncer[*model_struct.LocalBlack, syncer.NoResp, [2]string]
 	requestRecvSyncer  *syncer.Syncer[*model_struct.LocalFriendRequest, syncer.NoResp, [2]string]

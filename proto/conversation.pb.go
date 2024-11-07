@@ -78,31 +78,121 @@ func (SessionType) EnumDescriptor() ([]byte, []int) {
 type FuncRequestEventName int32
 
 const (
-	FuncRequestEventName_None                   FuncRequestEventName = 0
-	FuncRequestEventName_GetAllConversationList FuncRequestEventName = 1
-	FuncRequestEventName_GetConversationList    FuncRequestEventName = 2
-	FuncRequestEventName_GetConversation        FuncRequestEventName = 3
-	FuncRequestEventName_InitSDK                FuncRequestEventName = 4
-	FuncRequestEventName_Login                  FuncRequestEventName = 5
+	FuncRequestEventName_None                                      FuncRequestEventName = 0
+	FuncRequestEventName_GetAllConversationList                    FuncRequestEventName = 1
+	FuncRequestEventName_GetConversationList                       FuncRequestEventName = 2
+	FuncRequestEventName_GetConversation                           FuncRequestEventName = 3
+	FuncRequestEventName_InitSDK                                   FuncRequestEventName = 4
+	FuncRequestEventName_Login                                     FuncRequestEventName = 5
+	FuncRequestEventName_SetConnListener                           FuncRequestEventName = 6
+	FuncRequestEventName_SetConversationListener                   FuncRequestEventName = 7
+	FuncRequestEventName_SetAdvancedMsgListener                    FuncRequestEventName = 8
+	FuncRequestEventName_SetMessageKvInfoListener                  FuncRequestEventName = 9
+	FuncRequestEventName_SetBatchMsgListener                       FuncRequestEventName = 10
+	FuncRequestEventName_SetFriendshipListener                     FuncRequestEventName = 11
+	FuncRequestEventName_SetGroupListener                          FuncRequestEventName = 12
+	FuncRequestEventName_SetUserListener                           FuncRequestEventName = 13
+	FuncRequestEventName_SetCustomBusinessListener                 FuncRequestEventName = 14
+	FuncRequestEventName_EventOnConnecting                         FuncRequestEventName = 15
+	FuncRequestEventName_EventOnConnectSuccess                     FuncRequestEventName = 16
+	FuncRequestEventName_EventOnConnectFailed                      FuncRequestEventName = 17
+	FuncRequestEventName_EventOnKickedOffline                      FuncRequestEventName = 18
+	FuncRequestEventName_EventOnUserTokenExpired                   FuncRequestEventName = 19
+	FuncRequestEventName_EventOnUserTokenInvalid                   FuncRequestEventName = 20
+	FuncRequestEventName_EventOnSyncServerStart                    FuncRequestEventName = 21
+	FuncRequestEventName_EventOnSyncServerFinish                   FuncRequestEventName = 22
+	FuncRequestEventName_EventOnSyncServerFailed                   FuncRequestEventName = 23
+	FuncRequestEventName_EventOnSyncServerProgress                 FuncRequestEventName = 24
+	FuncRequestEventName_EventOnNewConversation                    FuncRequestEventName = 25
+	FuncRequestEventName_EventOnConversationChanged                FuncRequestEventName = 26
+	FuncRequestEventName_EventOnTotalUnreadMessageCountChanged     FuncRequestEventName = 27
+	FuncRequestEventName_EventOnConversationUserInputStatusChanged FuncRequestEventName = 28
+	FuncRequestEventName_EventOnRecvNewMessage                     FuncRequestEventName = 29
+	FuncRequestEventName_EventOnRecvC2CReadReceipt                 FuncRequestEventName = 30
+	FuncRequestEventName_EventOnNewRecvMessageRevoked              FuncRequestEventName = 31
+	FuncRequestEventName_EventOnRecvOfflineNewMessage              FuncRequestEventName = 32
+	FuncRequestEventName_EventOnMsgDeleted                         FuncRequestEventName = 33
+	FuncRequestEventName_EventOnRecvOnlineOnlyMessage              FuncRequestEventName = 34
+	FuncRequestEventName_EventOnMsgEdited                          FuncRequestEventName = 35
 )
 
 // Enum value maps for FuncRequestEventName.
 var (
 	FuncRequestEventName_name = map[int32]string{
-		0: "None",
-		1: "GetAllConversationList",
-		2: "GetConversationList",
-		3: "GetConversation",
-		4: "InitSDK",
-		5: "Login",
+		0:  "None",
+		1:  "GetAllConversationList",
+		2:  "GetConversationList",
+		3:  "GetConversation",
+		4:  "InitSDK",
+		5:  "Login",
+		6:  "SetConnListener",
+		7:  "SetConversationListener",
+		8:  "SetAdvancedMsgListener",
+		9:  "SetMessageKvInfoListener",
+		10: "SetBatchMsgListener",
+		11: "SetFriendshipListener",
+		12: "SetGroupListener",
+		13: "SetUserListener",
+		14: "SetCustomBusinessListener",
+		15: "EventOnConnecting",
+		16: "EventOnConnectSuccess",
+		17: "EventOnConnectFailed",
+		18: "EventOnKickedOffline",
+		19: "EventOnUserTokenExpired",
+		20: "EventOnUserTokenInvalid",
+		21: "EventOnSyncServerStart",
+		22: "EventOnSyncServerFinish",
+		23: "EventOnSyncServerFailed",
+		24: "EventOnSyncServerProgress",
+		25: "EventOnNewConversation",
+		26: "EventOnConversationChanged",
+		27: "EventOnTotalUnreadMessageCountChanged",
+		28: "EventOnConversationUserInputStatusChanged",
+		29: "EventOnRecvNewMessage",
+		30: "EventOnRecvC2CReadReceipt",
+		31: "EventOnNewRecvMessageRevoked",
+		32: "EventOnRecvOfflineNewMessage",
+		33: "EventOnMsgDeleted",
+		34: "EventOnRecvOnlineOnlyMessage",
+		35: "EventOnMsgEdited",
 	}
 	FuncRequestEventName_value = map[string]int32{
-		"None":                   0,
-		"GetAllConversationList": 1,
-		"GetConversationList":    2,
-		"GetConversation":        3,
-		"InitSDK":                4,
-		"Login":                  5,
+		"None":                                      0,
+		"GetAllConversationList":                    1,
+		"GetConversationList":                       2,
+		"GetConversation":                           3,
+		"InitSDK":                                   4,
+		"Login":                                     5,
+		"SetConnListener":                           6,
+		"SetConversationListener":                   7,
+		"SetAdvancedMsgListener":                    8,
+		"SetMessageKvInfoListener":                  9,
+		"SetBatchMsgListener":                       10,
+		"SetFriendshipListener":                     11,
+		"SetGroupListener":                          12,
+		"SetUserListener":                           13,
+		"SetCustomBusinessListener":                 14,
+		"EventOnConnecting":                         15,
+		"EventOnConnectSuccess":                     16,
+		"EventOnConnectFailed":                      17,
+		"EventOnKickedOffline":                      18,
+		"EventOnUserTokenExpired":                   19,
+		"EventOnUserTokenInvalid":                   20,
+		"EventOnSyncServerStart":                    21,
+		"EventOnSyncServerFinish":                   22,
+		"EventOnSyncServerFailed":                   23,
+		"EventOnSyncServerProgress":                 24,
+		"EventOnNewConversation":                    25,
+		"EventOnConversationChanged":                26,
+		"EventOnTotalUnreadMessageCountChanged":     27,
+		"EventOnConversationUserInputStatusChanged": 28,
+		"EventOnRecvNewMessage":                     29,
+		"EventOnRecvC2CReadReceipt":                 30,
+		"EventOnNewRecvMessageRevoked":              31,
+		"EventOnRecvOfflineNewMessage":              32,
+		"EventOnMsgDeleted":                         33,
+		"EventOnRecvOnlineOnlyMessage":              34,
+		"EventOnMsgEdited":                          35,
 	}
 )
 
@@ -457,14 +547,14 @@ func (x *GetAllConversationListResp) GetConversationList() []*Conversation {
 	return nil
 }
 
-type Event_SyncServerStart struct {
+type SetConnListenerReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Event_SyncServerStart) Reset() {
-	*x = Event_SyncServerStart{}
+func (x *SetConnListenerReq) Reset() {
+	*x = SetConnListenerReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conversation_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -472,13 +562,13 @@ func (x *Event_SyncServerStart) Reset() {
 	}
 }
 
-func (x *Event_SyncServerStart) String() string {
+func (x *SetConnListenerReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Event_SyncServerStart) ProtoMessage() {}
+func (*SetConnListenerReq) ProtoMessage() {}
 
-func (x *Event_SyncServerStart) ProtoReflect() protoreflect.Message {
+func (x *SetConnListenerReq) ProtoReflect() protoreflect.Message {
 	mi := &file_conversation_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -490,19 +580,19 @@ func (x *Event_SyncServerStart) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Event_SyncServerStart.ProtoReflect.Descriptor instead.
-func (*Event_SyncServerStart) Descriptor() ([]byte, []int) {
+// Deprecated: Use SetConnListenerReq.ProtoReflect.Descriptor instead.
+func (*SetConnListenerReq) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{3}
 }
 
-type Event_SyncServerFinish struct {
+type SetConnListenerResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Event_SyncServerFinish) Reset() {
-	*x = Event_SyncServerFinish{}
+func (x *SetConnListenerResp) Reset() {
+	*x = SetConnListenerResp{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conversation_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -510,13 +600,13 @@ func (x *Event_SyncServerFinish) Reset() {
 	}
 }
 
-func (x *Event_SyncServerFinish) String() string {
+func (x *SetConnListenerResp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Event_SyncServerFinish) ProtoMessage() {}
+func (*SetConnListenerResp) ProtoMessage() {}
 
-func (x *Event_SyncServerFinish) ProtoReflect() protoreflect.Message {
+func (x *SetConnListenerResp) ProtoReflect() protoreflect.Message {
 	mi := &file_conversation_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -528,19 +618,19 @@ func (x *Event_SyncServerFinish) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Event_SyncServerFinish.ProtoReflect.Descriptor instead.
-func (*Event_SyncServerFinish) Descriptor() ([]byte, []int) {
+// Deprecated: Use SetConnListenerResp.ProtoReflect.Descriptor instead.
+func (*SetConnListenerResp) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{4}
 }
 
-type Event_SyncServerFailed struct {
+type SetConversationListenerReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Event_SyncServerFailed) Reset() {
-	*x = Event_SyncServerFailed{}
+func (x *SetConversationListenerReq) Reset() {
+	*x = SetConversationListenerReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conversation_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -548,13 +638,13 @@ func (x *Event_SyncServerFailed) Reset() {
 	}
 }
 
-func (x *Event_SyncServerFailed) String() string {
+func (x *SetConversationListenerReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Event_SyncServerFailed) ProtoMessage() {}
+func (*SetConversationListenerReq) ProtoMessage() {}
 
-func (x *Event_SyncServerFailed) ProtoReflect() protoreflect.Message {
+func (x *SetConversationListenerReq) ProtoReflect() protoreflect.Message {
 	mi := &file_conversation_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -566,19 +656,19 @@ func (x *Event_SyncServerFailed) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Event_SyncServerFailed.ProtoReflect.Descriptor instead.
-func (*Event_SyncServerFailed) Descriptor() ([]byte, []int) {
+// Deprecated: Use SetConversationListenerReq.ProtoReflect.Descriptor instead.
+func (*SetConversationListenerReq) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{5}
 }
 
-type Event_NewConversation struct {
+type SetConversationListenerResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Event_NewConversation) Reset() {
-	*x = Event_NewConversation{}
+func (x *SetConversationListenerResp) Reset() {
+	*x = SetConversationListenerResp{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conversation_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -586,13 +676,13 @@ func (x *Event_NewConversation) Reset() {
 	}
 }
 
-func (x *Event_NewConversation) String() string {
+func (x *SetConversationListenerResp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Event_NewConversation) ProtoMessage() {}
+func (*SetConversationListenerResp) ProtoMessage() {}
 
-func (x *Event_NewConversation) ProtoReflect() protoreflect.Message {
+func (x *SetConversationListenerResp) ProtoReflect() protoreflect.Message {
 	mi := &file_conversation_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -604,19 +694,19 @@ func (x *Event_NewConversation) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Event_NewConversation.ProtoReflect.Descriptor instead.
-func (*Event_NewConversation) Descriptor() ([]byte, []int) {
+// Deprecated: Use SetConversationListenerResp.ProtoReflect.Descriptor instead.
+func (*SetConversationListenerResp) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{6}
 }
 
-type Event_ConversationChanged struct {
+type SetAdvancedMsgListenerReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Event_ConversationChanged) Reset() {
-	*x = Event_ConversationChanged{}
+func (x *SetAdvancedMsgListenerReq) Reset() {
+	*x = SetAdvancedMsgListenerReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conversation_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -624,13 +714,13 @@ func (x *Event_ConversationChanged) Reset() {
 	}
 }
 
-func (x *Event_ConversationChanged) String() string {
+func (x *SetAdvancedMsgListenerReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Event_ConversationChanged) ProtoMessage() {}
+func (*SetAdvancedMsgListenerReq) ProtoMessage() {}
 
-func (x *Event_ConversationChanged) ProtoReflect() protoreflect.Message {
+func (x *SetAdvancedMsgListenerReq) ProtoReflect() protoreflect.Message {
 	mi := &file_conversation_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -642,19 +732,19 @@ func (x *Event_ConversationChanged) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Event_ConversationChanged.ProtoReflect.Descriptor instead.
-func (*Event_ConversationChanged) Descriptor() ([]byte, []int) {
+// Deprecated: Use SetAdvancedMsgListenerReq.ProtoReflect.Descriptor instead.
+func (*SetAdvancedMsgListenerReq) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{7}
 }
 
-type Event_UnreadCountChanged struct {
+type SetAdvancedMsgListenerResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Event_UnreadCountChanged) Reset() {
-	*x = Event_UnreadCountChanged{}
+func (x *SetAdvancedMsgListenerResp) Reset() {
+	*x = SetAdvancedMsgListenerResp{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conversation_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -662,13 +752,13 @@ func (x *Event_UnreadCountChanged) Reset() {
 	}
 }
 
-func (x *Event_UnreadCountChanged) String() string {
+func (x *SetAdvancedMsgListenerResp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Event_UnreadCountChanged) ProtoMessage() {}
+func (*SetAdvancedMsgListenerResp) ProtoMessage() {}
 
-func (x *Event_UnreadCountChanged) ProtoReflect() protoreflect.Message {
+func (x *SetAdvancedMsgListenerResp) ProtoReflect() protoreflect.Message {
 	mi := &file_conversation_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -680,19 +770,19 @@ func (x *Event_UnreadCountChanged) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Event_UnreadCountChanged.ProtoReflect.Descriptor instead.
-func (*Event_UnreadCountChanged) Descriptor() ([]byte, []int) {
+// Deprecated: Use SetAdvancedMsgListenerResp.ProtoReflect.Descriptor instead.
+func (*SetAdvancedMsgListenerResp) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{8}
 }
 
-type Event_UserInputStatusChanged struct {
+type EventOnConnectingData struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Event_UserInputStatusChanged) Reset() {
-	*x = Event_UserInputStatusChanged{}
+func (x *EventOnConnectingData) Reset() {
+	*x = EventOnConnectingData{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conversation_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -700,13 +790,13 @@ func (x *Event_UserInputStatusChanged) Reset() {
 	}
 }
 
-func (x *Event_UserInputStatusChanged) String() string {
+func (x *EventOnConnectingData) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Event_UserInputStatusChanged) ProtoMessage() {}
+func (*EventOnConnectingData) ProtoMessage() {}
 
-func (x *Event_UserInputStatusChanged) ProtoReflect() protoreflect.Message {
+func (x *EventOnConnectingData) ProtoReflect() protoreflect.Message {
 	mi := &file_conversation_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -718,31 +808,19 @@ func (x *Event_UserInputStatusChanged) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Event_UserInputStatusChanged.ProtoReflect.Descriptor instead.
-func (*Event_UserInputStatusChanged) Descriptor() ([]byte, []int) {
+// Deprecated: Use EventOnConnectingData.ProtoReflect.Descriptor instead.
+func (*EventOnConnectingData) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{9}
 }
 
-type ConversationEvent struct {
+type EventOnConnectSuccessData struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Handle int64 `protobuf:"varint,1,opt,name=handle,proto3" json:"handle,omitempty"`
-	// Types that are assignable to Message:
-	//
-	//	*ConversationEvent_SyncServerStart
-	//	*ConversationEvent_SyncServerFinish
-	//	*ConversationEvent_SyncServerFailed
-	//	*ConversationEvent_NewConversation
-	//	*ConversationEvent_ConversationChanged
-	//	*ConversationEvent_UnreadCountChanged
-	//	*ConversationEvent_UserInputStatusChanged
-	Message isConversationEvent_Message `protobuf_oneof:"message"`
 }
 
-func (x *ConversationEvent) Reset() {
-	*x = ConversationEvent{}
+func (x *EventOnConnectSuccessData) Reset() {
+	*x = EventOnConnectSuccessData{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conversation_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -750,13 +828,13 @@ func (x *ConversationEvent) Reset() {
 	}
 }
 
-func (x *ConversationEvent) String() string {
+func (x *EventOnConnectSuccessData) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ConversationEvent) ProtoMessage() {}
+func (*EventOnConnectSuccessData) ProtoMessage() {}
 
-func (x *ConversationEvent) ProtoReflect() protoreflect.Message {
+func (x *EventOnConnectSuccessData) ProtoReflect() protoreflect.Message {
 	mi := &file_conversation_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -768,119 +846,917 @@ func (x *ConversationEvent) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ConversationEvent.ProtoReflect.Descriptor instead.
-func (*ConversationEvent) Descriptor() ([]byte, []int) {
+// Deprecated: Use EventOnConnectSuccessData.ProtoReflect.Descriptor instead.
+func (*EventOnConnectSuccessData) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *ConversationEvent) GetHandle() int64 {
+type EventOnConnectFailedData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ErrCode int32  `protobuf:"varint,1,opt,name=errCode,proto3" json:"errCode,omitempty"`
+	ErrMsg  string `protobuf:"bytes,2,opt,name=errMsg,proto3" json:"errMsg,omitempty"`
+}
+
+func (x *EventOnConnectFailedData) Reset() {
+	*x = EventOnConnectFailedData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnConnectFailedData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnConnectFailedData) ProtoMessage() {}
+
+func (x *EventOnConnectFailedData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnConnectFailedData.ProtoReflect.Descriptor instead.
+func (*EventOnConnectFailedData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *EventOnConnectFailedData) GetErrCode() int32 {
 	if x != nil {
-		return x.Handle
+		return x.ErrCode
 	}
 	return 0
 }
 
-func (m *ConversationEvent) GetMessage() isConversationEvent_Message {
-	if m != nil {
-		return m.Message
+func (x *EventOnConnectFailedData) GetErrMsg() string {
+	if x != nil {
+		return x.ErrMsg
 	}
-	return nil
+	return ""
 }
 
-func (x *ConversationEvent) GetSyncServerStart() *Event_SyncServerStart {
-	if x, ok := x.GetMessage().(*ConversationEvent_SyncServerStart); ok {
-		return x.SyncServerStart
+type EventOnKickedOfflineData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *EventOnKickedOfflineData) Reset() {
+	*x = EventOnKickedOfflineData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
 	}
-	return nil
 }
 
-func (x *ConversationEvent) GetSyncServerFinish() *Event_SyncServerFinish {
-	if x, ok := x.GetMessage().(*ConversationEvent_SyncServerFinish); ok {
-		return x.SyncServerFinish
+func (x *EventOnKickedOfflineData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnKickedOfflineData) ProtoMessage() {}
+
+func (x *EventOnKickedOfflineData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
 	}
-	return nil
+	return mi.MessageOf(x)
 }
 
-func (x *ConversationEvent) GetSyncServerFailed() *Event_SyncServerFailed {
-	if x, ok := x.GetMessage().(*ConversationEvent_SyncServerFailed); ok {
-		return x.SyncServerFailed
+// Deprecated: Use EventOnKickedOfflineData.ProtoReflect.Descriptor instead.
+func (*EventOnKickedOfflineData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{12}
+}
+
+type EventOnUserTokenExpiredData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *EventOnUserTokenExpiredData) Reset() {
+	*x = EventOnUserTokenExpiredData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
 	}
-	return nil
 }
 
-func (x *ConversationEvent) GetNewConversation() *Event_NewConversation {
-	if x, ok := x.GetMessage().(*ConversationEvent_NewConversation); ok {
-		return x.NewConversation
+func (x *EventOnUserTokenExpiredData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnUserTokenExpiredData) ProtoMessage() {}
+
+func (x *EventOnUserTokenExpiredData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
 	}
-	return nil
+	return mi.MessageOf(x)
 }
 
-func (x *ConversationEvent) GetConversationChanged() *Event_ConversationChanged {
-	if x, ok := x.GetMessage().(*ConversationEvent_ConversationChanged); ok {
-		return x.ConversationChanged
+// Deprecated: Use EventOnUserTokenExpiredData.ProtoReflect.Descriptor instead.
+func (*EventOnUserTokenExpiredData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{13}
+}
+
+type EventOnUserTokenInvalidData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ErrMsg string `protobuf:"bytes,1,opt,name=errMsg,proto3" json:"errMsg,omitempty"`
+}
+
+func (x *EventOnUserTokenInvalidData) Reset() {
+	*x = EventOnUserTokenInvalidData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
 	}
-	return nil
 }
 
-func (x *ConversationEvent) GetUnreadCountChanged() *Event_UnreadCountChanged {
-	if x, ok := x.GetMessage().(*ConversationEvent_UnreadCountChanged); ok {
-		return x.UnreadCountChanged
+func (x *EventOnUserTokenInvalidData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnUserTokenInvalidData) ProtoMessage() {}
+
+func (x *EventOnUserTokenInvalidData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
 	}
-	return nil
+	return mi.MessageOf(x)
 }
 
-func (x *ConversationEvent) GetUserInputStatusChanged() *Event_UserInputStatusChanged {
-	if x, ok := x.GetMessage().(*ConversationEvent_UserInputStatusChanged); ok {
-		return x.UserInputStatusChanged
+// Deprecated: Use EventOnUserTokenInvalidData.ProtoReflect.Descriptor instead.
+func (*EventOnUserTokenInvalidData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *EventOnUserTokenInvalidData) GetErrMsg() string {
+	if x != nil {
+		return x.ErrMsg
 	}
-	return nil
+	return ""
 }
 
-type isConversationEvent_Message interface {
-	isConversationEvent_Message()
+type EventOnSyncServerStartData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled,omitempty"`
 }
 
-type ConversationEvent_SyncServerStart struct {
-	SyncServerStart *Event_SyncServerStart `protobuf:"bytes,2,opt,name=syncServerStart,proto3,oneof"`
+func (x *EventOnSyncServerStartData) Reset() {
+	*x = EventOnSyncServerStartData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
 }
 
-type ConversationEvent_SyncServerFinish struct {
-	SyncServerFinish *Event_SyncServerFinish `protobuf:"bytes,3,opt,name=syncServerFinish,proto3,oneof"`
+func (x *EventOnSyncServerStartData) String() string {
+	return protoimpl.X.MessageStringOf(x)
 }
 
-type ConversationEvent_SyncServerFailed struct {
-	SyncServerFailed *Event_SyncServerFailed `protobuf:"bytes,4,opt,name=syncServerFailed,proto3,oneof"`
+func (*EventOnSyncServerStartData) ProtoMessage() {}
+
+func (x *EventOnSyncServerStartData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
 }
 
-type ConversationEvent_NewConversation struct {
-	NewConversation *Event_NewConversation `protobuf:"bytes,5,opt,name=newConversation,proto3,oneof"`
+// Deprecated: Use EventOnSyncServerStartData.ProtoReflect.Descriptor instead.
+func (*EventOnSyncServerStartData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{15}
 }
 
-type ConversationEvent_ConversationChanged struct {
-	ConversationChanged *Event_ConversationChanged `protobuf:"bytes,6,opt,name=conversationChanged,proto3,oneof"`
+func (x *EventOnSyncServerStartData) GetReinstalled() bool {
+	if x != nil {
+		return x.Reinstalled
+	}
+	return false
 }
 
-type ConversationEvent_UnreadCountChanged struct {
-	UnreadCountChanged *Event_UnreadCountChanged `protobuf:"bytes,7,opt,name=unreadCountChanged,proto3,oneof"`
+type EventOnSyncServerFinishData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled,omitempty"`
 }
 
-type ConversationEvent_UserInputStatusChanged struct {
-	UserInputStatusChanged *Event_UserInputStatusChanged `protobuf:"bytes,8,opt,name=userInputStatusChanged,proto3,oneof"`
+func (x *EventOnSyncServerFinishData) Reset() {
+	*x = EventOnSyncServerFinishData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
 }
 
-func (*ConversationEvent_SyncServerStart) isConversationEvent_Message() {}
+func (x *EventOnSyncServerFinishData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
 
-func (*ConversationEvent_SyncServerFinish) isConversationEvent_Message() {}
+func (*EventOnSyncServerFinishData) ProtoMessage() {}
 
-func (*ConversationEvent_SyncServerFailed) isConversationEvent_Message() {}
+func (x *EventOnSyncServerFinishData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
 
-func (*ConversationEvent_NewConversation) isConversationEvent_Message() {}
+// Deprecated: Use EventOnSyncServerFinishData.ProtoReflect.Descriptor instead.
+func (*EventOnSyncServerFinishData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{16}
+}
 
-func (*ConversationEvent_ConversationChanged) isConversationEvent_Message() {}
+func (x *EventOnSyncServerFinishData) GetReinstalled() bool {
+	if x != nil {
+		return x.Reinstalled
+	}
+	return false
+}
 
-func (*ConversationEvent_UnreadCountChanged) isConversationEvent_Message() {}
+type EventOnSyncServerFailedData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
 
-func (*ConversationEvent_UserInputStatusChanged) isConversationEvent_Message() {}
+	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled,omitempty"`
+}
+
+func (x *EventOnSyncServerFailedData) Reset() {
+	*x = EventOnSyncServerFailedData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnSyncServerFailedData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnSyncServerFailedData) ProtoMessage() {}
+
+func (x *EventOnSyncServerFailedData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnSyncServerFailedData.ProtoReflect.Descriptor instead.
+func (*EventOnSyncServerFailedData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *EventOnSyncServerFailedData) GetReinstalled() bool {
+	if x != nil {
+		return x.Reinstalled
+	}
+	return false
+}
+
+type EventOnSyncServerProgressData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress,omitempty"`
+}
+
+func (x *EventOnSyncServerProgressData) Reset() {
+	*x = EventOnSyncServerProgressData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnSyncServerProgressData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnSyncServerProgressData) ProtoMessage() {}
+
+func (x *EventOnSyncServerProgressData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnSyncServerProgressData.ProtoReflect.Descriptor instead.
+func (*EventOnSyncServerProgressData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *EventOnSyncServerProgressData) GetProgress() int32 {
+	if x != nil {
+		return x.Progress
+	}
+	return 0
+}
+
+type EventOnNewConversationData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationList string `protobuf:"bytes,1,opt,name=conversationList,proto3" json:"conversationList,omitempty"`
+}
+
+func (x *EventOnNewConversationData) Reset() {
+	*x = EventOnNewConversationData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnNewConversationData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnNewConversationData) ProtoMessage() {}
+
+func (x *EventOnNewConversationData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnNewConversationData.ProtoReflect.Descriptor instead.
+func (*EventOnNewConversationData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *EventOnNewConversationData) GetConversationList() string {
+	if x != nil {
+		return x.ConversationList
+	}
+	return ""
+}
+
+type EventOnConversationChangedData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationList string `protobuf:"bytes,1,opt,name=conversationList,proto3" json:"conversationList,omitempty"`
+}
+
+func (x *EventOnConversationChangedData) Reset() {
+	*x = EventOnConversationChangedData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnConversationChangedData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnConversationChangedData) ProtoMessage() {}
+
+func (x *EventOnConversationChangedData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnConversationChangedData.ProtoReflect.Descriptor instead.
+func (*EventOnConversationChangedData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *EventOnConversationChangedData) GetConversationList() string {
+	if x != nil {
+		return x.ConversationList
+	}
+	return ""
+}
+
+type EventOnTotalUnreadMessageCountChangedData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TotalUnreadCount int32 `protobuf:"varint,1,opt,name=totalUnreadCount,proto3" json:"totalUnreadCount,omitempty"`
+}
+
+func (x *EventOnTotalUnreadMessageCountChangedData) Reset() {
+	*x = EventOnTotalUnreadMessageCountChangedData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnTotalUnreadMessageCountChangedData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnTotalUnreadMessageCountChangedData) ProtoMessage() {}
+
+func (x *EventOnTotalUnreadMessageCountChangedData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnTotalUnreadMessageCountChangedData.ProtoReflect.Descriptor instead.
+func (*EventOnTotalUnreadMessageCountChangedData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *EventOnTotalUnreadMessageCountChangedData) GetTotalUnreadCount() int32 {
+	if x != nil {
+		return x.TotalUnreadCount
+	}
+	return 0
+}
+
+type EventOnConversationUserInputStatusChangedData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Change string `protobuf:"bytes,1,opt,name=change,proto3" json:"change,omitempty"`
+}
+
+func (x *EventOnConversationUserInputStatusChangedData) Reset() {
+	*x = EventOnConversationUserInputStatusChangedData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnConversationUserInputStatusChangedData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnConversationUserInputStatusChangedData) ProtoMessage() {}
+
+func (x *EventOnConversationUserInputStatusChangedData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnConversationUserInputStatusChangedData.ProtoReflect.Descriptor instead.
+func (*EventOnConversationUserInputStatusChangedData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *EventOnConversationUserInputStatusChangedData) GetChange() string {
+	if x != nil {
+		return x.Change
+	}
+	return ""
+}
+
+type EventOnRecvNewMessageData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	Message        string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+}
+
+func (x *EventOnRecvNewMessageData) Reset() {
+	*x = EventOnRecvNewMessageData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnRecvNewMessageData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnRecvNewMessageData) ProtoMessage() {}
+
+func (x *EventOnRecvNewMessageData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnRecvNewMessageData.ProtoReflect.Descriptor instead.
+func (*EventOnRecvNewMessageData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *EventOnRecvNewMessageData) GetConversationID() string {
+	if x != nil {
+		return x.ConversationID
+	}
+	return ""
+}
+
+func (x *EventOnRecvNewMessageData) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type EventOnRecvC2CReadReceiptData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MsgReceiptList string `protobuf:"bytes,1,opt,name=msgReceiptList,proto3" json:"msgReceiptList,omitempty"`
+}
+
+func (x *EventOnRecvC2CReadReceiptData) Reset() {
+	*x = EventOnRecvC2CReadReceiptData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnRecvC2CReadReceiptData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnRecvC2CReadReceiptData) ProtoMessage() {}
+
+func (x *EventOnRecvC2CReadReceiptData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnRecvC2CReadReceiptData.ProtoReflect.Descriptor instead.
+func (*EventOnRecvC2CReadReceiptData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *EventOnRecvC2CReadReceiptData) GetMsgReceiptList() string {
+	if x != nil {
+		return x.MsgReceiptList
+	}
+	return ""
+}
+
+type EventOnNewRecvMessageRevokedData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MessageRevoked string `protobuf:"bytes,1,opt,name=messageRevoked,proto3" json:"messageRevoked,omitempty"`
+}
+
+func (x *EventOnNewRecvMessageRevokedData) Reset() {
+	*x = EventOnNewRecvMessageRevokedData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnNewRecvMessageRevokedData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnNewRecvMessageRevokedData) ProtoMessage() {}
+
+func (x *EventOnNewRecvMessageRevokedData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnNewRecvMessageRevokedData.ProtoReflect.Descriptor instead.
+func (*EventOnNewRecvMessageRevokedData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *EventOnNewRecvMessageRevokedData) GetMessageRevoked() string {
+	if x != nil {
+		return x.MessageRevoked
+	}
+	return ""
+}
+
+type EventOnRecvOfflineNewMessageData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+}
+
+func (x *EventOnRecvOfflineNewMessageData) Reset() {
+	*x = EventOnRecvOfflineNewMessageData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnRecvOfflineNewMessageData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnRecvOfflineNewMessageData) ProtoMessage() {}
+
+func (x *EventOnRecvOfflineNewMessageData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnRecvOfflineNewMessageData.ProtoReflect.Descriptor instead.
+func (*EventOnRecvOfflineNewMessageData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *EventOnRecvOfflineNewMessageData) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type EventOnMsgDeletedData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+}
+
+func (x *EventOnMsgDeletedData) Reset() {
+	*x = EventOnMsgDeletedData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[27]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnMsgDeletedData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnMsgDeletedData) ProtoMessage() {}
+
+func (x *EventOnMsgDeletedData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[27]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnMsgDeletedData.ProtoReflect.Descriptor instead.
+func (*EventOnMsgDeletedData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *EventOnMsgDeletedData) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type EventOnRecvOnlineOnlyMessageData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	Message        string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+}
+
+func (x *EventOnRecvOnlineOnlyMessageData) Reset() {
+	*x = EventOnRecvOnlineOnlyMessageData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[28]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnRecvOnlineOnlyMessageData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnRecvOnlineOnlyMessageData) ProtoMessage() {}
+
+func (x *EventOnRecvOnlineOnlyMessageData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[28]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnRecvOnlineOnlyMessageData.ProtoReflect.Descriptor instead.
+func (*EventOnRecvOnlineOnlyMessageData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *EventOnRecvOnlineOnlyMessageData) GetConversationID() string {
+	if x != nil {
+		return x.ConversationID
+	}
+	return ""
+}
+
+func (x *EventOnRecvOnlineOnlyMessageData) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type EventOnMsgEditedData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	Message        string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+}
+
+func (x *EventOnMsgEditedData) Reset() {
+	*x = EventOnMsgEditedData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conversation_proto_msgTypes[29]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventOnMsgEditedData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventOnMsgEditedData) ProtoMessage() {}
+
+func (x *EventOnMsgEditedData) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[29]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventOnMsgEditedData.ProtoReflect.Descriptor instead.
+func (*EventOnMsgEditedData) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *EventOnMsgEditedData) GetConversationID() string {
+	if x != nil {
+		return x.ConversationID
+	}
+	return ""
+}
+
+func (x *EventOnMsgEditedData) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
 
 var File_conversation_proto protoreflect.FileDescriptor
 
@@ -950,87 +1826,178 @@ var file_conversation_proto_rawDesc = []byte{
 	0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f,
 	0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x10,
 	0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74,
-	0x22, 0x17, 0x0a, 0x15, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65,
-	0x72, 0x76, 0x65, 0x72, 0x53, 0x74, 0x61, 0x72, 0x74, 0x22, 0x18, 0x0a, 0x16, 0x45, 0x76, 0x65,
-	0x6e, 0x74, 0x5f, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x46, 0x69, 0x6e,
-	0x69, 0x73, 0x68, 0x22, 0x18, 0x0a, 0x16, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x53, 0x79, 0x6e,
-	0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x46, 0x61, 0x69, 0x6c, 0x65, 0x64, 0x22, 0x17, 0x0a,
-	0x15, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x4e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72,
-	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x1b, 0x0a, 0x19, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f,
-	0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x43, 0x68, 0x61, 0x6e,
-	0x67, 0x65, 0x64, 0x22, 0x1a, 0x0a, 0x18, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x55, 0x6e, 0x72,
-	0x65, 0x61, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x22,
-	0x1e, 0x0a, 0x1c, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x70,
-	0x75, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x22,
-	0xea, 0x05, 0x0a, 0x11, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x68, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x68, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x12, 0x5a, 0x0a,
-	0x0f, 0x73, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x53, 0x74, 0x61, 0x72, 0x74,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2e, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e,
-	0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65,
-	0x72, 0x53, 0x74, 0x61, 0x72, 0x74, 0x48, 0x00, 0x52, 0x0f, 0x73, 0x79, 0x6e, 0x63, 0x53, 0x65,
-	0x72, 0x76, 0x65, 0x72, 0x53, 0x74, 0x61, 0x72, 0x74, 0x12, 0x5d, 0x0a, 0x10, 0x73, 0x79, 0x6e,
-	0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x18, 0x03, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b,
-	0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76,
-	0x65, 0x6e, 0x74, 0x5f, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x46, 0x69,
-	0x6e, 0x69, 0x73, 0x68, 0x48, 0x00, 0x52, 0x10, 0x73, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76,
-	0x65, 0x72, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x12, 0x5d, 0x0a, 0x10, 0x73, 0x79, 0x6e, 0x63,
-	0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x46, 0x61, 0x69, 0x6c, 0x65, 0x64, 0x18, 0x04, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e,
-	0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x65,
-	0x6e, 0x74, 0x5f, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x46, 0x61, 0x69,
-	0x6c, 0x65, 0x64, 0x48, 0x00, 0x52, 0x10, 0x73, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65,
-	0x72, 0x46, 0x61, 0x69, 0x6c, 0x65, 0x64, 0x12, 0x5a, 0x0a, 0x0f, 0x6e, 0x65, 0x77, 0x43, 0x6f,
-	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x2e, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f,
-	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74,
-	0x5f, 0x4e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x48, 0x00, 0x52, 0x0f, 0x6e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x12, 0x66, 0x0a, 0x13, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x32, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f,
-	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74,
-	0x5f, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x43, 0x68, 0x61,
-	0x6e, 0x67, 0x65, 0x64, 0x48, 0x00, 0x52, 0x13, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x12, 0x63, 0x0a, 0x12, 0x75,
-	0x6e, 0x72, 0x65, 0x61, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65,
-	0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x31, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d,
-	0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x55, 0x6e, 0x72, 0x65, 0x61, 0x64, 0x43, 0x6f,
-	0x75, 0x6e, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x48, 0x00, 0x52, 0x12, 0x75, 0x6e,
-	0x72, 0x65, 0x61, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64,
-	0x12, 0x6f, 0x0a, 0x16, 0x75, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x53, 0x74, 0x61,
-	0x74, 0x75, 0x73, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x18, 0x08, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x35, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f,
-	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74,
-	0x5f, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73,
-	0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x48, 0x00, 0x52, 0x16, 0x75, 0x73, 0x65, 0x72, 0x49,
-	0x6e, 0x70, 0x75, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65,
-	0x64, 0x42, 0x09, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2a, 0x8c, 0x01, 0x0a,
-	0x0b, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x12, 0x14, 0x0a, 0x10,
-	0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x5f, 0x4e, 0x6f, 0x6e, 0x65,
-	0x10, 0x00, 0x12, 0x16, 0x0a, 0x12, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70,
-	0x65, 0x5f, 0x53, 0x69, 0x6e, 0x67, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x15, 0x0a, 0x11, 0x53, 0x65,
-	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x5f, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x10,
-	0x02, 0x12, 0x1a, 0x0a, 0x16, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65,
-	0x5f, 0x53, 0x75, 0x70, 0x65, 0x72, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x10, 0x03, 0x12, 0x1c, 0x0a,
-	0x18, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x5f, 0x4e, 0x6f, 0x74,
-	0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x10, 0x04, 0x2a, 0x82, 0x01, 0x0a, 0x14,
-	0x46, 0x75, 0x6e, 0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74,
-	0x4e, 0x61, 0x6d, 0x65, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x6f, 0x6e, 0x65, 0x10, 0x00, 0x12, 0x1a,
-	0x0a, 0x16, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x10, 0x01, 0x12, 0x17, 0x0a, 0x13, 0x47, 0x65,
-	0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73,
-	0x74, 0x10, 0x02, 0x12, 0x13, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72,
-	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x10, 0x03, 0x12, 0x0b, 0x0a, 0x07, 0x49, 0x6e, 0x69, 0x74,
-	0x53, 0x44, 0x4b, 0x10, 0x04, 0x12, 0x09, 0x0a, 0x05, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x10, 0x05,
-	0x42, 0x38, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f,
-	0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d,
-	0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x22, 0x14, 0x0a, 0x12, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x65,
+	0x6e, 0x65, 0x72, 0x52, 0x65, 0x71, 0x22, 0x15, 0x0a, 0x13, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e,
+	0x6e, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x22, 0x1c, 0x0a,
+	0x1a, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65, 0x72, 0x52, 0x65, 0x71, 0x22, 0x1d, 0x0a, 0x1b, 0x53,
+	0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69,
+	0x73, 0x74, 0x65, 0x6e, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x22, 0x1b, 0x0a, 0x19, 0x53, 0x65,
+	0x74, 0x41, 0x64, 0x76, 0x61, 0x6e, 0x63, 0x65, 0x64, 0x4d, 0x73, 0x67, 0x4c, 0x69, 0x73, 0x74,
+	0x65, 0x6e, 0x65, 0x72, 0x52, 0x65, 0x71, 0x22, 0x1c, 0x0a, 0x1a, 0x53, 0x65, 0x74, 0x41, 0x64,
+	0x76, 0x61, 0x6e, 0x63, 0x65, 0x64, 0x4d, 0x73, 0x67, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65,
+	0x72, 0x52, 0x65, 0x73, 0x70, 0x22, 0x17, 0x0a, 0x15, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e,
+	0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6e, 0x67, 0x44, 0x61, 0x74, 0x61, 0x22, 0x1b,
+	0x0a, 0x19, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74,
+	0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x44, 0x61, 0x74, 0x61, 0x22, 0x4c, 0x0a, 0x18, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x46, 0x61, 0x69,
+	0x6c, 0x65, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12, 0x18, 0x0a, 0x07, 0x65, 0x72, 0x72, 0x43, 0x6f,
+	0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x07, 0x65, 0x72, 0x72, 0x43, 0x6f, 0x64,
+	0x65, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x72, 0x72, 0x4d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x06, 0x65, 0x72, 0x72, 0x4d, 0x73, 0x67, 0x22, 0x1a, 0x0a, 0x18, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x4f, 0x6e, 0x4b, 0x69, 0x63, 0x6b, 0x65, 0x64, 0x4f, 0x66, 0x66, 0x6c, 0x69, 0x6e,
+	0x65, 0x44, 0x61, 0x74, 0x61, 0x22, 0x1d, 0x0a, 0x1b, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e,
+	0x55, 0x73, 0x65, 0x72, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x45, 0x78, 0x70, 0x69, 0x72, 0x65, 0x64,
+	0x44, 0x61, 0x74, 0x61, 0x22, 0x35, 0x0a, 0x1b, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x55,
+	0x73, 0x65, 0x72, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x6e, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x44,
+	0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x72, 0x72, 0x4d, 0x73, 0x67, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x06, 0x65, 0x72, 0x72, 0x4d, 0x73, 0x67, 0x22, 0x3e, 0x0a, 0x1a, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72,
+	0x53, 0x74, 0x61, 0x72, 0x74, 0x44, 0x61, 0x74, 0x61, 0x12, 0x20, 0x0a, 0x0b, 0x72, 0x65, 0x69,
+	0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0b,
+	0x72, 0x65, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x64, 0x22, 0x3f, 0x0a, 0x1b, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72,
+	0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x44, 0x61, 0x74, 0x61, 0x12, 0x20, 0x0a, 0x0b, 0x72, 0x65,
+	0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52,
+	0x0b, 0x72, 0x65, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x64, 0x22, 0x3f, 0x0a, 0x1b,
+	0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65,
+	0x72, 0x46, 0x61, 0x69, 0x6c, 0x65, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12, 0x20, 0x0a, 0x0b, 0x72,
+	0x65, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x0b, 0x72, 0x65, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x64, 0x22, 0x3b, 0x0a,
+	0x1d, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76,
+	0x65, 0x72, 0x50, 0x72, 0x6f, 0x67, 0x72, 0x65, 0x73, 0x73, 0x44, 0x61, 0x74, 0x61, 0x12, 0x1a,
+	0x0a, 0x08, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
+	0x52, 0x08, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x65, 0x73, 0x73, 0x22, 0x48, 0x0a, 0x1a, 0x45, 0x76,
+	0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x4e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x74, 0x61, 0x12, 0x2a, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76,
+	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x4c, 0x69, 0x73, 0x74, 0x22, 0x4c, 0x0a, 0x1e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x43,
+	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x43, 0x68, 0x61, 0x6e, 0x67,
+	0x65, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12, 0x2a, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72,
+	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69,
+	0x73, 0x74, 0x22, 0x57, 0x0a, 0x29, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x54, 0x6f, 0x74,
+	0x61, 0x6c, 0x55, 0x6e, 0x72, 0x65, 0x61, 0x64, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x43,
+	0x6f, 0x75, 0x6e, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12,
+	0x2a, 0x0a, 0x10, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x55, 0x6e, 0x72, 0x65, 0x61, 0x64, 0x43, 0x6f,
+	0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x10, 0x74, 0x6f, 0x74, 0x61, 0x6c,
+	0x55, 0x6e, 0x72, 0x65, 0x61, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x47, 0x0a, 0x2d, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x06,
+	0x63, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x63, 0x68,
+	0x61, 0x6e, 0x67, 0x65, 0x22, 0x5d, 0x0a, 0x19, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x52,
+	0x65, 0x63, 0x76, 0x4e, 0x65, 0x77, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x44, 0x61, 0x74,
+	0x61, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x22, 0x47, 0x0a, 0x1d, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x52, 0x65,
+	0x63, 0x76, 0x43, 0x32, 0x43, 0x52, 0x65, 0x61, 0x64, 0x52, 0x65, 0x63, 0x65, 0x69, 0x70, 0x74,
+	0x44, 0x61, 0x74, 0x61, 0x12, 0x26, 0x0a, 0x0e, 0x6d, 0x73, 0x67, 0x52, 0x65, 0x63, 0x65, 0x69,
+	0x70, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x6d, 0x73,
+	0x67, 0x52, 0x65, 0x63, 0x65, 0x69, 0x70, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x4a, 0x0a, 0x20,
+	0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x4e, 0x65, 0x77, 0x52, 0x65, 0x63, 0x76, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x64, 0x44, 0x61, 0x74, 0x61,
+	0x12, 0x26, 0x0a, 0x0e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x65, 0x76, 0x6f, 0x6b,
+	0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x64, 0x22, 0x3c, 0x0a, 0x20, 0x45, 0x76, 0x65, 0x6e,
+	0x74, 0x4f, 0x6e, 0x52, 0x65, 0x63, 0x76, 0x4f, 0x66, 0x66, 0x6c, 0x69, 0x6e, 0x65, 0x4e, 0x65,
+	0x77, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x18, 0x0a, 0x07,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x31, 0x0a, 0x15, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f,
+	0x6e, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12,
+	0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x64, 0x0a, 0x20, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x4f, 0x6e, 0x52, 0x65, 0x63, 0x76, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x4f, 0x6e,
+	0x6c, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x26, 0x0a,
+	0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22,
+	0x58, 0x0a, 0x14, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x4d, 0x73, 0x67, 0x45, 0x64, 0x69,
+	0x74, 0x65, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12,
+	0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2a, 0x8c, 0x01, 0x0a, 0x0b, 0x53, 0x65,
+	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x12, 0x14, 0x0a, 0x10, 0x53, 0x65, 0x73,
+	0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x5f, 0x4e, 0x6f, 0x6e, 0x65, 0x10, 0x00, 0x12,
+	0x16, 0x0a, 0x12, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x5f, 0x53,
+	0x69, 0x6e, 0x67, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x15, 0x0a, 0x11, 0x53, 0x65, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x5f, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x10, 0x02, 0x12, 0x1a,
+	0x0a, 0x16, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x5f, 0x53, 0x75,
+	0x70, 0x65, 0x72, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x10, 0x03, 0x12, 0x1c, 0x0a, 0x18, 0x53, 0x65,
+	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x5f, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x69,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x10, 0x04, 0x2a, 0xe4, 0x07, 0x0a, 0x14, 0x46, 0x75, 0x6e,
+	0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4e, 0x61, 0x6d,
+	0x65, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x6f, 0x6e, 0x65, 0x10, 0x00, 0x12, 0x1a, 0x0a, 0x16, 0x47,
+	0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x4c, 0x69, 0x73, 0x74, 0x10, 0x01, 0x12, 0x17, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x43, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x10, 0x02,
+	0x12, 0x13, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x10, 0x03, 0x12, 0x0b, 0x0a, 0x07, 0x49, 0x6e, 0x69, 0x74, 0x53, 0x44, 0x4b,
+	0x10, 0x04, 0x12, 0x09, 0x0a, 0x05, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x10, 0x05, 0x12, 0x13, 0x0a,
+	0x0f, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65, 0x72,
+	0x10, 0x06, 0x12, 0x1b, 0x0a, 0x17, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65, 0x72, 0x10, 0x07, 0x12,
+	0x1a, 0x0a, 0x16, 0x53, 0x65, 0x74, 0x41, 0x64, 0x76, 0x61, 0x6e, 0x63, 0x65, 0x64, 0x4d, 0x73,
+	0x67, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65, 0x72, 0x10, 0x08, 0x12, 0x1c, 0x0a, 0x18, 0x53,
+	0x65, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4b, 0x76, 0x49, 0x6e, 0x66, 0x6f, 0x4c,
+	0x69, 0x73, 0x74, 0x65, 0x6e, 0x65, 0x72, 0x10, 0x09, 0x12, 0x17, 0x0a, 0x13, 0x53, 0x65, 0x74,
+	0x42, 0x61, 0x74, 0x63, 0x68, 0x4d, 0x73, 0x67, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65, 0x72,
+	0x10, 0x0a, 0x12, 0x19, 0x0a, 0x15, 0x53, 0x65, 0x74, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x73,
+	0x68, 0x69, 0x70, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65, 0x72, 0x10, 0x0b, 0x12, 0x14, 0x0a,
+	0x10, 0x53, 0x65, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x73, 0x74, 0x65, 0x6e, 0x65,
+	0x72, 0x10, 0x0c, 0x12, 0x13, 0x0a, 0x0f, 0x53, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x4c, 0x69,
+	0x73, 0x74, 0x65, 0x6e, 0x65, 0x72, 0x10, 0x0d, 0x12, 0x1d, 0x0a, 0x19, 0x53, 0x65, 0x74, 0x43,
+	0x75, 0x73, 0x74, 0x6f, 0x6d, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x73,
+	0x74, 0x65, 0x6e, 0x65, 0x72, 0x10, 0x0e, 0x12, 0x15, 0x0a, 0x11, 0x45, 0x76, 0x65, 0x6e, 0x74,
+	0x4f, 0x6e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6e, 0x67, 0x10, 0x0f, 0x12, 0x19,
+	0x0a, 0x15, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74,
+	0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x10, 0x10, 0x12, 0x18, 0x0a, 0x14, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x4f, 0x6e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x46, 0x61, 0x69, 0x6c, 0x65,
+	0x64, 0x10, 0x11, 0x12, 0x18, 0x0a, 0x14, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x4b, 0x69,
+	0x63, 0x6b, 0x65, 0x64, 0x4f, 0x66, 0x66, 0x6c, 0x69, 0x6e, 0x65, 0x10, 0x12, 0x12, 0x1b, 0x0a,
+	0x17, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x54, 0x6f, 0x6b, 0x65,
+	0x6e, 0x45, 0x78, 0x70, 0x69, 0x72, 0x65, 0x64, 0x10, 0x13, 0x12, 0x1b, 0x0a, 0x17, 0x45, 0x76,
+	0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x6e,
+	0x76, 0x61, 0x6c, 0x69, 0x64, 0x10, 0x14, 0x12, 0x1a, 0x0a, 0x16, 0x45, 0x76, 0x65, 0x6e, 0x74,
+	0x4f, 0x6e, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x53, 0x74, 0x61, 0x72,
+	0x74, 0x10, 0x15, 0x12, 0x1b, 0x0a, 0x17, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x53, 0x79,
+	0x6e, 0x63, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x10, 0x16,
+	0x12, 0x1b, 0x0a, 0x17, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x53, 0x79, 0x6e, 0x63, 0x53,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x46, 0x61, 0x69, 0x6c, 0x65, 0x64, 0x10, 0x17, 0x12, 0x1d, 0x0a,
+	0x19, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x53, 0x79, 0x6e, 0x63, 0x53, 0x65, 0x72, 0x76,
+	0x65, 0x72, 0x50, 0x72, 0x6f, 0x67, 0x72, 0x65, 0x73, 0x73, 0x10, 0x18, 0x12, 0x1a, 0x0a, 0x16,
+	0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x4e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72,
+	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x10, 0x19, 0x12, 0x1e, 0x0a, 0x1a, 0x45, 0x76, 0x65, 0x6e,
+	0x74, 0x4f, 0x6e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x43,
+	0x68, 0x61, 0x6e, 0x67, 0x65, 0x64, 0x10, 0x1a, 0x12, 0x29, 0x0a, 0x25, 0x45, 0x76, 0x65, 0x6e,
+	0x74, 0x4f, 0x6e, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x55, 0x6e, 0x72, 0x65, 0x61, 0x64, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65,
+	0x64, 0x10, 0x1b, 0x12, 0x2d, 0x0a, 0x29, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x43, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e,
+	0x70, 0x75, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64,
+	0x10, 0x1c, 0x12, 0x19, 0x0a, 0x15, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x52, 0x65, 0x63,
+	0x76, 0x4e, 0x65, 0x77, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x10, 0x1d, 0x12, 0x1d, 0x0a,
+	0x19, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x52, 0x65, 0x63, 0x76, 0x43, 0x32, 0x43, 0x52,
+	0x65, 0x61, 0x64, 0x52, 0x65, 0x63, 0x65, 0x69, 0x70, 0x74, 0x10, 0x1e, 0x12, 0x20, 0x0a, 0x1c,
+	0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x4e, 0x65, 0x77, 0x52, 0x65, 0x63, 0x76, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x64, 0x10, 0x1f, 0x12, 0x20,
+	0x0a, 0x1c, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x52, 0x65, 0x63, 0x76, 0x4f, 0x66, 0x66,
+	0x6c, 0x69, 0x6e, 0x65, 0x4e, 0x65, 0x77, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x10, 0x20,
+	0x12, 0x15, 0x0a, 0x11, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4f, 0x6e, 0x4d, 0x73, 0x67, 0x44, 0x65,
+	0x6c, 0x65, 0x74, 0x65, 0x64, 0x10, 0x21, 0x12, 0x20, 0x0a, 0x1c, 0x45, 0x76, 0x65, 0x6e, 0x74,
+	0x4f, 0x6e, 0x52, 0x65, 0x63, 0x76, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x4f, 0x6e, 0x6c, 0x79,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x10, 0x22, 0x12, 0x14, 0x0a, 0x10, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x4f, 0x6e, 0x4d, 0x73, 0x67, 0x45, 0x64, 0x69, 0x74, 0x65, 0x64, 0x10, 0x23, 0x42,
+	0x38, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70,
+	0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73,
+	0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -1046,36 +2013,48 @@ func file_conversation_proto_rawDescGZIP() []byte {
 }
 
 var file_conversation_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 30)
 var file_conversation_proto_goTypes = []interface{}{
-	(SessionType)(0),                     // 0: openim.sdk.conversation.SessionType
-	(FuncRequestEventName)(0),            // 1: openim.sdk.conversation.FuncRequestEventName
-	(*Conversation)(nil),                 // 2: openim.sdk.conversation.Conversation
-	(*GetAllConversationListReq)(nil),    // 3: openim.sdk.conversation.GetAllConversationListReq
-	(*GetAllConversationListResp)(nil),   // 4: openim.sdk.conversation.GetAllConversationListResp
-	(*Event_SyncServerStart)(nil),        // 5: openim.sdk.conversation.Event_SyncServerStart
-	(*Event_SyncServerFinish)(nil),       // 6: openim.sdk.conversation.Event_SyncServerFinish
-	(*Event_SyncServerFailed)(nil),       // 7: openim.sdk.conversation.Event_SyncServerFailed
-	(*Event_NewConversation)(nil),        // 8: openim.sdk.conversation.Event_NewConversation
-	(*Event_ConversationChanged)(nil),    // 9: openim.sdk.conversation.Event_ConversationChanged
-	(*Event_UnreadCountChanged)(nil),     // 10: openim.sdk.conversation.Event_UnreadCountChanged
-	(*Event_UserInputStatusChanged)(nil), // 11: openim.sdk.conversation.Event_UserInputStatusChanged
-	(*ConversationEvent)(nil),            // 12: openim.sdk.conversation.ConversationEvent
+	(SessionType)(0),                                      // 0: openim.sdk.conversation.SessionType
+	(FuncRequestEventName)(0),                             // 1: openim.sdk.conversation.FuncRequestEventName
+	(*Conversation)(nil),                                  // 2: openim.sdk.conversation.Conversation
+	(*GetAllConversationListReq)(nil),                     // 3: openim.sdk.conversation.GetAllConversationListReq
+	(*GetAllConversationListResp)(nil),                    // 4: openim.sdk.conversation.GetAllConversationListResp
+	(*SetConnListenerReq)(nil),                            // 5: openim.sdk.conversation.SetConnListenerReq
+	(*SetConnListenerResp)(nil),                           // 6: openim.sdk.conversation.SetConnListenerResp
+	(*SetConversationListenerReq)(nil),                    // 7: openim.sdk.conversation.SetConversationListenerReq
+	(*SetConversationListenerResp)(nil),                   // 8: openim.sdk.conversation.SetConversationListenerResp
+	(*SetAdvancedMsgListenerReq)(nil),                     // 9: openim.sdk.conversation.SetAdvancedMsgListenerReq
+	(*SetAdvancedMsgListenerResp)(nil),                    // 10: openim.sdk.conversation.SetAdvancedMsgListenerResp
+	(*EventOnConnectingData)(nil),                         // 11: openim.sdk.conversation.EventOnConnectingData
+	(*EventOnConnectSuccessData)(nil),                     // 12: openim.sdk.conversation.EventOnConnectSuccessData
+	(*EventOnConnectFailedData)(nil),                      // 13: openim.sdk.conversation.EventOnConnectFailedData
+	(*EventOnKickedOfflineData)(nil),                      // 14: openim.sdk.conversation.EventOnKickedOfflineData
+	(*EventOnUserTokenExpiredData)(nil),                   // 15: openim.sdk.conversation.EventOnUserTokenExpiredData
+	(*EventOnUserTokenInvalidData)(nil),                   // 16: openim.sdk.conversation.EventOnUserTokenInvalidData
+	(*EventOnSyncServerStartData)(nil),                    // 17: openim.sdk.conversation.EventOnSyncServerStartData
+	(*EventOnSyncServerFinishData)(nil),                   // 18: openim.sdk.conversation.EventOnSyncServerFinishData
+	(*EventOnSyncServerFailedData)(nil),                   // 19: openim.sdk.conversation.EventOnSyncServerFailedData
+	(*EventOnSyncServerProgressData)(nil),                 // 20: openim.sdk.conversation.EventOnSyncServerProgressData
+	(*EventOnNewConversationData)(nil),                    // 21: openim.sdk.conversation.EventOnNewConversationData
+	(*EventOnConversationChangedData)(nil),                // 22: openim.sdk.conversation.EventOnConversationChangedData
+	(*EventOnTotalUnreadMessageCountChangedData)(nil),     // 23: openim.sdk.conversation.EventOnTotalUnreadMessageCountChangedData
+	(*EventOnConversationUserInputStatusChangedData)(nil), // 24: openim.sdk.conversation.EventOnConversationUserInputStatusChangedData
+	(*EventOnRecvNewMessageData)(nil),                     // 25: openim.sdk.conversation.EventOnRecvNewMessageData
+	(*EventOnRecvC2CReadReceiptData)(nil),                 // 26: openim.sdk.conversation.EventOnRecvC2CReadReceiptData
+	(*EventOnNewRecvMessageRevokedData)(nil),              // 27: openim.sdk.conversation.EventOnNewRecvMessageRevokedData
+	(*EventOnRecvOfflineNewMessageData)(nil),              // 28: openim.sdk.conversation.EventOnRecvOfflineNewMessageData
+	(*EventOnMsgDeletedData)(nil),                         // 29: openim.sdk.conversation.EventOnMsgDeletedData
+	(*EventOnRecvOnlineOnlyMessageData)(nil),              // 30: openim.sdk.conversation.EventOnRecvOnlineOnlyMessageData
+	(*EventOnMsgEditedData)(nil),                          // 31: openim.sdk.conversation.EventOnMsgEditedData
 }
 var file_conversation_proto_depIdxs = []int32{
-	2,  // 0: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.conversation.Conversation
-	5,  // 1: openim.sdk.conversation.ConversationEvent.syncServerStart:type_name -> openim.sdk.conversation.Event_SyncServerStart
-	6,  // 2: openim.sdk.conversation.ConversationEvent.syncServerFinish:type_name -> openim.sdk.conversation.Event_SyncServerFinish
-	7,  // 3: openim.sdk.conversation.ConversationEvent.syncServerFailed:type_name -> openim.sdk.conversation.Event_SyncServerFailed
-	8,  // 4: openim.sdk.conversation.ConversationEvent.newConversation:type_name -> openim.sdk.conversation.Event_NewConversation
-	9,  // 5: openim.sdk.conversation.ConversationEvent.conversationChanged:type_name -> openim.sdk.conversation.Event_ConversationChanged
-	10, // 6: openim.sdk.conversation.ConversationEvent.unreadCountChanged:type_name -> openim.sdk.conversation.Event_UnreadCountChanged
-	11, // 7: openim.sdk.conversation.ConversationEvent.userInputStatusChanged:type_name -> openim.sdk.conversation.Event_UserInputStatusChanged
-	8,  // [8:8] is the sub-list for method output_type
-	8,  // [8:8] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	2, // 0: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.conversation.Conversation
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_conversation_proto_init() }
@@ -1121,7 +2100,7 @@ func file_conversation_proto_init() {
 			}
 		}
 		file_conversation_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event_SyncServerStart); i {
+			switch v := v.(*SetConnListenerReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1133,7 +2112,7 @@ func file_conversation_proto_init() {
 			}
 		}
 		file_conversation_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event_SyncServerFinish); i {
+			switch v := v.(*SetConnListenerResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1145,7 +2124,7 @@ func file_conversation_proto_init() {
 			}
 		}
 		file_conversation_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event_SyncServerFailed); i {
+			switch v := v.(*SetConversationListenerReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1157,7 +2136,7 @@ func file_conversation_proto_init() {
 			}
 		}
 		file_conversation_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event_NewConversation); i {
+			switch v := v.(*SetConversationListenerResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1169,7 +2148,7 @@ func file_conversation_proto_init() {
 			}
 		}
 		file_conversation_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event_ConversationChanged); i {
+			switch v := v.(*SetAdvancedMsgListenerReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1181,7 +2160,7 @@ func file_conversation_proto_init() {
 			}
 		}
 		file_conversation_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event_UnreadCountChanged); i {
+			switch v := v.(*SetAdvancedMsgListenerResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1193,7 +2172,7 @@ func file_conversation_proto_init() {
 			}
 		}
 		file_conversation_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event_UserInputStatusChanged); i {
+			switch v := v.(*EventOnConnectingData); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1205,7 +2184,235 @@ func file_conversation_proto_init() {
 			}
 		}
 		file_conversation_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ConversationEvent); i {
+			switch v := v.(*EventOnConnectSuccessData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnConnectFailedData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnKickedOfflineData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnUserTokenExpiredData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnUserTokenInvalidData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnSyncServerStartData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnSyncServerFinishData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnSyncServerFailedData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnSyncServerProgressData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnNewConversationData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnConversationChangedData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnTotalUnreadMessageCountChangedData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnConversationUserInputStatusChangedData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnRecvNewMessageData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnRecvC2CReadReceiptData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnNewRecvMessageRevokedData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnRecvOfflineNewMessageData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnMsgDeletedData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnRecvOnlineOnlyMessageData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conversation_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventOnMsgEditedData); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1217,22 +2424,13 @@ func file_conversation_proto_init() {
 			}
 		}
 	}
-	file_conversation_proto_msgTypes[10].OneofWrappers = []interface{}{
-		(*ConversationEvent_SyncServerStart)(nil),
-		(*ConversationEvent_SyncServerFinish)(nil),
-		(*ConversationEvent_SyncServerFailed)(nil),
-		(*ConversationEvent_NewConversation)(nil),
-		(*ConversationEvent_ConversationChanged)(nil),
-		(*ConversationEvent_UnreadCountChanged)(nil),
-		(*ConversationEvent_UserInputStatusChanged)(nil),
-	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_conversation_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   11,
+			NumMessages:   30,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

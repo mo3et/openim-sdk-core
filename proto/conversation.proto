@@ -44,14 +44,16 @@ message GetAllConversationListReq{}
 message GetAllConversationListResp{
   repeated Conversation conversationList = 1;
 }
+message SetConnListenerReq{}
+message SetConnListenerResp{}
 
-message Event_SyncServerStart {}
-message Event_SyncServerFinish {}
-message Event_SyncServerFailed {}
-message Event_NewConversation {}
-message Event_ConversationChanged {}
-message Event_UnreadCountChanged {}
-message Event_UserInputStatusChanged {};
+message SetConversationListenerReq{}
+message SetConversationListenerResp{}
+
+message SetAdvancedMsgListenerReq{}
+message SetAdvancedMsgListenerResp{}
+
+
 
 enum FuncRequestEventName{
   None = 0;
@@ -60,17 +62,95 @@ enum FuncRequestEventName{
   GetConversation = 3;
   InitSDK = 4;
   Login = 5;
+  SetConnListener = 6;
+  SetConversationListener = 7;
+  SetAdvancedMsgListener = 8;
+  SetMessageKvInfoListener = 9;
+  SetBatchMsgListener = 10;
+  SetFriendshipListener = 11;
+  SetGroupListener = 12;
+  SetUserListener = 13;
+  SetCustomBusinessListener = 14;
+  EventOnConnecting = 15;
+  EventOnConnectSuccess = 16;
+  EventOnConnectFailed = 17;
+  EventOnKickedOffline = 18;
+  EventOnUserTokenExpired = 19;
+  EventOnUserTokenInvalid = 20;
+  EventOnSyncServerStart = 21;
+  EventOnSyncServerFinish = 22;
+  EventOnSyncServerFailed = 23;
+  EventOnSyncServerProgress = 24;
+  EventOnNewConversation = 25;
+  EventOnConversationChanged = 26;
+  EventOnTotalUnreadMessageCountChanged = 27;
+  EventOnConversationUserInputStatusChanged = 28;
+  EventOnRecvNewMessage = 29;
+  EventOnRecvC2CReadReceipt = 30;
+  EventOnNewRecvMessageRevoked = 31;
+  EventOnRecvOfflineNewMessage = 32;
+  EventOnMsgDeleted = 33;
+  EventOnRecvOnlineOnlyMessage = 34;
+  EventOnMsgEdited = 35;
 };
 
-message ConversationEvent {
-  int64 handle = 1;
-  oneof message {
-    Event_SyncServerStart syncServerStart = 2;
-    Event_SyncServerFinish syncServerFinish = 3;
-    Event_SyncServerFailed syncServerFailed = 4;
-    Event_NewConversation newConversation = 5;
-    Event_ConversationChanged conversationChanged = 6;
-    Event_UnreadCountChanged unreadCountChanged = 7;
-    Event_UserInputStatusChanged userInputStatusChanged = 8;
-  }
+message EventOnConnectingData {}
+message EventOnConnectSuccessData {}
+message EventOnConnectFailedData {
+  int32 errCode = 1;
+  string errMsg = 2;
 }
+message EventOnKickedOfflineData {}
+message EventOnUserTokenExpiredData {}
+message EventOnUserTokenInvalidData {
+  string errMsg = 1;
+}
+message EventOnSyncServerStartData {
+   bool reinstalled =1;
+};
+message EventOnSyncServerFinishData {
+  bool reinstalled = 1;
+};
+message EventOnSyncServerFailedData {
+  bool reinstalled = 1;
+};
+message EventOnSyncServerProgressData {
+  int32 progress = 1;
+};
+message EventOnNewConversationData {
+  string conversationList = 1;
+};
+message EventOnConversationChangedData {
+  string conversationList = 1;
+};
+message EventOnTotalUnreadMessageCountChangedData {
+  int32 totalUnreadCount = 1;
+};
+message EventOnConversationUserInputStatusChangedData {
+  string change = 1;
+};
+message EventOnRecvNewMessageData {
+  string conversationID = 1;
+  string message = 2;
+};
+message EventOnRecvC2CReadReceiptData {
+  string msgReceiptList = 1;
+};
+message EventOnNewRecvMessageRevokedData {
+  string messageRevoked = 1;
+};
+message EventOnRecvOfflineNewMessageData {
+   string message = 1;
+};
+message EventOnMsgDeletedData {
+  string message = 1;
+};
+message EventOnRecvOnlineOnlyMessageData {
+  string conversationID = 1;
+  string message = 2;
+};
+message EventOnMsgEditedData {
+  string conversationID = 1;
+  string message = 2;
+};
+

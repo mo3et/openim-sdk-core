@@ -81,7 +81,7 @@ func init() {
 	UserForSDK.setLoginStatus(LogoutStatus)
 	UserForSDK.user = user.NewUser(UserForSDK.conversationCh)
 	UserForSDK.file = file.NewFile()
-	UserForSDK.relation = relation.NewRelation(UserForSDK.conversationCh)
+	UserForSDK.relation = relation.NewRelation(UserForSDK.conversationCh, UserForSDK.user)
 
 	UserForSDK.group = group.NewGroup(UserForSDK.conversationCh)
 	UserForSDK.third = third.NewThird(UserForSDK.file)
@@ -215,6 +215,10 @@ func (u *LoginMgr) Group() *group.Group {
 
 func (u *LoginMgr) Relation() *relation.Relation {
 	return u.relation
+}
+
+func (u *LoginMgr) SetConnListener(connListener open_im_sdk_callback.OnConnListener) {
+	u.connListener = connListener
 }
 
 func (u *LoginMgr) SetConversationListener(conversationListener open_im_sdk_callback.OnConversationListener) {
