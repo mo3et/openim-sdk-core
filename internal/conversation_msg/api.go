@@ -3,7 +3,6 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
-	pconstant "github.com/openimsdk/protocol/constant"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -11,6 +10,9 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	pconstant "github.com/openimsdk/protocol/constant"
+	"github.com/openimsdk/tools/utils/datautil"
 
 	"github.com/openimsdk/tools/errs"
 
@@ -28,44 +30,19 @@ import (
 
 	"github.com/openimsdk/tools/log"
 
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	pbConversation "github.com/openimsdk/protocol/conversation"
 	"github.com/openimsdk/protocol/sdkws"
 
 	"github.com/jinzhu/copier"
 )
 
-func (c *Conversation) GetAllConversationList(ctx context.Context, req *pb.GetAllConversationListReq) (*pb.GetAllConversationListResp, error) {
-	//return c.db.t(ctx)
-	var resp pb.GetAllConversationListResp
-	resp.ConversationList = append(resp.ConversationList, &pb.Conversation{
-		ConversationID:        "",
-		ConversationType:      0,
-		UserID:                "",
-		GroupID:               "",
-		ShowName:              "这是来自gopb的数据",
-		FaceURL:               "",
-		RecvMsgOpt:            0,
-		UnreadCount:           0,
-		GroupAtType:           0,
-		LatestMsg:             "",
-		LatestMsgSendTime:     0,
-		DraftText:             "",
-		DraftTextTime:         0,
-		IsPinned:              false,
-		IsPrivateChat:         false,
-		BurnDuration:          0,
-		IsNotInGroup:          false,
-		UpdateUnreadCountTime: 0,
-		AttachedInfo:          "",
-		Ex:                    "",
-		MaxSeq:                0,
-		MinSeq:                0,
-		HasReadSeq:            0,
-		MsgDestructTime:       0,
-		IsMsgDestruct:         false,
-	})
-	return &resp, nil
+func (c *Conversation) GetAllConversationList(ctx context.Context, req *sdkpb.GetAllConversationListReq) (*sdkpb.GetAllConversationListResp, error) {
+	conversationList, err := c.db.GetAllConversationListDB(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.GetAllConversationListResp{ConversationList: datautil.Batch(LocalConversationToSdkPB, conversationList)}, nil
 }
 
 func (c *Conversation) GetConversationListSplit(ctx context.Context, offset, count int) ([]*model_struct.LocalConversation, error) {

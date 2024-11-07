@@ -208,14 +208,27 @@ func init() {
 func Func[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
 	return func(ctx context.Context, req []byte) ([]byte, error) {
 		var pbReq A
-		if err := proto.Unmarshal(req, any(&pbReq).(proto.Message)); err != nil {
+
+		msg, ok := any(&pbReq).(proto.Message)
+		if !ok {
+			return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
+		}
+
+		if err := proto.Unmarshal(req, msg); err != nil {
 			return nil, err
 		}
+
 		pbResp, err := fn(ctx, &pbReq)
 		if err != nil {
 			return nil, err
 		}
-		return proto.Marshal(any(pbResp).(proto.Message))
+
+		respMsg, ok := any(pbResp).(proto.Message)
+		if !ok {
+			return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
+		}
+
+		return proto.Marshal(respMsg)
 	}
 }
 

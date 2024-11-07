@@ -28,15 +28,9 @@ message Conversation {
   bool isPinned = 14;
   bool isPrivateChat = 15;
   int32 burnDuration = 16;
-  bool isNotInGroup = 17;
-  int64 updateUnreadCountTime = 18;
-  string attachedInfo = 19;
-  string ex = 20;
-  int64 maxSeq = 21;
-  int64 minSeq = 22;
-  int64 hasReadSeq = 23;
-  int64 msgDestructTime = 24;
-  bool isMsgDestruct = 25;
+  string ex = 17;
+  int64 msgDestructTime = 18;
+  bool isMsgDestruct = 19;
 }
 
 

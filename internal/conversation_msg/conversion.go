@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	pbConversation "github.com/openimsdk/protocol/conversation"
 )
 
@@ -53,5 +54,29 @@ func LocalConversationToServer(conversation *model_struct.LocalConversation) *pb
 		MsgDestructTime:  conversation.MsgDestructTime,
 		Ex:               conversation.Ex,
 		IsMsgDestruct:    conversation.IsMsgDestruct,
+	}
+}
+
+func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.Conversation {
+	return &sdkpb.Conversation{
+		ConversationID:    conversation.ConversationID,
+		ConversationType:  conversation.ConversationType,
+		UserID:            conversation.UserID,
+		GroupID:           conversation.GroupID,
+		ShowName:          conversation.ShowName,
+		FaceURL:           conversation.FaceURL,
+		RecvMsgOpt:        conversation.RecvMsgOpt,
+		UnreadCount:       conversation.UnreadCount,
+		GroupAtType:       conversation.GroupAtType,
+		LatestMsg:         conversation.LatestMsg,
+		LatestMsgSendTime: conversation.LatestMsgSendTime,
+		DraftText:         conversation.DraftText,
+		DraftTextTime:     conversation.DraftTextTime,
+		IsPinned:          conversation.IsPinned,
+		IsPrivateChat:     conversation.IsPrivateChat,
+		BurnDuration:      conversation.BurnDuration,
+		MsgDestructTime:   conversation.MsgDestructTime,
+		Ex:                conversation.Ex,
+		IsMsgDestruct:     conversation.IsMsgDestruct,
 	}
 }
