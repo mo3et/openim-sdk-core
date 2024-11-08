@@ -202,7 +202,6 @@ func init() {
 	FuncMap[pb.FuncRequestEventName_SetConnListener] = Func(setConnListener)
 	FuncMap[pb.FuncRequestEventName_SetConversationListener] = Func(setConversationListener)
 	FuncMap[pb.FuncRequestEventName_SetAdvancedMsgListener] = Func(setAdvancedMsgListener)
-
 }
 
 func Func[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {

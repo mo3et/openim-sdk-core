@@ -65,6 +65,8 @@ func callback(dataPtr unsafe.Pointer, len C.int) {
 		fmt.Printf("Received GetAllConversationListResp: %+v\n", res.String())
 		C.ffi_drop_handle(C.ulonglong(response.HandleID))
 		fmt.Println("Handle dropped successfully request", response.HandleID)
+	default:
+		fmt.Printf("Received response: %s\n", response.String())
 
 	}
 
@@ -111,6 +113,21 @@ func main() {
 	// Call ffi_request with sample data
 	length := C.int(len(ffiReq))
 	ret := C.ffi_request(unsafe.Pointer(&ffiReq[0]), length)
+	fmt.Printf("ffi_request returned: %d\n", ret)
+
+	data, err = proto.Marshal(&pb.SetConnListenerReq{})
+	req = pb.FfiRequest{
+		FuncName: pb.FuncRequestEventName_SetConnListener,
+		Data:     data,
+	}
+	ffiReq, err = proto.Marshal(&req)
+	if err != nil {
+		fmt.Println("FfiRequest proto.Marshal failed:", err)
+		return
+	}
+
+	length = C.int(len(ffiReq))
+	ret = C.ffi_request(unsafe.Pointer(&ffiReq[0]), length)
 	fmt.Printf("ffi_request returned: %d\n", ret)
 
 	time.Sleep(time.Second * 1)

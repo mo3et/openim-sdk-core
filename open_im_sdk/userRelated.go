@@ -77,7 +77,7 @@ func init() {
 	UserForSDK.longConnMgr = interaction.NewLongConnMgr(UserForSDK.ctx,
 		UserForSDK.userOnlineStatusChange, UserForSDK.pushMsgAndMaxSeqCh, UserForSDK.loginMgrCh)
 	UserForSDK.ctx = ccontext.WithApiErrCode(UserForSDK.ctx, &apiErrCallback{loginMgrCh: UserForSDK.loginMgrCh,
-		listener: UserForSDK.connListener})
+		listener: UserForSDK.ConnListener})
 	UserForSDK.setLoginStatus(LogoutStatus)
 	UserForSDK.user = user.NewUser(UserForSDK.conversationCh)
 	UserForSDK.file = file.NewFile()
@@ -416,7 +416,7 @@ func (u *LoginMgr) initResources() {
 	u.pushMsgAndMaxSeqCh = make(chan common.Cmd2Value, 1000)
 	u.loginMgrCh = make(chan common.Cmd2Value, 1)
 	u.longConnMgr = interaction.NewLongConnMgr(u.ctx, u.userOnlineStatusChange, u.pushMsgAndMaxSeqCh, u.loginMgrCh)
-	u.ctx = ccontext.WithApiErrCode(u.ctx, &apiErrCallback{loginMgrCh: u.loginMgrCh, listener: u.connListener})
+	u.ctx = ccontext.WithApiErrCode(u.ctx, &apiErrCallback{loginMgrCh: u.loginMgrCh, listener: u.ConnListener})
 	u.setLoginStatus(LogoutStatus)
 }
 
