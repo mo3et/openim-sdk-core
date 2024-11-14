@@ -19,3 +19,6 @@ void CallCallBack(CallBack cb,char* dataPtr,int len){
 }
 */
 import "C"
+
+func main() {
+}

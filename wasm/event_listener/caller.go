@@ -117,7 +117,7 @@ func (r *ReflectCall) asyncCallWithCallback() {
 		case reflect.Int64:
 			values = append(values, reflect.ValueOf(int64(r.arguments[i].Int())))
 		case reflect.Ptr:
-			values = append(values, reflect.ValueOf(bytes.NewBuffer(exec.ExtractArrayBuffer(r.arguments[i]))))
+			values = append(values, reflect.ValueOf(bytes.NewBuffer(exec.GoBytesFromJSUint8Array(r.arguments[i]))))
 		default:
 			log.ZError(ctx, "AsyncCallWithCallback", nil,
 				"input args type not support:", strconv.Itoa(int(typeFuncName.In(temp).Kind())))

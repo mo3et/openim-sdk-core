@@ -141,9 +141,22 @@ func Exec(args ...interface{}) (output interface{}, err error) {
 	return data.Data, err
 }
 
-func ExtractArrayBuffer(arrayBuffer js.Value) []byte {
-	uint8Array := js.Global().Get("Uint8Array").New(arrayBuffer)
-	dst := make([]byte, uint8Array.Length())
-	js.CopyBytesToGo(dst, uint8Array)
+// GoBytesFromJSUint8Array extracts a Go byte slice from a JavaScript Uint8Array.
+// This function copies the data from JavaScript to Go.
+func GoBytesFromJSUint8Array(jsUint8Array js.Value) []byte {
+	// Create a Go byte slice with the same length as the JavaScript Uint8Array
+	dst := make([]byte, jsUint8Array.Length())
+	// Copy data from JavaScript Uint8Array to the Go byte slice
+	js.CopyBytesToGo(dst, jsUint8Array)
 	return dst
+}
+
+// JSUint8ArrayFromGoBytes creates a JavaScript Uint8Array from a Go byte slice.
+// This function copies the data from Go to JavaScript.
+func JSUint8ArrayFromGoBytes(data []byte) js.Value {
+	// Create a new Uint8Array in JavaScript with the same length as the Go byte slice
+	uint8Array := js.Global().Get("Uint8Array").New(len(data))
+	// Copy data from Go byte slice to JavaScript Uint8Array
+	js.CopyBytesToJS(uint8Array, data)
+	return uint8Array
 }

@@ -20,9 +20,10 @@ package file
 import (
 	"bufio"
 	"errors"
-	"github.com/openimsdk/openim-sdk-core/v3/wasm/exec"
 	"io"
 	"syscall/js"
+
+	"github.com/openimsdk/openim-sdk-core/v3/wasm/exec"
 )
 
 const readBufferSize = 1024 * 1024 * 5 // 5mb
@@ -144,7 +145,7 @@ func WasmRead(uuid string, offset int64, length int64) ([]byte, error) {
 		return nil, err
 	} else {
 		if v, ok := result.(js.Value); ok {
-			return exec.ExtractArrayBuffer(v), nil
+			return exec.GoBytesFromJSUint8Array(v), nil
 		} else {
 			return nil, exec.ErrType
 		}

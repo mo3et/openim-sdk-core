@@ -17,6 +17,7 @@
 
 package wasm_wrapper
 
+import "C"
 import (
 	"errors"
 	"syscall/js"
@@ -27,6 +28,7 @@ import (
 )
 
 const COMMONEVENTFUNC = "commonEventFunc"
+var
 
 var ErrArgsLength = errors.New("from javascript args length err")
 var ErrFunNameNotSet = errors.New("reflect func not to set")
@@ -89,14 +91,9 @@ type WrapperCommon struct {
 func NewWrapperCommon() *WrapperCommon {
 	return &WrapperCommon{}
 }
-func (w *WrapperCommon) CommonEventFunc(_ js.Value, args []js.Value) interface{} {
-	if len(args) >= 1 {
-		w.commonFunc = &args[len(args)-1]
-		return js.ValueOf(true)
-	} else {
-		return js.ValueOf(false)
-	}
-}
+
+
+
 
 type WrapperInitLogin struct {
 	*WrapperCommon
