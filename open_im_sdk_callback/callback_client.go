@@ -83,11 +83,6 @@ type OnAdvancedMsgListener interface {
 	OnMsgEdited(data *pb.EventOnMsgEditedData)
 }
 
-type OnBatchMsgListener interface {
-	OnRecvNewMessages(messageList string)
-	OnRecvOfflineNewMessages(messageList string)
-}
-
 type OnUserListener interface {
 	OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData)
 	OnUserStatusChanged(data *pb.EventOnUserStatusChangedData)
