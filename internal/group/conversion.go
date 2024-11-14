@@ -17,6 +17,7 @@ package group
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/sdkws"
 )
 
@@ -94,4 +95,99 @@ func ServerGroupRequestToLocalAdminGroupRequest(info *sdkws.GroupRequest) *model
 	return &model_struct.LocalAdminGroupRequest{
 		LocalGroupRequest: *ServerGroupRequestToLocalGroupRequest(info),
 	}
+}
+
+func ServerGroupToSdk(info *sdkws.GroupInfo) *sdkpb.GroupInfo {
+	return &sdkpb.GroupInfo{
+		GroupID:                info.GroupID,
+		GroupName:              info.GroupName,
+		Notification:           info.Notification,
+		Introduction:           info.Introduction,
+		FaceURL:                info.FaceURL,
+		OwnerUserID:            info.OwnerUserID,
+		CreateTime:             info.CreateTime,
+		MemberCount:            int64(info.MemberCount),
+		Ex:                     info.Ex,
+		Status:                 info.Status,
+		CreatorUserID:          info.CreatorUserID,
+		GroupType:              info.GroupType,
+		NeedVerification:       info.NeedVerification,
+		LookMemberInfo:         info.LookMemberInfo,
+		ApplyMemberFriend:      info.ApplyMemberFriend,
+		NotificationUpdateTime: info.NotificationUpdateTime,
+		NotificationUserID:     info.NotificationUserID,
+	}
+}
+
+func DBGroupToSdk(info *model_struct.LocalGroup) *sdkpb.GroupInfo {
+	return &sdkpb.GroupInfo{
+		GroupID:                info.GroupID,
+		GroupName:              info.GroupName,
+		Notification:           info.Notification,
+		Introduction:           info.Introduction,
+		FaceURL:                info.FaceURL,
+		CreateTime:             info.CreateTime,
+		Status:                 info.Status,
+		CreatorUserID:          info.CreatorUserID,
+		GroupType:              info.GroupType,
+		OwnerUserID:            info.OwnerUserID,
+		MemberCount:            int64(info.MemberCount),
+		Ex:                     info.Ex,
+		AttachedInfo:           info.AttachedInfo,
+		NeedVerification:       info.NeedVerification,
+		LookMemberInfo:         info.LookMemberInfo,
+		ApplyMemberFriend:      info.ApplyMemberFriend,
+		NotificationUpdateTime: info.NotificationUpdateTime,
+		NotificationUserID:     info.NotificationUserID,
+	}
+}
+
+func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *sdkpb.GroupMemberInfo {
+	return &sdkpb.GroupMemberInfo{
+		GroupID:        info.GroupID,
+		UserID:         info.UserID,
+		Nickname:       info.Nickname,
+		FaceURL:        info.FaceURL,
+		RoleLevel:      info.RoleLevel,
+		JoinTime:       info.JoinTime,
+		JoinSource:     info.JoinSource,
+		InviterUserID:  info.InviterUserID,
+		MuteEndTime:    info.MuteEndTime,
+		OperatorUserID: info.OperatorUserID,
+		Ex:             info.Ex,
+		AttachedInfo:   info.AttachedInfo,
+	}
+}
+
+func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.GroupRequest {
+	return &sdkpb.GroupRequest{
+		GroupID:       info.GroupID,
+		GroupName:     info.GroupName,
+		Notification:  info.Notification,
+		Introduction:  info.Introduction,
+		GroupFaceURL:  info.GroupFaceURL,
+		CreateTime:    info.CreateTime,
+		Status:        info.Status,
+		CreatorUserID: info.CreatorUserID,
+		GroupType:     info.GroupType,
+		OwnerUserID:   info.OwnerUserID,
+		MemberCount:   info.MemberCount,
+		UserID:        info.UserID,
+		Nickname:      info.Nickname,
+		UserFaceURL:   info.UserFaceURL,
+		HandleResult:  info.HandleResult,
+		ReqMsg:        info.ReqMsg,
+		HandledMsg:    info.HandledMsg,
+		ReqTime:       info.ReqTime,
+		HandleUserID:  info.HandleUserID,
+		HandledTime:   info.HandledTime,
+		Ex:            info.Ex,
+		AttachedInfo:  info.AttachedInfo,
+		JoinSource:    info.JoinSource,
+		InviterUserID: info.InviterUserID,
+	}
+}
+
+func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *sdkpb.GroupRequest {
+	return DBGroupRequestToSdk(&info.LocalGroupRequest)
 }

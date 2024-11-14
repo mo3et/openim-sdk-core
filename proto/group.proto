@@ -1,0 +1,230 @@
+syntax = "proto3";
+package openim.sdk.group;
+
+import "temp/wrapperspb.proto";
+
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+option csharp_namespace = "OpenIM";
+
+
+
+message GroupInfo {
+  string groupID = 1;
+  string groupName = 2;
+  string notification = 3;
+  string introduction = 4;
+  string faceURL = 5;
+  string ownerUserID = 6;
+  int64 createTime = 7;
+  int64 memberCount = 8;
+  string ex = 9;
+  int32 status = 10;
+  string creatorUserID = 11;
+  int32 groupType = 12;
+  int32 needVerification = 13;
+  int32 lookMemberInfo = 14;
+  int32 applyMemberFriend = 15;
+  int64 notificationUpdateTime = 16;
+  string notificationUserID = 17;
+  string attachedInfo = 18;
+}
+
+message GroupMemberInfo {
+  string groupID        = 1;
+  string userID         = 2;
+  string nickname       = 3;
+  string faceURL        = 4;
+  int32 roleLevel      = 5;
+  int64 joinTime       = 6;
+  int32 joinSource     = 7;
+  string inviterUserID  = 8;
+  int64 muteEndTime    = 9;
+  string operatorUserID = 10;
+  string ex             = 11;
+  string attachedInfo   = 12;
+}
+
+message GroupRequest {
+  string groupID       = 1;
+  string groupName     = 2;
+  string notification  = 3;
+  string introduction  = 4;
+  string groupFaceURL  = 5;
+  int64 createTime    = 6;
+  int32 status        = 7;
+  string creatorUserID = 8;
+  int32 groupType     = 9;
+  string ownerUserID   = 10;
+  int32 memberCount   = 11;
+  string userID        = 12;
+  string nickname      = 13;
+  string userFaceURL   = 14;
+  int32 handleResult  = 15;
+  string reqMsg        = 16;
+  string handledMsg    = 17;
+  int64 reqTime       = 18;
+  string handleUserID  = 19;
+  int64 handledTime   = 20;
+  string ex            = 21;
+  string attachedInfo  = 22;
+  int32 joinSource    = 23;
+  string inviterUserID = 24;
+}
+
+message CreateGroupReq {
+  repeated string memberUserIDs = 1;
+  repeated string adminUserIDs = 2;
+  GroupInfo groupInfo = 3;
+}
+message CreateGroupResp {
+  GroupInfo groupInfo = 1;
+}
+
+message JoinGroupReq {
+  string groupID = 1;
+  string reqMessage = 2;
+  int32 joinSource = 3;
+  string ex = 4;
+}
+message JoinGroupResp {}
+
+message QuitGroupReq {
+  string groupID = 1;
+}
+message QuitGroupResp {}
+
+message DismissGroupReq {
+  string groupID = 1;
+}
+message DismissGroupResp {}
+
+message ChangeGroupMuteReq {
+  string groupID = 1;
+  bool mute = 2;
+}
+message ChangeGroupMuteResp {}
+
+message ChangeGroupMemberMuteReq {
+  string groupID = 1;
+  string userID = 2;
+  uint32 mutedSeconds = 3;
+}
+message ChangeGroupMemberMuteResp {}
+
+message TransferGroupOwnerReq {
+  string groupID = 1;
+  string ownerUserID = 2;
+}
+message TransferGroupOwnerResp {}
+
+message KickGroupMemberReq {
+  string groupID = 1;
+  repeated string kickedUserIDs = 2;
+  string reason = 3;
+}
+message KickGroupMemberResp {}
+
+message SetGroupInfoReq {
+  string groupID = 1;
+  openim.protobuf.StringValue groupName = 2;
+  openim.protobuf.StringValue notification = 3;
+  openim.protobuf.StringValue introduction = 4;
+  openim.protobuf.StringValue faceURL = 5;
+  openim.protobuf.StringValue ex = 6;
+  openim.protobuf.Int32Value needVerification = 7;
+  openim.protobuf.Int32Value lookMemberInfo = 8;
+  openim.protobuf.Int32Value applyMemberFriend = 9;
+}
+message SetGroupInfoResp {}
+
+message SetGroupMemberInfoReq {
+  string groupID = 1;
+  string userID = 2;
+  openim.protobuf.StringValue nickname = 3;
+  openim.protobuf.StringValue faceURL = 4;
+  openim.protobuf.Int32Value roleLevel = 5;
+  openim.protobuf.StringValue ex = 6;
+}
+message SetGroupMemberInfoResp {}
+
+message GetJoinedGroupsReq {}
+message GetJoinedGroupsResp {
+  repeated GroupInfo groups = 1;
+}
+
+message GetSpecifiedGroupsInfoReq {
+  repeated string groupIDs = 1;
+}
+message GetSpecifiedGroupsInfoResp {
+  repeated GroupInfo groups = 1;
+}
+
+message SearchGroupsReq {
+  string keyword = 1;
+  bool searchGroupID = 2;
+  bool searchGroupName = 3;
+}
+message SearchGroupsResp {
+  repeated GroupInfo groups = 1;
+}
+
+message GetGroupMemberOwnerAndAdminReq {
+  string groupID = 1;
+}
+message GetGroupMemberOwnerAndAdminResp {
+  repeated GroupMemberInfo members = 1;
+}
+
+message GetSpecifiedGroupMembersInfoReq {
+  string groupID = 1;
+  repeated string userIDs = 2;
+}
+message GetSpecifiedGroupMembersInfoResp {
+  repeated GroupMemberInfo members = 1;
+}
+
+message GetGroupRequestReq {
+  bool send = 1;
+}
+message GetGroupRequestResp {
+  repeated GroupRequest requests = 1;
+}
+
+message IsJoinGroupReq {
+  string groupID = 1;
+  string userID = 2;
+}
+message IsJoinGroupResp {
+  bool joined = 1;
+}
+
+message GetUsersInGroupReq {
+  string groupID = 1;
+  repeated string userIDs = 2;
+}
+message GetUsersInGroupResp {
+  repeated string userIDs = 1;
+}
+
+message InviteUserToGroupReq {
+  string groupID = 1;
+  repeated string userIDs = 2;
+  string reason = 3;
+}
+message InviteUserToGroupResp {}
+
+message HandlerGroupRequestReq {
+  string groupID = 1;
+  string fromUserID = 2;
+  string handledMsg = 3;
+  bool refuse = 4;
+}
+message HandlerGroupRequestResp {}
+
+message GetGroupMemberInfoReq {
+  string groupID = 1;
+  repeated string userIDs = 2;
+}
+message GetGroupMemberInfoResp {
+  map<string, GroupMemberInfo> members = 1;
+}

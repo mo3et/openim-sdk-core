@@ -102,6 +102,32 @@ enum FuncRequestEventName{
   EventOnUserCommandAdd = 59;
   EventOnUserCommandDelete = 60;
   EventOnUserCommandUpdate = 61;
+
+  CreateGroup = 1000;
+  JoinGroup = 1001;
+  QuitGroup = 1002;
+  DismissGroup = 1003;
+  ChangeGroupMute = 1004;
+  ChangeGroupMemberMute = 1005;
+  TransferGroupOwner = 1006;
+  KickGroupMember = 1007;
+  SetGroupInfo = 1008;
+  SetGroupMemberInfo = 1009;
+  GetJoinedGroups = 1010;
+  GetJoinedGroupListPage = 1011;
+  GetSpecifiedGroupsInfo = 1012;
+  SearchGroups = 1013;
+  GetGroupMemberOwnerAndAdmin = 1014;
+  GetGroupMemberListByJoinTimeFilter = 1015;
+  GetSpecifiedGroupMembersInfo = 1016;
+  GetGroupMemberList = 1017;
+  GetGroupRequest = 1018;
+  SearchGroupMembers = 1019;
+  IsJoinGroup = 1020;
+  GetUsersInGroup = 1021;
+  InviteUserToGroup = 1022;
+  HandlerGroupRequest = 1023;
+  GetGroupMemberInfo = 1024;
 };
 
 message EventOnConnectingData {}

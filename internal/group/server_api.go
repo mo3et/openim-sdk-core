@@ -45,8 +45,8 @@ func (g *Group) setGroupInfo(ctx context.Context, req *group.SetGroupInfoExReq) 
 	return api.SetGroupInfoEx.Execute(ctx, req)
 }
 
-func (g *Group) setGroupMemberInfo(ctx context.Context, req *group.SetGroupMemberInfoReq) error {
-	return api.SetGroupMemberInfo.Execute(ctx, req)
+func (g *Group) setGroupMemberInfo(ctx context.Context, member *group.SetGroupMemberInfo) error {
+	return api.SetGroupMemberInfo.Execute(ctx, &group.SetGroupMemberInfoReq{Members: []*group.SetGroupMemberInfo{member}})
 }
 
 func (g *Group) kickGroupMember(ctx context.Context, req *group.KickGroupMemberReq) error {
