@@ -38,14 +38,6 @@ message GetAllConversationListReq{}
 message GetAllConversationListResp{
   repeated Conversation conversationList = 1;
 }
-message SetConnListenerReq{}
-message SetConnListenerResp{}
-
-message SetConversationListenerReq{}
-message SetConversationListenerResp{}
-
-message SetAdvancedMsgListenerReq{}
-message SetAdvancedMsgListenerResp{}
 
 
 
@@ -56,15 +48,6 @@ enum FuncRequestEventName{
   GetConversation = 3;
   InitSDK = 4;
   Login = 5;
-  SetConnListener = 6;
-  SetConversationListener = 7;
-  SetAdvancedMsgListener = 8;
-  SetMessageKvInfoListener = 9;
-  SetBatchMsgListener = 10;
-  SetFriendshipListener = 11;
-  SetGroupListener = 12;
-  SetUserListener = 13;
-  SetCustomBusinessListener = 14;
   EventOnConnecting = 15;
   EventOnConnectSuccess = 16;
   EventOnConnectFailed = 17;
@@ -86,6 +69,39 @@ enum FuncRequestEventName{
   EventOnMsgDeleted = 33;
   EventOnRecvOnlineOnlyMessage = 34;
   EventOnMsgEdited = 35;
+  // FriendCallback Events
+  EventOnFriendApplicationAdded = 36;
+  EventOnFriendApplicationDeleted = 37;
+  EventOnFriendApplicationAccepted = 38;
+  EventOnFriendApplicationRejected = 39;
+  EventOnFriendAdded = 40;
+  EventOnFriendDeleted = 41;
+  EventOnFriendInfoChanged = 42;
+  EventOnBlackAdded = 43;
+  EventOnBlackDeleted = 44;
+
+  // GroupCallback Events
+  EventOnJoinedGroupAdded = 45;
+  EventOnJoinedGroupDeleted = 46;
+  EventOnGroupMemberAdded = 47;
+  EventOnGroupMemberDeleted = 48;
+  EventOnGroupApplicationAdded = 49;
+  EventOnGroupApplicationDeleted = 50;
+  EventOnGroupInfoChanged = 51;
+  EventOnGroupDismissed = 52;
+  EventOnGroupMemberInfoChanged = 53;
+  EventOnGroupApplicationAccepted = 54;
+  EventOnGroupApplicationRejected = 55;
+
+  // CustomBusinessCallback Events
+  EventOnRecvCustomBusinessMessage = 56;
+
+  // UserCallback Events
+  EventOnSelfInfoUpdated = 57;
+  EventOnUserStatusChanged = 58;
+  EventOnUserCommandAdd = 59;
+  EventOnUserCommandDelete = 60;
+  EventOnUserCommandUpdate = 61;
 };
 
 message EventOnConnectingData {}
@@ -147,4 +163,112 @@ message EventOnMsgEditedData {
   string conversationID = 1;
   string message = 2;
 };
+
+// FriendCallback Data Types
+message EventOnFriendApplicationAddedData {
+  string friendApplication = 1;
+}
+
+message EventOnFriendApplicationDeletedData {
+  string friendApplication = 1;
+}
+
+message EventOnFriendApplicationAcceptedData {
+  string friendApplication = 1;
+}
+
+message EventOnFriendApplicationRejectedData {
+  string friendApplication = 1;
+}
+
+message EventOnFriendAddedData {
+  string friendInfo = 1;
+}
+
+message EventOnFriendDeletedData {
+  string friendInfo = 1;
+}
+
+message EventOnFriendInfoChangedData {
+  string friendInfo = 1;
+}
+
+message EventOnBlackAddedData {
+  string blackInfo = 1;
+}
+
+message EventOnBlackDeletedData {
+  string blackInfo = 1;
+}
+
+// GroupCallback Data Types
+message EventOnJoinedGroupAddedData {
+  string groupInfo = 1;
+}
+
+message EventOnJoinedGroupDeletedData {
+  string groupInfo = 1;
+}
+
+message EventOnGroupMemberAddedData {
+  string groupMemberInfo = 1;
+}
+
+message EventOnGroupMemberDeletedData {
+  string groupMemberInfo = 1;
+}
+
+message EventOnGroupApplicationAddedData {
+  string groupApplication = 1;
+}
+
+message EventOnGroupApplicationDeletedData {
+  string groupApplication = 1;
+}
+
+message EventOnGroupInfoChangedData {
+  string groupInfo = 1;
+}
+
+message EventOnGroupDismissedData {
+  string groupInfo = 1;
+}
+
+message EventOnGroupMemberInfoChangedData {
+  string groupMemberInfo = 1;
+}
+
+message EventOnGroupApplicationAcceptedData {
+  string groupApplication = 1;
+}
+
+message EventOnGroupApplicationRejectedData {
+  string groupApplication = 1;
+}
+
+// CustomBusinessCallback Data Type
+message EventOnRecvCustomBusinessMessageData {
+  string businessMessage = 1;
+}
+
+// UserCallback Data Types
+message EventOnSelfInfoUpdatedData {
+  string userInfo = 1;
+}
+
+message EventOnUserStatusChangedData {
+  string statusMap = 1;
+}
+
+message EventOnUserCommandAddData {
+  string userCommand = 1;
+}
+
+message EventOnUserCommandDeleteData {
+  string userCommand = 1;
+}
+
+message EventOnUserCommandUpdateData {
+  string userCommand = 1;
+}
 

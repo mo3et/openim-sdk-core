@@ -14,6 +14,10 @@
 
 package open_im_sdk_callback
 
+import (
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+)
+
 type Base interface {
 	OnError(errCode int32, errMsg string)
 	OnSuccess(data string)
@@ -24,57 +28,59 @@ type SendMsgCallBack interface {
 }
 
 type OnConnListener interface {
-	OnConnecting()
-	OnConnectSuccess()
-	OnConnectFailed(errCode int32, errMsg string)
-	OnKickedOffline()
-	OnUserTokenExpired()
-	OnUserTokenInvalid(errMsg string)
+	OnConnecting(*pb.EventOnConnectingData)
+	OnConnectSuccess(data *pb.EventOnConnectSuccessData)
+	OnConnectFailed(*pb.EventOnConnectFailedData)
+	OnKickedOffline(*pb.EventOnKickedOfflineData)
+	OnUserTokenExpired(data *pb.EventOnUserTokenExpiredData)
+	OnUserTokenInvalid(data *pb.EventOnUserTokenInvalidData)
 }
 
 type OnGroupListener interface {
-	OnJoinedGroupAdded(groupInfo string)
-	OnJoinedGroupDeleted(groupInfo string)
-	OnGroupMemberAdded(groupMemberInfo string)
-	OnGroupMemberDeleted(groupMemberInfo string)
-	OnGroupApplicationAdded(groupApplication string)
-	OnGroupApplicationDeleted(groupApplication string)
-	OnGroupInfoChanged(groupInfo string)
-	OnGroupDismissed(groupInfo string)
-	OnGroupMemberInfoChanged(groupMemberInfo string)
-	OnGroupApplicationAccepted(groupApplication string)
-	OnGroupApplicationRejected(groupApplication string)
+	OnJoinedGroupAdded(data *pb.EventOnJoinedGroupAddedData)
+	OnJoinedGroupDeleted(data *pb.EventOnJoinedGroupDeletedData)
+	OnGroupMemberAdded(data *pb.EventOnGroupMemberAddedData)
+	OnGroupMemberDeleted(data *pb.EventOnGroupMemberDeletedData)
+	OnGroupApplicationAdded(data *pb.EventOnGroupApplicationAddedData)
+	OnGroupApplicationDeleted(data *pb.EventOnGroupApplicationDeletedData)
+	OnGroupInfoChanged(data *pb.EventOnGroupInfoChangedData)
+	OnGroupDismissed(data *pb.EventOnGroupDismissedData)
+	OnGroupMemberInfoChanged(data *pb.EventOnGroupMemberInfoChangedData)
+	OnGroupApplicationAccepted(data *pb.EventOnGroupApplicationAcceptedData)
+	OnGroupApplicationRejected(data *pb.EventOnGroupApplicationRejectedData)
 }
+
 type OnFriendshipListener interface {
-	OnFriendApplicationAdded(friendApplication string)
-	OnFriendApplicationDeleted(friendApplication string)
-	OnFriendApplicationAccepted(friendApplication string)
-	OnFriendApplicationRejected(friendApplication string)
-	OnFriendAdded(friendInfo string)
-	OnFriendDeleted(friendInfo string)
-	OnFriendInfoChanged(friendInfo string)
-	OnBlackAdded(blackInfo string)
-	OnBlackDeleted(blackInfo string)
+	OnFriendApplicationAdded(data *pb.EventOnFriendApplicationAddedData)
+	OnFriendApplicationDeleted(data *pb.EventOnFriendApplicationDeletedData)
+	OnFriendApplicationAccepted(data *pb.EventOnFriendApplicationAcceptedData)
+	OnFriendApplicationRejected(data *pb.EventOnFriendApplicationRejectedData)
+	OnFriendAdded(data *pb.EventOnFriendAddedData)
+	OnFriendDeleted(data *pb.EventOnFriendDeletedData)
+	OnFriendInfoChanged(data *pb.EventOnFriendInfoChangedData)
+	OnBlackAdded(data *pb.EventOnBlackAddedData)
+	OnBlackDeleted(data *pb.EventOnBlackDeletedData)
 }
+
 type OnConversationListener interface {
-	OnSyncServerStart(reinstalled bool)
-	OnSyncServerFinish(reinstalled bool)
-	OnSyncServerProgress(progress int)
-	OnSyncServerFailed(reinstalled bool)
-	OnNewConversation(conversationList string)
-	OnConversationChanged(conversationList string)
-	OnTotalUnreadMessageCountChanged(totalUnreadCount int32)
-	OnConversationUserInputStatusChanged(change string)
+	OnSyncServerStart(data *pb.EventOnSyncServerStartData)
+	OnSyncServerFinish(data *pb.EventOnSyncServerFinishData)
+	OnSyncServerProgress(data *pb.EventOnSyncServerProgressData)
+	OnSyncServerFailed(data *pb.EventOnSyncServerFailedData)
+	OnNewConversation(data *pb.EventOnNewConversationData)
+	OnConversationChanged(data *pb.EventOnConversationChangedData)
+	OnTotalUnreadMessageCountChanged(data *pb.EventOnTotalUnreadMessageCountChangedData)
+	OnConversationUserInputStatusChanged(data *pb.EventOnConversationUserInputStatusChangedData)
 }
 
 type OnAdvancedMsgListener interface {
-	OnRecvNewMessage(message string)
-	OnRecvC2CReadReceipt(msgReceiptList string)
-	OnNewRecvMessageRevoked(messageRevoked string)
-	OnRecvOfflineNewMessage(message string)
-	OnMsgDeleted(message string)
-	OnRecvOnlineOnlyMessage(message string)
-	OnMsgEdited(message string)
+	OnRecvNewMessage(data *pb.EventOnRecvNewMessageData)
+	OnRecvC2CReadReceipt(data *pb.EventOnRecvC2CReadReceiptData)
+	OnNewRecvMessageRevoked(data *pb.EventOnNewRecvMessageRevokedData)
+	OnRecvOfflineNewMessage(data *pb.EventOnRecvOfflineNewMessageData)
+	OnMsgDeleted(data *pb.EventOnMsgDeletedData)
+	OnRecvOnlineOnlyMessage(data *pb.EventOnRecvOnlineOnlyMessageData)
+	OnMsgEdited(data *pb.EventOnMsgEditedData)
 }
 
 type OnBatchMsgListener interface {
@@ -83,16 +89,17 @@ type OnBatchMsgListener interface {
 }
 
 type OnUserListener interface {
-	OnSelfInfoUpdated(userInfo string)
-	OnUserStatusChanged(userOnlineStatus string)
-	OnUserCommandAdd(userCommand string)
-	OnUserCommandDelete(userCommand string)
-	OnUserCommandUpdate(userCommand string)
+	OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData)
+	OnUserStatusChanged(data *pb.EventOnUserStatusChangedData)
+	OnUserCommandAdd(data *pb.EventOnUserCommandAddData)
+	OnUserCommandDelete(data *pb.EventOnUserCommandDeleteData)
+	OnUserCommandUpdate(data *pb.EventOnUserCommandUpdateData)
 }
 
 type OnCustomBusinessListener interface {
-	OnRecvCustomBusinessMessage(businessMessage string)
+	OnRecvCustomBusinessMessage(data *pb.EventOnRecvCustomBusinessMessageData)
 }
+
 type OnMessageKvInfoListener interface {
 	OnMessageKvInfoChanged(messageChangedList string)
 }
