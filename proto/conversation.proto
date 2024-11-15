@@ -164,8 +164,13 @@ enum FuncRequestEventName{
   GetConversation = 3;
   InitSDK = 4;
   Login = 5;
+    SendMessage=6;
+    UploadLogs = 7;
+    UploadFile = 8;
+    Log = 9;
 
   EventOnSendMsgProgress =14;
+    EventOnUploadFileProgress = 13;
   EventOnConnecting = 15;
   EventOnConnectSuccess = 16;
   EventOnConnectFailed = 17;

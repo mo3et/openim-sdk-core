@@ -261,3 +261,15 @@ func NewSendMessageCallback(handleID uint64) open_im_sdk_callback.SendMsgCallBac
 func (s SendMessageCallback) OnSendMsgProgress(data *pb.EventOnSendMsgProgressData) {
 	activeEventResp(pb.FuncRequestEventName_EventOnSendMsgProgress, s.handleID, data)
 }
+
+type UploadFileCallback struct {
+	handleID uint64
+}
+
+func NewUploadFileCallback(handleID uint64) open_im_sdk_callback.UploadFileCallback {
+	return &UploadFileCallback{handleID: handleID}
+}
+
+func (u UploadFileCallback) OnUploadFileProgress(data *pb.EventOnUploadFileProgressData) {
+	activeEventResp(pb.FuncRequestEventName_EventOnUploadFileProgress, u.handleID, data)
+}
