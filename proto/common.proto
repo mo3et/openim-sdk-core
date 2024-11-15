@@ -163,6 +163,13 @@ enum ContentType{
 //  NotificationEnd = 5000
 }
 
-
+message OfflinePushInfo {
+  string title = 1;
+  string desc = 2;
+  string ex = 3;
+  string iOSPushSound = 4;
+  bool iOSBadgeCount = 5;
+  string signalInfo = 6;
+}
 
 

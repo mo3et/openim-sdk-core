@@ -209,7 +209,7 @@ func msgHandleByContentType(msg *sdk_struct.MsgStruct) (err error) {
 	return errs.Wrap(err)
 }
 
-func MsgStructToLocalChatLog(message *sdk_struct.MsgStruct) *model_struct.LocalChatLog {
+func MsgStructToLocalChatLog(message *sdkpb.MsgStruct) *model_struct.LocalChatLog {
 	localMessage := &model_struct.LocalChatLog{
 		ClientMsgID:      message.ClientMsgID,
 		ServerMsgID:      message.ServerMsgID,
