@@ -216,13 +216,13 @@ enum FuncRequestEventName{
   SetGroupInfo = 1008;
   SetGroupMemberInfo = 1009;
   GetJoinedGroups = 1010;
-  GetJoinedGroupListPage = 1011;
+  GetJoinedGroupsPage = 1011;
   GetSpecifiedGroupsInfo = 1012;
   SearchGroups = 1013;
   GetGroupMemberOwnerAndAdmin = 1014;
-  GetGroupMemberListByJoinTimeFilter = 1015;
+  GetGroupMembersByJoinTimeFilter = 1015;
   GetSpecifiedGroupMembersInfo = 1016;
-  GetGroupMemberList = 1017;
+  GetGroupMembers = 1017;
   GetGroupRequest = 1018;
   SearchGroupMembers = 1019;
   IsJoinGroup = 1020;
@@ -362,11 +362,11 @@ message EventOnGroupMemberDeletedData {
 }
 
 message EventOnGroupApplicationAddedData {
-  openim.sdk.group.GroupRequest request = 1;
+  openim.sdk.group.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupApplicationDeletedData {
-  openim.sdk.group.GroupRequest request = 1;
+  openim.sdk.group.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupInfoChangedData {
@@ -382,11 +382,11 @@ message EventOnGroupMemberInfoChangedData {
 }
 
 message EventOnGroupApplicationAcceptedData {
-  openim.sdk.group.GroupRequest request = 1;
+  openim.sdk.group.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupApplicationRejectedData {
-  openim.sdk.group.GroupRequest request = 1;
+  openim.sdk.group.GroupRequestInfo request = 1;
 }
 
 // CustomBusinessCallback Data Type

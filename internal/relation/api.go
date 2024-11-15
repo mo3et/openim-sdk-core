@@ -185,7 +185,7 @@ func (r *Relation) GetFriends(ctx context.Context, req *sdkpb.GetFriendsReq) (*s
 	return &sdkpb.GetFriendsResp{Friends: datautil.Batch(DbFriendToSdk, res)}, nil
 }
 
-func (r *Relation) GetFriendsPage(ctx context.Context, offset, count int32, filterBlack bool) ([]*model_struct.LocalFriend, error) {
+func (r *Relation) GetFriendsPage(ctx context.Context, req *sdkpb.GetFriendsPageReq) (*sdkpb.GetFriendsPageResp, error) {
 	dataFetcher := datafetcher.NewDataFetcher(
 		r.db,
 		r.friendListTableName(),
@@ -212,10 +212,14 @@ func (r *Relation) GetFriendsPage(ctx context.Context, offset, count int32, filt
 	if err != nil {
 		return nil, err
 	}
-	if (!filterBlack) || len(localBlackList) == 0 {
-		return dataFetcher.FetchWithPagination(ctx, int(offset), int(count))
+	if (!req.FilterBlack) || len(localBlackList) == 0 {
+		res, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.Offset()), int(req.Pagination.ShowNumber))
+		if err != nil {
+			return nil, err
+		}
+		return &sdkpb.GetFriendsPageResp{Friends: datautil.Batch(DbFriendToSdk, res)}, nil
 	}
-	localFriendList, err := dataFetcher.FetchWithPagination(ctx, int(offset), int(count*2))
+	localFriendList, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.Offset()), int(req.Pagination.ShowNumber)*2)
 	if err != nil {
 		return nil, err
 	}
@@ -227,11 +231,11 @@ func (r *Relation) GetFriendsPage(ctx context.Context, offset, count int32, filt
 		if _, ok := blackUserIDs[friend.FriendUserID]; !ok {
 			res = append(res, friend)
 		}
-		if len(res) == int(count) {
+		if len(res) == int(req.Pagination.ShowNumber) {
 			break
 		}
 	}
-	return res, nil
+	return &sdkpb.GetFriendsPageResp{Friends: datautil.Batch(DbFriendToSdk, res)}, nil
 }
 
 func (r *Relation) SearchFriends(ctx context.Context, req *sdkpb.SearchFriendsReq) (*sdkpb.SearchFriendsResp, error) {

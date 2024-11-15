@@ -11,6 +11,15 @@ enum GroupStatus {
   Dismissed = 2;
 }
 
+enum GroupFilter {
+  All                   = 0;
+  Owner                 = 1;
+  Admin                 = 2;
+  OrdinaryUsers         = 3;
+  AdminAndOrdinaryUsers = 4;
+  OwnerAndAdmin         = 5;
+}
+
 message GroupInfo {
   string groupID = 1;
   string groupName = 2;
@@ -46,7 +55,7 @@ message GroupMemberInfo {
   string attachedInfo = 12;
 }
 
-message GroupRequest {
+message GroupRequestInfo {
   string groupID = 1;
   string groupName = 2;
   string notification = 3;
@@ -154,6 +163,13 @@ message GetJoinedGroupsResp {
   repeated GroupInfo groups = 1;
 }
 
+message GetJoinedGroupsPageReq {
+  openim.sdk.common.RequestPagination pagination = 2;
+}
+message GetJoinedGroupsPageResp {
+  repeated GroupInfo groups = 1;
+}
+
 message GetSpecifiedGroupsInfoReq {
   repeated string groupIDs = 1;
 }
@@ -177,6 +193,16 @@ message GetGroupMemberOwnerAndAdminResp {
   repeated GroupMemberInfo members = 1;
 }
 
+message GetGroupMembersByJoinTimeFilterReq {
+  string groupID = 1;
+  int64 joinTimeBegin = 2;
+  int64 joinTimeEnd = 3;
+  openim.sdk.common.RequestPagination pagination = 4;
+}
+message GetGroupMembersByJoinTimeFilterResp {
+  repeated GroupMemberInfo members = 1;
+}
+
 message GetSpecifiedGroupMembersInfoReq {
   string groupID = 1;
   repeated string userIDs = 2;
@@ -185,11 +211,31 @@ message GetSpecifiedGroupMembersInfoResp {
   repeated GroupMemberInfo members = 1;
 }
 
+message GetGroupMembersReq {
+  string groupID = 1;
+  GroupFilter filter = 2;
+  openim.sdk.common.RequestPagination pagination = 4;
+}
+message GetGroupMembersResp {
+  repeated GroupMemberInfo members = 1;
+}
+
 message GetGroupRequestReq {
   bool send = 1;
 }
 message GetGroupRequestResp {
-  repeated GroupRequest requests = 1;
+  repeated GroupRequestInfo requests = 1;
+}
+
+message SearchGroupMembersReq {
+  string groupID = 1;
+  string Keyword = 2;
+  bool searchUserID = 3;
+  bool searchMemberNickname = 4;
+  openim.sdk.common.RequestPagination pagination = 5;
+}
+message SearchGroupMembersResp {
+  repeated GroupMemberInfo members = 1;
 }
 
 message IsJoinGroupReq {
