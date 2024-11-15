@@ -66,6 +66,13 @@ enum AppFramework {
   Native = 3;
   Electron = 4;
   ReactNative = 5;
+  Unity = 6;
+  UnrealEngine = 7;
+  DotNet = 8;
+  DotNetMAUI = 9;
+  Avalonia = 10;
+  Qt = 11;
+  Cordova = 12;
 }
 
 
