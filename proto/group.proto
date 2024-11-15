@@ -1,6 +1,8 @@
 syntax = "proto3";
 package openim.sdk.group;
 
+import "common.proto";
+
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
@@ -213,7 +215,7 @@ message HandlerGroupRequestReq {
   string groupID = 1;
   string fromUserID = 2;
   string handledMsg = 3;
-  bool refuse = 4;
+  openim.sdk.common.ApprovalStatus status = 4;
 }
 message HandlerGroupRequestResp {}
 

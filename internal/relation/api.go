@@ -8,7 +8,6 @@ import (
 	"github.com/openimsdk/protocol/relation"
 	"github.com/openimsdk/tools/utils/datautil"
 
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/datafetcher"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
@@ -96,19 +95,13 @@ func (r *Relation) GetFriendRequests(ctx context.Context, req *sdkpb.GetFriendRe
 }
 
 func (r *Relation) HandlerFriendRequest(ctx context.Context, req *sdkpb.HandlerFriendRequestReq) (*sdkpb.HandlerFriendRequestResp, error) {
-	var result int32
-	if req.Refuse {
-		result = constant.FriendResponseRefuse
-	} else {
-		result = constant.FriendResponseAgree
-	}
-	if err := r.addFriendResponse(ctx, &relation.RespondFriendApplyReq{FromUserID: req.UserID, HandleResult: result, HandleMsg: req.HandleMsg}); err != nil {
+	if err := r.addFriendResponse(ctx, &relation.RespondFriendApplyReq{FromUserID: req.UserID, HandleResult: int32(req.Status), HandleMsg: req.HandleMsg}); err != nil {
 		return nil, err
 	}
 	r.relationSyncMutex.Lock()
 	defer r.relationSyncMutex.Unlock()
 
-	if result == constant.FriendResponseAgree {
+	if req.Status == sdkpb.ApprovalStatus_Approved {
 		_ = r.IncrSyncFriends(ctx)
 	}
 	_ = r.SyncAllFriendApplication(ctx)
@@ -259,11 +252,11 @@ func (r *Relation) SearchFriends(ctx context.Context, req *sdkpb.SearchFriendsRe
 	}
 	res := make([]*sdkpb.SearchFriendsInfo, 0, len(localFriendList))
 	for _, localFriend := range localFriendList {
-		var relationship int32
+		var relationship sdkpb.Relationship
 		if _, ok := m[localFriend.FriendUserID]; ok {
-			relationship = constant.BlackRelationship
+			relationship = sdkpb.Relationship_Black
 		} else {
-			relationship = constant.FriendRelationship
+			relationship = sdkpb.Relationship_Friend
 		}
 		res = append(res, &sdkpb.SearchFriendsInfo{
 			Friend:       FriendDbToSdk(localFriend),
@@ -317,37 +310,3 @@ func (r *Relation) UpdateFriends(ctx context.Context, req *sdkpb.UpdatesFriendsR
 	}
 	return &sdkpb.UpdatesFriendsResp{}, nil
 }
-
-/*
-GetSpecifiedFriends
-AddFriend
-GetFriendRequests
-HandlerFriendRequest
-CheckFriend
-DeleteFriend
-GetFriends
-GetFriendListPage
-SearchFriends
-AddBlack
-DeleteBlack
-GetBlacks
-UpdateFriends
-
-
-pb.FuncRequestEventName_GetDesignatedFriendsApply:          Func(open_im_sdk.UserForSDK.Relation().GetDesignatedFriendsApply),
-
-pb.FuncRequestEventName_GetSpecifiedFriends:Func(open_im_sdk.UserForSDK.Relation().GetSpecifiedFriends),
-pb.FuncRequestEventName_AddFriend:Func(open_im_sdk.UserForSDK.Relation().AddFriend),
-pb.FuncRequestEventName_GetFriendRequests:Func(open_im_sdk.UserForSDK.Relation().GetFriendRequests),
-pb.FuncRequestEventName_HandlerFriendRequest:Func(open_im_sdk.UserForSDK.Relation().HandlerFriendRequest),
-pb.FuncRequestEventName_CheckFriend:Func(open_im_sdk.UserForSDK.Relation().CheckFriend),
-pb.FuncRequestEventName_DeleteFriend:Func(open_im_sdk.UserForSDK.Relation().DeleteFriend),
-pb.FuncRequestEventName_GetFriends:Func(open_im_sdk.UserForSDK.Relation().GetFriends),
-pb.FuncRequestEventName_GetFriendListPage:Func(open_im_sdk.UserForSDK.Relation().GetFriendListPage),
-pb.FuncRequestEventName_SearchFriends:Func(open_im_sdk.UserForSDK.Relation().SearchFriends),
-pb.FuncRequestEventName_AddBlack:Func(open_im_sdk.UserForSDK.Relation().AddBlack),
-pb.FuncRequestEventName_DeleteBlack:Func(open_im_sdk.UserForSDK.Relation().DeleteBlack),
-pb.FuncRequestEventName_GetBlacks:Func(open_im_sdk.UserForSDK.Relation().GetBlacks),
-pb.FuncRequestEventName_UpdateFriends:Func(open_im_sdk.UserForSDK.Relation().UpdateFriends),
-
-*/

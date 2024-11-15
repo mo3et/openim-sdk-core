@@ -572,13 +572,7 @@ func (g *Group) InviteUserToGroup(ctx context.Context, req *sdkpb.InviteUserToGr
 }
 
 func (g *Group) HandlerGroupRequest(ctx context.Context, req *sdkpb.HandlerGroupRequestReq) (*sdkpb.HandlerGroupRequestResp, error) {
-	var result int32
-	if req.Refuse {
-		result = constant.GroupResponseRefuse
-	} else {
-		result = constant.GroupResponseAgree
-	}
-	if err := g.handlerGroupApplication(ctx, &group.GroupApplicationResponseReq{GroupID: req.GroupID, FromUserID: req.FromUserID, HandledMsg: req.HandledMsg, HandleResult: result}); err != nil {
+	if err := g.handlerGroupApplication(ctx, &group.GroupApplicationResponseReq{GroupID: req.GroupID, FromUserID: req.FromUserID, HandledMsg: req.HandledMsg, HandleResult: int32(req.Status)}); err != nil {
 		return nil, err
 	}
 	return &sdkpb.HandlerGroupRequestResp{}, nil

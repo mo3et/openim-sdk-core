@@ -1,8 +1,15 @@
 syntax = "proto3";
 package openim.sdk.relation;
 
+import "common.proto";
+
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
+
+enum Relationship {
+  Black = 0;
+  Friend = 1;
+}
 
 message FriendInfo {
   string ownerUserID    = 1;
@@ -72,7 +79,7 @@ message GetFriendRequestsResp {
 message HandlerFriendRequestReq {
   string userID = 1;
   string handleMsg = 2;
-  bool refuse = 3;
+  openim.sdk.common.ApprovalStatus status = 3;
 }
 message HandlerFriendRequestResp {}
 
@@ -111,8 +118,8 @@ message SearchFriendsReq {
   bool searchRemark = 4;
 }
 message SearchFriendsInfo {
-    FriendInfo friend = 1;
-    int32 relationship = 2;
+  FriendInfo friend = 1;
+  Relationship relationship = 2;
 }
 message SearchFriendsResp {
   repeated SearchFriendsInfo friends = 1;
