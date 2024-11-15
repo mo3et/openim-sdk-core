@@ -253,6 +253,10 @@ message EventOnSendMsgProgressData{
   int32 progress = 1;
 }
 
+message EventOnUploadFileProgressData{
+  int32 progress = 1;
+}
+
 message EventOnConnectingData {}
 message EventOnConnectSuccessData {}
 message EventOnConnectFailedData {

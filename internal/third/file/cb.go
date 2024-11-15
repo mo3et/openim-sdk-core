@@ -60,3 +60,45 @@ func (e emptyUploadCallback) UploadComplete(fileSize int64, streamSize int64, st
 func (e emptyUploadCallback) Complete(size int64, url string, typ int) {
 	fmt.Println("Callback Complete:", size, url, typ)
 }
+
+type SimpleUploadFileCallback interface {
+	OnProgress(progress int)
+}
+
+type simpleUploadCallback struct {
+	cb       SimpleUploadFileCallback
+	progress int
+}
+
+func (s simpleUploadCallback) Open(size int64) {}
+
+func (s simpleUploadCallback) PartSize(partSize int64, num int) {}
+
+func (s simpleUploadCallback) HashPartProgress(index int, size int64, partHash string) {}
+
+func (s simpleUploadCallback) HashPartComplete(partsHash string, fileHash string) {}
+
+func (s simpleUploadCallback) UploadID(uploadID string) {}
+
+func (s simpleUploadCallback) UploadPartComplete(index int, partSize int64, partHash string) {}
+
+func (s simpleUploadCallback) UploadComplete(fileSize int64, streamSize int64, storageSize int64) {
+	if s.cb == nil {
+		return
+	}
+	value := int(float64(streamSize) / float64(fileSize) * 100)
+	if s.progress < value {
+		s.progress = value
+		s.cb.OnProgress(value)
+	}
+}
+
+func (s simpleUploadCallback) Complete(size int64, url string, typ int) {
+	if s.cb == nil {
+		return
+	}
+	if s.progress < 100 {
+		s.progress = 100
+		s.cb.OnProgress(100)
+	}
+}
