@@ -2,17 +2,22 @@ package base
 
 import (
 	"context"
+	"fmt"
 
 	"google.golang.org/protobuf/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
-	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 )
 
+type call struct {
+	handlerID uint64
+	fn        func(ctx context.Context, req []byte) ([]byte, error)
+}
+
 func Func[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
-	return func(ctx context.Context, req []byte) ([]byte, error) {
+	return func(ctx context.Context, _ uint64, _ pb.FuncRequestEventName, req []byte) ([]byte, error) {
 		var pbReq A
 
 		msg, ok := any(&pbReq).(proto.Message)
@@ -39,40 +44,41 @@ func Func[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
 }
 
 func Func2[A, B, C any](fn func(ctx context.Context, req *A, callback C) (*B, error)) callFunc {
-	return func(ctx context.Context, req []byte) ([]byte, error) {
+	return func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) ([]byte, error) {
 		var pbReq A
-
 		msg, ok := any(&pbReq).(proto.Message)
 		if !ok {
 			return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
 		}
-
 		if err := proto.Unmarshal(req, msg); err != nil {
 			return nil, err
 		}
-
-		var callback C
-		switch any(callback).(type) {
-		case open_im_sdk_callback.SendMsgCallBack:
-			callback = any(NewSendMessageCallback()).(C)
-		case *CustomType2:
-			callback = any(&CustomType2{Field2: 42}).(C)
-		default:
-			return nil, sdkerrs.ErrArgs.WrapMsg("unsupported callback type")
+		cb, ok := cbMap[name]
+		if !ok {
+			return nil, fmt.Errorf("callback not found for %s", name)
 		}
-
-		pbResp, err := fn(ctx, &pbReq)
+		pbResp, err := fn(ctx, &pbReq, cb(handlerID).(C))
 		if err != nil {
 			return nil, err
 		}
-
 		respMsg, ok := any(pbResp).(proto.Message)
 		if !ok {
 			return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
 		}
-
 		return proto.Marshal(respMsg)
 	}
+}
+
+type callbackFunc func(handleID uint64) any
+
+func CB[T any](fn func(handleID uint64) T) callbackFunc {
+	return func(handleID uint64) any {
+		return fn(handleID)
+	}
+}
+
+var cbMap = map[pb.FuncRequestEventName]callbackFunc{
+	pb.FuncRequestEventName_Login: CB(NewSendMessageCallback),
 }
 
 var FuncMap = map[pb.FuncRequestEventName]callFunc{
