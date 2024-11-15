@@ -115,9 +115,6 @@ func (f *File) unlockHash(hash string) {
 }
 
 func (f *File) UploadFile(ctx context.Context, req *UploadFileReq, cb UploadFileCallback) (*UploadFileResp, error) {
-	if cb == nil {
-		cb = emptyUploadCallback{}
-	}
 	if req.Name == "" {
 		return nil, errors.New("name is empty")
 	}
@@ -593,4 +590,8 @@ func (f *File) getPartInfo(ctx context.Context, r io.Reader, fileSize int64, cb 
 		PartSizes:   partSizes,
 		PartMd5s:    partMd5s,
 	}, nil
+}
+
+func (f *File) UploadFileV2(ctx context.Context, req *UploadFileReq, cb SimpleUploadFileCallback) (*UploadFileResp, error) {
+	return f.UploadFile(ctx, req, &simpleUploadCallback{cb: cb})
 }

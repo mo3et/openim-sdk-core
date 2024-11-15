@@ -57,7 +57,7 @@ func ServerBlackToLocalBlack(info *sdkws.BlackInfo) *model_struct.LocalBlack {
 	}
 }
 
-func FriendDbToSdk(info *model_struct.LocalFriend) *sdkpb.FriendInfo {
+func DbFriendToSdk(info *model_struct.LocalFriend) *sdkpb.FriendInfo {
 	return &sdkpb.FriendInfo{
 		OwnerUserID:    info.OwnerUserID,
 		FriendUserID:   info.FriendUserID,
@@ -73,7 +73,7 @@ func FriendDbToSdk(info *model_struct.LocalFriend) *sdkpb.FriendInfo {
 	}
 }
 
-func FriendRequestDbToSdk(info *model_struct.LocalFriendRequest) *sdkpb.FriendRequestInfo {
+func DbFriendRequestToSdk(info *model_struct.LocalFriendRequest) *sdkpb.FriendRequestInfo {
 	return &sdkpb.FriendRequestInfo{
 		FromUserID:    info.FromUserID,
 		FromNickname:  info.FromNickname,
@@ -92,7 +92,7 @@ func FriendRequestDbToSdk(info *model_struct.LocalFriendRequest) *sdkpb.FriendRe
 	}
 }
 
-func BlackDbToSdk(info *model_struct.LocalBlack) *sdkpb.BlackInfo {
+func DbBlackToSdk(info *model_struct.LocalBlack) *sdkpb.BlackInfo {
 	return &sdkpb.BlackInfo{
 		OwnerUserID:    info.OwnerUserID,
 		BlockUserID:    info.BlockUserID,

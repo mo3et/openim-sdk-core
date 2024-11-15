@@ -42,7 +42,7 @@ func (r *Relation) GetSpecifiedFriends(ctx context.Context, req *sdkpb.GetSpecif
 		return nil, err
 	}
 	if !req.FilterBlack {
-		return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(FriendDbToSdk, localFriendList)}, nil
+		return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(DbFriendToSdk, localFriendList)}, nil
 	}
 	log.ZDebug(ctx, "GetDesignatedFriendsInfo", "localFriendList", localFriendList)
 	blackList, err := r.db.GetBlackInfoList(ctx, req.FriendUserIDs)
@@ -50,7 +50,7 @@ func (r *Relation) GetSpecifiedFriends(ctx context.Context, req *sdkpb.GetSpecif
 		return nil, err
 	}
 	if len(blackList) == 0 {
-		return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(FriendDbToSdk, localFriendList)}, nil
+		return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(DbFriendToSdk, localFriendList)}, nil
 	}
 
 	log.ZDebug(ctx, "GetDesignatedFriendsInfo", "blackList", blackList)
@@ -63,7 +63,7 @@ func (r *Relation) GetSpecifiedFriends(ctx context.Context, req *sdkpb.GetSpecif
 			res = append(res, localFriend)
 		}
 	}
-	return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(FriendDbToSdk, res)}, nil
+	return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(DbFriendToSdk, res)}, nil
 }
 
 func (r *Relation) AddFriend(ctx context.Context, req *sdkpb.AddFriendReq) (*sdkpb.AddFriendResp, error) {
@@ -91,7 +91,7 @@ func (r *Relation) GetFriendRequests(ctx context.Context, req *sdkpb.GetFriendRe
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.GetFriendRequestsResp{Requests: datautil.Batch(FriendRequestDbToSdk, request)}, nil
+	return &sdkpb.GetFriendRequestsResp{Requests: datautil.Batch(DbFriendRequestToSdk, request)}, nil
 }
 
 func (r *Relation) HandlerFriendRequest(ctx context.Context, req *sdkpb.HandlerFriendRequestReq) (*sdkpb.HandlerFriendRequestResp, error) {
@@ -164,14 +164,14 @@ func (r *Relation) GetFriends(ctx context.Context, req *sdkpb.GetFriendsReq) (*s
 		return nil, err
 	}
 	if len(localFriendList) == 0 || !req.FilterBlack {
-		return &sdkpb.GetFriendsResp{Friends: datautil.Batch(FriendDbToSdk, localFriendList)}, nil
+		return &sdkpb.GetFriendsResp{Friends: datautil.Batch(DbFriendToSdk, localFriendList)}, nil
 	}
 	localBlackList, err := r.db.GetBlackListDB(ctx)
 	if err != nil {
 		return nil, err
 	}
 	if len(localBlackList) == 0 {
-		return &sdkpb.GetFriendsResp{Friends: datautil.Batch(FriendDbToSdk, localFriendList)}, nil
+		return &sdkpb.GetFriendsResp{Friends: datautil.Batch(DbFriendToSdk, localFriendList)}, nil
 	}
 	blackSet := datautil.SliceSetAny(localBlackList, func(e *model_struct.LocalBlack) string {
 		return e.BlockUserID
@@ -182,10 +182,10 @@ func (r *Relation) GetFriends(ctx context.Context, req *sdkpb.GetFriendsReq) (*s
 			res = append(res, friend)
 		}
 	}
-	return &sdkpb.GetFriendsResp{Friends: datautil.Batch(FriendDbToSdk, res)}, nil
+	return &sdkpb.GetFriendsResp{Friends: datautil.Batch(DbFriendToSdk, res)}, nil
 }
 
-func (r *Relation) GetFriendsPage(ctx context.Context, offset, count int32, filterBlack bool) ([]*model_struct.LocalFriend, error) {
+func (r *Relation) GetFriendsPage(ctx context.Context, req *sdkpb.GetFriendsPageReq) (*sdkpb.GetFriendsPageResp, error) {
 	dataFetcher := datafetcher.NewDataFetcher(
 		r.db,
 		r.friendListTableName(),
@@ -212,10 +212,14 @@ func (r *Relation) GetFriendsPage(ctx context.Context, offset, count int32, filt
 	if err != nil {
 		return nil, err
 	}
-	if (!filterBlack) || len(localBlackList) == 0 {
-		return dataFetcher.FetchWithPagination(ctx, int(offset), int(count))
+	if (!req.FilterBlack) || len(localBlackList) == 0 {
+		res, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.Offset()), int(req.Pagination.ShowNumber))
+		if err != nil {
+			return nil, err
+		}
+		return &sdkpb.GetFriendsPageResp{Friends: datautil.Batch(DbFriendToSdk, res)}, nil
 	}
-	localFriendList, err := dataFetcher.FetchWithPagination(ctx, int(offset), int(count*2))
+	localFriendList, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.Offset()), int(req.Pagination.ShowNumber)*2)
 	if err != nil {
 		return nil, err
 	}
@@ -227,11 +231,11 @@ func (r *Relation) GetFriendsPage(ctx context.Context, offset, count int32, filt
 		if _, ok := blackUserIDs[friend.FriendUserID]; !ok {
 			res = append(res, friend)
 		}
-		if len(res) == int(count) {
+		if len(res) == int(req.Pagination.ShowNumber) {
 			break
 		}
 	}
-	return res, nil
+	return &sdkpb.GetFriendsPageResp{Friends: datautil.Batch(DbFriendToSdk, res)}, nil
 }
 
 func (r *Relation) SearchFriends(ctx context.Context, req *sdkpb.SearchFriendsReq) (*sdkpb.SearchFriendsResp, error) {
@@ -259,7 +263,7 @@ func (r *Relation) SearchFriends(ctx context.Context, req *sdkpb.SearchFriendsRe
 			relationship = sdkpb.Relationship_Friend
 		}
 		res = append(res, &sdkpb.SearchFriendsInfo{
-			Friend:       FriendDbToSdk(localFriend),
+			Friend:       DbFriendToSdk(localFriend),
 			Relationship: relationship,
 		})
 	}
@@ -294,7 +298,7 @@ func (r *Relation) GetBlacks(ctx context.Context, req *sdkpb.GetBlacksReq) (*sdk
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.GetBlacksResp{Blacks: datautil.Batch(BlackDbToSdk, res)}, nil
+	return &sdkpb.GetBlacksResp{Blacks: datautil.Batch(DbBlackToSdk, res)}, nil
 }
 
 func (r *Relation) UpdateFriends(ctx context.Context, req *sdkpb.UpdatesFriendsReq) (*sdkpb.UpdatesFriendsResp, error) {

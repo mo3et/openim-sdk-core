@@ -107,9 +107,12 @@ message GetFriendsResp {
 }
 
 message GetFriendsPageReq {
-
+  bool filterBlack = 1;
+  openim.sdk.common.RequestPagination pagination = 2;
 }
-message GetFriendsPageResp {}
+message GetFriendsPageResp {
+  repeated FriendInfo friends = 1;
+}
 
 message SearchFriendsReq {
   string keyword = 1;

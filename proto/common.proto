@@ -176,3 +176,7 @@ enum ApprovalStatus {
   Rejected = -1;
 }
 
+message RequestPagination {
+  int32 pageNumber = 1;
+  int32 showNumber = 2;
+}

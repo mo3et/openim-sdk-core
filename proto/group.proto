@@ -6,6 +6,20 @@ import "common.proto";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
+enum GroupStatus {
+  Default = 0;
+  Dismissed = 2;
+}
+
+enum GroupFilter {
+  All                   = 0;
+  Owner                 = 1;
+  Admin                 = 2;
+  OrdinaryUsers         = 3;
+  AdminAndOrdinaryUsers = 4;
+  OwnerAndAdmin         = 5;
+}
+
 message GroupInfo {
   string groupID = 1;
   string groupName = 2;
@@ -18,54 +32,53 @@ message GroupInfo {
   string ex = 9;
   int32 status = 10;
   string creatorUserID = 11;
-  int32 groupType = 12;
-  int32 needVerification = 13;
-  int32 lookMemberInfo = 14;
-  int32 applyMemberFriend = 15;
-  int64 notificationUpdateTime = 16;
-  string notificationUserID = 17;
-  string attachedInfo = 18;
+  int32 needVerification = 12;
+  int32 lookMemberInfo = 13;
+  int32 applyMemberFriend = 14;
+  int64 notificationUpdateTime = 15;
+  string notificationUserID = 16;
+  string attachedInfo = 17;
 }
 
 message GroupMemberInfo {
-  string groupID        = 1;
-  string userID         = 2;
-  string nickname       = 3;
-  string faceURL        = 4;
-  int32 roleLevel      = 5;
-  int64 joinTime       = 6;
-  int32 joinSource     = 7;
-  string inviterUserID  = 8;
-  int64 muteEndTime    = 9;
+  string groupID = 1;
+  string userID = 2;
+  string nickname = 3;
+  string faceURL = 4;
+  int32 roleLevel = 5;
+  int64 joinTime = 6;
+  int32 joinSource = 7;
+  string inviterUserID = 8;
+  int64 muteEndTime = 9;
   string operatorUserID = 10;
-  string ex             = 11;
-  string attachedInfo   = 12;
+  string ex = 11;
+  string attachedInfo = 12;
 }
 
-message GroupRequest {
-  string groupID       = 1;
-  string groupName     = 2;
-  string notification  = 3;
-  string introduction  = 4;
-  string groupFaceURL  = 5;
-  int64 createTime    = 6;
-  int32 status        = 7;
+message GroupRequestInfo {
+  string groupID = 1;
+  string groupName = 2;
+  string notification = 3;
+  string introduction = 4;
+  string groupFaceURL = 5;
+  int64 createTime = 6;
+  int32 status = 7;
   string creatorUserID = 8;
-  int32 groupType     = 9;
-  string ownerUserID   = 10;
-  int32 memberCount   = 11;
-  string userID        = 12;
-  string nickname      = 13;
-  string userFaceURL   = 14;
-  int32 handleResult  = 15;
-  string reqMsg        = 16;
-  string handledMsg    = 17;
-  int64 reqTime       = 18;
-  string handleUserID  = 19;
-  int64 handledTime   = 20;
-  string ex            = 21;
-  string attachedInfo  = 22;
-  int32 joinSource    = 23;
+  int32 groupType = 9;
+  string ownerUserID = 10;
+  int32 memberCount = 11;
+  string userID = 12;
+  string nickname = 13;
+  string userFaceURL = 14;
+  int32 handleResult = 15;
+  string reqMsg = 16;
+  string handledMsg = 17;
+  int64 reqTime = 18;
+  string handleUserID = 19;
+  int64 handledTime = 20;
+  string ex = 21;
+  string attachedInfo = 22;
+  int32 joinSource = 23;
   string inviterUserID = 24;
 }
 
@@ -150,6 +163,13 @@ message GetJoinedGroupsResp {
   repeated GroupInfo groups = 1;
 }
 
+message GetJoinedGroupsPageReq {
+  openim.sdk.common.RequestPagination pagination = 2;
+}
+message GetJoinedGroupsPageResp {
+  repeated GroupInfo groups = 1;
+}
+
 message GetSpecifiedGroupsInfoReq {
   repeated string groupIDs = 1;
 }
@@ -173,6 +193,16 @@ message GetGroupMemberOwnerAndAdminResp {
   repeated GroupMemberInfo members = 1;
 }
 
+message GetGroupMembersByJoinTimeFilterReq {
+  string groupID = 1;
+  int64 joinTimeBegin = 2;
+  int64 joinTimeEnd = 3;
+  openim.sdk.common.RequestPagination pagination = 4;
+}
+message GetGroupMembersByJoinTimeFilterResp {
+  repeated GroupMemberInfo members = 1;
+}
+
 message GetSpecifiedGroupMembersInfoReq {
   string groupID = 1;
   repeated string userIDs = 2;
@@ -181,11 +211,31 @@ message GetSpecifiedGroupMembersInfoResp {
   repeated GroupMemberInfo members = 1;
 }
 
+message GetGroupMembersReq {
+  string groupID = 1;
+  GroupFilter filter = 2;
+  openim.sdk.common.RequestPagination pagination = 4;
+}
+message GetGroupMembersResp {
+  repeated GroupMemberInfo members = 1;
+}
+
 message GetGroupRequestReq {
   bool send = 1;
 }
 message GetGroupRequestResp {
-  repeated GroupRequest requests = 1;
+  repeated GroupRequestInfo requests = 1;
+}
+
+message SearchGroupMembersReq {
+  string groupID = 1;
+  string Keyword = 2;
+  bool searchUserID = 3;
+  bool searchMemberNickname = 4;
+  openim.sdk.common.RequestPagination pagination = 5;
+}
+message SearchGroupMembersResp {
+  repeated GroupMemberInfo members = 1;
 }
 
 message IsJoinGroupReq {

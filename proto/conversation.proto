@@ -3,6 +3,8 @@ package openim.sdk.conversation;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
+import "group.proto";
+import "relation.proto";
 import "message.proto";
 
 message Conversation {
@@ -162,6 +164,8 @@ enum FuncRequestEventName{
   GetConversation = 3;
   InitSDK = 4;
   Login = 5;
+
+  EventOnSendMsgProgress =14;
   EventOnConnecting = 15;
   EventOnConnectSuccess = 16;
   EventOnConnectFailed = 17;
@@ -228,13 +232,13 @@ enum FuncRequestEventName{
   SetGroupInfo = 1008;
   SetGroupMemberInfo = 1009;
   GetJoinedGroups = 1010;
-  GetJoinedGroupListPage = 1011;
+  GetJoinedGroupsPage = 1011;
   GetSpecifiedGroupsInfo = 1012;
   SearchGroups = 1013;
   GetGroupMemberOwnerAndAdmin = 1014;
-  GetGroupMemberListByJoinTimeFilter = 1015;
+  GetGroupMembersByJoinTimeFilter = 1015;
   GetSpecifiedGroupMembersInfo = 1016;
-  GetGroupMemberList = 1017;
+  GetGroupMembers = 1017;
   GetGroupRequest = 1018;
   SearchGroupMembers = 1019;
   IsJoinGroup = 1020;
@@ -258,6 +262,14 @@ enum FuncRequestEventName{
   UpdateFriends = 1112;
 
 };
+
+message EventOnSendMsgProgressData{
+  int32 progress = 1;
+}
+
+message EventOnUploadFileProgressData{
+  int32 progress = 1;
+}
 
 message EventOnConnectingData {}
 message EventOnConnectSuccessData {}
@@ -321,84 +333,84 @@ message EventOnMsgEditedData {
 
 // FriendCallback Data Types
 message EventOnFriendApplicationAddedData {
-  string friendApplication = 1;
+  openim.sdk.relation.FriendRequestInfo request = 1;
 }
 
 message EventOnFriendApplicationDeletedData {
-  string friendApplication = 1;
+  openim.sdk.relation.FriendRequestInfo request = 1;
 }
 
 message EventOnFriendApplicationAcceptedData {
-  string friendApplication = 1;
+  openim.sdk.relation.FriendRequestInfo request = 1;
 }
 
 message EventOnFriendApplicationRejectedData {
-  string friendApplication = 1;
+  openim.sdk.relation.FriendRequestInfo request = 1;
 }
 
 message EventOnFriendAddedData {
-  string friendInfo = 1;
+  openim.sdk.relation.FriendInfo friend = 1;
 }
 
 message EventOnFriendDeletedData {
-  string friendInfo = 1;
+  openim.sdk.relation.FriendInfo friend = 1;
 }
 
 message EventOnFriendInfoChangedData {
-  string friendInfo = 1;
+  openim.sdk.relation.FriendInfo friend = 1;
 }
 
 message EventOnBlackAddedData {
-  string blackInfo = 1;
+  openim.sdk.relation.BlackInfo black = 1;
 }
 
 message EventOnBlackDeletedData {
-  string blackInfo = 1;
+  openim.sdk.relation.BlackInfo black = 1;
 }
 
 // GroupCallback Data Types
 message EventOnJoinedGroupAddedData {
-  string groupInfo = 1;
+  openim.sdk.group.GroupInfo group = 1;
 }
 
 message EventOnJoinedGroupDeletedData {
-  string groupInfo = 1;
+  openim.sdk.group.GroupInfo group = 1;
 }
 
 message EventOnGroupMemberAddedData {
-  string groupMemberInfo = 1;
+  openim.sdk.group.GroupMemberInfo member = 1;
 }
 
 message EventOnGroupMemberDeletedData {
-  string groupMemberInfo = 1;
+  openim.sdk.group.GroupMemberInfo member = 1;
 }
 
 message EventOnGroupApplicationAddedData {
-  string groupApplication = 1;
+  openim.sdk.group.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupApplicationDeletedData {
-  string groupApplication = 1;
+  openim.sdk.group.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupInfoChangedData {
-  string groupInfo = 1;
+  openim.sdk.group.GroupInfo group = 1;
 }
 
 message EventOnGroupDismissedData {
-  string groupInfo = 1;
+  openim.sdk.group.GroupInfo group = 1;
 }
 
 message EventOnGroupMemberInfoChangedData {
-  string groupMemberInfo = 1;
+  openim.sdk.group.GroupMemberInfo member = 1;
 }
 
 message EventOnGroupApplicationAcceptedData {
-  string groupApplication = 1;
+  openim.sdk.group.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupApplicationRejectedData {
-  string groupApplication = 1;
+  openim.sdk.group.GroupRequestInfo request = 1;
 }
 
 // CustomBusinessCallback Data Type
