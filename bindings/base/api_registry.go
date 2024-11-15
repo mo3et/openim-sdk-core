@@ -79,8 +79,9 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_InitSDK: Func(open_im_sdk.UserForSDK.InitSDK),
 	pb.FuncRequestEventName_Login:   Func(open_im_sdk.UserForSDK.Login),
 
-	pb.FuncRequestEventName_GetAllConversationList: Func(open_im_sdk.UserForSDK.Conversation().GetAllConversationList),
-	111:                                                     Func2(open_im_sdk.UserForSDK.Conversation().SendMessage),
+	pb.FuncRequestEventName_GetAllConversationList:   Func(open_im_sdk.UserForSDK.Conversation().GetAllConversationList),
+	pb.FuncRequestEventName_GetConversationListSplit: Func(open_im_sdk.UserForSDK.Conversation().GetConversationListSplit),
+
 	pb.FuncRequestEventName_CreateGroup:                     Func(open_im_sdk.UserForSDK.Group().CreateGroup),
 	pb.FuncRequestEventName_JoinGroup:                       Func(open_im_sdk.UserForSDK.Group().JoinGroup),
 	pb.FuncRequestEventName_QuitGroup:                       Func(open_im_sdk.UserForSDK.Group().QuitGroup),
