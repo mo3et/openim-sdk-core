@@ -2,6 +2,7 @@ package relation
 
 import (
 	"context"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"sync"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/user"
@@ -31,7 +32,7 @@ func NewRelation(conversationCh chan common.Cmd2Value, user *user.User) *Relatio
 }
 
 type Relation struct {
-	friendshipListener open_im_sdk_callback.OnFriendshipListenerSdk
+	friendshipListener func() open_im_sdk_callback.OnFriendshipListener
 	loginUserID        string
 	db                 db_interface.DataBase
 	user               *user.User
@@ -62,7 +63,7 @@ func (r *Relation) initSyncer() {
 		syncer.WithNotice[*model_struct.LocalFriend, relation.GetPaginationFriendsResp, [2]string](func(ctx context.Context, state int, server, local *model_struct.LocalFriend) error {
 			switch state {
 			case syncer.Insert:
-				r.friendshipListener.OnFriendAdded(*server)
+				r.friendshipListener().OnFriendAdded(&sdkpb.EventOnFriendAddedData{Friend: DbFriendToSdk(server)})
 				if server.Remark != "" {
 					server.Nickname = server.Remark
 				}
@@ -86,9 +87,9 @@ func (r *Relation) initSyncer() {
 				}, r.conversationCh)
 			case syncer.Delete:
 				log.ZDebug(ctx, "syncer OnFriendDeleted", "local", local)
-				r.friendshipListener.OnFriendDeleted(*local)
+				r.friendshipListener().OnFriendDeleted(&sdkpb.EventOnFriendDeletedData{Friend: DbFriendToSdk(local)})
 			case syncer.Update:
-				r.friendshipListener.OnFriendInfoChanged(*server)
+				r.friendshipListener().OnFriendInfoChanged(&sdkpb.EventOnFriendInfoChangedData{Friend: DbFriendToSdk(server)})
 				if local.Nickname != server.Nickname || local.FaceURL != server.FaceURL || local.Remark != server.Remark {
 					if server.Remark != "" {
 						server.Nickname = server.Remark
@@ -144,9 +145,9 @@ func (r *Relation) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalBlack) error {
 		switch state {
 		case syncer.Insert:
-			r.friendshipListener.OnBlackAdded(*server)
+			r.friendshipListener().OnBlackAdded(&sdkpb.EventOnBlackAddedData{Black: DbBlackToSdk(server)})
 		case syncer.Delete:
-			r.friendshipListener.OnBlackDeleted(*local)
+			r.friendshipListener().OnBlackDeleted(&sdkpb.EventOnBlackDeletedData{Black: DbBlackToSdk(local)})
 		}
 		return nil
 	})
@@ -161,17 +162,17 @@ func (r *Relation) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalFriendRequest) error {
 		switch state {
 		case syncer.Insert:
-			r.friendshipListener.OnFriendApplicationAdded(*server)
+			r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Request: DbFriendRequestToSdk(server)})
 		case syncer.Delete:
-			r.friendshipListener.OnFriendApplicationDeleted(*local)
+			r.friendshipListener().OnFriendApplicationDeleted(&sdkpb.EventOnFriendApplicationDeletedData{Request: DbFriendRequestToSdk(local)})
 		case syncer.Update:
-			switch server.HandleResult {
-			case constant.FriendResponseAgree:
-				r.friendshipListener.OnFriendApplicationAccepted(*server)
-			case constant.FriendResponseRefuse:
-				r.friendshipListener.OnFriendApplicationRejected(*server)
-			case constant.FriendResponseDefault:
-				r.friendshipListener.OnFriendApplicationAdded(*server)
+			switch sdkpb.ApprovalStatus(server.HandleResult) {
+			case sdkpb.ApprovalStatus_Approved:
+				r.friendshipListener().OnFriendApplicationAccepted(&sdkpb.EventOnFriendApplicationAcceptedData{Request: DbFriendRequestToSdk(server)})
+			case sdkpb.ApprovalStatus_Rejected:
+				r.friendshipListener().OnFriendApplicationRejected(&sdkpb.EventOnFriendApplicationRejectedData{Request: DbFriendRequestToSdk(server)})
+			default:
+				r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Request: DbFriendRequestToSdk(server)})
 			}
 		}
 		return nil
@@ -187,15 +188,15 @@ func (r *Relation) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalFriendRequest) error {
 		switch state {
 		case syncer.Insert:
-			r.friendshipListener.OnFriendApplicationAdded(*server)
+			r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Request: DbFriendRequestToSdk(server)})
 		case syncer.Delete:
-			r.friendshipListener.OnFriendApplicationDeleted(*local)
+			r.friendshipListener().OnFriendApplicationDeleted(&sdkpb.EventOnFriendApplicationDeletedData{Request: DbFriendRequestToSdk(local)})
 		case syncer.Update:
-			switch server.HandleResult {
-			case constant.FriendResponseAgree:
-				r.friendshipListener.OnFriendApplicationAccepted(*server)
-			case constant.FriendResponseRefuse:
-				r.friendshipListener.OnFriendApplicationRejected(*server)
+			switch sdkpb.ApprovalStatus(server.HandleResult) {
+			case sdkpb.ApprovalStatus_Approved:
+				r.friendshipListener().OnFriendApplicationAccepted(&sdkpb.EventOnFriendApplicationAcceptedData{Request: DbFriendRequestToSdk(server)})
+			case sdkpb.ApprovalStatus_Rejected:
+				r.friendshipListener().OnFriendApplicationRejected(&sdkpb.EventOnFriendApplicationRejectedData{Request: DbFriendRequestToSdk(server)})
 			}
 		}
 		return nil
@@ -207,7 +208,7 @@ func (r *Relation) Db() db_interface.DataBase {
 }
 
 func (r *Relation) SetListener(listener func() open_im_sdk_callback.OnFriendshipListener) {
-	r.friendshipListener = open_im_sdk_callback.NewOnFriendshipListenerSdk(listener)
+	r.friendshipListener = listener
 }
 
 func (r *Relation) SetListenerForService(listener open_im_sdk_callback.OnListenerForService) {

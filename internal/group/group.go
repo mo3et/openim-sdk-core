@@ -16,6 +16,7 @@ package group
 
 import (
 	"context"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"sync"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
@@ -29,7 +30,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/page"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/syncer"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	"github.com/openimsdk/protocol/group"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
@@ -95,7 +95,7 @@ func (g *Group) initSyncer() {
 			case syncer.Insert:
 				// when a user kicked to the group and invited to the group again, group info maybe updated,
 				// so conversation info need to be updated
-				g.listener().OnJoinedGroupAdded(utils.StructToJsonString(server))
+				g.listener().OnJoinedGroupAdded(&sdkpb.EventOnJoinedGroupAddedData{Group: DBGroupToSdk(server)})
 				_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{
 					Action: constant.UpdateConFaceUrlAndNickName,
 					Args: common.SourceIDAndSessionType{
@@ -105,17 +105,16 @@ func (g *Group) initSyncer() {
 				}, g.conversationCh)
 			case syncer.Delete:
 				local.MemberCount = 0
-				g.listener().OnJoinedGroupDeleted(utils.StructToJsonString(local))
+				g.listener().OnJoinedGroupDeleted(&sdkpb.EventOnJoinedGroupDeletedData{Group: DBGroupToSdk(local)})
 			case syncer.Update:
-				log.ZInfo(ctx, "groupSyncer trigger update", "groupID",
-					server.GroupID, "data", server, "isDismissed", server.Status == constant.GroupStatusDismissed)
-				if server.Status == constant.GroupStatusDismissed {
+				log.ZInfo(ctx, "groupSyncer trigger update", "groupID", server.GroupID, "data", server, "isDismissed", sdkpb.GroupStatus(server.Status) == sdkpb.GroupStatus_Dismissed)
+				if sdkpb.GroupStatus(server.Status) == sdkpb.GroupStatus_Dismissed {
 					if err := g.db.DeleteGroupAllMembers(ctx, server.GroupID); err != nil {
 						log.ZError(ctx, "delete group all members failed", err)
 					}
-					g.listener().OnGroupDismissed(utils.StructToJsonString(server))
+					g.listener().OnGroupDismissed(&sdkpb.EventOnGroupDismissedData{Group: DBGroupToSdk(server)})
 				} else {
-					g.listener().OnGroupInfoChanged(utils.StructToJsonString(server))
+					g.listener().OnGroupInfoChanged(&sdkpb.EventOnGroupInfoChangedData{Group: DBGroupToSdk(server)})
 					if server.GroupName != local.GroupName || local.FaceURL != server.FaceURL {
 						_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{
 							Action: constant.UpdateConFaceUrlAndNickName,
@@ -163,7 +162,7 @@ func (g *Group) initSyncer() {
 		syncer.WithNotice[*model_struct.LocalGroupMember, group.GetGroupMemberListResp, [2]string](func(ctx context.Context, state int, server, local *model_struct.LocalGroupMember) error {
 			switch state {
 			case syncer.Insert:
-				g.listener().OnGroupMemberAdded(utils.StructToJsonString(server))
+				g.listener().OnGroupMemberAdded(&sdkpb.EventOnGroupMemberAddedData{Member: DBGroupMemberToSdk(server)})
 				// When a user is kicked and invited to the group again, group member info will be updated.
 				_ = common.TriggerCmdUpdateMessage(ctx,
 					common.UpdateMessageNode{
@@ -174,9 +173,9 @@ func (g *Group) initSyncer() {
 						},
 					}, g.conversationCh)
 			case syncer.Delete:
-				g.listener().OnGroupMemberDeleted(utils.StructToJsonString(local))
+				g.listener().OnGroupMemberDeleted(&sdkpb.EventOnGroupMemberDeletedData{Member: DBGroupMemberToSdk(local)})
 			case syncer.Update:
-				g.listener().OnGroupMemberInfoChanged(utils.StructToJsonString(server))
+				g.listener().OnGroupMemberInfoChanged(&sdkpb.EventOnGroupMemberInfoChangedData{Member: DBGroupMemberToSdk(server)})
 				if server.Nickname != local.Nickname || server.FaceURL != local.FaceURL {
 					_ = common.TriggerCmdUpdateMessage(ctx,
 						common.UpdateMessageNode{
@@ -221,15 +220,15 @@ func (g *Group) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalGroupRequest) error {
 		switch state {
 		case syncer.Insert:
-			g.listener().OnGroupApplicationAdded(utils.StructToJsonString(server))
+			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToSdk(server)})
 		case syncer.Update:
-			switch server.HandleResult {
-			case constant.FriendResponseAgree:
-				g.listener().OnGroupApplicationAccepted(utils.StructToJsonString(server))
-			case constant.FriendResponseRefuse:
-				g.listener().OnGroupApplicationRejected(utils.StructToJsonString(server))
+			switch sdkpb.ApprovalStatus(server.HandleResult) {
+			case sdkpb.ApprovalStatus_Approved:
+				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Request: DBGroupRequestToSdk(server)})
+			case sdkpb.ApprovalStatus_Rejected:
+				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Request: DBGroupRequestToSdk(server)})
 			default:
-				g.listener().OnGroupApplicationAdded(utils.StructToJsonString(server))
+				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToSdk(server)})
 			}
 		}
 		return nil
@@ -246,15 +245,15 @@ func (g *Group) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalAdminGroupRequest) error {
 		switch state {
 		case syncer.Insert:
-			g.listener().OnGroupApplicationAdded(utils.StructToJsonString(server))
+			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBAdminGroupRequestToSdk(server)})
 		case syncer.Update:
-			switch server.HandleResult {
-			case constant.FriendResponseAgree:
-				g.listener().OnGroupApplicationAccepted(utils.StructToJsonString(server))
-			case constant.FriendResponseRefuse:
-				g.listener().OnGroupApplicationRejected(utils.StructToJsonString(server))
+			switch sdkpb.ApprovalStatus(server.HandleResult) {
+			case sdkpb.ApprovalStatus_Approved:
+				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Request: DBAdminGroupRequestToSdk(server)})
+			case sdkpb.ApprovalStatus_Rejected:
+				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Request: DBAdminGroupRequestToSdk(server)})
 			default:
-				g.listener().OnGroupApplicationAdded(utils.StructToJsonString(server))
+				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBAdminGroupRequestToSdk(server)})
 			}
 		}
 		return nil

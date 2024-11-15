@@ -36,9 +36,6 @@ import (
 )
 
 func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sdkpb.GroupInfo, error) {
-	if req.GroupInfo.GroupType != constant.WorkingGroup {
-		return nil, sdkerrs.ErrGroupType
-	}
 	req.GroupInfo.CreatorUserID = g.loginUserID
 	resp, err := g.createGroup(ctx, &group.CreateGroupReq{
 		MemberUserIDs: req.MemberUserIDs,
@@ -56,7 +53,7 @@ func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sd
 			Ex:                     req.GroupInfo.Ex,
 			Status:                 req.GroupInfo.Status,
 			CreatorUserID:          req.GroupInfo.CreatorUserID,
-			GroupType:              req.GroupInfo.GroupType,
+			GroupType:              constant.WorkingGroup,
 			NeedVerification:       req.GroupInfo.NeedVerification,
 			LookMemberInfo:         req.GroupInfo.LookMemberInfo,
 			ApplyMemberFriend:      req.GroupInfo.ApplyMemberFriend,

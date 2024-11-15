@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/utils/datautil"
 
@@ -186,8 +187,7 @@ func (g *Group) doNotification(ctx context.Context, msg *sdkws.MsgData) error {
 			if err := utils.UnmarshalNotificationElem(msg.Content, &detail); err != nil {
 				return err
 			}
-			g.listener().OnGroupDismissed(utils.StructToJsonString(detail.Group))
-
+			g.listener().OnGroupDismissed(&sdkpb.EventOnGroupDismissedData{Group: ServerGroupToSdk(detail.Group)})
 			return g.IncrSyncJoinGroup(ctx)
 		case constant.GroupMemberMutedNotification: // 1512
 			var detail sdkws.GroupMemberMutedTips
