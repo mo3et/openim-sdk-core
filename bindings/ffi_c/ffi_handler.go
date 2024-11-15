@@ -12,11 +12,14 @@ extern void CallCallBack(CallBack cb,char* dataPtr,int dataLength);
 import "C"
 
 import (
+	"context"
 	"fmt"
 	"sync"
+	"time"
 	"unsafe"
 
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
+	"github.com/openimsdk/tools/log"
 )
 
 var (
@@ -24,8 +27,13 @@ var (
 	mu        sync.Mutex
 )
 
+const (
+	checkTimePeriod = time.Minute * 1
+)
+
 func init() {
 	base.SetDispatchFfiResult(dispatchResultForC)
+	go monitorResultMapSize()
 }
 
 func dispatchResultForC(handleID uint64, data []byte) {
@@ -44,6 +52,22 @@ func dispatchResultForC(handleID uint64, data []byte) {
 	if C.eventCallBack != nil {
 		len := C.int(len(data))
 		C.CallCallBack(C.eventCallBack, (*C.char)(unsafe.Pointer(cData)), len)
+	}
+}
+func monitorResultMapSize() {
+	ticker := time.NewTicker(checkTimePeriod)
+	defer ticker.Stop()
+
+	for range ticker.C {
+		mu.Lock()
+		totalBytes := 0
+		for _, result := range resultMap {
+			totalBytes += result.length // Use the actual length stored in ResultData
+		}
+		totalMB := float64(totalBytes) / (1024 * 1024)
+		fmt.Printf("Current resultMap size: %.2f MB\n", totalMB)
+		log.ZDebug(context.Background(), fmt.Sprintf("Current resultMap size: %.2f MB", totalMB))
+		mu.Unlock()
 	}
 }
 
