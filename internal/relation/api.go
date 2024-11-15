@@ -2,6 +2,8 @@ package relation
 
 import (
 	"context"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	"github.com/openimsdk/protocol/wrapperspb"
 
 	"github.com/openimsdk/protocol/relation"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -9,14 +11,11 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/datafetcher"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	sdk "github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/server_api_params"
-
 	"github.com/openimsdk/tools/log"
 )
 
-func (r *Relation) GetSpecifiedFriendsInfo(ctx context.Context, friendUserIDList []string, filterBlack bool) ([]*model_struct.LocalFriend, error) {
+func (r *Relation) GetSpecifiedFriends(ctx context.Context, req *sdkpb.GetSpecifiedFriendsReq) (*sdkpb.GetSpecifiedFriendsResp, error) {
 	dataFetcher := datafetcher.NewDataFetcher(
 		r.db,
 		r.friendListTableName(),
@@ -39,20 +38,20 @@ func (r *Relation) GetSpecifiedFriendsInfo(ctx context.Context, friendUserIDList
 			return datautil.Batch(ServerFriendToLocalFriend, serverFriend), nil
 		},
 	)
-	localFriendList, err := dataFetcher.FetchMissingAndFillLocal(ctx, friendUserIDList)
+	localFriendList, err := dataFetcher.FetchMissingAndFillLocal(ctx, req.FriendUserIDs)
 	if err != nil {
 		return nil, err
 	}
-	if !filterBlack {
-		return localFriendList, nil
+	if !req.FilterBlack {
+		return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(FriendDbToSdk, localFriendList)}, nil
 	}
 	log.ZDebug(ctx, "GetDesignatedFriendsInfo", "localFriendList", localFriendList)
-	blackList, err := r.db.GetBlackInfoList(ctx, friendUserIDList)
+	blackList, err := r.db.GetBlackInfoList(ctx, req.FriendUserIDs)
 	if err != nil {
 		return nil, err
 	}
 	if len(blackList) == 0 {
-		return localFriendList, nil
+		return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(FriendDbToSdk, localFriendList)}, nil
 	}
 
 	log.ZDebug(ctx, "GetDesignatedFriendsInfo", "blackList", blackList)
@@ -65,62 +64,69 @@ func (r *Relation) GetSpecifiedFriendsInfo(ctx context.Context, friendUserIDList
 			res = append(res, localFriend)
 		}
 	}
-	return res, nil
+	return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(FriendDbToSdk, res)}, nil
 }
 
-func (r *Relation) AddFriend(ctx context.Context, req *relation.ApplyToAddFriendReq) error {
-	if err := r.addFriend(ctx, req); err != nil {
-		return err
+func (r *Relation) AddFriend(ctx context.Context, req *sdkpb.AddFriendReq) (*sdkpb.AddFriendResp, error) {
+	if err := r.addFriend(ctx, &relation.ApplyToAddFriendReq{ToUserID: req.UserID, ReqMsg: req.ReqMsg, Ex: req.Ex}); err != nil {
+		return nil, err
+	}
+	r.relationSyncMutex.Lock()
+	defer r.relationSyncMutex.Unlock()
+	if err := r.SyncAllSelfFriendApplication(ctx); err != nil {
+		return nil, err
+	}
+	return &sdkpb.AddFriendResp{}, nil
+}
+
+func (r *Relation) GetFriendRequests(ctx context.Context, req *sdkpb.GetFriendRequestsReq) (*sdkpb.GetFriendRequestsResp, error) {
+	var (
+		request []*model_struct.LocalFriendRequest
+		err     error
+	)
+	if req.Send {
+		request, err = r.db.GetSendFriendApplication(ctx)
+	} else {
+		request, err = r.db.GetRecvFriendApplication(ctx)
+	}
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.GetFriendRequestsResp{Requests: datautil.Batch(FriendRequestDbToSdk, request)}, nil
+}
+
+func (r *Relation) HandlerFriendRequest(ctx context.Context, req *sdkpb.HandlerFriendRequestReq) (*sdkpb.HandlerFriendRequestResp, error) {
+	var result int32
+	if req.Refuse {
+		result = constant.FriendResponseRefuse
+	} else {
+		result = constant.FriendResponseAgree
+	}
+	if err := r.addFriendResponse(ctx, &relation.RespondFriendApplyReq{FromUserID: req.UserID, HandleResult: result, HandleMsg: req.HandleMsg}); err != nil {
+		return nil, err
 	}
 	r.relationSyncMutex.Lock()
 	defer r.relationSyncMutex.Unlock()
 
-	return r.SyncAllSelfFriendApplication(ctx)
-}
-
-func (r *Relation) GetFriendApplicationListAsRecipient(ctx context.Context) ([]*model_struct.LocalFriendRequest, error) {
-	return r.db.GetRecvFriendApplication(ctx)
-}
-
-func (r *Relation) GetFriendApplicationListAsApplicant(ctx context.Context) ([]*model_struct.LocalFriendRequest, error) {
-	return r.db.GetSendFriendApplication(ctx)
-}
-
-func (r *Relation) AcceptFriendApplication(ctx context.Context, userIDHandleMsg *sdk.ProcessFriendApplicationParams) error {
-	return r.RespondFriendApply(ctx, &relation.RespondFriendApplyReq{FromUserID: userIDHandleMsg.ToUserID, ToUserID: r.loginUserID, HandleResult: constant.FriendResponseAgree, HandleMsg: userIDHandleMsg.HandleMsg})
-}
-
-func (r *Relation) RefuseFriendApplication(ctx context.Context, userIDHandleMsg *sdk.ProcessFriendApplicationParams) error {
-	return r.RespondFriendApply(ctx, &relation.RespondFriendApplyReq{FromUserID: userIDHandleMsg.ToUserID, ToUserID: r.loginUserID, HandleResult: constant.FriendResponseRefuse, HandleMsg: userIDHandleMsg.HandleMsg})
-}
-
-func (r *Relation) RespondFriendApply(ctx context.Context, req *relation.RespondFriendApplyReq) error {
-	if err := r.addFriendResponse(ctx, req); err != nil {
-		return err
-	}
-	r.relationSyncMutex.Lock()
-	defer r.relationSyncMutex.Unlock()
-
-	if req.HandleResult == constant.FriendResponseAgree {
+	if result == constant.FriendResponseAgree {
 		_ = r.IncrSyncFriends(ctx)
 	}
 	_ = r.SyncAllFriendApplication(ctx)
-	return nil
-	// return r.SyncFriendApplication(ctx)
+	return &sdkpb.HandlerFriendRequestResp{}, nil
 }
 
-func (r *Relation) CheckFriend(ctx context.Context, friendUserIDList []string) ([]*server_api_params.UserIDResult, error) {
-	friendList, err := r.db.GetFriendInfoList(ctx, friendUserIDList)
+func (r *Relation) CheckFriend(ctx context.Context, req *sdkpb.CheckFriendReq) (*sdkpb.CheckFriendResp, error) {
+	friendList, err := r.db.GetFriendInfoList(ctx, req.FriendUserIDs)
 	if err != nil {
 		return nil, err
 	}
-	blackList, err := r.db.GetBlackInfoList(ctx, friendUserIDList)
+	blackList, err := r.db.GetBlackInfoList(ctx, req.FriendUserIDs)
 	if err != nil {
 		return nil, err
 	}
-	res := make([]*server_api_params.UserIDResult, 0, len(friendUserIDList))
-	for _, v := range friendUserIDList {
-		var r server_api_params.UserIDResult
+	res := make([]*sdkpb.CheckFriendInfo, 0, len(req.FriendUserIDs))
+	for _, v := range req.FriendUserIDs {
+		var r sdkpb.CheckFriendInfo
 		isBlack := false
 		isFriend := false
 		for _, b := range blackList {
@@ -143,34 +149,36 @@ func (r *Relation) CheckFriend(ctx context.Context, friendUserIDList []string) (
 		}
 		res = append(res, &r)
 	}
-	return res, nil
+	return &sdkpb.CheckFriendResp{Result: res}, nil
 }
 
-func (r *Relation) DeleteFriend(ctx context.Context, friendUserID string) error {
-	if err := r.deleteFriend(ctx, friendUserID); err != nil {
-		return err
+func (r *Relation) DeleteFriend(ctx context.Context, req *sdkpb.DeleteFriendReq) (*sdkpb.DeleteFriendResp, error) {
+	if err := r.deleteFriend(ctx, req.UserID); err != nil {
+		return nil, err
 	}
 
 	r.relationSyncMutex.Lock()
 	defer r.relationSyncMutex.Unlock()
-
-	return r.IncrSyncFriends(ctx)
+	if err := r.IncrSyncFriends(ctx); err != nil {
+		return nil, err
+	}
+	return &sdkpb.DeleteFriendResp{}, nil
 }
 
-func (r *Relation) GetFriendList(ctx context.Context, filterBlack bool) ([]*model_struct.LocalFriend, error) {
+func (r *Relation) GetFriends(ctx context.Context, req *sdkpb.GetFriendsReq) (*sdkpb.GetFriendsResp, error) {
 	localFriendList, err := r.db.GetAllFriendList(ctx)
 	if err != nil {
 		return nil, err
 	}
-	if len(localFriendList) == 0 || !filterBlack {
-		return localFriendList, nil
+	if len(localFriendList) == 0 || !req.FilterBlack {
+		return &sdkpb.GetFriendsResp{Friends: datautil.Batch(FriendDbToSdk, localFriendList)}, nil
 	}
 	localBlackList, err := r.db.GetBlackListDB(ctx)
 	if err != nil {
 		return nil, err
 	}
 	if len(localBlackList) == 0 {
-		return localFriendList, nil
+		return &sdkpb.GetFriendsResp{Friends: datautil.Batch(FriendDbToSdk, localFriendList)}, nil
 	}
 	blackSet := datautil.SliceSetAny(localBlackList, func(e *model_struct.LocalBlack) string {
 		return e.BlockUserID
@@ -181,10 +189,10 @@ func (r *Relation) GetFriendList(ctx context.Context, filterBlack bool) ([]*mode
 			res = append(res, friend)
 		}
 	}
-	return res, nil
+	return &sdkpb.GetFriendsResp{Friends: datautil.Batch(FriendDbToSdk, res)}, nil
 }
 
-func (r *Relation) GetFriendListPage(ctx context.Context, offset, count int32, filterBlack bool) ([]*model_struct.LocalFriend, error) {
+func (r *Relation) GetFriendsPage(ctx context.Context, offset, count int32, filterBlack bool) ([]*model_struct.LocalFriend, error) {
 	dataFetcher := datafetcher.NewDataFetcher(
 		r.db,
 		r.friendListTableName(),
@@ -233,11 +241,11 @@ func (r *Relation) GetFriendListPage(ctx context.Context, offset, count int32, f
 	return res, nil
 }
 
-func (r *Relation) SearchFriends(ctx context.Context, param *sdk.SearchFriendsParam) ([]*sdk.SearchFriendItem, error) {
-	if len(param.KeywordList) == 0 || (!param.IsSearchNickname && !param.IsSearchUserID && !param.IsSearchRemark) {
+func (r *Relation) SearchFriends(ctx context.Context, req *sdkpb.SearchFriendsReq) (*sdkpb.SearchFriendsResp, error) {
+	if !req.SearchNickname && !req.SearchUserID && !req.SearchRemark {
 		return nil, sdkerrs.ErrArgs.WrapMsg("keyword is null or search field all false")
 	}
-	localFriendList, err := r.db.SearchFriendList(ctx, param.KeywordList[0], param.IsSearchUserID, param.IsSearchNickname, param.IsSearchRemark)
+	localFriendList, err := r.db.SearchFriendList(ctx, req.Keyword, req.SearchUserID, req.SearchNickname, req.SearchRemark)
 	if err != nil {
 		return nil, err
 	}
@@ -249,52 +257,97 @@ func (r *Relation) SearchFriends(ctx context.Context, param *sdk.SearchFriendsPa
 	for _, black := range localBlackList {
 		m[black.BlockUserID] = struct{}{}
 	}
-	res := make([]*sdk.SearchFriendItem, 0, len(localFriendList))
-	for i, localFriend := range localFriendList {
-		var relationship int
+	res := make([]*sdkpb.SearchFriendsInfo, 0, len(localFriendList))
+	for _, localFriend := range localFriendList {
+		var relationship int32
 		if _, ok := m[localFriend.FriendUserID]; ok {
 			relationship = constant.BlackRelationship
 		} else {
 			relationship = constant.FriendRelationship
 		}
-		res = append(res, &sdk.SearchFriendItem{
-			LocalFriend:  *localFriendList[i],
+		res = append(res, &sdkpb.SearchFriendsInfo{
+			Friend:       FriendDbToSdk(localFriend),
 			Relationship: relationship,
 		})
 	}
-	return res, nil
+	return &sdkpb.SearchFriendsResp{Friends: res}, nil
 }
 
-func (r *Relation) AddBlack(ctx context.Context, blackUserID string, ex string) error {
-	if err := r.addBlack(ctx, &relation.AddBlackReq{BlackUserID: blackUserID, Ex: ex}); err != nil {
-		return err
+func (r *Relation) AddBlack(ctx context.Context, req *sdkpb.AddBlackReq) (*sdkpb.AddBlackResp, error) {
+	if err := r.addBlack(ctx, &relation.AddBlackReq{BlackUserID: req.UserID, Ex: req.Ex}); err != nil {
+		return nil, err
 	}
-	return r.SyncAllBlackList(ctx)
-}
-
-func (r *Relation) RemoveBlack(ctx context.Context, blackUserID string) error {
-	if err := r.removeBlack(ctx, blackUserID); err != nil {
-		return err
+	if err := r.SyncAllBlackList(ctx); err != nil {
+		return nil, err
 	}
-
-	r.relationSyncMutex.Lock()
-	defer r.relationSyncMutex.Unlock()
-
-	return r.SyncAllBlackList(ctx)
+	return &sdkpb.AddBlackResp{}, nil
 }
 
-func (r *Relation) GetBlackList(ctx context.Context) ([]*model_struct.LocalBlack, error) {
-	return r.db.GetBlackListDB(ctx)
-}
-
-func (r *Relation) UpdateFriends(ctx context.Context, req *relation.UpdateFriendsReq) error {
-	req.OwnerUserID = r.loginUserID
-	if err := r.updateFriends(ctx, req); err != nil {
-		return err
+func (r *Relation) DeleteBlack(ctx context.Context, req *sdkpb.DeleteBlackReq) (*sdkpb.DeleteBlackResp, error) {
+	if err := r.removeBlack(ctx, req.UserID); err != nil {
+		return nil, err
 	}
 
 	r.relationSyncMutex.Lock()
 	defer r.relationSyncMutex.Unlock()
-
-	return r.IncrSyncFriends(ctx)
+	if err := r.SyncAllBlackList(ctx); err != nil {
+		return nil, err
+	}
+	return &sdkpb.DeleteBlackResp{}, nil
 }
+
+func (r *Relation) GetBlacks(ctx context.Context, req *sdkpb.GetBlacksReq) (*sdkpb.GetBlacksResp, error) {
+	res, err := r.db.GetBlackListDB(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.GetBlacksResp{Blacks: datautil.Batch(BlackDbToSdk, res)}, nil
+}
+
+func (r *Relation) UpdateFriends(ctx context.Context, req *sdkpb.UpdatesFriendsReq) (*sdkpb.UpdatesFriendsResp, error) {
+	sReq := &relation.UpdateFriendsReq{FriendUserIDs: req.UserIDs, IsPinned: wrapperspb.BoolPtr(req.Pinned), Remark: wrapperspb.StringPtr(req.Remark), Ex: wrapperspb.StringPtr(req.Ex)}
+	if err := r.updateFriends(ctx, sReq); err != nil {
+		return nil, err
+	}
+
+	r.relationSyncMutex.Lock()
+	defer r.relationSyncMutex.Unlock()
+	if err := r.IncrSyncFriends(ctx); err != nil {
+		return nil, err
+	}
+	return &sdkpb.UpdatesFriendsResp{}, nil
+}
+
+/*
+GetSpecifiedFriends
+AddFriend
+GetFriendRequests
+HandlerFriendRequest
+CheckFriend
+DeleteFriend
+GetFriends
+GetFriendListPage
+SearchFriends
+AddBlack
+DeleteBlack
+GetBlacks
+UpdateFriends
+
+
+pb.FuncRequestEventName_GetDesignatedFriendsApply:          Func(open_im_sdk.UserForSDK.Relation().GetDesignatedFriendsApply),
+
+pb.FuncRequestEventName_GetSpecifiedFriends:Func(open_im_sdk.UserForSDK.Relation().GetSpecifiedFriends),
+pb.FuncRequestEventName_AddFriend:Func(open_im_sdk.UserForSDK.Relation().AddFriend),
+pb.FuncRequestEventName_GetFriendRequests:Func(open_im_sdk.UserForSDK.Relation().GetFriendRequests),
+pb.FuncRequestEventName_HandlerFriendRequest:Func(open_im_sdk.UserForSDK.Relation().HandlerFriendRequest),
+pb.FuncRequestEventName_CheckFriend:Func(open_im_sdk.UserForSDK.Relation().CheckFriend),
+pb.FuncRequestEventName_DeleteFriend:Func(open_im_sdk.UserForSDK.Relation().DeleteFriend),
+pb.FuncRequestEventName_GetFriends:Func(open_im_sdk.UserForSDK.Relation().GetFriends),
+pb.FuncRequestEventName_GetFriendListPage:Func(open_im_sdk.UserForSDK.Relation().GetFriendListPage),
+pb.FuncRequestEventName_SearchFriends:Func(open_im_sdk.UserForSDK.Relation().SearchFriends),
+pb.FuncRequestEventName_AddBlack:Func(open_im_sdk.UserForSDK.Relation().AddBlack),
+pb.FuncRequestEventName_DeleteBlack:Func(open_im_sdk.UserForSDK.Relation().DeleteBlack),
+pb.FuncRequestEventName_GetBlacks:Func(open_im_sdk.UserForSDK.Relation().GetBlacks),
+pb.FuncRequestEventName_UpdateFriends:Func(open_im_sdk.UserForSDK.Relation().UpdateFriends),
+
+*/

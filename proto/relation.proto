@@ -1,0 +1,146 @@
+syntax = "proto3";
+package openim.sdk.relation;
+
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+option csharp_namespace = "OpenIM";
+
+message FriendInfo {
+  string ownerUserID    = 1;
+  string friendUserID   = 2;
+  string remark         = 3;
+  int64 createTime     = 4;
+  int32 addSource      = 5;
+  string operatorUserID = 6;
+  string nickname       = 7;
+  string faceURL        = 8;
+  string ex             = 9;
+  string attachedInfo   = 10;
+  bool isPinned       = 11;
+}
+
+message BlackInfo {
+  string ownerUserID = 1;
+  string blockUserID = 2;
+  string nickname = 3;
+  string faceURL = 4;
+  int64 createTime = 5;
+  int32 addSource = 6;
+  string operatorUserID = 7;
+  string ex = 8;
+  string attached = 9;
+}
+
+message FriendRequestInfo {
+  string fromUserID = 1;
+  string fromNickname = 2;
+  string fromFaceURL = 3;
+  string toUserID = 4;
+  string toNickname = 5;
+  string toFaceURL = 6;
+  int32 handleResult = 7;
+  string reqMsg = 8;
+  int64 createTime = 9;
+  string handlerUserID = 10;
+  string handleMsg = 11;
+  int64 handleTime = 12;
+  string ex = 13;
+  string attached = 14;
+}
+
+message GetSpecifiedFriendsReq {
+  repeated string friendUserIDs = 1;
+  bool filterBlack = 2;
+}
+message GetSpecifiedFriendsResp {
+  repeated FriendInfo friends = 1;
+}
+
+message AddFriendReq {
+  string userID = 1;
+  string reqMsg = 2;
+  string ex = 3;
+}
+message AddFriendResp {}
+
+message GetFriendRequestsReq {
+  bool send = 1;
+}
+message GetFriendRequestsResp {
+  repeated FriendRequestInfo requests = 1;
+}
+
+message HandlerFriendRequestReq {
+  string userID = 1;
+  string handleMsg = 2;
+  bool refuse = 3;
+}
+message HandlerFriendRequestResp {}
+
+message CheckFriendReq {
+  repeated string friendUserIDs = 1;
+}
+message CheckFriendInfo{
+  string userID = 1;
+  int32 result = 2;
+}
+message CheckFriendResp {
+  repeated CheckFriendInfo result = 1;
+}
+
+message DeleteFriendReq {
+  string userID = 1;
+}
+message DeleteFriendResp {}
+
+message GetFriendsReq {
+  bool filterBlack = 1;
+}
+message GetFriendsResp {
+  repeated FriendInfo friends = 1;
+}
+
+message GetFriendsPageReq {
+
+}
+message GetFriendsPageResp {}
+
+message SearchFriendsReq {
+  string keyword = 1;
+  bool searchUserID = 2;
+  bool searchNickname = 3;
+  bool searchRemark = 4;
+}
+message SearchFriendsInfo {
+    FriendInfo friend = 1;
+    int32 relationship = 2;
+}
+message SearchFriendsResp {
+  repeated SearchFriendsInfo friends = 1;
+}
+
+message AddBlackReq {
+  string userID = 1;
+  string ex = 2;
+}
+message AddBlackResp {}
+
+message DeleteBlackReq {
+  string userID = 1;
+}
+message DeleteBlackResp {}
+
+message GetBlacksReq {}
+message GetBlacksResp {
+  repeated BlackInfo blacks = 1;
+}
+
+message UpdatesFriendsReq {
+    repeated string userIDs = 1;
+    optional bool pinned = 2;
+    optional string Remark = 3;
+    optional string ex = 4;
+}
+message UpdatesFriendsResp {}
+
+
+

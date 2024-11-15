@@ -129,6 +129,20 @@ enum FuncRequestEventName{
   HandlerGroupRequest = 1023;
   GetGroupMemberInfo = 1024;
 
+  GetSpecifiedFriends = 1100;
+  AddFriend = 1101;
+  GetFriendRequests = 1102;
+  HandlerFriendRequest = 1103;
+  CheckFriend = 1104;
+  DeleteFriend = 1105;
+  GetFriends = 1106;
+  GetFriendsPage = 1107;
+  SearchFriends = 1108;
+  AddBlack = 1109;
+  DeleteBlack = 1110;
+  GetBlacks = 1111;
+  UpdateFriends = 1112;
+
 };
 
 message EventOnConnectingData {}

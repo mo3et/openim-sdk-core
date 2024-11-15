@@ -38,9 +38,11 @@ func Func[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
 }
 
 var FuncMap = map[pb.FuncRequestEventName]callFunc{
-	pb.FuncRequestEventName_InitSDK:                            Func(open_im_sdk.UserForSDK.InitSDK),
-	pb.FuncRequestEventName_Login:                              Func(open_im_sdk.UserForSDK.Login),
-	pb.FuncRequestEventName_GetAllConversationList:             Func(open_im_sdk.UserForSDK.Conversation().GetAllConversationList),
+	pb.FuncRequestEventName_InitSDK: Func(open_im_sdk.UserForSDK.InitSDK),
+	pb.FuncRequestEventName_Login:   Func(open_im_sdk.UserForSDK.Login),
+
+	pb.FuncRequestEventName_GetAllConversationList: Func(open_im_sdk.UserForSDK.Conversation().GetAllConversationList),
+
 	pb.FuncRequestEventName_CreateGroup:                        Func(open_im_sdk.UserForSDK.Group().CreateGroup),
 	pb.FuncRequestEventName_JoinGroup:                          Func(open_im_sdk.UserForSDK.Group().JoinGroup),
 	pb.FuncRequestEventName_QuitGroup:                          Func(open_im_sdk.UserForSDK.Group().QuitGroup),
@@ -66,4 +68,18 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_InviteUserToGroup:                  Func(open_im_sdk.UserForSDK.Group().InviteUserToGroup),
 	pb.FuncRequestEventName_HandlerGroupRequest:                Func(open_im_sdk.UserForSDK.Group().HandlerGroupRequest),
 	pb.FuncRequestEventName_GetGroupMemberInfo:                 Func(open_im_sdk.UserForSDK.Group().GetGroupMemberInfo),
+
+	pb.FuncRequestEventName_GetSpecifiedFriends:  Func(open_im_sdk.UserForSDK.Relation().GetSpecifiedFriends),
+	pb.FuncRequestEventName_AddFriend:            Func(open_im_sdk.UserForSDK.Relation().AddFriend),
+	pb.FuncRequestEventName_GetFriendRequests:    Func(open_im_sdk.UserForSDK.Relation().GetFriendRequests),
+	pb.FuncRequestEventName_HandlerFriendRequest: Func(open_im_sdk.UserForSDK.Relation().HandlerFriendRequest),
+	pb.FuncRequestEventName_CheckFriend:          Func(open_im_sdk.UserForSDK.Relation().CheckFriend),
+	pb.FuncRequestEventName_DeleteFriend:         Func(open_im_sdk.UserForSDK.Relation().DeleteFriend),
+	pb.FuncRequestEventName_GetFriends:           Func(open_im_sdk.UserForSDK.Relation().GetFriends),
+	pb.FuncRequestEventName_GetFriendsPage:       Func(open_im_sdk.UserForSDK.Relation().GetFriendsPage),
+	pb.FuncRequestEventName_SearchFriends:        Func(open_im_sdk.UserForSDK.Relation().SearchFriends),
+	pb.FuncRequestEventName_AddBlack:             Func(open_im_sdk.UserForSDK.Relation().AddBlack),
+	pb.FuncRequestEventName_DeleteBlack:          Func(open_im_sdk.UserForSDK.Relation().DeleteBlack),
+	pb.FuncRequestEventName_GetBlacks:            Func(open_im_sdk.UserForSDK.Relation().GetBlacks),
+	pb.FuncRequestEventName_UpdateFriends:        Func(open_im_sdk.UserForSDK.Relation().UpdateFriends),
 }

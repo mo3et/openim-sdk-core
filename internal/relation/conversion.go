@@ -2,6 +2,7 @@ package relation
 
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/sdkws"
 )
 
@@ -53,5 +54,54 @@ func ServerBlackToLocalBlack(info *sdkws.BlackInfo) *model_struct.LocalBlack {
 		FaceURL:        info.BlackUserInfo.FaceURL,
 		Ex:             info.Ex,
 		//AttachedInfo:   info.FriendUser.AttachedInfo,
+	}
+}
+
+func FriendDbToSdk(info *model_struct.LocalFriend) *sdkpb.FriendInfo {
+	return &sdkpb.FriendInfo{
+		OwnerUserID:    info.OwnerUserID,
+		FriendUserID:   info.FriendUserID,
+		Remark:         info.Remark,
+		CreateTime:     info.CreateTime,
+		AddSource:      info.AddSource,
+		OperatorUserID: info.OperatorUserID,
+		Nickname:       info.Nickname,
+		FaceURL:        info.FaceURL,
+		Ex:             info.Ex,
+		AttachedInfo:   info.AttachedInfo,
+		IsPinned:       info.IsPinned,
+	}
+}
+
+func FriendRequestDbToSdk(info *model_struct.LocalFriendRequest) *sdkpb.FriendRequestInfo {
+	return &sdkpb.FriendRequestInfo{
+		FromUserID:    info.FromUserID,
+		FromNickname:  info.FromNickname,
+		FromFaceURL:   info.FromFaceURL,
+		ToUserID:      info.ToUserID,
+		ToNickname:    info.ToNickname,
+		ToFaceURL:     info.ToFaceURL,
+		HandleResult:  info.HandleResult,
+		ReqMsg:        info.ReqMsg,
+		CreateTime:    info.CreateTime,
+		HandlerUserID: info.HandlerUserID,
+		HandleMsg:     info.HandleMsg,
+		HandleTime:    info.HandleTime,
+		Ex:            info.Ex,
+		Attached:      info.AttachedInfo,
+	}
+}
+
+func BlackDbToSdk(info *model_struct.LocalBlack) *sdkpb.BlackInfo {
+	return &sdkpb.BlackInfo{
+		OwnerUserID:    info.OwnerUserID,
+		BlockUserID:    info.BlockUserID,
+		Nickname:       info.Nickname,
+		FaceURL:        info.FaceURL,
+		CreateTime:     info.CreateTime,
+		AddSource:      info.AddSource,
+		OperatorUserID: info.OperatorUserID,
+		Ex:             info.Ex,
+		Attached:       info.AttachedInfo,
 	}
 }
