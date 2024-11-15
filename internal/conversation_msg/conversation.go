@@ -52,7 +52,7 @@ func (c *Conversation) setConversation(ctx context.Context, apiReq *pbConversati
 
 func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListParams, isReverse bool) (*sdkpb.GetAdvancedHistoryMessageListCallback, error) {
 	t := time.Now()
-	var messageListCallback sdk.GetAdvancedHistoryMessageListCallback
+	var messageListCallback sdkpb.GetAdvancedHistoryMessageListCallback
 	var conversationID string
 	var startTime int64
 	var err error
@@ -69,7 +69,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 	}
 	log.ZDebug(ctx, "Assembly conversation parameters", "cost time", time.Since(t), "conversationID",
 		conversationID, "startTime:", startTime, "count:", req.Count, "startTime", startTime)
-	list, err := c.fetchMessagesWithGapCheck(ctx, conversationID, req.Count, startTime, isReverse, &messageListCallback)
+	list, err := c.fetchMessagesWithGapCheck(ctx, conversationID, int(req.Count), startTime, isReverse, &messageListCallback)
 	if err != nil {
 		return nil, err
 	}
@@ -149,8 +149,8 @@ func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversati
 	return list, nil
 }
 
-func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sdk_struct.MsgStruct) {
-	messageList := make([]*sdk_struct.MsgStruct, 0, len(list))
+func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sdkpb.MsgStruct) {
+	messageList := make([]*sdkpb.MsgStruct, 0, len(list))
 	var thisMinSeq int64
 	for _, v := range list {
 		if v.Seq != 0 && thisMinSeq == 0 {

@@ -323,3 +323,23 @@ message GetAdvancedHistoryMessageListResp {
   GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
 }
 
+message GetAdvancedHistoryMessageListReverseReq {
+  string conversationID = 1;
+  GetAdvancedHistoryMessageListParams getAdvancedHistoryMessageListParams = 2;
+}
+message GetAdvancedHistoryMessageListReverseResp {
+  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
+}
+
+message RevokeMessageReq {
+  string conversationID = 1;
+  string clientMsgID = 2;
+}
+message RevokeMessageResp {}
+
+message TypingStatusUpdateReq {
+  string recvID = 1;
+  string msgTip = 2;
+}
+message TypingStatusUpdateResp {}
+

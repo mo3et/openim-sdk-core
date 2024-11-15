@@ -3229,6 +3229,294 @@ func (x *GetAdvancedHistoryMessageListResp) GetGetAdvancedHistoryMessageListCall
 	return nil
 }
 
+type GetAdvancedHistoryMessageListReverseReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationID                      string                               `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	GetAdvancedHistoryMessageListParams *GetAdvancedHistoryMessageListParams `protobuf:"bytes,2,opt,name=getAdvancedHistoryMessageListParams,proto3" json:"getAdvancedHistoryMessageListParams,omitempty"`
+}
+
+func (x *GetAdvancedHistoryMessageListReverseReq) Reset() {
+	*x = GetAdvancedHistoryMessageListReverseReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[38]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAdvancedHistoryMessageListReverseReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAdvancedHistoryMessageListReverseReq) ProtoMessage() {}
+
+func (x *GetAdvancedHistoryMessageListReverseReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[38]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAdvancedHistoryMessageListReverseReq.ProtoReflect.Descriptor instead.
+func (*GetAdvancedHistoryMessageListReverseReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *GetAdvancedHistoryMessageListReverseReq) GetConversationID() string {
+	if x != nil {
+		return x.ConversationID
+	}
+	return ""
+}
+
+func (x *GetAdvancedHistoryMessageListReverseReq) GetGetAdvancedHistoryMessageListParams() *GetAdvancedHistoryMessageListParams {
+	if x != nil {
+		return x.GetAdvancedHistoryMessageListParams
+	}
+	return nil
+}
+
+type GetAdvancedHistoryMessageListReverseResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GetAdvancedHistoryMessageListCallback *GetAdvancedHistoryMessageListCallback `protobuf:"bytes,1,opt,name=getAdvancedHistoryMessageListCallback,proto3" json:"getAdvancedHistoryMessageListCallback,omitempty"`
+}
+
+func (x *GetAdvancedHistoryMessageListReverseResp) Reset() {
+	*x = GetAdvancedHistoryMessageListReverseResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[39]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAdvancedHistoryMessageListReverseResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAdvancedHistoryMessageListReverseResp) ProtoMessage() {}
+
+func (x *GetAdvancedHistoryMessageListReverseResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[39]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAdvancedHistoryMessageListReverseResp.ProtoReflect.Descriptor instead.
+func (*GetAdvancedHistoryMessageListReverseResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *GetAdvancedHistoryMessageListReverseResp) GetGetAdvancedHistoryMessageListCallback() *GetAdvancedHistoryMessageListCallback {
+	if x != nil {
+		return x.GetAdvancedHistoryMessageListCallback
+	}
+	return nil
+}
+
+type RevokeMessageReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
+}
+
+func (x *RevokeMessageReq) Reset() {
+	*x = RevokeMessageReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[40]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RevokeMessageReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeMessageReq) ProtoMessage() {}
+
+func (x *RevokeMessageReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[40]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeMessageReq.ProtoReflect.Descriptor instead.
+func (*RevokeMessageReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *RevokeMessageReq) GetConversationID() string {
+	if x != nil {
+		return x.ConversationID
+	}
+	return ""
+}
+
+func (x *RevokeMessageReq) GetClientMsgID() string {
+	if x != nil {
+		return x.ClientMsgID
+	}
+	return ""
+}
+
+type RevokeMessageResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *RevokeMessageResp) Reset() {
+	*x = RevokeMessageResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[41]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RevokeMessageResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeMessageResp) ProtoMessage() {}
+
+func (x *RevokeMessageResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[41]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeMessageResp.ProtoReflect.Descriptor instead.
+func (*RevokeMessageResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{41}
+}
+
+type TypingStatusUpdateReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	RecvID string `protobuf:"bytes,1,opt,name=recvID,proto3" json:"recvID,omitempty"`
+	MsgTip string `protobuf:"bytes,2,opt,name=msgTip,proto3" json:"msgTip,omitempty"`
+}
+
+func (x *TypingStatusUpdateReq) Reset() {
+	*x = TypingStatusUpdateReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[42]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TypingStatusUpdateReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TypingStatusUpdateReq) ProtoMessage() {}
+
+func (x *TypingStatusUpdateReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[42]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TypingStatusUpdateReq.ProtoReflect.Descriptor instead.
+func (*TypingStatusUpdateReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *TypingStatusUpdateReq) GetRecvID() string {
+	if x != nil {
+		return x.RecvID
+	}
+	return ""
+}
+
+func (x *TypingStatusUpdateReq) GetMsgTip() string {
+	if x != nil {
+		return x.MsgTip
+	}
+	return ""
+}
+
+type TypingStatusUpdateResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *TypingStatusUpdateResp) Reset() {
+	*x = TypingStatusUpdateResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[43]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TypingStatusUpdateResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TypingStatusUpdateResp) ProtoMessage() {}
+
+func (x *TypingStatusUpdateResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[43]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TypingStatusUpdateResp.ProtoReflect.Descriptor instead.
+func (*TypingStatusUpdateResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{43}
+}
+
 var File_message_proto protoreflect.FileDescriptor
 
 var file_message_proto_rawDesc = []byte{
@@ -3757,11 +4045,50 @@ var file_message_proto_rawDesc = []byte{
 	0x73, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x52, 0x25, 0x67, 0x65, 0x74, 0x41,
 	0x64, 0x76, 0x61, 0x6e, 0x63, 0x65, 0x64, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65,
 	0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63,
-	0x6b, 0x42, 0x38, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
-	0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d,
-	0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x6b, 0x22, 0xdd, 0x01, 0x0a, 0x27, 0x47, 0x65, 0x74, 0x41, 0x64, 0x76, 0x61, 0x6e, 0x63, 0x65,
+	0x64, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a,
+	0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x89, 0x01, 0x0a, 0x23, 0x67, 0x65, 0x74, 0x41, 0x64, 0x76,
+	0x61, 0x6e, 0x63, 0x65, 0x64, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x37, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b,
+	0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x64, 0x76, 0x61,
+	0x6e, 0x63, 0x65, 0x64, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x23, 0x67, 0x65,
+	0x74, 0x41, 0x64, 0x76, 0x61, 0x6e, 0x63, 0x65, 0x64, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x22, 0xbc, 0x01, 0x0a, 0x28, 0x47, 0x65, 0x74, 0x41, 0x64, 0x76, 0x61, 0x6e, 0x63, 0x65,
+	0x64, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x8f,
+	0x01, 0x0a, 0x25, 0x67, 0x65, 0x74, 0x41, 0x64, 0x76, 0x61, 0x6e, 0x63, 0x65, 0x64, 0x48, 0x69,
+	0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74,
+	0x43, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x39,
+	0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x64, 0x76, 0x61, 0x6e, 0x63, 0x65, 0x64, 0x48,
+	0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73,
+	0x74, 0x43, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x52, 0x25, 0x67, 0x65, 0x74, 0x41, 0x64,
+	0x76, 0x61, 0x6e, 0x63, 0x65, 0x64, 0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b,
+	0x22, 0x5c, 0x0a, 0x10, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x20, 0x0a, 0x0b,
+	0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4d, 0x73, 0x67, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0b, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4d, 0x73, 0x67, 0x49, 0x44, 0x22, 0x13,
+	0x0a, 0x11, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x22, 0x47, 0x0a, 0x15, 0x54, 0x79, 0x70, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x16, 0x0a, 0x06,
+	0x72, 0x65, 0x63, 0x76, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72, 0x65,
+	0x63, 0x76, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x73, 0x67, 0x54, 0x69, 0x70, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6d, 0x73, 0x67, 0x54, 0x69, 0x70, 0x22, 0x18, 0x0a, 0x16,
+	0x54, 0x79, 0x70, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x42, 0x38, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
+	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f,
+	0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76,
+	0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3776,52 +4103,58 @@ func file_message_proto_rawDescGZIP() []byte {
 	return file_message_proto_rawDescData
 }
 
-var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
+var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 44)
 var file_message_proto_goTypes = []interface{}{
-	(*MessageReceipt)(nil),                        // 0: openim.sdk.message.MessageReceipt
-	(*MessageRevoked)(nil),                        // 1: openim.sdk.message.MessageRevoked
-	(*MessageReaction)(nil),                       // 2: openim.sdk.message.MessageReaction
-	(*ImageInfo)(nil),                             // 3: openim.sdk.message.ImageInfo
-	(*PictureBaseInfo)(nil),                       // 4: openim.sdk.message.PictureBaseInfo
-	(*SoundBaseInfo)(nil),                         // 5: openim.sdk.message.SoundBaseInfo
-	(*VideoBaseInfo)(nil),                         // 6: openim.sdk.message.VideoBaseInfo
-	(*FileBaseInfo)(nil),                          // 7: openim.sdk.message.FileBaseInfo
-	(*TextElem)(nil),                              // 8: openim.sdk.message.TextElem
-	(*CardElem)(nil),                              // 9: openim.sdk.message.CardElem
-	(*PictureElem)(nil),                           // 10: openim.sdk.message.PictureElem
-	(*SoundElem)(nil),                             // 11: openim.sdk.message.SoundElem
-	(*VideoElem)(nil),                             // 12: openim.sdk.message.VideoElem
-	(*FileElem)(nil),                              // 13: openim.sdk.message.FileElem
-	(*MergeElem)(nil),                             // 14: openim.sdk.message.MergeElem
-	(*AtTextElem)(nil),                            // 15: openim.sdk.message.AtTextElem
-	(*FaceElem)(nil),                              // 16: openim.sdk.message.FaceElem
-	(*LocationElem)(nil),                          // 17: openim.sdk.message.LocationElem
-	(*CustomElem)(nil),                            // 18: openim.sdk.message.CustomElem
-	(*QuoteElem)(nil),                             // 19: openim.sdk.message.QuoteElem
-	(*NotificationElem)(nil),                      // 20: openim.sdk.message.NotificationElem
-	(*AdvancedTextElem)(nil),                      // 21: openim.sdk.message.AdvancedTextElem
-	(*TypingElem)(nil),                            // 22: openim.sdk.message.TypingElem
-	(*StreamElem)(nil),                            // 23: openim.sdk.message.StreamElem
-	(*AtInfo)(nil),                                // 24: openim.sdk.message.AtInfo
-	(*AttachedInfoElem)(nil),                      // 25: openim.sdk.message.AttachedInfoElem
-	(*UploadProgress)(nil),                        // 26: openim.sdk.message.UploadProgress
-	(*ReactionElem)(nil),                          // 27: openim.sdk.message.ReactionElem
-	(*UserReactionElem)(nil),                      // 28: openim.sdk.message.UserReactionElem
-	(*MessageEntity)(nil),                         // 29: openim.sdk.message.MessageEntity
-	(*GroupHasReadInfo)(nil),                      // 30: openim.sdk.message.GroupHasReadInfo
-	(*MsgStruct)(nil),                             // 31: openim.sdk.message.MsgStruct
-	(*GetAdvancedHistoryMessageListParams)(nil),   // 32: openim.sdk.message.GetAdvancedHistoryMessageListParams
-	(*GetAdvancedHistoryMessageListCallback)(nil), // 33: openim.sdk.message.GetAdvancedHistoryMessageListCallback
-	(*SendMessageReq)(nil),                        // 34: openim.sdk.message.SendMessageReq
-	(*SendMessageResp)(nil),                       // 35: openim.sdk.message.SendMessageResp
-	(*GetAdvancedHistoryMessageListReq)(nil),      // 36: openim.sdk.message.GetAdvancedHistoryMessageListReq
-	(*GetAdvancedHistoryMessageListResp)(nil),     // 37: openim.sdk.message.GetAdvancedHistoryMessageListResp
-	(SessionType)(0),                              // 38: openim.sdk.common.SessionType
-	(MsgFrom)(0),                                  // 39: openim.sdk.common.MsgFrom
-	(ContentType)(0),                              // 40: openim.sdk.common.ContentType
-	(Platform)(0),                                 // 41: openim.sdk.common.Platform
-	(MsgStatus)(0),                                // 42: openim.sdk.common.MsgStatus
-	(*OfflinePushInfo)(nil),                       // 43: openim.sdk.common.OfflinePushInfo
+	(*MessageReceipt)(nil),                           // 0: openim.sdk.message.MessageReceipt
+	(*MessageRevoked)(nil),                           // 1: openim.sdk.message.MessageRevoked
+	(*MessageReaction)(nil),                          // 2: openim.sdk.message.MessageReaction
+	(*ImageInfo)(nil),                                // 3: openim.sdk.message.ImageInfo
+	(*PictureBaseInfo)(nil),                          // 4: openim.sdk.message.PictureBaseInfo
+	(*SoundBaseInfo)(nil),                            // 5: openim.sdk.message.SoundBaseInfo
+	(*VideoBaseInfo)(nil),                            // 6: openim.sdk.message.VideoBaseInfo
+	(*FileBaseInfo)(nil),                             // 7: openim.sdk.message.FileBaseInfo
+	(*TextElem)(nil),                                 // 8: openim.sdk.message.TextElem
+	(*CardElem)(nil),                                 // 9: openim.sdk.message.CardElem
+	(*PictureElem)(nil),                              // 10: openim.sdk.message.PictureElem
+	(*SoundElem)(nil),                                // 11: openim.sdk.message.SoundElem
+	(*VideoElem)(nil),                                // 12: openim.sdk.message.VideoElem
+	(*FileElem)(nil),                                 // 13: openim.sdk.message.FileElem
+	(*MergeElem)(nil),                                // 14: openim.sdk.message.MergeElem
+	(*AtTextElem)(nil),                               // 15: openim.sdk.message.AtTextElem
+	(*FaceElem)(nil),                                 // 16: openim.sdk.message.FaceElem
+	(*LocationElem)(nil),                             // 17: openim.sdk.message.LocationElem
+	(*CustomElem)(nil),                               // 18: openim.sdk.message.CustomElem
+	(*QuoteElem)(nil),                                // 19: openim.sdk.message.QuoteElem
+	(*NotificationElem)(nil),                         // 20: openim.sdk.message.NotificationElem
+	(*AdvancedTextElem)(nil),                         // 21: openim.sdk.message.AdvancedTextElem
+	(*TypingElem)(nil),                               // 22: openim.sdk.message.TypingElem
+	(*StreamElem)(nil),                               // 23: openim.sdk.message.StreamElem
+	(*AtInfo)(nil),                                   // 24: openim.sdk.message.AtInfo
+	(*AttachedInfoElem)(nil),                         // 25: openim.sdk.message.AttachedInfoElem
+	(*UploadProgress)(nil),                           // 26: openim.sdk.message.UploadProgress
+	(*ReactionElem)(nil),                             // 27: openim.sdk.message.ReactionElem
+	(*UserReactionElem)(nil),                         // 28: openim.sdk.message.UserReactionElem
+	(*MessageEntity)(nil),                            // 29: openim.sdk.message.MessageEntity
+	(*GroupHasReadInfo)(nil),                         // 30: openim.sdk.message.GroupHasReadInfo
+	(*MsgStruct)(nil),                                // 31: openim.sdk.message.MsgStruct
+	(*GetAdvancedHistoryMessageListParams)(nil),      // 32: openim.sdk.message.GetAdvancedHistoryMessageListParams
+	(*GetAdvancedHistoryMessageListCallback)(nil),    // 33: openim.sdk.message.GetAdvancedHistoryMessageListCallback
+	(*SendMessageReq)(nil),                           // 34: openim.sdk.message.SendMessageReq
+	(*SendMessageResp)(nil),                          // 35: openim.sdk.message.SendMessageResp
+	(*GetAdvancedHistoryMessageListReq)(nil),         // 36: openim.sdk.message.GetAdvancedHistoryMessageListReq
+	(*GetAdvancedHistoryMessageListResp)(nil),        // 37: openim.sdk.message.GetAdvancedHistoryMessageListResp
+	(*GetAdvancedHistoryMessageListReverseReq)(nil),  // 38: openim.sdk.message.GetAdvancedHistoryMessageListReverseReq
+	(*GetAdvancedHistoryMessageListReverseResp)(nil), // 39: openim.sdk.message.GetAdvancedHistoryMessageListReverseResp
+	(*RevokeMessageReq)(nil),                         // 40: openim.sdk.message.RevokeMessageReq
+	(*RevokeMessageResp)(nil),                        // 41: openim.sdk.message.RevokeMessageResp
+	(*TypingStatusUpdateReq)(nil),                    // 42: openim.sdk.message.TypingStatusUpdateReq
+	(*TypingStatusUpdateResp)(nil),                   // 43: openim.sdk.message.TypingStatusUpdateResp
+	(SessionType)(0),                                 // 44: openim.sdk.common.SessionType
+	(MsgFrom)(0),                                     // 45: openim.sdk.common.MsgFrom
+	(ContentType)(0),                                 // 46: openim.sdk.common.ContentType
+	(Platform)(0),                                    // 47: openim.sdk.common.Platform
+	(MsgStatus)(0),                                   // 48: openim.sdk.common.MsgStatus
+	(*OfflinePushInfo)(nil),                          // 49: openim.sdk.common.OfflinePushInfo
 }
 var file_message_proto_depIdxs = []int32{
 	4,  // 0: openim.sdk.message.PictureElem.sourcePicture:type_name -> openim.sdk.message.PictureBaseInfo
@@ -3837,12 +4170,12 @@ var file_message_proto_depIdxs = []int32{
 	30, // 10: openim.sdk.message.AttachedInfoElem.groupHasReadInfo:type_name -> openim.sdk.message.GroupHasReadInfo
 	26, // 11: openim.sdk.message.AttachedInfoElem.progress:type_name -> openim.sdk.message.UploadProgress
 	28, // 12: openim.sdk.message.ReactionElem.userReactionList:type_name -> openim.sdk.message.UserReactionElem
-	38, // 13: openim.sdk.message.MsgStruct.sessionType:type_name -> openim.sdk.common.SessionType
-	39, // 14: openim.sdk.message.MsgStruct.msgFrom:type_name -> openim.sdk.common.MsgFrom
-	40, // 15: openim.sdk.message.MsgStruct.contentType:type_name -> openim.sdk.common.ContentType
-	41, // 16: openim.sdk.message.MsgStruct.senderPlatformID:type_name -> openim.sdk.common.Platform
-	42, // 17: openim.sdk.message.MsgStruct.status:type_name -> openim.sdk.common.MsgStatus
-	43, // 18: openim.sdk.message.MsgStruct.offlinePush:type_name -> openim.sdk.common.OfflinePushInfo
+	44, // 13: openim.sdk.message.MsgStruct.sessionType:type_name -> openim.sdk.common.SessionType
+	45, // 14: openim.sdk.message.MsgStruct.msgFrom:type_name -> openim.sdk.common.MsgFrom
+	46, // 15: openim.sdk.message.MsgStruct.contentType:type_name -> openim.sdk.common.ContentType
+	47, // 16: openim.sdk.message.MsgStruct.senderPlatformID:type_name -> openim.sdk.common.Platform
+	48, // 17: openim.sdk.message.MsgStruct.status:type_name -> openim.sdk.common.MsgStatus
+	49, // 18: openim.sdk.message.MsgStruct.offlinePush:type_name -> openim.sdk.common.OfflinePushInfo
 	8,  // 19: openim.sdk.message.MsgStruct.textElem:type_name -> openim.sdk.message.TextElem
 	9,  // 20: openim.sdk.message.MsgStruct.cardElem:type_name -> openim.sdk.message.CardElem
 	10, // 21: openim.sdk.message.MsgStruct.pictureElem:type_name -> openim.sdk.message.PictureElem
@@ -3862,15 +4195,17 @@ var file_message_proto_depIdxs = []int32{
 	25, // 35: openim.sdk.message.MsgStruct.attachedInfoElem:type_name -> openim.sdk.message.AttachedInfoElem
 	31, // 36: openim.sdk.message.GetAdvancedHistoryMessageListCallback.messageList:type_name -> openim.sdk.message.MsgStruct
 	31, // 37: openim.sdk.message.SendMessageReq.message:type_name -> openim.sdk.message.MsgStruct
-	43, // 38: openim.sdk.message.SendMessageReq.offlinePushInfo:type_name -> openim.sdk.common.OfflinePushInfo
+	49, // 38: openim.sdk.message.SendMessageReq.offlinePushInfo:type_name -> openim.sdk.common.OfflinePushInfo
 	31, // 39: openim.sdk.message.SendMessageResp.message:type_name -> openim.sdk.message.MsgStruct
 	32, // 40: openim.sdk.message.GetAdvancedHistoryMessageListReq.getAdvancedHistoryMessageListParams:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListParams
 	33, // 41: openim.sdk.message.GetAdvancedHistoryMessageListResp.getAdvancedHistoryMessageListCallback:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListCallback
-	42, // [42:42] is the sub-list for method output_type
-	42, // [42:42] is the sub-list for method input_type
-	42, // [42:42] is the sub-list for extension type_name
-	42, // [42:42] is the sub-list for extension extendee
-	0,  // [0:42] is the sub-list for field type_name
+	32, // 42: openim.sdk.message.GetAdvancedHistoryMessageListReverseReq.getAdvancedHistoryMessageListParams:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListParams
+	33, // 43: openim.sdk.message.GetAdvancedHistoryMessageListReverseResp.getAdvancedHistoryMessageListCallback:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListCallback
+	44, // [44:44] is the sub-list for method output_type
+	44, // [44:44] is the sub-list for method input_type
+	44, // [44:44] is the sub-list for extension type_name
+	44, // [44:44] is the sub-list for extension extendee
+	0,  // [0:44] is the sub-list for field type_name
 }
 
 func init() { file_message_proto_init() }
@@ -4336,6 +4671,78 @@ func file_message_proto_init() {
 				return nil
 			}
 		}
+		file_message_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAdvancedHistoryMessageListReverseReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAdvancedHistoryMessageListReverseResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RevokeMessageReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RevokeMessageResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TypingStatusUpdateReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TypingStatusUpdateResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_message_proto_msgTypes[31].OneofWrappers = []interface{}{
 		(*MsgStruct_TextElem)(nil),
@@ -4361,7 +4768,7 @@ func file_message_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   38,
+			NumMessages:   44,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

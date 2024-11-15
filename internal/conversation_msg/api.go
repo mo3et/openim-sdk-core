@@ -3,6 +3,8 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
+	pbConversation "github.com/openimsdk/protocol/conversation"
+	"github.com/openimsdk/tools/utils/stringutil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -10,8 +12,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
-	pbConversation "github.com/openimsdk/protocol/conversation"
 
 	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -36,6 +36,10 @@ import (
 	"github.com/openimsdk/protocol/sdkws"
 
 	"github.com/jinzhu/copier"
+)
+
+var (
+	msgContentTypeErr = errs.New("message content not match contentType")
 )
 
 func (c *Conversation) GetAllConversationList(ctx context.Context, req *sdkpb.GetAllConversationListReq) (*sdkpb.GetAllConversationListResp, error) {
@@ -180,7 +184,7 @@ func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) 
 
 }
 
-func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status int32, s *sdkpb.MsgStruct,
+func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status sdkpb.MsgStatus, s *sdkpb.MsgStruct,
 	lc *model_struct.LocalConversation, isOnlineOnly bool) {
 	log.ZDebug(ctx, "this is test send message ", "sendTime", sendTime, "status", status, "clientMsgID", clientMsgID, "serverMsgID", serverMsgID)
 	if isOnlineOnly {
@@ -189,7 +193,7 @@ func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context
 	s.SendTime = sendTime
 	s.Status = status
 	s.ServerMsgID = serverMsgID
-	err := c.db.UpdateMessageTimeAndStatus(ctx, lc.ConversationID, clientMsgID, serverMsgID, sendTime, status)
+	err := c.db.UpdateMessageTimeAndStatus(ctx, lc.ConversationID, clientMsgID, serverMsgID, sendTime, int32(status))
 	if err != nil {
 		log.ZWarn(ctx, "send message update message status error", err,
 			"sendTime", sendTime, "status", status, "clientMsgID", clientMsgID, "serverMsgID", serverMsgID)
@@ -241,10 +245,13 @@ func (c *Conversation) checkID(ctx context.Context, s *sdkpb.MsgStruct,
 				s.SenderNickname = gm.Nickname
 			}
 		} else { //Maybe the group member information hasn't been pulled locally yet.
-			gm, err := c.group.GetSpecifiedGroupMembersInfo(ctx, groupID, []string{c.loginUserID})
-			if err == nil && gm != nil {
-				if gm[0].Nickname != "" {
-					s.SenderNickname = gm[0].Nickname
+			gm, err := c.group.GetSpecifiedGroupMembersInfo(ctx, &sdkpb.GetSpecifiedGroupMembersInfoReq{
+				GroupID: groupID,
+				UserIDs: []string{c.loginUserID},
+			})
+			if err == nil && gm.Members != nil {
+				if gm.Members[0].Nickname != "" {
+					s.SenderNickname = gm.Members[0].Nickname
 				}
 			}
 		}
@@ -300,12 +307,39 @@ func (c *Conversation) GetConversationIDBySessionType(ctx context.Context, req *
 	return &sdkpb.GetConversationIDBySessionTypeResp{ConversationID: conversationID}, nil
 }
 
-func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageReq, callback open_im_sdk_callback.SendMsgCallBack) (*sdkpb.SendMessageResp, error) {
+func getMsgUrl(msg *sdkpb.MsgStruct) string {
+	switch msg.ContentType {
+	case sdkpb.ContentType_File:
+		if c, ok := msg.Content.(*sdkpb.MsgStruct_FileElem); ok {
+			return c.FileElem.SourceURL
+		}
+	case sdkpb.ContentType_Sound:
+		if c, ok := msg.Content.(*sdkpb.MsgStruct_SoundElem); ok {
+			return c.SoundElem.SourceURL
+		}
+	case sdkpb.ContentType_Video:
+		if c, ok := msg.Content.(*sdkpb.MsgStruct_VideoElem); ok {
+			return c.VideoElem.VideoURL
+		}
+	case sdkpb.ContentType_Picture:
+		if c, ok := msg.Content.(*sdkpb.MsgStruct_PictureElem); ok {
+			firstNotNil := func(strs ...string) string {
+				for _, str := range strs {
+					if str != "" {
+						return str
+					}
+				}
+				return ""
+			}
+			return firstNotNil(c.PictureElem.SourcePicture.Url, c.PictureElem.BigPicture.Url, c.PictureElem.SnapshotPicture.Url)
+		}
+	}
+	return ""
+}
+
+func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageReq) (*sdkpb.SendMessageResp, error) {
 	// Message is created by URL
-	if (req.Message.FileElem != nil && req.Message.FileElem.SourceURL != "") ||
-		(req.Message.SoundElem != nil && req.Message.SoundElem.SourceURL != "") ||
-		(req.Message.VideoElem != nil && req.Message.VideoElem.VideoURL != "") ||
-		(req.Message.PictureElem != nil && (req.Message.PictureElem.SourcePicture.Url != "" || req.Message.PictureElem.BigPicture.Url != "" || req.Message.PictureElem.SnapshotPicture.Url != "")) {
+	if getMsgUrl(req.Message) != "" {
 		msg, err := c.sendMessageNotOss(ctx, req.Message, req.RecvID, req.GroupID, req.OfflinePushInfo, req.IsOnlineOnly)
 		if err != nil {
 			return nil, err
@@ -367,32 +401,35 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 	switch req.Message.ContentType {
 	case constant.Picture:
 		if req.Message.Status == constant.MsgStatusSendSuccess {
-			req.Message.Content = utils.StructToJsonString(req.Message.PictureElem)
 			break
 		}
+		msgElem, ok := req.Message.Content.(*sdkpb.MsgStruct_PictureElem)
+		if !ok {
+			return nil, msgContentTypeErr.Wrap()
+		}
 		var sourcePath string
-		if utils.FileExist(req.Message.PictureElem.SourcePath) {
-			sourcePath = req.Message.PictureElem.SourcePath
-			delFile = append(delFile, utils.FileTmpPath(req.Message.PictureElem.SourcePath, c.DataDir))
+		if utils.FileExist(msgElem.PictureElem.SourcePath) {
+			sourcePath = msgElem.PictureElem.SourcePath
+			delFile = append(delFile, utils.FileTmpPath(msgElem.PictureElem.SourcePath, c.DataDir))
 		} else {
-			sourcePath = utils.FileTmpPath(req.Message.PictureElem.SourcePath, c.DataDir)
+			sourcePath = utils.FileTmpPath(msgElem.PictureElem.SourcePath, c.DataDir)
 			delFile = append(delFile, sourcePath)
 		}
 		log.ZDebug(ctx, "send picture", "path", sourcePath)
 
 		res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-			ContentType: req.Message.PictureElem.SourcePicture.Type,
+			ContentType: msgElem.PictureElem.SourcePicture.Type,
 			Filepath:    sourcePath,
-			Uuid:        req.Message.PictureElem.SourcePicture.Uuid,
-			Name:        c.fileName("picture", req.Message.ClientMsgID) + filepathExt(req.Message.PictureElem.SourcePicture.Uuid, sourcePath),
+			Uuid:        msgElem.PictureElem.SourcePicture.Uuid,
+			Name:        c.fileName("picture", req.Message.ClientMsgID) + filepathExt(msgElem.PictureElem.SourcePicture.Uuid, sourcePath),
 			Cause:       "msg-picture",
 		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
+			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
 		}
-		req.Message.PictureElem.SourcePicture.Url = res.URL
-		req.Message.PictureElem.BigPicture = req.Message.PictureElem.SourcePicture
+		msgElem.PictureElem.SourcePicture.Url = res.URL
+		msgElem.PictureElem.BigPicture = msgElem.PictureElem.SourcePicture
 		u, err := url.Parse(res.URL)
 		if err == nil {
 			snapshot := u.Query()
@@ -400,59 +437,64 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			snapshot.Set("width", "640")
 			snapshot.Set("height", "640")
 			u.RawQuery = snapshot.Encode()
-			req.Message.PictureElem.SnapshotPicture = &sdkpb.PictureBaseInfo{
+			msgElem.PictureElem.SnapshotPicture = &sdkpb.PictureBaseInfo{
 				Width:  640,
 				Height: 640,
 				Url:    u.String(),
 			}
 		} else {
 			log.ZError(ctx, "parse url failed", err, "url", res.URL, "err", err)
-			req.Message.PictureElem.SnapshotPicture = req.Message.PictureElem.SourcePicture
+			msgElem.PictureElem.SnapshotPicture = msgElem.PictureElem.SourcePicture
 		}
-		req.Message.Content = utils.StructToJsonString(req.Message.PictureElem)
+
 	case constant.Sound:
 		if req.Message.Status == constant.MsgStatusSendSuccess {
-			req.Message.Content = utils.StructToJsonString(req.Message.SoundElem)
 			break
 		}
+		msgElem, ok := req.Message.Content.(*sdkpb.MsgStruct_SoundElem)
+		if !ok {
+			return nil, msgContentTypeErr.Wrap()
+		}
 		var sourcePath string
-		if utils.FileExist(req.Message.SoundElem.SoundPath) {
-			sourcePath = req.Message.SoundElem.SoundPath
-			delFile = append(delFile, utils.FileTmpPath(req.Message.SoundElem.SoundPath, c.DataDir))
+		if utils.FileExist(msgElem.SoundElem.SoundPath) {
+			sourcePath = msgElem.SoundElem.SoundPath
+			delFile = append(delFile, utils.FileTmpPath(msgElem.SoundElem.SoundPath, c.DataDir))
 		} else {
-			sourcePath = utils.FileTmpPath(req.Message.SoundElem.SoundPath, c.DataDir)
+			sourcePath = utils.FileTmpPath(msgElem.SoundElem.SoundPath, c.DataDir)
 			delFile = append(delFile, sourcePath)
 		}
 		// log.Info("", "file", sourcePath, delFile)
 
 		res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-			ContentType: req.Message.SoundElem.SoundType,
+			ContentType: msgElem.SoundElem.SoundType,
 			Filepath:    sourcePath,
-			Uuid:        req.Message.SoundElem.Uuid,
-			Name:        c.fileName("voice", req.Message.ClientMsgID) + filepathExt(req.Message.SoundElem.Uuid, sourcePath),
+			Uuid:        msgElem.SoundElem.Uuid,
+			Name:        c.fileName("voice", req.Message.ClientMsgID) + filepathExt(msgElem.SoundElem.Uuid, sourcePath),
 			Cause:       "msg-voice",
 		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
+			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
 		}
-		req.Message.SoundElem.SourceURL = res.URL
-		req.Message.Content = utils.StructToJsonString(req.Message.SoundElem)
+		msgElem.SoundElem.SourceURL = res.URL
 	case constant.Video:
 		if req.Message.Status == constant.MsgStatusSendSuccess {
-			req.Message.Content = utils.StructToJsonString(req.Message.VideoElem)
 			break
+		}
+		msgElem, ok := req.Message.Content.(*sdkpb.MsgStruct_VideoElem)
+		if !ok {
+			return nil, msgContentTypeErr.Wrap()
 		}
 		var videoPath string
 		var snapPath string
-		if utils.FileExist(req.Message.VideoElem.VideoPath) {
-			videoPath = req.Message.VideoElem.VideoPath
-			snapPath = req.Message.VideoElem.SnapshotPath
-			delFile = append(delFile, utils.FileTmpPath(req.Message.VideoElem.VideoPath, c.DataDir))
-			delFile = append(delFile, utils.FileTmpPath(req.Message.VideoElem.SnapshotPath, c.DataDir))
+		if utils.FileExist(msgElem.VideoElem.VideoPath) {
+			videoPath = msgElem.VideoElem.VideoPath
+			snapPath = msgElem.VideoElem.SnapshotPath
+			delFile = append(delFile, utils.FileTmpPath(msgElem.VideoElem.VideoPath, c.DataDir))
+			delFile = append(delFile, utils.FileTmpPath(msgElem.VideoElem.SnapshotPath, c.DataDir))
 		} else {
-			videoPath = utils.FileTmpPath(req.Message.VideoElem.VideoPath, c.DataDir)
-			snapPath = utils.FileTmpPath(req.Message.VideoElem.SnapshotPath, c.DataDir)
+			videoPath = utils.FileTmpPath(msgElem.VideoElem.VideoPath, c.DataDir)
+			snapPath = utils.FileTmpPath(msgElem.VideoElem.SnapshotPath, c.DataDir)
 			delFile = append(delFile, videoPath)
 			delFile = append(delFile, snapPath)
 		}
@@ -464,62 +506,64 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		go func() {
 			defer wg.Done()
 			snapRes, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-				ContentType: req.Message.VideoElem.SnapshotType,
+				ContentType: msgElem.VideoElem.SnapshotType,
 				Filepath:    snapPath,
-				Uuid:        req.Message.VideoElem.SnapshotUUID,
-				Name:        c.fileName("videoSnapshot", req.Message.ClientMsgID) + filepathExt(req.Message.VideoElem.SnapshotUUID, snapPath),
+				Uuid:        msgElem.VideoElem.SnapshotUUID,
+				Name:        c.fileName("videoSnapshot", req.Message.ClientMsgID) + filepathExt(msgElem.VideoElem.SnapshotUUID, snapPath),
 				Cause:       "msg-video-snapshot",
 			}, nil)
 			if err != nil {
 				log.ZWarn(ctx, "upload video snapshot failed", err)
 				return
 			}
-			req.Message.VideoElem.SnapshotURL = snapRes.URL
+			msgElem.VideoElem.SnapshotURL = snapRes.URL
 		}()
 
 		go func() {
 			defer wg.Done()
 			res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-				ContentType: content_type.GetType(req.Message.VideoElem.VideoType, filepath.Ext(req.Message.VideoElem.VideoPath)),
+				ContentType: content_type.GetType(msgElem.VideoElem.VideoType, filepath.Ext(msgElem.VideoElem.VideoPath)),
 				Filepath:    videoPath,
-				Uuid:        req.Message.VideoElem.VideoUUID,
-				Name:        c.fileName("video", req.Message.ClientMsgID) + filepathExt(req.Message.VideoElem.VideoUUID, videoPath),
+				Uuid:        msgElem.VideoElem.VideoUUID,
+				Name:        c.fileName("video", req.Message.ClientMsgID) + filepathExt(msgElem.VideoElem.VideoUUID, videoPath),
 				Cause:       "msg-video",
 			}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
 			if err != nil {
-				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
+				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 				putErrs = err
 				return
 			}
 			if res != nil {
-				req.Message.VideoElem.VideoURL = res.URL
+				msgElem.VideoElem.VideoURL = res.URL
 			}
 		}()
 		wg.Wait()
 		if err := putErrs; err != nil {
 			return nil, err
 		}
-		req.Message.Content = utils.StructToJsonString(req.Message.VideoElem)
 	case constant.File:
 		if req.Message.Status == constant.MsgStatusSendSuccess {
-			req.Message.Content = utils.StructToJsonString(req.Message.FileElem)
 			break
 		}
-		name := req.Message.FileElem.FileName
+		msgElem, ok := req.Message.Content.(*sdkpb.MsgStruct_FileElem)
+		if !ok {
+			return nil, msgContentTypeErr.Wrap()
+		}
+		name := msgElem.FileElem.FileName
 
 		if name == "" {
-			name = req.Message.FileElem.FilePath
+			name = msgElem.FileElem.FilePath
 		}
 		if name == "" {
 			name = fmt.Sprintf("msg_file_%req.Message.unknown", req.Message.ClientMsgID)
 		}
 
-		delFile = append(delFile, req.Message.FileElem.FilePath)
+		delFile = append(delFile, msgElem.FileElem.FilePath)
 
 		res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-			ContentType: content_type.GetType(req.Message.FileElem.FileType, filepath.Ext(req.Message.FileElem.FilePath), filepath.Ext(req.Message.FileElem.FileName)),
-			Filepath:    req.Message.FileElem.FilePath,
-			Uuid:        req.Message.FileElem.Uuid,
+			ContentType: content_type.GetType(msgElem.FileElem.FileType, filepath.Ext(msgElem.FileElem.FilePath), filepath.Ext(msgElem.FileElem.FileName)),
+			Filepath:    msgElem.FileElem.FilePath,
+			Uuid:        msgElem.FileElem.Uuid,
 			Name:        c.fileName("file", req.Message.ClientMsgID) + "/" + filepath.Base(name),
 			Cause:       "msg-file",
 		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
@@ -527,28 +571,17 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
 		}
-		req.Message.FileElem.SourceURL = res.URL
-		req.Message.Content = utils.StructToJsonString(req.Message.FileElem)
+		msgElem.FileElem.SourceURL = res.URL
 	case constant.Text:
-		req.Message.Content = utils.StructToJsonString(req.Message.TextElem)
 	case constant.AtText:
-		req.Message.Content = utils.StructToJsonString(req.Message.AtTextElem)
 	case constant.Location:
-		req.Message.Content = utils.StructToJsonString(req.Message.LocationElem)
 	case constant.Custom:
-		req.Message.Content = utils.StructToJsonString(req.Message.CustomElem)
 	case constant.Merger:
-		req.Message.Content = utils.StructToJsonString(req.Message.MergeElem)
 	case constant.Quote:
-		req.Message.Content = utils.StructToJsonString(req.Message.QuoteElem)
 	case constant.Card:
-		req.Message.Content = utils.StructToJsonString(req.Message.CardElem)
 	case constant.Face:
-		req.Message.Content = utils.StructToJsonString(req.Message.FaceElem)
 	case constant.AdvancedText:
-		req.Message.Content = utils.StructToJsonString(req.Message.AdvancedTextElem)
 	case pconstant.Stream:
-		req.Message.Content = utils.StructToJsonString(req.Message.StreamElem)
 	default:
 		return nil, sdkerrs.ErrMsgContentTypeNotSupport
 	}
@@ -610,38 +643,6 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.MsgStruct
 	}
 	lc.LatestMsg = utils.StructToJsonString(s)
 	var delFile []string
-	switch s.ContentType {
-	case constant.Picture:
-		s.Content = utils.StructToJsonString(s.PictureElem)
-	case constant.Sound:
-		s.Content = utils.StructToJsonString(s.SoundElem)
-	case constant.Video:
-		s.Content = utils.StructToJsonString(s.VideoElem)
-	case constant.File:
-		s.Content = utils.StructToJsonString(s.FileElem)
-	case constant.Text:
-		s.Content = utils.StructToJsonString(s.TextElem)
-	case constant.AtText:
-		s.Content = utils.StructToJsonString(s.AtTextElem)
-	case constant.Location:
-		s.Content = utils.StructToJsonString(s.LocationElem)
-	case constant.Custom:
-		s.Content = utils.StructToJsonString(s.CustomElem)
-	case constant.Merger:
-		s.Content = utils.StructToJsonString(s.MergeElem)
-	case constant.Quote:
-		s.Content = utils.StructToJsonString(s.QuoteElem)
-	case constant.Card:
-		s.Content = utils.StructToJsonString(s.CardElem)
-	case constant.Face:
-		s.Content = utils.StructToJsonString(s.FaceElem)
-	case constant.AdvancedText:
-		s.Content = utils.StructToJsonString(s.AdvancedTextElem)
-	case pconstant.Stream:
-		s.Content = utils.StructToJsonString(s.StreamElem)
-	default:
-		return nil, sdkerrs.ErrMsgContentTypeNotSupport
-	}
 	if utils.IsContainInt(int(s.ContentType), []int{constant.Picture, constant.Sound, constant.Video, constant.File}) {
 		if isOnlineOnly {
 			localMessage := MsgStructToLocalChatLog(s)
@@ -667,17 +668,21 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStru
 	}
 	//Protocol conversion
 	var wsMsgData sdkws.MsgData
-	copier.Copy(&wsMsgData, s)
+	_ = copier.Copy(&wsMsgData, s)
 	wsMsgData.AttachedInfo = utils.StructToJsonString(s.AttachedInfoElem)
-	wsMsgData.Content = []byte(s.Content)
+	wsMsgData.Content = stringutil.StructToJsonBytes(s.Content)
 	wsMsgData.CreateTime = s.CreateTime
 	wsMsgData.SendTime = 0
 	wsMsgData.Options = options
 	if wsMsgData.ContentType == constant.AtText {
-		wsMsgData.AtUserIDList = s.AtTextElem.AtUserList
+		atElem, ok := s.Content.(*sdkpb.MsgStruct_AtTextElem)
+		if !ok {
+			return nil, msgContentTypeErr.Wrap()
+		}
+		wsMsgData.AtUserIDList = atElem.AtTextElem.AtUserList
 	}
 	wsMsgData.OfflinePushInfo = offlinePushInfo
-	s.Content = ""
+
 	var sendMsgResp sdkws.UserSendMsgResp
 
 	err := c.LongConnMgr.SendReqWaitResp(ctx, &wsMsgData, constant.SendMsg, &sendMsgResp)
@@ -707,10 +712,10 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStru
 	s.ServerMsgID = sendMsgResp.ServerMsgID
 	go func() {
 		//remove media cache file
-		for _, file := range delFiles {
-			err := os.Remove(file)
+		for _, f := range delFiles {
+			err := os.Remove(f)
 			if err != nil {
-				log.ZError(ctx, "delete temp File is failed", err, "filePath", file)
+				log.ZError(ctx, "delete temp File is failed", err, "filePath", f)
 			}
 			// log.ZDebug(ctx, "remove temp file:", "file", file)
 		}
@@ -776,51 +781,62 @@ func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *s
 	return &sdkpb.GetAdvancedHistoryMessageListResp{GetAdvancedHistoryMessageListCallback: result}, nil
 }
 
-func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req sdk_params_callback.GetAdvancedHistoryMessageListParams) (*sdk_params_callback.GetAdvancedHistoryMessageListCallback, error) {
-	result, err := c.getAdvancedHistoryMessageList(ctx, req, true)
+func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListReverseReq) (*sdkpb.GetAdvancedHistoryMessageListReverseResp, error) {
+	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, true)
 	if err != nil {
 		return nil, err
 	}
 	if len(result.MessageList) == 0 {
-		s := make([]*sdk_struct.MsgStruct, 0)
+		s := make([]*sdkpb.MsgStruct, 0)
 		result.MessageList = s
 	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return result, nil
+	return &sdkpb.GetAdvancedHistoryMessageListReverseResp{GetAdvancedHistoryMessageListCallback: result}, nil
 }
 
-func (c *Conversation) RevokeMessage(ctx context.Context, conversationID, clientMsgID string) error {
-	return c.revokeOneMessage(ctx, conversationID, clientMsgID)
+func (c *Conversation) RevokeMessage(ctx context.Context, req *sdkpb.RevokeMessageReq) (*sdkpb.RevokeMessageResp, error) {
+	err := c.revokeOneMessage(ctx, req.ConversationID, req.ClientMsgID)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.RevokeMessageResp{}, nil
 }
 
-func (c *Conversation) TypingStatusUpdate(ctx context.Context, recvID, msgTip string) error {
-	return c.typingStatusUpdate(ctx, recvID, msgTip)
+func (c *Conversation) TypingStatusUpdate(ctx context.Context, req *sdkpb.TypingStatusUpdateReq) (*sdkpb.TypingStatusUpdateResp, error) {
+	err := c.typingStatusUpdate(ctx, req.RecvID, req.MsgTip)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.TypingStatusUpdateResp{}, nil
 }
 
-func (c *Conversation) MarkConversationMessageAsRead(ctx context.Context, conversationID string) error {
-	return c.markConversationMessageAsRead(ctx, conversationID)
+func (c *Conversation) MarkConversationMessageAsRead(ctx context.Context, req *sdkpb.MarkConversationMessageAsReadReq) (*sdkpb.MarkConversationMessageAsReadResp, error) {
+	err := c.markConversationMessageAsRead(ctx, req.ConversationID)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.MarkConversationMessageAsReadResp{}, nil
 }
 
-func (c *Conversation) MarkAllConversationMessageAsRead(ctx context.Context) error {
+func (c *Conversation) MarkAllConversationMessageAsRead(ctx context.Context, req *sdkpb.MarkAllConversationMessageAsReadReq) (*sdkpb.MarkAllConversationMessageAsReadResp, error) {
 	conversationIDs, err := c.db.FindAllUnreadConversationConversationID(ctx)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	for _, conversationID := range conversationIDs {
 		if err = c.markConversationMessageAsRead(ctx, conversationID); err != nil {
-			return err
+			return nil, err
 		}
 	}
-	return nil
+	return &sdkpb.MarkAllConversationMessageAsReadResp{}, nil
 }
 
-// deprecated
-func (c *Conversation) MarkMessagesAsReadByMsgID(ctx context.Context, conversationID string, clientMsgIDs []string) error {
-	return c.markMessagesAsReadByMsgID(ctx, conversationID, clientMsgIDs)
-}
-
-func (c *Conversation) DeleteMessageFromLocalStorage(ctx context.Context, conversationID string, clientMsgID string) error {
-	return c.deleteMessageFromLocal(ctx, conversationID, clientMsgID)
+func (c *Conversation) DeleteMessageFromLocalStorage(ctx context.Context, req *sdkpb.DeleteMessageFromLocalStorageReq) (*sdkpb.DeleteMessageFromLocalStorageResp, error) {
+	err := c.deleteMessageFromLocal(ctx, req.ConversationID, req.ClientMsgID)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.DeleteMessageFromLocalStorageResp{}, nil
 }
 
 func (c *Conversation) DeleteMessage(ctx context.Context, conversationID string, clientMsgID string) error {
