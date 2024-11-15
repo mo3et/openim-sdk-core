@@ -706,10 +706,10 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStru
 	s.ServerMsgID = sendMsgResp.ServerMsgID
 	go func() {
 		//remove media cache file
-		for _, file := range delFiles {
-			err := os.Remove(file)
+		for _, f := range delFiles {
+			err := os.Remove(f)
 			if err != nil {
-				log.ZError(ctx, "delete temp File is failed", err, "filePath", file)
+				log.ZError(ctx, "delete temp File is failed", err, "filePath", f)
 			}
 			// log.ZDebug(ctx, "remove temp file:", "file", file)
 		}
@@ -775,51 +775,62 @@ func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *s
 	return &sdkpb.GetAdvancedHistoryMessageListResp{GetAdvancedHistoryMessageListCallback: result}, nil
 }
 
-func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req sdk_params_callback.GetAdvancedHistoryMessageListParams) (*sdk_params_callback.GetAdvancedHistoryMessageListCallback, error) {
-	result, err := c.getAdvancedHistoryMessageList(ctx, req, true)
+func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListReverseReq) (*sdkpb.GetAdvancedHistoryMessageListReverseResp, error) {
+	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, true)
 	if err != nil {
 		return nil, err
 	}
 	if len(result.MessageList) == 0 {
-		s := make([]*sdk_struct.MsgStruct, 0)
+		s := make([]*sdkpb.MsgStruct, 0)
 		result.MessageList = s
 	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return result, nil
+	return &sdkpb.GetAdvancedHistoryMessageListReverseResp{GetAdvancedHistoryMessageListCallback: result}, nil
 }
 
-func (c *Conversation) RevokeMessage(ctx context.Context, conversationID, clientMsgID string) error {
-	return c.revokeOneMessage(ctx, conversationID, clientMsgID)
+func (c *Conversation) RevokeMessage(ctx context.Context, req *sdkpb.RevokeMessageReq) (*sdkpb.RevokeMessageResp, error) {
+	err := c.revokeOneMessage(ctx, req.ConversationID, req.ClientMsgID)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.RevokeMessageResp{}, nil
 }
 
-func (c *Conversation) TypingStatusUpdate(ctx context.Context, recvID, msgTip string) error {
-	return c.typingStatusUpdate(ctx, recvID, msgTip)
+func (c *Conversation) TypingStatusUpdate(ctx context.Context, req *sdkpb.TypingStatusUpdateReq) (*sdkpb.TypingStatusUpdateResp, error) {
+	err := c.typingStatusUpdate(ctx, req.RecvID, req.MsgTip)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.TypingStatusUpdateResp{}, nil
 }
 
-func (c *Conversation) MarkConversationMessageAsRead(ctx context.Context, conversationID string) error {
-	return c.markConversationMessageAsRead(ctx, conversationID)
+func (c *Conversation) MarkConversationMessageAsRead(ctx context.Context, req *sdkpb.MarkConversationMessageAsReadReq) (*sdkpb.MarkConversationMessageAsReadResp, error) {
+	err := c.markConversationMessageAsRead(ctx, req.ConversationID)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.MarkConversationMessageAsReadResp{}, nil
 }
 
-func (c *Conversation) MarkAllConversationMessageAsRead(ctx context.Context) error {
+func (c *Conversation) MarkAllConversationMessageAsRead(ctx context.Context, req *sdkpb.MarkAllConversationMessageAsReadReq) (*sdkpb.MarkAllConversationMessageAsReadResp, error) {
 	conversationIDs, err := c.db.FindAllUnreadConversationConversationID(ctx)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	for _, conversationID := range conversationIDs {
 		if err = c.markConversationMessageAsRead(ctx, conversationID); err != nil {
-			return err
+			return nil, err
 		}
 	}
-	return nil
+	return &sdkpb.MarkAllConversationMessageAsReadResp{}, nil
 }
 
-// deprecated
-func (c *Conversation) MarkMessagesAsReadByMsgID(ctx context.Context, conversationID string, clientMsgIDs []string) error {
-	return c.markMessagesAsReadByMsgID(ctx, conversationID, clientMsgIDs)
-}
-
-func (c *Conversation) DeleteMessageFromLocalStorage(ctx context.Context, conversationID string, clientMsgID string) error {
-	return c.deleteMessageFromLocal(ctx, conversationID, clientMsgID)
+func (c *Conversation) DeleteMessageFromLocalStorage(ctx context.Context, req *sdkpb.DeleteMessageFromLocalStorageReq) (*sdkpb.DeleteMessageFromLocalStorageResp, error) {
+	err := c.deleteMessageFromLocal(ctx, req.ConversationID, req.ClientMsgID)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.DeleteMessageFromLocalStorageResp{}, nil
 }
 
 func (c *Conversation) DeleteMessage(ctx context.Context, conversationID string, clientMsgID string) error {

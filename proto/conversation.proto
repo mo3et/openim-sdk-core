@@ -139,6 +139,20 @@ message FindMessageListResp {
   int32 totalCount = 2;
 }
 
+message MarkConversationMessageAsReadReq {
+  string conversationID = 1;
+}
+message MarkConversationMessageAsReadResp {}
+
+message MarkAllConversationMessageAsReadReq {}
+message MarkAllConversationMessageAsReadResp {}
+
+message DeleteMessageFromLocalStorageReq {
+  string conversationID = 1;
+  string clientMsgID = 2;
+}
+message DeleteMessageFromLocalStorageResp {}
+
 // ----------------------------------------------------------------------------------------------------------
 
 enum FuncRequestEventName{
