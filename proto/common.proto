@@ -61,18 +61,18 @@ enum Platform {
 
 enum AppFramework {
   AppFramework_ = 0;
-  Flutter = 1;
-  UniApp = 2;
-  Native = 3;
+  Native = 1;
+  Flutter = 2;
+  ReactNative = 3;
   Electron = 4;
-  ReactNative = 5;
-  Unity = 6;
-  UnrealEngine = 7;
+  Unity = 5;
+  UnrealEngine = 6;
+  Qt = 7;
   DotNet = 8;
   DotNetMAUI = 9;
   Avalonia = 10;
-  Qt = 11;
-  Cordova = 12;
+  Cordova = 11;
+  UniApp = 12;
 }
 enum MsgStatus{
   MsgStatus_ = 0;
