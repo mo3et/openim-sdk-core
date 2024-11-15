@@ -39,19 +39,6 @@ message FindMessageListCallback {
   repeated SearchByConversationResult findResultItems = 2;
 }
 
-message GetAdvancedHistoryMessageListParams {
-  string conversationID = 1;
-  string startClientMsgID = 2;
-  int32 count = 3;
-}
-
-message GetAdvancedHistoryMessageListCallback {
-  repeated message.MsgStruct messageList = 1;
-  bool isEnd = 2;
-  int32 errCode = 3;
-  string errMsg = 4;
-}
-
 message SearchLocalMessagesParams {
   string conversationID = 1;
   repeated string keywordList = 2;
@@ -79,6 +66,7 @@ message SearchByConversationResult {
   repeated message.MsgStruct messageList = 7;
 }
 
+// -----------------------------------------------------------------------------------------------------------------
 message GetAllConversationListReq{}
 message GetAllConversationListResp{
   repeated Conversation conversationList = 1;
@@ -145,6 +133,15 @@ message GetConversationIDBySessionTypeResp {
   string conversationID = 1;
 }
 
+message FindMessageListReq {
+  repeated ConversationArgs conversationsArgs = 1;
+}
+message FindMessageListResp {
+  repeated SearchByConversationResult findResultItems = 1;
+  int32 totalCount = 2;
+}
+
+// ----------------------------------------------------------------------------------------------------------
 
 enum FuncRequestEventName{
   None = 0;

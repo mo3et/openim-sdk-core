@@ -114,7 +114,7 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 			return errs.Wrap(err)
 		}
 		log.ZDebug(ctx, "latestMsg is revoked", "seq", tips.Seq, "msg", msgs[0])
-		newLatestMsg = *LocalChatLogToMsgStruct(msgs[0])
+		newLatestMsg = *LocalChatLogToMsgPB(msgs[0])
 		log.ZDebug(ctx, "revoke update conversatoin", "msg", utils.StructToJsonString(newLatestMsg))
 		if err := c.db.UpdateColumnsConversation(ctx, tips.ConversationID, map[string]interface{}{"latest_msg": utils.StructToJsonString(newLatestMsg),
 			"latest_msg_send_time": newLatestMsg.SendTime}); err != nil {

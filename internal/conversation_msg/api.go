@@ -212,7 +212,7 @@ func (c *Conversation) checkID(ctx context.Context, s *sdkpb.MsgStruct,
 		return nil, sdkerrs.ErrArgs
 	}
 	s.SendID = c.loginUserID
-	s.SenderPlatformID = c.platformID
+	s.SenderPlatformID = c.platform
 	lc := &model_struct.LocalConversation{LatestMsgSendTime: s.CreateTime}
 	//assemble messages and conversations based on single or group chat types
 	if recvID == "" {
@@ -720,20 +720,20 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStru
 
 }
 
-func (c *Conversation) FindMessageList(ctx context.Context, req []*sdk_params_callback.ConversationArgs) (*sdk_params_callback.FindMessageListCallback, error) {
-	var r sdk_params_callback.FindMessageListCallback
+func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessageListReq) (*sdkpb.FindMessageListResp, error) {
+	var r sdkpb.FindMessageListResp
 	type tempConversationAndMessageList struct {
-		conversation *model_struct.LocalConversation
+		conversation *sdkpb.Conversation
 		msgIDList    []string
 	}
 	var s []*tempConversationAndMessageList
-	for _, conversationsArgs := range req {
+	for _, conversationsArgs := range req.ConversationsArgs {
 		localConversation, err := c.db.GetConversation(ctx, conversationsArgs.ConversationID)
 		if err != nil {
 			log.ZError(ctx, "GetConversation err", err, "conversationsArgs", conversationsArgs)
 		} else {
 			t := new(tempConversationAndMessageList)
-			t.conversation = localConversation
+			t.conversation = LocalConversationToSdkPB(localConversation)
 			t.msgIDList = conversationsArgs.ClientMsgIDList
 			s = append(s, t)
 		}
@@ -741,12 +741,12 @@ func (c *Conversation) FindMessageList(ctx context.Context, req []*sdk_params_ca
 	for _, v := range s {
 		messages, err := c.db.GetMessagesByClientMsgIDs(ctx, v.conversation.ConversationID, v.msgIDList)
 		if err == nil {
-			var tempMessageList []*sdk_struct.MsgStruct
+			var tempMessageList []*sdkpb.MsgStruct
 			for _, message := range messages {
-				temp := LocalChatLogToMsgStruct(message)
+				temp := LocalChatLogToMsgPB(message)
 				tempMessageList = append(tempMessageList, temp)
 			}
-			findResultItem := sdk_params_callback.SearchByConversationResult{}
+			findResultItem := sdkpb.SearchByConversationResult{}
 			findResultItem.ConversationID = v.conversation.ConversationID
 			findResultItem.FaceURL = v.conversation.FaceURL
 			findResultItem.ShowName = v.conversation.ShowName
@@ -760,20 +760,19 @@ func (c *Conversation) FindMessageList(ctx context.Context, req []*sdk_params_ca
 		}
 	}
 	return &r, nil
-
 }
 
-func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req sdk_params_callback.GetAdvancedHistoryMessageListParams) (*sdk_params_callback.GetAdvancedHistoryMessageListCallback, error) {
-	result, err := c.getAdvancedHistoryMessageList(ctx, req, false)
+func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListReq) (*sdkpb.GetAdvancedHistoryMessageListResp, error) {
+	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, false)
 	if err != nil {
 		return nil, err
 	}
 	if len(result.MessageList) == 0 {
-		s := make([]*sdk_struct.MsgStruct, 0)
+		s := make([]*sdkpb.MsgStruct, 0)
 		result.MessageList = s
 	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return result, nil
+	return &sdkpb.GetAdvancedHistoryMessageListResp{GetAdvancedHistoryMessageListCallback: result}, nil
 }
 
 func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req sdk_params_callback.GetAdvancedHistoryMessageListParams) (*sdk_params_callback.GetAdvancedHistoryMessageListCallback, error) {
