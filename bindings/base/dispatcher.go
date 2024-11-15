@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"google.golang.org/protobuf/proto"
@@ -20,7 +21,7 @@ import (
 )
 
 var (
-	handleCounter        uint64
+	handleCounter        atomic.Uint64
 	mu                   sync.Mutex
 	dispatchFfiResult    func(handleID uint64, data []byte)
 	activeEventFuncNames = map[pb.FuncRequestEventName]struct{}{
@@ -29,7 +30,7 @@ var (
 	}
 )
 
-type callFunc func(ctx context.Context, req []byte) ([]byte, error)
+type callFunc func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) ([]byte, error)
 
 func SetDispatchFfiResult(f func(handleID uint64, data []byte)) {
 	dispatchFfiResult = f
@@ -42,10 +43,7 @@ func DispatchFfiResult(handleID uint64, data []byte) {
 }
 
 func GenerateHandleID() uint64 {
-	mu.Lock()
-	defer mu.Unlock()
-	handleCounter++
-	return handleCounter
+	return handleCounter.Add(1)
 }
 
 func activeErrResp(handleID uint64, funcName pb.FuncRequestEventName, err error) {
@@ -147,7 +145,7 @@ func FfiRequest(data []byte) uint64 {
 		if fn, ok := FuncMap[ffiRequest.FuncName]; ok {
 			ctx := ccontext.WithOperationID(open_im_sdk.UserForSDK.Context(),
 				generateUniqueID(open_im_sdk.UserForSDK.Info().UserID, int32(open_im_sdk.UserForSDK.Info().Platform)))
-			res, err := fn(ctx, ffiRequest.Data)
+			res, err := fn(ctx, handleID, ffiRequest.FuncName, ffiRequest.Data)
 			if err != nil {
 				activeErrResp(handleID, ffiRequest.FuncName, err)
 				return

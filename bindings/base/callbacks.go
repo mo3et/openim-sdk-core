@@ -3,6 +3,7 @@ package base
 import "C"
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 )
 
@@ -253,7 +254,7 @@ type SendMessageCallback struct {
 	handleID uint64
 }
 
-func NewSendMessageCallback(handleID uint64) *SendMessageCallback {
+func NewSendMessageCallback(handleID uint64) open_im_sdk_callback.SendMsgCallBack {
 	return &SendMessageCallback{handleID: handleID}
 }
 
