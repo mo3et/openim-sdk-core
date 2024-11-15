@@ -24,8 +24,8 @@ var (
 	mu                   sync.Mutex
 	dispatchFfiResult    func(handleID uint64, data []byte)
 	activeEventFuncNames = map[pb.FuncRequestEventName]struct{}{
-		pb.FuncRequestEventName_EventOnConnecting:    struct{}{},
-		pb.FuncRequestEventName_EventOnKickedOffline: struct{}{},
+		pb.FuncRequestEventName_EventOnConnecting:    {},
+		pb.FuncRequestEventName_EventOnKickedOffline: {},
 	}
 )
 
@@ -89,7 +89,7 @@ func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
 	dispatchFfiResultPb(ffiResponse.HandleID, &ffiResponse)
 }
 
-func activeEventResp(eventName pb.FuncRequestEventName, data any) {
+func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data any) {
 	var ffiResponse pb.FfiResult
 	var err error
 	if v, ok := data.(proto.Message); ok {
@@ -103,7 +103,7 @@ func activeEventResp(eventName pb.FuncRequestEventName, data any) {
 		ffiResponse.ErrMsg = "data is not proto.Message"
 	}
 	ffiResponse.FuncName = eventName
-	ffiResponse.HandleID = GenerateHandleID()
+	ffiResponse.HandleID = handleID
 	dispatchFfiResultPb(ffiResponse.HandleID, &ffiResponse)
 }
 

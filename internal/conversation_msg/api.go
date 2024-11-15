@@ -3,7 +3,6 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
-	pbConversation "github.com/openimsdk/protocol/conversation"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -11,6 +10,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	pbConversation "github.com/openimsdk/protocol/conversation"
 
 	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -299,7 +300,7 @@ func (c *Conversation) GetConversationIDBySessionType(ctx context.Context, req *
 	return &sdkpb.GetConversationIDBySessionTypeResp{ConversationID: conversationID}, nil
 }
 
-func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageReq) (*sdkpb.SendMessageResp, error) {
+func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageReq, callback open_im_sdk_callback.SendMsgCallBack) (*sdkpb.SendMessageResp, error) {
 	// Message is created by URL
 	if (req.Message.FileElem != nil && req.Message.FileElem.SourceURL != "") ||
 		(req.Message.SoundElem != nil && req.Message.SoundElem.SourceURL != "") ||

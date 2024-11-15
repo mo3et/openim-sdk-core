@@ -250,22 +250,13 @@ func (u UserCallback) OnUserCommandUpdate(data *pb.EventOnUserCommandUpdateData)
 }
 
 type SendMessageCallback struct {
-	cCallback   C.CB_S_I_S_S_I
-	operationID string
+	handleID uint64
 }
 
-func NewSendMessageCallback(cCallback C.CB_S_I_S_S_I, operationID *C.char) *SendMessageCallback {
-	return &SendMessageCallback{cCallback: cCallback, operationID: C.GoString(operationID)}
+func NewSendMessageCallback(handleID uint64) *SendMessageCallback {
+	return &SendMessageCallback{handleID: handleID}
 }
 
-func (s SendMessageCallback) OnError(errCode int32, errMsg string) {
-	C.Call_CB_S_I_S_S_I(s.cCallback, C.CString(s.operationID), C.int(errCode), C.CString(errMsg), NO_DATA, NO_PROGRESS)
-}
-
-func (s SendMessageCallback) OnSuccess(data string) {
-	C.Call_CB_S_I_S_S_I(s.cCallback, C.CString(s.operationID), NO_ERR, NO_ERR_MSG, C.CString(data), NO_PROGRESS)
-}
-
-func (s SendMessageCallback) OnProgress(progress int) {
-	C.Call_CB_S_I_S_S_I(s.cCallback, C.CString(s.operationID), NO_ERR, NO_ERR_MSG, NO_DATA, C.int(progress))
+func (s SendMessageCallback) OnSendMsgProgress(data *pb.EventOnSendMsgProgressData) {
+	activeEventResp(pb.FuncRequestEventName_EventOnSendMsgProgress, s.handleID, data)
 }
