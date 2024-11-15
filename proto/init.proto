@@ -1,30 +1,18 @@
 syntax = "proto3";
 package openim.init;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+import "common.proto";
 
-enum PlatformId {
-  none = 0;
-  ios = 1;
-  android = 2;
-  windows = 3;
-  xos = 4;
-  web = 5;
-  mini_web = 6;
-  linux = 7;
-  android_pad = 8;
-  ipad = 9;
-}
 
 message IMConfig {
-  string systemType = 1;
-  PlatformId platformID = 2;
+  openim.sdk.common.AppFramework appFramework = 1;
+  openim.sdk.common.Platform platform = 2;
   string apiAddr = 3;
   string wsAddr = 4;
   string dataDir = 5;
   uint32 logLevel = 6;
   bool isLogStandardOutput = 7;
   string logFilePath = 8;
-  bool isExternalExtensions = 9;
 }
 
 message InitSDKReq { IMConfig config = 1; }
