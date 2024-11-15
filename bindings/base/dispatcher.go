@@ -20,9 +20,13 @@ import (
 )
 
 var (
-	handleCounter     uint64
-	mu                sync.Mutex
-	dispatchFfiResult func(handleID uint64, data []byte)
+	handleCounter        uint64
+	mu                   sync.Mutex
+	dispatchFfiResult    func(handleID uint64, data []byte)
+	activeEventFuncNames = map[pb.FuncRequestEventName]struct{}{
+		pb.FuncRequestEventName_EventOnConnecting:    struct{}{},
+		pb.FuncRequestEventName_EventOnKickedOffline: struct{}{},
+	}
 )
 
 type callFunc func(ctx context.Context, req []byte) ([]byte, error)
@@ -44,7 +48,7 @@ func GenerateHandleID() uint64 {
 	return handleCounter
 }
 
-func errResp(handleID uint64, funcName pb.FuncRequestEventName, err error) {
+func activeErrResp(handleID uint64, funcName pb.FuncRequestEventName, err error) {
 	var ffiResult pb.FfiResult
 	ffiResult.HandleID = handleID
 	ffiResult.FuncName = funcName
@@ -58,7 +62,7 @@ func errResp(handleID uint64, funcName pb.FuncRequestEventName, err error) {
 	dispatchFfiResultPb(handleID, &ffiResult)
 
 }
-func successResp(handleID uint64, funcName pb.FuncRequestEventName, res []byte) {
+func activeSuccessResp(handleID uint64, funcName pb.FuncRequestEventName, res []byte) {
 
 	var ffiResponse pb.FfiResult
 	ffiResponse.Data = res
@@ -67,7 +71,25 @@ func successResp(handleID uint64, funcName pb.FuncRequestEventName, res []byte) 
 	dispatchFfiResultPb(handleID, &ffiResponse)
 }
 
-func eventResp(eventName pb.FuncRequestEventName, data any) {
+func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
+	var ffiResponse pb.FfiResult
+	var err error
+	if v, ok := data.(proto.Message); ok {
+		ffiResponse.Data, err = proto.Marshal(v)
+		if err != nil {
+			ffiResponse.ErrCode = sdkerrs.ArgsError
+			ffiResponse.ErrMsg = "data marshal error"
+		}
+	} else {
+		ffiResponse.ErrCode = sdkerrs.ArgsError
+		ffiResponse.ErrMsg = "data is not proto.Message"
+	}
+	ffiResponse.FuncName = eventName
+	ffiResponse.HandleID = GenerateHandleID()
+	dispatchFfiResultPb(ffiResponse.HandleID, &ffiResponse)
+}
+
+func activeEventResp(eventName pb.FuncRequestEventName, data any) {
 	var ffiResponse pb.FfiResult
 	var err error
 	if v, ok := data.(proto.Message); ok {
@@ -114,12 +136,12 @@ func FfiRequest(data []byte) uint64 {
 		var ffiRequest pb.FfiRequest
 		err := proto.Unmarshal(data, &ffiRequest)
 		if err != nil {
-			errResp(handleID, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
+			activeErrResp(handleID, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
 				"dataLength", len(data)))
 			return
 		}
 		if err := checkResourceLoad(ffiRequest.FuncName); err != nil {
-			errResp(handleID, ffiRequest.FuncName, err)
+			activeErrResp(handleID, ffiRequest.FuncName, err)
 			return
 		}
 		if fn, ok := FuncMap[ffiRequest.FuncName]; ok {
@@ -127,13 +149,13 @@ func FfiRequest(data []byte) uint64 {
 				generateUniqueID(open_im_sdk.UserForSDK.Info().UserID, int32(open_im_sdk.UserForSDK.Info().Platform)))
 			res, err := fn(ctx, ffiRequest.Data)
 			if err != nil {
-				errResp(handleID, ffiRequest.FuncName, err)
+				activeErrResp(handleID, ffiRequest.FuncName, err)
 				return
 			}
 			setListener(ffiRequest.FuncName)
-			successResp(handleID, ffiRequest.FuncName, res)
+			activeSuccessResp(handleID, ffiRequest.FuncName, res)
 		} else {
-			errResp(handleID, ffiRequest.FuncName, sdkerrs.ErrSdkFuncNotFound.WrapMsg("func not found",
+			activeErrResp(handleID, ffiRequest.FuncName, sdkerrs.ErrSdkFuncNotFound.WrapMsg("func not found",
 				"funcName", ffiRequest.FuncName.String()))
 		}
 	}()

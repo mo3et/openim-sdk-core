@@ -23,9 +23,29 @@ type Base interface {
 	OnSuccess(data string)
 }
 type SendMsgCallBack interface {
-	Base
-	OnProgress(progress int)
+	OnSendMsgProgress(*pb.EventOnSendMsgProgressData)
 }
+type UploadFileCallback interface {
+}
+
+//type UploadFileCallback interface {
+//	// Open a file with a given size
+//	Open(size int64)
+//	// PartSize Set the size of each part and the total number of parts
+//	PartSize(partSize int64, num int)
+//	// HashPartProgress Progress of hashing each part, including the part index, size, and hash value
+//	HashPartProgress(index int, size int64, partHash string)
+//	// HashPartComplete All parts have been hashed, providing the combined hash of all parts and the final file hash
+//	HashPartComplete(partsHash string, fileHash string)
+//	// UploadID Upload ID is generated and provided
+//	UploadID(uploadID string)
+//	// UploadPartComplete A specific part has completed uploading, providing the part index, size, and hash value
+//	UploadPartComplete(index int, partSize int64, partHash string)
+//	// UploadComplete The entire file upload progress, including the file size, stream size, and storage size
+//	UploadComplete(fileSize int64, streamSize int64, storageSize int64)
+//	// Complete The file upload is complete, providing the final size, URL, and type of the file
+//	Complete(size int64, url string, typ int)
+//}
 
 type OnConnListener interface {
 	OnConnecting(*pb.EventOnConnectingData)
@@ -132,25 +152,6 @@ type OnSignalingListener interface {
 	OnRoomParticipantConnected(onRoomParticipantConnectedCallback string)
 
 	OnRoomParticipantDisconnected(onRoomParticipantDisconnectedCallback string)
-}
-
-type UploadFileCallback interface {
-	// Open a file with a given size
-	Open(size int64)
-	// PartSize Set the size of each part and the total number of parts
-	PartSize(partSize int64, num int)
-	// HashPartProgress Progress of hashing each part, including the part index, size, and hash value
-	HashPartProgress(index int, size int64, partHash string)
-	// HashPartComplete All parts have been hashed, providing the combined hash of all parts and the final file hash
-	HashPartComplete(partsHash string, fileHash string)
-	// UploadID Upload ID is generated and provided
-	UploadID(uploadID string)
-	// UploadPartComplete A specific part has completed uploading, providing the part index, size, and hash value
-	UploadPartComplete(index int, partSize int64, partHash string)
-	// UploadComplete The entire file upload progress, including the file size, stream size, and storage size
-	UploadComplete(fileSize int64, streamSize int64, storageSize int64)
-	// Complete The file upload is complete, providing the final size, URL, and type of the file
-	Complete(size int64, url string, typ int)
 }
 
 type UploadLogProgress interface {

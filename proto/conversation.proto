@@ -150,6 +150,8 @@ enum FuncRequestEventName{
   GetConversation = 3;
   InitSDK = 4;
   Login = 5;
+
+  EventOnSendMsgProgress =14;
   EventOnConnecting = 15;
   EventOnConnectSuccess = 16;
   EventOnConnectFailed = 17;
@@ -246,6 +248,10 @@ enum FuncRequestEventName{
   UpdateFriends = 1112;
 
 };
+
+message EventOnSendMsgProgressData{
+  int32 progress = 1;
+}
 
 message EventOnConnectingData {}
 message EventOnConnectSuccessData {}
