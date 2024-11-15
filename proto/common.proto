@@ -30,8 +30,6 @@ enum MsgFrom {
   SysMsgType = 200;
 }
 
-
-
 enum Platform {
   Platform_ = 0;
   // iOS represents the Apple iOS platform.
@@ -68,5 +66,9 @@ enum AppFramework {
   ReactNative = 5;
 }
 
-
+enum ApprovalStatus {
+  Default = 0;
+  Approved = 1;
+  Rejected = -1;
+}
 
