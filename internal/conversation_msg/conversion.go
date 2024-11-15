@@ -2,7 +2,6 @@ package conversation_msg
 
 import (
 	"context"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
@@ -84,31 +83,28 @@ func LocalChatLogToMsgPB(localMessage *model_struct.LocalChatLog) *sdkpb.MsgStru
 		ServerMsgID:      localMessage.ServerMsgID,
 		CreateTime:       localMessage.CreateTime,
 		SendTime:         localMessage.SendTime,
-		SessionType:      localMessage.SessionType,
+		SessionType:      sdkpb.SessionType(localMessage.SessionType),
 		SendID:           localMessage.SendID,
 		RecvID:           localMessage.RecvID,
-		MsgFrom:          localMessage.MsgFrom,
-		ContentType:      localMessage.ContentType,
+		MsgFrom:          sdkpb.MsgFrom(localMessage.MsgFrom),
+		ContentType:      sdkpb.ContentType(localMessage.ContentType),
 		SenderPlatformID: sdkpb.Platform(localMessage.SenderPlatformID),
 		SenderNickname:   localMessage.SenderNickname,
 		SenderFaceURL:    localMessage.SenderFaceURL,
-		Content:          localMessage.Content,
 		Seq:              localMessage.Seq,
 		IsRead:           localMessage.IsRead,
-		Status:           localMessage.Status,
+		Status:           sdkpb.MsgStatus(localMessage.Status),
 		Ex:               localMessage.Ex,
 		LocalEx:          localMessage.LocalEx,
 	}
+	mustStringToMsgContent(localMessage.Content, message)
 	var attachedInfo sdkpb.AttachedInfoElem
 	err := utils.JsonStringToStruct(localMessage.AttachedInfo, &attachedInfo)
 	if err != nil {
 		log.ZWarn(context.Background(), "JsonStringToStruct error", err, "localMessage.AttachedInfo", localMessage.AttachedInfo)
 	}
 	message.AttachedInfoElem = &attachedInfo
-	errParse := msgHandleByContentType(message)
-	if errParse != nil {
-		log.ZWarn(context.Background(), "Parsing data error", err, "messageContent", message.Content)
-	}
+
 	switch localMessage.SessionType {
 	case constant.WriteGroupChatType:
 		fallthrough
@@ -116,82 +112,6 @@ func LocalChatLogToMsgPB(localMessage *model_struct.LocalChatLog) *sdkpb.MsgStru
 		message.GroupID = localMessage.RecvID
 	}
 	return message
-}
-
-func msgHandleByContentType(msg *sdkpb.MsgStruct) (err error) {
-	switch msg.ContentType {
-	case constant.Text:
-		t := sdkpb.TextElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.TextElem = &t
-	case constant.Picture:
-		t := sdkpb.PictureElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.PictureElem = &t
-	case constant.Sound:
-		t := sdkpb.SoundElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.SoundElem = &t
-	case constant.Video:
-		t := sdkpb.VideoElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.VideoElem = &t
-	case constant.File:
-		t := sdkpb.FileElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.FileElem = &t
-	case constant.AdvancedText:
-		t := sdkpb.AdvancedTextElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.AdvancedTextElem = &t
-	case constant.AtText:
-		t := sdkpb.AtTextElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.AtTextElem = &t
-	case constant.Location:
-		t := sdkpb.LocationElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.LocationElem = &t
-	case constant.Custom:
-		fallthrough
-	case constant.CustomMsgNotTriggerConversation:
-		fallthrough
-	case constant.CustomMsgOnlineOnly:
-		t := sdkpb.CustomElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.CustomElem = &t
-	case constant.Typing:
-		t := sdkpb.TypingElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.TypingElem = &t
-	case constant.Quote:
-		t := sdkpb.QuoteElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.QuoteElem = &t
-	case constant.Merger:
-		t := sdkpb.MergeElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.MergeElem = &t
-	case constant.Face:
-		t := sdkpb.FaceElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.FaceElem = &t
-	case constant.Card:
-		t := sdkpb.CardElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.CardElem = &t
-	case pconstant.Stream:
-		t := sdkpb.StreamElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.StreamElem = &t
-	default:
-		t := sdkpb.NotificationElem{}
-		err = utils.JsonStringToStruct(msg.Content, &t)
-		msg.NotificationElem = &t
-	}
-	msg.Content = ""
-
-	return errs.Wrap(err)
 }
 
 func MsgStructToLocalChatLog(message *sdkpb.MsgStruct) *model_struct.LocalChatLog {
@@ -203,55 +123,104 @@ func MsgStructToLocalChatLog(message *sdkpb.MsgStruct) *model_struct.LocalChatLo
 		SenderPlatformID: int32(message.SenderPlatformID),
 		SenderNickname:   message.SenderNickname,
 		SenderFaceURL:    message.SenderFaceURL,
-		SessionType:      message.SessionType,
-		MsgFrom:          message.MsgFrom,
-		ContentType:      message.ContentType,
+		SessionType:      int32(message.SessionType),
+		MsgFrom:          int32(message.MsgFrom),
+		ContentType:      int32(message.ContentType),
+		Content:          utils.StructToJsonString(message.Content),
 		IsRead:           message.IsRead,
-		Status:           message.Status,
+		Status:           int32(message.Status),
 		Seq:              message.Seq,
 		SendTime:         message.SendTime,
 		CreateTime:       message.CreateTime,
-		AttachedInfo:     message.AttachedInfo,
+		AttachedInfo:     utils.StructToJsonString(message.AttachedInfoElem),
 		Ex:               message.Ex,
 		LocalEx:          message.LocalEx,
 	}
-	switch message.ContentType {
-	case constant.Text:
-		localMessage.Content = utils.StructToJsonString(message.TextElem)
-	case constant.Picture:
-		localMessage.Content = utils.StructToJsonString(message.PictureElem)
-	case constant.Sound:
-		localMessage.Content = utils.StructToJsonString(message.SoundElem)
-	case constant.Video:
-		localMessage.Content = utils.StructToJsonString(message.VideoElem)
-	case constant.File:
-		localMessage.Content = utils.StructToJsonString(message.FileElem)
-	case constant.AtText:
-		localMessage.Content = utils.StructToJsonString(message.AtTextElem)
-	case constant.Merger:
-		localMessage.Content = utils.StructToJsonString(message.MergeElem)
-	case constant.Card:
-		localMessage.Content = utils.StructToJsonString(message.CardElem)
-	case constant.Location:
-		localMessage.Content = utils.StructToJsonString(message.LocationElem)
-	case constant.Custom:
-		localMessage.Content = utils.StructToJsonString(message.CustomElem)
-	case constant.Quote:
-		localMessage.Content = utils.StructToJsonString(message.QuoteElem)
-	case constant.Face:
-		localMessage.Content = utils.StructToJsonString(message.FaceElem)
-	case constant.AdvancedText:
-		localMessage.Content = utils.StructToJsonString(message.AdvancedTextElem)
-	case pconstant.Stream:
-		localMessage.Content = utils.StructToJsonString(message.StreamElem)
-	default:
-		localMessage.Content = utils.StructToJsonString(message.NotificationElem)
-	}
+
 	if message.SessionType == constant.WriteGroupChatType || message.SessionType == constant.ReadGroupChatType {
 		localMessage.RecvID = message.GroupID
 	}
-	localMessage.AttachedInfo = utils.StructToJsonString(message.AttachedInfoElem)
 	return localMessage
+}
+
+func stringToMsgContent(content string, msg *sdkpb.MsgStruct) (err error) {
+	switch msg.ContentType {
+	case constant.Text:
+		t := sdkpb.MsgStruct_TextElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Picture:
+		t := sdkpb.MsgStruct_PictureElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Sound:
+		t := sdkpb.MsgStruct_SoundElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Video:
+		t := sdkpb.MsgStruct_VideoElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.File:
+		t := sdkpb.MsgStruct_FileElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.AdvancedText:
+		t := sdkpb.MsgStruct_AdvancedTextElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.AtText:
+		t := sdkpb.MsgStruct_AtTextElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Location:
+		t := sdkpb.MsgStruct_LocationElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Custom:
+		fallthrough
+	case constant.CustomMsgNotTriggerConversation:
+		fallthrough
+	case constant.CustomMsgOnlineOnly:
+		t := sdkpb.MsgStruct_CustomElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Typing:
+		t := sdkpb.MsgStruct_TypingElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Quote:
+		t := sdkpb.MsgStruct_QuoteElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Merger:
+		t := sdkpb.MsgStruct_MergeElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Face:
+		t := sdkpb.MsgStruct_FaceElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case constant.Card:
+		t := sdkpb.MsgStruct_CardElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	case pconstant.Stream:
+		t := sdkpb.MsgStruct_StreamElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	default:
+		t := sdkpb.MsgStruct_NotificationElem{}
+		err = utils.JsonStringToStruct(content, &t)
+		msg.Content = &t
+	}
+	return errs.Wrap(err)
+}
+
+func mustStringToMsgContent(content string, msg *sdkpb.MsgStruct) {
+	if err := stringToMsgContent(content, msg); err != nil {
+		log.ZError(context.TODO(), "mustStringToMsgContent failed", err, "msg", msg, "content", content)
+	}
 }
 
 func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.Conversation {

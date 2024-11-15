@@ -210,10 +210,7 @@ message AttachedInfoElem {
   bool isPrivateChat = 2;
   int32 burnDuration = 3;
   int64 hasReadTime = 4;
-  repeated MessageEntity messageEntityList = 5;
-  bool isEncryption = 6;
-  bool inEncryptStatus = 7;
-  UploadProgress progress = 8;
+  UploadProgress progress = 5;
 }
 
 message UploadProgress {
@@ -256,7 +253,7 @@ message MsgStruct {
   string serverMsgID = 2;
   int64 createTime = 3;
   int64 sendTime = 4;
-  int32 sessionType = 5;
+  common.SessionType sessionType = 5;
   string sendID = 6;
   string recvID = 7;
   common.MsgFrom msgFrom = 8;
@@ -265,31 +262,31 @@ message MsgStruct {
   string senderNickname = 11;
   string senderFaceURL = 12;
   string groupID = 13;
-  string content = 14;
   int64 seq = 15;
   bool isRead = 16;
   common.MsgStatus status = 17;
   common.OfflinePushInfo offlinePush = 18;
-  string attachedInfo = 19;
   string ex = 20;
   string localEx = 21;
-  TextElem textElem = 22;
-  CardElem cardElem = 23;
-  PictureElem pictureElem = 24;
-  SoundElem soundElem = 25;
-  VideoElem videoElem = 26;
-  FileElem fileElem = 27;
-  MergeElem mergeElem = 28;
-  AtTextElem atTextElem = 29;
-  FaceElem faceElem = 30;
-  LocationElem locationElem = 31;
-  CustomElem customElem = 32;
-  QuoteElem quoteElem = 33;
-  NotificationElem notificationElem = 34;
-  AdvancedTextElem advancedTextElem = 35;
-  TypingElem typingElem = 36;
-  StreamElem streamElem = 37;
-  AttachedInfoElem attachedInfoElem = 38;
+  oneof content {
+    TextElem textElem = 23;
+    CardElem cardElem = 24;
+    PictureElem pictureElem = 25;
+    SoundElem soundElem = 26;
+    VideoElem videoElem = 27;
+    FileElem fileElem = 28;
+    MergeElem mergeElem = 29;
+    AtTextElem atTextElem = 30;
+    FaceElem faceElem = 31;
+    LocationElem locationElem = 32;
+    CustomElem customElem = 33;
+    QuoteElem quoteElem = 34;
+    NotificationElem notificationElem = 35;
+    AdvancedTextElem advancedTextElem = 36;
+    TypingElem typingElem = 37;
+    StreamElem streamElem = 38;
+  }
+  AttachedInfoElem attachedInfoElem = 39;
 }
 
 message GetAdvancedHistoryMessageListParams {

@@ -265,13 +265,6 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 
 			msg.Status = constant.MsgStatusSendSuccess
 
-			//De-analyze data
-			err := msgHandleByContentType(msg)
-			if err != nil {
-				log.ZError(ctx, "Parsing data error:", err, "type: ", msg.ContentType, "msg", msg)
-				continue
-			}
-
 			if !isNotPrivate {
 				msg.AttachedInfoElem.IsPrivateChat = true
 			}
@@ -504,12 +497,6 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 				continue
 			}
 			msg.Status = constant.MsgStatusSendSuccess
-
-			err := msgHandleByContentType(msg)
-			if err != nil {
-				log.ZError(ctx, "Parsing data error:", err, "type: ", msg.ContentType, "msg", msg)
-				continue
-			}
 
 			if conversationID == "" {
 				log.ZError(ctx, "conversationID is empty", errors.New("conversationID is empty"), "msg", msg)
