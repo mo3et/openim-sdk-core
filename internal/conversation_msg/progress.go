@@ -17,20 +17,19 @@ package conversation_msg
 import (
 	"context"
 	"encoding/json"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/db_interface"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
 	"github.com/openimsdk/tools/log"
 )
 
-func NewUploadFileCallback(ctx context.Context, progress func(progress int), msg *sdk_struct.MsgStruct, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
+func NewUploadFileCallback(ctx context.Context, progress func(progress int), msg *sdkpb.MsgStruct, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
 	if msg.AttachedInfoElem == nil {
-		msg.AttachedInfoElem = &sdk_struct.AttachedInfoElem{}
+		msg.AttachedInfoElem = &sdkpb.AttachedInfoElem{}
 	}
 	if msg.AttachedInfoElem.Progress == nil {
-		msg.AttachedInfoElem.Progress = &sdk_struct.UploadProgress{}
+		msg.AttachedInfoElem.Progress = &sdkpb.UploadProgress{}
 	}
 	return &msgUploadFileCallback{ctx: ctx, progress: progress, msg: msg, db: db, conversationID: conversationID}
 }
@@ -38,7 +37,7 @@ func NewUploadFileCallback(ctx context.Context, progress func(progress int), msg
 type msgUploadFileCallback struct {
 	ctx            context.Context
 	db             db_interface.DataBase
-	msg            *sdk_struct.MsgStruct
+	msg            *sdkpb.MsgStruct
 	conversationID string
 	value          int
 	progress       func(progress int)

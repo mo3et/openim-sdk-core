@@ -1,0 +1,307 @@
+syntax = "proto3";
+package openim.sdk.message;
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+option csharp_namespace = "OpenIM";
+
+import "common.proto";
+
+message MessageReceipt {
+  string groupID = 1;
+  string userID = 2;
+  repeated string msgIDList = 3;
+  int64 readTime = 4;
+  int32 msgFrom = 5;
+  int32 contentType = 6;
+  int32 sessionType = 7;
+}
+
+message MessageRevoked {
+  string revokerID = 1;
+  int32 revokerRole = 2;
+  string clientMsgID = 3;
+  string revokerNickname = 4;
+  int64 revokeTime = 5;
+  int64 sourceMessageSendTime = 6;
+  string sourceMessageSendID = 7;
+  string sourceMessageSenderNickname = 8;
+  int32 sessionType = 9;
+  int64 seq = 10;
+  string ex = 11;
+  bool isAdminRevoke = 12;
+}
+
+message MessageReaction {
+  string clientMsgID = 1;
+  int32 reactionType = 2;
+  int32 counter = 3;
+  string userID = 4;
+  string groupID = 5;
+  int32 sessionType = 6;
+  string info = 7;
+}
+
+message ImageInfo {
+  int32 width = 1;
+  int32 height = 2;
+  string type = 3;
+  int64 size = 4;
+}
+
+message PictureBaseInfo {
+  string uuid = 1;
+  string type = 2;
+  int64 size = 3;
+  int32 width = 4;
+  int32 height = 5;
+  string url = 6;
+}
+
+message SoundBaseInfo {
+  string uuid = 1;
+  string soundPath = 2;
+  string sourceURL = 3;
+  int64 dataSize = 4;
+  int64 duration = 5;
+  string soundType = 6;
+}
+
+message VideoBaseInfo {
+  string videoPath = 1;
+  string videoUUID = 2;
+  string videoURL = 3;
+  string videoType = 4;
+  int64 videoSize = 5;
+  int64 duration = 6;
+  string snapshotPath = 7;
+  string snapshotUUID = 8;
+  int64 snapshotSize = 9;
+  string snapshotURL = 10;
+  int32 snapshotWidth = 11;
+  int32 snapshotHeight = 12;
+  string snapshotType = 13;
+}
+
+message FileBaseInfo {
+  string filePath = 1;
+  string uuid = 2;
+  string sourceURL = 3;
+  string fileName = 4;
+  int64 fileSize = 5;
+  string fileType = 6;
+}
+
+message TextElem {
+  string content = 1;
+}
+
+message CardElem {
+  string userID = 1;
+  string nickname = 2;
+  string faceURL = 3;
+  string ex = 4;
+}
+
+message PictureElem {
+  string sourcePath = 1;
+  PictureBaseInfo sourcePicture = 2;
+  PictureBaseInfo bigPicture = 3;
+  PictureBaseInfo snapshotPicture = 4;
+}
+
+message SoundElem {
+  string uuid = 1;
+  string soundPath = 2;
+  string sourceURL = 3;
+  int64 dataSize = 4;
+  int64 duration = 5;
+  string soundType = 6;
+}
+
+message VideoElem {
+  string videoPath = 1;
+  string videoUUID = 2;
+  string videoURL = 3;
+  string videoType = 4;
+  int64 videoSize = 5;
+  int64 duration = 6;
+  string snapshotPath = 7;
+  string snapshotUUID = 8;
+  int64 snapshotSize = 9;
+  string snapshotURL = 10;
+  int32 snapshotWidth = 11;
+  int32 snapshotHeight = 12;
+  string snapshotType = 13;
+}
+
+message FileElem {
+  string filePath = 1;
+  string uuid = 2;
+  string sourceURL = 3;
+  string fileName = 4;
+  int64 fileSize = 5;
+  string fileType = 6;
+}
+
+message MergeElem {
+  string title = 1;
+  repeated string abstractList = 2;
+  repeated MsgStruct multiMessage = 3;
+  repeated MessageEntity messageEntityList = 4;
+}
+
+message AtTextElem {
+  string text = 1;
+  repeated string atUserList = 2;
+  repeated AtInfo atUsersInfo = 3;
+  MsgStruct quoteMessage = 4;
+  bool isAtSelf = 5;
+}
+
+message FaceElem {
+  int32 index = 1;
+  string data = 2;
+}
+
+message LocationElem {
+  string description = 1;
+  double longitude = 2;
+  double latitude = 3;
+}
+
+message CustomElem {
+  string data = 1;
+  string description = 2;
+  string extension = 3;
+}
+
+message QuoteElem {
+  string text = 1;
+  MsgStruct quoteMessage = 2;
+  repeated MessageEntity messageEntityList = 3;
+}
+
+message NotificationElem {
+  string detail = 1;
+}
+
+message AdvancedTextElem {
+  string text = 1;
+  repeated MessageEntity messageEntityList = 2;
+}
+
+message TypingElem {
+  string msgTips = 1;
+}
+
+message StreamElem {
+  string type = 1;
+  string content = 2;
+  repeated string packets = 3;
+  bool end = 4;
+}
+
+message AtInfo {
+  string atUserID = 1;
+  string groupNickname = 2;
+}
+
+message AttachedInfoElem {
+  GroupHasReadInfo groupHasReadInfo = 1;
+  bool isPrivateChat = 2;
+  int32 burnDuration = 3;
+  int64 hasReadTime = 4;
+  repeated MessageEntity messageEntityList = 5;
+  bool isEncryption = 6;
+  bool inEncryptStatus = 7;
+  UploadProgress progress = 8;
+}
+
+message UploadProgress {
+  int64 total = 1;
+  int64 save = 2;
+  int64 current = 3;
+  string uploadID = 4;
+}
+
+message ReactionElem {
+  int32 counter = 1;
+  int32 type = 2;
+  repeated UserReactionElem userReactionList = 3;
+  bool canRepeat = 4;
+  string info = 5;
+}
+
+message UserReactionElem {
+  string userID = 1;
+  int32 counter = 2;
+  string info = 3;
+}
+
+message MessageEntity {
+  string type = 1;
+  int32 offset = 2;
+  int32 length = 3;
+  string url = 4;
+  string ex = 5;
+}
+
+message GroupHasReadInfo {
+  repeated string hasReadUserIDList = 1;
+  int32 hasReadCount = 2;
+  int32 groupMemberCount = 3;
+}
+
+message MsgStruct {
+  string clientMsgID = 1;
+  string serverMsgID = 2;
+  int64 createTime = 3;
+  int64 sendTime = 4;
+  int32 sessionType = 5;
+  string sendID = 6;
+  string recvID = 7;
+  int32 msgFrom = 8;
+  int32 contentType = 9;
+  int32 senderPlatformID = 10;
+  string senderNickname = 11;
+  string senderFaceURL = 12;
+  string groupID = 13;
+  string content = 14;
+  int64 seq = 15;
+  bool isRead = 16;
+  int32 status = 17;
+  common.OfflinePushInfo offlinePush = 18;
+  string attachedInfo = 19;
+  string ex = 20;
+  string localEx = 21;
+  TextElem textElem = 22;
+  CardElem cardElem = 23;
+  PictureElem pictureElem = 24;
+  SoundElem soundElem = 25;
+  VideoElem videoElem = 26;
+  FileElem fileElem = 27;
+  MergeElem mergeElem = 28;
+  AtTextElem atTextElem = 29;
+  FaceElem faceElem = 30;
+  LocationElem locationElem = 31;
+  CustomElem customElem = 32;
+  QuoteElem quoteElem = 33;
+  NotificationElem notificationElem = 34;
+  AdvancedTextElem advancedTextElem = 35;
+  TypingElem typingElem = 36;
+  StreamElem streamElem = 37;
+  AttachedInfoElem attachedInfoElem = 38;
+}
+
+message SendMessageReq {
+  MsgStruct message = 1;
+  string recvID = 2;
+  string groupID = 3;
+  common.OfflinePushInfo offlinePushInfo = 4;
+  bool isOnlineOnly = 5;
+}
+
+message SendMessageResp {
+  MsgStruct message = 1;
+}
+
+

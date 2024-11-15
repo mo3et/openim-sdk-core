@@ -3,6 +3,7 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
+	pbConversation "github.com/openimsdk/protocol/conversation"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -31,7 +32,6 @@ import (
 	"github.com/openimsdk/tools/log"
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
-	pbConversation "github.com/openimsdk/protocol/conversation"
 	"github.com/openimsdk/protocol/sdkws"
 
 	"github.com/jinzhu/copier"
@@ -45,43 +45,50 @@ func (c *Conversation) GetAllConversationList(ctx context.Context, req *sdkpb.Ge
 	return &sdkpb.GetAllConversationListResp{ConversationList: datautil.Batch(LocalConversationToSdkPB, conversationList)}, nil
 }
 
-func (c *Conversation) GetConversationListSplit(ctx context.Context, offset, count int) ([]*model_struct.LocalConversation, error) {
-	return c.db.GetConversationListSplitDB(ctx, offset, count)
-}
-
-func (c *Conversation) HideConversation(ctx context.Context, conversationID string) error {
-	err := c.db.ResetConversation(ctx, conversationID)
+func (c *Conversation) GetConversationListSplit(ctx context.Context, req *sdkpb.GetConversationListSplitReq) (*sdkpb.GetConversationListSplitResp, error) {
+	conversations, err := c.db.GetConversationListSplitDB(ctx, int(req.Offset), int(req.Count))
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+
+	return &sdkpb.GetConversationListSplitResp{
+		ConversationList: datautil.Batch(LocalConversationToSdkPB, conversations),
+	}, nil
 }
 
-func (c *Conversation) GetAtAllTag(_ context.Context) string {
-	return constant.AtAllString
+func (c *Conversation) HideConversation(ctx context.Context, req *sdkpb.HideConversationReq) (*sdkpb.HideConversationResp, error) {
+	err := c.db.ResetConversation(ctx, req.ConversationID)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.HideConversationResp{}, nil
 }
 
-func (c *Conversation) GetOneConversation(ctx context.Context, sessionType int32, sourceID string) (*model_struct.LocalConversation, error) {
-	conversationID := c.getConversationIDBySessionType(sourceID, int(sessionType))
+func (c *Conversation) GetAtAllTag(ctx context.Context, req *sdkpb.GetAtAllTagReq) (*sdkpb.GetAtAllTagResp, error) {
+	return &sdkpb.GetAtAllTagResp{Tag: constant.AtAllString}, nil
+}
+
+func (c *Conversation) GetOneConversation(ctx context.Context, req *sdkpb.GetOneConversationReq) (*sdkpb.GetOneConversationResp, error) {
+	conversationID := c.getConversationIDBySessionType(req.SourceID, int(req.SessionType))
 	lc, err := c.db.GetConversation(ctx, conversationID)
 	if err == nil {
-		return lc, nil
+		return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToSdkPB(lc)}, nil
 	} else {
 		var newConversation model_struct.LocalConversation
 		newConversation.ConversationID = conversationID
-		newConversation.ConversationType = sessionType
-		switch sessionType {
+		newConversation.ConversationType = req.SessionType
+		switch req.SessionType {
 		case constant.SingleChatType:
-			newConversation.UserID = sourceID
-			faceUrl, name, err := c.getUserNameAndFaceURL(ctx, sourceID)
+			newConversation.UserID = req.SourceID
+			faceUrl, name, err := c.getUserNameAndFaceURL(ctx, req.SourceID)
 			if err != nil {
 				return nil, err
 			}
 			newConversation.ShowName = name
 			newConversation.FaceURL = faceUrl
 		case constant.WriteGroupChatType, constant.ReadGroupChatType:
-			newConversation.GroupID = sourceID
-			g, err := c.group.FetchGroupOrError(ctx, sourceID)
+			newConversation.GroupID = req.SourceID
+			g, err := c.group.FetchGroupOrError(ctx, req.SourceID)
 			if err != nil {
 				return nil, err
 			}
@@ -91,67 +98,74 @@ func (c *Conversation) GetOneConversation(ctx context.Context, sessionType int32
 		time.Sleep(time.Millisecond * 500)
 		lc, errTemp := c.db.GetConversation(ctx, conversationID)
 		if errTemp == nil {
-			return lc, nil
+			return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToSdkPB(lc)}, nil
 		}
 		err := c.db.InsertConversation(ctx, &newConversation)
 		if err != nil {
 			return nil, err
 		}
-		return &newConversation, nil
+		return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToSdkPB(&newConversation)}, nil
 	}
 }
 
-func (c *Conversation) GetMultipleConversation(ctx context.Context, conversationIDList []string) ([]*model_struct.LocalConversation, error) {
-	conversations, err := c.db.GetMultipleConversationDB(ctx, conversationIDList)
+func (c *Conversation) GetMultipleConversation(ctx context.Context, req *sdkpb.GetMultipleConversationReq) (*sdkpb.GetMultipleConversationResp, error) {
+	conversations, err := c.db.GetMultipleConversationDB(ctx, req.ConversationIDList)
 	if err != nil {
 		return nil, err
 	}
-	return conversations, nil
-
+	return &sdkpb.GetMultipleConversationResp{ConversationList: datautil.Batch(LocalConversationToSdkPB, conversations)}, nil
 }
 
-func (c *Conversation) HideAllConversations(ctx context.Context) error {
+func (c *Conversation) HideAllConversations(ctx context.Context, req *sdkpb.HideAllConversationsReq) (*sdkpb.HideAllConversationsResp, error) {
 	err := c.db.ResetAllConversation(ctx)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return &sdkpb.HideAllConversationsResp{}, nil
 }
 
-func (c *Conversation) SetConversationDraft(ctx context.Context, conversationID, draftText string) error {
-	if draftText != "" {
-		err := c.db.SetConversationDraftDB(ctx, conversationID, draftText)
+func (c *Conversation) SetConversationDraft(ctx context.Context, req *sdkpb.SetConversationDraftReq) (*sdkpb.SetConversationDraftResp, error) {
+	if req.DraftText != "" {
+		err := c.db.SetConversationDraftDB(ctx, req.ConversationID, req.DraftText)
 		if err != nil {
-			return err
+			return nil, err
 		}
 	} else {
-		err := c.db.RemoveConversationDraft(ctx, conversationID, draftText)
+		err := c.db.RemoveConversationDraft(ctx, req.ConversationID, req.DraftText)
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
-	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{Action: constant.ConChange, Args: []string{conversationID}}, c.GetCh())
-	return nil
+	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{Action: constant.ConChange, Args: []string{req.ConversationID}}, c.GetCh())
+	return &sdkpb.SetConversationDraftResp{}, nil
 }
 
-func (c *Conversation) SetConversation(ctx context.Context, conversationID string, req *pbConversation.ConversationReq) error {
+func (c *Conversation) SetConversation(ctx context.Context, req *sdkpb.SetConversationReq) (*sdkpb.SetConversationResp, error) {
 	c.conversationSyncMutex.Lock()
 	defer c.conversationSyncMutex.Unlock()
 
-	lc, err := c.db.GetConversation(ctx, conversationID)
+	lc, err := c.db.GetConversation(ctx, req.ConversationID)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	apiReq := &pbConversation.SetConversationsReq{Conversation: req}
+	apiReq := &pbConversation.SetConversationsReq{Conversation: req.Conversation}
 	err = c.setConversation(ctx, apiReq, lc)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return c.IncrSyncConversations(ctx)
+	err = c.IncrSyncConversations(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.SetConversationResp{}, nil
 }
 
-func (c *Conversation) GetTotalUnreadMsgCount(ctx context.Context) (totalUnreadCount int32, err error) {
-	return c.db.GetTotalUnreadMsgCountDB(ctx)
+func (c *Conversation) GetTotalUnreadMsgCount(ctx context.Context, req *sdkpb.GetTotalUnreadMsgCountReq) (*sdkpb.GetTotalUnreadMsgCountResp, error) {
+	totalUnreadCount, err := c.db.GetTotalUnreadMsgCountDB(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.GetTotalUnreadMsgCountResp{TotalUnreadCount: totalUnreadCount}, nil
 }
 
 func (c *Conversation) SetConversationListener(listener func() open_im_sdk_callback.OnConversationListener) {
@@ -165,7 +179,7 @@ func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) 
 
 }
 
-func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status int32, s *sdk_struct.MsgStruct,
+func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status int32, s *sdkpb.MsgStruct,
 	lc *model_struct.LocalConversation, isOnlineOnly bool) {
 	log.ZDebug(ctx, "this is test send message ", "sendTime", sendTime, "status", status, "clientMsgID", clientMsgID, "serverMsgID", serverMsgID)
 	if isOnlineOnly {
@@ -192,7 +206,7 @@ func (c *Conversation) fileName(ftype string, id string) string {
 	return fmt.Sprintf("msg_%s_%s", ftype, id)
 }
 
-func (c *Conversation) checkID(ctx context.Context, s *sdk_struct.MsgStruct,
+func (c *Conversation) checkID(ctx context.Context, s *sdkpb.MsgStruct,
 	recvID, groupID string, options map[string]bool) (*model_struct.LocalConversation, error) {
 	if recvID == "" && groupID == "" {
 		return nil, sdkerrs.ErrArgs
@@ -233,7 +247,7 @@ func (c *Conversation) checkID(ctx context.Context, s *sdk_struct.MsgStruct,
 				}
 			}
 		}
-		var attachedInfo sdk_struct.AttachedInfoElem
+		var attachedInfo sdkpb.AttachedInfoElem
 		attachedInfo.GroupHasReadInfo.GroupMemberCount = g.MemberCount
 		s.AttachedInfoElem = &attachedInfo
 	} else {
@@ -245,7 +259,7 @@ func (c *Conversation) checkID(ctx context.Context, s *sdk_struct.MsgStruct,
 		oldLc, err := c.db.GetConversation(ctx, lc.ConversationID)
 		if err == nil && oldLc.IsPrivateChat {
 			options[constant.IsNotPrivate] = false
-			var attachedInfo sdk_struct.AttachedInfoElem
+			var attachedInfo sdkpb.AttachedInfoElem
 			attachedInfo.IsPrivateChat = true
 			attachedInfo.BurnDuration = oldLc.BurnDuration
 			s.AttachedInfoElem = &attachedInfo
@@ -280,17 +294,22 @@ func (c *Conversation) getConversationIDBySessionType(sourceID string, sessionTy
 	return ""
 }
 
-func (c *Conversation) GetConversationIDBySessionType(_ context.Context, sourceID string, sessionType int) string {
-	return c.getConversationIDBySessionType(sourceID, sessionType)
+func (c *Conversation) GetConversationIDBySessionType(ctx context.Context, req *sdkpb.GetConversationIDBySessionTypeReq) (*sdkpb.GetConversationIDBySessionTypeResp, error) {
+	conversationID := c.getConversationIDBySessionType(req.SourceID, int(req.SessionType))
+	return &sdkpb.GetConversationIDBySessionTypeResp{ConversationID: conversationID}, nil
 }
 
-func (c *Conversation) SendMessage(ctx context.Context, s *sdk_struct.MsgStruct, recvID, groupID string, p *sdkws.OfflinePushInfo, isOnlineOnly bool) (*sdk_struct.MsgStruct, error) {
+func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageReq) (*sdkpb.SendMessageResp, error) {
 	// Message is created by URL
-	if (s.FileElem != nil && s.FileElem.SourceURL != "") ||
-		(s.SoundElem != nil && s.SoundElem.SourceURL != "") ||
-		(s.VideoElem != nil && s.VideoElem.VideoURL != "") ||
-		(s.PictureElem != nil && (s.PictureElem.SourcePicture.Url != "" || s.PictureElem.BigPicture.Url != "" || s.PictureElem.SnapshotPicture.Url != "")) {
-		return c.sendMessageNotOss(ctx, s, recvID, groupID, p, isOnlineOnly)
+	if (req.Message.FileElem != nil && req.Message.FileElem.SourceURL != "") ||
+		(req.Message.SoundElem != nil && req.Message.SoundElem.SourceURL != "") ||
+		(req.Message.VideoElem != nil && req.Message.VideoElem.VideoURL != "") ||
+		(req.Message.PictureElem != nil && (req.Message.PictureElem.SourcePicture.Url != "" || req.Message.PictureElem.BigPicture.Url != "" || req.Message.PictureElem.SnapshotPicture.Url != "")) {
+		msg, err := c.sendMessageNotOss(ctx, req.Message, req.RecvID, req.GroupID, req.OfflinePushInfo, req.IsOnlineOnly)
+		if err != nil {
+			return nil, err
+		}
+		return &sdkpb.SendMessageResp{Message: msg}, nil
 	}
 
 	filepathExt := func(name ...string) string {
@@ -302,16 +321,16 @@ func (c *Conversation) SendMessage(ctx context.Context, s *sdk_struct.MsgStruct,
 		return ""
 	}
 	options := make(map[string]bool, 2)
-	lc, err := c.checkID(ctx, s, recvID, groupID, options)
+	lc, err := c.checkID(ctx, req.Message, req.RecvID, req.GroupID, options)
 	if err != nil {
 		return nil, err
 	}
 	callback, _ := ctx.Value("callback").(open_im_sdk_callback.SendMsgCallBack)
-	log.ZDebug(ctx, "before insert message is", "message", *s)
-	if !isOnlineOnly {
-		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, s.ClientMsgID)
+	log.ZDebug(ctx, "before insert message is", "message", req.Message)
+	if !req.IsOnlineOnly {
+		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, req.Message.ClientMsgID)
 		if err != nil {
-			localMessage := MsgStructToLocalChatLog(s)
+			localMessage := MsgStructToLocalChatLog(req.Message)
 			err := c.db.InsertMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
 				return nil, err
@@ -327,52 +346,52 @@ func (c *Conversation) SendMessage(ctx context.Context, s *sdk_struct.MsgStruct,
 			if oldMessage.Status != constant.MsgStatusSendFailed {
 				return nil, sdkerrs.ErrMsgRepeated
 			} else {
-				s.Status = constant.MsgStatusSending
+				req.Message.Status = constant.MsgStatusSending
 				err = c.db.InsertSendingMessage(ctx, &model_struct.LocalSendingMessages{
 					ConversationID: lc.ConversationID,
-					ClientMsgID:    s.ClientMsgID,
+					ClientMsgID:    req.Message.ClientMsgID,
 				})
 				if err != nil {
 					return nil, err
 				}
 			}
 		}
-		lc.LatestMsg = utils.StructToJsonString(s)
+		lc.LatestMsg = utils.StructToJsonString(req.Message)
 		log.ZDebug(ctx, "send message come here", "conversion", *lc)
 		_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: lc.ConversationID, Action: constant.AddConOrUpLatMsg, Args: *lc}, c.GetCh())
 	}
 
 	var delFile []string
 	//media file handle
-	switch s.ContentType {
+	switch req.Message.ContentType {
 	case constant.Picture:
-		if s.Status == constant.MsgStatusSendSuccess {
-			s.Content = utils.StructToJsonString(s.PictureElem)
+		if req.Message.Status == constant.MsgStatusSendSuccess {
+			req.Message.Content = utils.StructToJsonString(req.Message.PictureElem)
 			break
 		}
 		var sourcePath string
-		if utils.FileExist(s.PictureElem.SourcePath) {
-			sourcePath = s.PictureElem.SourcePath
-			delFile = append(delFile, utils.FileTmpPath(s.PictureElem.SourcePath, c.DataDir))
+		if utils.FileExist(req.Message.PictureElem.SourcePath) {
+			sourcePath = req.Message.PictureElem.SourcePath
+			delFile = append(delFile, utils.FileTmpPath(req.Message.PictureElem.SourcePath, c.DataDir))
 		} else {
-			sourcePath = utils.FileTmpPath(s.PictureElem.SourcePath, c.DataDir)
+			sourcePath = utils.FileTmpPath(req.Message.PictureElem.SourcePath, c.DataDir)
 			delFile = append(delFile, sourcePath)
 		}
 		log.ZDebug(ctx, "send picture", "path", sourcePath)
 
 		res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-			ContentType: s.PictureElem.SourcePicture.Type,
+			ContentType: req.Message.PictureElem.SourcePicture.Type,
 			Filepath:    sourcePath,
-			Uuid:        s.PictureElem.SourcePicture.UUID,
-			Name:        c.fileName("picture", s.ClientMsgID) + filepathExt(s.PictureElem.SourcePicture.UUID, sourcePath),
+			Uuid:        req.Message.PictureElem.SourcePicture.Uuid,
+			Name:        c.fileName("picture", req.Message.ClientMsgID) + filepathExt(req.Message.PictureElem.SourcePicture.Uuid, sourcePath),
 			Cause:       "msg-picture",
-		}, NewUploadFileCallback(ctx, callback.OnProgress, s, lc.ConversationID, c.db))
+		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, s.ClientMsgID, "", s.CreateTime, constant.MsgStatusSendFailed, s, lc, isOnlineOnly)
+			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
 		}
-		s.PictureElem.SourcePicture.Url = res.URL
-		s.PictureElem.BigPicture = s.PictureElem.SourcePicture
+		req.Message.PictureElem.SourcePicture.Url = res.URL
+		req.Message.PictureElem.BigPicture = req.Message.PictureElem.SourcePicture
 		u, err := url.Parse(res.URL)
 		if err == nil {
 			snapshot := u.Query()
@@ -380,59 +399,59 @@ func (c *Conversation) SendMessage(ctx context.Context, s *sdk_struct.MsgStruct,
 			snapshot.Set("width", "640")
 			snapshot.Set("height", "640")
 			u.RawQuery = snapshot.Encode()
-			s.PictureElem.SnapshotPicture = &sdk_struct.PictureBaseInfo{
+			req.Message.PictureElem.SnapshotPicture = &sdkpb.PictureBaseInfo{
 				Width:  640,
 				Height: 640,
 				Url:    u.String(),
 			}
 		} else {
 			log.ZError(ctx, "parse url failed", err, "url", res.URL, "err", err)
-			s.PictureElem.SnapshotPicture = s.PictureElem.SourcePicture
+			req.Message.PictureElem.SnapshotPicture = req.Message.PictureElem.SourcePicture
 		}
-		s.Content = utils.StructToJsonString(s.PictureElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.PictureElem)
 	case constant.Sound:
-		if s.Status == constant.MsgStatusSendSuccess {
-			s.Content = utils.StructToJsonString(s.SoundElem)
+		if req.Message.Status == constant.MsgStatusSendSuccess {
+			req.Message.Content = utils.StructToJsonString(req.Message.SoundElem)
 			break
 		}
 		var sourcePath string
-		if utils.FileExist(s.SoundElem.SoundPath) {
-			sourcePath = s.SoundElem.SoundPath
-			delFile = append(delFile, utils.FileTmpPath(s.SoundElem.SoundPath, c.DataDir))
+		if utils.FileExist(req.Message.SoundElem.SoundPath) {
+			sourcePath = req.Message.SoundElem.SoundPath
+			delFile = append(delFile, utils.FileTmpPath(req.Message.SoundElem.SoundPath, c.DataDir))
 		} else {
-			sourcePath = utils.FileTmpPath(s.SoundElem.SoundPath, c.DataDir)
+			sourcePath = utils.FileTmpPath(req.Message.SoundElem.SoundPath, c.DataDir)
 			delFile = append(delFile, sourcePath)
 		}
 		// log.Info("", "file", sourcePath, delFile)
 
 		res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-			ContentType: s.SoundElem.SoundType,
+			ContentType: req.Message.SoundElem.SoundType,
 			Filepath:    sourcePath,
-			Uuid:        s.SoundElem.UUID,
-			Name:        c.fileName("voice", s.ClientMsgID) + filepathExt(s.SoundElem.UUID, sourcePath),
+			Uuid:        req.Message.SoundElem.Uuid,
+			Name:        c.fileName("voice", req.Message.ClientMsgID) + filepathExt(req.Message.SoundElem.Uuid, sourcePath),
 			Cause:       "msg-voice",
-		}, NewUploadFileCallback(ctx, callback.OnProgress, s, lc.ConversationID, c.db))
+		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, s.ClientMsgID, "", s.CreateTime, constant.MsgStatusSendFailed, s, lc, isOnlineOnly)
+			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
 		}
-		s.SoundElem.SourceURL = res.URL
-		s.Content = utils.StructToJsonString(s.SoundElem)
+		req.Message.SoundElem.SourceURL = res.URL
+		req.Message.Content = utils.StructToJsonString(req.Message.SoundElem)
 	case constant.Video:
-		if s.Status == constant.MsgStatusSendSuccess {
-			s.Content = utils.StructToJsonString(s.VideoElem)
+		if req.Message.Status == constant.MsgStatusSendSuccess {
+			req.Message.Content = utils.StructToJsonString(req.Message.VideoElem)
 			break
 		}
 		var videoPath string
 		var snapPath string
-		if utils.FileExist(s.VideoElem.VideoPath) {
-			videoPath = s.VideoElem.VideoPath
-			snapPath = s.VideoElem.SnapshotPath
-			delFile = append(delFile, utils.FileTmpPath(s.VideoElem.VideoPath, c.DataDir))
-			delFile = append(delFile, utils.FileTmpPath(s.VideoElem.SnapshotPath, c.DataDir))
+		if utils.FileExist(req.Message.VideoElem.VideoPath) {
+			videoPath = req.Message.VideoElem.VideoPath
+			snapPath = req.Message.VideoElem.SnapshotPath
+			delFile = append(delFile, utils.FileTmpPath(req.Message.VideoElem.VideoPath, c.DataDir))
+			delFile = append(delFile, utils.FileTmpPath(req.Message.VideoElem.SnapshotPath, c.DataDir))
 		} else {
-			videoPath = utils.FileTmpPath(s.VideoElem.VideoPath, c.DataDir)
-			snapPath = utils.FileTmpPath(s.VideoElem.SnapshotPath, c.DataDir)
+			videoPath = utils.FileTmpPath(req.Message.VideoElem.VideoPath, c.DataDir)
+			snapPath = utils.FileTmpPath(req.Message.VideoElem.SnapshotPath, c.DataDir)
 			delFile = append(delFile, videoPath)
 			delFile = append(delFile, snapPath)
 		}
@@ -444,97 +463,97 @@ func (c *Conversation) SendMessage(ctx context.Context, s *sdk_struct.MsgStruct,
 		go func() {
 			defer wg.Done()
 			snapRes, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-				ContentType: s.VideoElem.SnapshotType,
+				ContentType: req.Message.VideoElem.SnapshotType,
 				Filepath:    snapPath,
-				Uuid:        s.VideoElem.SnapshotUUID,
-				Name:        c.fileName("videoSnapshot", s.ClientMsgID) + filepathExt(s.VideoElem.SnapshotUUID, snapPath),
+				Uuid:        req.Message.VideoElem.SnapshotUUID,
+				Name:        c.fileName("videoSnapshot", req.Message.ClientMsgID) + filepathExt(req.Message.VideoElem.SnapshotUUID, snapPath),
 				Cause:       "msg-video-snapshot",
 			}, nil)
 			if err != nil {
 				log.ZWarn(ctx, "upload video snapshot failed", err)
 				return
 			}
-			s.VideoElem.SnapshotURL = snapRes.URL
+			req.Message.VideoElem.SnapshotURL = snapRes.URL
 		}()
 
 		go func() {
 			defer wg.Done()
 			res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-				ContentType: content_type.GetType(s.VideoElem.VideoType, filepath.Ext(s.VideoElem.VideoPath)),
+				ContentType: content_type.GetType(req.Message.VideoElem.VideoType, filepath.Ext(req.Message.VideoElem.VideoPath)),
 				Filepath:    videoPath,
-				Uuid:        s.VideoElem.VideoUUID,
-				Name:        c.fileName("video", s.ClientMsgID) + filepathExt(s.VideoElem.VideoUUID, videoPath),
+				Uuid:        req.Message.VideoElem.VideoUUID,
+				Name:        c.fileName("video", req.Message.ClientMsgID) + filepathExt(req.Message.VideoElem.VideoUUID, videoPath),
 				Cause:       "msg-video",
-			}, NewUploadFileCallback(ctx, callback.OnProgress, s, lc.ConversationID, c.db))
+			}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
 			if err != nil {
-				c.updateMsgStatusAndTriggerConversation(ctx, s.ClientMsgID, "", s.CreateTime, constant.MsgStatusSendFailed, s, lc, isOnlineOnly)
+				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
 				putErrs = err
 				return
 			}
 			if res != nil {
-				s.VideoElem.VideoURL = res.URL
+				req.Message.VideoElem.VideoURL = res.URL
 			}
 		}()
 		wg.Wait()
 		if err := putErrs; err != nil {
 			return nil, err
 		}
-		s.Content = utils.StructToJsonString(s.VideoElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.VideoElem)
 	case constant.File:
-		if s.Status == constant.MsgStatusSendSuccess {
-			s.Content = utils.StructToJsonString(s.FileElem)
+		if req.Message.Status == constant.MsgStatusSendSuccess {
+			req.Message.Content = utils.StructToJsonString(req.Message.FileElem)
 			break
 		}
-		name := s.FileElem.FileName
+		name := req.Message.FileElem.FileName
 
 		if name == "" {
-			name = s.FileElem.FilePath
+			name = req.Message.FileElem.FilePath
 		}
 		if name == "" {
-			name = fmt.Sprintf("msg_file_%s.unknown", s.ClientMsgID)
+			name = fmt.Sprintf("msg_file_%req.Message.unknown", req.Message.ClientMsgID)
 		}
 
-		delFile = append(delFile, s.FileElem.FilePath)
+		delFile = append(delFile, req.Message.FileElem.FilePath)
 
 		res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-			ContentType: content_type.GetType(s.FileElem.FileType, filepath.Ext(s.FileElem.FilePath), filepath.Ext(s.FileElem.FileName)),
-			Filepath:    s.FileElem.FilePath,
-			Uuid:        s.FileElem.UUID,
-			Name:        c.fileName("file", s.ClientMsgID) + "/" + filepath.Base(name),
+			ContentType: content_type.GetType(req.Message.FileElem.FileType, filepath.Ext(req.Message.FileElem.FilePath), filepath.Ext(req.Message.FileElem.FileName)),
+			Filepath:    req.Message.FileElem.FilePath,
+			Uuid:        req.Message.FileElem.Uuid,
+			Name:        c.fileName("file", req.Message.ClientMsgID) + "/" + filepath.Base(name),
 			Cause:       "msg-file",
-		}, NewUploadFileCallback(ctx, callback.OnProgress, s, lc.ConversationID, c.db))
+		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, s.ClientMsgID, "", s.CreateTime, constant.MsgStatusSendFailed, s, lc, isOnlineOnly)
+			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
 		}
-		s.FileElem.SourceURL = res.URL
-		s.Content = utils.StructToJsonString(s.FileElem)
+		req.Message.FileElem.SourceURL = res.URL
+		req.Message.Content = utils.StructToJsonString(req.Message.FileElem)
 	case constant.Text:
-		s.Content = utils.StructToJsonString(s.TextElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.TextElem)
 	case constant.AtText:
-		s.Content = utils.StructToJsonString(s.AtTextElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.AtTextElem)
 	case constant.Location:
-		s.Content = utils.StructToJsonString(s.LocationElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.LocationElem)
 	case constant.Custom:
-		s.Content = utils.StructToJsonString(s.CustomElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.CustomElem)
 	case constant.Merger:
-		s.Content = utils.StructToJsonString(s.MergeElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.MergeElem)
 	case constant.Quote:
-		s.Content = utils.StructToJsonString(s.QuoteElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.QuoteElem)
 	case constant.Card:
-		s.Content = utils.StructToJsonString(s.CardElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.CardElem)
 	case constant.Face:
-		s.Content = utils.StructToJsonString(s.FaceElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.FaceElem)
 	case constant.AdvancedText:
-		s.Content = utils.StructToJsonString(s.AdvancedTextElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.AdvancedTextElem)
 	case pconstant.Stream:
-		s.Content = utils.StructToJsonString(s.StreamElem)
+		req.Message.Content = utils.StructToJsonString(req.Message.StreamElem)
 	default:
 		return nil, sdkerrs.ErrMsgContentTypeNotSupport
 	}
-	if utils.IsContainInt(int(s.ContentType), []int{constant.Picture, constant.Sound, constant.Video, constant.File}) {
-		if !isOnlineOnly {
-			localMessage := MsgStructToLocalChatLog(s)
+	if utils.IsContainInt(int(req.Message.ContentType), []int{constant.Picture, constant.Sound, constant.Video, constant.File}) {
+		if !req.IsOnlineOnly {
+			localMessage := MsgStructToLocalChatLog(req.Message)
 			log.ZDebug(ctx, "update message is ", "localMessage", localMessage)
 			err = c.db.UpdateMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
@@ -543,11 +562,15 @@ func (c *Conversation) SendMessage(ctx context.Context, s *sdk_struct.MsgStruct,
 		}
 	}
 
-	return c.sendMessageToServer(ctx, s, lc, callback, delFile, p, options, isOnlineOnly)
+	msg, err := c.sendMessageToServer(ctx, req.Message, lc, callback, delFile, req.OfflinePushInfo, options, req.IsOnlineOnly)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.SendMessageResp{Message: msg}, nil
 }
 
-func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdk_struct.MsgStruct, recvID, groupID string,
-	p *sdkws.OfflinePushInfo, isOnlineOnly bool) (*sdk_struct.MsgStruct, error) {
+func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.MsgStruct, recvID, groupID string,
+	p *sdkpb.OfflinePushInfo, isOnlineOnly bool) (*sdkpb.MsgStruct, error) {
 	options := make(map[string]bool, 2)
 	lc, err := c.checkID(ctx, s, recvID, groupID, options)
 	if err != nil {
@@ -630,8 +653,8 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdk_struct.MsgS
 	return c.sendMessageToServer(ctx, s, lc, callback, delFile, p, options, isOnlineOnly)
 }
 
-func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdk_struct.MsgStruct, lc *model_struct.LocalConversation, callback open_im_sdk_callback.SendMsgCallBack,
-	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdk_struct.MsgStruct, error) {
+func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStruct, lc *model_struct.LocalConversation, callback open_im_sdk_callback.SendMsgCallBack,
+	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.MsgStruct, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 		utils.SetSwitchFromOptions(options, constant.IsPersistent, false)

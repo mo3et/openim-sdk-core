@@ -3,7 +3,7 @@ package openim.sdk.conversation;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
-
+import "message.proto";
 
 message Conversation {
   string conversationID = 1;
@@ -27,12 +27,121 @@ message Conversation {
   bool isMsgDestruct = 19;
 }
 
+message ConversationArgs {
+  string conversationID = 1;
+  repeated string clientMsgIDList = 2;
+}
+
+message FindMessageListCallback {
+  int32 totalCount = 1;
+  repeated SearchByConversationResult findResultItems = 2;
+}
+
+message GetAdvancedHistoryMessageListParams {
+  string conversationID = 1;
+  string startClientMsgID = 2;
+  int32 count = 3;
+}
+
+message GetAdvancedHistoryMessageListCallback {
+  repeated message.MsgStruct messageList = 1;
+  bool isEnd = 2;
+  int32 errCode = 3;
+  string errMsg = 4;
+}
+
+message SearchLocalMessagesParams {
+  string conversationID = 1;
+  repeated string keywordList = 2;
+  int32 keywordListMatchType = 3;
+  repeated string senderUserIDList = 4;
+  repeated int32 messageTypeList = 5;
+  int64 searchTimePosition = 6;
+  int64 searchTimePeriod = 7;
+  int32 pageIndex = 8;
+  int32 count = 9;
+}
+
+message SearchLocalMessagesCallback {
+  int32 totalCount = 1;
+  repeated SearchByConversationResult searchResultItems = 2;
+}
+
+message SearchByConversationResult {
+  string conversationID = 1;
+  int32 conversationType = 2;
+  string showName = 3;
+  string faceURL = 4;
+  int64 latestMsgSendTime = 5;
+  int32 messageCount = 6;
+  repeated message.MsgStruct messageList = 7;
+}
 
 message GetAllConversationListReq{}
 message GetAllConversationListResp{
   repeated Conversation conversationList = 1;
 }
 
+message GetConversationListSplitReq {
+  int32 offset = 1;
+  int32 count = 2;
+}
+message GetConversationListSplitResp {
+  repeated Conversation conversationList = 1;
+}
+
+message HideConversationReq {
+  string conversationID = 1;
+}
+message HideConversationResp {}
+
+message GetAtAllTagReq {}
+message GetAtAllTagResp {
+  string tag = 1;
+}
+
+message GetOneConversationReq {
+  int32 sessionType = 1;
+  string sourceID = 2;
+}
+message GetOneConversationResp {
+  Conversation conversation = 1;
+}
+
+message GetMultipleConversationReq {
+  repeated string conversationIDList = 1;
+}
+message GetMultipleConversationResp {
+  repeated Conversation conversationList = 1;
+}
+
+message HideAllConversationsReq {}
+message HideAllConversationsResp {}
+
+message SetConversationDraftReq {
+  string conversationID = 1;
+  string draftText = 2;
+}
+message SetConversationDraftResp {}
+
+message SetConversationReq {
+  string conversationID = 1;
+  Conversation conversation = 2;
+}
+message SetConversationResp {}
+
+message GetTotalUnreadMsgCountReq {}
+message GetTotalUnreadMsgCountResp {
+  int32 totalUnreadCount = 1;
+}
+
+message GetConversationIDBySessionTypeReq {
+  string sourceID = 1;
+  int32 sessionType = 2;
+}
+message GetConversationIDBySessionTypeResp {
+  string conversationID = 1;
+}
 
 
 enum FuncRequestEventName{
