@@ -8,26 +8,26 @@ import (
 	"github.com/openimsdk/protocol/third"
 )
 
-func (c *Third) UpdateFcmToken(ctx context.Context, fcmToken string, expireTime int64) error {
+func (t *Third) UpdateFcmToken(ctx context.Context, fcmToken string, expireTime int64) error {
 	return api.FcmUpdateToken.Execute(ctx, &third.FcmUpdateTokenReq{
-		PlatformID: c.platformID,
+		PlatformID: int32(t.platform),
 		FcmToken:   fcmToken,
-		Account:    c.loginUserID,
+		Account:    t.loginUserID,
 		ExpireTime: expireTime,
 	})
 }
 
-func (c *Third) SetAppBadge(ctx context.Context, appUnreadCount int32) error {
+func (t *Third) SetAppBadge(ctx context.Context, appUnreadCount int32) error {
 	return api.SetAppBadge.Execute(ctx, &third.SetAppBadgeReq{
-		UserID:         c.loginUserID,
+		UserID:         t.loginUserID,
 		AppUnreadCount: appUnreadCount,
 	})
 }
 
-func (c *Third) UploadLogs(ctx context.Context, line int, ex string, progress Progress) (err error) {
-	return c.uploadLogs(ctx, line, ex, progress)
+func (t *Third) UploadLogs(ctx context.Context, line int, ex string, progress Progress) (err error) {
+	return t.uploadLogs(ctx, line, ex, progress)
 }
 
-func (c *Third) Log(ctx context.Context, logLevel int, file string, line int, msg, err string, keysAndValues []any) {
-	c.printLog(ctx, logLevel, file, line, msg, err, keysAndValues)
+func (t *Third) Log(ctx context.Context, logLevel int, file string, line int, msg, err string, keysAndValues []any) {
+	t.printLog(ctx, logLevel, file, line, msg, err, keysAndValues)
 }

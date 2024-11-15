@@ -124,7 +124,7 @@ func FfiRequest(data []byte) uint64 {
 		}
 		if fn, ok := FuncMap[ffiRequest.FuncName]; ok {
 			ctx := ccontext.WithOperationID(open_im_sdk.UserForSDK.Context(),
-				generateUniqueID(open_im_sdk.UserForSDK.Info().UserID, int32(open_im_sdk.UserForSDK.Info().PlatformID)))
+				generateUniqueID(open_im_sdk.UserForSDK.Info().UserID, int32(open_im_sdk.UserForSDK.Info().Platform)))
 			res, err := fn(ctx, ffiRequest.Data)
 			if err != nil {
 				errResp(handleID, ffiRequest.FuncName, err)

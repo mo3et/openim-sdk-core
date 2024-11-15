@@ -15,6 +15,7 @@
 package sdk_struct
 
 import (
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/sdkws"
 )
 
@@ -296,7 +297,7 @@ type GroupHasReadInfo struct {
 	HasReadCount      int32    `json:"hasReadCount"`
 	GroupMemberCount  int32    `json:"groupMemberCount"`
 }
-type NewMsgList []*MsgStruct
+type NewMsgList []*sdkpb.MsgStruct
 
 // Implement the sort.Interface interface to get the number of elements method
 func (n NewMsgList) Len() int {

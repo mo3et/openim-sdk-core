@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	sdk "github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/cache"
@@ -58,7 +59,7 @@ type Conversation struct {
 	businessListener      func() open_im_sdk_callback.OnCustomBusinessListener
 	recvCH                chan common.Cmd2Value
 	loginUserID           string
-	platformID            int32
+	platform              pb.Platform
 	DataDir               string
 	relation              *relation.Relation
 	group                 *group.Group
@@ -67,7 +68,6 @@ type Conversation struct {
 	cache                 *cache.Cache[string, *model_struct.LocalConversation]
 	maxSeqRecorder        MaxSeqRecorder
 	messagePullMinSeqMap  *cache.Cache[string, int64]
-	IsExternalExtensions  bool
 	msgOffset             int
 	progress              int
 	conversationSyncMutex sync.Mutex
@@ -107,16 +107,12 @@ func (c *Conversation) SetLoginUserID(loginUserID string) {
 	c.loginUserID = loginUserID
 }
 
-func (c *Conversation) SetPlatformID(platformID int32) {
-	c.platformID = platformID
+func (c *Conversation) SetPlatform(platform pb.Platform) {
+	c.platform = platform
 }
 
 func (c *Conversation) SetDataDir(DataDir string) {
 	c.DataDir = DataDir
-}
-
-func (c *Conversation) SetIsExternalExtensions(IsExternalExtensions bool) {
-	c.IsExternalExtensions = IsExternalExtensions
 }
 
 func (c *Conversation) SetMsgListener(msgListener func() open_im_sdk_callback.OnAdvancedMsgListener) {

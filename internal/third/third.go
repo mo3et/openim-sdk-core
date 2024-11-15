@@ -18,31 +18,32 @@ import (
 	"sync"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 )
 
 type Third struct {
-	platformID    int32
+	platform      pb.Platform
 	loginUserID   string
-	systemType    string
+	appFramework  pb.AppFramework
 	LogFilePath   string
 	fileUploader  *file.File
 	logUploadLock sync.Mutex
 }
 
-func (c *Third) SetPlatformID(platformID int32) {
-	c.platformID = platformID
+func (t *Third) SetPlatform(platform pb.Platform) {
+	t.platform = platform
 }
 
-func (c *Third) SetLoginUserID(loginUserID string) {
-	c.loginUserID = loginUserID
+func (t *Third) SetLoginUserID(loginUserID string) {
+	t.loginUserID = loginUserID
 }
 
-func (c *Third) SetSystemType(systemType string) {
-	c.systemType = systemType
+func (t *Third) SetAppFramework(appFramework pb.AppFramework) {
+	t.appFramework = appFramework
 }
 
-func (c *Third) SetLogFilePath(LogFilePath string) {
-	c.LogFilePath = LogFilePath
+func (t *Third) SetLogFilePath(LogFilePath string) {
+	t.LogFilePath = LogFilePath
 }
 
 func NewThird(fileUploader *file.File) *Third {

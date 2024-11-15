@@ -18,6 +18,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"sort"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -152,7 +153,7 @@ func printCallerNameAndLine() string {
 	return runtime.FuncForPC(pc).Name() + "()@" + strconv.Itoa(line) + ": "
 }
 
-func GetConversationIDByMsg(msg *sdk_struct.MsgStruct) string {
+func GetConversationIDByMsg(msg *sdkpb.MsgStruct) string {
 	switch msg.SessionType {
 	case constant.SingleChatType:
 		l := []string{msg.SendID, msg.RecvID}

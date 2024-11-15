@@ -59,11 +59,115 @@ enum Platform {
 
 enum AppFramework {
   AppFramework_ = 0;
-  Flutter = 1;
-  UniApp = 2;
-  Native = 3;
+  Native = 1;
+  Flutter = 2;
+  ReactNative = 3;
   Electron = 4;
-  ReactNative = 5;
+  Unity = 5;
+  UnrealEngine = 6;
+  Qt = 7;
+  DotNet = 8;
+  DotNetMAUI = 9;
+  Avalonia = 10;
+  Cordova = 11;
+  UniApp = 12;
+}
+enum MsgStatus{
+  MsgStatus_ = 0;
+  Sending = 1;
+  SendSuccess = 2;
+  SendFailed = 3;
+  HasDeleted = 4;
+  Filtered = 5;
+
+}
+enum ContentType{
+  ContentType_ = 0;
+  Text = 101;
+  Picture = 102;
+  Sound = 103;
+  Video = 104;
+  File = 105;
+  AtText = 106;
+  Merger = 107;
+  Card = 108;
+  Location = 109;
+  Custom = 110;
+  Typing = 113;
+  Quote = 114;
+  Face = 115;
+  AdvancedText = 117;
+  CustomMsgNotTriggerConversation = 119;
+  CustomMsgOnlineOnly = 120;
+//  NotificationBegin = 1000;
+//  FriendNotificationBegin = 1200;
+
+
+  FriendApplicationApprovedNotification = 1201;
+  FriendApplicationRejectedNotification = 1202;
+  FriendApplicationNotification = 1203;
+  FriendAddedNotification = 1204;
+  FriendDeletedNotification = 1205;
+  FriendRemarkSetNotification = 1206;
+  BlackAddedNotification = 1207;
+  BlackDeletedNotification = 1208;
+  FriendInfoUpdatedNotification = 1209;
+  FriendsInfoUpdateNotification = 1210;
+//  FriendNotificationEnd = 1299;
+  ConversationChangeNotification = 1300;
+//  UserNotificationBegin = 1301;
+  UserInfoUpdatedNotification = 1303;
+  UserStatusChangeNotification = 1304;
+  UserCommandAddNotification = 1305;
+  UserCommandDeleteNotification = 1306;
+  UserCommandUpdateNotification = 1307;
+//  UserNotificationEnd = 1399;
+
+
+//  GroupNotificationBegin = 1500;
+  GroupCreatedNotification = 1501;
+  GroupInfoSetNotification = 1502;
+  JoinGroupApplicationNotification = 1503;
+  MemberQuitNotification = 1504;
+  GroupApplicationAcceptedNotification = 1505;
+  GroupApplicationRejectedNotification = 1506;
+  GroupOwnerTransferredNotification = 1507;
+  MemberKickedNotification = 1508;
+  MemberInvitedNotification = 1509;
+  MemberEnterNotification = 1510;
+  GroupDismissedNotification = 1511;
+  GroupMemberMutedNotification = 1512;
+  GroupMemberCancelMutedNotification = 1513;
+  GroupMutedNotification = 1514;
+  GroupCancelMutedNotification = 1515;
+  GroupMemberInfoSetNotification = 1516;
+  GroupMemberSetToAdminNotification = 1517;
+  GroupMemberSetToOrdinaryUserNotification = 1518;
+  GroupInfoSetAnnouncementNotification     = 1519;
+  GroupInfoSetNameNotification             = 1520;
+//  GroupNotificationEnd                     = 1599;
+
+  ConversationPrivateChatNotification = 1701;
+  ClearConversationNotification       = 1703;
+
+  BusinessNotification = 2001;
+
+  RevokeNotification = 2101;
+
+  DeleteMsgsNotification = 2102;
+
+  HasReadReceipt = 2200;
+
+//  NotificationEnd = 5000
+}
+
+message OfflinePushInfo {
+  string title = 1;
+  string desc = 2;
+  string ex = 3;
+  string iOSPushSound = 4;
+  bool iOSBadgeCount = 5;
+  string signalInfo = 6;
 }
 
 enum ApprovalStatus {

@@ -25,8 +25,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/version"
-	pbConstant "github.com/openimsdk/protocol/constant"
-
 	"github.com/openimsdk/tools/log"
 )
 
@@ -143,7 +141,7 @@ func (u *LoginMgr) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.InitSDK
 		log.ZWarn(ctx, "哈哈哈哈和", nil)
 	}
 	if err := log.InitLoggerFromConfig("open-im-sdk-core", "",
-		req.Config.SystemType, pbConstant.PlatformID2Name[int(req.Config.PlatformID)], int(req.Config.LogLevel),
+		pb.AppFramework_name[int32(req.Config.AppFramework)], pb.Platform_name[int32(req.Config.Platform)], int(req.Config.LogLevel),
 		req.Config.IsLogStandardOutput, false, req.Config.LogFilePath, rotateCount, rotationTime, version.Version, true); err != nil {
 		return nil, err
 	}
