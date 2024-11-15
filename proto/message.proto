@@ -259,9 +259,9 @@ message MsgStruct {
   int32 sessionType = 5;
   string sendID = 6;
   string recvID = 7;
-  int32 msgFrom = 8;
+  common.MsgFrom msgFrom = 8;
   int32 contentType = 9;
-  int32 senderPlatformID = 10;
+  common.Platform senderPlatformID = 10;
   string senderNickname = 11;
   string senderFaceURL = 12;
   string groupID = 13;
@@ -292,6 +292,20 @@ message MsgStruct {
   AttachedInfoElem attachedInfoElem = 38;
 }
 
+message GetAdvancedHistoryMessageListParams {
+  string conversationID = 1;
+  string startClientMsgID = 2;
+  int32 count = 3;
+}
+
+message GetAdvancedHistoryMessageListCallback {
+  repeated message.MsgStruct messageList = 1;
+  bool isEnd = 2;
+  int32 errCode = 3;
+  string errMsg = 4;
+}
+
+// ------------------------------------------------------------------------------------------------------
 message SendMessageReq {
   MsgStruct message = 1;
   string recvID = 2;
@@ -299,9 +313,16 @@ message SendMessageReq {
   common.OfflinePushInfo offlinePushInfo = 4;
   bool isOnlineOnly = 5;
 }
-
 message SendMessageResp {
   MsgStruct message = 1;
 }
 
+
+message GetAdvancedHistoryMessageListReq {
+  string conversationID = 1;
+  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 2;
+}
+message GetAdvancedHistoryMessageListResp {
+  repeated MsgStruct messageList = 1;
+}
 

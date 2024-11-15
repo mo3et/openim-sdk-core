@@ -162,7 +162,7 @@ func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model
 			log.ZDebug(ctx, "this message has been deleted or exception message", "msg", v)
 			continue
 		}
-		temp := LocalChatLogToMsgStruct(v)
+		temp := LocalChatLogToMsgPB(v)
 
 		if temp.AttachedInfoElem.IsPrivateChat && temp.SendTime+int64(temp.AttachedInfoElem.BurnDuration) < time.Now().Unix() {
 			continue
@@ -328,7 +328,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk
 	log.ZDebug(ctx, "get raw data length is", "len", len(list))
 
 	for _, v := range list {
-		temp := LocalChatLogToMsgStruct(v)
+		temp := LocalChatLogToMsgPB(v)
 		if c.filterMsg(temp, searchParam) {
 			continue
 		}

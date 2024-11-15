@@ -1,17 +1,3 @@
-// Copyright © 2023 OpenIM SDK. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package conversation_msg
 
 import (
@@ -20,7 +6,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
@@ -93,8 +78,8 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 	return localMessage
 }
 
-func LocalChatLogToMsgStruct(localMessage *model_struct.LocalChatLog) *sdk_struct.MsgStruct {
-	message := &sdk_struct.MsgStruct{
+func LocalChatLogToMsgPB(localMessage *model_struct.LocalChatLog) *sdkpb.MsgStruct {
+	message := &sdkpb.MsgStruct{
 		ClientMsgID:      localMessage.ClientMsgID,
 		ServerMsgID:      localMessage.ServerMsgID,
 		CreateTime:       localMessage.CreateTime,
@@ -104,7 +89,7 @@ func LocalChatLogToMsgStruct(localMessage *model_struct.LocalChatLog) *sdk_struc
 		RecvID:           localMessage.RecvID,
 		MsgFrom:          localMessage.MsgFrom,
 		ContentType:      localMessage.ContentType,
-		SenderPlatformID: localMessage.SenderPlatformID,
+		SenderPlatformID: sdkpb.Platform(localMessage.SenderPlatformID),
 		SenderNickname:   localMessage.SenderNickname,
 		SenderFaceURL:    localMessage.SenderFaceURL,
 		Content:          localMessage.Content,
@@ -114,7 +99,7 @@ func LocalChatLogToMsgStruct(localMessage *model_struct.LocalChatLog) *sdk_struc
 		Ex:               localMessage.Ex,
 		LocalEx:          localMessage.LocalEx,
 	}
-	var attachedInfo sdk_struct.AttachedInfoElem
+	var attachedInfo sdkpb.AttachedInfoElem
 	err := utils.JsonStringToStruct(localMessage.AttachedInfo, &attachedInfo)
 	if err != nil {
 		log.ZWarn(context.Background(), "JsonStringToStruct error", err, "localMessage.AttachedInfo", localMessage.AttachedInfo)
@@ -133,38 +118,38 @@ func LocalChatLogToMsgStruct(localMessage *model_struct.LocalChatLog) *sdk_struc
 	return message
 }
 
-func msgHandleByContentType(msg *sdk_struct.MsgStruct) (err error) {
+func msgHandleByContentType(msg *sdkpb.MsgStruct) (err error) {
 	switch msg.ContentType {
 	case constant.Text:
-		t := sdk_struct.TextElem{}
+		t := sdkpb.TextElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.TextElem = &t
 	case constant.Picture:
-		t := sdk_struct.PictureElem{}
+		t := sdkpb.PictureElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.PictureElem = &t
 	case constant.Sound:
-		t := sdk_struct.SoundElem{}
+		t := sdkpb.SoundElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.SoundElem = &t
 	case constant.Video:
-		t := sdk_struct.VideoElem{}
+		t := sdkpb.VideoElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.VideoElem = &t
 	case constant.File:
-		t := sdk_struct.FileElem{}
+		t := sdkpb.FileElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.FileElem = &t
 	case constant.AdvancedText:
-		t := sdk_struct.AdvancedTextElem{}
+		t := sdkpb.AdvancedTextElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.AdvancedTextElem = &t
 	case constant.AtText:
-		t := sdk_struct.AtTextElem{}
+		t := sdkpb.AtTextElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.AtTextElem = &t
 	case constant.Location:
-		t := sdk_struct.LocationElem{}
+		t := sdkpb.LocationElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.LocationElem = &t
 	case constant.Custom:
@@ -172,35 +157,35 @@ func msgHandleByContentType(msg *sdk_struct.MsgStruct) (err error) {
 	case constant.CustomMsgNotTriggerConversation:
 		fallthrough
 	case constant.CustomMsgOnlineOnly:
-		t := sdk_struct.CustomElem{}
+		t := sdkpb.CustomElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.CustomElem = &t
 	case constant.Typing:
-		t := sdk_struct.TypingElem{}
+		t := sdkpb.TypingElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.TypingElem = &t
 	case constant.Quote:
-		t := sdk_struct.QuoteElem{}
+		t := sdkpb.QuoteElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.QuoteElem = &t
 	case constant.Merger:
-		t := sdk_struct.MergeElem{}
+		t := sdkpb.MergeElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.MergeElem = &t
 	case constant.Face:
-		t := sdk_struct.FaceElem{}
+		t := sdkpb.FaceElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.FaceElem = &t
 	case constant.Card:
-		t := sdk_struct.CardElem{}
+		t := sdkpb.CardElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.CardElem = &t
 	case pconstant.Stream:
-		t := sdk_struct.StreamElem{}
+		t := sdkpb.StreamElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.StreamElem = &t
 	default:
-		t := sdk_struct.NotificationElem{}
+		t := sdkpb.NotificationElem{}
 		err = utils.JsonStringToStruct(msg.Content, &t)
 		msg.NotificationElem = &t
 	}
@@ -215,7 +200,7 @@ func MsgStructToLocalChatLog(message *sdkpb.MsgStruct) *model_struct.LocalChatLo
 		ServerMsgID:      message.ServerMsgID,
 		SendID:           message.SendID,
 		RecvID:           message.RecvID,
-		SenderPlatformID: message.SenderPlatformID,
+		SenderPlatformID: int32(message.SenderPlatformID),
 		SenderNickname:   message.SenderNickname,
 		SenderFaceURL:    message.SenderFaceURL,
 		SessionType:      message.SessionType,

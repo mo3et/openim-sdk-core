@@ -170,7 +170,7 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 		latestMsgSendTime := latestMsg.SendTime
 		latestMsgStr := ""
 		if len(msg) > 0 {
-			latestMsg = *LocalChatLogToMsgStruct(msg[0])
+			latestMsg = *LocalChatLogToMsgPB(msg[0])
 
 			latestMsgStr = utils.StructToJsonString(latestMsg)
 			latestMsgSendTime = latestMsg.SendTime
