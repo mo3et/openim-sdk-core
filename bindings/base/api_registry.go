@@ -11,11 +11,6 @@ import (
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 )
 
-type call struct {
-	handlerID uint64
-	fn        func(ctx context.Context, req []byte) ([]byte, error)
-}
-
 func Func[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
 	return func(ctx context.Context, _ uint64, _ pb.FuncRequestEventName, req []byte) ([]byte, error) {
 		var pbReq A
