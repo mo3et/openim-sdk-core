@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-func (c *Third) addFileToZip(zipWriter *zip.Writer, filename string) error {
+func (t *Third) addFileToZip(zipWriter *zip.Writer, filename string) error {
 	file, err := os.Open(filename)
 	if err != nil {
 		return err

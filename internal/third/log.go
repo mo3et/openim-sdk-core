@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	"io"
 	"math/rand"
 	"os"
@@ -12,11 +11,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
 	"github.com/openimsdk/openim-sdk-core/v3/version"
-	"github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/third"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
@@ -26,9 +27,9 @@ const (
 	buffer = 10 * 1024 * 1024
 )
 
-func (c *Third) uploadLogs(ctx context.Context, line int, ex string, progress Progress) (err error) {
-	if c.logUploadLock.TryLock() {
-		defer c.logUploadLock.Unlock()
+func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress Progress) (err error) {
+	if t.logUploadLock.TryLock() {
+		defer t.logUploadLock.Unlock()
 	} else {
 		return errs.New("log file is uploading").Wrap()
 	}
@@ -36,7 +37,7 @@ func (c *Third) uploadLogs(ctx context.Context, line int, ex string, progress Pr
 		return errs.New("line is illegal").Wrap()
 	}
 
-	logFilePath := c.LogFilePath
+	logFilePath := t.LogFilePath
 	entrys, err := os.ReadDir(logFilePath)
 	if err != nil {
 		return err
@@ -106,18 +107,20 @@ func (c *Third) uploadLogs(ctx context.Context, line int, ex string, progress Pr
 		return err
 	}
 	reqUpload := &file.UploadFileReq{Filepath: zippath, Name: fmt.Sprintf("sdk_log_%s_%s_%s_%s_%s",
-		c.loginUserID, c.systemType, constant.PlatformID2Name[int(c.platformID)], version.Version, filepath.Base(zippath)), Cause: "sdklog", ContentType: "application/zip"}
-	resp, err := c.fileUploader.UploadFile(ctx, reqUpload, &progressConvert{ctx: ctx, p: progress})
+		t.loginUserID, pb.AppFramework_name[int32(t.appFramework)], pb.Platform_name[int32(t.platform)],
+		version.Version, filepath.Base(zippath)), Cause: "sdklog", ContentType: "application/zip"}
+	resp, err := t.fileUploader.UploadFile(ctx, reqUpload, &progressConvert{ctx: ctx, p: progress})
 	if err != nil {
 		return err
 	}
 	ccontext.Info(ctx)
 	reqLog := &third.UploadLogsReq{
-		Platform:   c.platformID,
-		SystemType: c.systemType,
-		Version:    version.Version,
-		FileURLs:   []*third.FileURL{{Filename: zippath, URL: resp.URL}},
-		Ex:         ex,
+		Platform: int32(t.platform),
+		//todo systemType change to appFramework
+		AppFramework: pb.AppFramework_name[int32(t.appFramework)],
+		Version:      version.Version,
+		FileURLs:     []*third.FileURL{{Filename: zippath, URL: resp.URL}},
+		Ex:           ex,
 	}
 	return api.UploadLogs.Execute(ctx, reqLog)
 }
@@ -137,7 +140,7 @@ func checkLogPath(logPath string) bool {
 	return true
 }
 
-func (c *Third) fileCopy(src, dst string) error {
+func (t *Third) fileCopy(src, dst string) error {
 	_ = os.RemoveAll(dst)
 	srcFile, err := os.Open(src)
 	if err != nil {
@@ -188,7 +191,7 @@ func readLastNLines(filename string, n int) ([]string, error) {
 	return result, nil
 }
 
-func (c *Third) printLog(ctx context.Context, logLevel int, file string, line int, msg, err string, keysAndValues []any) {
+func (t *Third) printLog(ctx context.Context, logLevel int, file string, line int, msg, err string, keysAndValues []any) {
 	errString := errs.New(err)
 
 	log.SDKLog(ctx, logLevel, file, line, msg, errString, keysAndValues)
