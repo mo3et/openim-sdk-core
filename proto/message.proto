@@ -260,7 +260,7 @@ message MsgStruct {
   string sendID = 6;
   string recvID = 7;
   common.MsgFrom msgFrom = 8;
-  int32 contentType = 9;
+  common.ContentType contentType = 9;
   common.Platform senderPlatformID = 10;
   string senderNickname = 11;
   string senderFaceURL = 12;
@@ -268,7 +268,7 @@ message MsgStruct {
   string content = 14;
   int64 seq = 15;
   bool isRead = 16;
-  int32 status = 17;
+  common.MsgStatus status = 17;
   common.OfflinePushInfo offlinePush = 18;
   string attachedInfo = 19;
   string ex = 20;
@@ -320,9 +320,9 @@ message SendMessageResp {
 
 message GetAdvancedHistoryMessageListReq {
   string conversationID = 1;
-  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 2;
+  GetAdvancedHistoryMessageListParams getAdvancedHistoryMessageListParams = 2;
 }
 message GetAdvancedHistoryMessageListResp {
-  repeated MsgStruct messageList = 1;
+  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
 }
 

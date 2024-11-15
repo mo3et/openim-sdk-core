@@ -752,7 +752,7 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 			findResultItem.ShowName = v.conversation.ShowName
 			findResultItem.ConversationType = v.conversation.ConversationType
 			findResultItem.MessageList = tempMessageList
-			findResultItem.MessageCount = int32(len(findResultItem.MessageList))
+			findResultItem.MessageCount = len(findResultItem.MessageList)
 			r.FindResultItems = append(r.FindResultItems, &findResultItem)
 			r.TotalCount += findResultItem.MessageCount
 		} else {
@@ -763,7 +763,7 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 }
 
 func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListReq) (*sdkpb.GetAdvancedHistoryMessageListResp, error) {
-	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListCallback, false)
+	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, false)
 	if err != nil {
 		return nil, err
 	}
@@ -772,7 +772,7 @@ func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *s
 		result.MessageList = s
 	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return result, nil
+	return &sdkpb.GetAdvancedHistoryMessageListResp{GetAdvancedHistoryMessageListCallback: result}, nil
 }
 
 func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req sdk_params_callback.GetAdvancedHistoryMessageListParams) (*sdk_params_callback.GetAdvancedHistoryMessageListCallback, error) {

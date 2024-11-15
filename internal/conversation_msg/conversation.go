@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"errors"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"sort"
 	"sync"
 	"time"
@@ -49,7 +50,7 @@ func (c *Conversation) setConversation(ctx context.Context, apiReq *pbConversati
 	return api.SetConversations.Execute(ctx, apiReq)
 }
 
-func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req sdk.GetAdvancedHistoryMessageListParams, isReverse bool) (*sdk.GetAdvancedHistoryMessageListCallback, error) {
+func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListParams, isReverse bool) (*sdkpb.GetAdvancedHistoryMessageListCallback, error) {
 	t := time.Now()
 	var messageListCallback sdk.GetAdvancedHistoryMessageListCallback
 	var conversationID string

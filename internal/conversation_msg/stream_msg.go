@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
@@ -155,7 +156,7 @@ func (c *Conversation) asyncStreamMsg(ctx context.Context, conversationID string
 	}()
 }
 
-func (c *Conversation) streamMsgReplace(ctx context.Context, conversationID string, msgs []*sdk_struct.MsgStruct) {
+func (c *Conversation) streamMsgReplace(ctx context.Context, conversationID string, msgs []*sdkpb.MsgStruct) {
 	for _, msg := range msgs {
 		if msg.ContentType != constant.Stream {
 			continue
