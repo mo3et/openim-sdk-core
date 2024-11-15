@@ -1,12 +1,8 @@
 syntax = "proto3";
 package openim.sdk.group;
 
-import "temp/wrapperspb.proto";
-
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
-
-
 
 message GroupInfo {
   string groupID = 1;
@@ -126,24 +122,24 @@ message KickGroupMemberResp {}
 
 message SetGroupInfoReq {
   string groupID = 1;
-  openim.protobuf.StringValue groupName = 2;
-  openim.protobuf.StringValue notification = 3;
-  openim.protobuf.StringValue introduction = 4;
-  openim.protobuf.StringValue faceURL = 5;
-  openim.protobuf.StringValue ex = 6;
-  openim.protobuf.Int32Value needVerification = 7;
-  openim.protobuf.Int32Value lookMemberInfo = 8;
-  openim.protobuf.Int32Value applyMemberFriend = 9;
+  optional string groupName = 2;
+  optional string notification = 3;
+  optional string introduction = 4;
+  optional string faceURL = 5;
+  optional string ex = 6;
+  optional int32  needVerification = 7;
+  optional int32  lookMemberInfo = 8;
+  optional int32  applyMemberFriend = 9;
 }
 message SetGroupInfoResp {}
 
 message SetGroupMemberInfoReq {
   string groupID = 1;
   string userID = 2;
-  openim.protobuf.StringValue nickname = 3;
-  openim.protobuf.StringValue faceURL = 4;
-  openim.protobuf.Int32Value roleLevel = 5;
-  openim.protobuf.StringValue ex = 6;
+  optional string nickname = 3;
+  optional string faceURL = 4;
+  optional int32  roleLevel = 5;
+  optional string ex = 6;
 }
 message SetGroupMemberInfoResp {}
 

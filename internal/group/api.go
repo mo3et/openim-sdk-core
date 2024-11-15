@@ -17,6 +17,7 @@ package group
 import (
 	"context"
 	"github.com/openimsdk/protocol/sdkws"
+	"github.com/openimsdk/protocol/wrapperspb"
 	"time"
 
 	"github.com/openimsdk/tools/errs"
@@ -176,14 +177,14 @@ func (g *Group) KickGroupMember(ctx context.Context, req *sdkpb.KickGroupMemberR
 func (g *Group) SetGroupInfo(ctx context.Context, req *sdkpb.SetGroupInfoReq) (*sdkpb.SetGroupInfoResp, error) {
 	info := &group.SetGroupInfoExReq{
 		GroupID:           req.GroupID,
-		GroupName:         req.GroupName,
-		Notification:      req.Notification,
-		Introduction:      req.Introduction,
-		FaceURL:           req.FaceURL,
-		Ex:                req.Ex,
-		NeedVerification:  req.NeedVerification,
-		LookMemberInfo:    req.LookMemberInfo,
-		ApplyMemberFriend: req.ApplyMemberFriend,
+		GroupName:         wrapperspb.StringPtr(req.GroupName),
+		Notification:      wrapperspb.StringPtr(req.Notification),
+		Introduction:      wrapperspb.StringPtr(req.Introduction),
+		FaceURL:           wrapperspb.StringPtr(req.FaceURL),
+		Ex:                wrapperspb.StringPtr(req.Ex),
+		NeedVerification:  wrapperspb.Int32Ptr(req.NeedVerification),
+		LookMemberInfo:    wrapperspb.Int32Ptr(req.LookMemberInfo),
+		ApplyMemberFriend: wrapperspb.Int32Ptr(req.ApplyMemberFriend),
 	}
 	if err := g.setGroupInfo(ctx, info); err != nil {
 		return nil, err
@@ -201,10 +202,10 @@ func (g *Group) SetGroupMemberInfo(ctx context.Context, req *sdkpb.SetGroupMembe
 	member := &group.SetGroupMemberInfo{
 		GroupID:   req.GroupID,
 		UserID:    req.UserID,
-		Nickname:  req.Nickname,
-		FaceURL:   req.FaceURL,
-		RoleLevel: req.RoleLevel,
-		Ex:        req.Ex,
+		Nickname:  wrapperspb.StringPtr(req.Nickname),
+		FaceURL:   wrapperspb.StringPtr(req.FaceURL),
+		RoleLevel: wrapperspb.Int32Ptr(req.RoleLevel),
+		Ex:        wrapperspb.StringPtr(req.Ex),
 	}
 	if err := g.setGroupMemberInfo(ctx, member); err != nil {
 		return nil, err
