@@ -693,58 +693,6 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struc
 	}
 }
 
-func (c *Conversation) batchNewMessages(ctx context.Context, newMessagesList sdk_struct.NewMsgList, conversationChanged, newConversation map[string]*model_struct.LocalConversation, onlineMsg map[onlineMsgKey]struct{}) {
-	if len(newMessagesList) == 0 {
-		log.ZWarn(ctx, "newMessagesList is empty", errs.New("newMessagesList is empty"))
-		return
-	}
-
-	sort.Sort(newMessagesList)
-	var needNotificationMsgList sdk_struct.NewMsgList
-
-	// offline
-	if c.GetBackground() {
-		u, err := c.user.GetSelfUserInfo(ctx, nil)
-		if err != nil {
-			log.ZWarn(ctx, "GetSelfUserInfo err", err)
-		}
-
-		if u.User.GlobalRecvMsgOpt != constant.ReceiveMessage {
-			return
-		}
-
-		for _, w := range newMessagesList {
-			conversationID := utils.GetConversationIDByMsg(w)
-			if v, ok := conversationChanged[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				needNotificationMsgList = append(needNotificationMsgList, w)
-			}
-			if v, ok := newConversation[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				needNotificationMsgList = append(needNotificationMsgList, w)
-			}
-		}
-
-		if len(needNotificationMsgList) != 0 {
-			for _, msg := range needNotificationMsgList {
-				c.msgListener().OnRecvOfflineNewMessage(&sdkpb.EventOnRecvOfflineNewMessageData{Message: msg})
-			}
-		}
-	} else { // online
-		for _, w := range newMessagesList {
-			if w.ContentType == constant.Typing {
-				continue
-			}
-
-			needNotificationMsgList = append(needNotificationMsgList, w)
-		}
-
-		if len(needNotificationMsgList) != 0 {
-			for _, msg := range needNotificationMsgList {
-				c.msgListener().OnRecvOnlineOnlyMessage(&sdkpb.EventOnRecvOnlineOnlyMessageData{Message: msg})
-			}
-		}
-	}
-}
-
 func (c *Conversation) updateConversation(lc *model_struct.LocalConversation, cs map[string]*model_struct.LocalConversation) {
 	if oldC, ok := cs[lc.ConversationID]; !ok {
 		cs[lc.ConversationID] = lc
