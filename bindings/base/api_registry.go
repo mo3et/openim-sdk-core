@@ -156,4 +156,13 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_SearchLocalMessages:                  wrapFunc(open_im_sdk.UserForSDK.Conversation().SearchLocalMessages),
 	pb.FuncRequestEventName_SetMessageLocalEx:                    wrapFunc(open_im_sdk.UserForSDK.Conversation().SetMessageLocalEx),
 	pb.FuncRequestEventName_SearchConversation:                   wrapFunc(open_im_sdk.UserForSDK.Conversation().SearchConversation),
+
+	pb.FuncRequestEventName_ProcessUserCommandGetAll: wrapFunc(open_im_sdk.UserForSDK.User().ProcessUserCommandGetAll),
+	pb.FuncRequestEventName_GetSelfUserInfo:          wrapFunc(open_im_sdk.UserForSDK.User().GetSelfUserInfo),
+	pb.FuncRequestEventName_SetSelfInfo:              wrapFunc(open_im_sdk.UserForSDK.User().SetSelfInfo),
+	pb.FuncRequestEventName_ProcessUserCommandAdd:    wrapFunc(open_im_sdk.UserForSDK.User().ProcessUserCommandAdd),
+	pb.FuncRequestEventName_ProcessUserCommandDelete: wrapFunc(open_im_sdk.UserForSDK.User().ProcessUserCommandDelete),
+	pb.FuncRequestEventName_ProcessUserCommandUpdate: wrapFunc(open_im_sdk.UserForSDK.User().ProcessUserCommandUpdate),
+	pb.FuncRequestEventName_GetUsersInfo:             wrapFunc(open_im_sdk.UserForSDK.User().GetUsersInfo),
+	pb.FuncRequestEventName_GetUsersInfoFromServer:   wrapFunc(open_im_sdk.UserForSDK.User().GetUsersInfoFromServer),
 }

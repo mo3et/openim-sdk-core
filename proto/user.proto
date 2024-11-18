@@ -24,13 +24,6 @@ message CommandInfo {
   string ex = 6;
 }
 
-message GetSingleUserFromServerReq {
-  string userID = 1;
-}
-message GetSingleUserFromServerResp {
-  UserInfo user = 1;
-}
-
 message GetSelfUserInfoReq {}
 message GetSelfUserInfoResp {
   UserInfo user = 1;

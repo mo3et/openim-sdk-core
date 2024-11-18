@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"fmt"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/wrapperspb"
 
@@ -15,18 +14,6 @@ import (
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/datautil"
 )
-
-// GetSingleUserFromServer retrieves user information from the server.
-func (u *User) GetSingleUserFromServer(ctx context.Context, req *sdkpb.GetSingleUserFromServerReq) (*sdkpb.GetSingleUserFromServerResp, error) {
-	users, err := u.getUsersInfo(ctx, []string{req.UserID})
-	if err != nil {
-		return nil, err
-	}
-	if len(users) == 0 {
-		return nil, sdkerrs.ErrUserIDNotFound.WrapMsg(fmt.Sprintf("getSelfUserInfo failed, userID: %s not exist", req.UserID))
-	}
-	return &sdkpb.GetSingleUserFromServerResp{User: ServerUserToSdk(users[0])}, nil
-}
 
 // ProcessUserCommandGetAll get user's choice
 func (u *User) ProcessUserCommandGetAll(ctx context.Context, req *sdkpb.ProcessUserCommandGetAllReq) (*sdkpb.ProcessUserCommandGetAllResp, error) {

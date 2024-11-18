@@ -329,6 +329,15 @@ enum FuncRequestEventName{
   SearchLocalMessages = 2025;
   SetMessageLocalEx = 2026;
   SearchConversation = 2027;
+
+  ProcessUserCommandGetAll = 2100;
+  GetSelfUserInfo = 2101;
+  SetSelfInfo = 2102;
+  ProcessUserCommandAdd = 2103;
+  ProcessUserCommandDelete = 2104;
+  ProcessUserCommandUpdate = 2105;
+  GetUsersInfo = 2106;
+  GetUsersInfoFromServer = 2107;
 };
 
 message EventOnSendMsgProgressData{
