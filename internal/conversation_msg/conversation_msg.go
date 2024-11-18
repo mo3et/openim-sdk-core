@@ -259,7 +259,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally without any conversation and message update.
 			if msg.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, MsgStructToLocalChatLog(msg))
+				insertMessage = append(insertMessage, IMMessageToLocalChatLog(msg))
 				continue
 			}
 
@@ -291,7 +291,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						if !isConversationUpdate {
 							msg.Status = constant.MsgStatusFiltered
 						}
-						updateMessage = append(updateMessage, MsgStructToLocalChatLog(msg))
+						updateMessage = append(updateMessage, IMMessageToLocalChatLog(msg))
 					} else {
 						exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(msg))
 					}
@@ -317,7 +317,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						newMessages = append(newMessages, msg)
 					}
 					if isHistory {
-						selfInsertMessage = append(selfInsertMessage, MsgStructToLocalChatLog(msg))
+						selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(msg))
 					}
 				}
 			} else { //Sent by others
@@ -351,7 +351,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						newMessages = append(newMessages, msg)
 					}
 					if isHistory {
-						othersInsertMessage = append(othersInsertMessage, MsgStructToLocalChatLog(msg))
+						othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
 					}
 
 				} else {
@@ -359,7 +359,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 					log.ZWarn(ctx, "Deduplication operation ", nil, "msg", *c.msgStructToLocalErrChatLog(msg))
 					msg.Status = constant.MsgStatusFiltered
 					msg.ClientMsgID = msg.ClientMsgID + utils.Int64ToString(msg.Seq)
-					othersInsertMessage = append(othersInsertMessage, MsgStructToLocalChatLog(msg))
+					othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
 				}
 			}
 		}
@@ -493,7 +493,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally without any conversation and message update.
 			if msg.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, MsgStructToLocalChatLog(msg))
+				insertMessage = append(insertMessage, IMMessageToLocalChatLog(msg))
 				continue
 			}
 			msg.Status = constant.MsgStatusSendSuccess
@@ -510,9 +510,9 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 
 				latestMsg = msg
 
-				selfInsertMessage = append(selfInsertMessage, MsgStructToLocalChatLog(msg))
+				selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(msg))
 			} else { //Sent by others
-				othersInsertMessage = append(othersInsertMessage, MsgStructToLocalChatLog(msg))
+				othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
 
 				latestMsg = msg
 			}

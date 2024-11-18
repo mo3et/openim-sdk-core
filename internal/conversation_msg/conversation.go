@@ -17,13 +17,13 @@ package conversation_msg
 import (
 	"context"
 	"errors"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
-	"github.com/openimsdk/tools/utils/datautil"
 	"sort"
 	"sync"
 	"time"
 
-	"github.com/jinzhu/copier"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	"github.com/openimsdk/tools/utils/datautil"
+
 	"golang.org/x/sync/errgroup"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
@@ -149,8 +149,8 @@ func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversati
 	return list, nil
 }
 
-func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sdkpb.MsgStruct) {
-	messageList := make([]*sdkpb.MsgStruct, 0, len(list))
+func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sdkpb.IMMessage) {
+	messageList := make([]*sdkpb.IMMessage, 0, len(list))
 	var thisMinSeq int64
 	for _, v := range list {
 		if v.Seq != 0 && thisMinSeq == 0 {
@@ -163,7 +163,7 @@ func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model
 			log.ZDebug(ctx, "this message has been deleted or exception message", "msg", v)
 			continue
 		}
-		temp := LocalChatLogToMsgPB(v)
+		temp := LocalChatLogToIMMessage(v)
 
 		if temp.AttachedInfoElem.IsPrivateChat && temp.SendTime+int64(temp.AttachedInfoElem.BurnDuration) < time.Now().Unix() {
 			continue
@@ -177,16 +177,16 @@ func (c *Conversation) typingStatusUpdate(ctx context.Context, recvID, msgTip st
 	if recvID == "" {
 		return sdkerrs.ErrArgs
 	}
-	s := sdk_struct.MsgStruct{}
-	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Typing)
+	s := &sdkpb.IMMessage{}
+	err := c.initBasicInfo(ctx, s, constant.UserMsgType, constant.Typing)
 	if err != nil {
 		return err
 	}
 	s.RecvID = recvID
 	s.SessionType = constant.SingleChatType
-	typingElem := sdk_struct.TypingElem{}
+	typingElem := sdkpb.TypingElem{}
 	typingElem.MsgTips = msgTip
-	s.Content = utils.StructToJsonString(typingElem)
+	s.Content = &sdkpb.IMMessage_TypingElem{TypingElem: &typingElem}
 	options := make(map[string]bool, 6)
 	utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 	utils.SetSwitchFromOptions(options, constant.IsPersistent, false)
@@ -196,13 +196,10 @@ func (c *Conversation) typingStatusUpdate(ctx context.Context, recvID, msgTip st
 	utils.SetSwitchFromOptions(options, constant.IsUnreadCount, false)
 	utils.SetSwitchFromOptions(options, constant.IsOfflinePush, false)
 
-	var wsMsgData sdkws.MsgData
-	copier.Copy(&wsMsgData, s)
-	wsMsgData.Content = []byte(s.Content)
-	wsMsgData.CreateTime = s.CreateTime
+	wsMsgData := IMMessageToMsgData(s)
 	wsMsgData.Options = options
 	var sendMsgResp sdkws.UserSendMsgResp
-	err = c.LongConnMgr.SendReqWaitResp(ctx, &wsMsgData, constant.SendMsg, &sendMsgResp)
+	err = c.LongConnMgr.SendReqWaitResp(ctx, wsMsgData, constant.SendMsg, &sendMsgResp)
 	if err != nil {
 		log.ZError(ctx, "send msg to server failed", err, "message", s)
 		return err
@@ -331,7 +328,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk
 	log.ZDebug(ctx, "get raw data length is", "len", len(list))
 
 	for _, v := range list {
-		temp := LocalChatLogToMsgPB(v)
+		temp := LocalChatLogToIMMessage(v)
 		if c.filterMsg(temp, searchParam) {
 			continue
 		}
@@ -423,22 +420,22 @@ func (c *Conversation) searchMessageByContentTypeAndKeyword(ctx context.Context,
 }
 
 // true is filter, false is not filter
-func (c *Conversation) filterMsg(temp *sdkpb.MsgStruct, searchParam *sdkpb.SearchLocalMessagesParams) bool {
+func (c *Conversation) filterMsg(temp *sdkpb.IMMessage, searchParam *sdkpb.SearchLocalMessagesParams) bool {
 	switch temp.ContentType {
 	case constant.Text:
-		elem, _ := temp.Content.(*sdkpb.MsgStruct_TextElem)
+		elem, _ := temp.Content.(*sdkpb.IMMessage_TextElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.TextElem.Content,
 			int(searchParam.KeywordListMatchType))
 	case constant.AtText:
-		elem, _ := temp.Content.(*sdkpb.MsgStruct_AtTextElem)
+		elem, _ := temp.Content.(*sdkpb.IMMessage_AtTextElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.AtTextElem.Text,
 			int(searchParam.KeywordListMatchType))
 	case constant.File:
-		elem, _ := temp.Content.(*sdkpb.MsgStruct_FileElem)
+		elem, _ := temp.Content.(*sdkpb.IMMessage_FileElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.FileElem.FileName,
 			int(searchParam.KeywordListMatchType))
 	case constant.Merger:
-		elem, _ := temp.Content.(*sdkpb.MsgStruct_MergeElem)
+		elem, _ := temp.Content.(*sdkpb.IMMessage_MergeElem)
 		if !c.judgeMultipleSubString(searchParam.KeywordList, elem.MergeElem.Title, int(searchParam.KeywordListMatchType)) {
 			for _, msgStruct := range elem.MergeElem.MultiMessage {
 				if c.filterMsg(msgStruct, searchParam) {
@@ -449,19 +446,19 @@ func (c *Conversation) filterMsg(temp *sdkpb.MsgStruct, searchParam *sdkpb.Searc
 			}
 		}
 	case constant.Card:
-		elem, _ := temp.Content.(*sdkpb.MsgStruct_CardElem)
+		elem, _ := temp.Content.(*sdkpb.IMMessage_CardElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.CardElem.Nickname,
 			int(searchParam.KeywordListMatchType))
 	case constant.Location:
-		elem, _ := temp.Content.(*sdkpb.MsgStruct_LocationElem)
+		elem, _ := temp.Content.(*sdkpb.IMMessage_LocationElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.LocationElem.Description,
 			int(searchParam.KeywordListMatchType))
 	case constant.Custom:
-		elem, _ := temp.Content.(*sdkpb.MsgStruct_CustomElem)
+		elem, _ := temp.Content.(*sdkpb.IMMessage_CustomElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.CustomElem.Description,
 			int(searchParam.KeywordListMatchType))
 	case constant.Quote:
-		elem, _ := temp.Content.(*sdkpb.MsgStruct_QuoteElem)
+		elem, _ := temp.Content.(*sdkpb.IMMessage_QuoteElem)
 		if !c.judgeMultipleSubString(searchParam.KeywordList, elem.QuoteElem.Text, int(searchParam.KeywordListMatchType)) {
 			return c.filterMsg(elem.QuoteElem.QuoteMessage, searchParam)
 		}

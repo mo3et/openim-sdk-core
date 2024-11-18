@@ -10,6 +10,7 @@ import (
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
+	"github.com/openimsdk/tools/utils/stringutil"
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	pbConversation "github.com/openimsdk/protocol/conversation"
@@ -78,7 +79,7 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 	return localMessage
 }
 
-func LocalChatLogToMsgPB(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
+func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
 	message := &sdkpb.IMMessage{
 		ClientMsgID:      localMessage.ClientMsgID,
 		ServerMsgID:      localMessage.ServerMsgID,
@@ -115,7 +116,7 @@ func LocalChatLogToMsgPB(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessa
 	return message
 }
 
-func MsgStructToLocalChatLog(message *sdkpb.IMMessage) *model_struct.LocalChatLog {
+func IMMessageToLocalChatLog(message *sdkpb.IMMessage) *model_struct.LocalChatLog {
 	localMessage := &model_struct.LocalChatLog{
 		ClientMsgID:      message.ClientMsgID,
 		ServerMsgID:      message.ServerMsgID,
@@ -245,5 +246,40 @@ func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdk
 		MsgDestructTime:   conversation.MsgDestructTime,
 		Ex:                conversation.Ex,
 		IsMsgDestruct:     conversation.IsMsgDestruct,
+	}
+}
+
+func sdkOfflinePushInfoToServerOfflinePushInfo(offlinePushInfo *sdkpb.OfflinePushInfo) *sdkws.OfflinePushInfo {
+	return &sdkws.OfflinePushInfo{
+		Title:         offlinePushInfo.Title,
+		Desc:          offlinePushInfo.Desc,
+		Ex:            offlinePushInfo.Ex,
+		IOSPushSound:  offlinePushInfo.IOSPushSound,
+		IOSBadgeCount: offlinePushInfo.IOSBadgeCount,
+		SignalInfo:    offlinePushInfo.SignalInfo,
+	}
+}
+
+func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
+	return &sdkws.MsgData{
+		ClientMsgID:      message.ClientMsgID,
+		ServerMsgID:      message.ServerMsgID,
+		SendID:           message.SendID,
+		RecvID:           message.RecvID,
+		GroupID:          message.GroupID,
+		SenderPlatformID: int32(message.SenderPlatformID),
+		SenderNickname:   message.SenderNickname,
+		SenderFaceURL:    message.SenderFaceURL,
+		SessionType:      int32(message.SessionType),
+		MsgFrom:          int32(message.MsgFrom),
+		ContentType:      int32(message.ContentType),
+		Content:          stringutil.StructToJsonBytes(message.Content),
+		IsRead:           message.IsRead,
+		Status:           int32(message.Status),
+		Seq:              message.Seq,
+		SendTime:         message.SendTime,
+		CreateTime:       message.CreateTime,
+		AttachedInfo:     utils.StructToJsonString(message.AttachedInfoElem),
+		Ex:               message.Ex,
 	}
 }
