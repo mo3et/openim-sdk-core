@@ -3517,6 +3517,471 @@ func (*TypingStatusUpdateResp) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{43}
 }
 
+type DeleteMessageReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
+}
+
+func (x *DeleteMessageReq) Reset() {
+	*x = DeleteMessageReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[44]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteMessageReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteMessageReq) ProtoMessage() {}
+
+func (x *DeleteMessageReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[44]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteMessageReq.ProtoReflect.Descriptor instead.
+func (*DeleteMessageReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *DeleteMessageReq) GetConversationID() string {
+	if x != nil {
+		return x.ConversationID
+	}
+	return ""
+}
+
+func (x *DeleteMessageReq) GetClientMsgID() string {
+	if x != nil {
+		return x.ClientMsgID
+	}
+	return ""
+}
+
+type DeleteMessageResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *DeleteMessageResp) Reset() {
+	*x = DeleteMessageResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[45]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteMessageResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteMessageResp) ProtoMessage() {}
+
+func (x *DeleteMessageResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[45]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteMessageResp.ProtoReflect.Descriptor instead.
+func (*DeleteMessageResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{45}
+}
+
+type DeleteAllMsgFromLocalAndServerReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *DeleteAllMsgFromLocalAndServerReq) Reset() {
+	*x = DeleteAllMsgFromLocalAndServerReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[46]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteAllMsgFromLocalAndServerReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAllMsgFromLocalAndServerReq) ProtoMessage() {}
+
+func (x *DeleteAllMsgFromLocalAndServerReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[46]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAllMsgFromLocalAndServerReq.ProtoReflect.Descriptor instead.
+func (*DeleteAllMsgFromLocalAndServerReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{46}
+}
+
+type DeleteAllMsgFromLocalAndServerResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *DeleteAllMsgFromLocalAndServerResp) Reset() {
+	*x = DeleteAllMsgFromLocalAndServerResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[47]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteAllMsgFromLocalAndServerResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAllMsgFromLocalAndServerResp) ProtoMessage() {}
+
+func (x *DeleteAllMsgFromLocalAndServerResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[47]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAllMsgFromLocalAndServerResp.ProtoReflect.Descriptor instead.
+func (*DeleteAllMsgFromLocalAndServerResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{47}
+}
+
+type DeleteAllMessageFromLocalStorageReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *DeleteAllMessageFromLocalStorageReq) Reset() {
+	*x = DeleteAllMessageFromLocalStorageReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[48]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteAllMessageFromLocalStorageReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAllMessageFromLocalStorageReq) ProtoMessage() {}
+
+func (x *DeleteAllMessageFromLocalStorageReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[48]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAllMessageFromLocalStorageReq.ProtoReflect.Descriptor instead.
+func (*DeleteAllMessageFromLocalStorageReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{48}
+}
+
+type DeleteAllMessageFromLocalStorageResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *DeleteAllMessageFromLocalStorageResp) Reset() {
+	*x = DeleteAllMessageFromLocalStorageResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[49]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteAllMessageFromLocalStorageResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAllMessageFromLocalStorageResp) ProtoMessage() {}
+
+func (x *DeleteAllMessageFromLocalStorageResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[49]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAllMessageFromLocalStorageResp.ProtoReflect.Descriptor instead.
+func (*DeleteAllMessageFromLocalStorageResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{49}
+}
+
+type InsertSingleMessageToLocalStorageReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Msg    *MsgStruct `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	RecvID string     `protobuf:"bytes,2,opt,name=recvID,proto3" json:"recvID,omitempty"`
+	SendID string     `protobuf:"bytes,3,opt,name=sendID,proto3" json:"sendID,omitempty"`
+}
+
+func (x *InsertSingleMessageToLocalStorageReq) Reset() {
+	*x = InsertSingleMessageToLocalStorageReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[50]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InsertSingleMessageToLocalStorageReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertSingleMessageToLocalStorageReq) ProtoMessage() {}
+
+func (x *InsertSingleMessageToLocalStorageReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[50]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertSingleMessageToLocalStorageReq.ProtoReflect.Descriptor instead.
+func (*InsertSingleMessageToLocalStorageReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *InsertSingleMessageToLocalStorageReq) GetMsg() *MsgStruct {
+	if x != nil {
+		return x.Msg
+	}
+	return nil
+}
+
+func (x *InsertSingleMessageToLocalStorageReq) GetRecvID() string {
+	if x != nil {
+		return x.RecvID
+	}
+	return ""
+}
+
+func (x *InsertSingleMessageToLocalStorageReq) GetSendID() string {
+	if x != nil {
+		return x.SendID
+	}
+	return ""
+}
+
+type InsertSingleMessageToLocalStorageResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Msg *MsgStruct `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *InsertSingleMessageToLocalStorageResp) Reset() {
+	*x = InsertSingleMessageToLocalStorageResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[51]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InsertSingleMessageToLocalStorageResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertSingleMessageToLocalStorageResp) ProtoMessage() {}
+
+func (x *InsertSingleMessageToLocalStorageResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[51]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertSingleMessageToLocalStorageResp.ProtoReflect.Descriptor instead.
+func (*InsertSingleMessageToLocalStorageResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{51}
+}
+
+func (x *InsertSingleMessageToLocalStorageResp) GetMsg() *MsgStruct {
+	if x != nil {
+		return x.Msg
+	}
+	return nil
+}
+
+type InsertGroupMessageToLocalStorageReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Msg     *MsgStruct `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	GroupID string     `protobuf:"bytes,2,opt,name=groupID,proto3" json:"groupID,omitempty"`
+	SendID  string     `protobuf:"bytes,3,opt,name=sendID,proto3" json:"sendID,omitempty"`
+}
+
+func (x *InsertGroupMessageToLocalStorageReq) Reset() {
+	*x = InsertGroupMessageToLocalStorageReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[52]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InsertGroupMessageToLocalStorageReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertGroupMessageToLocalStorageReq) ProtoMessage() {}
+
+func (x *InsertGroupMessageToLocalStorageReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[52]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertGroupMessageToLocalStorageReq.ProtoReflect.Descriptor instead.
+func (*InsertGroupMessageToLocalStorageReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{52}
+}
+
+func (x *InsertGroupMessageToLocalStorageReq) GetMsg() *MsgStruct {
+	if x != nil {
+		return x.Msg
+	}
+	return nil
+}
+
+func (x *InsertGroupMessageToLocalStorageReq) GetGroupID() string {
+	if x != nil {
+		return x.GroupID
+	}
+	return ""
+}
+
+func (x *InsertGroupMessageToLocalStorageReq) GetSendID() string {
+	if x != nil {
+		return x.SendID
+	}
+	return ""
+}
+
+type InsertGroupMessageToLocalStorageResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Msg *MsgStruct `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *InsertGroupMessageToLocalStorageResp) Reset() {
+	*x = InsertGroupMessageToLocalStorageResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[53]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InsertGroupMessageToLocalStorageResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertGroupMessageToLocalStorageResp) ProtoMessage() {}
+
+func (x *InsertGroupMessageToLocalStorageResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[53]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertGroupMessageToLocalStorageResp.ProtoReflect.Descriptor instead.
+func (*InsertGroupMessageToLocalStorageResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{53}
+}
+
+func (x *InsertGroupMessageToLocalStorageResp) GetMsg() *MsgStruct {
+	if x != nil {
+		return x.Msg
+	}
+	return nil
+}
+
 var File_message_proto protoreflect.FileDescriptor
 
 var file_message_proto_rawDesc = []byte{
@@ -4084,11 +4549,56 @@ var file_message_proto_rawDesc = []byte{
 	0x63, 0x76, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x73, 0x67, 0x54, 0x69, 0x70, 0x18, 0x02,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6d, 0x73, 0x67, 0x54, 0x69, 0x70, 0x22, 0x18, 0x0a, 0x16,
 	0x54, 0x79, 0x70, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x55, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x42, 0x38, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f,
-	0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76,
-	0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x22, 0x5c, 0x0a, 0x10, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x49, 0x44, 0x12, 0x20, 0x0a, 0x0b, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4d, 0x73, 0x67, 0x49,
+	0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4d,
+	0x73, 0x67, 0x49, 0x44, 0x22, 0x13, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x22, 0x23, 0x0a, 0x21, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x41, 0x6c, 0x6c, 0x4d, 0x73, 0x67, 0x46, 0x72, 0x6f, 0x6d, 0x4c, 0x6f, 0x63,
+	0x61, 0x6c, 0x41, 0x6e, 0x64, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x52, 0x65, 0x71, 0x22, 0x24,
+	0x0a, 0x22, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x6c, 0x6c, 0x4d, 0x73, 0x67, 0x46, 0x72,
+	0x6f, 0x6d, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x41, 0x6e, 0x64, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72,
+	0x52, 0x65, 0x73, 0x70, 0x22, 0x25, 0x0a, 0x23, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x6c,
+	0x6c, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x4c, 0x6f, 0x63, 0x61,
+	0x6c, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x22, 0x26, 0x0a, 0x24, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x6c, 0x6c, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x46,
+	0x72, 0x6f, 0x6d, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x22, 0x87, 0x01, 0x0a, 0x24, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x53, 0x69,
+	0x6e, 0x67, 0x6c, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x6f, 0x4c, 0x6f, 0x63,
+	0x61, 0x6c, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x12, 0x2f, 0x0a, 0x03,
+	0x6d, 0x73, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e,
+	0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d,
+	0x73, 0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x12, 0x16, 0x0a,
+	0x06, 0x72, 0x65, 0x63, 0x76, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72,
+	0x65, 0x63, 0x76, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x22, 0x58, 0x0a,
+	0x25, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x53, 0x69, 0x6e, 0x67, 0x6c, 0x65, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x54, 0x6f, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x53, 0x74, 0x6f, 0x72, 0x61,
+	0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x2f, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b,
+	0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x74, 0x72, 0x75,
+	0x63, 0x74, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x88, 0x01, 0x0a, 0x23, 0x49, 0x6e, 0x73, 0x65,
+	0x72, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x6f,
+	0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x12,
+	0x2f, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f,
+	0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x03, 0x6d, 0x73, 0x67,
+	0x12, 0x18, 0x0a, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x65,
+	0x6e, 0x64, 0x49, 0x44, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x65, 0x6e, 0x64,
+	0x49, 0x44, 0x22, 0x57, 0x0a, 0x24, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x6f, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x53,
+	0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x2f, 0x0a, 0x03, 0x6d, 0x73,
+	0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d,
+	0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73, 0x67,
+	0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x42, 0x38, 0x5a, 0x2d, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d,
+	0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63,
+	0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0xaa, 0x02, 0x06, 0x4f,
+	0x70, 0x65, 0x6e, 0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4103,7 +4613,7 @@ func file_message_proto_rawDescGZIP() []byte {
 	return file_message_proto_rawDescData
 }
 
-var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 44)
+var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 54)
 var file_message_proto_goTypes = []interface{}{
 	(*MessageReceipt)(nil),                           // 0: openim.sdk.message.MessageReceipt
 	(*MessageRevoked)(nil),                           // 1: openim.sdk.message.MessageRevoked
@@ -4149,12 +4659,22 @@ var file_message_proto_goTypes = []interface{}{
 	(*RevokeMessageResp)(nil),                        // 41: openim.sdk.message.RevokeMessageResp
 	(*TypingStatusUpdateReq)(nil),                    // 42: openim.sdk.message.TypingStatusUpdateReq
 	(*TypingStatusUpdateResp)(nil),                   // 43: openim.sdk.message.TypingStatusUpdateResp
-	(SessionType)(0),                                 // 44: openim.sdk.common.SessionType
-	(MsgFrom)(0),                                     // 45: openim.sdk.common.MsgFrom
-	(ContentType)(0),                                 // 46: openim.sdk.common.ContentType
-	(Platform)(0),                                    // 47: openim.sdk.common.Platform
-	(MsgStatus)(0),                                   // 48: openim.sdk.common.MsgStatus
-	(*OfflinePushInfo)(nil),                          // 49: openim.sdk.common.OfflinePushInfo
+	(*DeleteMessageReq)(nil),                         // 44: openim.sdk.message.DeleteMessageReq
+	(*DeleteMessageResp)(nil),                        // 45: openim.sdk.message.DeleteMessageResp
+	(*DeleteAllMsgFromLocalAndServerReq)(nil),        // 46: openim.sdk.message.DeleteAllMsgFromLocalAndServerReq
+	(*DeleteAllMsgFromLocalAndServerResp)(nil),       // 47: openim.sdk.message.DeleteAllMsgFromLocalAndServerResp
+	(*DeleteAllMessageFromLocalStorageReq)(nil),      // 48: openim.sdk.message.DeleteAllMessageFromLocalStorageReq
+	(*DeleteAllMessageFromLocalStorageResp)(nil),     // 49: openim.sdk.message.DeleteAllMessageFromLocalStorageResp
+	(*InsertSingleMessageToLocalStorageReq)(nil),     // 50: openim.sdk.message.InsertSingleMessageToLocalStorageReq
+	(*InsertSingleMessageToLocalStorageResp)(nil),    // 51: openim.sdk.message.InsertSingleMessageToLocalStorageResp
+	(*InsertGroupMessageToLocalStorageReq)(nil),      // 52: openim.sdk.message.InsertGroupMessageToLocalStorageReq
+	(*InsertGroupMessageToLocalStorageResp)(nil),     // 53: openim.sdk.message.InsertGroupMessageToLocalStorageResp
+	(SessionType)(0),                                 // 54: openim.sdk.common.SessionType
+	(MsgFrom)(0),                                     // 55: openim.sdk.common.MsgFrom
+	(ContentType)(0),                                 // 56: openim.sdk.common.ContentType
+	(Platform)(0),                                    // 57: openim.sdk.common.Platform
+	(MsgStatus)(0),                                   // 58: openim.sdk.common.MsgStatus
+	(*OfflinePushInfo)(nil),                          // 59: openim.sdk.common.OfflinePushInfo
 }
 var file_message_proto_depIdxs = []int32{
 	4,  // 0: openim.sdk.message.PictureElem.sourcePicture:type_name -> openim.sdk.message.PictureBaseInfo
@@ -4170,12 +4690,12 @@ var file_message_proto_depIdxs = []int32{
 	30, // 10: openim.sdk.message.AttachedInfoElem.groupHasReadInfo:type_name -> openim.sdk.message.GroupHasReadInfo
 	26, // 11: openim.sdk.message.AttachedInfoElem.progress:type_name -> openim.sdk.message.UploadProgress
 	28, // 12: openim.sdk.message.ReactionElem.userReactionList:type_name -> openim.sdk.message.UserReactionElem
-	44, // 13: openim.sdk.message.MsgStruct.sessionType:type_name -> openim.sdk.common.SessionType
-	45, // 14: openim.sdk.message.MsgStruct.msgFrom:type_name -> openim.sdk.common.MsgFrom
-	46, // 15: openim.sdk.message.MsgStruct.contentType:type_name -> openim.sdk.common.ContentType
-	47, // 16: openim.sdk.message.MsgStruct.senderPlatformID:type_name -> openim.sdk.common.Platform
-	48, // 17: openim.sdk.message.MsgStruct.status:type_name -> openim.sdk.common.MsgStatus
-	49, // 18: openim.sdk.message.MsgStruct.offlinePush:type_name -> openim.sdk.common.OfflinePushInfo
+	54, // 13: openim.sdk.message.MsgStruct.sessionType:type_name -> openim.sdk.common.SessionType
+	55, // 14: openim.sdk.message.MsgStruct.msgFrom:type_name -> openim.sdk.common.MsgFrom
+	56, // 15: openim.sdk.message.MsgStruct.contentType:type_name -> openim.sdk.common.ContentType
+	57, // 16: openim.sdk.message.MsgStruct.senderPlatformID:type_name -> openim.sdk.common.Platform
+	58, // 17: openim.sdk.message.MsgStruct.status:type_name -> openim.sdk.common.MsgStatus
+	59, // 18: openim.sdk.message.MsgStruct.offlinePush:type_name -> openim.sdk.common.OfflinePushInfo
 	8,  // 19: openim.sdk.message.MsgStruct.textElem:type_name -> openim.sdk.message.TextElem
 	9,  // 20: openim.sdk.message.MsgStruct.cardElem:type_name -> openim.sdk.message.CardElem
 	10, // 21: openim.sdk.message.MsgStruct.pictureElem:type_name -> openim.sdk.message.PictureElem
@@ -4195,17 +4715,21 @@ var file_message_proto_depIdxs = []int32{
 	25, // 35: openim.sdk.message.MsgStruct.attachedInfoElem:type_name -> openim.sdk.message.AttachedInfoElem
 	31, // 36: openim.sdk.message.GetAdvancedHistoryMessageListCallback.messageList:type_name -> openim.sdk.message.MsgStruct
 	31, // 37: openim.sdk.message.SendMessageReq.message:type_name -> openim.sdk.message.MsgStruct
-	49, // 38: openim.sdk.message.SendMessageReq.offlinePushInfo:type_name -> openim.sdk.common.OfflinePushInfo
+	59, // 38: openim.sdk.message.SendMessageReq.offlinePushInfo:type_name -> openim.sdk.common.OfflinePushInfo
 	31, // 39: openim.sdk.message.SendMessageResp.message:type_name -> openim.sdk.message.MsgStruct
 	32, // 40: openim.sdk.message.GetAdvancedHistoryMessageListReq.getAdvancedHistoryMessageListParams:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListParams
 	33, // 41: openim.sdk.message.GetAdvancedHistoryMessageListResp.getAdvancedHistoryMessageListCallback:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListCallback
 	32, // 42: openim.sdk.message.GetAdvancedHistoryMessageListReverseReq.getAdvancedHistoryMessageListParams:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListParams
 	33, // 43: openim.sdk.message.GetAdvancedHistoryMessageListReverseResp.getAdvancedHistoryMessageListCallback:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListCallback
-	44, // [44:44] is the sub-list for method output_type
-	44, // [44:44] is the sub-list for method input_type
-	44, // [44:44] is the sub-list for extension type_name
-	44, // [44:44] is the sub-list for extension extendee
-	0,  // [0:44] is the sub-list for field type_name
+	31, // 44: openim.sdk.message.InsertSingleMessageToLocalStorageReq.msg:type_name -> openim.sdk.message.MsgStruct
+	31, // 45: openim.sdk.message.InsertSingleMessageToLocalStorageResp.msg:type_name -> openim.sdk.message.MsgStruct
+	31, // 46: openim.sdk.message.InsertGroupMessageToLocalStorageReq.msg:type_name -> openim.sdk.message.MsgStruct
+	31, // 47: openim.sdk.message.InsertGroupMessageToLocalStorageResp.msg:type_name -> openim.sdk.message.MsgStruct
+	48, // [48:48] is the sub-list for method output_type
+	48, // [48:48] is the sub-list for method input_type
+	48, // [48:48] is the sub-list for extension type_name
+	48, // [48:48] is the sub-list for extension extendee
+	0,  // [0:48] is the sub-list for field type_name
 }
 
 func init() { file_message_proto_init() }
@@ -4743,6 +5267,126 @@ func file_message_proto_init() {
 				return nil
 			}
 		}
+		file_message_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteMessageReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteMessageResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteAllMsgFromLocalAndServerReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteAllMsgFromLocalAndServerResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteAllMessageFromLocalStorageReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteAllMessageFromLocalStorageResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InsertSingleMessageToLocalStorageReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[51].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InsertSingleMessageToLocalStorageResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[52].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InsertGroupMessageToLocalStorageReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[53].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InsertGroupMessageToLocalStorageResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_message_proto_msgTypes[31].OneofWrappers = []interface{}{
 		(*MsgStruct_TextElem)(nil),
@@ -4768,7 +5412,7 @@ func file_message_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   44,
+			NumMessages:   54,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

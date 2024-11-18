@@ -25,9 +25,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/content_type"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/server_api_params"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 
@@ -423,7 +421,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			Uuid:        msgElem.PictureElem.SourcePicture.Uuid,
 			Name:        c.fileName("picture", req.Message.ClientMsgID) + filepathExt(msgElem.PictureElem.SourcePicture.Uuid, sourcePath),
 			Cause:       "msg-picture",
-		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
+		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
 			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
@@ -471,7 +469,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			Uuid:        msgElem.SoundElem.Uuid,
 			Name:        c.fileName("voice", req.Message.ClientMsgID) + filepathExt(msgElem.SoundElem.Uuid, sourcePath),
 			Cause:       "msg-voice",
-		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
+		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
 			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
@@ -527,7 +525,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 				Uuid:        msgElem.VideoElem.VideoUUID,
 				Name:        c.fileName("video", req.Message.ClientMsgID) + filepathExt(msgElem.VideoElem.VideoUUID, videoPath),
 				Cause:       "msg-video",
-			}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
+			}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
 			if err != nil {
 				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 				putErrs = err
@@ -566,7 +564,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			Uuid:        msgElem.FileElem.Uuid,
 			Name:        c.fileName("file", req.Message.ClientMsgID) + "/" + filepath.Base(name),
 			Cause:       "msg-file",
-		}, NewUploadFileCallback(ctx, callback.OnProgress, req.Message, lc.ConversationID, c.db))
+		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
 			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
@@ -757,7 +755,7 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 			findResultItem.ShowName = v.conversation.ShowName
 			findResultItem.ConversationType = v.conversation.ConversationType
 			findResultItem.MessageList = tempMessageList
-			findResultItem.MessageCount = len(findResultItem.MessageList)
+			findResultItem.MessageCount = int32(len(findResultItem.MessageList))
 			r.FindResultItems = append(r.FindResultItems, &findResultItem)
 			r.TotalCount += findResultItem.MessageCount
 		} else {
@@ -838,49 +836,69 @@ func (c *Conversation) DeleteMessageFromLocalStorage(ctx context.Context, req *s
 	return &sdkpb.DeleteMessageFromLocalStorageResp{}, nil
 }
 
-func (c *Conversation) DeleteMessage(ctx context.Context, conversationID string, clientMsgID string) error {
-	return c.deleteMessage(ctx, conversationID, clientMsgID)
+func (c *Conversation) DeleteMessage(ctx context.Context, req *sdkpb.DeleteMessageReq) (*sdkpb.DeleteMessageResp, error) {
+	err := c.deleteMessage(ctx, req.ConversationID, req.ClientMsgID)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.DeleteMessageResp{}, nil
 }
 
-func (c *Conversation) DeleteAllMsgFromLocalAndServer(ctx context.Context) error {
-	return c.deleteAllMsgFromLocalAndServer(ctx)
+func (c *Conversation) DeleteAllMsgFromLocalAndServer(ctx context.Context, req *sdkpb.DeleteAllMsgFromLocalAndServerReq) (*sdkpb.DeleteAllMsgFromLocalAndServerResp, error) {
+	err := c.deleteAllMsgFromLocalAndServer(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.DeleteAllMsgFromLocalAndServerResp{}, nil
 }
 
-func (c *Conversation) DeleteAllMessageFromLocalStorage(ctx context.Context) error {
-	return c.deleteAllMsgFromLocal(ctx, true)
+func (c *Conversation) DeleteAllMessageFromLocalStorage(ctx context.Context, req *sdkpb.DeleteAllMessageFromLocalStorageReq) (*sdkpb.DeleteAllMessageFromLocalStorageResp, error) {
+	err := c.deleteAllMsgFromLocal(ctx, true)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.DeleteAllMessageFromLocalStorageResp{}, nil
 }
 
-func (c *Conversation) ClearConversationAndDeleteAllMsg(ctx context.Context, conversationID string) error {
-	return c.clearConversationFromLocalAndServer(ctx, conversationID, c.db.ClearConversation)
+func (c *Conversation) ClearConversationAndDeleteAllMsg(ctx context.Context, req *sdkpb.ClearConversationAndDeleteAllMsgReq) (*sdkpb.ClearConversationAndDeleteAllMsgResp, error) {
+	err := c.clearConversationFromLocalAndServer(ctx, req.ConversationID, c.db.ClearConversation)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.ClearConversationAndDeleteAllMsgResp{}, nil
 }
 
-func (c *Conversation) DeleteConversationAndDeleteAllMsg(ctx context.Context, conversationID string) error {
-	return c.clearConversationFromLocalAndServer(ctx, conversationID, c.db.ResetConversation)
+func (c *Conversation) DeleteConversationAndDeleteAllMsg(ctx context.Context, req *sdkpb.DeleteConversationAndDeleteAllMsgReq) (*sdkpb.DeleteConversationAndDeleteAllMsgResp, error) {
+	err := c.clearConversationFromLocalAndServer(ctx, req.ConversationID, c.db.ResetConversation)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.DeleteConversationAndDeleteAllMsgResp{}, nil
 }
 
-func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, s *sdk_struct.MsgStruct, recvID, sendID string) (*sdk_struct.MsgStruct, error) {
-	if recvID == "" || sendID == "" {
+func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, req *sdkpb.InsertSingleMessageToLocalStorageReq) (*sdkpb.InsertSingleMessageToLocalStorageResp, error) {
+	if req.RecvID == "" || req.SendID == "" {
 		return nil, sdkerrs.ErrArgs
 	}
 	var conversation model_struct.LocalConversation
-	if sendID != c.loginUserID {
-		faceUrl, name, err := c.getUserNameAndFaceURL(ctx, sendID)
+	if req.SendID != c.loginUserID {
+		faceUrl, name, err := c.getUserNameAndFaceURL(ctx, req.SendID)
 		if err != nil {
-			//log.Error(operationID, "GetUserNameAndFaceURL err", err.Error(), sendID)
+			//log.Error(operationID, "GetUserNameAndFaceURL err", err.Error(), req.SendID)
 		}
-		s.SenderFaceURL = faceUrl
-		s.SenderNickname = name
+		req.Msg.SenderFaceURL = faceUrl
+		req.Msg.SenderNickname = name
 		conversation.FaceURL = faceUrl
 		conversation.ShowName = name
-		conversation.UserID = sendID
-		conversation.ConversationID = c.getConversationIDBySessionType(sendID, constant.SingleChatType)
+		conversation.UserID = req.SendID
+		conversation.ConversationID = c.getConversationIDBySessionType(req.SendID, constant.SingleChatType)
 
 	} else {
-		conversation.UserID = recvID
-		conversation.ConversationID = c.getConversationIDBySessionType(recvID, constant.SingleChatType)
+		conversation.UserID = req.RecvID
+		conversation.ConversationID = c.getConversationIDBySessionType(req.RecvID, constant.SingleChatType)
 		_, err := c.db.GetConversation(ctx, conversation.ConversationID)
 		if err != nil {
-			faceUrl, name, err := c.getUserNameAndFaceURL(ctx, recvID)
+			faceUrl, name, err := c.getUserNameAndFaceURL(ctx, req.RecvID)
 			if err != nil {
 				return nil, err
 			}
@@ -889,95 +907,97 @@ func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, s 
 		}
 	}
 
-	s.SendID = sendID
-	s.RecvID = recvID
-	s.ClientMsgID = utils.GetMsgID(s.SendID)
-	s.SendTime = utils.GetCurrentTimestampByMill()
-	s.SessionType = constant.SingleChatType
-	s.Status = constant.MsgStatusSendSuccess
-	localMessage := MsgStructToLocalChatLog(s)
-	conversation.LatestMsg = utils.StructToJsonString(s)
+	req.Msg.SendID = req.SendID
+	req.Msg.RecvID = req.RecvID
+	req.Msg.ClientMsgID = utils.GetMsgID(req.Msg.SendID)
+	req.Msg.SendTime = utils.GetCurrentTimestampByMill()
+	req.Msg.SessionType = constant.SingleChatType
+	req.Msg.Status = constant.MsgStatusSendSuccess
+	localMessage := MsgStructToLocalChatLog(req.Msg)
+	conversation.LatestMsg = utils.StructToJsonString(req.Msg)
 	conversation.ConversationType = constant.SingleChatType
-	conversation.LatestMsgSendTime = s.SendTime
+	conversation.LatestMsgSendTime = req.Msg.SendTime
 	err := c.insertMessageToLocalStorage(ctx, conversation.ConversationID, localMessage)
 	if err != nil {
 		return nil, err
 	}
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: conversation}, c.GetCh())
-	return s, nil
-
+	return &sdkpb.InsertSingleMessageToLocalStorageResp{Msg: req.Msg}, nil
 }
 
-func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, s *sdk_struct.MsgStruct, groupID, sendID string) (*sdk_struct.MsgStruct, error) {
-	if groupID == "" || sendID == "" {
+func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req *sdkpb.InsertGroupMessageToLocalStorageReq) (*sdkpb.InsertGroupMessageToLocalStorageResp, error) {
+	if req.GroupID == "" || req.SendID == "" {
 		return nil, sdkerrs.ErrArgs
 	}
 	var conversation model_struct.LocalConversation
 	var err error
-	_, conversation.ConversationType, err = c.getConversationTypeByGroupID(ctx, groupID)
+	_, conversation.ConversationType, err = c.getConversationTypeByGroupID(ctx, req.GroupID)
 	if err != nil {
 		return nil, err
 	}
 
-	conversation.ConversationID = c.getConversationIDBySessionType(groupID, int(conversation.ConversationType))
-	if sendID != c.loginUserID {
-		faceUrl, name, err := c.getUserNameAndFaceURL(ctx, sendID)
+	conversation.ConversationID = c.getConversationIDBySessionType(req.GroupID, int(conversation.ConversationType))
+	if req.SendID != c.loginUserID {
+		faceUrl, name, err := c.getUserNameAndFaceURL(ctx, req.SendID)
 		if err != nil {
-			// log.Error("", "getUserNameAndFaceUrlByUid err", err.Error(), sendID)
+			// log.Error("", "getUserNameAndFaceUrlByUid err", err.Error(), req.SendID)
 		}
-		s.SenderFaceURL = faceUrl
-		s.SenderNickname = name
+		req.Msg.SenderFaceURL = faceUrl
+		req.Msg.SenderNickname = name
 	}
-	s.SendID = sendID
-	s.RecvID = groupID
-	s.GroupID = groupID
-	s.ClientMsgID = utils.GetMsgID(s.SendID)
-	s.SendTime = utils.GetCurrentTimestampByMill()
-	s.SessionType = conversation.ConversationType
-	s.Status = constant.MsgStatusSendSuccess
-	localMessage := MsgStructToLocalChatLog(s)
-	conversation.LatestMsg = utils.StructToJsonString(s)
-	conversation.LatestMsgSendTime = s.SendTime
-	conversation.FaceURL = s.SenderFaceURL
-	conversation.ShowName = s.SenderNickname
+	req.Msg.SendID = req.SendID
+	req.Msg.RecvID = req.GroupID
+	req.Msg.GroupID = req.GroupID
+	req.Msg.ClientMsgID = utils.GetMsgID(req.Msg.SendID)
+	req.Msg.SendTime = utils.GetCurrentTimestampByMill()
+	req.Msg.SessionType = sdkpb.SessionType(conversation.ConversationType)
+	req.Msg.Status = constant.MsgStatusSendSuccess
+	localMessage := MsgStructToLocalChatLog(req.Msg)
+	conversation.LatestMsg = utils.StructToJsonString(req.Msg)
+	conversation.LatestMsgSendTime = req.Msg.SendTime
+	conversation.FaceURL = req.Msg.SenderFaceURL
+	conversation.ShowName = req.Msg.SenderNickname
 	err = c.insertMessageToLocalStorage(ctx, conversation.ConversationID, localMessage)
 	if err != nil {
 		return nil, err
 	}
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: conversation}, c.GetCh())
-	return s, nil
-
+	return &sdkpb.InsertGroupMessageToLocalStorageResp{Msg: req.Msg}, nil
 }
 
-func (c *Conversation) SearchLocalMessages(ctx context.Context, searchParam *sdk_params_callback.SearchLocalMessagesParams) (*sdk_params_callback.SearchLocalMessagesCallback, error) {
-	searchParam.KeywordList = utils.TrimStringList(searchParam.KeywordList)
-	return c.searchLocalMessages(ctx, searchParam)
-
-}
-func (c *Conversation) SetMessageLocalEx(ctx context.Context, conversationID string, clientMsgID string, localEx string) error {
-	err := c.db.UpdateColumnsMessage(ctx, conversationID, clientMsgID, map[string]interface{}{"local_ex": localEx})
+func (c *Conversation) SearchLocalMessages(ctx context.Context, req *sdkpb.SearchLocalMessagesReq) (*sdkpb.SearchLocalMessagesResp, error) {
+	req.SearchParam.KeywordList = utils.TrimStringList(req.SearchParam.KeywordList)
+	searchResult, err := c.searchLocalMessages(ctx, req.SearchParam)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	conversation, err := c.db.GetConversation(ctx, conversationID)
+	return &sdkpb.SearchLocalMessagesResp{SearchResult: searchResult}, nil
+}
+
+func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMessageLocalExReq) (*sdkpb.SetMessageLocalExResp, error) {
+	err := c.db.UpdateColumnsMessage(ctx, req.ConversationID, req.ClientMsgID, map[string]interface{}{"local_ex": req.LocalEx})
 	if err != nil {
-		return err
+		return nil, err
+	}
+	conversation, err := c.db.GetConversation(ctx, req.ConversationID)
+	if err != nil {
+		return nil, err
 	}
 	var latestMsg sdk_struct.MsgStruct
 	utils.JsonStringToStruct(conversation.LatestMsg, &latestMsg)
-	if latestMsg.ClientMsgID == clientMsgID {
+	if latestMsg.ClientMsgID == req.ClientMsgID {
 		log.ZDebug(ctx, "latestMsg local ex changed", "seq", latestMsg.Seq, "clientMsgID", latestMsg.ClientMsgID)
-		latestMsg.LocalEx = localEx
+		latestMsg.LocalEx = req.LocalEx
 		latestMsgStr := utils.StructToJsonString(latestMsg)
-		if err = c.db.UpdateColumnsConversation(ctx, conversationID, map[string]interface{}{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsg.SendTime}); err != nil {
-			return err
+		if err = c.db.UpdateColumnsConversation(ctx, req.ConversationID, map[string]interface{}{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsg.SendTime}); err != nil {
+			return nil, err
 		}
-		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{conversationID}}})
+		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{req.ConversationID}}})
 	}
-	return nil
+	return &sdkpb.SetMessageLocalExResp{Success: true}, nil
 }
 
-func (c *Conversation) initBasicInfo(ctx context.Context, message *sdk_struct.MsgStruct, msgFrom, contentType int32) error {
+func (c *Conversation) initBasicInfo(ctx context.Context, message *sdkpb.MsgStruct, msgFrom sdkpb.MsgFrom, contentType sdkpb.ContentType) error {
 	message.CreateTime = utils.GetCurrentTimestampByMill()
 	message.SendTime = message.CreateTime
 	message.IsRead = false
@@ -993,7 +1013,7 @@ func (c *Conversation) initBasicInfo(ctx context.Context, message *sdk_struct.Ms
 	message.ClientMsgID = ClientMsgID
 	message.MsgFrom = msgFrom
 	message.ContentType = contentType
-	message.SenderPlatformID = c.platformID
+	message.SenderPlatformID = c.platform
 	return nil
 }
 
@@ -1012,41 +1032,35 @@ func (c *Conversation) getConversationTypeByGroupID(ctx context.Context, groupID
 	}
 }
 
-func (c *Conversation) SearchConversation(ctx context.Context, searchParam string) ([]*server_api_params.Conversation, error) {
-	// Check if search parameter is empty
-	if searchParam == "" {
+func (c *Conversation) SearchConversation(ctx context.Context, req *sdkpb.SearchConversationReq) (*sdkpb.SearchConversationResp, error) {
+	if req.SearchParam == "" {
 		return nil, sdkerrs.ErrArgs.WrapMsg("search parameter cannot be empty")
 	}
 
-	// Perform the search in your database or data source
-	// This is a placeholder for the actual database call
-	conversations, err := c.db.SearchConversations(ctx, searchParam)
+	conversations, err := c.db.SearchConversations(ctx, req.SearchParam)
 	if err != nil {
-		// Handle any errors that occurred during the search
 		return nil, err
 	}
-	apiConversations := make([]*server_api_params.Conversation, len(conversations))
+
+	apiConversations := make([]*sdkpb.Conversation, len(conversations))
 	for i, localConv := range conversations {
-		// Create new server_api_params.Conversation and map fields from localConv
-		apiConv := &server_api_params.Conversation{
-			ConversationID:        localConv.ConversationID,
-			ConversationType:      localConv.ConversationType,
-			UserID:                localConv.UserID,
-			GroupID:               localConv.GroupID,
-			RecvMsgOpt:            localConv.RecvMsgOpt,
-			UnreadCount:           localConv.UnreadCount,
-			DraftTextTime:         localConv.DraftTextTime,
-			IsPinned:              localConv.IsPinned,
-			IsPrivateChat:         localConv.IsPrivateChat,
-			BurnDuration:          localConv.BurnDuration,
-			GroupAtType:           localConv.GroupAtType,
-			IsNotInGroup:          localConv.IsNotInGroup,
-			UpdateUnreadCountTime: localConv.UpdateUnreadCountTime,
-			AttachedInfo:          localConv.AttachedInfo,
-			Ex:                    localConv.Ex,
+		apiConv := &sdkpb.Conversation{
+			ConversationID:   localConv.ConversationID,
+			ConversationType: localConv.ConversationType,
+			UserID:           localConv.UserID,
+			GroupID:          localConv.GroupID,
+			RecvMsgOpt:       localConv.RecvMsgOpt,
+			UnreadCount:      localConv.UnreadCount,
+			DraftTextTime:    localConv.DraftTextTime,
+			IsPinned:         localConv.IsPinned,
+			IsPrivateChat:    localConv.IsPrivateChat,
+			BurnDuration:     localConv.BurnDuration,
+			GroupAtType:      localConv.GroupAtType,
+			Ex:               localConv.Ex,
 		}
 		apiConversations[i] = apiConv
 	}
-	// Return the list of conversations
-	return apiConversations, nil
+	return &sdkpb.SearchConversationResp{
+		ConversationList: apiConversations,
+	}, nil
 }

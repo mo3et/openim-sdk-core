@@ -3,11 +3,11 @@ package conversation_msg
 import (
 	"context"
 	"errors"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	sdk "github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	"github.com/openimsdk/protocol/msg"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -20,7 +20,7 @@ import (
 // validateAndFillInternalGaps checks for continuity within a block of messages. If gaps are detected, it initiates a fill operation
 // to retrieve and merge missing messages. It returns the maximum `seq` of this batch, which helps in determining continuity with subsequent batches.
 func (c *Conversation) validateAndFillInternalGaps(ctx context.Context, conversationID string, isReverse bool, count int,
-	startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdk.GetAdvancedHistoryMessageListCallback) int64 {
+	startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) int64 {
 	var lostSeqListLength int
 	maxSeq, minSeq, haveSeqList := c.getMaxAndMinHaveSeqList(*list)
 	log.ZDebug(ctx, "getMaxAndMinHaveSeqList is:", "maxSeq", maxSeq, "minSeq", minSeq, "haveSeqList", haveSeqList)
@@ -40,7 +40,7 @@ func (c *Conversation) validateAndFillInternalGaps(ctx context.Context, conversa
 // validateAndFillInterBlockGaps checks for continuity between blocks of messages. If a gap is identified, it retrieves the missing messages
 // to bridge the gap. The function returns a boolean indicating whether the blocks are continuous.
 func (c *Conversation) validateAndFillInterBlockGaps(ctx context.Context, maxSeq int64, conversationID string,
-	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdk.GetAdvancedHistoryMessageListCallback) bool {
+	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) bool {
 	lastMinSeq, _ := c.messagePullMinSeqMap.Load(conversationID)
 	if lastMinSeq != 0 {
 		log.ZDebug(ctx, "get lost LastMinSeq is :", "lastMinSeq", lastMinSeq, "thisMaxSeq", maxSeq)
@@ -100,7 +100,7 @@ func (c *Conversation) validateAndFillInterBlockGaps(ctx context.Context, maxSeq
 // internal and inter-block continuity checks but contains fewer messages than `count`, this function verifies if the end
 // of the message history has been reached. If not, it attempts to retrieve any missing messages to ensure continuity.
 func (c *Conversation) validateAndFillEndBlockContinuity(ctx context.Context, conversationID string,
-	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdk.GetAdvancedHistoryMessageListCallback) {
+	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) {
 	// Perform an end-of-block check if the retrieved message count is less than requested
 	if len(*list) < count {
 		_, minSeq, _ := c.getMaxAndMinHaveSeqList(*list)
@@ -174,7 +174,7 @@ func getLostSeqListWithLimitLength(minSeq, maxSeq int64, haveSeqList []int64) []
 // 3. Check the continuity between blocks.
 func (c *Conversation) fetchAndMergeMissingMessages(ctx context.Context, conversationID string, seqList []int64,
 	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog,
-	messageListCallback *sdk.GetAdvancedHistoryMessageListCallback) {
+	messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) {
 
 	var getSeqMessageResp msg.GetSeqMessageResp
 	var getSeqMessageReq msg.GetSeqMessageReq
@@ -183,7 +183,7 @@ func (c *Conversation) fetchAndMergeMissingMessages(ctx context.Context, convers
 	conversationSeqs.ConversationID = conversationID
 	conversationSeqs.Seqs = seqList
 	getSeqMessageReq.Conversations = append(getSeqMessageReq.Conversations, &conversationSeqs)
-	log.ZDebug(ctx, "conversation pull message,  ", "req", getSeqMessageReq)
+	log.ZDebug(ctx, "conversation pull message,  ", "req", &getSeqMessageReq)
 	if startTime == 0 && !c.LongConnMgr.IsConnected() {
 		return
 	}
@@ -192,7 +192,7 @@ func (c *Conversation) fetchAndMergeMissingMessages(ctx context.Context, convers
 		errHandle(seqList, list, err, messageListCallback)
 		log.ZWarn(ctx, "pull SendReqWaitResp failed", err, "req")
 	} else {
-		log.ZDebug(ctx, "syncMsgFromServerSplit pull msg", "resp", getSeqMessageResp)
+		log.ZDebug(ctx, "syncMsgFromServerSplit pull msg", "resp", &getSeqMessageResp)
 		if getSeqMessageResp.Msgs == nil {
 			log.ZWarn(ctx, "syncMsgFromServerSplit pull msg is null", errors.New("pull message is null"),
 				"req", getSeqMessageResp.String())
@@ -209,7 +209,7 @@ func (c *Conversation) fetchAndMergeMissingMessages(ctx context.Context, convers
 
 	}
 }
-func errHandle(seqList []int64, list *[]*model_struct.LocalChatLog, err error, messageListCallback *sdk.GetAdvancedHistoryMessageListCallback) {
+func errHandle(seqList []int64, list *[]*model_struct.LocalChatLog, err error, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) {
 	messageListCallback.ErrCode = 100
 	messageListCallback.ErrMsg = err.Error()
 	var result []*model_struct.LocalChatLog
@@ -282,50 +282,50 @@ func (c *Conversation) pullMessageIntoTable(ctx context.Context, pullMsgData map
 		localMessagesMap := datautil.SliceToMap(localMessages, func(msg *model_struct.LocalChatLog) string { return msg.ClientMsgID })
 		for _, v := range msgs.Msgs {
 			log.ZDebug(ctx, "msg detail", "msg", v, "conversationID", conversationID)
-			msg := MsgDataToLocalChatLog(v)
+			chatLog := MsgDataToLocalChatLog(v)
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally
 			//without any conversation and message update.
-			if msg.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, msg)
+			if chatLog.Status == constant.MsgStatusHasDeleted {
+				insertMessage = append(insertMessage, chatLog)
 				continue
 			}
-			msg.Status = constant.MsgStatusSendSuccess
+			chatLog.Status = constant.MsgStatusSendSuccess
 			// The message might be a filler provided by the server due to a gap in the sequence.
-			if msg.ClientMsgID == "" {
-				msg.ClientMsgID = utils.GetMsgID(c.loginUserID) + utils.Int64ToString(msg.Seq)
-				exceptionMsg = append(exceptionMsg, c.msgDataToLocalErrChatLog(msg))
-				insertMessage = append(insertMessage, msg)
+			if chatLog.ClientMsgID == "" {
+				chatLog.ClientMsgID = utils.GetMsgID(c.loginUserID) + utils.Int64ToString(chatLog.Seq)
+				exceptionMsg = append(exceptionMsg, c.msgDataToLocalErrChatLog(chatLog))
+				insertMessage = append(insertMessage, chatLog)
 				continue
 			}
-			existingMsg, exists := localMessagesMap[msg.ClientMsgID]
+			existingMsg, exists := localMessagesMap[chatLog.ClientMsgID]
 			if v.SendID == c.loginUserID { //seq
 				// Messages sent by myself  //if  sent through  this terminal
 				if exists {
-					log.ZDebug(ctx, "have message", "msg", msg)
+					log.ZDebug(ctx, "have message", "msg", chatLog)
 					if existingMsg.Seq == 0 {
-						updateMessage = append(updateMessage, msg)
+						updateMessage = append(updateMessage, chatLog)
 
 					} else {
 						// The message you sent is duplicated, possibly due to a resend or the server consuming
 						// the message multiple times.
-						msg.ClientMsgID = msg.ClientMsgID + utils.Int64ToString(msg.Seq)
-						exceptionMsg = append(exceptionMsg, c.msgDataToLocalErrChatLog(msg))
-						insertMessage = append(insertMessage, msg)
+						chatLog.ClientMsgID = chatLog.ClientMsgID + utils.Int64ToString(chatLog.Seq)
+						exceptionMsg = append(exceptionMsg, c.msgDataToLocalErrChatLog(chatLog))
+						insertMessage = append(insertMessage, chatLog)
 					}
 				} else { //      send through  other terminal
-					log.ZDebug(ctx, "sync message", "msg", msg)
-					selfInsertMessage = append(selfInsertMessage, msg)
+					log.ZDebug(ctx, "sync message", "msg", chatLog)
+					selfInsertMessage = append(selfInsertMessage, chatLog)
 				}
 			} else { //Sent by others
 				if !exists {
-					othersInsertMessage = append(othersInsertMessage, msg)
+					othersInsertMessage = append(othersInsertMessage, chatLog)
 
 				} else {
 					// The message sent by others is duplicated, possibly due to a resend or the server consuming
 					// the message multiple times.
-					msg.ClientMsgID = msg.ClientMsgID + utils.Int64ToString(msg.Seq)
-					exceptionMsg = append(exceptionMsg, c.msgDataToLocalErrChatLog(msg))
-					insertMessage = append(insertMessage, msg)
+					chatLog.ClientMsgID = chatLog.ClientMsgID + utils.Int64ToString(chatLog.Seq)
+					exceptionMsg = append(exceptionMsg, c.msgDataToLocalErrChatLog(chatLog))
+					insertMessage = append(insertMessage, chatLog)
 				}
 			}
 

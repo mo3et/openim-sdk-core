@@ -343,3 +343,32 @@ message TypingStatusUpdateReq {
 }
 message TypingStatusUpdateResp {}
 
+message DeleteMessageReq {
+  string conversationID = 1;
+  string clientMsgID = 2;
+}
+message DeleteMessageResp {}
+
+message DeleteAllMsgFromLocalAndServerReq {}
+message DeleteAllMsgFromLocalAndServerResp {}
+
+message DeleteAllMessageFromLocalStorageReq {}
+message DeleteAllMessageFromLocalStorageResp {}
+
+message InsertSingleMessageToLocalStorageReq {
+  MsgStruct msg = 1;
+  string recvID = 2;
+  string sendID = 3;
+}
+message InsertSingleMessageToLocalStorageResp {
+  MsgStruct msg = 1;
+}
+
+message InsertGroupMessageToLocalStorageReq {
+  MsgStruct msg = 1;
+  string groupID = 2;
+  string sendID = 3;
+}
+message InsertGroupMessageToLocalStorageResp {
+  MsgStruct msg = 1;
+}

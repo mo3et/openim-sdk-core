@@ -24,7 +24,7 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-func NewUploadFileCallback(ctx context.Context, progress func(progress int), msg *sdkpb.MsgStruct, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
+func NewUploadFileCallback(ctx context.Context, progress func(progress *sdkpb.EventOnSendMsgProgressData), msg *sdkpb.MsgStruct, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
 	if msg.AttachedInfoElem == nil {
 		msg.AttachedInfoElem = &sdkpb.AttachedInfoElem{}
 	}
@@ -40,7 +40,7 @@ type msgUploadFileCallback struct {
 	msg            *sdkpb.MsgStruct
 	conversationID string
 	value          int
-	progress       func(progress int)
+	progress       func(progress *sdkpb.EventOnSendMsgProgressData)
 }
 
 func (c *msgUploadFileCallback) Open(size int64) {
@@ -83,13 +83,13 @@ func (c *msgUploadFileCallback) UploadComplete(fileSize int64, streamSize int64,
 	value := int(float64(streamSize) / float64(fileSize) * 100)
 	if c.value < value {
 		c.value = value
-		c.progress(value)
+		c.progress(&sdkpb.EventOnSendMsgProgressData{Progress: int32(value)})
 	}
 }
 
 func (c *msgUploadFileCallback) Complete(size int64, url string, typ int) {
 	if c.value != 100 {
-		c.progress(100)
+		c.progress(&sdkpb.EventOnSendMsgProgressData{Progress: 100})
 	}
 	c.msg.AttachedInfoElem.Progress = nil
 	data, err := json.Marshal(c.msg.AttachedInfoElem)

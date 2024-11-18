@@ -155,6 +155,39 @@ message DeleteMessageFromLocalStorageReq {
 }
 message DeleteMessageFromLocalStorageResp {}
 
+
+message ClearConversationAndDeleteAllMsgReq {
+  string conversationID = 1;
+}
+message ClearConversationAndDeleteAllMsgResp {}
+
+message DeleteConversationAndDeleteAllMsgReq {
+  string conversationID = 1;
+}
+message DeleteConversationAndDeleteAllMsgResp {}
+
+message SearchLocalMessagesReq {
+  SearchLocalMessagesParams searchParam = 1;
+}
+message SearchLocalMessagesResp {
+  SearchLocalMessagesCallback searchResult = 1;
+}
+
+message SetMessageLocalExReq {
+  string conversationID = 1;
+  string clientMsgID = 2;
+  string localEx = 3;
+}
+message SetMessageLocalExResp {
+  bool success = 1;
+}
+
+message SearchConversationReq {
+  string searchParam = 1;
+}
+message SearchConversationResp {
+  repeated Conversation conversationList = 1;
+}
 // ----------------------------------------------------------------------------------------------------------
 
 enum FuncRequestEventName{
@@ -266,6 +299,35 @@ enum FuncRequestEventName{
   GetBlacks = 1111;
   UpdateFriends = 1112;
 
+  // conversation_msg
+  GetConversationListSplit = 2000;
+  HideConversation = 2001;
+  GetAtAllTag = 2002;
+  GetOneConversation = 2003;
+  GetMultipleConversation = 2004;
+  HideAllConversations = 2005;
+  SetConversationDraft = 2006;
+  SetConversation = 2007;
+  GetTotalUnreadMsgCount = 2008;
+  GetConversationIDBySessionType = 2009;
+  FindMessageList = 2010;
+  GetAdvancedHistoryMessageList = 2011;
+  GetAdvancedHistoryMessageListReverse = 2012;
+  RevokeMessage = 2013;
+  TypingStatusUpdate = 2014;
+  MarkConversationMessageAsRead = 2015;
+  MarkAllConversationMessageAsRead = 2016;
+  DeleteMessageFromLocalStorage = 2017;
+  DeleteMessage = 2018;
+  DeleteAllMsgFromLocalAndServer = 2019;
+  DeleteAllMessageFromLocalStorage = 2020;
+  ClearConversationAndDeleteAllMsg = 2021;
+  DeleteConversationAndDeleteAllMsg = 2022;
+  InsertSingleMessageToLocalStorage = 2023;
+  InsertGroupMessageToLocalStorage = 2024;
+  SearchLocalMessages = 2025;
+  SetMessageLocalEx = 2026;
+  SearchConversation = 2027;
 };
 
 message EventOnSendMsgProgressData{

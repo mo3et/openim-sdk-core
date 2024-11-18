@@ -18,6 +18,7 @@ import (
 	"context"
 	"errors"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	"github.com/openimsdk/tools/utils/datautil"
 	"sort"
 	"sync"
 	"time"
@@ -28,7 +29,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	sdk "github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
@@ -93,7 +93,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 }
 
 func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversationID string,
-	count int, startTime int64, isReverse bool, messageListCallback *sdk.GetAdvancedHistoryMessageListCallback) ([]*model_struct.LocalChatLog, error) {
+	count int, startTime int64, isReverse bool, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) ([]*model_struct.LocalChatLog, error) {
 
 	var list []*model_struct.LocalChatLog
 
@@ -237,14 +237,15 @@ func (c *Conversation) judgeMultipleSubString(keywordList []string, main string,
 }
 
 // searchLocalMessages searches for local messages based on the given search parameters.
-func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk.SearchLocalMessagesParams) (*sdk.SearchLocalMessagesCallback, error) {
-	var r sdk.SearchLocalMessagesCallback                                   // Initialize the result structure
-	var startTime, endTime int64                                            // Variables to hold start and end times for the search
-	var list []*model_struct.LocalChatLog                                   // Slice to store the search results
-	conversationMap := make(map[string]*sdk.SearchByConversationResult, 10) // Map to store results grouped by conversation, with initial capacity of 10
-	var err error                                                           // Variable to store any errors encountered
-	var conversationID string                                               // Variable to store the current conversation ID
-
+func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdkpb.SearchLocalMessagesParams) (*sdkpb.SearchLocalMessagesCallback, error) {
+	var r sdkpb.SearchLocalMessagesCallback                                   // Initialize the result structure
+	var startTime, endTime int64                                              // Variables to hold start and end times for the search
+	var list []*model_struct.LocalChatLog                                     // Slice to store the search results
+	conversationMap := make(map[string]*sdkpb.SearchByConversationResult, 10) // Map to store results grouped by conversation, with initial capacity of 10
+	var err error                                                             // Variable to store any errors encountered
+	var conversationID string                                                 // Variable to store the current conversation ID
+	int32ToInt := func(t int32) int { return int(t) }
+	intToInt32 := func(t int) int32 { return int32(t) }
 	// Set the end time for the search; if SearchTimePosition is 0, use the current timestamp
 	if searchParam.SearchTimePosition == 0 {
 		endTime = time.Now().Unix()
@@ -279,15 +280,16 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk
 
 		// Search by content type or keyword based on provided parameters
 		if len(searchParam.MessageTypeList) != 0 && len(searchParam.KeywordList) == 0 {
-			list, err = c.db.SearchMessageByContentType(ctx, searchParam.MessageTypeList, searchParam.SenderUserIDList, searchParam.ConversationID, startTime, endTime, offset, searchParam.Count)
+			list, err = c.db.SearchMessageByContentType(ctx, datautil.Batch(int32ToInt, searchParam.MessageTypeList), searchParam.SenderUserIDList, searchParam.ConversationID, startTime, endTime, int(offset), int(searchParam.Count))
 			if err != nil {
 				return nil, err
 			}
 		} else {
-			newContentTypeList := func(list []int) (result []int) {
+			newContentTypeList := func(list []int32) (result []int) {
 				for _, v := range list {
-					if utils.IsContainInt(v, SearchContentType) {
-						result = append(result, v)
+					vv := int(v)
+					if utils.IsContainInt(vv, SearchContentType) {
+						result = append(result, vv)
 					}
 				}
 				return result
@@ -298,7 +300,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk
 			}
 
 			list, err = c.db.SearchMessageByKeyword(ctx, newContentTypeList, searchParam.SenderUserIDList, searchParam.KeywordList,
-				searchParam.KeywordListMatchType, searchParam.ConversationID, startTime, endTime, offset, searchParam.Count)
+				int(searchParam.KeywordListMatchType), searchParam.ConversationID, startTime, endTime, int(offset), int(searchParam.Count))
 			if err != nil {
 				return nil, err
 			}
@@ -306,10 +308,10 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk
 	} else {
 		// Comprehensive search across all conversations
 		if len(searchParam.MessageTypeList) == 0 {
-			searchParam.MessageTypeList = SearchContentType
+			searchParam.MessageTypeList = datautil.Batch(intToInt32, SearchContentType)
 		}
 
-		list, err = c.searchMessageByContentTypeAndKeyword(ctx, searchParam.MessageTypeList, searchParam.SenderUserIDList, searchParam.KeywordList, searchParam.KeywordListMatchType, startTime, endTime)
+		list, err = c.searchMessageByContentTypeAndKeyword(ctx, datautil.Batch(int32ToInt, searchParam.MessageTypeList), searchParam.SenderUserIDList, searchParam.KeywordList, int(searchParam.KeywordListMatchType), startTime, endTime)
 	}
 
 	// Handle any errors encountered during the search
@@ -348,7 +350,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk
 		}
 		// Populate the conversationMap with search results
 		if oldItem, ok := conversationMap[conversationID]; !ok {
-			searchResultItem := sdk.SearchByConversationResult{}
+			searchResultItem := sdkpb.SearchByConversationResult{}
 			localConversation, err := c.db.GetConversation(ctx, conversationID)
 			if err != nil {
 				// log.Error("", "get conversation err ", err.Error(), conversationID)
@@ -421,20 +423,24 @@ func (c *Conversation) searchMessageByContentTypeAndKeyword(ctx context.Context,
 }
 
 // true is filter, false is not filter
-func (c *Conversation) filterMsg(temp *sdk_struct.MsgStruct, searchParam *sdk.SearchLocalMessagesParams) bool {
+func (c *Conversation) filterMsg(temp *sdkpb.MsgStruct, searchParam *sdkpb.SearchLocalMessagesParams) bool {
 	switch temp.ContentType {
 	case constant.Text:
-		return !c.judgeMultipleSubString(searchParam.KeywordList, temp.TextElem.Content,
-			searchParam.KeywordListMatchType)
+		elem, _ := temp.Content.(*sdkpb.MsgStruct_TextElem)
+		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.TextElem.Content,
+			int(searchParam.KeywordListMatchType))
 	case constant.AtText:
-		return !c.judgeMultipleSubString(searchParam.KeywordList, temp.AtTextElem.Text,
-			searchParam.KeywordListMatchType)
+		elem, _ := temp.Content.(*sdkpb.MsgStruct_AtTextElem)
+		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.AtTextElem.Text,
+			int(searchParam.KeywordListMatchType))
 	case constant.File:
-		return !c.judgeMultipleSubString(searchParam.KeywordList, temp.FileElem.FileName,
-			searchParam.KeywordListMatchType)
+		elem, _ := temp.Content.(*sdkpb.MsgStruct_FileElem)
+		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.FileElem.FileName,
+			int(searchParam.KeywordListMatchType))
 	case constant.Merger:
-		if !c.judgeMultipleSubString(searchParam.KeywordList, temp.MergeElem.Title, searchParam.KeywordListMatchType) {
-			for _, msgStruct := range temp.MergeElem.MultiMessage {
+		elem, _ := temp.Content.(*sdkpb.MsgStruct_MergeElem)
+		if !c.judgeMultipleSubString(searchParam.KeywordList, elem.MergeElem.Title, int(searchParam.KeywordListMatchType)) {
+			for _, msgStruct := range elem.MergeElem.MultiMessage {
 				if c.filterMsg(msgStruct, searchParam) {
 					continue
 				} else {
@@ -443,17 +449,21 @@ func (c *Conversation) filterMsg(temp *sdk_struct.MsgStruct, searchParam *sdk.Se
 			}
 		}
 	case constant.Card:
-		return !c.judgeMultipleSubString(searchParam.KeywordList, temp.CardElem.Nickname,
-			searchParam.KeywordListMatchType)
+		elem, _ := temp.Content.(*sdkpb.MsgStruct_CardElem)
+		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.CardElem.Nickname,
+			int(searchParam.KeywordListMatchType))
 	case constant.Location:
-		return !c.judgeMultipleSubString(searchParam.KeywordList, temp.LocationElem.Description,
-			searchParam.KeywordListMatchType)
+		elem, _ := temp.Content.(*sdkpb.MsgStruct_LocationElem)
+		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.LocationElem.Description,
+			int(searchParam.KeywordListMatchType))
 	case constant.Custom:
-		return !c.judgeMultipleSubString(searchParam.KeywordList, temp.CustomElem.Description,
-			searchParam.KeywordListMatchType)
+		elem, _ := temp.Content.(*sdkpb.MsgStruct_CustomElem)
+		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.CustomElem.Description,
+			int(searchParam.KeywordListMatchType))
 	case constant.Quote:
-		if !c.judgeMultipleSubString(searchParam.KeywordList, temp.QuoteElem.Text, searchParam.KeywordListMatchType) {
-			return c.filterMsg(temp.QuoteElem.QuoteMessage, searchParam)
+		elem, _ := temp.Content.(*sdkpb.MsgStruct_QuoteElem)
+		if !c.judgeMultipleSubString(searchParam.KeywordList, elem.QuoteElem.Text, int(searchParam.KeywordListMatchType)) {
+			return c.filterMsg(elem.QuoteElem.QuoteMessage, searchParam)
 		}
 	case constant.Picture:
 		fallthrough
