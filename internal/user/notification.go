@@ -5,6 +5,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	"github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
+	userPb "github.com/openimsdk/protocol/user"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
@@ -92,4 +93,19 @@ func (u *User) userCommandUpdateNotification(ctx context.Context, msg *sdkws.Msg
 		log.ZDebug(ctx, "ToUserID != u.loginUserID, do nothing", "detail.UserID", tip.ToUserID, "u.loginUserID", u.loginUserID)
 	}
 	return nil
+}
+
+func (u *User) UserOnlineStatusChange(users map[string][]int32) {
+	for userID, onlinePlatformIDs := range users {
+		status := userPb.OnlineStatus{
+			UserID:      userID,
+			PlatformIDs: onlinePlatformIDs,
+		}
+		if len(status.PlatformIDs) == 0 {
+			status.Status = constant.Offline
+		} else {
+			status.Status = constant.Online
+		}
+		u.listener().OnUserStatusChanged(utils.StructToJsonString(&status))
+	}
 }

@@ -2,6 +2,7 @@ syntax = "proto3";
 package openim.sdk.relation;
 
 import "common.proto";
+import "user.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
@@ -153,4 +154,63 @@ message UpdatesFriendsReq {
 message UpdatesFriendsResp {}
 
 
+message FriendApplication {
+  int64 addTime = 1;
+  string addSource = 2;
+  string addWording = 3;
+}
 
+message FromToUserID {
+  string fromUserID = 1;
+  string toUserID = 2;
+}
+
+//FromUserID apply to add ToUserID
+message FriendApplicationTips {
+  FromToUserID fromToUserID = 1; //from：发起者； to：接收者
+}
+
+//FromUserID accept or reject ToUserID
+message FriendApplicationApprovedTips {
+  FromToUserID fromToUserID = 1; //from：同意者；to：请求发起者
+  string handleMsg = 2;
+  uint64 friendVersion = 3;
+  string friendVersionID = 4;
+}
+
+//FromUserID accept or reject ToUserID
+message FriendApplicationRejectedTips {
+  FromToUserID fromToUserID = 1; //from：拒绝者；to：请求发起者
+  string handleMsg = 2;
+}
+
+// FromUserID  Added a friend ToUserID
+message FriendAddedTips {
+  FriendInfo friend = 1;
+  int64 operationTime = 2;
+  openim.sdk.user.UserInfo opUser = 3; //who do this
+  uint64 friendVersion = 4;
+  string friendVersionID = 5;
+}
+
+// FromUserID  deleted a friend ToUserID
+message FriendDeletedTips {
+  FromToUserID fromToUserID = 1; //from：owner； to：friend
+  uint64 friendVersion = 2;
+  string friendVersionID = 3;
+}
+
+message BlackAddedTips {
+  FromToUserID fromToUserID = 1; //from：owner； to：black
+}
+
+message BlackDeletedTips {
+  FromToUserID fromToUserID = 1; //from：owner； to：black
+}
+
+message FriendInfoChangedTips {
+  FromToUserID fromToUserID = 1; //from：changed； to：friend
+  uint64 friendVersion = 2;
+  string friendVersionID = 3;
+  uint64 friendSortVersion = 4;
+}
