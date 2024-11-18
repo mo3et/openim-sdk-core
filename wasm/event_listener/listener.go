@@ -140,20 +140,20 @@ func (a AdvancedMsgCallback) OnRecvMessageModified(message string) {
 	a.CallbackWriter.SetEvent(utils.GetSelfFuncName()).SetData(message).SendMessage()
 }
 func (a AdvancedMsgCallback) OnRecvMessageExtensionsChanged(clientMsgID string, reactionExtensionList string) {
-	m := make(map[string]interface{})
+	m := make(map[string]any)
 	m["clientMsgID"] = clientMsgID
 	m["reactionExtensionList"] = reactionExtensionList
 	a.CallbackWriter.SetEvent(utils.GetSelfFuncName()).SetData(utils.StructToJsonString(m)).SendMessage()
 }
 
 func (a AdvancedMsgCallback) OnRecvMessageExtensionsDeleted(clientMsgID string, reactionExtensionKeyList string) {
-	m := make(map[string]interface{})
+	m := make(map[string]any)
 	m["clientMsgID"] = clientMsgID
 	m["reactionExtensionKeyList"] = reactionExtensionKeyList
 	a.CallbackWriter.SetEvent(utils.GetSelfFuncName()).SetData(utils.StructToJsonString(m)).SendMessage()
 }
 func (a AdvancedMsgCallback) OnRecvMessageExtensionsAdded(clientMsgID string, reactionExtensionList string) {
-	m := make(map[string]interface{})
+	m := make(map[string]any)
 	m["clientMsgID"] = clientMsgID
 	m["reactionExtensionList"] = reactionExtensionList
 	a.CallbackWriter.SetEvent(utils.GetSelfFuncName()).SetData(utils.StructToJsonString(m)).SendMessage()
@@ -210,7 +210,7 @@ func NewSendMessageCallback(funcName string, callback *js.Value) *SendMessageCal
 }
 
 func (s *SendMessageCallback) OnProgress(progress int) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["progress"] = progress
 	mReply["clientMsgID"] = s.clientMsgID
 	s.globalEvent.SetEvent(utils.GetSelfFuncName()).SetData(utils.StructToJsonString(mReply)).SendMessage()
@@ -239,14 +239,14 @@ func (u *UploadFileCallback) SetUuid(args *[]js.Value) *UploadFileCallback {
 	return u
 }
 func (u *UploadFileCallback) Open(size int64) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["size"] = size
 	mReply["uuid"] = u.Uuid
 	u.globalEvent.SetEvent(utils.GetSelfFuncName()).SetData(utils.StructToJsonString(mReply)).SendMessage()
 }
 
 func (u *UploadFileCallback) PartSize(partSize int64, num int) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["partSize"] = partSize
 	mReply["num"] = num
 	mReply["uuid"] = u.Uuid
@@ -254,7 +254,7 @@ func (u *UploadFileCallback) PartSize(partSize int64, num int) {
 }
 
 func (u *UploadFileCallback) HashPartProgress(index int, size int64, partHash string) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["index"] = index
 	mReply["size"] = size
 	mReply["partHash"] = partHash
@@ -263,7 +263,7 @@ func (u *UploadFileCallback) HashPartProgress(index int, size int64, partHash st
 }
 
 func (u *UploadFileCallback) HashPartComplete(partsHash string, fileHash string) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["partsHash"] = partsHash
 	mReply["fileHash"] = fileHash
 	mReply["uuid"] = u.Uuid
@@ -271,14 +271,14 @@ func (u *UploadFileCallback) HashPartComplete(partsHash string, fileHash string)
 }
 
 func (u *UploadFileCallback) UploadID(uploadID string) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["uploadID"] = uploadID
 	mReply["uuid"] = u.Uuid
 	u.globalEvent.SetEvent(utils.GetSelfFuncName()).SetData(utils.StructToJsonString(mReply)).SendMessage()
 }
 
 func (u *UploadFileCallback) UploadPartComplete(index int, partSize int64, partHash string) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["index"] = index
 	mReply["partSize"] = partSize
 	mReply["partHash"] = partHash
@@ -287,7 +287,7 @@ func (u *UploadFileCallback) UploadPartComplete(index int, partSize int64, partH
 }
 
 func (u *UploadFileCallback) UploadComplete(fileSize int64, streamSize int64, storageSize int64) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["fileSize"] = fileSize
 	mReply["streamSize"] = streamSize
 	mReply["storageSize"] = storageSize
@@ -296,7 +296,7 @@ func (u *UploadFileCallback) UploadComplete(fileSize int64, streamSize int64, st
 }
 
 func (u *UploadFileCallback) Complete(size int64, url string, typ int) {
-	mReply := make(map[string]interface{})
+	mReply := make(map[string]any)
 	mReply["size"] = size
 	mReply["url"] = url
 	mReply["typ"] = typ

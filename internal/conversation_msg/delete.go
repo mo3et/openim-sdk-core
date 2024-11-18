@@ -139,7 +139,7 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 		return err
 	}
 
-	if err := c.db.UpdateColumnsMessage(ctx, conversationID, clientMsgID, map[string]interface{}{"status": constant.MsgStatusHasDeleted}); err != nil {
+	if err := c.db.UpdateColumnsMessage(ctx, conversationID, clientMsgID, map[string]any{"status": constant.MsgStatusHasDeleted}); err != nil {
 		return err
 	}
 
@@ -175,7 +175,7 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 			latestMsgStr = utils.StructToJsonString(latestMsg)
 			latestMsgSendTime = latestMsg.SendTime
 		}
-		if err := c.db.UpdateColumnsConversation(ctx, conversationID, map[string]interface{}{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsgSendTime}); err != nil {
+		if err := c.db.UpdateColumnsConversation(ctx, conversationID, map[string]any{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsgSendTime}); err != nil {
 			return err
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{conversationID}}})

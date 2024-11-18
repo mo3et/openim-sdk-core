@@ -647,7 +647,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.IMMessage
 }
 
 func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessage, lc *model_struct.LocalConversation,
-	delFiles []string, offlinePushInfo *sdkpb.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
+	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 		utils.SetSwitchFromOptions(options, constant.IsPersistent, false)
@@ -965,7 +965,7 @@ func (c *Conversation) SearchLocalMessages(ctx context.Context, req *sdkpb.Searc
 }
 
 func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMessageLocalExReq) (*sdkpb.SetMessageLocalExResp, error) {
-	err := c.db.UpdateColumnsMessage(ctx, req.ConversationID, req.ClientMsgID, map[string]interface{}{"local_ex": req.LocalEx})
+	err := c.db.UpdateColumnsMessage(ctx, req.ConversationID, req.ClientMsgID, map[string]any{"local_ex": req.LocalEx})
 	if err != nil {
 		return nil, err
 	}
@@ -979,7 +979,7 @@ func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMess
 		log.ZDebug(ctx, "latestMsg local ex changed", "seq", latestMsg.Seq, "clientMsgID", latestMsg.ClientMsgID)
 		latestMsg.LocalEx = req.LocalEx
 		latestMsgStr := utils.StructToJsonString(latestMsg)
-		if err = c.db.UpdateColumnsConversation(ctx, req.ConversationID, map[string]interface{}{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsg.SendTime}); err != nil {
+		if err = c.db.UpdateColumnsConversation(ctx, req.ConversationID, map[string]any{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsg.SendTime}); err != nil {
 			return nil, err
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{req.ConversationID}}})

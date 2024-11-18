@@ -317,7 +317,6 @@ message JoinGroupApplicationTips {
   string reqMsg = 3;
 }
 
-//	OnQuitGroup()
 //Actively leave the group
 message MemberQuitTips {
   GroupInfo group = 1;

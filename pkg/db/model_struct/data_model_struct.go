@@ -344,7 +344,7 @@ func (a StringArray) Value() (driver.Value, error) {
 	return json.Marshal(a)
 }
 
-func (a *StringArray) Scan(value interface{}) error {
+func (a *StringArray) Scan(value any) error {
 	b, ok := value.([]byte)
 	if !ok {
 		return errs.New("type assertion to []byte failed").Wrap()

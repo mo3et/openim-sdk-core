@@ -35,11 +35,11 @@ import (
 
 type Caller interface {
 	// AsyncCallWithCallback has promise object return
-	AsyncCallWithCallback() interface{}
+	AsyncCallWithCallback() any
 	// AsyncCallWithOutCallback has promise object return
-	AsyncCallWithOutCallback() interface{}
+	AsyncCallWithOutCallback() any
 	// SyncCall has not promise
-	SyncCall() (result []interface{})
+	SyncCall() (result []any)
 }
 
 type FuncLogic func()
@@ -48,16 +48,16 @@ var ErrNotSetCallback = errors.New("not set callback to call")
 var ErrNotSetFunc = errors.New("not set func to call")
 
 type ReflectCall struct {
-	funcName  interface{}
+	funcName  any
 	callback  CallbackWriter
 	arguments []js.Value
 }
 
-func NewCaller(funcName interface{}, callback CallbackWriter, arguments *[]js.Value) Caller {
+func NewCaller(funcName any, callback CallbackWriter, arguments *[]js.Value) Caller {
 	return &ReflectCall{funcName: funcName, callback: callback, arguments: *arguments}
 }
 
-func (r *ReflectCall) AsyncCallWithCallback() interface{} {
+func (r *ReflectCall) AsyncCallWithCallback() any {
 	return r.callback.HandlerFunc(r.asyncCallWithCallback)
 
 }
@@ -127,7 +127,7 @@ func (r *ReflectCall) asyncCallWithCallback() {
 	funcName.Call(values)
 
 }
-func (r *ReflectCall) AsyncCallWithOutCallback() interface{} {
+func (r *ReflectCall) AsyncCallWithOutCallback() any {
 	if r.callback == nil {
 		r.callback = NewBaseCallback(utils.FirstLower(utils.GetSelfFuncName()), nil)
 	}
@@ -182,7 +182,7 @@ func (r *ReflectCall) asyncCallWithOutCallback() {
 
 		returnValues := funcName.Call(values)
 		if len(returnValues) != 0 {
-			var result []interface{}
+			var result []any
 			for _, v := range returnValues {
 				switch v.Kind() {
 				case reflect.String:
@@ -204,7 +204,7 @@ func (r *ReflectCall) asyncCallWithOutCallback() {
 	}()
 
 }
-func (r *ReflectCall) SyncCall() (result []interface{}) {
+func (r *ReflectCall) SyncCall() (result []any) {
 	defer func() {
 		if rc := recover(); rc != nil {
 			temp := r.ErrHandle(rc)
@@ -273,7 +273,7 @@ func (r *ReflectCall) SyncCall() (result []interface{}) {
 	}
 
 }
-func (r *ReflectCall) ErrHandle(recover interface{}) []string {
+func (r *ReflectCall) ErrHandle(recover any) []string {
 	ctx := context.Background()
 	var temp string
 	switch x := recover.(type) {

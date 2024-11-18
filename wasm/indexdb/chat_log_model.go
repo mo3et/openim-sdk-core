@@ -95,13 +95,13 @@ func (i *LocalChatLogs) InsertMessage(ctx context.Context, conversationID string
 }
 
 // UpdateColumnsMessageList updates multiple columns of a message in the local chat log.
-func (i *LocalChatLogs) UpdateColumnsMessageList(ctx context.Context, clientMsgIDList []string, args map[string]interface{}) error {
+func (i *LocalChatLogs) UpdateColumnsMessageList(ctx context.Context, clientMsgIDList []string, args map[string]any) error {
 	_, err := exec.Exec(utils.StructToJsonString(clientMsgIDList), args)
 	return err
 }
 
 // UpdateColumnsMessage updates a column of a message in the local chat log.
-func (i *LocalChatLogs) UpdateColumnsMessage(ctx context.Context, conversationID, clientMsgID string, args map[string]interface{}) error {
+func (i *LocalChatLogs) UpdateColumnsMessage(ctx context.Context, conversationID, clientMsgID string, args map[string]any) error {
 	_, err := exec.Exec(conversationID, clientMsgID, utils.StructToJsonString(args))
 	return err
 }

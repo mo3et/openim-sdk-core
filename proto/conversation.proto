@@ -329,6 +329,21 @@ enum FuncRequestEventName {
   SearchLocalMessages = 2025;
   SetMessageLocalEx = 2026;
   SearchConversation = 2027;
+  CreateTextMessage = 2028;
+  CreateAdvancedTextMessage = 2029;
+  CreateTextAtMessage = 2030;
+  CreateLocationMessage = 2031;
+  CreateCustomMessage = 2032;
+  CreateQuoteMessage = 2033;
+  CreateAdvancedQuoteMessage = 2034;
+  CreateCardMessage = 2035;
+  CreateImageMessage = 2036;
+  CreateSoundMessage = 2037;
+  CreateVideoMessage = 2038;
+  CreateFileMessage = 2039;
+  CreateMergerMessage = 2040;
+  CreateFaceMessage = 2041;
+  CreateForwardMessage = 2042;
 
   ProcessUserCommandGetAll = 2100;
   GetSelfUserInfo = 2101;
@@ -347,8 +362,9 @@ message EventOnSendMsgProgressData {
 message EventOnUploadFileProgressData {
   int32 progress = 1;
 }
-message EventEventOnUploadLogsProgressData {
-  int32 progress = 1;
+message EventEventOnUploadLogsProgressData{
+  int64 progress = 1;
+  int64 total = 2;
 }
 
 message EventOnConnectingData {}

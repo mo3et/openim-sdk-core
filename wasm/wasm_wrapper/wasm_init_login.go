@@ -28,7 +28,6 @@ import (
 )
 
 const COMMONEVENTFUNC = "commonEventFunc"
-var
 
 var ErrArgsLength = errors.New("from javascript args length err")
 var ErrFunNameNotSet = errors.New("reflect func not to set")
@@ -91,9 +90,6 @@ type WrapperCommon struct {
 func NewWrapperCommon() *WrapperCommon {
 	return &WrapperCommon{}
 }
-
-
-
 
 type WrapperInitLogin struct {
 	*WrapperCommon

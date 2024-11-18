@@ -95,7 +95,7 @@ func (c *Conversation) markConversationMessageAsRead(ctx context.Context, conver
 		}
 	}
 
-	if err := c.db.UpdateColumnsConversation(ctx, conversationID, map[string]interface{}{"unread_count": 0}); err != nil {
+	if err := c.db.UpdateColumnsConversation(ctx, conversationID, map[string]any{"unread_count": 0}); err != nil {
 		log.ZError(ctx, "UpdateColumnsConversation err", err, "conversationID", conversationID)
 	}
 	log.ZDebug(ctx, "update columns sucess")
@@ -199,7 +199,7 @@ func (c *Conversation) doUnreadCount(ctx context.Context, conversation *model_st
 				log.ZWarn(ctx, "unread count is less than 0", nil, "conversationID", conversation.ConversationID, "currentMaxSeq", currentMaxSeq, "hasReadSeq", hasReadSeq)
 				unreadCount = 0
 			}
-			if err := c.db.UpdateColumnsConversation(ctx, conversation.ConversationID, map[string]interface{}{"unread_count": unreadCount}); err != nil {
+			if err := c.db.UpdateColumnsConversation(ctx, conversation.ConversationID, map[string]any{"unread_count": unreadCount}); err != nil {
 				return err
 			}
 		}
@@ -213,7 +213,7 @@ func (c *Conversation) doUnreadCount(ctx context.Context, conversation *model_st
 				Action: constant.UpdateLatestMessageReadState, Args: []string{conversation.ConversationID}}, Ctx: ctx})
 		}
 	} else {
-		if err := c.db.UpdateColumnsConversation(ctx, conversation.ConversationID, map[string]interface{}{"unread_count": 0}); err != nil {
+		if err := c.db.UpdateColumnsConversation(ctx, conversation.ConversationID, map[string]any{"unread_count": 0}); err != nil {
 			log.ZError(ctx, "UpdateColumnsConversation err", err, "conversationID", conversation.ConversationID)
 			return err
 		}
