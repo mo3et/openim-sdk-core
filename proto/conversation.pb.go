@@ -921,7 +921,7 @@ type SearchByConversationResult struct {
 	FaceURL           string       `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
 	LatestMsgSendTime int64        `protobuf:"varint,5,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime,omitempty"`
 	MessageCount      int32        `protobuf:"varint,6,opt,name=messageCount,proto3" json:"messageCount,omitempty"`
-	MessageList       []*MsgStruct `protobuf:"bytes,7,rep,name=messageList,proto3" json:"messageList,omitempty"`
+	MessageList       []*IMMessage `protobuf:"bytes,7,rep,name=messageList,proto3" json:"messageList,omitempty"`
 }
 
 func (x *SearchByConversationResult) Reset() {
@@ -998,7 +998,7 @@ func (x *SearchByConversationResult) GetMessageCount() int32 {
 	return 0
 }
 
-func (x *SearchByConversationResult) GetMessageList() []*MsgStruct {
+func (x *SearchByConversationResult) GetMessageList() []*IMMessage {
 	if x != nil {
 		return x.MessageList
 	}
@@ -5299,8 +5299,8 @@ var file_conversation_proto_rawDesc = []byte{
 	0x01, 0x28, 0x05, 0x52, 0x0c, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x43, 0x6f, 0x75, 0x6e,
 	0x74, 0x12, 0x3f, 0x0a, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74,
 	0x18, 0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e,
-	0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53,
-	0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69,
+	0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69,
 	0x73, 0x74, 0x22, 0x1b, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76,
 	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22,
 	0x6f, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
@@ -6052,7 +6052,7 @@ var file_conversation_proto_goTypes = []interface{}{
 	(*EventOnUserCommandAddData)(nil),                     // 94: openim.sdk.conversation.EventOnUserCommandAddData
 	(*EventOnUserCommandDeleteData)(nil),                  // 95: openim.sdk.conversation.EventOnUserCommandDeleteData
 	(*EventOnUserCommandUpdateData)(nil),                  // 96: openim.sdk.conversation.EventOnUserCommandUpdateData
-	(*MsgStruct)(nil),                                     // 97: openim.sdk.message.MsgStruct
+	(*IMMessage)(nil),                                     // 97: openim.sdk.message.IMMessage
 	(*FriendRequestInfo)(nil),                             // 98: openim.sdk.relation.FriendRequestInfo
 	(*FriendInfo)(nil),                                    // 99: openim.sdk.relation.FriendInfo
 	(*BlackInfo)(nil),                                     // 100: openim.sdk.relation.BlackInfo
@@ -6063,7 +6063,7 @@ var file_conversation_proto_goTypes = []interface{}{
 var file_conversation_proto_depIdxs = []int32{
 	6,   // 0: openim.sdk.conversation.FindMessageListCallback.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
 	6,   // 1: openim.sdk.conversation.SearchLocalMessagesCallback.searchResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
-	97,  // 2: openim.sdk.conversation.SearchByConversationResult.messageList:type_name -> openim.sdk.message.MsgStruct
+	97,  // 2: openim.sdk.conversation.SearchByConversationResult.messageList:type_name -> openim.sdk.message.IMMessage
 	1,   // 3: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.conversation.Conversation
 	1,   // 4: openim.sdk.conversation.GetConversationListSplitResp.conversationList:type_name -> openim.sdk.conversation.Conversation
 	1,   // 5: openim.sdk.conversation.GetOneConversationResp.conversation:type_name -> openim.sdk.conversation.Conversation

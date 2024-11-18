@@ -76,7 +76,7 @@ func wrapCallbackConstructor[T any](fn func(handleID uint64) T) callbackFunc {
 
 var callbackRegistry = map[pb.FuncRequestEventName]callbackFunc{
 	pb.FuncRequestEventName_SendMessage: wrapCallbackConstructor(NewSendMessageCallback),
-	pb.FuncRequestEventName_UploadLogs:  wrapCallbackConstructor(New),
+	pb.FuncRequestEventName_UploadLogs:  wrapCallbackConstructor(NewUploadLogsCallback),
 	pb.FuncRequestEventName_UploadFile:  wrapCallbackConstructor(NewUploadFileCallback),
 }
 

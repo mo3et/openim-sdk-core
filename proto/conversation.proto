@@ -63,7 +63,7 @@ message SearchByConversationResult {
   string faceURL = 4;
   int64 latestMsgSendTime = 5;
   int32 messageCount = 6;
-  repeated message.MsgStruct messageList = 7;
+  repeated message.IMMessage messageList = 7;
 }
 
 // -----------------------------------------------------------------------------------------------------------------

@@ -1333,7 +1333,7 @@ type MergeElem struct {
 
 	Title             string           `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
 	AbstractList      []string         `protobuf:"bytes,2,rep,name=abstractList,proto3" json:"abstractList,omitempty"`
-	MultiMessage      []*MsgStruct     `protobuf:"bytes,3,rep,name=multiMessage,proto3" json:"multiMessage,omitempty"`
+	MultiMessage      []*IMMessage     `protobuf:"bytes,3,rep,name=multiMessage,proto3" json:"multiMessage,omitempty"`
 	MessageEntityList []*MessageEntity `protobuf:"bytes,4,rep,name=messageEntityList,proto3" json:"messageEntityList,omitempty"`
 }
 
@@ -1383,7 +1383,7 @@ func (x *MergeElem) GetAbstractList() []string {
 	return nil
 }
 
-func (x *MergeElem) GetMultiMessage() []*MsgStruct {
+func (x *MergeElem) GetMultiMessage() []*IMMessage {
 	if x != nil {
 		return x.MultiMessage
 	}
@@ -1405,7 +1405,7 @@ type AtTextElem struct {
 	Text         string     `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
 	AtUserList   []string   `protobuf:"bytes,2,rep,name=atUserList,proto3" json:"atUserList,omitempty"`
 	AtUsersInfo  []*AtInfo  `protobuf:"bytes,3,rep,name=atUsersInfo,proto3" json:"atUsersInfo,omitempty"`
-	QuoteMessage *MsgStruct `protobuf:"bytes,4,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
+	QuoteMessage *IMMessage `protobuf:"bytes,4,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
 	IsAtSelf     bool       `protobuf:"varint,5,opt,name=isAtSelf,proto3" json:"isAtSelf,omitempty"`
 }
 
@@ -1462,7 +1462,7 @@ func (x *AtTextElem) GetAtUsersInfo() []*AtInfo {
 	return nil
 }
 
-func (x *AtTextElem) GetQuoteMessage() *MsgStruct {
+func (x *AtTextElem) GetQuoteMessage() *IMMessage {
 	if x != nil {
 		return x.QuoteMessage
 	}
@@ -1663,7 +1663,7 @@ type QuoteElem struct {
 	unknownFields protoimpl.UnknownFields
 
 	Text              string           `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	QuoteMessage      *MsgStruct       `protobuf:"bytes,2,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
+	QuoteMessage      *IMMessage       `protobuf:"bytes,2,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
 	MessageEntityList []*MessageEntity `protobuf:"bytes,3,rep,name=messageEntityList,proto3" json:"messageEntityList,omitempty"`
 }
 
@@ -1706,7 +1706,7 @@ func (x *QuoteElem) GetText() string {
 	return ""
 }
 
-func (x *QuoteElem) GetQuoteMessage() *MsgStruct {
+func (x *QuoteElem) GetQuoteMessage() *IMMessage {
 	if x != nil {
 		return x.QuoteMessage
 	}
@@ -2429,7 +2429,7 @@ func (x *GroupHasReadInfo) GetGroupMemberCount() int32 {
 	return 0
 }
 
-type MsgStruct struct {
+type IMMessage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -2455,28 +2455,28 @@ type MsgStruct struct {
 	LocalEx          string           `protobuf:"bytes,21,opt,name=localEx,proto3" json:"localEx,omitempty"`
 	// Types that are assignable to Content:
 	//
-	//	*MsgStruct_TextElem
-	//	*MsgStruct_CardElem
-	//	*MsgStruct_PictureElem
-	//	*MsgStruct_SoundElem
-	//	*MsgStruct_VideoElem
-	//	*MsgStruct_FileElem
-	//	*MsgStruct_MergeElem
-	//	*MsgStruct_AtTextElem
-	//	*MsgStruct_FaceElem
-	//	*MsgStruct_LocationElem
-	//	*MsgStruct_CustomElem
-	//	*MsgStruct_QuoteElem
-	//	*MsgStruct_NotificationElem
-	//	*MsgStruct_AdvancedTextElem
-	//	*MsgStruct_TypingElem
-	//	*MsgStruct_StreamElem
-	Content          isMsgStruct_Content `protobuf_oneof:"content"`
+	//	*IMMessage_TextElem
+	//	*IMMessage_CardElem
+	//	*IMMessage_PictureElem
+	//	*IMMessage_SoundElem
+	//	*IMMessage_VideoElem
+	//	*IMMessage_FileElem
+	//	*IMMessage_MergeElem
+	//	*IMMessage_AtTextElem
+	//	*IMMessage_FaceElem
+	//	*IMMessage_LocationElem
+	//	*IMMessage_CustomElem
+	//	*IMMessage_QuoteElem
+	//	*IMMessage_NotificationElem
+	//	*IMMessage_AdvancedTextElem
+	//	*IMMessage_TypingElem
+	//	*IMMessage_StreamElem
+	Content          isIMMessage_Content `protobuf_oneof:"content"`
 	AttachedInfoElem *AttachedInfoElem   `protobuf:"bytes,39,opt,name=attachedInfoElem,proto3" json:"attachedInfoElem,omitempty"`
 }
 
-func (x *MsgStruct) Reset() {
-	*x = MsgStruct{}
+func (x *IMMessage) Reset() {
+	*x = IMMessage{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_message_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2484,13 +2484,13 @@ func (x *MsgStruct) Reset() {
 	}
 }
 
-func (x *MsgStruct) String() string {
+func (x *IMMessage) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgStruct) ProtoMessage() {}
+func (*IMMessage) ProtoMessage() {}
 
-func (x *MsgStruct) ProtoReflect() protoreflect.Message {
+func (x *IMMessage) ProtoReflect() protoreflect.Message {
 	mi := &file_message_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2502,369 +2502,369 @@ func (x *MsgStruct) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MsgStruct.ProtoReflect.Descriptor instead.
-func (*MsgStruct) Descriptor() ([]byte, []int) {
+// Deprecated: Use IMMessage.ProtoReflect.Descriptor instead.
+func (*IMMessage) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{31}
 }
 
-func (x *MsgStruct) GetClientMsgID() string {
+func (x *IMMessage) GetClientMsgID() string {
 	if x != nil {
 		return x.ClientMsgID
 	}
 	return ""
 }
 
-func (x *MsgStruct) GetServerMsgID() string {
+func (x *IMMessage) GetServerMsgID() string {
 	if x != nil {
 		return x.ServerMsgID
 	}
 	return ""
 }
 
-func (x *MsgStruct) GetCreateTime() int64 {
+func (x *IMMessage) GetCreateTime() int64 {
 	if x != nil {
 		return x.CreateTime
 	}
 	return 0
 }
 
-func (x *MsgStruct) GetSendTime() int64 {
+func (x *IMMessage) GetSendTime() int64 {
 	if x != nil {
 		return x.SendTime
 	}
 	return 0
 }
 
-func (x *MsgStruct) GetSessionType() SessionType {
+func (x *IMMessage) GetSessionType() SessionType {
 	if x != nil {
 		return x.SessionType
 	}
 	return SessionType_SessionType_
 }
 
-func (x *MsgStruct) GetSendID() string {
+func (x *IMMessage) GetSendID() string {
 	if x != nil {
 		return x.SendID
 	}
 	return ""
 }
 
-func (x *MsgStruct) GetRecvID() string {
+func (x *IMMessage) GetRecvID() string {
 	if x != nil {
 		return x.RecvID
 	}
 	return ""
 }
 
-func (x *MsgStruct) GetMsgFrom() MsgFrom {
+func (x *IMMessage) GetMsgFrom() MsgFrom {
 	if x != nil {
 		return x.MsgFrom
 	}
 	return MsgFrom_MsgFrom_
 }
 
-func (x *MsgStruct) GetContentType() ContentType {
+func (x *IMMessage) GetContentType() ContentType {
 	if x != nil {
 		return x.ContentType
 	}
 	return ContentType_ContentType_
 }
 
-func (x *MsgStruct) GetSenderPlatformID() Platform {
+func (x *IMMessage) GetSenderPlatformID() Platform {
 	if x != nil {
 		return x.SenderPlatformID
 	}
 	return Platform_Platform_
 }
 
-func (x *MsgStruct) GetSenderNickname() string {
+func (x *IMMessage) GetSenderNickname() string {
 	if x != nil {
 		return x.SenderNickname
 	}
 	return ""
 }
 
-func (x *MsgStruct) GetSenderFaceURL() string {
+func (x *IMMessage) GetSenderFaceURL() string {
 	if x != nil {
 		return x.SenderFaceURL
 	}
 	return ""
 }
 
-func (x *MsgStruct) GetGroupID() string {
+func (x *IMMessage) GetGroupID() string {
 	if x != nil {
 		return x.GroupID
 	}
 	return ""
 }
 
-func (x *MsgStruct) GetSeq() int64 {
+func (x *IMMessage) GetSeq() int64 {
 	if x != nil {
 		return x.Seq
 	}
 	return 0
 }
 
-func (x *MsgStruct) GetIsRead() bool {
+func (x *IMMessage) GetIsRead() bool {
 	if x != nil {
 		return x.IsRead
 	}
 	return false
 }
 
-func (x *MsgStruct) GetStatus() MsgStatus {
+func (x *IMMessage) GetStatus() MsgStatus {
 	if x != nil {
 		return x.Status
 	}
 	return MsgStatus_MsgStatus_
 }
 
-func (x *MsgStruct) GetOfflinePush() *OfflinePushInfo {
+func (x *IMMessage) GetOfflinePush() *OfflinePushInfo {
 	if x != nil {
 		return x.OfflinePush
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetEx() string {
+func (x *IMMessage) GetEx() string {
 	if x != nil {
 		return x.Ex
 	}
 	return ""
 }
 
-func (x *MsgStruct) GetLocalEx() string {
+func (x *IMMessage) GetLocalEx() string {
 	if x != nil {
 		return x.LocalEx
 	}
 	return ""
 }
 
-func (m *MsgStruct) GetContent() isMsgStruct_Content {
+func (m *IMMessage) GetContent() isIMMessage_Content {
 	if m != nil {
 		return m.Content
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetTextElem() *TextElem {
-	if x, ok := x.GetContent().(*MsgStruct_TextElem); ok {
+func (x *IMMessage) GetTextElem() *TextElem {
+	if x, ok := x.GetContent().(*IMMessage_TextElem); ok {
 		return x.TextElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetCardElem() *CardElem {
-	if x, ok := x.GetContent().(*MsgStruct_CardElem); ok {
+func (x *IMMessage) GetCardElem() *CardElem {
+	if x, ok := x.GetContent().(*IMMessage_CardElem); ok {
 		return x.CardElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetPictureElem() *PictureElem {
-	if x, ok := x.GetContent().(*MsgStruct_PictureElem); ok {
+func (x *IMMessage) GetPictureElem() *PictureElem {
+	if x, ok := x.GetContent().(*IMMessage_PictureElem); ok {
 		return x.PictureElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetSoundElem() *SoundElem {
-	if x, ok := x.GetContent().(*MsgStruct_SoundElem); ok {
+func (x *IMMessage) GetSoundElem() *SoundElem {
+	if x, ok := x.GetContent().(*IMMessage_SoundElem); ok {
 		return x.SoundElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetVideoElem() *VideoElem {
-	if x, ok := x.GetContent().(*MsgStruct_VideoElem); ok {
+func (x *IMMessage) GetVideoElem() *VideoElem {
+	if x, ok := x.GetContent().(*IMMessage_VideoElem); ok {
 		return x.VideoElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetFileElem() *FileElem {
-	if x, ok := x.GetContent().(*MsgStruct_FileElem); ok {
+func (x *IMMessage) GetFileElem() *FileElem {
+	if x, ok := x.GetContent().(*IMMessage_FileElem); ok {
 		return x.FileElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetMergeElem() *MergeElem {
-	if x, ok := x.GetContent().(*MsgStruct_MergeElem); ok {
+func (x *IMMessage) GetMergeElem() *MergeElem {
+	if x, ok := x.GetContent().(*IMMessage_MergeElem); ok {
 		return x.MergeElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetAtTextElem() *AtTextElem {
-	if x, ok := x.GetContent().(*MsgStruct_AtTextElem); ok {
+func (x *IMMessage) GetAtTextElem() *AtTextElem {
+	if x, ok := x.GetContent().(*IMMessage_AtTextElem); ok {
 		return x.AtTextElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetFaceElem() *FaceElem {
-	if x, ok := x.GetContent().(*MsgStruct_FaceElem); ok {
+func (x *IMMessage) GetFaceElem() *FaceElem {
+	if x, ok := x.GetContent().(*IMMessage_FaceElem); ok {
 		return x.FaceElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetLocationElem() *LocationElem {
-	if x, ok := x.GetContent().(*MsgStruct_LocationElem); ok {
+func (x *IMMessage) GetLocationElem() *LocationElem {
+	if x, ok := x.GetContent().(*IMMessage_LocationElem); ok {
 		return x.LocationElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetCustomElem() *CustomElem {
-	if x, ok := x.GetContent().(*MsgStruct_CustomElem); ok {
+func (x *IMMessage) GetCustomElem() *CustomElem {
+	if x, ok := x.GetContent().(*IMMessage_CustomElem); ok {
 		return x.CustomElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetQuoteElem() *QuoteElem {
-	if x, ok := x.GetContent().(*MsgStruct_QuoteElem); ok {
+func (x *IMMessage) GetQuoteElem() *QuoteElem {
+	if x, ok := x.GetContent().(*IMMessage_QuoteElem); ok {
 		return x.QuoteElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetNotificationElem() *NotificationElem {
-	if x, ok := x.GetContent().(*MsgStruct_NotificationElem); ok {
+func (x *IMMessage) GetNotificationElem() *NotificationElem {
+	if x, ok := x.GetContent().(*IMMessage_NotificationElem); ok {
 		return x.NotificationElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetAdvancedTextElem() *AdvancedTextElem {
-	if x, ok := x.GetContent().(*MsgStruct_AdvancedTextElem); ok {
+func (x *IMMessage) GetAdvancedTextElem() *AdvancedTextElem {
+	if x, ok := x.GetContent().(*IMMessage_AdvancedTextElem); ok {
 		return x.AdvancedTextElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetTypingElem() *TypingElem {
-	if x, ok := x.GetContent().(*MsgStruct_TypingElem); ok {
+func (x *IMMessage) GetTypingElem() *TypingElem {
+	if x, ok := x.GetContent().(*IMMessage_TypingElem); ok {
 		return x.TypingElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetStreamElem() *StreamElem {
-	if x, ok := x.GetContent().(*MsgStruct_StreamElem); ok {
+func (x *IMMessage) GetStreamElem() *StreamElem {
+	if x, ok := x.GetContent().(*IMMessage_StreamElem); ok {
 		return x.StreamElem
 	}
 	return nil
 }
 
-func (x *MsgStruct) GetAttachedInfoElem() *AttachedInfoElem {
+func (x *IMMessage) GetAttachedInfoElem() *AttachedInfoElem {
 	if x != nil {
 		return x.AttachedInfoElem
 	}
 	return nil
 }
 
-type isMsgStruct_Content interface {
-	isMsgStruct_Content()
+type isIMMessage_Content interface {
+	isIMMessage_Content()
 }
 
-type MsgStruct_TextElem struct {
+type IMMessage_TextElem struct {
 	TextElem *TextElem `protobuf:"bytes,23,opt,name=textElem,proto3,oneof"`
 }
 
-type MsgStruct_CardElem struct {
+type IMMessage_CardElem struct {
 	CardElem *CardElem `protobuf:"bytes,24,opt,name=cardElem,proto3,oneof"`
 }
 
-type MsgStruct_PictureElem struct {
+type IMMessage_PictureElem struct {
 	PictureElem *PictureElem `protobuf:"bytes,25,opt,name=pictureElem,proto3,oneof"`
 }
 
-type MsgStruct_SoundElem struct {
+type IMMessage_SoundElem struct {
 	SoundElem *SoundElem `protobuf:"bytes,26,opt,name=soundElem,proto3,oneof"`
 }
 
-type MsgStruct_VideoElem struct {
+type IMMessage_VideoElem struct {
 	VideoElem *VideoElem `protobuf:"bytes,27,opt,name=videoElem,proto3,oneof"`
 }
 
-type MsgStruct_FileElem struct {
+type IMMessage_FileElem struct {
 	FileElem *FileElem `protobuf:"bytes,28,opt,name=fileElem,proto3,oneof"`
 }
 
-type MsgStruct_MergeElem struct {
+type IMMessage_MergeElem struct {
 	MergeElem *MergeElem `protobuf:"bytes,29,opt,name=mergeElem,proto3,oneof"`
 }
 
-type MsgStruct_AtTextElem struct {
+type IMMessage_AtTextElem struct {
 	AtTextElem *AtTextElem `protobuf:"bytes,30,opt,name=atTextElem,proto3,oneof"`
 }
 
-type MsgStruct_FaceElem struct {
+type IMMessage_FaceElem struct {
 	FaceElem *FaceElem `protobuf:"bytes,31,opt,name=faceElem,proto3,oneof"`
 }
 
-type MsgStruct_LocationElem struct {
+type IMMessage_LocationElem struct {
 	LocationElem *LocationElem `protobuf:"bytes,32,opt,name=locationElem,proto3,oneof"`
 }
 
-type MsgStruct_CustomElem struct {
+type IMMessage_CustomElem struct {
 	CustomElem *CustomElem `protobuf:"bytes,33,opt,name=customElem,proto3,oneof"`
 }
 
-type MsgStruct_QuoteElem struct {
+type IMMessage_QuoteElem struct {
 	QuoteElem *QuoteElem `protobuf:"bytes,34,opt,name=quoteElem,proto3,oneof"`
 }
 
-type MsgStruct_NotificationElem struct {
+type IMMessage_NotificationElem struct {
 	NotificationElem *NotificationElem `protobuf:"bytes,35,opt,name=notificationElem,proto3,oneof"`
 }
 
-type MsgStruct_AdvancedTextElem struct {
+type IMMessage_AdvancedTextElem struct {
 	AdvancedTextElem *AdvancedTextElem `protobuf:"bytes,36,opt,name=advancedTextElem,proto3,oneof"`
 }
 
-type MsgStruct_TypingElem struct {
+type IMMessage_TypingElem struct {
 	TypingElem *TypingElem `protobuf:"bytes,37,opt,name=typingElem,proto3,oneof"`
 }
 
-type MsgStruct_StreamElem struct {
+type IMMessage_StreamElem struct {
 	StreamElem *StreamElem `protobuf:"bytes,38,opt,name=streamElem,proto3,oneof"`
 }
 
-func (*MsgStruct_TextElem) isMsgStruct_Content() {}
+func (*IMMessage_TextElem) isIMMessage_Content() {}
 
-func (*MsgStruct_CardElem) isMsgStruct_Content() {}
+func (*IMMessage_CardElem) isIMMessage_Content() {}
 
-func (*MsgStruct_PictureElem) isMsgStruct_Content() {}
+func (*IMMessage_PictureElem) isIMMessage_Content() {}
 
-func (*MsgStruct_SoundElem) isMsgStruct_Content() {}
+func (*IMMessage_SoundElem) isIMMessage_Content() {}
 
-func (*MsgStruct_VideoElem) isMsgStruct_Content() {}
+func (*IMMessage_VideoElem) isIMMessage_Content() {}
 
-func (*MsgStruct_FileElem) isMsgStruct_Content() {}
+func (*IMMessage_FileElem) isIMMessage_Content() {}
 
-func (*MsgStruct_MergeElem) isMsgStruct_Content() {}
+func (*IMMessage_MergeElem) isIMMessage_Content() {}
 
-func (*MsgStruct_AtTextElem) isMsgStruct_Content() {}
+func (*IMMessage_AtTextElem) isIMMessage_Content() {}
 
-func (*MsgStruct_FaceElem) isMsgStruct_Content() {}
+func (*IMMessage_FaceElem) isIMMessage_Content() {}
 
-func (*MsgStruct_LocationElem) isMsgStruct_Content() {}
+func (*IMMessage_LocationElem) isIMMessage_Content() {}
 
-func (*MsgStruct_CustomElem) isMsgStruct_Content() {}
+func (*IMMessage_CustomElem) isIMMessage_Content() {}
 
-func (*MsgStruct_QuoteElem) isMsgStruct_Content() {}
+func (*IMMessage_QuoteElem) isIMMessage_Content() {}
 
-func (*MsgStruct_NotificationElem) isMsgStruct_Content() {}
+func (*IMMessage_NotificationElem) isIMMessage_Content() {}
 
-func (*MsgStruct_AdvancedTextElem) isMsgStruct_Content() {}
+func (*IMMessage_AdvancedTextElem) isIMMessage_Content() {}
 
-func (*MsgStruct_TypingElem) isMsgStruct_Content() {}
+func (*IMMessage_TypingElem) isIMMessage_Content() {}
 
-func (*MsgStruct_StreamElem) isMsgStruct_Content() {}
+func (*IMMessage_StreamElem) isIMMessage_Content() {}
 
 type GetAdvancedHistoryMessageListParams struct {
 	state         protoimpl.MessageState
@@ -2934,7 +2934,7 @@ type GetAdvancedHistoryMessageListCallback struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MessageList []*MsgStruct `protobuf:"bytes,1,rep,name=messageList,proto3" json:"messageList,omitempty"`
+	MessageList []*IMMessage `protobuf:"bytes,1,rep,name=messageList,proto3" json:"messageList,omitempty"`
 	IsEnd       bool         `protobuf:"varint,2,opt,name=isEnd,proto3" json:"isEnd,omitempty"`
 	ErrCode     int32        `protobuf:"varint,3,opt,name=errCode,proto3" json:"errCode,omitempty"`
 	ErrMsg      string       `protobuf:"bytes,4,opt,name=errMsg,proto3" json:"errMsg,omitempty"`
@@ -2972,7 +2972,7 @@ func (*GetAdvancedHistoryMessageListCallback) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{33}
 }
 
-func (x *GetAdvancedHistoryMessageListCallback) GetMessageList() []*MsgStruct {
+func (x *GetAdvancedHistoryMessageListCallback) GetMessageList() []*IMMessage {
 	if x != nil {
 		return x.MessageList
 	}
@@ -3006,7 +3006,7 @@ type SendMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message         *MsgStruct       `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message         *IMMessage       `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	RecvID          string           `protobuf:"bytes,2,opt,name=recvID,proto3" json:"recvID,omitempty"`
 	GroupID         string           `protobuf:"bytes,3,opt,name=groupID,proto3" json:"groupID,omitempty"`
 	OfflinePushInfo *OfflinePushInfo `protobuf:"bytes,4,opt,name=offlinePushInfo,proto3" json:"offlinePushInfo,omitempty"`
@@ -3045,7 +3045,7 @@ func (*SendMessageReq) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{34}
 }
 
-func (x *SendMessageReq) GetMessage() *MsgStruct {
+func (x *SendMessageReq) GetMessage() *IMMessage {
 	if x != nil {
 		return x.Message
 	}
@@ -3085,7 +3085,7 @@ type SendMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *MsgStruct `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 }
 
 func (x *SendMessageResp) Reset() {
@@ -3120,7 +3120,7 @@ func (*SendMessageResp) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{35}
 }
 
-func (x *SendMessageResp) GetMessage() *MsgStruct {
+func (x *SendMessageResp) GetMessage() *IMMessage {
 	if x != nil {
 		return x.Message
 	}
@@ -3767,7 +3767,7 @@ type InsertSingleMessageToLocalStorageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Msg    *MsgStruct `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Msg    *IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
 	RecvID string     `protobuf:"bytes,2,opt,name=recvID,proto3" json:"recvID,omitempty"`
 	SendID string     `protobuf:"bytes,3,opt,name=sendID,proto3" json:"sendID,omitempty"`
 }
@@ -3804,7 +3804,7 @@ func (*InsertSingleMessageToLocalStorageReq) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{50}
 }
 
-func (x *InsertSingleMessageToLocalStorageReq) GetMsg() *MsgStruct {
+func (x *InsertSingleMessageToLocalStorageReq) GetMsg() *IMMessage {
 	if x != nil {
 		return x.Msg
 	}
@@ -3830,7 +3830,7 @@ type InsertSingleMessageToLocalStorageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Msg *MsgStruct `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Msg *IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
 }
 
 func (x *InsertSingleMessageToLocalStorageResp) Reset() {
@@ -3865,7 +3865,7 @@ func (*InsertSingleMessageToLocalStorageResp) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{51}
 }
 
-func (x *InsertSingleMessageToLocalStorageResp) GetMsg() *MsgStruct {
+func (x *InsertSingleMessageToLocalStorageResp) GetMsg() *IMMessage {
 	if x != nil {
 		return x.Msg
 	}
@@ -3877,7 +3877,7 @@ type InsertGroupMessageToLocalStorageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Msg     *MsgStruct `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Msg     *IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
 	GroupID string     `protobuf:"bytes,2,opt,name=groupID,proto3" json:"groupID,omitempty"`
 	SendID  string     `protobuf:"bytes,3,opt,name=sendID,proto3" json:"sendID,omitempty"`
 }
@@ -3914,7 +3914,7 @@ func (*InsertGroupMessageToLocalStorageReq) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{52}
 }
 
-func (x *InsertGroupMessageToLocalStorageReq) GetMsg() *MsgStruct {
+func (x *InsertGroupMessageToLocalStorageReq) GetMsg() *IMMessage {
 	if x != nil {
 		return x.Msg
 	}
@@ -3940,7 +3940,7 @@ type InsertGroupMessageToLocalStorageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Msg *MsgStruct `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Msg *IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
 }
 
 func (x *InsertGroupMessageToLocalStorageResp) Reset() {
@@ -3975,7 +3975,7 @@ func (*InsertGroupMessageToLocalStorageResp) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{53}
 }
 
-func (x *InsertGroupMessageToLocalStorageResp) GetMsg() *MsgStruct {
+func (x *InsertGroupMessageToLocalStorageResp) GetMsg() *IMMessage {
 	if x != nil {
 		return x.Msg
 	}
@@ -4194,7 +4194,7 @@ var file_message_proto_rawDesc = []byte{
 	0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x41, 0x0a, 0x0c, 0x6d, 0x75, 0x6c, 0x74, 0x69, 0x4d, 0x65,
 	0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70,
 	0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
-	0x2e, 0x4d, 0x73, 0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x0c, 0x6d, 0x75, 0x6c, 0x74,
+	0x2e, 0x49, 0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x0c, 0x6d, 0x75, 0x6c, 0x74,
 	0x69, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x4f, 0x0a, 0x11, 0x6d, 0x65, 0x73, 0x73,
 	0x61, 0x67, 0x65, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x04, 0x20,
 	0x03, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b,
@@ -4211,7 +4211,7 @@ var file_message_proto_rawDesc = []byte{
 	0x74, 0x55, 0x73, 0x65, 0x72, 0x73, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x41, 0x0a, 0x0c, 0x71, 0x75,
 	0x6f, 0x74, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65,
-	0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52,
 	0x0c, 0x71, 0x75, 0x6f, 0x74, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1a, 0x0a,
 	0x08, 0x69, 0x73, 0x41, 0x74, 0x53, 0x65, 0x6c, 0x66, 0x18, 0x05, 0x20, 0x01, 0x28, 0x08, 0x52,
 	0x08, 0x69, 0x73, 0x41, 0x74, 0x53, 0x65, 0x6c, 0x66, 0x22, 0x34, 0x0a, 0x08, 0x46, 0x61, 0x63,
@@ -4235,8 +4235,8 @@ var file_message_proto_rawDesc = []byte{
 	0x65, 0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x65, 0x78, 0x74, 0x12,
 	0x41, 0x0a, 0x0c, 0x71, 0x75, 0x6f, 0x74, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18,
 	0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73,
-	0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x74,
-	0x72, 0x75, 0x63, 0x74, 0x52, 0x0c, 0x71, 0x75, 0x6f, 0x74, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61,
+	0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x52, 0x0c, 0x71, 0x75, 0x6f, 0x74, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61,
 	0x67, 0x65, 0x12, 0x4f, 0x0a, 0x11, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x45, 0x6e, 0x74,
 	0x69, 0x74, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x21, 0x2e,
 	0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61,
@@ -4325,7 +4325,7 @@ var file_message_proto_rawDesc = []byte{
 	0x6f, 0x75, 0x6e, 0x74, 0x12, 0x2a, 0x0a, 0x10, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x6d,
 	0x62, 0x65, 0x72, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x10,
 	0x67, 0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x43, 0x6f, 0x75, 0x6e, 0x74,
-	0x22, 0xfc, 0x0e, 0x0a, 0x09, 0x4d, 0x73, 0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x20,
+	0x22, 0xfc, 0x0e, 0x0a, 0x09, 0x49, 0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x20,
 	0x0a, 0x0b, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4d, 0x73, 0x67, 0x49, 0x44, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x0b, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4d, 0x73, 0x67, 0x49, 0x44,
 	0x12, 0x20, 0x0a, 0x0b, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x4d, 0x73, 0x67, 0x49, 0x44, 0x18,
@@ -4459,7 +4459,7 @@ var file_message_proto_rawDesc = []byte{
 	0x69, 0x73, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x12, 0x3f, 0x0a, 0x0b, 0x6d,
 	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
 	0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65,
-	0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52,
 	0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05,
 	0x69, 0x73, 0x45, 0x6e, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x05, 0x69, 0x73, 0x45,
 	0x6e, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x65, 0x72, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x03, 0x20,
@@ -4468,8 +4468,8 @@ var file_message_proto_rawDesc = []byte{
 	0x72, 0x4d, 0x73, 0x67, 0x22, 0xed, 0x01, 0x0a, 0x0e, 0x53, 0x65, 0x6e, 0x64, 0x4d, 0x65, 0x73,
 	0x73, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x12, 0x37, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61,
 	0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69,
-	0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73,
-	0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
 	0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x63, 0x76, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x06, 0x72, 0x65, 0x63, 0x76, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x67, 0x72, 0x6f, 0x75,
 	0x70, 0x49, 0x44, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70,
@@ -4483,8 +4483,8 @@ var file_message_proto_rawDesc = []byte{
 	0x4f, 0x6e, 0x6c, 0x79, 0x22, 0x4a, 0x0a, 0x0f, 0x53, 0x65, 0x6e, 0x64, 0x4d, 0x65, 0x73, 0x73,
 	0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x37, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61,
 	0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69,
-	0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73,
-	0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
 	0x22, 0xd6, 0x01, 0x0a, 0x20, 0x47, 0x65, 0x74, 0x41, 0x64, 0x76, 0x61, 0x6e, 0x63, 0x65, 0x64,
 	0x48, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69,
 	0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
@@ -4570,8 +4570,8 @@ var file_message_proto_rawDesc = []byte{
 	0x6e, 0x67, 0x6c, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x6f, 0x4c, 0x6f, 0x63,
 	0x61, 0x6c, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x12, 0x2f, 0x0a, 0x03,
 	0x6d, 0x73, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e,
-	0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d,
-	0x73, 0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x12, 0x16, 0x0a,
+	0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49,
+	0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x12, 0x16, 0x0a,
 	0x06, 0x72, 0x65, 0x63, 0x76, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72,
 	0x65, 0x63, 0x76, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x18,
 	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x22, 0x58, 0x0a,
@@ -4579,13 +4579,13 @@ var file_message_proto_rawDesc = []byte{
 	0x73, 0x61, 0x67, 0x65, 0x54, 0x6f, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x53, 0x74, 0x6f, 0x72, 0x61,
 	0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x2f, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b,
-	0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x74, 0x72, 0x75,
-	0x63, 0x74, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x88, 0x01, 0x0a, 0x23, 0x49, 0x6e, 0x73, 0x65,
+	0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x88, 0x01, 0x0a, 0x23, 0x49, 0x6e, 0x73, 0x65,
 	0x72, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x6f,
 	0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x12,
 	0x2f, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f,
 	0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
-	0x65, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x03, 0x6d, 0x73, 0x67,
+	0x65, 0x2e, 0x49, 0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x03, 0x6d, 0x73, 0x67,
 	0x12, 0x18, 0x0a, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x65,
 	0x6e, 0x64, 0x49, 0x44, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x65, 0x6e, 0x64,
@@ -4593,8 +4593,8 @@ var file_message_proto_rawDesc = []byte{
 	0x70, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x6f, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x53,
 	0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x2f, 0x0a, 0x03, 0x6d, 0x73,
 	0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d,
-	0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4d, 0x73, 0x67,
-	0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x42, 0x38, 0x5a, 0x2d, 0x67,
+	0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d, 0x4d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x42, 0x38, 0x5a, 0x2d, 0x67,
 	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d,
 	0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63,
 	0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0xaa, 0x02, 0x06, 0x4f,
@@ -4646,7 +4646,7 @@ var file_message_proto_goTypes = []interface{}{
 	(*UserReactionElem)(nil),                         // 28: openim.sdk.message.UserReactionElem
 	(*MessageEntity)(nil),                            // 29: openim.sdk.message.MessageEntity
 	(*GroupHasReadInfo)(nil),                         // 30: openim.sdk.message.GroupHasReadInfo
-	(*MsgStruct)(nil),                                // 31: openim.sdk.message.MsgStruct
+	(*IMMessage)(nil),                                // 31: openim.sdk.message.IMMessage
 	(*GetAdvancedHistoryMessageListParams)(nil),      // 32: openim.sdk.message.GetAdvancedHistoryMessageListParams
 	(*GetAdvancedHistoryMessageListCallback)(nil),    // 33: openim.sdk.message.GetAdvancedHistoryMessageListCallback
 	(*SendMessageReq)(nil),                           // 34: openim.sdk.message.SendMessageReq
@@ -4680,51 +4680,51 @@ var file_message_proto_depIdxs = []int32{
 	4,  // 0: openim.sdk.message.PictureElem.sourcePicture:type_name -> openim.sdk.message.PictureBaseInfo
 	4,  // 1: openim.sdk.message.PictureElem.bigPicture:type_name -> openim.sdk.message.PictureBaseInfo
 	4,  // 2: openim.sdk.message.PictureElem.snapshotPicture:type_name -> openim.sdk.message.PictureBaseInfo
-	31, // 3: openim.sdk.message.MergeElem.multiMessage:type_name -> openim.sdk.message.MsgStruct
+	31, // 3: openim.sdk.message.MergeElem.multiMessage:type_name -> openim.sdk.message.IMMessage
 	29, // 4: openim.sdk.message.MergeElem.messageEntityList:type_name -> openim.sdk.message.MessageEntity
 	24, // 5: openim.sdk.message.AtTextElem.atUsersInfo:type_name -> openim.sdk.message.AtInfo
-	31, // 6: openim.sdk.message.AtTextElem.quoteMessage:type_name -> openim.sdk.message.MsgStruct
-	31, // 7: openim.sdk.message.QuoteElem.quoteMessage:type_name -> openim.sdk.message.MsgStruct
+	31, // 6: openim.sdk.message.AtTextElem.quoteMessage:type_name -> openim.sdk.message.IMMessage
+	31, // 7: openim.sdk.message.QuoteElem.quoteMessage:type_name -> openim.sdk.message.IMMessage
 	29, // 8: openim.sdk.message.QuoteElem.messageEntityList:type_name -> openim.sdk.message.MessageEntity
 	29, // 9: openim.sdk.message.AdvancedTextElem.messageEntityList:type_name -> openim.sdk.message.MessageEntity
 	30, // 10: openim.sdk.message.AttachedInfoElem.groupHasReadInfo:type_name -> openim.sdk.message.GroupHasReadInfo
 	26, // 11: openim.sdk.message.AttachedInfoElem.progress:type_name -> openim.sdk.message.UploadProgress
 	28, // 12: openim.sdk.message.ReactionElem.userReactionList:type_name -> openim.sdk.message.UserReactionElem
-	54, // 13: openim.sdk.message.MsgStruct.sessionType:type_name -> openim.sdk.common.SessionType
-	55, // 14: openim.sdk.message.MsgStruct.msgFrom:type_name -> openim.sdk.common.MsgFrom
-	56, // 15: openim.sdk.message.MsgStruct.contentType:type_name -> openim.sdk.common.ContentType
-	57, // 16: openim.sdk.message.MsgStruct.senderPlatformID:type_name -> openim.sdk.common.Platform
-	58, // 17: openim.sdk.message.MsgStruct.status:type_name -> openim.sdk.common.MsgStatus
-	59, // 18: openim.sdk.message.MsgStruct.offlinePush:type_name -> openim.sdk.common.OfflinePushInfo
-	8,  // 19: openim.sdk.message.MsgStruct.textElem:type_name -> openim.sdk.message.TextElem
-	9,  // 20: openim.sdk.message.MsgStruct.cardElem:type_name -> openim.sdk.message.CardElem
-	10, // 21: openim.sdk.message.MsgStruct.pictureElem:type_name -> openim.sdk.message.PictureElem
-	11, // 22: openim.sdk.message.MsgStruct.soundElem:type_name -> openim.sdk.message.SoundElem
-	12, // 23: openim.sdk.message.MsgStruct.videoElem:type_name -> openim.sdk.message.VideoElem
-	13, // 24: openim.sdk.message.MsgStruct.fileElem:type_name -> openim.sdk.message.FileElem
-	14, // 25: openim.sdk.message.MsgStruct.mergeElem:type_name -> openim.sdk.message.MergeElem
-	15, // 26: openim.sdk.message.MsgStruct.atTextElem:type_name -> openim.sdk.message.AtTextElem
-	16, // 27: openim.sdk.message.MsgStruct.faceElem:type_name -> openim.sdk.message.FaceElem
-	17, // 28: openim.sdk.message.MsgStruct.locationElem:type_name -> openim.sdk.message.LocationElem
-	18, // 29: openim.sdk.message.MsgStruct.customElem:type_name -> openim.sdk.message.CustomElem
-	19, // 30: openim.sdk.message.MsgStruct.quoteElem:type_name -> openim.sdk.message.QuoteElem
-	20, // 31: openim.sdk.message.MsgStruct.notificationElem:type_name -> openim.sdk.message.NotificationElem
-	21, // 32: openim.sdk.message.MsgStruct.advancedTextElem:type_name -> openim.sdk.message.AdvancedTextElem
-	22, // 33: openim.sdk.message.MsgStruct.typingElem:type_name -> openim.sdk.message.TypingElem
-	23, // 34: openim.sdk.message.MsgStruct.streamElem:type_name -> openim.sdk.message.StreamElem
-	25, // 35: openim.sdk.message.MsgStruct.attachedInfoElem:type_name -> openim.sdk.message.AttachedInfoElem
-	31, // 36: openim.sdk.message.GetAdvancedHistoryMessageListCallback.messageList:type_name -> openim.sdk.message.MsgStruct
-	31, // 37: openim.sdk.message.SendMessageReq.message:type_name -> openim.sdk.message.MsgStruct
+	54, // 13: openim.sdk.message.IMMessage.sessionType:type_name -> openim.sdk.common.SessionType
+	55, // 14: openim.sdk.message.IMMessage.msgFrom:type_name -> openim.sdk.common.MsgFrom
+	56, // 15: openim.sdk.message.IMMessage.contentType:type_name -> openim.sdk.common.ContentType
+	57, // 16: openim.sdk.message.IMMessage.senderPlatformID:type_name -> openim.sdk.common.Platform
+	58, // 17: openim.sdk.message.IMMessage.status:type_name -> openim.sdk.common.MsgStatus
+	59, // 18: openim.sdk.message.IMMessage.offlinePush:type_name -> openim.sdk.common.OfflinePushInfo
+	8,  // 19: openim.sdk.message.IMMessage.textElem:type_name -> openim.sdk.message.TextElem
+	9,  // 20: openim.sdk.message.IMMessage.cardElem:type_name -> openim.sdk.message.CardElem
+	10, // 21: openim.sdk.message.IMMessage.pictureElem:type_name -> openim.sdk.message.PictureElem
+	11, // 22: openim.sdk.message.IMMessage.soundElem:type_name -> openim.sdk.message.SoundElem
+	12, // 23: openim.sdk.message.IMMessage.videoElem:type_name -> openim.sdk.message.VideoElem
+	13, // 24: openim.sdk.message.IMMessage.fileElem:type_name -> openim.sdk.message.FileElem
+	14, // 25: openim.sdk.message.IMMessage.mergeElem:type_name -> openim.sdk.message.MergeElem
+	15, // 26: openim.sdk.message.IMMessage.atTextElem:type_name -> openim.sdk.message.AtTextElem
+	16, // 27: openim.sdk.message.IMMessage.faceElem:type_name -> openim.sdk.message.FaceElem
+	17, // 28: openim.sdk.message.IMMessage.locationElem:type_name -> openim.sdk.message.LocationElem
+	18, // 29: openim.sdk.message.IMMessage.customElem:type_name -> openim.sdk.message.CustomElem
+	19, // 30: openim.sdk.message.IMMessage.quoteElem:type_name -> openim.sdk.message.QuoteElem
+	20, // 31: openim.sdk.message.IMMessage.notificationElem:type_name -> openim.sdk.message.NotificationElem
+	21, // 32: openim.sdk.message.IMMessage.advancedTextElem:type_name -> openim.sdk.message.AdvancedTextElem
+	22, // 33: openim.sdk.message.IMMessage.typingElem:type_name -> openim.sdk.message.TypingElem
+	23, // 34: openim.sdk.message.IMMessage.streamElem:type_name -> openim.sdk.message.StreamElem
+	25, // 35: openim.sdk.message.IMMessage.attachedInfoElem:type_name -> openim.sdk.message.AttachedInfoElem
+	31, // 36: openim.sdk.message.GetAdvancedHistoryMessageListCallback.messageList:type_name -> openim.sdk.message.IMMessage
+	31, // 37: openim.sdk.message.SendMessageReq.message:type_name -> openim.sdk.message.IMMessage
 	59, // 38: openim.sdk.message.SendMessageReq.offlinePushInfo:type_name -> openim.sdk.common.OfflinePushInfo
-	31, // 39: openim.sdk.message.SendMessageResp.message:type_name -> openim.sdk.message.MsgStruct
+	31, // 39: openim.sdk.message.SendMessageResp.message:type_name -> openim.sdk.message.IMMessage
 	32, // 40: openim.sdk.message.GetAdvancedHistoryMessageListReq.getAdvancedHistoryMessageListParams:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListParams
 	33, // 41: openim.sdk.message.GetAdvancedHistoryMessageListResp.getAdvancedHistoryMessageListCallback:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListCallback
 	32, // 42: openim.sdk.message.GetAdvancedHistoryMessageListReverseReq.getAdvancedHistoryMessageListParams:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListParams
 	33, // 43: openim.sdk.message.GetAdvancedHistoryMessageListReverseResp.getAdvancedHistoryMessageListCallback:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListCallback
-	31, // 44: openim.sdk.message.InsertSingleMessageToLocalStorageReq.msg:type_name -> openim.sdk.message.MsgStruct
-	31, // 45: openim.sdk.message.InsertSingleMessageToLocalStorageResp.msg:type_name -> openim.sdk.message.MsgStruct
-	31, // 46: openim.sdk.message.InsertGroupMessageToLocalStorageReq.msg:type_name -> openim.sdk.message.MsgStruct
-	31, // 47: openim.sdk.message.InsertGroupMessageToLocalStorageResp.msg:type_name -> openim.sdk.message.MsgStruct
+	31, // 44: openim.sdk.message.InsertSingleMessageToLocalStorageReq.msg:type_name -> openim.sdk.message.IMMessage
+	31, // 45: openim.sdk.message.InsertSingleMessageToLocalStorageResp.msg:type_name -> openim.sdk.message.IMMessage
+	31, // 46: openim.sdk.message.InsertGroupMessageToLocalStorageReq.msg:type_name -> openim.sdk.message.IMMessage
+	31, // 47: openim.sdk.message.InsertGroupMessageToLocalStorageResp.msg:type_name -> openim.sdk.message.IMMessage
 	48, // [48:48] is the sub-list for method output_type
 	48, // [48:48] is the sub-list for method input_type
 	48, // [48:48] is the sub-list for extension type_name
@@ -5112,7 +5112,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgStruct); i {
+			switch v := v.(*IMMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5389,22 +5389,22 @@ func file_message_proto_init() {
 		}
 	}
 	file_message_proto_msgTypes[31].OneofWrappers = []interface{}{
-		(*MsgStruct_TextElem)(nil),
-		(*MsgStruct_CardElem)(nil),
-		(*MsgStruct_PictureElem)(nil),
-		(*MsgStruct_SoundElem)(nil),
-		(*MsgStruct_VideoElem)(nil),
-		(*MsgStruct_FileElem)(nil),
-		(*MsgStruct_MergeElem)(nil),
-		(*MsgStruct_AtTextElem)(nil),
-		(*MsgStruct_FaceElem)(nil),
-		(*MsgStruct_LocationElem)(nil),
-		(*MsgStruct_CustomElem)(nil),
-		(*MsgStruct_QuoteElem)(nil),
-		(*MsgStruct_NotificationElem)(nil),
-		(*MsgStruct_AdvancedTextElem)(nil),
-		(*MsgStruct_TypingElem)(nil),
-		(*MsgStruct_StreamElem)(nil),
+		(*IMMessage_TextElem)(nil),
+		(*IMMessage_CardElem)(nil),
+		(*IMMessage_PictureElem)(nil),
+		(*IMMessage_SoundElem)(nil),
+		(*IMMessage_VideoElem)(nil),
+		(*IMMessage_FileElem)(nil),
+		(*IMMessage_MergeElem)(nil),
+		(*IMMessage_AtTextElem)(nil),
+		(*IMMessage_FaceElem)(nil),
+		(*IMMessage_LocationElem)(nil),
+		(*IMMessage_CustomElem)(nil),
+		(*IMMessage_QuoteElem)(nil),
+		(*IMMessage_NotificationElem)(nil),
+		(*IMMessage_AdvancedTextElem)(nil),
+		(*IMMessage_TypingElem)(nil),
+		(*IMMessage_StreamElem)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

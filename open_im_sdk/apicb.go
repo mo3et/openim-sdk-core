@@ -6,6 +6,7 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
@@ -33,7 +34,7 @@ func (c *apiErrCallback) OnError(ctx context.Context, err error) {
 		errs.TokenExpiredError:
 		if atomic.CompareAndSwapInt32(&c.tokenExpiredState, 0, 1) {
 			log.ZError(ctx, "OnUserTokenExpired callback", err)
-			c.listener().OnUserTokenExpired()
+			c.listener().OnUserTokenExpired(&pb.EventOnUserTokenExpiredData{})
 			_ = common.TriggerCmdLogOut(ctx, c.loginMgrCh)
 		}
 	case
@@ -44,14 +45,14 @@ func (c *apiErrCallback) OnError(ctx context.Context, err error) {
 		errs.TokenNotExistError:
 		if atomic.CompareAndSwapInt32(&c.tokenInvalidState, 0, 1) {
 			log.ZError(ctx, "OnUserTokenInvalid callback", err)
-			c.listener().OnUserTokenInvalid(err.Error())
+			c.listener().OnUserTokenInvalid(&pb.EventOnUserTokenInvalidData{ErrMsg: err.Error()})
 			_ = common.TriggerCmdLogOut(ctx, c.loginMgrCh)
 		}
 
 	case errs.TokenKickedError:
 		if atomic.CompareAndSwapInt32(&c.kickedOfflineState, 0, 1) {
 			log.ZError(ctx, "OnKickedOffline callback", err)
-			c.listener().OnKickedOffline()
+			c.listener().OnKickedOffline(&pb.EventOnKickedOfflineData{})
 			_ = common.TriggerCmdLogOut(ctx, c.loginMgrCh)
 		}
 	}
