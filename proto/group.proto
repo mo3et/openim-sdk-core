@@ -31,7 +31,7 @@ message GroupInfo {
   int64 createTime = 7;
   int64 memberCount = 8;
   string ex = 9;
-  int32 status = 10;
+  GroupStatus status = 10;
   string creatorUserID = 11;
   int32 needVerification = 12;
   int32 lookMemberInfo = 13;
