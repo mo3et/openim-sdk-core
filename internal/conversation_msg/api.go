@@ -170,10 +170,6 @@ func (c *Conversation) GetTotalUnreadMsgCount(ctx context.Context, req *sdkpb.Ge
 	return &sdkpb.GetTotalUnreadMsgCountResp{TotalUnreadCount: totalUnreadCount}, nil
 }
 
-func (c *Conversation) SetConversationListener(listener func() open_im_sdk_callback.OnConversationListener) {
-	c.ConversationListener = listener
-}
-
 func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) *model_struct.LocalErrChatLog {
 	var lc model_struct.LocalErrChatLog
 	copier.Copy(&lc, src)

@@ -55,7 +55,6 @@ type Conversation struct {
 	db                    db_interface.DataBase
 	ConversationListener  func() open_im_sdk_callback.OnConversationListener
 	msgListener           func() open_im_sdk_callback.OnAdvancedMsgListener
-	msgKvListener         func() open_im_sdk_callback.OnMessageKvInfoListener
 	businessListener      func() open_im_sdk_callback.OnCustomBusinessListener
 	recvCH                chan common.Cmd2Value
 	loginUserID           string
@@ -117,10 +116,6 @@ func (c *Conversation) SetDataDir(DataDir string) {
 
 func (c *Conversation) SetMsgListener(msgListener func() open_im_sdk_callback.OnAdvancedMsgListener) {
 	c.msgListener = msgListener
-}
-
-func (c *Conversation) SetMsgKvListener(msgKvListener func() open_im_sdk_callback.OnMessageKvInfoListener) {
-	c.msgKvListener = msgKvListener
 }
 
 func (c *Conversation) SetBusinessListener(businessListener func() open_im_sdk_callback.OnCustomBusinessListener) {
@@ -196,6 +191,9 @@ func (c *Conversation) initSyncer() {
 		syncer.WithFullSyncLimit[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string](conversationSyncLimit),
 	)
 
+}
+func (c *Conversation) SetConversationListener(listener func() open_im_sdk_callback.OnConversationListener) {
+	c.ConversationListener = listener
 }
 
 func (c *Conversation) GetCh() chan common.Cmd2Value {
