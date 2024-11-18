@@ -29,6 +29,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/db_interface"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
@@ -592,6 +593,6 @@ func (f *File) getPartInfo(ctx context.Context, r io.Reader, fileSize int64, cb 
 	}, nil
 }
 
-func (f *File) UploadFileV2(ctx context.Context, req *UploadFileReq, cb SimpleUploadFileCallback) (*UploadFileResp, error) {
+func (f *File) UploadFileV2(ctx context.Context, req *UploadFileReq, cb open_im_sdk_callback.UploadFileCallback) (*UploadFileResp, error) {
 	return f.UploadFile(ctx, req, &simpleUploadCallback{cb: cb})
 }
