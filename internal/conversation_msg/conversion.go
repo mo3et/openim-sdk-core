@@ -6,9 +6,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
-	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/stringutil"
 
@@ -99,7 +97,9 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 		Ex:               localMessage.Ex,
 		LocalEx:          localMessage.LocalEx,
 	}
-	mustStringToMsgContent(localMessage.Content, message)
+	if err := stringToMsgContent(context.TODO(), localMessage.Content, message); err != nil {
+		log.ZError(context.TODO(), "mustStringToMsgContent failed", err, "msg", message, "content", localMessage.Content)
+	}
 	var attachedInfo sdkpb.AttachedInfoElem
 	err := utils.JsonStringToStruct(localMessage.AttachedInfo, &attachedInfo)
 	if err != nil {
