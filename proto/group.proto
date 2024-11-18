@@ -4,8 +4,8 @@ package openim.sdk.group;
 import "common.proto";
 import "user.proto";
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/group";
 
 enum GroupStatus {
   Default = 0;
@@ -13,12 +13,12 @@ enum GroupStatus {
 }
 
 enum GroupFilter {
-  All                   = 0;
-  Owner                 = 1;
-  Admin                 = 2;
-  OrdinaryUsers         = 3;
+  All = 0;
+  Owner = 1;
+  Admin = 2;
+  OrdinaryUsers = 3;
   AdminAndOrdinaryUsers = 4;
-  OwnerAndAdmin         = 5;
+  OwnerAndAdmin = 5;
 }
 
 message GroupInfo {
@@ -143,9 +143,9 @@ message SetGroupInfoReq {
   optional string introduction = 4;
   optional string faceURL = 5;
   optional string ex = 6;
-  optional int32  needVerification = 7;
-  optional int32  lookMemberInfo = 8;
-  optional int32  applyMemberFriend = 9;
+  optional int32 needVerification = 7;
+  optional int32 lookMemberInfo = 8;
+  optional int32 applyMemberFriend = 9;
 }
 message SetGroupInfoResp {}
 
@@ -154,7 +154,7 @@ message SetGroupMemberInfoReq {
   string userID = 2;
   optional string nickname = 3;
   optional string faceURL = 4;
-  optional int32  roleLevel = 5;
+  optional int32 roleLevel = 5;
   optional string ex = 6;
 }
 message SetGroupMemberInfoResp {}

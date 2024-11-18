@@ -1,8 +1,8 @@
 syntax = "proto3";
 package openim.sdk.user;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/user";
 
 message UserInfo {
   string userID = 1;
@@ -34,7 +34,7 @@ message SetSelfInfoReq {
   optional string nickname = 2;
   optional string faceURL = 3;
   optional string ex = 4;
-  optional int32  globalRecvMsgOpt = 7;
+  optional int32 globalRecvMsgOpt = 7;
 }
 message SetSelfInfoResp {}
 
@@ -81,4 +81,3 @@ message GetUsersInfoFromServerReq {
 message GetUsersInfoFromServerResp {
   repeated UserInfo users = 1;
 }
-

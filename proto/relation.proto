@@ -4,8 +4,8 @@ package openim.sdk.relation;
 import "common.proto";
 import "user.proto";
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/relation";
 
 enum Relationship {
   Black = 0;
@@ -13,17 +13,17 @@ enum Relationship {
 }
 
 message FriendInfo {
-  string ownerUserID    = 1;
-  string friendUserID   = 2;
-  string remark         = 3;
-  int64 createTime     = 4;
-  int32 addSource      = 5;
+  string ownerUserID = 1;
+  string friendUserID = 2;
+  string remark = 3;
+  int64 createTime = 4;
+  int32 addSource = 5;
   string operatorUserID = 6;
-  string nickname       = 7;
-  string faceURL        = 8;
-  string ex             = 9;
-  string attachedInfo   = 10;
-  bool isPinned       = 11;
+  string nickname = 7;
+  string faceURL = 8;
+  string ex = 9;
+  string attachedInfo = 10;
+  bool isPinned = 11;
 }
 
 message BlackInfo {
@@ -87,7 +87,7 @@ message HandlerFriendRequestResp {}
 message CheckFriendReq {
   repeated string friendUserIDs = 1;
 }
-message CheckFriendInfo{
+message CheckFriendInfo {
   string userID = 1;
   int32 result = 2;
 }
@@ -146,13 +146,12 @@ message GetBlacksResp {
 }
 
 message UpdatesFriendsReq {
-    repeated string userIDs = 1;
-    optional bool pinned = 2;
-    optional string Remark = 3;
-    optional string ex = 4;
+  repeated string userIDs = 1;
+  optional bool pinned = 2;
+  optional string Remark = 3;
+  optional string ex = 4;
 }
 message UpdatesFriendsResp {}
-
 
 message FriendApplication {
   int64 addTime = 1;

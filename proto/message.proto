@@ -1,9 +1,10 @@
 syntax = "proto3";
 package openim.sdk.message;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
-option csharp_namespace = "OpenIM";
 
 import "common.proto";
+
+option csharp_namespace = "OpenIM";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
 
 message MessageReceipt {
   string groupID = 1;
@@ -313,7 +314,6 @@ message SendMessageReq {
 message SendMessageResp {
   IMMessage message = 1;
 }
-
 
 message GetAdvancedHistoryMessageListReq {
   string conversationID = 1;

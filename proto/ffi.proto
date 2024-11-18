@@ -1,8 +1,9 @@
 syntax = "proto3";
 package openim.ffi;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 
 import "conversation.proto";
+
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi";
 
 // import "error.proto";
 

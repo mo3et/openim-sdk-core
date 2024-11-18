@@ -1,18 +1,14 @@
 syntax = "proto3";
 package openim.event;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/event";
 
-
-enum Event{
+enum Event {
   None = 0;
   OnConnecting = 1;
   OnConnectSuccess = 2;
   OnConnectFailed = 3;
-    OnKickedOffline = 4;
-    OnUserTokenExpired = 5;
-    OnUserTokenInvalid = 6;
-
-};
-
-
+  OnKickedOffline = 4;
+  OnUserTokenExpired = 5;
+  OnUserTokenInvalid = 6;
+}

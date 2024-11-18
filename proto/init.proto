@@ -1,8 +1,9 @@
 syntax = "proto3";
 package openim.init;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+
 import "common.proto";
 
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/init";
 
 message IMConfig {
   openim.sdk.common.AppFramework appFramework = 1;
@@ -15,12 +16,15 @@ message IMConfig {
   string logFilePath = 8;
 }
 
-message InitSDKReq { IMConfig config = 1; }
-message InitSDKResp { bool suc = 1; }
+message InitSDKReq {
+  IMConfig config = 1;
+}
+message InitSDKResp {
+  bool suc = 1;
+}
 
 message LoginReq {
   string userID = 1;
   string token = 2;
 }
 message LoginResp {}
-
