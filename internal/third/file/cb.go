@@ -14,7 +14,12 @@
 
 package file
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+)
 
 type UploadFileCallback interface {
 	Open(size int64)                                                    // file opening size
@@ -61,12 +66,8 @@ func (e emptyUploadCallback) Complete(size int64, url string, typ int) {
 	fmt.Println("Callback Complete:", size, url, typ)
 }
 
-type SimpleUploadFileCallback interface {
-	OnProgress(progress int)
-}
-
 type simpleUploadCallback struct {
-	cb       SimpleUploadFileCallback
+	cb       open_im_sdk_callback.UploadFileCallback
 	progress int
 }
 
@@ -89,7 +90,7 @@ func (s simpleUploadCallback) UploadComplete(fileSize int64, streamSize int64, s
 	value := int(float64(streamSize) / float64(fileSize) * 100)
 	if s.progress < value {
 		s.progress = value
-		s.cb.OnProgress(value)
+		s.cb.OnUploadFileProgress(&pb.EventOnUploadFileProgressData{Progress: int32(value)})
 	}
 }
 
@@ -99,6 +100,6 @@ func (s simpleUploadCallback) Complete(size int64, url string, typ int) {
 	}
 	if s.progress < 100 {
 		s.progress = 100
-		s.cb.OnProgress(100)
+		s.cb.OnUploadFileProgress(&pb.EventOnUploadFileProgressData{Progress: 100})
 	}
 }

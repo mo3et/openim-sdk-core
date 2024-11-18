@@ -18,15 +18,15 @@ import (
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 )
 
-type Base interface {
-	OnError(errCode int32, errMsg string)
-	OnSuccess(data string)
-}
 type SendMsgCallBack interface {
 	OnSendMsgProgress(*pb.EventOnSendMsgProgressData)
 }
 type UploadFileCallback interface {
 	OnUploadFileProgress(*pb.EventOnUploadFileProgressData)
+}
+
+type UploadLogsCallback interface {
+	OnUploadLogsProgress(*pb.EventEventOnUploadLogsProgressData)
 }
 
 type OnConnListener interface {
@@ -95,47 +95,4 @@ type OnUserListener interface {
 
 type OnCustomBusinessListener interface {
 	OnRecvCustomBusinessMessage(data *pb.EventOnRecvCustomBusinessMessageData)
-}
-
-type OnMessageKvInfoListener interface {
-	OnMessageKvInfoChanged(messageChangedList string)
-}
-
-type OnListenerForService interface {
-	// OnGroupApplicationAdded Someone applied to join a group
-	OnGroupApplicationAdded(groupApplication string)
-	// OnGroupApplicationAccepted Group join application has been accepted
-	OnGroupApplicationAccepted(groupApplication string)
-	// OnFriendApplicationAdded Someone applied to add you as a friend
-	OnFriendApplicationAdded(friendApplication string)
-	// OnFriendApplicationAccepted Friend request has been accepted
-	OnFriendApplicationAccepted(friendApplication string)
-	// OnRecvNewMessage Received a new message
-	OnRecvNewMessage(message string)
-}
-
-type OnSignalingListener interface {
-	OnReceiveNewInvitation(receiveNewInvitationCallback string)
-
-	OnInviteeAccepted(inviteeAcceptedCallback string)
-
-	OnInviteeAcceptedByOtherDevice(inviteeAcceptedCallback string)
-
-	OnInviteeRejected(inviteeRejectedCallback string)
-
-	OnInviteeRejectedByOtherDevice(inviteeRejectedCallback string)
-
-	OnInvitationCancelled(invitationCancelledCallback string)
-
-	OnInvitationTimeout(invitationTimeoutCallback string)
-
-	OnHangUp(hangUpCallback string)
-
-	OnRoomParticipantConnected(onRoomParticipantConnectedCallback string)
-
-	OnRoomParticipantDisconnected(onRoomParticipantDisconnectedCallback string)
-}
-
-type UploadLogProgress interface {
-	OnProgress(current int64, size int64)
 }

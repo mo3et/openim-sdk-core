@@ -2,7 +2,9 @@ package third
 
 import (
 	"context"
+
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 
@@ -33,6 +35,6 @@ func (t *Third) Log(ctx context.Context, logLevel int, file string, line int, ms
 	t.printLog(ctx, logLevel, file, line, msg, err, keysAndValues)
 }
 
-func (t *Third) UploadFile(ctx context.Context, req *file.UploadFileReq, cb file.SimpleUploadFileCallback) (*file.UploadFileResp, error) {
-	return t.fileUploader.UploadFileV2(ctx, req, cb)
+func (t *Third) UploadFile(ctx context.Context, req *file.UploadFileReq, callback open_im_sdk_callback.UploadFileCallback) (*file.UploadFileResp, error) {
+	return t.fileUploader.UploadFileV2(ctx, req, callback)
 }

@@ -202,8 +202,9 @@ enum FuncRequestEventName{
     UploadFile = 8;
     Log = 9;
 
-  EventOnSendMsgProgress =14;
+  EventOnSendMsgProgress =12;
     EventOnUploadFileProgress = 13;
+    EventOnUploadLogsProgress = 14;
   EventOnConnecting = 15;
   EventOnConnectSuccess = 16;
   EventOnConnectFailed = 17;
@@ -335,6 +336,9 @@ message EventOnSendMsgProgressData{
 }
 
 message EventOnUploadFileProgressData{
+  int32 progress = 1;
+}
+message EventEventOnUploadLogsProgressData{
   int32 progress = 1;
 }
 
