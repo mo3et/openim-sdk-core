@@ -13,6 +13,7 @@ import (
 
 	pconstant "github.com/openimsdk/protocol/constant"
 	pbConversation "github.com/openimsdk/protocol/conversation"
+	"github.com/openimsdk/protocol/wrapperspb"
 	"github.com/openimsdk/tools/utils/datautil"
 
 	"github.com/openimsdk/tools/errs"
@@ -151,21 +152,18 @@ func (c *Conversation) SetConversation(ctx context.Context, req *sdkpb.SetConver
 		return nil, err
 	}
 	apiReq := &pbConversation.SetConversationsReq{Conversation: &pbConversation.ConversationReq{
-		ConversationID:   req.Conversation.ConversationID,
-		ConversationType: req.Conversation.ConversationType,
-		UserID:           req.Conversation.UserID,
-		GroupID:          req.Conversation.GroupID,
-		RecvMsgOpt:       req.Conversation.RecvMsgOpt,
-		IsPinned:         req.Conversation.IsPinned,
-		AttachedInfo:     IsPinned,
-		IsPrivateChat:    nil,
-		Ex:               nil,
-		BurnDuration:     nil,
-		MinSeq:           nil,
-		MaxSeq:           nil,
-		GroupAtType:      nil,
-		MsgDestructTime:  nil,
-		IsMsgDestruct:    nil,
+		ConversationID:   lc.ConversationID,
+		ConversationType: lc.ConversationType,
+		UserID:           lc.UserID,
+		GroupID:          lc.GroupID,
+		RecvMsgOpt:       wrapperspb.Int32Ptr(req.RecvMsgOpt),
+		IsPinned:         wrapperspb.BoolPtr(req.IsPinned),
+		IsPrivateChat:    wrapperspb.BoolPtr(req.IsPrivateChat),
+		Ex:               wrapperspb.StringPtr(req.Ex),
+		BurnDuration:     wrapperspb.Int32Ptr(req.BurnDuration),
+		GroupAtType:      wrapperspb.Int32Ptr(req.GroupAtType),
+		MsgDestructTime:  wrapperspb.Int64Ptr(req.MsgDestructTime),
+		IsMsgDestruct:    wrapperspb.BoolPtr(req.IsMsgDestruct),
 	}}
 	err = c.setConversation(ctx, apiReq, lc)
 	if err != nil {

@@ -27,6 +27,8 @@ message Conversation {
   bool isMsgDestruct = 19;
 }
 
+
+
 message ConversationArgs {
   string conversationID = 1;
   repeated string clientMsgIDList = 2;
@@ -114,7 +116,14 @@ message SetConversationDraftResp {}
 
 message SetConversationReq {
   string conversationID = 1;
-  Conversation conversation = 2;
+  optional int32 recvMsgOpt = 2;
+  optional int32 groupAtType = 3;
+  optional bool isPinned = 4;
+  optional bool isPrivateChat = 5;
+  optional int32 burnDuration = 6;
+  optional string ex = 7;
+  optional int64 msgDestructTime = 8;
+  optional bool isMsgDestruct = 9;
 }
 message SetConversationResp {}
 
