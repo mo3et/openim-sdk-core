@@ -5,7 +5,7 @@ option csharp_namespace = "OpenIM";
 
 import "group.proto";
 import "relation.proto";
-import "message.proto";
+import "msg.proto";
 
 message Conversation {
   string conversationID = 1;
@@ -63,7 +63,7 @@ message SearchByConversationResult {
   string faceURL = 4;
   int64 latestMsgSendTime = 5;
   int32 messageCount = 6;
-  repeated message.IMMessage messageList = 7;
+  repeated msg.IMMessage messageList = 7;
 }
 
 // -----------------------------------------------------------------------------------------------------------------
@@ -404,7 +404,7 @@ message EventOnConversationUserInputStatusChangedData {
 };
 message EventOnRecvNewMessageData {
   string conversationID = 1;
-  string message = 2;
+  msg.IMMessage message = 2;
 };
 message EventOnRecvC2CReadReceiptData {
   string msgReceiptList = 1;
@@ -413,18 +413,18 @@ message EventOnNewRecvMessageRevokedData {
   string messageRevoked = 1;
 };
 message EventOnRecvOfflineNewMessageData {
-   string message = 1;
+   msg.IMMessage message = 1;
 };
 message EventOnMsgDeletedData {
-  string message = 1;
+  msg.IMMessage message = 1;
 };
 message EventOnRecvOnlineOnlyMessageData {
   string conversationID = 1;
-  string message = 2;
+  msg.IMMessage message = 2;
 };
 message EventOnMsgEditedData {
   string conversationID = 1;
-  string message = 2;
+  msg.IMMessage message = 2;
 };
 
 // FriendCallback Data Types

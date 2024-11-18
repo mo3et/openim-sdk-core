@@ -1,5 +1,5 @@
 syntax = "proto3";
-package openim.sdk.message;
+package openim.sdk.msg;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
@@ -297,7 +297,7 @@ message GetAdvancedHistoryMessageListParams {
 }
 
 message GetAdvancedHistoryMessageListCallback {
-  repeated message.IMMessage messageList = 1;
+  repeated IMMessage messageList = 1;
   bool isEnd = 2;
   int32 errCode = 3;
   string errMsg = 4;
