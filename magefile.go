@@ -82,6 +82,42 @@ func GenGo() error {
 	return nil
 }
 
+func GenJava() error {
+	log.Println("Generating Java code from proto files")
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+
+	javaOutDir := filepath.Join(protoDir, JAVA)
+
+	protoc, err := getToolPath("protoc")
+	if err != nil {
+		return err
+	}
+
+	for _, module := range protoModules {
+		if err := os.MkdirAll(filepath.Join(javaOutDir, module), 0755); err != nil {
+			return err
+		}
+
+		args := []string{
+			"--proto_path=" + protoDir,
+			"--java_out=" + filepath.Join(javaOutDir, module),
+			filepath.Join("proto", module) + ".proto",
+		}
+
+		cmd := exec.Command(protoc, args...)
+		connectStd(cmd)
+
+		if err := cmd.Run(); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// Tools
+
 func getWorkDirToolPath(name string) string {
 	toolPath := ""
 	workDir, err := os.Getwd()
