@@ -297,19 +297,16 @@ type GroupHasReadInfo struct {
 	HasReadCount      int32    `json:"hasReadCount"`
 	GroupMemberCount  int32    `json:"groupMemberCount"`
 }
-type NewMsgList []*sdkpb.MsgStruct
+type NewMsgList []*sdkpb.IMMessage
 
-// Implement the sort.Interface interface to get the number of elements method
 func (n NewMsgList) Len() int {
 	return len(n)
 }
 
-// Implement the sort.Interface interface comparison element method
 func (n NewMsgList) Less(i, j int) bool {
 	return n[i].SendTime < n[j].SendTime
 }
 
-// Implement the sort.Interface interface exchange element method
 func (n NewMsgList) Swap(i, j int) {
 	n[i], n[j] = n[j], n[i]
 }

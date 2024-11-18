@@ -9,7 +9,7 @@ import (
 	"sync"
 
 	sdk "github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/cache"
@@ -38,8 +38,6 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
-	"github.com/jinzhu/copier"
 )
 
 const (
@@ -58,7 +56,7 @@ type Conversation struct {
 	businessListener      func() open_im_sdk_callback.OnCustomBusinessListener
 	recvCH                chan common.Cmd2Value
 	loginUserID           string
-	platform              pb.Platform
+	platform              sdkpb.Platform
 	DataDir               string
 	relation              *relation.Relation
 	group                 *group.Group
@@ -106,7 +104,7 @@ func (c *Conversation) SetLoginUserID(loginUserID string) {
 	c.loginUserID = loginUserID
 }
 
-func (c *Conversation) SetPlatform(platform pb.Platform) {
+func (c *Conversation) SetPlatform(platform sdkpb.Platform) {
 	c.platform = platform
 }
 
@@ -135,13 +133,19 @@ func (c *Conversation) initSyncer() {
 		}),
 		syncer.WithUpdate[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string](func(ctx context.Context, serverConversation, localConversation *model_struct.LocalConversation) error {
 			return c.db.UpdateColumnsConversation(ctx, serverConversation.ConversationID,
-				map[string]any{"recv_msg_opt": serverConversation.RecvMsgOpt,
-					"is_pinned": serverConversation.IsPinned, "is_private_chat": serverConversation.IsPrivateChat, "burn_duration": serverConversation.BurnDuration,
-					"is_not_in_group": serverConversation.IsNotInGroup, "group_at_type": serverConversation.GroupAtType,
+				map[string]any{
+					"recv_msg_opt":             serverConversation.RecvMsgOpt,
+					"is_pinned":                serverConversation.IsPinned,
+					"is_private_chat":          serverConversation.IsPrivateChat,
+					"burn_duration":            serverConversation.BurnDuration,
+					"group_at_type":            serverConversation.GroupAtType,
 					"update_unread_count_time": serverConversation.UpdateUnreadCountTime,
-					"attached_info":            serverConversation.AttachedInfo, "ex": serverConversation.Ex, "msg_destruct_time": serverConversation.MsgDestructTime,
-					"is_msg_destruct": serverConversation.IsMsgDestruct,
-					"max_seq":         serverConversation.MaxSeq, "min_seq": serverConversation.MinSeq})
+					"attached_info":            serverConversation.AttachedInfo,
+					"ex":                       serverConversation.Ex,
+					"msg_destruct_time":        serverConversation.MsgDestructTime,
+					"is_msg_destruct":          serverConversation.IsMsgDestruct,
+					"max_seq":                  serverConversation.MaxSeq,
+					"min_seq":                  serverConversation.MinSeq})
 		}),
 		syncer.WithUUID[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string](func(value *model_struct.LocalConversation) string {
 			return value.ConversationID
@@ -151,7 +155,6 @@ func (c *Conversation) initSyncer() {
 				server.IsPinned != local.IsPinned ||
 				server.IsPrivateChat != local.IsPrivateChat ||
 				server.BurnDuration != local.BurnDuration ||
-				server.IsNotInGroup != local.IsNotInGroup ||
 				server.GroupAtType != local.GroupAtType ||
 				server.UpdateUnreadCountTime != local.UpdateUnreadCountTime ||
 				server.AttachedInfo != local.AttachedInfo ||
@@ -211,7 +214,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 	var isTriggerUnReadCount bool
 	insertMsg := make(map[string][]*model_struct.LocalChatLog, 10)
 	updateMsg := make(map[string][]*model_struct.LocalChatLog, 10)
-	var exceptionMsg []*model_struct.LocalErrChatLog
+	//var exceptionMsg []*model_struct.LocalErrChatLog
 	//var unreadMessages []*model_struct.LocalConversationUnreadMessage
 	var newMessages sdk_struct.NewMsgList
 	// var reactionMsgModifierList, reactionMsgDeleterList sdk_struct.NewMsgList
@@ -247,58 +250,50 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 
 			isSenderConversationUpdate = utils.GetSwitchFromOptions(v.Options, constant.IsSenderConversationUpdate)
 
-			msg := &sdk_struct.MsgStruct{}
-			copier.Copy(msg, v)
-			msg.Content = string(v.Content)
-
-			var attachedInfo sdk_struct.AttachedInfoElem
-			_ = utils.JsonStringToStruct(v.AttachedInfo, &attachedInfo)
-			msg.AttachedInfoElem = &attachedInfo
-
+			imMessage := MsgDataToIMMessage(v)
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally without any conversation and message update.
-			if msg.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, IMMessageToLocalChatLog(msg))
+			if imMessage.Status == constant.MsgStatusHasDeleted {
+				insertMessage = append(insertMessage, IMMessageToLocalChatLog(imMessage))
 				continue
 			}
-
-			msg.Status = constant.MsgStatusSendSuccess
-
+			imMessage.Status = constant.MsgStatusSendSuccess
 			if !isNotPrivate {
-				msg.AttachedInfoElem.IsPrivateChat = true
+				imMessage.AttachedInfoElem.IsPrivateChat = true
 			}
-			if msg.ClientMsgID == "" {
-				exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(msg))
+			if imMessage.ClientMsgID == "" {
+				//Todo
+				//exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(imMessage))
 				continue
 			}
 			if conversationID == "" {
-				log.ZError(ctx, "conversationID is empty", errors.New("conversationID is empty"), "msg", msg)
+				log.ZError(ctx, "conversationID is empty", errors.New("conversationID is empty"), "imMessage", imMessage)
 				continue
 			}
 			if !isHistory {
 				onlineMap[onlineMsgKey{ClientMsgID: v.ClientMsgID, ServerMsgID: v.ServerMsgID}] = struct{}{}
-				newMessages = append(newMessages, msg)
+				newMessages = append(newMessages, imMessage)
 
 			}
-			log.ZDebug(ctx, "decode message", "msg", msg)
+			log.ZDebug(ctx, "decode message", "msg", imMessage)
 			if v.SendID == c.loginUserID { //seq
 				// Messages sent by myself  //if  sent through  this terminal
-				m, err := c.db.GetMessage(ctx, conversationID, msg.ClientMsgID)
+				m, err := c.db.GetMessage(ctx, conversationID, imMessage.ClientMsgID)
 				if err == nil {
-					log.ZInfo(ctx, "have message", "msg", msg)
+					log.ZInfo(ctx, "have message", "msg", imMessage)
 					if m.Seq == 0 {
 						if !isConversationUpdate {
-							msg.Status = constant.MsgStatusFiltered
+							imMessage.Status = constant.MsgStatusFiltered
 						}
-						updateMessage = append(updateMessage, IMMessageToLocalChatLog(msg))
+						updateMessage = append(updateMessage, IMMessageToLocalChatLog(imMessage))
 					} else {
-						exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(msg))
+						//exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(msg))
 					}
 				} else {
-					log.ZInfo(ctx, "sync message", "msg", msg)
+					log.ZInfo(ctx, "sync message", "msg", imMessage)
 					lc := model_struct.LocalConversation{
 						ConversationType:  v.SessionType,
-						LatestMsg:         utils.StructToJsonString(msg),
-						LatestMsgSendTime: msg.SendTime,
+						LatestMsg:         utils.StructToJsonString(imMessage),
+						LatestMsgSendTime: imMessage.SendTime,
 						ConversationID:    conversationID,
 					}
 					switch v.SessionType {
@@ -312,25 +307,25 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 							log.ZDebug(ctx, "updateConversation msg", "message", v, "conversation", lc)
 							c.updateConversation(&lc, conversationSet)
 						}
-						newMessages = append(newMessages, msg)
+						newMessages = append(newMessages, imMessage)
 					}
 					if isHistory {
-						selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(msg))
+						selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(imMessage))
 					}
 				}
 			} else { //Sent by others
-				if _, err := c.db.GetMessage(ctx, conversationID, msg.ClientMsgID); err != nil { //Deduplication operation
+				if _, err := c.db.GetMessage(ctx, conversationID, imMessage.ClientMsgID); err != nil { //Deduplication operation
 					lc := model_struct.LocalConversation{
 						ConversationType:  v.SessionType,
-						LatestMsg:         utils.StructToJsonString(msg),
-						LatestMsgSendTime: msg.SendTime,
+						LatestMsg:         utils.StructToJsonString(imMessage),
+						LatestMsgSendTime: imMessage.SendTime,
 						ConversationID:    conversationID,
 					}
 					switch v.SessionType {
 					case constant.SingleChatType:
 						lc.UserID = v.SendID
-						lc.ShowName = msg.SenderNickname
-						lc.FaceURL = msg.SenderFaceURL
+						lc.ShowName = imMessage.SenderNickname
+						lc.FaceURL = imMessage.SenderFaceURL
 					case constant.WriteGroupChatType, constant.ReadGroupChatType:
 						lc.GroupID = v.GroupID
 					case constant.NotificationChatType:
@@ -338,7 +333,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 					}
 					if isUnreadCount {
 						//cacheConversation := c.cache.GetConversation(lc.ConversationID)
-						if c.maxSeqRecorder.IsNewMsg(conversationID, msg.Seq) {
+						if c.maxSeqRecorder.IsNewMsg(conversationID, imMessage.Seq) {
 							isTriggerUnReadCount = true
 							lc.UnreadCount = 1
 							c.maxSeqRecorder.Incr(conversationID, 1)
@@ -346,18 +341,18 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 					}
 					if isConversationUpdate {
 						c.updateConversation(&lc, conversationSet)
-						newMessages = append(newMessages, msg)
+						newMessages = append(newMessages, imMessage)
 					}
 					if isHistory {
-						othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
+						othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(imMessage))
 					}
 
 				} else {
-					exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(msg))
-					log.ZWarn(ctx, "Deduplication operation ", nil, "msg", *c.msgStructToLocalErrChatLog(msg))
-					msg.Status = constant.MsgStatusFiltered
-					msg.ClientMsgID = msg.ClientMsgID + utils.Int64ToString(msg.Seq)
-					othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
+					//exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(msg))
+					//log.ZWarn(ctx, "Deduplication operation ", nil, "msg", *c.msgStructToLocalErrChatLog(msg))
+					imMessage.Status = constant.MsgStatusFiltered
+					imMessage.ClientMsgID = imMessage.ClientMsgID + utils.Int64ToString(imMessage.Seq)
+					othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(imMessage))
 				}
 			}
 		}
@@ -408,7 +403,6 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 			if v.UnreadCount != 0 {
 				nc.UnreadCount = v.UnreadCount
 			}
-			nc.IsNotInGroup = v.IsNotInGroup
 			nc.AttachedInfo = v.AttachedInfo
 			nc.Ex = v.Ex
 			nc.IsMsgDestruct = v.IsMsgDestruct
@@ -473,7 +467,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 		log.ZDebug(ctx, "parse message in one conversation", "conversationID",
 			conversationID, "message length", len(msgs.Msgs))
 		var insertMessage, selfInsertMessage, othersInsertMessage []*model_struct.LocalChatLog
-		var latestMsg *sdk_struct.MsgStruct
+		var latestMsg *sdkpb.IMMessage
 		if len(msgs.Msgs) == 0 {
 			log.ZWarn(ctx, "msg.Msgs is empty", errs.New("msg.Msgs is empty"), "conversationID", conversationID)
 			continue
@@ -481,38 +475,31 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 		for _, v := range msgs.Msgs {
 
 			log.ZDebug(ctx, "parse message ", "conversationID", conversationID, "msg", v)
-			msg := &sdk_struct.MsgStruct{}
-			// TODO need replace when after.
-			copier.Copy(msg, v)
-			msg.Content = string(v.Content)
-			var attachedInfo sdk_struct.AttachedInfoElem
-			_ = utils.JsonStringToStruct(v.AttachedInfo, &attachedInfo)
-			msg.AttachedInfoElem = &attachedInfo
-
+			imMessage := MsgDataToIMMessage(v)
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally without any conversation and message update.
-			if msg.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, IMMessageToLocalChatLog(msg))
+			if imMessage.Status == constant.MsgStatusHasDeleted {
+				insertMessage = append(insertMessage, IMMessageToLocalChatLog(imMessage))
 				continue
 			}
-			msg.Status = constant.MsgStatusSendSuccess
+			imMessage.Status = constant.MsgStatusSendSuccess
 
 			if conversationID == "" {
-				log.ZError(ctx, "conversationID is empty", errors.New("conversationID is empty"), "msg", msg)
+				log.ZError(ctx, "conversationID is empty", errors.New("conversationID is empty"), "imMessage", imMessage)
 				continue
 			}
 
-			log.ZDebug(ctx, "decode message", "msg", msg)
+			log.ZDebug(ctx, "decode message", "imMessage", imMessage)
 			if v.SendID == c.loginUserID {
 				// Messages sent by myself  //if  sent through  this terminal
-				log.ZInfo(ctx, "sync message in reinstalled", "msg", msg)
+				log.ZInfo(ctx, "sync message in reinstalled", "imMessage", imMessage)
 
-				latestMsg = msg
+				latestMsg = imMessage
 
-				selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(msg))
+				selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(imMessage))
 			} else { //Sent by others
-				othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
+				othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(imMessage))
 
-				latestMsg = msg
+				latestMsg = imMessage
 			}
 		}
 
@@ -539,7 +526,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 	log.ZDebug(ctx, "before trigger msg", "cost time", time.Since(b).Seconds(), "len", len(allMsg))
 
 	// log.ZDebug(ctx, "progress is", "msgLen", msgLen, "msgOffset", c.msgOffset, "total", total, "now progress is", (c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)
-	c.ConversationListener().OnSyncServerProgress((c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)
+	c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: int32((c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)})
 }
 
 func (c *Conversation) addInitProgress(progress int) {
@@ -599,15 +586,6 @@ func (c *Conversation) genConversationGroupAtType(lc *model_struct.LocalConversa
 			lc.GroupAtType = constant.AtMe
 		}
 	}
-}
-
-func (c *Conversation) msgStructToLocalErrChatLog(m *sdk_struct.MsgStruct) *model_struct.LocalErrChatLog {
-	var lc model_struct.LocalErrChatLog
-	copier.Copy(&lc, m)
-	if m.SessionType == constant.WriteGroupChatType || m.SessionType == constant.ReadGroupChatType {
-		lc.RecvID = m.GroupID
-	}
-	return &lc
 }
 
 func (c *Conversation) batchUpdateMessageList(ctx context.Context, updateMsg map[string][]*model_struct.LocalChatLog) error {
@@ -685,12 +663,12 @@ func (c *Conversation) DoMsgReaction(msgReactionList []*sdk_struct.MsgStruct) {
 func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struct.NewMsgList, cc, nc map[string]*model_struct.LocalConversation, onlineMsg map[onlineMsgKey]struct{}) {
 	sort.Sort(newMessagesList)
 	if c.GetBackground() {
-		u, err := c.user.GetSelfUserInfo(ctx)
+		resp, err := c.user.GetSelfUserInfo(ctx, nil)
 		if err != nil {
 			log.ZWarn(ctx, "GetSelfUserInfo err", err)
 			return
 		}
-		if u.GlobalRecvMsgOpt != constant.ReceiveMessage {
+		if resp.User.GlobalRecvMsgOpt != constant.ReceiveMessage {
 			return
 		}
 		for _, w := range newMessagesList {
