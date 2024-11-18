@@ -150,7 +150,23 @@ func (c *Conversation) SetConversation(ctx context.Context, req *sdkpb.SetConver
 	if err != nil {
 		return nil, err
 	}
-	apiReq := &pbConversation.SetConversationsReq{Conversation: req.Conversation}
+	apiReq := &pbConversation.SetConversationsReq{Conversation: &pbConversation.ConversationReq{
+		ConversationID:   req.Conversation.ConversationID,
+		ConversationType: req.Conversation.ConversationType,
+		UserID:           req.Conversation.UserID,
+		GroupID:          req.Conversation.GroupID,
+		RecvMsgOpt:       req.Conversation.RecvMsgOpt,
+		IsPinned:         req.Conversation.IsPinned,
+		AttachedInfo:     IsPinned,
+		IsPrivateChat:    nil,
+		Ex:               nil,
+		BurnDuration:     nil,
+		MinSeq:           nil,
+		MaxSeq:           nil,
+		GroupAtType:      nil,
+		MsgDestructTime:  nil,
+		IsMsgDestruct:    nil,
+	}}
 	err = c.setConversation(ctx, apiReq, lc)
 	if err != nil {
 		return nil, err
@@ -647,7 +663,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.IMMessage
 }
 
 func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessage, lc *model_struct.LocalConversation,
-	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
+	delFiles []string, offlinePushInfo *sdkpb.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 		utils.SetSwitchFromOptions(options, constant.IsPersistent, false)

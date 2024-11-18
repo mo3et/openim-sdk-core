@@ -16,9 +16,10 @@ package group
 
 import (
 	"context"
+	"time"
+
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/protocol/wrapperspb"
-	"time"
 
 	"github.com/openimsdk/tools/errs"
 
@@ -50,7 +51,7 @@ func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sd
 			CreateTime:             req.GroupInfo.CreateTime,
 			MemberCount:            uint32(req.GroupInfo.MemberCount),
 			Ex:                     req.GroupInfo.Ex,
-			Status:                 req.GroupInfo.Status,
+			Status:                 int32(req.GroupInfo.Status),
 			CreatorUserID:          req.GroupInfo.CreatorUserID,
 			GroupType:              constant.WorkingGroup,
 			NeedVerification:       req.GroupInfo.NeedVerification,

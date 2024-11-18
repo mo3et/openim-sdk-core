@@ -16,8 +16,9 @@ package group
 
 import (
 	"context"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"sync"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
@@ -63,8 +64,7 @@ type Group struct {
 	conversationCh chan common.Cmd2Value
 	//	memberSyncMutex sync.RWMutex
 
-	groupSyncMutex     sync.Mutex
-	listenerForService open_im_sdk_callback.OnListenerForService
+	groupSyncMutex sync.Mutex
 
 	groupMemberCache *cache.Cache[string, *model_struct.LocalGroupMember]
 }
@@ -263,10 +263,6 @@ func (g *Group) initSyncer() {
 
 func (g *Group) SetGroupListener(listener func() open_im_sdk_callback.OnGroupListener) {
 	g.listener = listener
-}
-
-func (g *Group) SetListenerForService(listener open_im_sdk_callback.OnListenerForService) {
-	g.listenerForService = listener
 }
 
 func (g *Group) FetchGroupOrError(ctx context.Context, groupID string) (*model_struct.LocalGroup, error) {

@@ -860,7 +860,7 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 			Count:            int32(before),
 			StartClientMsgID: msg.ClientMsgID,
 		}
-		val, err := c.getAdvancedHistoryMessageList(ctx, req, false)
+		val, err := c.getAdvancedHistoryMessageList(ctx, &req, false)
 		if err != nil {
 			return nil, err
 		}
@@ -873,7 +873,7 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 			Count:            int32(after),
 			StartClientMsgID: msg.ClientMsgID,
 		}
-		val, err := c.getAdvancedHistoryMessageList(ctx, req, true)
+		val, err := c.getAdvancedHistoryMessageList(ctx, &req, true)
 		if err != nil {
 			return nil, err
 		}
