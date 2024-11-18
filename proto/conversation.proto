@@ -362,7 +362,7 @@ message EventOnSendMsgProgressData{
 message EventOnUploadFileProgressData{
   int32 progress = 1;
 }
-message EventEventOnUploadLogsProgressData{
+message EventOnUploadLogsProgressData{
   int64 progress = 1;
   int64 total = 2;
 }
