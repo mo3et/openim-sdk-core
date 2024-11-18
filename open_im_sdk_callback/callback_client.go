@@ -18,20 +18,9 @@ import (
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 )
 
-type SendMsgCallBack interface {
-	OnSendMsgProgress(*pb.EventOnSendMsgProgressData)
-}
-type UploadFileCallback interface {
-	OnUploadFileProgress(*pb.EventOnUploadFileProgressData)
-}
-
-type UploadLogsCallback interface {
-	OnUploadLogsProgress(*pb.EventEventOnUploadLogsProgressData)
-}
-
 type OnConnListener interface {
 	OnConnecting(*pb.EventOnConnectingData)
-	OnConnectSuccess(data *pb.EventOnConnectSuccessData)
+	OnConnectSuccess(*pb.EventOnConnectSuccessData)
 	OnConnectFailed(*pb.EventOnConnectFailedData)
 	OnKickedOffline(*pb.EventOnKickedOfflineData)
 	OnUserTokenExpired(data *pb.EventOnUserTokenExpiredData)
@@ -95,4 +84,15 @@ type OnUserListener interface {
 
 type OnCustomBusinessListener interface {
 	OnRecvCustomBusinessMessage(data *pb.EventOnRecvCustomBusinessMessageData)
+}
+
+type SendMsgCallBack interface {
+	OnSendMsgProgress(*pb.EventOnSendMsgProgressData)
+}
+type UploadFileCallback interface {
+	OnUploadFileProgress(*pb.EventOnUploadFileProgressData)
+}
+
+type UploadLogsCallback interface {
+	OnUploadLogsProgress(*pb.EventEventOnUploadLogsProgressData)
 }

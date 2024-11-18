@@ -130,9 +130,7 @@ type LoginMgr struct {
 	conversationListener open_im_sdk_callback.OnConversationListener
 	advancedMsgListener  open_im_sdk_callback.OnAdvancedMsgListener
 	userListener         open_im_sdk_callback.OnUserListener
-	signalingListener    open_im_sdk_callback.OnSignalingListener
 	businessListener     open_im_sdk_callback.OnCustomBusinessListener
-	msgKvListener        open_im_sdk_callback.OnMessageKvInfoListener
 
 	conversationCh     chan common.Cmd2Value
 	cmdWsCh            chan common.Cmd2Value
@@ -172,16 +170,8 @@ func (u *LoginMgr) UserListener() open_im_sdk_callback.OnUserListener {
 	return u.userListener
 }
 
-func (u *LoginMgr) SignalingListener() open_im_sdk_callback.OnSignalingListener {
-	return u.signalingListener
-}
-
 func (u *LoginMgr) BusinessListener() open_im_sdk_callback.OnCustomBusinessListener {
 	return u.businessListener
-}
-
-func (u *LoginMgr) MsgKvListener() open_im_sdk_callback.OnMessageKvInfoListener {
-	return u.msgKvListener
 }
 
 func (u *LoginMgr) Exit() {

@@ -16,22 +16,22 @@ import (
 )
 
 func (c *Conversation) CreateTextMessage(ctx context.Context, req *sdkpb.CreateTextMessageReq) (*sdkpb.CreateTextMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Text)
 	if err != nil {
 		return nil, err
 	}
-	s.Content = &sdkpb.MsgStruct_TextElem{TextElem: &sdkpb.TextElem{Content: req.Text}}
+	s.Content = &sdkpb.IMMessage_TextElem{TextElem: &sdkpb.TextElem{Content: req.Text}}
 	return &sdkpb.CreateTextMessageResp{Message: &s}, nil
 }
 
 func (c *Conversation) CreateAdvancedTextMessage(ctx context.Context, req *sdkpb.CreateAdvancedTextMessageReq) (*sdkpb.CreateAdvancedTextMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.AdvancedText)
 	if err != nil {
 		return nil, err
 	}
-	s.Content = &sdkpb.MsgStruct_AdvancedTextElem{AdvancedTextElem: &sdkpb.AdvancedTextElem{
+	s.Content = &sdkpb.IMMessage_AdvancedTextElem{AdvancedTextElem: &sdkpb.AdvancedTextElem{
 		Text:              req.Text,
 		MessageEntityList: req.MessageEntities,
 	}}
@@ -45,7 +45,7 @@ func (c *Conversation) CreateTextAtMessage(ctx context.Context, req *sdkpb.Creat
 	if len(req.UserIDList) > 10 {
 		return nil, sdkerrs.ErrArgs
 	}
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.AtText)
 	if err != nil {
 		return nil, err
@@ -54,12 +54,12 @@ func (c *Conversation) CreateTextAtMessage(ctx context.Context, req *sdkpb.Creat
 	if req.QuoteMessage != nil {
 		if req.QuoteMessage.ContentType == constant.Quote {
 			req.QuoteMessage.ContentType = constant.Text
-			req.QuoteMessage.Content = &sdkpb.MsgStruct_TextElem{TextElem: &sdkpb.TextElem{
-				Content: req.QuoteMessage.Content.(*sdkpb.MsgStruct_QuoteElem).QuoteElem.Text,
+			req.QuoteMessage.Content = &sdkpb.IMMessage_TextElem{TextElem: &sdkpb.TextElem{
+				Content: req.QuoteMessage.Content.(*sdkpb.IMMessage_QuoteElem).QuoteElem.Text,
 			}}
 		}
 	}
-	s.Content = &sdkpb.MsgStruct_AtTextElem{AtTextElem: &sdkpb.AtTextElem{
+	s.Content = &sdkpb.IMMessage_AtTextElem{AtTextElem: &sdkpb.AtTextElem{
 		Text:         req.Text,
 		AtUserList:   req.UserIDList,
 		AtUsersInfo:  req.UsersInfo,
@@ -69,12 +69,12 @@ func (c *Conversation) CreateTextAtMessage(ctx context.Context, req *sdkpb.Creat
 }
 
 func (c *Conversation) CreateLocationMessage(ctx context.Context, req *sdkpb.CreateLocationMessageReq) (*sdkpb.CreateLocationMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Location)
 	if err != nil {
 		return nil, err
 	}
-	s.Content = &sdkpb.MsgStruct_LocationElem{LocationElem: &sdkpb.LocationElem{
+	s.Content = &sdkpb.IMMessage_LocationElem{LocationElem: &sdkpb.LocationElem{
 		Description: req.Description,
 		Longitude:   req.Longitude,
 		Latitude:    req.Latitude,
@@ -83,12 +83,12 @@ func (c *Conversation) CreateLocationMessage(ctx context.Context, req *sdkpb.Cre
 }
 
 func (c *Conversation) CreateCustomMessage(ctx context.Context, req *sdkpb.CreateCustomMessageReq) (*sdkpb.CreateCustomMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Custom)
 	if err != nil {
 		return nil, err
 	}
-	s.Content = &sdkpb.MsgStruct_CustomElem{CustomElem: &sdkpb.CustomElem{
+	s.Content = &sdkpb.IMMessage_CustomElem{CustomElem: &sdkpb.CustomElem{
 		Data:        req.Data,
 		Extension:   req.Extension,
 		Description: req.Description,
@@ -97,7 +97,7 @@ func (c *Conversation) CreateCustomMessage(ctx context.Context, req *sdkpb.Creat
 }
 
 func (c *Conversation) CreateQuoteMessage(ctx context.Context, req *sdkpb.CreateQuoteMessageReq) (*sdkpb.CreateQuoteMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Quote)
 	if err != nil {
 		return nil, err
@@ -105,11 +105,11 @@ func (c *Conversation) CreateQuoteMessage(ctx context.Context, req *sdkpb.Create
 	//Avoid nested references
 	if req.QuoteMessage.ContentType == constant.Quote {
 		req.QuoteMessage.ContentType = constant.Text
-		req.QuoteMessage.Content = &sdkpb.MsgStruct_TextElem{TextElem: &sdkpb.TextElem{
-			Content: req.QuoteMessage.Content.(*sdkpb.MsgStruct_QuoteElem).QuoteElem.Text,
+		req.QuoteMessage.Content = &sdkpb.IMMessage_TextElem{TextElem: &sdkpb.TextElem{
+			Content: req.QuoteMessage.Content.(*sdkpb.IMMessage_QuoteElem).QuoteElem.Text,
 		}}
 	}
-	s.Content = &sdkpb.MsgStruct_QuoteElem{QuoteElem: &sdkpb.QuoteElem{
+	s.Content = &sdkpb.IMMessage_QuoteElem{QuoteElem: &sdkpb.QuoteElem{
 		Text:         req.Text,
 		QuoteMessage: req.QuoteMessage,
 	}}
@@ -117,7 +117,7 @@ func (c *Conversation) CreateQuoteMessage(ctx context.Context, req *sdkpb.Create
 }
 
 func (c *Conversation) CreateAdvancedQuoteMessage(ctx context.Context, req *sdkpb.CreateAdvancedQuoteMessageReq) (*sdkpb.CreateAdvancedQuoteMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Quote)
 	if err != nil {
 		return nil, err
@@ -125,11 +125,11 @@ func (c *Conversation) CreateAdvancedQuoteMessage(ctx context.Context, req *sdkp
 	//Avoid nested references
 	if req.QuoteMessage.ContentType == constant.Quote {
 		req.QuoteMessage.ContentType = constant.Text
-		req.QuoteMessage.Content = &sdkpb.MsgStruct_TextElem{TextElem: &sdkpb.TextElem{
-			Content: req.QuoteMessage.Content.(*sdkpb.MsgStruct_QuoteElem).QuoteElem.Text,
+		req.QuoteMessage.Content = &sdkpb.IMMessage_TextElem{TextElem: &sdkpb.TextElem{
+			Content: req.QuoteMessage.Content.(*sdkpb.IMMessage_QuoteElem).QuoteElem.Text,
 		}}
 	}
-	s.Content = &sdkpb.MsgStruct_QuoteElem{QuoteElem: &sdkpb.QuoteElem{
+	s.Content = &sdkpb.IMMessage_QuoteElem{QuoteElem: &sdkpb.QuoteElem{
 		Text:              req.Text,
 		QuoteMessage:      req.QuoteMessage,
 		MessageEntityList: req.MessageEntities,
@@ -138,17 +138,17 @@ func (c *Conversation) CreateAdvancedQuoteMessage(ctx context.Context, req *sdkp
 }
 
 func (c *Conversation) CreateCardMessage(ctx context.Context, req *sdkpb.CreateCardMessageReq) (*sdkpb.CreateCardMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Card)
 	if err != nil {
 		return nil, err
 	}
-	s.Content = &sdkpb.MsgStruct_CardElem{CardElem: req.Card}
+	s.Content = &sdkpb.IMMessage_CardElem{CardElem: req.Card}
 	return &sdkpb.CreateCardMessageResp{Message: &s}, nil
 }
 
 func (c *Conversation) CreateImageMessage(ctx context.Context, req *sdkpb.CreateImageMessageReq) (*sdkpb.CreateImageMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Picture)
 	if err != nil {
 		return nil, err
@@ -167,7 +167,7 @@ func (c *Conversation) CreateImageMessage(ctx context.Context, req *sdkpb.Create
 			return nil, err
 		}
 
-		s.Content = &sdkpb.MsgStruct_PictureElem{PictureElem: &sdkpb.PictureElem{
+		s.Content = &sdkpb.IMMessage_PictureElem{PictureElem: &sdkpb.PictureElem{
 			SourcePath: req.ImageSourcePath,
 			SourcePicture: &sdkpb.PictureBaseInfo{
 				Width:  imageInfo.Width,
@@ -176,7 +176,7 @@ func (c *Conversation) CreateImageMessage(ctx context.Context, req *sdkpb.Create
 			},
 		}}
 	} else { // Create by URL
-		s.Content = &sdkpb.MsgStruct_PictureElem{PictureElem: &sdkpb.PictureElem{
+		s.Content = &sdkpb.IMMessage_PictureElem{PictureElem: &sdkpb.PictureElem{
 			SourcePath:      req.ImageSourcePath,
 			SourcePicture:   req.SourcePicture,
 			BigPicture:      req.BigPicture,
@@ -188,7 +188,7 @@ func (c *Conversation) CreateImageMessage(ctx context.Context, req *sdkpb.Create
 }
 
 func (c *Conversation) CreateSoundMessage(ctx context.Context, req *sdkpb.CreateSoundMessageReq) (*sdkpb.CreateSoundMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Sound)
 	if err != nil {
@@ -208,14 +208,14 @@ func (c *Conversation) CreateSoundMessage(ctx context.Context, req *sdkpb.Create
 			return nil, err
 		}
 
-		s.Content = &sdkpb.MsgStruct_SoundElem{SoundElem: &sdkpb.SoundElem{
+		s.Content = &sdkpb.IMMessage_SoundElem{SoundElem: &sdkpb.SoundElem{
 			SoundPath: req.SoundPath,
 			Duration:  req.Duration,
 			DataSize:  fi.Size(),
 			SoundType: strings.Replace(filepath.Ext(fi.Name()), ".", "", 1),
 		}}
 	} else { // Create by URL
-		s.Content = &sdkpb.MsgStruct_SoundElem{SoundElem: &sdkpb.SoundElem{
+		s.Content = &sdkpb.IMMessage_SoundElem{SoundElem: &sdkpb.SoundElem{
 			Uuid:      req.SoundElem.Uuid,
 			SoundPath: req.SoundElem.SoundPath,
 			SourceURL: req.SoundElem.SourceURL,
@@ -228,7 +228,7 @@ func (c *Conversation) CreateSoundMessage(ctx context.Context, req *sdkpb.Create
 }
 
 func (c *Conversation) CreateVideoMessage(ctx context.Context, req *sdkpb.CreateVideoMessageReq) (*sdkpb.CreateVideoMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Video)
 	if err != nil {
 		return nil, err
@@ -261,7 +261,7 @@ func (c *Conversation) CreateVideoMessage(ctx context.Context, req *sdkpb.Create
 			VideoType: req.VideoType,
 			Duration:  req.Duration,
 		}
-		s.Content = &sdkpb.MsgStruct_VideoElem{VideoElem: elem}
+		s.Content = &sdkpb.IMMessage_VideoElem{VideoElem: elem}
 
 		if req.SnapshotSourcePath == "" {
 			elem.SnapshotPath = ""
@@ -288,7 +288,7 @@ func (c *Conversation) CreateVideoMessage(ctx context.Context, req *sdkpb.Create
 			elem.SnapshotSize = imageInfo.Size
 		}
 	} else { // Create by URL
-		s.Content = &sdkpb.MsgStruct_VideoElem{VideoElem: &sdkpb.VideoElem{
+		s.Content = &sdkpb.IMMessage_VideoElem{VideoElem: &sdkpb.VideoElem{
 			VideoPath:      req.VideoElem.VideoPath,
 			VideoUUID:      req.VideoElem.VideoUUID,
 			VideoURL:       req.VideoElem.VideoURL,
@@ -309,7 +309,7 @@ func (c *Conversation) CreateVideoMessage(ctx context.Context, req *sdkpb.Create
 }
 
 func (c *Conversation) CreateFileMessage(ctx context.Context, req *sdkpb.CreateFileMessageReq) (*sdkpb.CreateFileMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.File)
 	if err != nil {
 		return nil, err
@@ -330,13 +330,13 @@ func (c *Conversation) CreateFileMessage(ctx context.Context, req *sdkpb.CreateF
 			return nil, err
 		}
 
-		s.Content = &sdkpb.MsgStruct_FileElem{FileElem: &sdkpb.FileElem{
+		s.Content = &sdkpb.IMMessage_FileElem{FileElem: &sdkpb.FileElem{
 			FilePath: req.FileSourcePath,
 			FileName: req.FileName,
 			FileSize: fi.Size(),
 		}}
 	} else { // Create by URL
-		s.Content = &sdkpb.MsgStruct_FileElem{FileElem: &sdkpb.FileElem{
+		s.Content = &sdkpb.IMMessage_FileElem{FileElem: &sdkpb.FileElem{
 			FilePath:  req.FileElem.FilePath,
 			Uuid:      req.FileElem.Uuid,
 			SourceURL: req.FileElem.SourceURL,
@@ -350,7 +350,7 @@ func (c *Conversation) CreateFileMessage(ctx context.Context, req *sdkpb.CreateF
 }
 
 func (c *Conversation) CreateMergerMessage(ctx context.Context, req *sdkpb.CreateMergerMessageReq) (*sdkpb.CreateMergerMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Merger)
 	if err != nil {
 		return nil, err
@@ -360,12 +360,12 @@ func (c *Conversation) CreateMergerMessage(ctx context.Context, req *sdkpb.Creat
 		AbstractList: req.Summaries,
 		MultiMessage: req.Messages,
 	}
-	s.Content = &sdkpb.MsgStruct_MergeElem{MergeElem: elem}
+	s.Content = &sdkpb.IMMessage_MergeElem{MergeElem: elem}
 	return &sdkpb.CreateMergerMessageResp{Message: &s}, nil
 }
 
 func (c *Conversation) CreateFaceMessage(ctx context.Context, req *sdkpb.CreateFaceMessageReq) (*sdkpb.CreateFaceMessageResp, error) {
-	s := sdkpb.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Face)
 	if err != nil {
 		return nil, err
@@ -374,7 +374,7 @@ func (c *Conversation) CreateFaceMessage(ctx context.Context, req *sdkpb.CreateF
 		Index: req.Index,
 		Data:  req.Data,
 	}
-	s.Content = &sdkpb.MsgStruct_FaceElem{FaceElem: elem}
+	s.Content = &sdkpb.IMMessage_FaceElem{FaceElem: elem}
 	return &sdkpb.CreateFaceMessageResp{Message: &s}, nil
 }
 

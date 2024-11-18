@@ -2,8 +2,9 @@ package relation
 
 import (
 	"context"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"sync"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/user"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
@@ -41,7 +42,6 @@ type Relation struct {
 	requestRecvSyncer  *syncer.Syncer[*model_struct.LocalFriendRequest, syncer.NoResp, [2]string]
 	requestSendSyncer  *syncer.Syncer[*model_struct.LocalFriendRequest, syncer.NoResp, [2]string]
 	conversationCh     chan common.Cmd2Value
-	listenerForService open_im_sdk_callback.OnListenerForService
 	relationSyncMutex  sync.Mutex
 }
 
@@ -209,10 +209,6 @@ func (r *Relation) Db() db_interface.DataBase {
 
 func (r *Relation) SetListener(listener func() open_im_sdk_callback.OnFriendshipListener) {
 	r.friendshipListener = listener
-}
-
-func (r *Relation) SetListenerForService(listener open_im_sdk_callback.OnListenerForService) {
-	r.listenerForService = listener
 }
 
 // SetDataBase sets the DataBase field in Relation struct

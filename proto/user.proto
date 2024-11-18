@@ -1,0 +1,84 @@
+syntax = "proto3";
+package openim.sdk.user;
+
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+option csharp_namespace = "OpenIM";
+
+message UserInfo {
+  string userID = 1;
+  string nickname = 2;
+  string faceURL = 3;
+  string ex = 4;
+  int64 createTime = 5;
+  int32 appMangerLevel = 6;
+  int32 globalRecvMsgOpt = 7;
+  string attached = 8;
+}
+
+message CommandInfo {
+  string userID = 1;
+  int32 type = 2;
+  int64 createTime = 3;
+  string uuid = 4;
+  string value = 5;
+  string ex = 6;
+}
+
+message GetSelfUserInfoReq {}
+message GetSelfUserInfoResp {
+  UserInfo user = 1;
+}
+
+message SetSelfInfoReq {
+  string userID = 1;
+  optional string nickname = 2;
+  optional string faceURL = 3;
+  optional string ex = 4;
+  optional int32  globalRecvMsgOpt = 7;
+}
+message SetSelfInfoResp {}
+
+message ProcessUserCommandAddReq {
+  string userID = 1;
+  int32 type = 2;
+  string uuid = 3;
+  optional string value = 4;
+  optional string ex = 5;
+}
+message ProcessUserCommandAddResp {}
+
+message ProcessUserCommandDeleteReq {
+  string userID = 1;
+  int32 type = 2;
+  string uuid = 3;
+}
+message ProcessUserCommandDeleteResp {}
+
+message ProcessUserCommandUpdateReq {
+  string userID = 1;
+  int32 type = 2;
+  string uuid = 3;
+  optional string value = 4;
+  optional string ex = 5;
+}
+message ProcessUserCommandUpdateResp {}
+
+message ProcessUserCommandGetAllReq {}
+message ProcessUserCommandGetAllResp {
+  repeated CommandInfo commands = 1;
+}
+
+message GetUsersInfoReq {
+  repeated string userIDs = 1;
+}
+message GetUsersInfoResp {
+  repeated UserInfo users = 1;
+}
+
+message GetUsersInfoFromServerReq {
+  repeated string userIDs = 1;
+}
+message GetUsersInfoFromServerResp {
+  repeated UserInfo users = 1;
+}
+

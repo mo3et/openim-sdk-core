@@ -2,6 +2,7 @@ package conversation_msg
 
 import (
 	"context"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
@@ -9,6 +10,7 @@ import (
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
+	"github.com/openimsdk/tools/utils/stringutil"
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	pbConversation "github.com/openimsdk/protocol/conversation"
@@ -77,8 +79,8 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 	return localMessage
 }
 
-func LocalChatLogToMsgPB(localMessage *model_struct.LocalChatLog) *sdkpb.MsgStruct {
-	message := &sdkpb.MsgStruct{
+func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
+	message := &sdkpb.IMMessage{
 		ClientMsgID:      localMessage.ClientMsgID,
 		ServerMsgID:      localMessage.ServerMsgID,
 		CreateTime:       localMessage.CreateTime,
@@ -114,7 +116,7 @@ func LocalChatLogToMsgPB(localMessage *model_struct.LocalChatLog) *sdkpb.MsgStru
 	return message
 }
 
-func MsgStructToLocalChatLog(message *sdkpb.MsgStruct) *model_struct.LocalChatLog {
+func IMMessageToLocalChatLog(message *sdkpb.IMMessage) *model_struct.LocalChatLog {
 	localMessage := &model_struct.LocalChatLog{
 		ClientMsgID:      message.ClientMsgID,
 		ServerMsgID:      message.ServerMsgID,
@@ -143,38 +145,38 @@ func MsgStructToLocalChatLog(message *sdkpb.MsgStruct) *model_struct.LocalChatLo
 	return localMessage
 }
 
-func stringToMsgContent(content string, msg *sdkpb.MsgStruct) (err error) {
+func stringToMsgContent(content string, msg *sdkpb.IMMessage) (err error) {
 	switch msg.ContentType {
 	case constant.Text:
-		t := sdkpb.MsgStruct_TextElem{}
+		t := sdkpb.IMMessage_TextElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Picture:
-		t := sdkpb.MsgStruct_PictureElem{}
+		t := sdkpb.IMMessage_PictureElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Sound:
-		t := sdkpb.MsgStruct_SoundElem{}
+		t := sdkpb.IMMessage_SoundElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Video:
-		t := sdkpb.MsgStruct_VideoElem{}
+		t := sdkpb.IMMessage_VideoElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.File:
-		t := sdkpb.MsgStruct_FileElem{}
+		t := sdkpb.IMMessage_FileElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.AdvancedText:
-		t := sdkpb.MsgStruct_AdvancedTextElem{}
+		t := sdkpb.IMMessage_AdvancedTextElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.AtText:
-		t := sdkpb.MsgStruct_AtTextElem{}
+		t := sdkpb.IMMessage_AtTextElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Location:
-		t := sdkpb.MsgStruct_LocationElem{}
+		t := sdkpb.IMMessage_LocationElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Custom:
@@ -182,42 +184,42 @@ func stringToMsgContent(content string, msg *sdkpb.MsgStruct) (err error) {
 	case constant.CustomMsgNotTriggerConversation:
 		fallthrough
 	case constant.CustomMsgOnlineOnly:
-		t := sdkpb.MsgStruct_CustomElem{}
+		t := sdkpb.IMMessage_CustomElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Typing:
-		t := sdkpb.MsgStruct_TypingElem{}
+		t := sdkpb.IMMessage_TypingElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Quote:
-		t := sdkpb.MsgStruct_QuoteElem{}
+		t := sdkpb.IMMessage_QuoteElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Merger:
-		t := sdkpb.MsgStruct_MergeElem{}
+		t := sdkpb.IMMessage_MergeElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Face:
-		t := sdkpb.MsgStruct_FaceElem{}
+		t := sdkpb.IMMessage_FaceElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case constant.Card:
-		t := sdkpb.MsgStruct_CardElem{}
+		t := sdkpb.IMMessage_CardElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	case pconstant.Stream:
-		t := sdkpb.MsgStruct_StreamElem{}
+		t := sdkpb.IMMessage_StreamElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	default:
-		t := sdkpb.MsgStruct_NotificationElem{}
+		t := sdkpb.IMMessage_NotificationElem{}
 		err = utils.JsonStringToStruct(content, &t)
 		msg.Content = &t
 	}
 	return errs.Wrap(err)
 }
 
-func mustStringToMsgContent(content string, msg *sdkpb.MsgStruct) {
+func mustStringToMsgContent(content string, msg *sdkpb.IMMessage) {
 	if err := stringToMsgContent(content, msg); err != nil {
 		log.ZError(context.TODO(), "mustStringToMsgContent failed", err, "msg", msg, "content", content)
 	}
@@ -244,5 +246,40 @@ func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdk
 		MsgDestructTime:   conversation.MsgDestructTime,
 		Ex:                conversation.Ex,
 		IsMsgDestruct:     conversation.IsMsgDestruct,
+	}
+}
+
+func sdkOfflinePushInfoToServerOfflinePushInfo(offlinePushInfo *sdkpb.OfflinePushInfo) *sdkws.OfflinePushInfo {
+	return &sdkws.OfflinePushInfo{
+		Title:         offlinePushInfo.Title,
+		Desc:          offlinePushInfo.Desc,
+		Ex:            offlinePushInfo.Ex,
+		IOSPushSound:  offlinePushInfo.IOSPushSound,
+		IOSBadgeCount: offlinePushInfo.IOSBadgeCount,
+		SignalInfo:    offlinePushInfo.SignalInfo,
+	}
+}
+
+func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
+	return &sdkws.MsgData{
+		ClientMsgID:      message.ClientMsgID,
+		ServerMsgID:      message.ServerMsgID,
+		SendID:           message.SendID,
+		RecvID:           message.RecvID,
+		GroupID:          message.GroupID,
+		SenderPlatformID: int32(message.SenderPlatformID),
+		SenderNickname:   message.SenderNickname,
+		SenderFaceURL:    message.SenderFaceURL,
+		SessionType:      int32(message.SessionType),
+		MsgFrom:          int32(message.MsgFrom),
+		ContentType:      int32(message.ContentType),
+		Content:          stringutil.StructToJsonBytes(message.Content),
+		IsRead:           message.IsRead,
+		Status:           int32(message.Status),
+		Seq:              message.Seq,
+		SendTime:         message.SendTime,
+		CreateTime:       message.CreateTime,
+		AttachedInfo:     utils.StructToJsonString(message.AttachedInfoElem),
+		Ex:               message.Ex,
 	}
 }

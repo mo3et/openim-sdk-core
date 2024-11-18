@@ -146,7 +146,7 @@ message FileElem {
 message MergeElem {
   string title = 1;
   repeated string abstractList = 2;
-  repeated MsgStruct multiMessage = 3;
+  repeated IMMessage multiMessage = 3;
   repeated MessageEntity messageEntityList = 4;
 }
 
@@ -154,7 +154,7 @@ message AtTextElem {
   string text = 1;
   repeated string atUserList = 2;
   repeated AtInfo atUsersInfo = 3;
-  MsgStruct quoteMessage = 4;
+  IMMessage quoteMessage = 4;
   bool isAtSelf = 5;
 }
 
@@ -177,7 +177,7 @@ message CustomElem {
 
 message QuoteElem {
   string text = 1;
-  MsgStruct quoteMessage = 2;
+  IMMessage quoteMessage = 2;
   repeated MessageEntity messageEntityList = 3;
 }
 
@@ -249,7 +249,7 @@ message GroupHasReadInfo {
   int32 groupMemberCount = 3;
 }
 
-message MsgStruct {
+message IMMessage {
   string clientMsgID = 1;
   string serverMsgID = 2;
   int64 createTime = 3;
@@ -297,7 +297,7 @@ message GetAdvancedHistoryMessageListParams {
 }
 
 message GetAdvancedHistoryMessageListCallback {
-  repeated message.MsgStruct messageList = 1;
+  repeated message.IMMessage messageList = 1;
   bool isEnd = 2;
   int32 errCode = 3;
   string errMsg = 4;
@@ -305,14 +305,14 @@ message GetAdvancedHistoryMessageListCallback {
 
 // ------------------------------------------------------------------------------------------------------
 message SendMessageReq {
-  MsgStruct message = 1;
+  IMMessage message = 1;
   string recvID = 2;
   string groupID = 3;
   common.OfflinePushInfo offlinePushInfo = 4;
   bool isOnlineOnly = 5;
 }
 message SendMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 
@@ -357,28 +357,28 @@ message DeleteAllMessageFromLocalStorageReq {}
 message DeleteAllMessageFromLocalStorageResp {}
 
 message InsertSingleMessageToLocalStorageReq {
-  MsgStruct msg = 1;
+  IMMessage msg = 1;
   string recvID = 2;
   string sendID = 3;
 }
 message InsertSingleMessageToLocalStorageResp {
-  MsgStruct msg = 1;
+  IMMessage msg = 1;
 }
 
 message InsertGroupMessageToLocalStorageReq {
-  MsgStruct msg = 1;
+  IMMessage msg = 1;
   string groupID = 2;
   string sendID = 3;
 }
 message InsertGroupMessageToLocalStorageResp {
-  MsgStruct msg = 1;
+  IMMessage msg = 1;
 }
 
 message CreateTextMessageReq {
   string text = 1;
 }
 message CreateTextMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateAdvancedTextMessageReq {
@@ -386,17 +386,17 @@ message CreateAdvancedTextMessageReq {
   repeated MessageEntity messageEntities = 2;
 }
 message CreateAdvancedTextMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateTextAtMessageReq {
   string text = 1;
   repeated string userIDList = 2;
   repeated AtInfo usersInfo = 3;
-  MsgStruct quoteMessage = 4;
+  IMMessage quoteMessage = 4;
 }
 message CreateTextAtMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateLocationMessageReq {
@@ -405,7 +405,7 @@ message CreateLocationMessageReq {
   double latitude = 3;
 }
 message CreateLocationMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateCustomMessageReq {
@@ -414,31 +414,31 @@ message CreateCustomMessageReq {
   string description = 3;
 }
 message CreateCustomMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateQuoteMessageReq {
   string text = 1;
-  MsgStruct quoteMessage = 2;
+  IMMessage quoteMessage = 2;
 }
 message CreateQuoteMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateAdvancedQuoteMessageReq {
   string text = 1;
-  MsgStruct quoteMessage = 2;
+  IMMessage quoteMessage = 2;
   repeated MessageEntity messageEntities = 3;
 }
 message CreateAdvancedQuoteMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateCardMessageReq {
   CardElem card = 1;
 }
 message CreateCardMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateImageMessageReq {
@@ -448,7 +448,7 @@ message CreateImageMessageReq {
   PictureBaseInfo snapshotPicture = 4;
 }
 message CreateImageMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateSoundMessageReq {
@@ -457,7 +457,7 @@ message CreateSoundMessageReq {
   SoundBaseInfo soundElem = 3;
 }
 message CreateSoundMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateVideoMessageReq {
@@ -468,7 +468,7 @@ message CreateVideoMessageReq {
   VideoBaseInfo videoElem = 5;
 }
 message CreateVideoMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateFileMessageReq {
@@ -477,16 +477,16 @@ message CreateFileMessageReq {
   FileBaseInfo fileElem = 3;
 }
 message CreateFileMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateMergerMessageReq {
-  repeated MsgStruct messages = 1;
+  repeated IMMessage messages = 1;
   string title = 2;
   repeated string summaries = 3;
 }
 message CreateMergerMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateFaceMessageReq {
@@ -494,14 +494,14 @@ message CreateFaceMessageReq {
   string data = 2;
 }
 message CreateFaceMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message CreateForwardMessageReq {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 message CreateForwardMessageResp {
-  MsgStruct message = 1;
+  IMMessage message = 1;
 }
 
 message UploadLogsReq {

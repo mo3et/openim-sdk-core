@@ -117,7 +117,7 @@ func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress op
 	ccontext.Info(ctx)
 	reqLog := &third.UploadLogsReq{
 		Platform: int32(t.platform),
-		//todo systemType change to appFramework
+		//Todo systemType change to appFramework
 		AppFramework: pb.AppFramework_name[int32(t.appFramework)],
 		Version:      version.Version,
 		FileURLs:     []*third.FileURL{{Filename: zippath, URL: resp.URL}},

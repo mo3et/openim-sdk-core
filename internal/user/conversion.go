@@ -2,6 +2,7 @@ package user
 
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/protocol/user"
 
@@ -35,5 +36,41 @@ func LocalUserToPublicUser(user *model_struct.LocalUser) *sdk_struct.PublicUser 
 		FaceURL:    user.FaceURL,
 		Ex:         user.Ex,
 		CreateTime: user.CreateTime,
+	}
+}
+
+func ServerUserToSdk(info *sdkws.UserInfo) *sdkpb.UserInfo {
+	return &sdkpb.UserInfo{
+		UserID:           info.UserID,
+		Nickname:         info.Nickname,
+		FaceURL:          info.FaceURL,
+		CreateTime:       info.CreateTime,
+		AppMangerLevel:   info.AppMangerLevel,
+		Ex:               info.Ex,
+		GlobalRecvMsgOpt: info.GlobalRecvMsgOpt,
+	}
+}
+
+func DBUserToSdk(info *model_struct.LocalUser) *sdkpb.UserInfo {
+	return &sdkpb.UserInfo{
+		UserID:           info.UserID,
+		Nickname:         info.Nickname,
+		FaceURL:          info.FaceURL,
+		CreateTime:       info.CreateTime,
+		AppMangerLevel:   info.AppMangerLevel,
+		Ex:               info.Ex,
+		Attached:         info.AttachedInfo,
+		GlobalRecvMsgOpt: info.GlobalRecvMsgOpt,
+	}
+}
+
+func DBCommandToSdk(info *model_struct.LocalUserCommand) *sdkpb.CommandInfo {
+	return &sdkpb.CommandInfo{
+		UserID:     info.UserID,
+		Type:       info.Type,
+		Uuid:       info.Uuid,
+		CreateTime: info.CreateTime,
+		Value:      info.Value,
+		Ex:         info.Ex,
 	}
 }

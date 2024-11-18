@@ -2,6 +2,7 @@ syntax = "proto3";
 package openim.sdk.group;
 
 import "common.proto";
+import "user.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
@@ -275,4 +276,162 @@ message GetGroupMemberInfoReq {
 }
 message GetGroupMemberInfoResp {
   map<string, GroupMemberInfo> members = 1;
+}
+
+message GroupCreatedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  repeated GroupMemberInfo memberList = 3;
+  int64 operationTime = 4;
+  GroupMemberInfo groupOwnerUser = 5;
+  uint64 groupMemberVersion = 6;
+  string groupMemberVersionID = 7;
+}
+
+message GroupInfoSetTips {
+  GroupMemberInfo opUser = 1; //who do this
+  int64 muteTime = 2;
+  GroupInfo group = 3;
+  uint64 groupMemberVersion = 4;
+  string groupMemberVersionID = 5;
+}
+
+message GroupInfoSetNameTips {
+  GroupMemberInfo opUser = 1; //who do this
+  GroupInfo group = 2;
+  uint64 groupMemberVersion = 3;
+  string groupMemberVersionID = 4;
+}
+
+message GroupInfoSetAnnouncementTips {
+  GroupMemberInfo opUser = 1; //who do this
+  GroupInfo group = 2;
+  uint64 groupMemberVersion = 3;
+  string groupMemberVersionID = 4;
+}
+
+//	OnJoinGroupApplication()
+message JoinGroupApplicationTips {
+  GroupInfo group = 1;
+  openim.sdk.user.UserInfo applicant = 2;
+  string reqMsg = 3;
+}
+
+//	OnQuitGroup()
+//Actively leave the group
+message MemberQuitTips {
+  GroupInfo group = 1;
+  GroupMemberInfo quitUser = 2;
+  int64 operationTime = 3;
+  uint64 groupMemberVersion = 4;
+  string groupMemberVersionID = 5;
+}
+
+//	OnApplicationGroupAccepted()
+message GroupApplicationAcceptedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  string handleMsg = 4;
+  int32 receiverAs = 5; // admin(==1) or applicant(==0)
+}
+
+//	OnApplicationGroupRejected()
+message GroupApplicationRejectedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  string handleMsg = 4;
+  int32 receiverAs = 5; // admin(==1) or applicant(==0)
+}
+
+//	OnTransferGroupOwner()
+message GroupOwnerTransferredTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  GroupMemberInfo newGroupOwner = 3;
+  string oldGroupOwner = 4;
+  int64 operationTime = 5;
+  GroupMemberInfo oldGroupOwnerInfo = 6;
+  uint64 groupMemberVersion = 7;
+  string groupMemberVersionID = 8;
+}
+
+//	OnMemberKicked()
+message MemberKickedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  repeated GroupMemberInfo kickedUserList = 3;
+  int64 operationTime = 4;
+  uint64 groupMemberVersion = 5;
+  string groupMemberVersionID = 6;
+}
+
+//	OnMemberInvited()
+message MemberInvitedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  repeated GroupMemberInfo invitedUserList = 3;
+  int64 operationTime = 4;
+  uint64 groupMemberVersion = 5;
+  string groupMemberVersionID = 6;
+  GroupMemberInfo inviterUser = 7;
+}
+
+//Actively join the group
+message MemberEnterTips {
+  GroupInfo group = 1;
+  GroupMemberInfo entrantUser = 2;
+  int64 operationTime = 3;
+  uint64 groupMemberVersion = 5;
+  string groupMemberVersionID = 6;
+}
+
+message GroupDismissedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+}
+
+message GroupMemberMutedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+  GroupMemberInfo mutedUser = 4;
+  uint32 mutedSeconds = 5;
+  uint64 groupMemberVersion = 6;
+  string groupMemberVersionID = 7;
+}
+
+message GroupMemberCancelMutedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+  GroupMemberInfo mutedUser = 4;
+  uint64 groupMemberVersion = 5;
+  string groupMemberVersionID = 6;
+}
+
+message GroupMutedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+  uint64 groupMemberVersion = 4;
+  string groupMemberVersionID = 5;
+}
+
+message GroupCancelMutedTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+  uint64 groupMemberVersion = 4;
+  string groupMemberVersionID = 5;
+}
+
+message GroupMemberInfoSetTips {
+  GroupInfo group = 1;
+  GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+  GroupMemberInfo changedUser = 4;
+  uint64 groupMemberVersion = 5;
+  string groupMemberVersionID = 6;
+  uint64 groupSortVersion = 7;
 }

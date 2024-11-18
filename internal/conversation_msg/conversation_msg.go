@@ -55,7 +55,6 @@ type Conversation struct {
 	db                    db_interface.DataBase
 	ConversationListener  func() open_im_sdk_callback.OnConversationListener
 	msgListener           func() open_im_sdk_callback.OnAdvancedMsgListener
-	msgKvListener         func() open_im_sdk_callback.OnMessageKvInfoListener
 	businessListener      func() open_im_sdk_callback.OnCustomBusinessListener
 	recvCH                chan common.Cmd2Value
 	loginUserID           string
@@ -117,10 +116,6 @@ func (c *Conversation) SetDataDir(DataDir string) {
 
 func (c *Conversation) SetMsgListener(msgListener func() open_im_sdk_callback.OnAdvancedMsgListener) {
 	c.msgListener = msgListener
-}
-
-func (c *Conversation) SetMsgKvListener(msgKvListener func() open_im_sdk_callback.OnMessageKvInfoListener) {
-	c.msgKvListener = msgKvListener
 }
 
 func (c *Conversation) SetBusinessListener(businessListener func() open_im_sdk_callback.OnCustomBusinessListener) {
@@ -197,6 +192,9 @@ func (c *Conversation) initSyncer() {
 	)
 
 }
+func (c *Conversation) SetConversationListener(listener func() open_im_sdk_callback.OnConversationListener) {
+	c.ConversationListener = listener
+}
 
 func (c *Conversation) GetCh() chan common.Cmd2Value {
 	return c.recvCH
@@ -259,7 +257,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally without any conversation and message update.
 			if msg.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, MsgStructToLocalChatLog(msg))
+				insertMessage = append(insertMessage, IMMessageToLocalChatLog(msg))
 				continue
 			}
 
@@ -291,7 +289,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						if !isConversationUpdate {
 							msg.Status = constant.MsgStatusFiltered
 						}
-						updateMessage = append(updateMessage, MsgStructToLocalChatLog(msg))
+						updateMessage = append(updateMessage, IMMessageToLocalChatLog(msg))
 					} else {
 						exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(msg))
 					}
@@ -317,7 +315,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						newMessages = append(newMessages, msg)
 					}
 					if isHistory {
-						selfInsertMessage = append(selfInsertMessage, MsgStructToLocalChatLog(msg))
+						selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(msg))
 					}
 				}
 			} else { //Sent by others
@@ -351,7 +349,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						newMessages = append(newMessages, msg)
 					}
 					if isHistory {
-						othersInsertMessage = append(othersInsertMessage, MsgStructToLocalChatLog(msg))
+						othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
 					}
 
 				} else {
@@ -359,7 +357,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 					log.ZWarn(ctx, "Deduplication operation ", nil, "msg", *c.msgStructToLocalErrChatLog(msg))
 					msg.Status = constant.MsgStatusFiltered
 					msg.ClientMsgID = msg.ClientMsgID + utils.Int64ToString(msg.Seq)
-					othersInsertMessage = append(othersInsertMessage, MsgStructToLocalChatLog(msg))
+					othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
 				}
 			}
 		}
@@ -493,7 +491,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally without any conversation and message update.
 			if msg.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, MsgStructToLocalChatLog(msg))
+				insertMessage = append(insertMessage, IMMessageToLocalChatLog(msg))
 				continue
 			}
 			msg.Status = constant.MsgStatusSendSuccess
@@ -510,9 +508,9 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 
 				latestMsg = msg
 
-				selfInsertMessage = append(selfInsertMessage, MsgStructToLocalChatLog(msg))
+				selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(msg))
 			} else { //Sent by others
-				othersInsertMessage = append(othersInsertMessage, MsgStructToLocalChatLog(msg))
+				othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(msg))
 
 				latestMsg = msg
 			}

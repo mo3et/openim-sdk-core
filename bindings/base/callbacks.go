@@ -273,3 +273,7 @@ func NewUploadFileCallback(handleID uint64) open_im_sdk_callback.UploadFileCallb
 func (u UploadFileCallback) OnUploadFileProgress(data *pb.EventOnUploadFileProgressData) {
 	activeEventResp(pb.FuncRequestEventName_EventOnUploadFileProgress, u.handleID, data)
 }
+
+type UploadLogsCallback struct {
+	handleID uint64
+}

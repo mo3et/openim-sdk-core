@@ -63,7 +63,7 @@ message SearchByConversationResult {
   string faceURL = 4;
   int64 latestMsgSendTime = 5;
   int32 messageCount = 6;
-  repeated message.MsgStruct messageList = 7;
+  repeated message.IMMessage messageList = 7;
 }
 
 // -----------------------------------------------------------------------------------------------------------------
@@ -329,6 +329,15 @@ enum FuncRequestEventName{
   SearchLocalMessages = 2025;
   SetMessageLocalEx = 2026;
   SearchConversation = 2027;
+
+  ProcessUserCommandGetAll = 2100;
+  GetSelfUserInfo = 2101;
+  SetSelfInfo = 2102;
+  ProcessUserCommandAdd = 2103;
+  ProcessUserCommandDelete = 2104;
+  ProcessUserCommandUpdate = 2105;
+  GetUsersInfo = 2106;
+  GetUsersInfoFromServer = 2107;
 };
 
 message EventOnSendMsgProgressData{
@@ -496,7 +505,8 @@ message EventOnSelfInfoUpdatedData {
 }
 
 message EventOnUserStatusChangedData {
-  string statusMap = 1;
+  string userID = 1;
+  repeated int32 platformIDs = 2;
 }
 
 message EventOnUserCommandAddData {

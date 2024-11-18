@@ -11,10 +11,8 @@ import (
 	"sync"
 	"time"
 
-	pbConversation "github.com/openimsdk/protocol/conversation"
-	"github.com/openimsdk/tools/utils/stringutil"
-
 	pconstant "github.com/openimsdk/protocol/constant"
+	pbConversation "github.com/openimsdk/protocol/conversation"
 	"github.com/openimsdk/tools/utils/datautil"
 
 	"github.com/openimsdk/tools/errs"
@@ -172,10 +170,6 @@ func (c *Conversation) GetTotalUnreadMsgCount(ctx context.Context, req *sdkpb.Ge
 	return &sdkpb.GetTotalUnreadMsgCountResp{TotalUnreadCount: totalUnreadCount}, nil
 }
 
-func (c *Conversation) SetConversationListener(listener func() open_im_sdk_callback.OnConversationListener) {
-	c.ConversationListener = listener
-}
-
 func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) *model_struct.LocalErrChatLog {
 	var lc model_struct.LocalErrChatLog
 	copier.Copy(&lc, src)
@@ -183,7 +177,7 @@ func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) 
 
 }
 
-func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status sdkpb.MsgStatus, s *sdkpb.MsgStruct,
+func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status sdkpb.MsgStatus, s *sdkpb.IMMessage,
 	lc *model_struct.LocalConversation, isOnlineOnly bool) {
 	log.ZDebug(ctx, "this is test send message ", "sendTime", sendTime, "status", status, "clientMsgID", clientMsgID, "serverMsgID", serverMsgID)
 	if isOnlineOnly {
@@ -210,7 +204,7 @@ func (c *Conversation) fileName(ftype string, id string) string {
 	return fmt.Sprintf("msg_%s_%s", ftype, id)
 }
 
-func (c *Conversation) checkID(ctx context.Context, s *sdkpb.MsgStruct,
+func (c *Conversation) checkID(ctx context.Context, s *sdkpb.IMMessage,
 	recvID, groupID string, options map[string]bool) (*model_struct.LocalConversation, error) {
 	if recvID == "" && groupID == "" {
 		return nil, sdkerrs.ErrArgs
@@ -306,22 +300,22 @@ func (c *Conversation) GetConversationIDBySessionType(ctx context.Context, req *
 	return &sdkpb.GetConversationIDBySessionTypeResp{ConversationID: conversationID}, nil
 }
 
-func getMsgUrl(msg *sdkpb.MsgStruct) string {
+func getMsgUrl(msg *sdkpb.IMMessage) string {
 	switch msg.ContentType {
 	case sdkpb.ContentType_File:
-		if c, ok := msg.Content.(*sdkpb.MsgStruct_FileElem); ok {
+		if c, ok := msg.Content.(*sdkpb.IMMessage_FileElem); ok {
 			return c.FileElem.SourceURL
 		}
 	case sdkpb.ContentType_Sound:
-		if c, ok := msg.Content.(*sdkpb.MsgStruct_SoundElem); ok {
+		if c, ok := msg.Content.(*sdkpb.IMMessage_SoundElem); ok {
 			return c.SoundElem.SourceURL
 		}
 	case sdkpb.ContentType_Video:
-		if c, ok := msg.Content.(*sdkpb.MsgStruct_VideoElem); ok {
+		if c, ok := msg.Content.(*sdkpb.IMMessage_VideoElem); ok {
 			return c.VideoElem.VideoURL
 		}
 	case sdkpb.ContentType_Picture:
-		if c, ok := msg.Content.(*sdkpb.MsgStruct_PictureElem); ok {
+		if c, ok := msg.Content.(*sdkpb.IMMessage_PictureElem); ok {
 			firstNotNil := func(strs ...string) string {
 				for _, str := range strs {
 					if str != "" {
@@ -363,7 +357,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 	if !req.IsOnlineOnly {
 		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, req.Message.ClientMsgID)
 		if err != nil {
-			localMessage := MsgStructToLocalChatLog(req.Message)
+			localMessage := IMMessageToLocalChatLog(req.Message)
 			err := c.db.InsertMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
 				return nil, err
@@ -401,7 +395,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		if req.Message.Status == constant.MsgStatusSendSuccess {
 			break
 		}
-		msgElem, ok := req.Message.Content.(*sdkpb.MsgStruct_PictureElem)
+		msgElem, ok := req.Message.Content.(*sdkpb.IMMessage_PictureElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -449,7 +443,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		if req.Message.Status == constant.MsgStatusSendSuccess {
 			break
 		}
-		msgElem, ok := req.Message.Content.(*sdkpb.MsgStruct_SoundElem)
+		msgElem, ok := req.Message.Content.(*sdkpb.IMMessage_SoundElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -479,7 +473,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		if req.Message.Status == constant.MsgStatusSendSuccess {
 			break
 		}
-		msgElem, ok := req.Message.Content.(*sdkpb.MsgStruct_VideoElem)
+		msgElem, ok := req.Message.Content.(*sdkpb.IMMessage_VideoElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -543,7 +537,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		if req.Message.Status == constant.MsgStatusSendSuccess {
 			break
 		}
-		msgElem, ok := req.Message.Content.(*sdkpb.MsgStruct_FileElem)
+		msgElem, ok := req.Message.Content.(*sdkpb.IMMessage_FileElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -585,7 +579,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 	}
 	if utils.IsContainInt(int(req.Message.ContentType), []int{constant.Picture, constant.Sound, constant.Video, constant.File}) {
 		if !req.IsOnlineOnly {
-			localMessage := MsgStructToLocalChatLog(req.Message)
+			localMessage := IMMessageToLocalChatLog(req.Message)
 			log.ZDebug(ctx, "update message is ", "localMessage", localMessage)
 			err = c.db.UpdateMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
@@ -601,8 +595,8 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 	return &sdkpb.SendMessageResp{Message: msg}, nil
 }
 
-func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.MsgStruct, recvID, groupID string,
-	p *sdkpb.OfflinePushInfo, isOnlineOnly bool) (*sdkpb.MsgStruct, error) {
+func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.IMMessage, recvID, groupID string,
+	p *sdkpb.OfflinePushInfo, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
 	options := make(map[string]bool, 2)
 	lc, err := c.checkID(ctx, s, recvID, groupID, options)
 	if err != nil {
@@ -611,7 +605,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.MsgStruct
 	if !isOnlineOnly {
 		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, s.ClientMsgID)
 		if err != nil {
-			localMessage := MsgStructToLocalChatLog(s)
+			localMessage := IMMessageToLocalChatLog(s)
 			err := c.db.InsertMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
 				return nil, err
@@ -642,7 +636,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.MsgStruct
 	var delFile []string
 	if utils.IsContainInt(int(s.ContentType), []int{constant.Picture, constant.Sound, constant.Video, constant.File}) {
 		if isOnlineOnly {
-			localMessage := MsgStructToLocalChatLog(s)
+			localMessage := IMMessageToLocalChatLog(s)
 			err = c.db.UpdateMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
 				return nil, err
@@ -652,8 +646,8 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.MsgStruct
 	return c.sendMessageToServer(ctx, s, lc, delFile, p, options, isOnlineOnly)
 }
 
-func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStruct, lc *model_struct.LocalConversation,
-	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.MsgStruct, error) {
+func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessage, lc *model_struct.LocalConversation,
+	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 		utils.SetSwitchFromOptions(options, constant.IsPersistent, false)
@@ -664,25 +658,21 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStru
 		utils.SetSwitchFromOptions(options, constant.IsOfflinePush, false)
 	}
 	//Protocol conversion
-	var wsMsgData sdkws.MsgData
-	_ = copier.Copy(&wsMsgData, s)
-	wsMsgData.AttachedInfo = utils.StructToJsonString(s.AttachedInfoElem)
-	wsMsgData.Content = stringutil.StructToJsonBytes(s.Content)
-	wsMsgData.CreateTime = s.CreateTime
+	wsMsgData := IMMessageToMsgData(s)
 	wsMsgData.SendTime = 0
 	wsMsgData.Options = options
 	if wsMsgData.ContentType == constant.AtText {
-		atElem, ok := s.Content.(*sdkpb.MsgStruct_AtTextElem)
+		atElem, ok := s.Content.(*sdkpb.IMMessage_AtTextElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
 		wsMsgData.AtUserIDList = atElem.AtTextElem.AtUserList
 	}
-	wsMsgData.OfflinePushInfo = offlinePushInfo
+	wsMsgData.OfflinePushInfo = sdkOfflinePushInfoToServerOfflinePushInfo(offlinePushInfo)
 
 	var sendMsgResp sdkws.UserSendMsgResp
 
-	err := c.LongConnMgr.SendReqWaitResp(ctx, &wsMsgData, constant.SendMsg, &sendMsgResp)
+	err := c.LongConnMgr.SendReqWaitResp(ctx, wsMsgData, constant.SendMsg, &sendMsgResp)
 	if err != nil {
 		//if send message network timeout need to double-check message has received by db.
 		if sdkerrs.ErrNetworkTimeOut.Is(err) && !isOnlineOnly {
@@ -744,9 +734,9 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 	for _, v := range s {
 		messages, err := c.db.GetMessagesByClientMsgIDs(ctx, v.conversation.ConversationID, v.msgIDList)
 		if err == nil {
-			var tempMessageList []*sdkpb.MsgStruct
+			var tempMessageList []*sdkpb.IMMessage
 			for _, message := range messages {
-				temp := LocalChatLogToMsgPB(message)
+				temp := LocalChatLogToIMMessage(message)
 				tempMessageList = append(tempMessageList, temp)
 			}
 			findResultItem := sdkpb.SearchByConversationResult{}
@@ -771,7 +761,7 @@ func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *s
 		return nil, err
 	}
 	if len(result.MessageList) == 0 {
-		s := make([]*sdkpb.MsgStruct, 0)
+		s := make([]*sdkpb.IMMessage, 0)
 		result.MessageList = s
 	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
@@ -784,7 +774,7 @@ func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context,
 		return nil, err
 	}
 	if len(result.MessageList) == 0 {
-		s := make([]*sdkpb.MsgStruct, 0)
+		s := make([]*sdkpb.IMMessage, 0)
 		result.MessageList = s
 	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
@@ -913,7 +903,7 @@ func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, re
 	req.Msg.SendTime = utils.GetCurrentTimestampByMill()
 	req.Msg.SessionType = constant.SingleChatType
 	req.Msg.Status = constant.MsgStatusSendSuccess
-	localMessage := MsgStructToLocalChatLog(req.Msg)
+	localMessage := IMMessageToLocalChatLog(req.Msg)
 	conversation.LatestMsg = utils.StructToJsonString(req.Msg)
 	conversation.ConversationType = constant.SingleChatType
 	conversation.LatestMsgSendTime = req.Msg.SendTime
@@ -952,7 +942,7 @@ func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req
 	req.Msg.SendTime = utils.GetCurrentTimestampByMill()
 	req.Msg.SessionType = sdkpb.SessionType(conversation.ConversationType)
 	req.Msg.Status = constant.MsgStatusSendSuccess
-	localMessage := MsgStructToLocalChatLog(req.Msg)
+	localMessage := IMMessageToLocalChatLog(req.Msg)
 	conversation.LatestMsg = utils.StructToJsonString(req.Msg)
 	conversation.LatestMsgSendTime = req.Msg.SendTime
 	conversation.FaceURL = req.Msg.SenderFaceURL
@@ -997,7 +987,7 @@ func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMess
 	return &sdkpb.SetMessageLocalExResp{Success: true}, nil
 }
 
-func (c *Conversation) initBasicInfo(ctx context.Context, message *sdkpb.MsgStruct, msgFrom sdkpb.MsgFrom, contentType sdkpb.ContentType) error {
+func (c *Conversation) initBasicInfo(ctx context.Context, message *sdkpb.IMMessage, msgFrom sdkpb.MsgFrom, contentType sdkpb.ContentType) error {
 	message.CreateTime = utils.GetCurrentTimestampByMill()
 	message.SendTime = message.CreateTime
 	message.IsRead = false
