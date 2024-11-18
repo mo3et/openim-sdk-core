@@ -674,10 +674,10 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struc
 		for _, w := range newMessagesList {
 			conversationID := utils.GetConversationIDByMsg(w)
 			if v, ok := cc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.msgListener().OnRecvOfflineNewMessage(utils.StructToJsonString(w))
+				c.msgListener().OnRecvOfflineNewMessage(&sdkpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 			if v, ok := nc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.msgListener().OnRecvOfflineNewMessage(utils.StructToJsonString(w))
+				c.msgListener().OnRecvOfflineNewMessage(&sdkpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 		}
 	} else {
@@ -686,58 +686,12 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struc
 				continue
 			}
 			if _, ok := onlineMsg[onlineMsgKey{ClientMsgID: w.ClientMsgID, ServerMsgID: w.ServerMsgID}]; ok {
-				c.msgListener().OnRecvOnlineOnlyMessage(utils.StructToJsonString(w))
+				c.msgListener().OnRecvOnlineOnlyMessage(&sdkpb.EventOnRecvOnlineOnlyMessageData{Message: w})
 			} else {
-				c.msgListener().OnRecvNewMessage(utils.StructToJsonString(w))
+				c.msgListener().OnRecvNewMessage(&sdkpb.EventOnRecvNewMessageData{
+					Message: w,
+				})
 			}
-		}
-	}
-}
-
-func (c *Conversation) batchNewMessages(ctx context.Context, newMessagesList sdk_struct.NewMsgList, conversationChanged, newConversation map[string]*model_struct.LocalConversation, onlineMsg map[onlineMsgKey]struct{}) {
-	if len(newMessagesList) == 0 {
-		log.ZWarn(ctx, "newMessagesList is empty", errs.New("newMessagesList is empty"))
-		return
-	}
-
-	sort.Sort(newMessagesList)
-	var needNotificationMsgList sdk_struct.NewMsgList
-
-	// offline
-	if c.GetBackground() {
-		u, err := c.user.GetSelfUserInfo(ctx)
-		if err != nil {
-			log.ZWarn(ctx, "GetSelfUserInfo err", err)
-		}
-
-		if u.GlobalRecvMsgOpt != constant.ReceiveMessage {
-			return
-		}
-
-		for _, w := range newMessagesList {
-			conversationID := utils.GetConversationIDByMsg(w)
-			if v, ok := conversationChanged[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				needNotificationMsgList = append(needNotificationMsgList, w)
-			}
-			if v, ok := newConversation[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				needNotificationMsgList = append(needNotificationMsgList, w)
-			}
-		}
-
-		if len(needNotificationMsgList) != 0 {
-			c.msgListener().OnRecvOfflineNewMessage(utils.StructToJsonString(needNotificationMsgList))
-		}
-	} else { // online
-		for _, w := range newMessagesList {
-			if w.ContentType == constant.Typing {
-				continue
-			}
-
-			needNotificationMsgList = append(needNotificationMsgList, w)
-		}
-
-		if len(needNotificationMsgList) != 0 {
-			c.msgListener().OnRecvOnlineOnlyMessage(utils.StructToJsonString(needNotificationMsgList))
 		}
 	}
 }
