@@ -495,7 +495,8 @@ message EventOnSelfInfoUpdatedData {
 }
 
 message EventOnUserStatusChangedData {
-  string statusMap = 1;
+  string userID = 1;
+  repeated int32 platformIDs = 2;
 }
 
 message EventOnUserCommandAddData {
