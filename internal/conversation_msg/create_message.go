@@ -1,24 +1,10 @@
-// Copyright © 2023 OpenIM SDK. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package conversation_msg
 
 import (
 	"context"
 	"errors"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/tools/log"
 
 	"os"
@@ -27,179 +13,182 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 )
 
-func (c *Conversation) CreateTextMessage(ctx context.Context, text string) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+func (c *Conversation) CreateTextMessage(ctx context.Context, req *sdkpb.CreateTextMessageReq) (*sdkpb.CreateTextMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Text)
 	if err != nil {
 		return nil, err
 	}
-	s.TextElem = &sdk_struct.TextElem{Content: text}
-	return &s, nil
+	s.Content = &sdkpb.MsgStruct_TextElem{TextElem: &sdkpb.TextElem{Content: req.Text}}
+	return &sdkpb.CreateTextMessageResp{Message: &s}, nil
 }
-func (c *Conversation) CreateAdvancedTextMessage(ctx context.Context, text string, messageEntities []*sdk_struct.MessageEntity) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+
+func (c *Conversation) CreateAdvancedTextMessage(ctx context.Context, req *sdkpb.CreateAdvancedTextMessageReq) (*sdkpb.CreateAdvancedTextMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.AdvancedText)
 	if err != nil {
 		return nil, err
 	}
-	s.AdvancedTextElem = &sdk_struct.AdvancedTextElem{
-		Text:              text,
-		MessageEntityList: messageEntities,
-	}
-	return &s, nil
+	s.Content = &sdkpb.MsgStruct_AdvancedTextElem{AdvancedTextElem: &sdkpb.AdvancedTextElem{
+		Text:              req.Text,
+		MessageEntityList: req.MessageEntities,
+	}}
+	return &sdkpb.CreateAdvancedTextMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateTextAtMessage(ctx context.Context, text string, userIDList []string, usersInfo []*sdk_struct.AtInfo, qs *sdk_struct.MsgStruct) (*sdk_struct.MsgStruct, error) {
-	if text == "" {
+func (c *Conversation) CreateTextAtMessage(ctx context.Context, req *sdkpb.CreateTextAtMessageReq) (*sdkpb.CreateTextAtMessageResp, error) {
+	if req.Text == "" {
 		return nil, errors.New("text can not be empty")
 	}
-	if len(userIDList) > 10 {
+	if len(req.UserIDList) > 10 {
 		return nil, sdkerrs.ErrArgs
 	}
-	s := sdk_struct.MsgStruct{}
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.AtText)
 	if err != nil {
 		return nil, err
 	}
 	//Avoid nested references
-	if qs != nil {
-		if qs.ContentType == constant.Quote {
-			qs.ContentType = constant.Text
-			qs.TextElem = &sdk_struct.TextElem{Content: qs.QuoteElem.Text}
+	if req.QuoteMessage != nil {
+		if req.QuoteMessage.ContentType == constant.Quote {
+			req.QuoteMessage.ContentType = constant.Text
+			req.QuoteMessage.Content = &sdkpb.MsgStruct_TextElem{TextElem: &sdkpb.TextElem{
+				Content: req.QuoteMessage.Content.(*sdkpb.MsgStruct_QuoteElem).QuoteElem.Text,
+			}}
 		}
 	}
-	s.AtTextElem = &sdk_struct.AtTextElem{
-		Text:         text,
-		AtUserList:   userIDList,
-		AtUsersInfo:  usersInfo,
-		QuoteMessage: qs,
-	}
-	return &s, nil
+	s.Content = &sdkpb.MsgStruct_AtTextElem{AtTextElem: &sdkpb.AtTextElem{
+		Text:         req.Text,
+		AtUserList:   req.UserIDList,
+		AtUsersInfo:  req.UsersInfo,
+		QuoteMessage: req.QuoteMessage,
+	}}
+	return &sdkpb.CreateTextAtMessageResp{Message: &s}, nil
 }
-func (c *Conversation) CreateLocationMessage(ctx context.Context, description string, longitude, latitude float64) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+
+func (c *Conversation) CreateLocationMessage(ctx context.Context, req *sdkpb.CreateLocationMessageReq) (*sdkpb.CreateLocationMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Location)
 	if err != nil {
 		return nil, err
 	}
-	s.LocationElem = &sdk_struct.LocationElem{
-		Description: description,
-		Longitude:   longitude,
-		Latitude:    latitude,
-	}
-	return &s, nil
+	s.Content = &sdkpb.MsgStruct_LocationElem{LocationElem: &sdkpb.LocationElem{
+		Description: req.Description,
+		Longitude:   req.Longitude,
+		Latitude:    req.Latitude,
+	}}
+	return &sdkpb.CreateLocationMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateCustomMessage(ctx context.Context, data, extension string, description string) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+func (c *Conversation) CreateCustomMessage(ctx context.Context, req *sdkpb.CreateCustomMessageReq) (*sdkpb.CreateCustomMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Custom)
 	if err != nil {
 		return nil, err
 	}
-	s.CustomElem = &sdk_struct.CustomElem{
-		Data:        data,
-		Extension:   extension,
-		Description: description,
-	}
-	return &s, nil
-
+	s.Content = &sdkpb.MsgStruct_CustomElem{CustomElem: &sdkpb.CustomElem{
+		Data:        req.Data,
+		Extension:   req.Extension,
+		Description: req.Description,
+	}}
+	return &sdkpb.CreateCustomMessageResp{Message: &s}, nil
 }
-func (c *Conversation) CreateQuoteMessage(ctx context.Context, text string, qs *sdk_struct.MsgStruct) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+
+func (c *Conversation) CreateQuoteMessage(ctx context.Context, req *sdkpb.CreateQuoteMessageReq) (*sdkpb.CreateQuoteMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Quote)
 	if err != nil {
 		return nil, err
 	}
 	//Avoid nested references
-	if qs.ContentType == constant.Quote {
-		qs.ContentType = constant.Text
-		qs.TextElem = &sdk_struct.TextElem{Content: qs.QuoteElem.Text}
+	if req.QuoteMessage.ContentType == constant.Quote {
+		req.QuoteMessage.ContentType = constant.Text
+		req.QuoteMessage.Content = &sdkpb.MsgStruct_TextElem{TextElem: &sdkpb.TextElem{
+			Content: req.QuoteMessage.Content.(*sdkpb.MsgStruct_QuoteElem).QuoteElem.Text,
+		}}
 	}
-	s.QuoteElem = &sdk_struct.QuoteElem{
-		Text:         text,
-		QuoteMessage: qs,
-	}
-	return &s, nil
-
+	s.Content = &sdkpb.MsgStruct_QuoteElem{QuoteElem: &sdkpb.QuoteElem{
+		Text:         req.Text,
+		QuoteMessage: req.QuoteMessage,
+	}}
+	return &sdkpb.CreateQuoteMessageResp{Message: &s}, nil
 }
-func (c *Conversation) CreateAdvancedQuoteMessage(ctx context.Context, text string, qs *sdk_struct.MsgStruct, messageEntities []*sdk_struct.MessageEntity) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+
+func (c *Conversation) CreateAdvancedQuoteMessage(ctx context.Context, req *sdkpb.CreateAdvancedQuoteMessageReq) (*sdkpb.CreateAdvancedQuoteMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Quote)
 	if err != nil {
 		return nil, err
 	}
 	//Avoid nested references
-	if qs.ContentType == constant.Quote {
-		//qs.Content = qs.QuoteElem.Text
-		qs.ContentType = constant.Text
-		qs.TextElem = &sdk_struct.TextElem{Content: qs.QuoteElem.Text}
+	if req.QuoteMessage.ContentType == constant.Quote {
+		req.QuoteMessage.ContentType = constant.Text
+		req.QuoteMessage.Content = &sdkpb.MsgStruct_TextElem{TextElem: &sdkpb.TextElem{
+			Content: req.QuoteMessage.Content.(*sdkpb.MsgStruct_QuoteElem).QuoteElem.Text,
+		}}
 	}
-	s.QuoteElem = &sdk_struct.QuoteElem{
-		Text:              text,
-		QuoteMessage:      qs,
-		MessageEntityList: messageEntities,
-	}
-	return &s, nil
+	s.Content = &sdkpb.MsgStruct_QuoteElem{QuoteElem: &sdkpb.QuoteElem{
+		Text:              req.Text,
+		QuoteMessage:      req.QuoteMessage,
+		MessageEntityList: req.MessageEntities,
+	}}
+	return &sdkpb.CreateAdvancedQuoteMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateCardMessage(ctx context.Context, card *sdk_struct.CardElem) (*sdk_struct.MsgStruct,
-	error) {
-	s := sdk_struct.MsgStruct{}
+func (c *Conversation) CreateCardMessage(ctx context.Context, req *sdkpb.CreateCardMessageReq) (*sdkpb.CreateCardMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Card)
 	if err != nil {
 		return nil, err
 	}
-	s.CardElem = card
-	return &s, nil
+	s.Content = &sdkpb.MsgStruct_CardElem{CardElem: req.Card}
+	return &sdkpb.CreateCardMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateImageMessage(ctx context.Context, imageSourcePath string, sourcePicture, bigPicture, snapshotPicture *sdk_struct.PictureBaseInfo) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+func (c *Conversation) CreateImageMessage(ctx context.Context, req *sdkpb.CreateImageMessageReq) (*sdkpb.CreateImageMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Picture)
 	if err != nil {
 		return nil, err
 	}
 
 	// Create by file path
-	if sourcePicture != nil || bigPicture != nil || snapshotPicture != nil {
-		dstFile := utils.FileTmpPath(imageSourcePath, c.DataDir) //a->b
-		_, err := utils.CopyFile(imageSourcePath, dstFile)
+	if req.SourcePicture != nil || req.BigPicture != nil || req.SnapshotPicture != nil {
+		dstFile := utils.FileTmpPath(req.ImageSourcePath, c.DataDir)
+		_, err := utils.CopyFile(req.ImageSourcePath, dstFile)
 		if err != nil {
-			//log.Error(operationID, "open file failed: ", err, imageFullPath)
 			return nil, err
 		}
 
-		imageInfo, err := getImageInfo(imageSourcePath)
+		imageInfo, err := getImageInfo(req.ImageSourcePath)
 		if err != nil {
-			//log.Error(operationID, "getImageInfo err:", err.Error())
 			return nil, err
 		}
 
-		s.PictureElem = &sdk_struct.PictureElem{
-			SourcePath: imageSourcePath,
-			SourcePicture: &sdk_struct.PictureBaseInfo{
+		s.Content = &sdkpb.MsgStruct_PictureElem{PictureElem: &sdkpb.PictureElem{
+			SourcePath: req.ImageSourcePath,
+			SourcePicture: &sdkpb.PictureBaseInfo{
 				Width:  imageInfo.Width,
 				Height: imageInfo.Height,
 				Type:   imageInfo.Type,
 			},
-		}
+		}}
 	} else { // Create by URL
-		s.PictureElem = &sdk_struct.PictureElem{
-			SourcePath:      imageSourcePath,
-			SourcePicture:   sourcePicture,
-			BigPicture:      bigPicture,
-			SnapshotPicture: snapshotPicture,
-		}
+		s.Content = &sdkpb.MsgStruct_PictureElem{PictureElem: &sdkpb.PictureElem{
+			SourcePath:      req.ImageSourcePath,
+			SourcePicture:   req.SourcePicture,
+			BigPicture:      req.BigPicture,
+			SnapshotPicture: req.SnapshotPicture,
+		}}
 	}
 
-	return &s, nil
+	return &sdkpb.CreateImageMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateSoundMessage(ctx context.Context, soundPath string, duration int64, soundElem *sdk_struct.SoundBaseInfo) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+func (c *Conversation) CreateSoundMessage(ctx context.Context, req *sdkpb.CreateSoundMessageReq) (*sdkpb.CreateSoundMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Sound)
 	if err != nil {
@@ -207,197 +196,200 @@ func (c *Conversation) CreateSoundMessage(ctx context.Context, soundPath string,
 	}
 
 	// Create by file path
-	if soundElem == nil {
-		dstFile := utils.FileTmpPath(soundPath, c.DataDir) //a->b
-		_, err := utils.CopyFile(soundPath, dstFile)
+	if req.SoundElem == nil {
+		dstFile := utils.FileTmpPath(req.SoundPath, c.DataDir)
+		_, err := utils.CopyFile(req.SoundPath, dstFile)
 		if err != nil {
-			//log.Error("internal", "open file failed: ", err, soundPath)
 			return nil, err
 		}
 
-		fi, err := os.Stat(soundPath)
+		fi, err := os.Stat(req.SoundPath)
 		if err != nil {
-			//log.Error("internal", "getSoundInfo err:", err.Error(), s.SoundElem.SoundPath)
 			return nil, err
 		}
 
-		s.SoundElem = &sdk_struct.SoundElem{
-			SoundPath: soundPath,
-			Duration:  duration,
+		s.Content = &sdkpb.MsgStruct_SoundElem{SoundElem: &sdkpb.SoundElem{
+			SoundPath: req.SoundPath,
+			Duration:  req.Duration,
 			DataSize:  fi.Size(),
 			SoundType: strings.Replace(filepath.Ext(fi.Name()), ".", "", 1),
-		}
+		}}
 	} else { // Create by URL
-		s.SoundElem = &sdk_struct.SoundElem{
-			UUID:      soundElem.UUID,
-			SoundPath: soundElem.SoundPath,
-			SourceURL: soundElem.SourceURL,
-			DataSize:  soundElem.DataSize,
-			Duration:  soundElem.Duration,
-			SoundType: soundElem.SoundType,
-		}
+		s.Content = &sdkpb.MsgStruct_SoundElem{SoundElem: &sdkpb.SoundElem{
+			Uuid:      req.SoundElem.Uuid,
+			SoundPath: req.SoundElem.SoundPath,
+			SourceURL: req.SoundElem.SourceURL,
+			DataSize:  req.SoundElem.DataSize,
+			Duration:  req.SoundElem.Duration,
+			SoundType: req.SoundElem.SoundType,
+		}}
 	}
-	return &s, nil
+	return &sdkpb.CreateSoundMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateVideoMessage(ctx context.Context, videoSourcePath string, videoType string, duration int64, snapshotSourcePath string, videoElem *sdk_struct.VideoBaseInfo) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+func (c *Conversation) CreateVideoMessage(ctx context.Context, req *sdkpb.CreateVideoMessageReq) (*sdkpb.CreateVideoMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Video)
 	if err != nil {
 		return nil, err
 	}
 
 	// Create by file path
-	if videoElem == nil {
-		dstFile := utils.FileTmpPath(videoSourcePath, c.DataDir) //a->b
-		written, err := utils.CopyFile(videoSourcePath, dstFile)
+	if req.VideoElem == nil {
+		dstFile := utils.FileTmpPath(req.VideoSourcePath, c.DataDir) //a->b
+		written, err := utils.CopyFile(req.VideoSourcePath, dstFile)
 		if err != nil {
 			//log.Error("internal", "open file failed: ", err, videoFullPath)
 			return nil, err
 		}
 
-		log.ZDebug(ctx, "videoFullPath dstFile", "videoFullPath", videoSourcePath,
+		log.ZDebug(ctx, "videoFullPath dstFile", "videoFullPath", req.VideoSourcePath,
 			"dstFile", dstFile, "written", written)
 
-		dstFile = utils.FileTmpPath(snapshotSourcePath, c.DataDir) //a->b
-		sWritten, err := utils.CopyFile(snapshotSourcePath, dstFile)
+		dstFile = utils.FileTmpPath(req.SnapshotSourcePath, c.DataDir) //a->b
+		sWritten, err := utils.CopyFile(req.SnapshotSourcePath, dstFile)
 		if err != nil {
 			//log.Error("internal", "open file failed: ", err, snapshotFullPath)
 			return nil, err
 		}
 
-		log.ZDebug(ctx, "snapshotFullPath dstFile", "snapshotFullPath", snapshotSourcePath,
+		log.ZDebug(ctx, "snapshotFullPath dstFile", "snapshotFullPath", req.SnapshotSourcePath,
 			"dstFile", dstFile, "sWritten", sWritten)
 
-		s.VideoElem = &sdk_struct.VideoElem{
-			VideoPath: videoSourcePath,
-			VideoType: videoType,
-			Duration:  duration,
+		elem := &sdkpb.VideoElem{
+			VideoPath: req.VideoSourcePath,
+			VideoType: req.VideoType,
+			Duration:  req.Duration,
 		}
+		s.Content = &sdkpb.MsgStruct_VideoElem{VideoElem: elem}
 
-		if snapshotSourcePath == "" {
-			s.VideoElem.SnapshotPath = ""
+		if req.SnapshotSourcePath == "" {
+			elem.SnapshotPath = ""
 		} else {
-			s.VideoElem.SnapshotPath = snapshotSourcePath
+			elem.SnapshotPath = req.SnapshotSourcePath
 		}
 
-		fi, err := os.Stat(s.VideoElem.VideoPath)
+		fi, err := os.Stat(elem.VideoPath)
 		if err != nil {
 			//log.Error("internal", "get file Attributes error", err.Error())
 			return nil, err
 		}
 
-		s.VideoElem.VideoSize = fi.Size()
-		if snapshotSourcePath != "" {
-			imageInfo, err := getImageInfo(s.VideoElem.SnapshotPath)
+		elem.VideoSize = fi.Size()
+		if req.SnapshotSourcePath != "" {
+			imageInfo, err := getImageInfo(elem.SnapshotPath)
 			if err != nil {
-				log.ZError(ctx, "getImageInfo err:", err, "snapshotFullPath", snapshotSourcePath)
+				log.ZError(ctx, "getImageInfo err:", err, "snapshotFullPath", req.SnapshotSourcePath)
 				return nil, err
 			}
 
-			s.VideoElem.SnapshotHeight = imageInfo.Height
-			s.VideoElem.SnapshotWidth = imageInfo.Width
-			s.VideoElem.SnapshotSize = imageInfo.Size
+			elem.SnapshotHeight = imageInfo.Height
+			elem.SnapshotWidth = imageInfo.Width
+			elem.SnapshotSize = imageInfo.Size
 		}
 	} else { // Create by URL
-		s.VideoElem = &sdk_struct.VideoElem{
-			VideoPath:      videoElem.VideoPath,
-			VideoUUID:      videoElem.VideoUUID,
-			VideoURL:       videoElem.VideoURL,
-			VideoType:      videoElem.VideoType,
-			VideoSize:      videoElem.VideoSize,
-			Duration:       videoElem.Duration,
-			SnapshotPath:   videoElem.SnapshotPath,
-			SnapshotUUID:   videoElem.SnapshotUUID,
-			SnapshotSize:   videoElem.SnapshotSize,
-			SnapshotURL:    videoElem.SnapshotURL,
-			SnapshotWidth:  videoElem.SnapshotWidth,
-			SnapshotHeight: videoElem.SnapshotHeight,
-			SnapshotType:   videoElem.SnapshotType,
-		}
+		s.Content = &sdkpb.MsgStruct_VideoElem{VideoElem: &sdkpb.VideoElem{
+			VideoPath:      req.VideoElem.VideoPath,
+			VideoUUID:      req.VideoElem.VideoUUID,
+			VideoURL:       req.VideoElem.VideoURL,
+			VideoType:      req.VideoElem.VideoType,
+			VideoSize:      req.VideoElem.VideoSize,
+			Duration:       req.VideoElem.Duration,
+			SnapshotPath:   req.VideoElem.SnapshotPath,
+			SnapshotUUID:   req.VideoElem.SnapshotUUID,
+			SnapshotSize:   req.VideoElem.SnapshotSize,
+			SnapshotURL:    req.VideoElem.SnapshotURL,
+			SnapshotWidth:  req.VideoElem.SnapshotWidth,
+			SnapshotHeight: req.VideoElem.SnapshotHeight,
+			SnapshotType:   req.VideoElem.SnapshotType,
+		}}
 	}
 
-	return &s, nil
+	return &sdkpb.CreateVideoMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateFileMessage(ctx context.Context, fileSourcePath string, fileName string, fileElem *sdk_struct.FileBaseInfo) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{}
+func (c *Conversation) CreateFileMessage(ctx context.Context, req *sdkpb.CreateFileMessageReq) (*sdkpb.CreateFileMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.File)
 	if err != nil {
 		return nil, err
 	}
 
 	// Create by file path
-	if fileElem == nil {
-		dstFile := utils.FileTmpPath(fileSourcePath, c.DataDir)
-		_, err := utils.CopyFile(fileSourcePath, dstFile)
+	if req.FileElem == nil {
+		dstFile := utils.FileTmpPath(req.FileSourcePath, c.DataDir)
+		_, err := utils.CopyFile(req.FileSourcePath, dstFile)
 		if err != nil {
 			//log.Error("internal", "open file failed: ", err.Error(), fileFullPath)
 			return nil, err
-
 		}
 
-		fi, err := os.Stat(fileSourcePath)
+		fi, err := os.Stat(req.FileSourcePath)
 		if err != nil {
 			//log.Error("internal", "get file Attributes error", err.Error())
 			return nil, err
 		}
 
-		s.FileElem = &sdk_struct.FileElem{
-			FilePath: fileSourcePath,
-			FileName: fileName,
+		s.Content = &sdkpb.MsgStruct_FileElem{FileElem: &sdkpb.FileElem{
+			FilePath: req.FileSourcePath,
+			FileName: req.FileName,
 			FileSize: fi.Size(),
-		}
+		}}
 	} else { // Create by URL
-		s.FileElem = &sdk_struct.FileElem{
-			FilePath:  fileElem.FilePath,
-			UUID:      fileElem.UUID,
-			SourceURL: fileElem.SourceURL,
-			FileName:  fileElem.FileName,
-			FileSize:  fileElem.FileSize,
-			FileType:  fileElem.FileType,
-		}
+		s.Content = &sdkpb.MsgStruct_FileElem{FileElem: &sdkpb.FileElem{
+			FilePath:  req.FileElem.FilePath,
+			Uuid:      req.FileElem.Uuid,
+			SourceURL: req.FileElem.SourceURL,
+			FileName:  req.FileElem.FileName,
+			FileSize:  req.FileElem.FileSize,
+			FileType:  req.FileElem.FileType,
+		}}
 	}
 
-	return &s, nil
+	return &sdkpb.CreateFileMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateMergerMessage(ctx context.Context, messages []*sdk_struct.MsgStruct, title string, summaries []string) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{MergeElem: &sdk_struct.MergeElem{}}
+func (c *Conversation) CreateMergerMessage(ctx context.Context, req *sdkpb.CreateMergerMessageReq) (*sdkpb.CreateMergerMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Merger)
 	if err != nil {
 		return nil, err
 	}
-	s.MergeElem.AbstractList = summaries
-	s.MergeElem.Title = title
-	s.MergeElem.MultiMessage = messages
-	s.Content = utils.StructToJsonString(s.MergeElem)
-	return &s, nil
+	elem := &sdkpb.MergeElem{
+		Title:        req.Title,
+		AbstractList: req.Summaries,
+		MultiMessage: req.Messages,
+	}
+	s.Content = &sdkpb.MsgStruct_MergeElem{MergeElem: elem}
+	return &sdkpb.CreateMergerMessageResp{Message: &s}, nil
 }
-func (c *Conversation) CreateFaceMessage(ctx context.Context, index int, data string) (*sdk_struct.MsgStruct, error) {
-	s := sdk_struct.MsgStruct{FaceElem: &sdk_struct.FaceElem{}}
+
+func (c *Conversation) CreateFaceMessage(ctx context.Context, req *sdkpb.CreateFaceMessageReq) (*sdkpb.CreateFaceMessageResp, error) {
+	s := sdkpb.MsgStruct{}
 	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Face)
 	if err != nil {
 		return nil, err
 	}
-	s.FaceElem.Data = data
-	s.FaceElem.Index = index
-	s.Content = utils.StructToJsonString(s.FaceElem)
-	return &s, nil
+	elem := &sdkpb.FaceElem{
+		Index: req.Index,
+		Data:  req.Data,
+	}
+	s.Content = &sdkpb.MsgStruct_FaceElem{FaceElem: elem}
+	return &sdkpb.CreateFaceMessageResp{Message: &s}, nil
 }
 
-func (c *Conversation) CreateForwardMessage(ctx context.Context, s *sdk_struct.MsgStruct) (*sdk_struct.MsgStruct, error) {
-	if s.Status != constant.MsgStatusSendSuccess {
+func (c *Conversation) CreateForwardMessage(ctx context.Context, req *sdkpb.CreateForwardMessageReq) (*sdkpb.CreateForwardMessageResp, error) {
+	if req.Message.Status != constant.MsgStatusSendSuccess {
 		log.ZError(ctx, "only send success message can be Forward",
 			errors.New("only send success message can be Forward"))
 		return nil, errors.New("only send success message can be Forward")
 	}
-	err := c.initBasicInfo(ctx, s, constant.UserMsgType, s.ContentType)
+	err := c.initBasicInfo(ctx, req.Message, constant.UserMsgType, req.Message.ContentType)
 	if err != nil {
 		return nil, err
 	}
-	//Forward message seq is set to 0
-	s.Seq = 0
-	s.Status = constant.MsgStatusSendSuccess
-	return s, nil
+	// Forward message seq is set to 0
+	req.Message.Seq = 0
+	req.Message.Status = constant.MsgStatusSendSuccess
+	return &sdkpb.CreateForwardMessageResp{Message: req.Message}, nil
 }

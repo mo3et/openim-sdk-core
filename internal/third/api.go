@@ -2,9 +2,9 @@ package third
 
 import (
 	"context"
-
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 
@@ -27,12 +27,17 @@ func (t *Third) SetAppBadge(ctx context.Context, appUnreadCount int32) error {
 	})
 }
 
-func (t *Third) UploadLogs(ctx context.Context, line int, ex string, progress Progress) (err error) {
-	return t.uploadLogs(ctx, line, ex, progress)
+func (t *Third) UploadLogs(ctx context.Context, req *sdkpb.UploadLogsReq, callback open_im_sdk_callback.UploadLogsCallback) (*sdkpb.UploadLogsResp, error) {
+	err := t.uploadLogs(ctx, int(req.Line), req.Ex, callback)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.UploadLogsResp{}, nil
 }
 
-func (t *Third) Log(ctx context.Context, logLevel int, file string, line int, msg, err string, keysAndValues []any) {
-	t.printLog(ctx, logLevel, file, line, msg, err, keysAndValues)
+func (t *Third) Log(ctx context.Context, req *sdkpb.LogReq) (*sdkpb.LogResp, error) {
+	t.printLog(ctx, int(req.LogLevel), req.File, int(req.Line), req.Msg, req.Err, req.KeysAndValues)
+	return &sdkpb.LogResp{}, nil
 }
 
 func (t *Third) UploadFile(ctx context.Context, req *file.UploadFileReq, callback open_im_sdk_callback.UploadFileCallback) (*file.UploadFileResp, error) {
