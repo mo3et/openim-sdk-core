@@ -30,9 +30,9 @@ import (
 )
 
 type CallbackData struct {
-	ErrCode int32       `json:"errCode"`
-	ErrMsg  string      `json:"errMsg"`
-	Data    interface{} `json:"data"`
+	ErrCode int32  `json:"errCode"`
+	ErrMsg  string `json:"errMsg"`
+	Data    any    `json:"data"`
 }
 
 const TIMEOUT = 5
@@ -44,7 +44,7 @@ var PrimaryKeyNull = errors.New("primary key is null err")
 var ErrTimoutFromJavaScript = errors.New("invoke javascript timeout, maybe should check  function from javascript")
 var jsErr = js.Global().Get("Error")
 
-func Exec(args ...interface{}) (output interface{}, err error) {
+func Exec(args ...any) (output any, err error) {
 	ctx := context.Background()
 	defer func() {
 		if r := recover(); r != nil {
@@ -65,7 +65,7 @@ func Exec(args ...interface{}) (output interface{}, err error) {
 	pc, _, _, _ := runtime.Caller(1)
 	funcName := utils.CleanUpfuncName(runtime.FuncForPC(pc).Name())
 	data := CallbackData{}
-	thenFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	thenFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
 		defer func() {
 			if r := recover(); r != nil {
 				switch x := r.(type) {
@@ -84,7 +84,7 @@ func Exec(args ...interface{}) (output interface{}, err error) {
 		return nil
 	})
 	defer thenFunc.Release()
-	catchFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	catchFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
 		defer func() {
 			if r := recover(); r != nil {
 				switch x := r.(type) {

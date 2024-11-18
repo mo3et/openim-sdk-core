@@ -26,7 +26,7 @@ type SendMsg struct {
 	SenderNickname   string                 `json:"senderNickname"`
 	SenderFaceURL    string                 `json:"senderFaceURL"`
 	SenderPlatformID int32                  `json:"senderPlatformID"`
-	Content          map[string]interface{} `json:"content"          binding:"required"                                            swaggerignore:"true"`
+	Content          map[string]any         `json:"content"          binding:"required"                                            swaggerignore:"true"`
 	ContentType      int32                  `json:"contentType"      binding:"required"`
 	SessionType      int32                  `json:"sessionType"      binding:"required"`
 	IsOnlineOnly     bool                   `json:"isOnlineOnly"`
@@ -44,7 +44,7 @@ func (a *ApiMsgSender) SendMsg(sendID, recvID string, index int) error {
 			SenderPlatformID: constant.WindowsPlatformID,
 			ContentType:      constant.Text,
 			SessionType:      constant.SingleChatType,
-			Content:          map[string]interface{}{"content": utils.StructToJsonString(text)},
+			Content:          map[string]any{"content": utils.StructToJsonString(text)},
 		},
 	}
 	var resp msg.SendMsgResp

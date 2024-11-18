@@ -45,7 +45,7 @@ func (c *Cache[K, V]) Delete(key K) {
 
 // DeleteAll deletes all values.
 func (c *Cache[K, V]) DeleteAll() {
-	c.m.Range(func(key, value interface{}) bool {
+	c.m.Range(func(key, value any) bool {
 		c.m.Delete(key)
 		return true
 	})
@@ -53,7 +53,7 @@ func (c *Cache[K, V]) DeleteAll() {
 
 // RangeAll returns all values in the map.
 func (c *Cache[K, V]) RangeAll() (values []V) {
-	c.m.Range(func(rawKey, rawValue interface{}) bool {
+	c.m.Range(func(rawKey, rawValue any) bool {
 		values = append(values, rawValue.(V))
 		return true
 	})
@@ -62,7 +62,7 @@ func (c *Cache[K, V]) RangeAll() (values []V) {
 
 // RangeCon returns values in the map that satisfy condition f.
 func (c *Cache[K, V]) RangeCon(f func(key K, value V) bool) (values []V) {
-	c.m.Range(func(rawKey, rawValue interface{}) bool {
+	c.m.Range(func(rawKey, rawValue any) bool {
 		if f(rawKey.(K), rawValue.(V)) {
 			values = append(values, rawValue.(V))
 		}

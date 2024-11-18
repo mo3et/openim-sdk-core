@@ -135,7 +135,7 @@ func (c *Conversation) initSyncer() {
 		}),
 		syncer.WithUpdate[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string](func(ctx context.Context, serverConversation, localConversation *model_struct.LocalConversation) error {
 			return c.db.UpdateColumnsConversation(ctx, serverConversation.ConversationID,
-				map[string]interface{}{"recv_msg_opt": serverConversation.RecvMsgOpt,
+				map[string]any{"recv_msg_opt": serverConversation.RecvMsgOpt,
 					"is_pinned": serverConversation.IsPinned, "is_private_chat": serverConversation.IsPrivateChat, "burn_duration": serverConversation.BurnDuration,
 					"is_not_in_group": serverConversation.IsNotInGroup, "group_at_type": serverConversation.GroupAtType,
 					"update_unread_count_time": serverConversation.UpdateUnreadCountTime,

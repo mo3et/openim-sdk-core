@@ -63,7 +63,7 @@ type MessageModel interface {
 	SearchMessageByContentTypeAndKeyword(ctx context.Context, contentType []int, conversationID string, senderUserIDList []string, keywordList []string, keywordListMatchType int, startTime, endTime int64) (result []*model_struct.LocalChatLog, err error)
 	GetMessage(ctx context.Context, conversationID, clientMsgID string) (*model_struct.LocalChatLog, error)
 	GetMessageBySeq(ctx context.Context, conversationID string, seq int64) (*model_struct.LocalChatLog, error)
-	UpdateColumnsMessage(ctx context.Context, conversationID string, ClientMsgID string, args map[string]interface{}) error
+	UpdateColumnsMessage(ctx context.Context, conversationID string, ClientMsgID string, args map[string]any) error
 	UpdateMessage(ctx context.Context, conversationID string, c *model_struct.LocalChatLog) error
 	UpdateMessageBySeq(ctx context.Context, conversationID string, c *model_struct.LocalChatLog) error
 	UpdateMessageTimeAndStatus(ctx context.Context, conversationID, clientMsgID string, serverMsgID string, sendTime int64, status int32) error
@@ -122,7 +122,7 @@ type ConversationModel interface {
 	SetConversationDraftDB(ctx context.Context, conversationID, draftText string) error
 	RemoveConversationDraft(ctx context.Context, conversationID, draftText string) error
 	UnPinConversation(ctx context.Context, conversationID string, isPinned int) error
-	UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]interface{}) error
+	UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]any) error
 	UpdateAllConversation(ctx context.Context, conversation *model_struct.LocalConversation) error
 	IncrConversationUnreadCount(ctx context.Context, conversationID string) error
 	DecrConversationUnreadCount(ctx context.Context, conversationID string, count int64) (err error)
@@ -136,7 +136,7 @@ type ConversationModel interface {
 type UserModel interface {
 	GetLoginUser(ctx context.Context, userID string) (*model_struct.LocalUser, error)
 	UpdateLoginUser(ctx context.Context, user *model_struct.LocalUser) error
-	UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]interface{}) error
+	UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]any) error
 	InsertLoginUser(ctx context.Context, user *model_struct.LocalUser) error
 	ProcessUserCommandAdd(ctx context.Context, command *model_struct.LocalUserCommand) error
 	ProcessUserCommandUpdate(ctx context.Context, command *model_struct.LocalUserCommand) error
@@ -164,7 +164,7 @@ type FriendModel interface {
 	GetSendFriendApplication(ctx context.Context) ([]*model_struct.LocalFriendRequest, error)
 	GetFriendApplicationByBothID(ctx context.Context, fromUserID, toUserID string) (*model_struct.LocalFriendRequest, error)
 	GetBothFriendReq(ctx context.Context, fromUserID, toUserID string) ([]*model_struct.LocalFriendRequest, error)
-	UpdateColumnsFriend(ctx context.Context, friendIDs []string, args map[string]interface{}) error
+	UpdateColumnsFriend(ctx context.Context, friendIDs []string, args map[string]any) error
 
 	GetBlackListDB(ctx context.Context) ([]*model_struct.LocalBlack, error)
 	GetBlackListUserID(ctx context.Context) (blackListUid []string, err error)

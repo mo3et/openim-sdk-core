@@ -46,7 +46,7 @@ func isNumeric(kind reflect.Kind) bool {
 	}
 }
 
-func setNumeric(in interface{}, out interface{}) {
+func setNumeric(in any, out any) {
 	inValue := reflect.ValueOf(in)
 	outValue := reflect.ValueOf(out)
 	outElem := outValue.Elem()

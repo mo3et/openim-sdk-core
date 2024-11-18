@@ -37,7 +37,7 @@ func newHttpClient() *http.Client {
 	return &http.Client{Timeout: 30 * time.Second}
 }
 
-func PostWithTimeOut(url string, data interface{}, token string, timeout time.Duration) (content []byte, err error) {
+func PostWithTimeOut(url string, data any, token string, timeout time.Duration) (content []byte, err error) {
 	return Post(url).BodyWithJson(data).SetTimeOut(timeout).SetHeader("token", token).ToBytes()
 }
 
@@ -69,7 +69,7 @@ func (c *HttpCli) SetHeader(key, value string) *HttpCli {
 	return c
 }
 
-func (c *HttpCli) BodyWithJson(obj interface{}) *HttpCli {
+func (c *HttpCli) BodyWithJson(obj any) *HttpCli {
 	if c.Error != nil {
 		return c
 	}
@@ -140,7 +140,7 @@ func (c *HttpCli) ToBytes() (content []byte, err error) {
 	return buf, nil
 }
 
-func (c *HttpCli) ToJson(obj interface{}) error {
+func (c *HttpCli) ToJson(obj any) error {
 	if c.Error != nil {
 		return c.Error
 	}

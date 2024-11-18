@@ -133,7 +133,7 @@ func (i *LocalConversations) GetAllConversations(ctx context.Context) (result []
 		}
 	}
 }
-func (i *LocalConversations) UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]interface{}) error {
+func (i *LocalConversations) UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]any) error {
 	_, err := exec.Exec(conversationID, utils.StructToJsonString(args))
 	return err
 }
