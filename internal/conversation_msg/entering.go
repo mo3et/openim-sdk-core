@@ -42,7 +42,7 @@ func newTyping(c *Conversation) *typing {
 		e.platformIDs = append(e.platformIDs, int32(id))
 	}
 	datautil.Sort(e.platformIDs, true)
-	e.state.OnEvicted(func(key string, val interface{}) {
+	e.state.OnEvicted(func(key string, val any) {
 		var data inputStatesKey
 		if err := json.Unmarshal([]byte(key), &data); err != nil {
 			return

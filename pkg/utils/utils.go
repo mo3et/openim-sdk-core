@@ -59,7 +59,7 @@ func GetCurrentTimestampByNano() int64 {
 	return time.Now().UnixNano()
 }
 
-func StructToJsonString(param interface{}) string {
+func StructToJsonString(param any) string {
 	dataType, err := json.Marshal(param)
 	if err != nil {
 		panic(err)
@@ -68,7 +68,7 @@ func StructToJsonString(param interface{}) string {
 	return dataString
 }
 
-func StructToJsonStringDefault(param interface{}) string {
+func StructToJsonStringDefault(param any) string {
 	if reflect.TypeOf(param).Kind() == reflect.Slice && reflect.ValueOf(param).Len() == 0 {
 		return "[]"
 	}
@@ -76,7 +76,7 @@ func StructToJsonStringDefault(param interface{}) string {
 }
 
 // The incoming parameter must be a pointer
-func JsonStringToStruct(s string, args interface{}) error {
+func JsonStringToStruct(s string, args any) error {
 	return Wrap(json.Unmarshal([]byte(s), args), "json Unmarshal failed")
 }
 func FirstLower(s string) string {
@@ -266,7 +266,7 @@ func TimeToString(t time.Time) string {
 	return t.Format("2006-01-02")
 }
 
-func UnmarshalNotificationElem(bytes []byte, t interface{}) error {
+func UnmarshalNotificationElem(bytes []byte, t any) error {
 	var n sdk_struct.NotificationElem
 	err := JsonStringToStruct(string(bytes), &n)
 	if err != nil {

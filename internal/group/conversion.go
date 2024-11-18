@@ -157,8 +157,8 @@ func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *sdkpb.GroupMemberI
 	}
 }
 
-func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.GroupRequest {
-	return &sdkpb.GroupRequest{
+func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.GroupRequestInfo {
+	return &sdkpb.GroupRequestInfo{
 		GroupID:       info.GroupID,
 		GroupName:     info.GroupName,
 		Notification:  info.Notification,
@@ -186,6 +186,6 @@ func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.GroupReque
 	}
 }
 
-func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *sdkpb.GroupRequest {
+func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *sdkpb.GroupRequestInfo {
 	return DBGroupRequestToSdk(&info.LocalGroupRequest)
 }

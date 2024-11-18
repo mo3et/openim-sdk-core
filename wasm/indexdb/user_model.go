@@ -69,7 +69,7 @@ func (l *LocalUsers) UpdateLoginUser(ctx context.Context, user *model_struct.Loc
 	return err
 
 }
-func (l *LocalUsers) UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]interface{}) error {
+func (l *LocalUsers) UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]any) error {
 	if v, ok := args["birth_time"]; ok {
 		if t, ok := v.(time.Time); ok {
 			args["birth_time"] = utils.TimeToString(t)

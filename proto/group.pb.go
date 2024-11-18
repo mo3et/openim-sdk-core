@@ -3639,8 +3639,6 @@ func (x *JoinGroupApplicationTips) GetReqMsg() string {
 	return ""
 }
 
-//	OnQuitGroup()
-//
 // Actively leave the group
 type MemberQuitTips struct {
 	state         protoimpl.MessageState

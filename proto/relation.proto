@@ -153,7 +153,6 @@ message UpdatesFriendsReq {
 }
 message UpdatesFriendsResp {}
 
-
 message FriendApplication {
   int64 addTime = 1;
   string addSource = 2;

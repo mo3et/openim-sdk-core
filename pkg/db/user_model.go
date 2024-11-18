@@ -50,7 +50,7 @@ func (d *DataBase) UpdateLoginUser(ctx context.Context, user *model_struct.Local
 	}
 	return errs.WrapMsg(t.Error, "UpdateLoginUser failed")
 }
-func (d *DataBase) UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]interface{}) error {
+func (d *DataBase) UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]any) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
 	t := d.conn.WithContext(ctx).Model(&user).Updates(args)

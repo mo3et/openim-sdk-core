@@ -33,11 +33,11 @@ type WrapperThird struct {
 func NewWrapperThird(wrapperCommon *WrapperCommon) *WrapperThird {
 	return &WrapperThird{WrapperCommon: wrapperCommon}
 }
-func (w *WrapperThird) UpdateFcmToken(_ js.Value, args []js.Value) interface{} {
+func (w *WrapperThird) UpdateFcmToken(_ js.Value, args []js.Value) any {
 	callback := event_listener.NewBaseCallback(utils.FirstLower(utils.GetSelfFuncName()), w.commonFunc)
 	return event_listener.NewCaller(open_im_sdk.UpdateFcmToken, callback, &args).AsyncCallWithCallback()
 }
-func (w *WrapperThird) UploadFile(_ js.Value, args []js.Value) interface{} {
+func (w *WrapperThird) UploadFile(_ js.Value, args []js.Value) any {
 	callback := event_listener.NewUploadFileCallback(utils.FirstLower(utils.GetSelfFuncName()), w.commonFunc).SetUuid(&args)
 	return event_listener.NewCaller(UploadFile, callback, &args).AsyncCallWithCallback()
 }

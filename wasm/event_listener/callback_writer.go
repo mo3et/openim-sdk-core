@@ -25,24 +25,24 @@ import (
 type CallbackWriter interface {
 	SendMessage()
 	SetEvent(event string) CallbackWriter
-	SetData(data interface{}) CallbackWriter
+	SetData(data any) CallbackWriter
 	SetErrCode(errCode int32) CallbackWriter
 	SetOperationID(operationID string) CallbackWriter
 	SetErrMsg(errMsg string) CallbackWriter
 	GetOperationID() string
-	HandlerFunc(fn FuncLogic) interface{}
+	HandlerFunc(fn FuncLogic) any
 }
 
 type EventData struct {
-	Event       string      `json:"event"`
-	ErrCode     int32       `json:"errCode"`
-	ErrMsg      string      `json:"errMsg"`
-	Data        interface{} `json:"data,omitempty"`
-	OperationID string      `json:"operationID"`
+	Event       string `json:"event"`
+	ErrCode     int32  `json:"errCode"`
+	ErrMsg      string `json:"errMsg"`
+	Data        any    `json:"data,omitempty"`
+	OperationID string `json:"operationID"`
 	callback    *js.Value
 }
 
-func (e *EventData) HandlerFunc(fn FuncLogic) interface{} {
+func (e *EventData) HandlerFunc(fn FuncLogic) any {
 	panic("implement me")
 }
 
@@ -61,7 +61,7 @@ func (e *EventData) SetEvent(event string) CallbackWriter {
 	return e
 }
 
-func (e *EventData) SetData(data interface{}) CallbackWriter {
+func (e *EventData) SetData(data any) CallbackWriter {
 	e.Data = data
 	return e
 }
@@ -84,11 +84,11 @@ var (
 )
 
 type PromiseHandler struct {
-	Event       string      `json:"event"`
-	ErrCode     int32       `json:"errCode"`
-	ErrMsg      string      `json:"errMsg"`
-	Data        interface{} `json:"data,omitempty"`
-	OperationID string      `json:"operationID"`
+	Event       string `json:"event"`
+	ErrCode     int32  `json:"errCode"`
+	ErrMsg      string `json:"errMsg"`
+	Data        any    `json:"data,omitempty"`
+	OperationID string `json:"operationID"`
 	resolve     *js.Value
 	reject      *js.Value
 }
@@ -96,8 +96,8 @@ type PromiseHandler struct {
 func NewPromiseHandler() *PromiseHandler {
 	return &PromiseHandler{}
 }
-func (p *PromiseHandler) HandlerFunc(fn FuncLogic) interface{} {
-	handler := js.FuncOf(func(_ js.Value, promFn []js.Value) interface{} {
+func (p *PromiseHandler) HandlerFunc(fn FuncLogic) any {
+	handler := js.FuncOf(func(_ js.Value, promFn []js.Value) any {
 		p.resolve, p.reject = &promFn[0], &promFn[1]
 		fn()
 		return nil
@@ -114,7 +114,7 @@ func (p *PromiseHandler) SendMessage() {
 		p.resolve.Invoke(p.Data)
 	} else {
 		//p.reject.Invoke(jsErr.New(fmt.Sprintf("erCode:%d,errMsg:%s,operationID:%s", p.ErrCode, p.ErrMsg, p.OperationID)))
-		errInfo := make(map[string]interface{})
+		errInfo := make(map[string]any)
 		errInfo["errCode"] = p.ErrCode
 		errInfo["errMsg"] = p.ErrMsg
 		errInfo["operationID"] = p.OperationID
@@ -126,7 +126,7 @@ func (p *PromiseHandler) SetEvent(event string) CallbackWriter {
 	return p
 }
 
-func (p *PromiseHandler) SetData(data interface{}) CallbackWriter {
+func (p *PromiseHandler) SetData(data any) CallbackWriter {
 	p.Data = data
 	return p
 }

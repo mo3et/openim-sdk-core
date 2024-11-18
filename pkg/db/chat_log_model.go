@@ -214,7 +214,7 @@ func (d *DataBase) SearchMessageByContentType(ctx context.Context, contentType [
 	defer d.mRWMutex.RUnlock()
 
 	var condition strings.Builder
-	var args []interface{}
+	var args []any
 
 	condition.WriteString("send_time between ? AND ? AND status <= ? AND content_type IN (?) ")
 	args = append(args, startTime, endTime, constant.MsgStatusSendFailed, contentType)
@@ -234,7 +234,7 @@ func (d *DataBase) SearchMessageByKeyword(ctx context.Context, contentType []int
 
 	var condition strings.Builder
 	var subCondition strings.Builder
-	var args []interface{}
+	var args []any
 
 	condition.WriteString(" send_time between ? AND ? AND status <= ? AND content_type IN (?)")
 	args = append(args, startTime, endTime, constant.MsgStatusSendFailed, contentType)
@@ -285,7 +285,7 @@ func (d *DataBase) SearchMessageByContentTypeAndKeyword(ctx context.Context, con
 
 	var condition strings.Builder
 	var subCondition strings.Builder
-	var args []interface{}
+	var args []any
 
 	// Construct the main SQL condition string
 	condition.WriteString(" send_time between ? AND ? AND status <= ? AND content_type IN (?)")
@@ -336,7 +336,7 @@ func (d *DataBase) UpdateMsgSenderFaceURLAndSenderNickname(ctx context.Context, 
 	defer d.mRWMutex.Unlock()
 	return errs.WrapMsg(d.conn.WithContext(ctx).Table(utils.GetTableName(conversationID)).Model(model_struct.LocalChatLog{}).Where(
 		"send_id = ?", sendID).Updates(
-		map[string]interface{}{"sender_face_url": faceURL, "sender_nick_name": nickname}).Error, utils.GetSelfFuncName()+" failed")
+		map[string]any{"sender_face_url": faceURL, "sender_nick_name": nickname}).Error, utils.GetSelfFuncName()+" failed")
 }
 
 func (d *DataBase) GetAlreadyExistSeqList(ctx context.Context, conversationID string, lostSeqList []int64) (seqList []int64, err error) {
@@ -349,7 +349,7 @@ func (d *DataBase) GetAlreadyExistSeqList(ctx context.Context, conversationID st
 	return seqList, nil
 }
 
-func (d *DataBase) UpdateColumnsMessage(ctx context.Context, conversationID, ClientMsgID string, args map[string]interface{}) error {
+func (d *DataBase) UpdateColumnsMessage(ctx context.Context, conversationID, ClientMsgID string, args map[string]any) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
 	c := model_struct.LocalChatLog{ClientMsgID: ClientMsgID}
@@ -469,7 +469,7 @@ func (d *DataBase) UpdateMsgSenderFaceURL(ctx context.Context, sendID, faceURL s
 	defer d.mRWMutex.Unlock()
 	return errs.WrapMsg(d.conn.WithContext(ctx).Model(model_struct.LocalChatLog{}).Where(
 		"send_id = ? and session_type = ? and sender_face_url != ? ", sendID, sType, faceURL).Updates(
-		map[string]interface{}{"sender_face_url": faceURL}).Error, utils.GetSelfFuncName()+" failed")
+		map[string]any{"sender_face_url": faceURL}).Error, utils.GetSelfFuncName()+" failed")
 }
 
 func (d *DataBase) GetLatestActiveMessage(ctx context.Context, conversationID string, isReverse bool) (result []*model_struct.LocalChatLog, err error) {

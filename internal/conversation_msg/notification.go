@@ -207,7 +207,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		oc, err := c.db.GetConversation(ctx, lc.ConversationID)
 		if err == nil {
 			if lc.LatestMsgSendTime >= oc.LatestMsgSendTime || c.getConversationLatestMsgClientID(lc.LatestMsg) == c.getConversationLatestMsgClientID(oc.LatestMsg) { // The session update of asynchronous messages is subject to the latest sending time
-				err := c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]interface{}{"latest_msg_send_time": lc.LatestMsgSendTime, "latest_msg": lc.LatestMsg})
+				err := c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]any{"latest_msg_send_time": lc.LatestMsgSendTime, "latest_msg": lc.LatestMsg})
 				if err != nil {
 					log.ZError(ctx, "updateConversationLatestMsgModel", err, "conversationID", node.ConID)
 				} else {
@@ -284,7 +284,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 			} else {
 				latestMsg.IsRead = true
 				newLatestMessage := utils.StructToJsonString(latestMsg)
-				err = c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]interface{}{"latest_msg_send_time": latestMsg.SendTime, "latest_msg": newLatestMessage})
+				err = c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]any{"latest_msg_send_time": latestMsg.SendTime, "latest_msg": newLatestMessage})
 				if err != nil {
 					log.ZError(ctx, "updateConversationLatestMsgModel err", err)
 				}
@@ -313,7 +313,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 					latestMsg.SenderNickname = args.Nickname
 					newLatestMessage := utils.StructToJsonString(latestMsg)
 					lc.LatestMsg = newLatestMessage
-					err = c.db.UpdateColumnsConversation(ctx, conversationID, map[string]interface{}{"latest_msg": newLatestMessage})
+					err = c.db.UpdateColumnsConversation(ctx, conversationID, map[string]any{"latest_msg": newLatestMessage})
 					if err != nil {
 						log.ZError(ctx, "updateConversationLatestMsgModel err", err)
 					} else {

@@ -965,7 +965,7 @@ func (c *Conversation) SearchLocalMessages(ctx context.Context, req *sdkpb.Searc
 }
 
 func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMessageLocalExReq) (*sdkpb.SetMessageLocalExResp, error) {
-	err := c.db.UpdateColumnsMessage(ctx, req.ConversationID, req.ClientMsgID, map[string]interface{}{"local_ex": req.LocalEx})
+	err := c.db.UpdateColumnsMessage(ctx, req.ConversationID, req.ClientMsgID, map[string]any{"local_ex": req.LocalEx})
 	if err != nil {
 		return nil, err
 	}
@@ -979,7 +979,7 @@ func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMess
 		log.ZDebug(ctx, "latestMsg local ex changed", "seq", latestMsg.Seq, "clientMsgID", latestMsg.ClientMsgID)
 		latestMsg.LocalEx = req.LocalEx
 		latestMsgStr := utils.StructToJsonString(latestMsg)
-		if err = c.db.UpdateColumnsConversation(ctx, req.ConversationID, map[string]interface{}{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsg.SendTime}); err != nil {
+		if err = c.db.UpdateColumnsConversation(ctx, req.ConversationID, map[string]any{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsg.SendTime}); err != nil {
 			return nil, err
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{req.ConversationID}}})
