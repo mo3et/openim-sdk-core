@@ -32,8 +32,6 @@ import (
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/sdkws"
-
-	"github.com/jinzhu/copier"
 )
 
 var (
@@ -186,7 +184,7 @@ func (c *Conversation) GetTotalUnreadMsgCount(ctx context.Context, req *sdkpb.Ge
 
 func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) *model_struct.LocalErrChatLog {
 	var lc model_struct.LocalErrChatLog
-	copier.Copy(&lc, src)
+	//copier.Copy(&lc, src)
 	return &lc
 
 }

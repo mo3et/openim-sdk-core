@@ -178,6 +178,7 @@ message EventOnSendMsgProgressData{
 message EventOnUploadFileProgressData{
   int32 progress = 1;
 }
+
 message EventOnUploadLogsProgressData{
   int64 progress = 1;
   int64 total = 2;
@@ -216,7 +217,9 @@ message EventOnTotalUnreadMessageCountChangedData {
   int32 totalUnreadCount = 1;
 };
 message EventOnConversationUserInputStatusChangedData {
-  string change = 1;
+  string conversationID  = 1;
+  string userID   = 2;
+  repeated int32 platformIDs = 3;
 };
 message EventOnRecvNewMessageData {
   openim.sdk.msg.IMMessage message = 1;
