@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"io"
 	"math/rand"
 	"os"
@@ -27,7 +28,7 @@ const (
 	buffer = 10 * 1024 * 1024
 )
 
-func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress Progress) (err error) {
+func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress open_im_sdk_callback.UploadLogsCallback) (err error) {
 	if t.logUploadLock.TryLock() {
 		defer t.logUploadLock.Unlock()
 	} else {

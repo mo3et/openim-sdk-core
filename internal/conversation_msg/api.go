@@ -647,7 +647,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.IMMessage
 }
 
 func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessage, lc *model_struct.LocalConversation,
-	delFiles []string, offlinePushInfo *sdkpb.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
+	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 		utils.SetSwitchFromOptions(options, constant.IsPersistent, false)

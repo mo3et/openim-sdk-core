@@ -3,6 +3,7 @@ package openim.sdk.message;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
+//import "google/protobuf/any.proto";
 import "common.proto";
 
 message MessageReceipt {
@@ -372,3 +373,150 @@ message InsertGroupMessageToLocalStorageReq {
 message InsertGroupMessageToLocalStorageResp {
   IMMessage msg = 1;
 }
+
+message CreateTextMessageReq {
+  string text = 1;
+}
+message CreateTextMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateAdvancedTextMessageReq {
+  string text = 1;
+  repeated MessageEntity messageEntities = 2;
+}
+message CreateAdvancedTextMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateTextAtMessageReq {
+  string text = 1;
+  repeated string userIDList = 2;
+  repeated AtInfo usersInfo = 3;
+  IMMessage quoteMessage = 4;
+}
+message CreateTextAtMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateLocationMessageReq {
+  string description = 1;
+  double longitude = 2;
+  double latitude = 3;
+}
+message CreateLocationMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateCustomMessageReq {
+  string data = 1;
+  string extension = 2;
+  string description = 3;
+}
+message CreateCustomMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateQuoteMessageReq {
+  string text = 1;
+  IMMessage quoteMessage = 2;
+}
+message CreateQuoteMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateAdvancedQuoteMessageReq {
+  string text = 1;
+  IMMessage quoteMessage = 2;
+  repeated MessageEntity messageEntities = 3;
+}
+message CreateAdvancedQuoteMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateCardMessageReq {
+  CardElem card = 1;
+}
+message CreateCardMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateImageMessageReq {
+  string imageSourcePath = 1;
+  PictureBaseInfo sourcePicture = 2;
+  PictureBaseInfo bigPicture = 3;
+  PictureBaseInfo snapshotPicture = 4;
+}
+message CreateImageMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateSoundMessageReq {
+  string soundPath = 1;
+  int64 duration = 2;
+  SoundBaseInfo soundElem = 3;
+}
+message CreateSoundMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateVideoMessageReq {
+  string videoSourcePath = 1;
+  string videoType = 2;
+  int64 duration = 3;
+  string snapshotSourcePath = 4;
+  VideoBaseInfo videoElem = 5;
+}
+message CreateVideoMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateFileMessageReq {
+  string fileSourcePath = 1;
+  string fileName = 2;
+  FileBaseInfo fileElem = 3;
+}
+message CreateFileMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateMergerMessageReq {
+  repeated IMMessage messages = 1;
+  string title = 2;
+  repeated string summaries = 3;
+}
+message CreateMergerMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateFaceMessageReq {
+  int32 index = 1;
+  string data = 2;
+}
+message CreateFaceMessageResp {
+  IMMessage message = 1;
+}
+
+message CreateForwardMessageReq {
+  IMMessage message = 1;
+}
+message CreateForwardMessageResp {
+  IMMessage message = 1;
+}
+
+message UploadLogsReq {
+  int32 line = 1;
+  string ex = 2;
+}
+message UploadLogsResp {}
+
+message LogReq {
+  int32 logLevel = 1;
+  string file = 2;
+  int32 line = 3;
+  string msg = 4;
+  string err = 5;
+//  repeated google.protobuf.Any keysAndValues = 6;
+}
+message LogResp {}
+
