@@ -3,7 +3,7 @@ package openim.sdk.message;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
-import "google/protobuf/any.proto";
+//import "google/protobuf/any.proto";
 import "common.proto";
 
 message MessageReceipt {
@@ -516,7 +516,7 @@ message LogReq {
   int32 line = 3;
   string msg = 4;
   string err = 5;
-  repeated google.protobuf.Any keysAndValues = 6;
+//  repeated google.protobuf.Any keysAndValues = 6;
 }
 message LogResp {}
 
