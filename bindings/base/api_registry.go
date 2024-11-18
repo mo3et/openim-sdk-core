@@ -66,7 +66,7 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 
 type callbackFunc func(handleID uint64) any
 
-// wrapCallbackConstructor is a helper function to wrap callback constructors for use in cbMap.
+// wrapCallbackConstructor is a helper function to wrap callback constructors for use in callbackRegistry.
 // It ensures that all callbacks adhere to the callbackFunc signature.
 func wrapCallbackConstructor[T any](fn func(handleID uint64) T) callbackFunc {
 	return func(handleID uint64) any {

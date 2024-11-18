@@ -29,6 +29,10 @@ type UploadFileCallback interface {
 	OnUploadFileProgress(*pb.EventOnUploadFileProgressData)
 }
 
+type UploadLogsCallback interface {
+	OnUploadLogsProgress(*pb.EventEventOnUploadLogsProgressData)
+}
+
 type OnConnListener interface {
 	OnConnecting(*pb.EventOnConnectingData)
 	OnConnectSuccess(data *pb.EventOnConnectSuccessData)
