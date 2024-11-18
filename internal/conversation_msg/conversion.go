@@ -2,13 +2,12 @@ package conversation_msg
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
-	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/stringutil"
 
@@ -116,6 +115,42 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 	return message
 }
 
+//func IMMessageToLocalChatLog(message *sdkpb.IMMessage) *model_struct.LocalChatLog {
+//	localMessage := &model_struct.LocalChatLog{
+//		ClientMsgID:      message.ClientMsgID,
+//		ServerMsgID:      message.ServerMsgID,
+//		SendID:           message.SendID,
+//		RecvID:           message.RecvID,
+//		SenderPlatformID: int32(message.SenderPlatformID),
+//		SenderNickname:   message.SenderNickname,
+//		SenderFaceURL:    message.SenderFaceURL,
+//		SessionType:      int32(message.SessionType),
+//		MsgFrom:          int32(message.MsgFrom),
+//		ContentType:      int32(message.ContentType),
+//		//Todo
+//		Content:      utils.StructToJsonString(message.Content),
+//		IsRead:       message.IsRead,
+//		Status:       int32(message.Status),
+//		Seq:          message.Seq,
+//		SendTime:     message.SendTime,
+//		CreateTime:   message.CreateTime,
+//		AttachedInfo: utils.StructToJsonString(message.AttachedInfoElem),
+//		Ex:           message.Ex,
+//		LocalEx:      message.LocalEx,
+//	}
+//
+//	if message.SessionType == constant.WriteGroupChatType || message.SessionType == constant.ReadGroupChatType {
+//		localMessage.RecvID = message.GroupID
+//	}
+//	return localMessage
+//}
+
+func mustStringToMsgContent(content string, msg *sdkpb.IMMessage) {
+	if err := stringToMsgContent(content, msg); err != nil {
+		log.ZError(context.TODO(), "mustStringToMsgContent failed", err, "msg", msg, "content", content)
+	}
+}
+
 func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.Conversation {
 	return &sdkpb.Conversation{
 		ConversationID:    conversation.ConversationID,
@@ -173,4 +208,32 @@ func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
 		AttachedInfo:     utils.StructToJsonString(message.AttachedInfoElem),
 		Ex:               message.Ex,
 	}
+}
+func MsgDataToIMMessage(msgData *sdkws.MsgData) *sdkpb.IMMessage {
+	message := &sdkpb.IMMessage{
+		ClientMsgID:      msgData.ClientMsgID,
+		ServerMsgID:      msgData.ServerMsgID,
+		CreateTime:       msgData.CreateTime,
+		SendTime:         msgData.SendTime,
+		SessionType:      sdkpb.SessionType(msgData.SessionType),
+		SendID:           msgData.SendID,
+		RecvID:           msgData.RecvID,
+		GroupID:          msgData.GroupID,
+		MsgFrom:          sdkpb.MsgFrom(msgData.MsgFrom),
+		ContentType:      sdkpb.ContentType(msgData.ContentType),
+		SenderPlatformID: sdkpb.Platform(msgData.SenderPlatformID),
+		SenderNickname:   msgData.SenderNickname,
+		SenderFaceURL:    msgData.SenderFaceURL,
+		Seq:              msgData.Seq,
+		IsRead:           msgData.IsRead,
+		Status:           sdkpb.MsgStatus(msgData.Status),
+		Ex:               msgData.Ex,
+	}
+	var attachedInfoElem sdkpb.AttachedInfoElem
+	err := json.Unmarshal([]byte(msgData.AttachedInfo), &attachedInfoElem)
+	if err != nil {
+		log.ZWarn(context.Background(), "JsonStringToStruct error", err, "msgData.AttachedInfo", msgData.AttachedInfo)
+	}
+	message.AttachedInfoElem = &attachedInfoElem
+	return message
 }

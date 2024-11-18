@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/wrapperspb"
 
@@ -24,7 +25,7 @@ func (u *User) ProcessUserCommandGetAll(ctx context.Context, req *sdkpb.ProcessU
 	return &sdkpb.ProcessUserCommandGetAllResp{Commands: datautil.Batch(DBCommandToSdk, localCommands)}, nil
 }
 
-func (u *User) GetSelfUserInfo(ctx context.Context, req *sdkpb.GetSelfUserInfoReq) (*sdkpb.GetSelfUserInfoResp, error) {
+func (u *User) GetSelfUserInfo(ctx context.Context, _ *sdkpb.GetSelfUserInfoReq) (*sdkpb.GetSelfUserInfoResp, error) {
 	userInfo, err := u.GetLoginUser(ctx, u.loginUserID)
 	if err == nil {
 		return &sdkpb.GetSelfUserInfoResp{User: DBUserToSdk(userInfo)}, nil
