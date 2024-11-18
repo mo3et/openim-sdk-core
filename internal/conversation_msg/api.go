@@ -3,8 +3,6 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
-	pbConversation "github.com/openimsdk/protocol/conversation"
-	"github.com/openimsdk/tools/utils/stringutil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -12,6 +10,9 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	pbConversation "github.com/openimsdk/protocol/conversation"
+	"github.com/openimsdk/tools/utils/stringutil"
 
 	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -337,7 +338,7 @@ func getMsgUrl(msg *sdkpb.MsgStruct) string {
 	return ""
 }
 
-func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageReq) (*sdkpb.SendMessageResp, error) {
+func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageReq, callback open_im_sdk_callback.SendMsgCallBack) (*sdkpb.SendMessageResp, error) {
 	// Message is created by URL
 	if getMsgUrl(req.Message) != "" {
 		msg, err := c.sendMessageNotOss(ctx, req.Message, req.RecvID, req.GroupID, req.OfflinePushInfo, req.IsOnlineOnly)
@@ -360,7 +361,6 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 	if err != nil {
 		return nil, err
 	}
-	callback, _ := ctx.Value("callback").(open_im_sdk_callback.SendMsgCallBack)
 	log.ZDebug(ctx, "before insert message is", "message", req.Message)
 	if !req.IsOnlineOnly {
 		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, req.Message.ClientMsgID)
@@ -596,7 +596,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		}
 	}
 
-	msg, err := c.sendMessageToServer(ctx, req.Message, lc, callback, delFile, req.OfflinePushInfo, options, req.IsOnlineOnly)
+	msg, err := c.sendMessageToServer(ctx, req.Message, lc, delFile, req.OfflinePushInfo, options, req.IsOnlineOnly)
 	if err != nil {
 		return nil, err
 	}
@@ -610,7 +610,6 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.MsgStruct
 	if err != nil {
 		return nil, err
 	}
-	callback, _ := ctx.Value("callback").(open_im_sdk_callback.SendMsgCallBack)
 	if !isOnlineOnly {
 		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, s.ClientMsgID)
 		if err != nil {
@@ -652,10 +651,10 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.MsgStruct
 			}
 		}
 	}
-	return c.sendMessageToServer(ctx, s, lc, callback, delFile, p, options, isOnlineOnly)
+	return c.sendMessageToServer(ctx, s, lc, delFile, p, options, isOnlineOnly)
 }
 
-func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStruct, lc *model_struct.LocalConversation, callback open_im_sdk_callback.SendMsgCallBack,
+func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.MsgStruct, lc *model_struct.LocalConversation,
 	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.MsgStruct, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)

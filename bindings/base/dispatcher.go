@@ -7,7 +7,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log"
-	"sync"
 	"sync/atomic"
 	"time"
 
@@ -21,13 +20,8 @@ import (
 )
 
 var (
-	handleCounter        atomic.Uint64
-	mu                   sync.Mutex
-	dispatchFfiResult    func(handleID uint64, data []byte)
-	activeEventFuncNames = map[pb.FuncRequestEventName]struct{}{
-		pb.FuncRequestEventName_EventOnConnecting:    {},
-		pb.FuncRequestEventName_EventOnKickedOffline: {},
-	}
+	handleCounter     atomic.Uint64
+	dispatchFfiResult func(handleID uint64, data []byte)
 )
 
 type callFunc func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) ([]byte, error)
