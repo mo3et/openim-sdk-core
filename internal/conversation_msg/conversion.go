@@ -2,13 +2,12 @@ package conversation_msg
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
-	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/stringutil"
 
@@ -79,43 +78,6 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 	return localMessage
 }
 
-func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
-	message := &sdkpb.IMMessage{
-		ClientMsgID:      localMessage.ClientMsgID,
-		ServerMsgID:      localMessage.ServerMsgID,
-		CreateTime:       localMessage.CreateTime,
-		SendTime:         localMessage.SendTime,
-		SessionType:      sdkpb.SessionType(localMessage.SessionType),
-		SendID:           localMessage.SendID,
-		RecvID:           localMessage.RecvID,
-		MsgFrom:          sdkpb.MsgFrom(localMessage.MsgFrom),
-		ContentType:      sdkpb.ContentType(localMessage.ContentType),
-		SenderPlatformID: sdkpb.Platform(localMessage.SenderPlatformID),
-		SenderNickname:   localMessage.SenderNickname,
-		SenderFaceURL:    localMessage.SenderFaceURL,
-		Seq:              localMessage.Seq,
-		IsRead:           localMessage.IsRead,
-		Status:           sdkpb.MsgStatus(localMessage.Status),
-		Ex:               localMessage.Ex,
-		LocalEx:          localMessage.LocalEx,
-	}
-	mustStringToMsgContent(localMessage.Content, message)
-	var attachedInfo sdkpb.AttachedInfoElem
-	err := utils.JsonStringToStruct(localMessage.AttachedInfo, &attachedInfo)
-	if err != nil {
-		log.ZWarn(context.Background(), "JsonStringToStruct error", err, "localMessage.AttachedInfo", localMessage.AttachedInfo)
-	}
-	message.AttachedInfoElem = &attachedInfo
-
-	switch localMessage.SessionType {
-	case constant.WriteGroupChatType:
-		fallthrough
-	case constant.ReadGroupChatType:
-		message.GroupID = localMessage.RecvID
-	}
-	return message
-}
-
 func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.Conversation {
 	return &sdkpb.Conversation{
 		ConversationID:    conversation.ConversationID,
@@ -148,29 +110,5 @@ func sdkOfflinePushInfoToServerOfflinePushInfo(offlinePushInfo *sdkpb.OfflinePus
 		IOSPushSound:  offlinePushInfo.IOSPushSound,
 		IOSBadgeCount: offlinePushInfo.IOSBadgeCount,
 		SignalInfo:    offlinePushInfo.SignalInfo,
-	}
-}
-
-func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
-	return &sdkws.MsgData{
-		ClientMsgID:      message.ClientMsgID,
-		ServerMsgID:      message.ServerMsgID,
-		SendID:           message.SendID,
-		RecvID:           message.RecvID,
-		GroupID:          message.GroupID,
-		SenderPlatformID: int32(message.SenderPlatformID),
-		SenderNickname:   message.SenderNickname,
-		SenderFaceURL:    message.SenderFaceURL,
-		SessionType:      int32(message.SessionType),
-		MsgFrom:          int32(message.MsgFrom),
-		ContentType:      int32(message.ContentType),
-		Content:          stringutil.StructToJsonBytes(message.Content),
-		IsRead:           message.IsRead,
-		Status:           int32(message.Status),
-		Seq:              message.Seq,
-		SendTime:         message.SendTime,
-		CreateTime:       message.CreateTime,
-		AttachedInfo:     utils.StructToJsonString(message.AttachedInfoElem),
-		Ex:               message.Ex,
 	}
 }
