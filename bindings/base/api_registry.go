@@ -83,7 +83,6 @@ var callbackRegistry = map[pb.FuncRequestEventName]callbackFunc{
 var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_InitSDK:                              wrapFunc(open_im_sdk.UserForSDK.InitSDK),
 	pb.FuncRequestEventName_Login:                                wrapFunc(open_im_sdk.UserForSDK.Login),
-	pb.FuncRequestEventName_GetAllConversationList:               wrapFunc(open_im_sdk.UserForSDK.Conversation().GetAllConversationList),
 	pb.FuncRequestEventName_SendMessage:                          wrapFuncWithCallback(open_im_sdk.UserForSDK.Conversation().SendMessage),
 	pb.FuncRequestEventName_UploadLogs:                           wrapFuncWithCallback(open_im_sdk.UserForSDK.Third().UploadLogs),
 	pb.FuncRequestEventName_UploadFile:                           wrapFuncWithCallback(open_im_sdk.UserForSDK.Third().UploadFile),
@@ -127,6 +126,7 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_DeleteBlack:                          wrapFunc(open_im_sdk.UserForSDK.Relation().DeleteBlack),
 	pb.FuncRequestEventName_GetBlacks:                            wrapFunc(open_im_sdk.UserForSDK.Relation().GetBlacks),
 	pb.FuncRequestEventName_UpdateFriends:                        wrapFunc(open_im_sdk.UserForSDK.Relation().UpdateFriends),
+	pb.FuncRequestEventName_GetAllConversationList:               wrapFunc(open_im_sdk.UserForSDK.Conversation().GetAllConversationList),
 	pb.FuncRequestEventName_GetConversationListSplit:             wrapFunc(open_im_sdk.UserForSDK.Conversation().GetConversationListSplit),
 	pb.FuncRequestEventName_HideConversation:                     wrapFunc(open_im_sdk.UserForSDK.Conversation().HideConversation),
 	pb.FuncRequestEventName_GetAtAllTag:                          wrapFunc(open_im_sdk.UserForSDK.Conversation().GetAtAllTag),
