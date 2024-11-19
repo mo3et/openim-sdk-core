@@ -30,6 +30,7 @@ import (
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	pconstant "github.com/openimsdk/protocol/constant"
+	"github.com/openimsdk/tools/utils/datautil"
 
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
@@ -203,7 +204,6 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 	log.ZInfo(ctx, "doUpdateConversation", "node", node, "cmd", c2v.Cmd, "caller", c2v.Caller)
 	switch node.Action {
 	case constant.AddConOrUpLatMsg:
-		var list []*model_struct.LocalConversation
 		lc := node.Args.(model_struct.LocalConversation)
 		oc, err := c.db.GetConversation(ctx, lc.ConversationID)
 		if err == nil {
@@ -214,10 +214,8 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 				} else {
 					oc.LatestMsgSendTime = lc.LatestMsgSendTime
 					oc.LatestMsg = lc.LatestMsg
-					list = append(list, oc)
-					data := utils.StructToJsonString(list)
-					log.ZInfo(ctx, "OnConversationChanged", "data", data)
-					c.ConversationListener().OnConversationChanged(data)
+					log.ZInfo(ctx, "OnConversationChanged", "conversation", oc)
+					c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, []*model_struct.LocalConversation{oc})})
 				}
 			}
 		} else {
@@ -226,8 +224,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 			if err4 != nil {
 				log.ZWarn(ctx, "insert new conversation err", err4)
 			} else {
-				list = append(list, &lc)
-				c.ConversationListener().OnNewConversation(utils.StructToJsonString(list))
+				c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToSdkPB, []*model_struct.LocalConversation{&lc})})
 			}
 		}
 
@@ -236,7 +233,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		if err != nil {
 			log.ZWarn(ctx, "GetTotalUnreadMsgCountDB err", err)
 		} else {
-			c.ConversationListener().OnTotalUnreadMessageCountChanged(totalUnreadCount)
+			c.ConversationListener().OnTotalUnreadMessageCountChanged(&sdkpb.EventOnTotalUnreadMessageCountChangedData{TotalUnreadCount: totalUnreadCount})
 		}
 	case constant.UpdateConFaceUrlAndNickName:
 		var lc model_struct.LocalConversation
@@ -318,10 +315,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 					if err != nil {
 						log.ZError(ctx, "updateConversationLatestMsgModel err", err)
 					} else {
-						var cList []*model_struct.LocalConversation
-						cList = append(cList, lc)
-						data := utils.StructToJsonStringDefault(cList)
-						c.ConversationListener().OnConversationChanged(data)
+						c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, []*model_struct.LocalConversation{lc})})
 					}
 
 				}
@@ -340,9 +334,8 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 					newCList = append(newCList, v)
 				}
 			}
-			data := utils.StructToJsonStringDefault(newCList)
-			log.ZInfo(ctx, "OnConversationChanged", "data", data)
-			c.ConversationListener().OnConversationChanged(data)
+			log.ZInfo(ctx, "OnConversationChanged", "conversations", newCList)
+			c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, newCList)})
 		}
 	case constant.NewCon:
 		cidList := node.Args.([]string)
@@ -352,18 +345,18 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		} else {
 			if cLists != nil {
 				log.ZDebug(ctx, "getMultipleConversationModel success", "cLists", cLists)
-				c.ConversationListener().OnNewConversation(utils.StructToJsonString(cLists))
+				c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToSdkPB, cLists)})
 			}
 		}
 	case constant.ConChangeDirect:
-		cidList := node.Args.(string)
+		cidList := node.Args.([]*model_struct.LocalConversation)
 		log.ZInfo(ctx, "ConversationChanged", "cidList", cidList)
-		c.ConversationListener().OnConversationChanged(cidList)
+		c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, cidList)})
 
 	case constant.NewConDirect:
-		cidList := node.Args.(string)
+		cidList := node.Args.([]*model_struct.LocalConversation)
 		log.ZDebug(ctx, "NewConversation", "cidList", cidList)
-		c.ConversationListener().OnNewConversation(cidList)
+		c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToSdkPB, cidList)})
 
 	}
 }
@@ -534,6 +527,6 @@ func (c *Conversation) doBusinessNotification(ctx context.Context, msg *sdkws.Ms
 		return err
 
 	}
-	c.businessListener().OnRecvCustomBusinessMessage(n.Detail)
+	c.businessListener().OnRecvCustomBusinessMessage(&sdkpb.EventOnRecvCustomBusinessMessageData{BusinessMessage: n.Detail})
 	return nil
 }

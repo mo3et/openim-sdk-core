@@ -371,11 +371,9 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 		log.ZError(ctx, "GetAllConversationListDB", err)
 	}
 
-	m := make(map[string]*model_struct.LocalConversation)
-	listToMap(list, m)
 	log.ZDebug(ctx, "listToMap: ", "local conversation", list, "generated c map",
 		string(stringutil.StructToJsonBytes(conversationSet)))
-
+	m := datautil.SliceToMap(list, func(e *model_struct.LocalConversation) string { return e.ConversationID })
 	c.diff(ctx, m, conversationSet, conversationChangedSet, newConversationSet)
 	log.ZInfo(ctx, "trigger map is :", "newConversations", string(stringutil.StructToJsonBytes(newConversationSet)),
 		"changedConversations", string(stringutil.StructToJsonBytes(conversationChangedSet)))
@@ -415,23 +413,22 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 		}
 	}
 
-	if err := c.db.BatchUpdateConversationList(ctx, append(mapConversationToList(conversationChangedSet), mapConversationToList(phConversationChangedSet)...)); err != nil {
+	if err := c.db.BatchUpdateConversationList(ctx, append(datautil.Values(conversationChangedSet), datautil.Values(phConversationChangedSet)...)); err != nil {
 		log.ZError(ctx, "insert changed conversation err :", err)
 	}
 	//New conversation storage
 
-	if err := c.db.BatchInsertConversationList(ctx, mapConversationToList(phNewConversationSet)); err != nil {
+	if err := c.db.BatchInsertConversationList(ctx, datautil.Values(phNewConversationSet)); err != nil {
 		log.ZError(ctx, "insert new conversation err:", err)
 	}
 	log.ZDebug(ctx, "before trigger msg", "cost time", time.Since(b).Seconds(), "len", len(allMsg))
 
 	c.newMessage(ctx, newMessages, conversationChangedSet, newConversationSet, onlineMap)
-
 	if len(newConversationSet) > 0 {
-		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.NewConDirect, Args: utils.StructToJsonString(mapConversationToList(newConversationSet))}})
+		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.NewConDirect, Args: datautil.Values(newConversationSet)}})
 	}
 	if len(conversationChangedSet) > 0 {
-		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChangeDirect, Args: utils.StructToJsonString(mapConversationToList(conversationChangedSet))}})
+		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChangeDirect, Args: datautil.Values(conversationChangedSet)}})
 	}
 
 	if isTriggerUnReadCount {
@@ -707,13 +704,6 @@ func (c *Conversation) updateConversation(lc *model_struct.LocalConversation, cs
 			cs[lc.ConversationID] = oldC
 		}
 	}
-}
-
-func mapConversationToList(m map[string]*model_struct.LocalConversation) (cs []*model_struct.LocalConversation) {
-	for _, v := range m {
-		cs = append(cs, v)
-	}
-	return cs
 }
 
 func (c *Conversation) batchAddFaceURLAndName(ctx context.Context, conversations ...*model_struct.LocalConversation) error {
