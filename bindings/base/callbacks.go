@@ -1,6 +1,5 @@
 package base
 
-import "C"
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"

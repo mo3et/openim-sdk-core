@@ -23,14 +23,13 @@ import (
 	"sync"
 	"time"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
-	pconstant "github.com/openimsdk/protocol/constant"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
+	pconstant "github.com/openimsdk/protocol/constant"
 
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
