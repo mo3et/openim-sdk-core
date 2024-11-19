@@ -22,6 +22,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/utils/timeutil"
@@ -76,7 +77,7 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 			revokerNickname = groupMember.Nickname
 		}
 	}
-	m := sdk_struct.MessageRevoked{
+	m := sdkpb.MessageRevoked{
 		RevokerID:                   tips.RevokerUserID,
 		RevokerRole:                 revokerRole,
 		ClientMsgID:                 revokedMsg.ClientMsgID,
@@ -107,7 +108,7 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 	utils.JsonStringToStruct(conversation.LatestMsg, &latestMsg)
 	log.ZDebug(ctx, "latestMsg", "latestMsg", &latestMsg, "seq", tips.Seq)
 	if latestMsg.Seq <= tips.Seq {
-		var newLatestMsg sdk_struct.MsgStruct
+		var newLatestMsg sdkpb.IMMessage
 		msgs, err := c.db.GetMessageList(ctx, tips.ConversationID, 1, 0, false)
 		if err != nil || len(msgs) == 0 {
 			log.ZError(ctx, "GetMessageListNoTime failed", err, "tips", &tips)
@@ -124,7 +125,7 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 		}
 
 	}
-	c.msgListener().OnNewRecvMessageRevoked(utils.StructToJsonString(m))
+	c.msgListener().OnNewRecvMessageRevoked(&sdkpb.EventOnNewRecvMessageRevokedData{MessageRevoked: &m})
 	msgList, err := c.db.SearchAllMessageByContentType(ctx, conversation.ConversationID, constant.Quote)
 	if err != nil {
 		log.ZError(ctx, "SearchAllMessageByContentType failed", err, "tips", &tips)
@@ -140,7 +141,7 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 	return errs.Wrap(err)
 }
 
-func (c *Conversation) quoteMsgRevokeHandle(ctx context.Context, conversationID string, v *model_struct.LocalChatLog, revokedMsg sdk_struct.MessageRevoked) error {
+func (c *Conversation) quoteMsgRevokeHandle(ctx context.Context, conversationID string, v *model_struct.LocalChatLog, revokedMsg sdkpb.MessageRevoked) error {
 	s := sdk_struct.QuoteElem{}
 	if v.Content == "" {
 		return errs.New("Chat Log Content not found")

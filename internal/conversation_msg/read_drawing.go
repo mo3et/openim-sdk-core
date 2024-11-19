@@ -24,6 +24,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -274,9 +275,8 @@ func (c *Conversation) doReadDrawing(ctx context.Context, msg *sdkws.MsgData) er
 					successMsgIDs = append(successMsgIDs, message.ClientMsgID)
 				}
 			}
-			var messageReceiptResp = []*sdk_struct.MessageReceipt{{UserID: tips.MarkAsReadUserID, MsgIDList: successMsgIDs,
-				SessionType: conversation.ConversationType, ReadTime: msg.SendTime}}
-			c.msgListener().OnRecvC2CReadReceipt(utils.StructToJsonString(messageReceiptResp))
+			c.msgListener().OnRecvC2CReadReceipt(&sdkpb.EventOnRecvC2CReadReceiptData{MsgReceiptList: []*sdkpb.MessageReceipt{{UserID: tips.MarkAsReadUserID, MsgIDList: successMsgIDs,
+				SessionType: conversation.ConversationType, ReadTime: msg.SendTime}}})
 		}
 	} else {
 		return c.doUnreadCount(ctx, conversation, tips.HasReadSeq, tips.Seqs)

@@ -4,8 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"time"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	"github.com/openimsdk/tools/utils/datautil"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
@@ -72,18 +74,14 @@ func (c *Conversation) setStreamMsg(ctx context.Context, conversationID string, 
 	if err := c.db.UpdateMessage(ctx, conversationID, msg); err != nil {
 		return err
 	}
-	_, res := c.LocalChatLog2MsgStruct(ctx, []*model_struct.LocalChatLog{msg})
-	if len(res) == 0 {
-		log.ZWarn(ctx, "LocalChatLog2MsgStruct failed", nil, "msg", msg)
-		return nil
-	}
-	data := utils.StructToJsonString(res[0])
-	log.ZDebug(ctx, "setStreamMsg", "data", data)
-	c.msgListener().OnMsgEdited(data)
+	imMessage := LocalChatLogToIMMessage(msg)
+	log.ZDebug(ctx, "setStreamMsg", "imMessage", imMessage)
+	c.msgListener().OnMsgEdited(&sdkpb.EventOnMsgEditedData{Message: imMessage})
 	return c.updateConversationLastMsg(ctx, conversationID, msg)
 }
 
 func (c *Conversation) updateConversationLastMsg(ctx context.Context, conversationID string, msg *model_struct.LocalChatLog) error {
+	// todo
 	oc, err := c.db.GetConversation(ctx, conversationID)
 	if err != nil {
 		return err
@@ -107,9 +105,8 @@ func (c *Conversation) updateConversationLastMsg(ctx context.Context, conversati
 	if err := c.db.UpdateConversation(ctx, oc); err != nil {
 		return err
 	}
-	conversationData := utils.StructToJsonString([]*model_struct.LocalConversation{oc})
-	log.ZDebug(ctx, "setStreamMsg conversation changed", "conversationData", conversationData)
-	c.ConversationListener().OnConversationChanged(conversationData)
+	log.ZDebug(ctx, "setStreamMsg conversation changed", "oc", oc)
+	c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, []*model_struct.LocalConversation{oc})})
 	return nil
 }
 
@@ -156,19 +153,19 @@ func (c *Conversation) asyncStreamMsg(ctx context.Context, conversationID string
 	}()
 }
 
-func (c *Conversation) streamMsgReplace(ctx context.Context, conversationID string, msgs []*sdkpb.MsgStruct) {
-	for _, msg := range msgs {
-		if msg.ContentType != constant.Stream {
-			continue
-		}
-		var tips sdkws.StreamMsgTips
-		if err := json.Unmarshal([]byte(msg.Content), &tips); err != nil {
-			log.ZError(ctx, "unmarshal stream msg tips failed", err, "msg", msg)
-			continue
-		}
-		if tips.End {
-			continue
-		}
-		c.asyncStreamMsg(ctx, conversationID, msg.ClientMsgID)
-	}
+func (c *Conversation) streamMsgReplace(ctx context.Context, conversationID string, msgs []*sdkpb.IMMessage) {
+	//for _, msg := range msgs {
+	//	if msg.ContentType != constant.Stream {
+	//		continue
+	//	}
+	//	var tips sdkws.StreamMsgTips
+	//	if err := json.Unmarshal([]byte(msg.Content), &tips); err != nil {
+	//		log.ZError(ctx, "unmarshal stream msg tips failed", err, "msg", msg)
+	//		continue
+	//	}
+	//	if tips.End {
+	//		continue
+	//	}
+	//	c.asyncStreamMsg(ctx, conversationID, msg.ClientMsgID)
+	//}
 }
