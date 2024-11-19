@@ -28,14 +28,12 @@ type IndexDB struct {
 	*indexdb.LocalUsers
 	*indexdb.LocalConversations
 	*indexdb.LocalChatLogs
-	*indexdb.LocalConversationUnreadMessages
 	*indexdb.LocalGroups
 	*indexdb.LocalGroupMember
 	*indexdb.FriendRequest
 	*indexdb.Black
 	*indexdb.Friend
 	*indexdb.LocalGroupRequest
-	*indexdb.LocalChatLogReactionExtensions
 	*indexdb.NotificationSeqs
 	*indexdb.LocalUpload
 	*indexdb.LocalSendingMessages
@@ -58,25 +56,23 @@ func (i IndexDB) InitDB(ctx context.Context, userID string, dataDir string) erro
 
 func NewDataBase(ctx context.Context, loginUserID string, dbDir string, logLevel int) (*IndexDB, error) {
 	i := &IndexDB{
-		LocalUsers:                      indexdb.NewLocalUsers(),
-		LocalConversations:              indexdb.NewLocalConversations(),
-		LocalChatLogs:                   indexdb.NewLocalChatLogs(loginUserID),
-		LocalConversationUnreadMessages: indexdb.NewLocalConversationUnreadMessages(),
-		LocalGroups:                     indexdb.NewLocalGroups(),
-		LocalGroupMember:                indexdb.NewLocalGroupMember(),
-		FriendRequest:                   indexdb.NewFriendRequest(loginUserID),
-		Black:                           indexdb.NewBlack(loginUserID),
-		Friend:                          indexdb.NewFriend(loginUserID),
-		LocalGroupRequest:               indexdb.NewLocalGroupRequest(),
-		LocalChatLogReactionExtensions:  indexdb.NewLocalChatLogReactionExtensions(),
-		NotificationSeqs:                indexdb.NewNotificationSeqs(),
-		LocalUpload:                     indexdb.NewLocalUpload(),
-		LocalSendingMessages:            indexdb.NewLocalSendingMessages(),
-		LocalUserCommand:                indexdb.NewLocalUserCommand(),
-		LocalVersionSync:                indexdb.NewLocalVersionSync(),
-		LocalAppSDKVersion:              indexdb.NewLocalAppSDKVersion(),
-		LocalTableMaster:                indexdb.NewLocalTableMaster(),
-		loginUserID:                     loginUserID,
+		LocalUsers:           indexdb.NewLocalUsers(),
+		LocalConversations:   indexdb.NewLocalConversations(),
+		LocalChatLogs:        indexdb.NewLocalChatLogs(loginUserID),
+		LocalGroups:          indexdb.NewLocalGroups(),
+		LocalGroupMember:     indexdb.NewLocalGroupMember(),
+		FriendRequest:        indexdb.NewFriendRequest(loginUserID),
+		Black:                indexdb.NewBlack(loginUserID),
+		Friend:               indexdb.NewFriend(loginUserID),
+		LocalGroupRequest:    indexdb.NewLocalGroupRequest(),
+		NotificationSeqs:     indexdb.NewNotificationSeqs(),
+		LocalUpload:          indexdb.NewLocalUpload(),
+		LocalSendingMessages: indexdb.NewLocalSendingMessages(),
+		LocalUserCommand:     indexdb.NewLocalUserCommand(),
+		LocalVersionSync:     indexdb.NewLocalVersionSync(),
+		LocalAppSDKVersion:   indexdb.NewLocalAppSDKVersion(),
+		LocalTableMaster:     indexdb.NewLocalTableMaster(),
+		loginUserID:          loginUserID,
 	}
 	err := i.InitDB(ctx, loginUserID, dbDir)
 	if err != nil {

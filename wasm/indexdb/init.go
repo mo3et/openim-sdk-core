@@ -43,7 +43,6 @@ type IndexDB struct {
 	LocalUsers
 	LocalConversations
 	*LocalChatLogs
-	LocalConversationUnreadMessages
 	LocalGroups
 	LocalGroupMember
 	LocalGroupRequest
@@ -51,7 +50,6 @@ type IndexDB struct {
 	*FriendRequest
 	*Black
 	*Friend
-	LocalChatLogReactionExtensions
 	loginUserID string
 }
 

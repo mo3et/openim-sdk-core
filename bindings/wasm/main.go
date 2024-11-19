@@ -23,6 +23,8 @@ import (
 	"runtime/debug"
 
 	"syscall/js"
+
+	"github.com/openimsdk/openim-sdk-core/v3/bindings/wasm/fii"
 )
 
 func main() {
@@ -37,6 +39,6 @@ func main() {
 }
 
 func registerFunc() {
-	js.Global().Set("ffiInit", js.FuncOf(FfiInit))
-	js.Global().Set("ffiRequest", js.FuncOf(FfiRequest))
+	js.Global().Set("ffiInit", js.FuncOf(fii.FfiInit))
+	js.Global().Set("ffiRequest", js.FuncOf(fii.FfiRequest))
 }
