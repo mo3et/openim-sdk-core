@@ -331,7 +331,7 @@ message EventOnRecvCustomBusinessMessageData {
 
 // UserCallback Data Types
 message EventOnSelfInfoUpdatedData {
-  string userInfo = 1;
+  openim.sdk.shared.UserInfo user = 1;
 }
 
 message EventOnUserStatusChangedData {
@@ -340,15 +340,15 @@ message EventOnUserStatusChangedData {
 }
 
 message EventOnUserCommandAddData {
-  string userCommand = 1;
+  openim.sdk.shared.CommandInfo command = 1;
 }
 
 message EventOnUserCommandDeleteData {
-  string userCommand = 1;
+  openim.sdk.shared.CommandInfo command = 1;
 }
 
 message EventOnUserCommandUpdateData {
-  string userCommand = 1;
+  openim.sdk.shared.CommandInfo command = 1;
 }
 
 

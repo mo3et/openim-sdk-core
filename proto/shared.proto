@@ -17,6 +17,15 @@ message UserInfo {
   string attached = 8;
 }
 
+message CommandInfo {
+  string userID = 1;
+  int32 type = 2;
+  int64 createTime = 3;
+  string uuid = 4;
+  string value = 5;
+  string ex = 6;
+}
+
 // ############## relation ################
 
 message FriendInfo {

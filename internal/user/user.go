@@ -17,6 +17,7 @@ package user
 import (
 	"context"
 	"fmt"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/cache"
@@ -25,7 +26,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/db_interface"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/syncer"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	"github.com/openimsdk/tools/utils/datautil"
 )
 
@@ -37,7 +37,13 @@ func NewUser(conversationCh chan common.Cmd2Value) *User {
 	user.UserCache = cache.NewManager[string, *model_struct.LocalUser](
 		func(value *model_struct.LocalUser) string { return value.UserID },
 		nil,
-		user.GetUserInfoFromServer,
+		func(ctx context.Context, userIDs []string) ([]*model_struct.LocalUser, error) {
+			users, err := user.getUsersInfo(ctx, userIDs)
+			if err != nil {
+				return nil, err
+			}
+			return datautil.Batch(ServerUserToLocalUser, users), nil
+		},
 	)
 	return user
 }
@@ -89,7 +95,7 @@ func (u *User) initSyncer() {
 		func(ctx context.Context, state int, server, local *model_struct.LocalUser) error {
 			switch state {
 			case syncer.Update:
-				u.listener().OnSelfInfoUpdated(utils.StructToJsonString(server))
+				u.listener().OnSelfInfoUpdated(&sdkpb.EventOnSelfInfoUpdatedData{User: DBUserToSdk(server)})
 				if server.Nickname != local.Nickname || server.FaceURL != local.FaceURL {
 					_ = common.TriggerCmdUpdateMessage(ctx, common.UpdateMessageNode{Action: constant.UpdateMsgFaceUrlAndNickName,
 						Args: common.UpdateMessageInfo{SessionType: constant.SingleChatType, UserID: server.UserID, FaceURL: server.FaceURL, Nickname: server.Nickname}}, u.conversationCh)
@@ -134,11 +140,11 @@ func (u *User) initSyncer() {
 			}
 			switch state {
 			case syncer.Delete:
-				u.listener().OnUserCommandDelete(utils.StructToJsonString(serverCommand))
+				u.listener().OnUserCommandDelete(&sdkpb.EventOnUserCommandDeleteData{Command: DBCommandToSdk(serverCommand)})
 			case syncer.Update:
-				u.listener().OnUserCommandUpdate(utils.StructToJsonString(serverCommand))
+				u.listener().OnUserCommandUpdate(&sdkpb.EventOnUserCommandUpdateData{Command: DBCommandToSdk(serverCommand)})
 			case syncer.Insert:
-				u.listener().OnUserCommandAdd(utils.StructToJsonString(serverCommand))
+				u.listener().OnUserCommandAdd(&sdkpb.EventOnUserCommandAddData{Command: DBCommandToSdk(serverCommand)})
 			}
 			return nil
 		},
