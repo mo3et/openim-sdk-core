@@ -32,7 +32,6 @@ var protoModules = []string{
 	"group",
 	"init",
 	"message",
-	"msg",
 	"msggateway",
 	"relation",
 	"shared",
