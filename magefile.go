@@ -45,6 +45,11 @@ protoc --go_out=:./ --go_opt=module=github.com/openimsdk/openim-sdk-core/v3/prot
 protoc --go_out=./${name} --go_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto/go/${name} proto/${name}.proto
 */
 
+/*
+JavaScript need install `protoc-gen-js`
+Typescript need install `ts-protoc-gen`
+*/
+
 func All() error {
 	if err := GenGo(); err != nil {
 		return err
