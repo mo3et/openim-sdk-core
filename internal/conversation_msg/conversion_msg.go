@@ -59,14 +59,13 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 		Status:           sdkpb.MsgStatus(localMessage.Status),
 		Ex:               localMessage.Ex,
 		LocalEx:          localMessage.LocalEx,
+		AttachedInfoElem: &sdkpb.AttachedInfoElem{},
 	}
-	stringToMsgContent(localMessage.Content, message)
-	var attachedInfo sdkpb.AttachedInfoElem
-	err := utils.JsonStringToStruct(localMessage.AttachedInfo, &attachedInfo)
+	stringToMsgContent(message, localMessage.Content)
+	err := utils.JsonStringToStruct(localMessage.AttachedInfo, message.AttachedInfoElem)
 	if err != nil {
 		log.ZWarn(context.Background(), "JsonStringToStruct error", err, "localMessage.AttachedInfo", localMessage.AttachedInfo)
 	}
-	message.AttachedInfoElem = &attachedInfo
 
 	switch localMessage.SessionType {
 	case constant.WriteGroupChatType:
@@ -78,6 +77,7 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 }
 
 func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
+	m := MateTypeMap[message.ContentType]
 	return &sdkws.MsgData{
 		ClientMsgID:      message.ClientMsgID,
 		ServerMsgID:      message.ServerMsgID,
@@ -90,7 +90,7 @@ func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
 		SessionType:      int32(message.SessionType),
 		MsgFrom:          int32(message.MsgFrom),
 		ContentType:      int32(message.ContentType),
-		Content:          stringutil.StructToJsonBytes(message.Content),
+		Content:          stringutil.StructToJsonBytes(m.Get(message.Content)),
 		IsRead:           message.IsRead,
 		Status:           int32(message.Status),
 		Seq:              message.Seq,
@@ -120,16 +120,16 @@ func MsgDataToIMMessage(msgData *sdkws.MsgData) *sdkpb.IMMessage {
 		IsRead:           msgData.IsRead,
 		Status:           sdkpb.MsgStatus(msgData.Status),
 		Ex:               msgData.Ex,
+		AttachedInfoElem: &sdkpb.AttachedInfoElem{},
 	}
-	var attachedInfoElem sdkpb.AttachedInfoElem
-	if err := utils.JsonStringToStruct(msgData.AttachedInfo, &attachedInfoElem); err != nil {
+	if err := utils.JsonStringToStruct(msgData.AttachedInfo, message.AttachedInfoElem); err != nil {
 		log.ZWarn(context.Background(), "JsonStringToStruct error", err, "msgData.AttachedInfo", msgData.AttachedInfo)
 	}
-	message.AttachedInfoElem = &attachedInfoElem
+	stringToMsgContent(message, string(msgData.Content))
 	return message
 }
 
-func stringToMsgContent(content string, msg *sdkpb.IMMessage) {
+func stringToMsgContent(msg *sdkpb.IMMessage, content string) {
 	m, ok := MateTypeMap[msg.ContentType]
 	if !ok {
 		log.ZError(context.Background(), "stringToMsgContent unknown content type", nil, "msg", msg, "contentType", msg.ContentType, "content", content)

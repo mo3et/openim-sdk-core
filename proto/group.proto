@@ -2,94 +2,18 @@ syntax = "proto3";
 package openim.sdk.group;
 
 import "common.proto";
-import "user.proto";
+import "shared.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
-enum GroupStatus {
-  Default = 0;
-  Dismissed = 2;
-}
-
-enum GroupFilter {
-  All                   = 0;
-  Owner                 = 1;
-  Admin                 = 2;
-  OrdinaryUsers         = 3;
-  AdminAndOrdinaryUsers = 4;
-  OwnerAndAdmin         = 5;
-}
-
-message GroupInfo {
-  string groupID = 1;
-  string groupName = 2;
-  string notification = 3;
-  string introduction = 4;
-  string faceURL = 5;
-  string ownerUserID = 6;
-  int64 createTime = 7;
-  int64 memberCount = 8;
-  string ex = 9;
-  GroupStatus status = 10;
-  string creatorUserID = 11;
-  int32 needVerification = 12;
-  int32 lookMemberInfo = 13;
-  int32 applyMemberFriend = 14;
-  int64 notificationUpdateTime = 15;
-  string notificationUserID = 16;
-  string attachedInfo = 17;
-}
-
-message GroupMemberInfo {
-  string groupID = 1;
-  string userID = 2;
-  string nickname = 3;
-  string faceURL = 4;
-  int32 roleLevel = 5;
-  int64 joinTime = 6;
-  int32 joinSource = 7;
-  string inviterUserID = 8;
-  int64 muteEndTime = 9;
-  string operatorUserID = 10;
-  string ex = 11;
-  string attachedInfo = 12;
-}
-
-message GroupRequestInfo {
-  string groupID = 1;
-  string groupName = 2;
-  string notification = 3;
-  string introduction = 4;
-  string groupFaceURL = 5;
-  int64 createTime = 6;
-  int32 status = 7;
-  string creatorUserID = 8;
-  int32 groupType = 9;
-  string ownerUserID = 10;
-  int32 memberCount = 11;
-  string userID = 12;
-  string nickname = 13;
-  string userFaceURL = 14;
-  int32 handleResult = 15;
-  string reqMsg = 16;
-  string handledMsg = 17;
-  int64 reqTime = 18;
-  string handleUserID = 19;
-  int64 handledTime = 20;
-  string ex = 21;
-  string attachedInfo = 22;
-  int32 joinSource = 23;
-  string inviterUserID = 24;
-}
-
 message CreateGroupReq {
   repeated string memberUserIDs = 1;
   repeated string adminUserIDs = 2;
-  GroupInfo groupInfo = 3;
+  shared.GroupInfo groupInfo = 3;
 }
 message CreateGroupResp {
-  GroupInfo groupInfo = 1;
+  shared.GroupInfo groupInfo = 1;
 }
 
 message JoinGroupReq {
@@ -161,21 +85,21 @@ message SetGroupMemberInfoResp {}
 
 message GetJoinedGroupsReq {}
 message GetJoinedGroupsResp {
-  repeated GroupInfo groups = 1;
+  repeated shared.GroupInfo groups = 1;
 }
 
 message GetJoinedGroupsPageReq {
   openim.sdk.common.RequestPagination pagination = 2;
 }
 message GetJoinedGroupsPageResp {
-  repeated GroupInfo groups = 1;
+  repeated shared.GroupInfo groups = 1;
 }
 
 message GetSpecifiedGroupsInfoReq {
   repeated string groupIDs = 1;
 }
 message GetSpecifiedGroupsInfoResp {
-  repeated GroupInfo groups = 1;
+  repeated shared.GroupInfo groups = 1;
 }
 
 message SearchGroupsReq {
@@ -184,14 +108,14 @@ message SearchGroupsReq {
   bool searchGroupName = 3;
 }
 message SearchGroupsResp {
-  repeated GroupInfo groups = 1;
+  repeated shared.GroupInfo groups = 1;
 }
 
 message GetGroupMemberOwnerAndAdminReq {
   string groupID = 1;
 }
 message GetGroupMemberOwnerAndAdminResp {
-  repeated GroupMemberInfo members = 1;
+  repeated shared.GroupMemberInfo members = 1;
 }
 
 message GetGroupMembersByJoinTimeFilterReq {
@@ -201,7 +125,7 @@ message GetGroupMembersByJoinTimeFilterReq {
   openim.sdk.common.RequestPagination pagination = 4;
 }
 message GetGroupMembersByJoinTimeFilterResp {
-  repeated GroupMemberInfo members = 1;
+  repeated shared.GroupMemberInfo members = 1;
 }
 
 message GetSpecifiedGroupMembersInfoReq {
@@ -209,23 +133,23 @@ message GetSpecifiedGroupMembersInfoReq {
   repeated string userIDs = 2;
 }
 message GetSpecifiedGroupMembersInfoResp {
-  repeated GroupMemberInfo members = 1;
+  repeated shared.GroupMemberInfo members = 1;
 }
 
 message GetGroupMembersReq {
   string groupID = 1;
-  GroupFilter filter = 2;
+  shared.GroupFilter filter = 2;
   openim.sdk.common.RequestPagination pagination = 4;
 }
 message GetGroupMembersResp {
-  repeated GroupMemberInfo members = 1;
+  repeated shared.GroupMemberInfo members = 1;
 }
 
 message GetGroupRequestReq {
   bool send = 1;
 }
 message GetGroupRequestResp {
-  repeated GroupRequestInfo requests = 1;
+  repeated shared.GroupRequestInfo requests = 1;
 }
 
 message SearchGroupMembersReq {
@@ -236,7 +160,7 @@ message SearchGroupMembersReq {
   openim.sdk.common.RequestPagination pagination = 5;
 }
 message SearchGroupMembersResp {
-  repeated GroupMemberInfo members = 1;
+  repeated shared.GroupMemberInfo members = 1;
 }
 
 message IsJoinGroupReq {
@@ -275,162 +199,5 @@ message GetGroupMemberInfoReq {
   repeated string userIDs = 2;
 }
 message GetGroupMemberInfoResp {
-  map<string, GroupMemberInfo> members = 1;
-}
-
-message GroupCreatedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  repeated GroupMemberInfo memberList = 3;
-  int64 operationTime = 4;
-  GroupMemberInfo groupOwnerUser = 5;
-  uint64 groupMemberVersion = 6;
-  string groupMemberVersionID = 7;
-}
-
-message GroupInfoSetTips {
-  GroupMemberInfo opUser = 1; //who do this
-  int64 muteTime = 2;
-  GroupInfo group = 3;
-  uint64 groupMemberVersion = 4;
-  string groupMemberVersionID = 5;
-}
-
-message GroupInfoSetNameTips {
-  GroupMemberInfo opUser = 1; //who do this
-  GroupInfo group = 2;
-  uint64 groupMemberVersion = 3;
-  string groupMemberVersionID = 4;
-}
-
-message GroupInfoSetAnnouncementTips {
-  GroupMemberInfo opUser = 1; //who do this
-  GroupInfo group = 2;
-  uint64 groupMemberVersion = 3;
-  string groupMemberVersionID = 4;
-}
-
-//	OnJoinGroupApplication()
-message JoinGroupApplicationTips {
-  GroupInfo group = 1;
-  openim.sdk.user.UserInfo applicant = 2;
-  string reqMsg = 3;
-}
-
-//Actively leave the group
-message MemberQuitTips {
-  GroupInfo group = 1;
-  GroupMemberInfo quitUser = 2;
-  int64 operationTime = 3;
-  uint64 groupMemberVersion = 4;
-  string groupMemberVersionID = 5;
-}
-
-//	OnApplicationGroupAccepted()
-message GroupApplicationAcceptedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  string handleMsg = 4;
-  int32 receiverAs = 5; // admin(==1) or applicant(==0)
-}
-
-//	OnApplicationGroupRejected()
-message GroupApplicationRejectedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  string handleMsg = 4;
-  int32 receiverAs = 5; // admin(==1) or applicant(==0)
-}
-
-//	OnTransferGroupOwner()
-message GroupOwnerTransferredTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  GroupMemberInfo newGroupOwner = 3;
-  string oldGroupOwner = 4;
-  int64 operationTime = 5;
-  GroupMemberInfo oldGroupOwnerInfo = 6;
-  uint64 groupMemberVersion = 7;
-  string groupMemberVersionID = 8;
-}
-
-//	OnMemberKicked()
-message MemberKickedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  repeated GroupMemberInfo kickedUserList = 3;
-  int64 operationTime = 4;
-  uint64 groupMemberVersion = 5;
-  string groupMemberVersionID = 6;
-}
-
-//	OnMemberInvited()
-message MemberInvitedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  repeated GroupMemberInfo invitedUserList = 3;
-  int64 operationTime = 4;
-  uint64 groupMemberVersion = 5;
-  string groupMemberVersionID = 6;
-  GroupMemberInfo inviterUser = 7;
-}
-
-//Actively join the group
-message MemberEnterTips {
-  GroupInfo group = 1;
-  GroupMemberInfo entrantUser = 2;
-  int64 operationTime = 3;
-  uint64 groupMemberVersion = 5;
-  string groupMemberVersionID = 6;
-}
-
-message GroupDismissedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  int64 operationTime = 3;
-}
-
-message GroupMemberMutedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  int64 operationTime = 3;
-  GroupMemberInfo mutedUser = 4;
-  uint32 mutedSeconds = 5;
-  uint64 groupMemberVersion = 6;
-  string groupMemberVersionID = 7;
-}
-
-message GroupMemberCancelMutedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  int64 operationTime = 3;
-  GroupMemberInfo mutedUser = 4;
-  uint64 groupMemberVersion = 5;
-  string groupMemberVersionID = 6;
-}
-
-message GroupMutedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  int64 operationTime = 3;
-  uint64 groupMemberVersion = 4;
-  string groupMemberVersionID = 5;
-}
-
-message GroupCancelMutedTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  int64 operationTime = 3;
-  uint64 groupMemberVersion = 4;
-  string groupMemberVersionID = 5;
-}
-
-message GroupMemberInfoSetTips {
-  GroupInfo group = 1;
-  GroupMemberInfo opUser = 2;
-  int64 operationTime = 3;
-  GroupMemberInfo changedUser = 4;
-  uint64 groupMemberVersion = 5;
-  string groupMemberVersionID = 6;
-  uint64 groupSortVersion = 7;
+  map<string, shared.GroupMemberInfo> members = 1;
 }

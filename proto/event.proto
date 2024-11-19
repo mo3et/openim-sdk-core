@@ -1,9 +1,8 @@
 syntax = "proto3";
 package openim.event;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
-import "group.proto";
-import "relation.proto";
-import "msg.proto";
+import "shared.proto";
+import "message.proto";
 
 
 enum FuncRequestEventName{
@@ -222,7 +221,7 @@ message EventOnConversationUserInputStatusChangedData {
   repeated int32 platformIDs = 3;
 };
 message EventOnRecvNewMessageData {
-  openim.sdk.msg.IMMessage message = 1;
+  openim.sdk.message.IMMessage message = 1;
 };
 message EventOnRecvC2CReadReceiptData {
   string msgReceiptList = 1;
@@ -231,98 +230,98 @@ message EventOnNewRecvMessageRevokedData {
   string messageRevoked = 1;
 };
 message EventOnRecvOfflineNewMessageData {
-  openim.sdk.msg.IMMessage message = 1;
+  openim.sdk.message.IMMessage message = 1;
 };
 message EventOnMsgDeletedData {
-  openim.sdk.msg.IMMessage message = 1;
+  openim.sdk.message.IMMessage message = 1;
 };
 message EventOnRecvOnlineOnlyMessageData {
-  openim.sdk.msg.IMMessage message = 1;
+  openim.sdk.message.IMMessage message = 1;
 };
 message EventOnMsgEditedData {
-  openim.sdk.msg.IMMessage message = 1;
+  openim.sdk.message.IMMessage message = 1;
 };
 
 // FriendCallback Data Types
 message EventOnFriendApplicationAddedData {
-  openim.sdk.relation.FriendRequestInfo request = 1;
+  openim.sdk.shared.FriendRequestInfo request = 1;
 }
 
 message EventOnFriendApplicationDeletedData {
-  openim.sdk.relation.FriendRequestInfo request = 1;
+  openim.sdk.shared.FriendRequestInfo request = 1;
 }
 
 message EventOnFriendApplicationAcceptedData {
-  openim.sdk.relation.FriendRequestInfo request = 1;
+  openim.sdk.shared.FriendRequestInfo request = 1;
 }
 
 message EventOnFriendApplicationRejectedData {
-  openim.sdk.relation.FriendRequestInfo request = 1;
+  openim.sdk.shared.FriendRequestInfo request = 1;
 }
 
 message EventOnFriendAddedData {
-  openim.sdk.relation.FriendInfo friend = 1;
+  openim.sdk.shared.FriendInfo friend = 1;
 }
 
 message EventOnFriendDeletedData {
-  openim.sdk.relation.FriendInfo friend = 1;
+  openim.sdk.shared.FriendInfo friend = 1;
 }
 
 message EventOnFriendInfoChangedData {
-  openim.sdk.relation.FriendInfo friend = 1;
+  openim.sdk.shared.FriendInfo friend = 1;
 }
 
 message EventOnBlackAddedData {
-  openim.sdk.relation.BlackInfo black = 1;
+  openim.sdk.shared.BlackInfo black = 1;
 }
 
 message EventOnBlackDeletedData {
-  openim.sdk.relation.BlackInfo black = 1;
+  openim.sdk.shared.BlackInfo black = 1;
 }
 
 // GroupCallback Data Types
 message EventOnJoinedGroupAddedData {
-  openim.sdk.group.GroupInfo group = 1;
+  openim.sdk.shared.GroupInfo group = 1;
 }
 
 message EventOnJoinedGroupDeletedData {
-  openim.sdk.group.GroupInfo group = 1;
+  openim.sdk.shared.GroupInfo group = 1;
 }
 
 message EventOnGroupMemberAddedData {
-  openim.sdk.group.GroupMemberInfo member = 1;
+  openim.sdk.shared.GroupMemberInfo member = 1;
 }
 
 message EventOnGroupMemberDeletedData {
-  openim.sdk.group.GroupMemberInfo member = 1;
+  openim.sdk.shared.GroupMemberInfo member = 1;
 }
 
 message EventOnGroupApplicationAddedData {
-  openim.sdk.group.GroupRequestInfo request = 1;
+  openim.sdk.shared.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupApplicationDeletedData {
-  openim.sdk.group.GroupRequestInfo request = 1;
+  openim.sdk.shared.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupInfoChangedData {
-  openim.sdk.group.GroupInfo group = 1;
+  openim.sdk.shared.GroupInfo group = 1;
 }
 
 message EventOnGroupDismissedData {
-  openim.sdk.group.GroupInfo group = 1;
+  openim.sdk.shared.GroupInfo group = 1;
 }
 
 message EventOnGroupMemberInfoChangedData {
-  openim.sdk.group.GroupMemberInfo member = 1;
+  openim.sdk.shared.GroupMemberInfo member = 1;
 }
 
 message EventOnGroupApplicationAcceptedData {
-  openim.sdk.group.GroupRequestInfo request = 1;
+  openim.sdk.shared.GroupRequestInfo request = 1;
 }
 
 message EventOnGroupApplicationRejectedData {
-  openim.sdk.group.GroupRequestInfo request = 1;
+  openim.sdk.shared.GroupRequestInfo request = 1;
 }
 
 // CustomBusinessCallback Data Type
