@@ -194,19 +194,6 @@ func (d *DataBase) UpdateConversation(ctx context.Context, c *model_struct.Local
 	return errs.WrapMsg(t.Error, "UpdateConversation failed")
 }
 
-func (d *DataBase) UpdateConversationForSync(ctx context.Context, c *model_struct.LocalConversation) error {
-	d.mRWMutex.Lock()
-	defer d.mRWMutex.Unlock()
-	t := d.conn.WithContext(ctx).Model(&model_struct.LocalConversation{}).Where("conversation_id = ?", c.ConversationID).
-		Updates(map[string]any{"recv_msg_opt": c.RecvMsgOpt, "is_pinned": c.IsPinned, "is_private_chat": c.IsPrivateChat,
-			"group_at_type": c.GroupAtType, "is_not_in_group": c.IsNotInGroup, "update_unread_count_time": c.UpdateUnreadCountTime, "ex": c.Ex, "attached_info": c.AttachedInfo,
-			"burn_duration": c.BurnDuration, "msg_destruct_time": c.MsgDestructTime, "is_msg_destruct": c.IsMsgDestruct})
-	if t.RowsAffected == 0 {
-		return errs.WrapMsg(errors.New("RowsAffected == 0"), "no update")
-	}
-	return errs.WrapMsg(t.Error, "UpdateConversation failed")
-}
-
 func (d *DataBase) BatchUpdateConversationList(ctx context.Context, conversationList []*model_struct.LocalConversation) error {
 	for _, v := range conversationList {
 		err := d.UpdateConversation(ctx, v)
@@ -216,22 +203,6 @@ func (d *DataBase) BatchUpdateConversationList(ctx context.Context, conversation
 
 	}
 	return nil
-}
-
-func (d *DataBase) ConversationIfExists(ctx context.Context, conversationID string) (bool, error) {
-	d.mRWMutex.RLock()
-	defer d.mRWMutex.RUnlock()
-	var count int64
-	t := d.conn.WithContext(ctx).Model(&model_struct.LocalConversation{}).Where("conversation_id = ?",
-		conversationID).Count(&count)
-	if t.Error != nil {
-		return false, errs.WrapMsg(t.Error, "ConversationIfExists get failed")
-	}
-	if count != 1 {
-		return false, nil
-	} else {
-		return true, nil
-	}
 }
 
 // Reset the conversation is equivalent to deleting the conversation,

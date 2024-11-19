@@ -23,7 +23,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/openimsdk/openim-sdk-core/v3/internal/flagconst"
 	"github.com/openimsdk/openim-sdk-core/v3/internal/relation"
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db"
@@ -363,13 +362,7 @@ func (u *LoginMgr) Context() context.Context {
 func (u *LoginMgr) initResources() {
 	ctx := ccontext.WithInfo(context.Background(), u.info)
 	u.ctx, u.cancel = context.WithCancel(ctx)
-	var convChanLen int
-	if flagconst.TestMode {
-		convChanLen = 100000
-	} else {
-		convChanLen = 1000
-	}
-	u.conversationCh = make(chan common.Cmd2Value, convChanLen)
+	u.conversationCh = make(chan common.Cmd2Value, 1000)
 	u.pushMsgAndMaxSeqCh = make(chan common.Cmd2Value, 1000)
 	u.loginMgrCh = make(chan common.Cmd2Value, 1)
 	u.longConnMgr = interaction.NewLongConnMgr(u.ctx, u.userOnlineStatusChange, u.pushMsgAndMaxSeqCh, u.loginMgrCh)
