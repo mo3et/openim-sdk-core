@@ -4,6 +4,7 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
 import "common.proto";
+import "shared.proto";
 
 message AtInfo {
   string atUserID = 1;
@@ -158,10 +159,6 @@ message QuoteElem {
   repeated MessageEntity messageEntityList = 3;
 }
 
-message NotificationElem {
-  string detail = 1;
-}
-
 message AdvancedTextElem {
   string text = 1;
   repeated MessageEntity messageEntityList = 2;
@@ -199,6 +196,315 @@ message AttachedInfoElem {
   UploadProgress progress = 5;
 }
 
+
+// ############## notification ##############
+
+//////////////////////group/////////////////////
+
+//	OnGroupCreated()
+message GroupCreatedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  repeated shared.GroupMemberInfo memberList = 3;
+  int64 operationTime = 4;
+  shared.GroupMemberInfo groupOwnerUser = 5;
+}
+
+//	OnGroupInfoSet()
+message GroupInfoSetTips {
+  shared.GroupMemberInfo opUser = 1; //who do this
+  int64 muteTime = 2;
+  shared.GroupInfo group = 3;
+}
+
+message GroupInfoSetNameTips {
+  shared.GroupMemberInfo opUser = 1; //who do this
+  shared.GroupInfo group = 2;
+}
+
+message GroupInfoSetAnnouncementTips {
+  shared.GroupMemberInfo opUser = 1; //who do this
+  shared.GroupInfo group = 2;
+}
+
+//	OnJoinGroupApplication()
+message JoinGroupApplicationTips {
+  shared.GroupInfo group = 1;
+  shared.UserInfo applicant = 2;
+  string reqMsg = 3;
+}
+
+//	OnQuitGroup()
+//Actively leave the group
+message MemberQuitTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo quitUser = 2;
+  int64 operationTime = 3;
+}
+
+//	OnApplicationGroupAccepted()
+message GroupApplicationAcceptedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  string handleMsg = 4;
+  int32 receiverAs = 5; // admin(==1) or applicant(==0)
+}
+
+//	OnApplicationGroupRejected()
+message GroupApplicationRejectedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  string handleMsg = 4;
+  int32 receiverAs = 5; // admin(==1) or applicant(==0)
+}
+
+//	OnTransferGroupOwner()
+message GroupOwnerTransferredTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  shared.GroupMemberInfo newGroupOwner = 3;
+  string oldGroupOwner = 4;
+  int64 operationTime = 5;
+  shared.GroupMemberInfo oldGroupOwnerInfo = 6;
+}
+
+//	OnMemberKicked()
+message MemberKickedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  repeated shared.GroupMemberInfo kickedUserList = 3;
+  int64 operationTime = 4;
+}
+
+//	OnMemberInvited()
+message MemberInvitedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  repeated shared.GroupMemberInfo invitedUserList = 3;
+  int64 operationTime = 4;
+  shared.GroupMemberInfo inviterUser = 7;
+}
+
+//Actively join the group
+message MemberEnterTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo entrantUser = 2;
+  int64 operationTime = 3;
+}
+
+message GroupDismissedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+}
+
+message GroupMemberMutedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+  shared.GroupMemberInfo mutedUser = 4;
+  uint32 mutedSeconds = 5;
+}
+
+message GroupMemberCancelMutedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+  shared.GroupMemberInfo mutedUser = 4;
+}
+
+message GroupMutedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+}
+
+message GroupCancelMutedTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+}
+
+message GroupMemberInfoSetTips {
+  shared.GroupInfo group = 1;
+  shared.GroupMemberInfo opUser = 2;
+  int64 operationTime = 3;
+  shared.GroupMemberInfo changedUser = 4;
+}
+
+//////////////////////friend/////////////////////
+
+message FriendApplication {
+  int64 addTime = 1;
+  string addSource = 2;
+  string addWording = 3;
+}
+
+message FromToUserID {
+  string fromUserID = 1;
+  string toUserID = 2;
+}
+
+//FromUserID apply to add ToUserID
+message FriendApplicationTips {
+  FromToUserID fromToUserID = 1; //from：发起者； to：接收者
+}
+
+//FromUserID accept or reject ToUserID
+message FriendApplicationApprovedTips {
+  FromToUserID fromToUserID = 1; //from：同意者；to：请求发起者
+  string handleMsg = 2;
+}
+
+//FromUserID accept or reject ToUserID
+message FriendApplicationRejectedTips {
+  FromToUserID fromToUserID = 1; //from：拒绝者；to：请求发起者
+  string handleMsg = 2;
+}
+
+// FromUserID  Added a friend ToUserID
+message FriendAddedTips {
+  shared.FriendInfo friend = 1;
+  int64 operationTime = 2;
+  shared.UserInfo opUser = 3; //who do this
+}
+
+// FromUserID  deleted a friend ToUserID
+message FriendDeletedTips {
+  FromToUserID fromToUserID = 1; //from：owner； to：friend
+}
+
+message BlackAddedTips {
+  FromToUserID fromToUserID = 1; //from：owner； to：black
+}
+
+message BlackDeletedTips {
+  FromToUserID fromToUserID = 1; //from：owner； to：black
+}
+
+message FriendInfoChangedTips {
+  FromToUserID fromToUserID = 1; //from：changed； to：friend
+}
+
+//////////////////////user/////////////////////
+message UserInfoUpdatedTips {
+  string userID = 1;
+}
+
+message UserStatusChangeTips {
+  string fromUserID = 1;
+  string toUserID = 2;
+  int32 status = 3;
+  int32 platformID = 4;
+}
+message UserCommandAddTips {
+  string fromUserID = 1;
+  string toUserID = 2;
+}
+message UserCommandUpdateTips {
+  string fromUserID = 1;
+  string toUserID = 2;
+}
+message UserCommandDeleteTips {
+  string fromUserID = 1;
+  string toUserID = 2;
+}
+
+//////////////////////conversation/////////////////////
+message ConversationUpdateTips {
+  string userID = 1;
+  repeated string conversationIDList = 2;
+}
+
+message ConversationSetPrivateTips {
+  string recvID = 1;
+  string sendID = 2;
+  bool isPrivate = 3;
+  string conversationID = 4;
+}
+
+message ConversationHasReadTips {
+  string userID = 1;
+  string conversationID = 2;
+  int64 hasReadSeq = 3;
+  int64 unreadCountTime = 4;
+}
+
+message DeleteMessageTips {
+  string opUserID = 1;
+  string userID = 2;
+  repeated int64 seqs = 3;
+}
+
+message RevokeMsgTips {
+  string revokerUserID = 1;
+  string clientMsgID = 2;
+  int64 revokeTime = 3;
+  int32 sesstionType = 5;
+  int64 seq = 6;
+  string conversationID = 7;
+  bool isAdminRevoke = 8;
+}
+
+message MessageRevokedContent {
+  string revokerID = 1;
+  int32 revokerRole = 2;
+  string clientMsgID = 3;
+  string revokerNickname = 4;
+  int64 revokeTime = 5;
+  int64 sourceMessageSendTime = 6;
+  string sourceMessageSendID = 7;
+  string sourceMessageSenderNickname = 8;
+  int32 sessionType = 10;
+  int64 seq = 11;
+  string ex = 12;
+}
+
+message ClearConversationTips {
+  string userID = 1;
+  repeated string conversationIDs = 2;
+}
+
+message DeleteMsgsTips {
+  string userID = 1;
+  string conversationID = 2;
+  repeated int64 seqs = 3;
+}
+
+message MarkAsReadTips {
+  string markAsReadUserID = 1;
+  string conversationID = 2;
+  repeated int64 seqs = 3;
+  int64 hasReadSeq = 4;
+}
+
+message FriendsInfoUpdateTips {
+  FromToUserID fromToUserID = 1;
+  repeated string friendIDs = 2;
+}
+
+message SubUserOnlineStatusElem {
+  string userID = 1;
+  repeated int32 onlinePlatformIDs = 2;
+}
+
+message SubUserOnlineStatusTips {
+  repeated SubUserOnlineStatusElem subscribers = 1;
+}
+
+message SubUserOnlineStatus {
+  repeated string subscribeUserID = 1;
+  repeated string unsubscribeUserID = 2;
+}
+
+message StreamMsgTips {
+  string conversationID = 1;
+  string clientMsgID = 2;
+  int64 startIndex = 3;
+  repeated string packets = 4;
+  bool end = 5;
+}
+
 message IMMessage {
   string clientMsgID = 1;
   string serverMsgID = 2;
@@ -219,6 +525,7 @@ message IMMessage {
   common.OfflinePushInfo offlinePush = 18;
   string ex = 20;
   string localEx = 21;
+  AttachedInfoElem attachedInfoElem = 22;
   oneof content {
     TextElem textElem = 23;
     CardElem cardElem = 24;
@@ -232,16 +539,53 @@ message IMMessage {
     LocationElem locationElem = 32;
     CustomElem customElem = 33;
     QuoteElem quoteElem = 34;
-    NotificationElem notificationElem = 35;
-    AdvancedTextElem advancedTextElem = 36;
-    TypingElem typingElem = 37;
-    StreamElem streamElem = 38;
+    AdvancedTextElem advancedTextElem = 35;
+    TypingElem typingElem = 36;
+    StreamElem streamElem = 37;
+    GroupCreatedTips groupCreatedTips = 38;
+    GroupInfoSetTips groupInfoSetTips = 39;
+    GroupInfoSetNameTips groupInfoSetNameTips = 40;
+    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;
+    JoinGroupApplicationTips joinGroupApplicationTips = 42;
+    MemberQuitTips memberQuitTips = 43;
+    GroupApplicationAcceptedTips groupApplicationAcceptedTips = 44;
+    GroupApplicationRejectedTips groupApplicationRejectedTips = 45;
+    GroupOwnerTransferredTips groupOwnerTransferredTips = 46;
+    MemberKickedTips memberKickedTips = 47;
+    MemberInvitedTips memberInvitedTips = 48;
+    MemberEnterTips memberEnterTips = 49;
+    GroupDismissedTips groupDismissedTips = 50;
+    GroupMemberMutedTips groupMemberMutedTips = 51;
+    GroupMemberCancelMutedTips groupMemberCancelMutedTips = 52;
+    GroupMutedTips groupMutedTips = 53;
+    GroupCancelMutedTips groupCancelMutedTips = 54;
+    GroupMemberInfoSetTips groupMemberInfoSetTips = 55;
+    FriendApplicationTips friendApplicationTips = 56;
+    FriendApplicationApprovedTips friendApplicationApprovedTips = 57;
+    FriendApplicationRejectedTips friendApplicationRejectedTips = 58;
+    FriendAddedTips friendAddedTips = 59;
+    FriendDeletedTips friendDeletedTips = 60;
+    BlackAddedTips blackAddedTips = 61;
+    BlackDeletedTips blackDeletedTips = 62;
+    FriendInfoChangedTips friendInfoChangedTips = 63;
+    UserInfoUpdatedTips userInfoUpdatedTips = 64;
+    UserStatusChangeTips userStatusChangeTips = 65;
+    UserCommandAddTips userCommandAddTips = 66;
+    UserCommandUpdateTips userCommandUpdateTips = 67;
+    UserCommandDeleteTips userCommandDeleteTips = 68;
+    ConversationUpdateTips conversationUpdateTips = 69;
+    ConversationSetPrivateTips conversationSetPrivateTips = 70;
+    ConversationHasReadTips conversationHasReadTips = 71;
+    DeleteMessageTips deleteMessageTips = 72;
+    RevokeMsgTips revokeMsgTips = 73;
+    ClearConversationTips clearConversationTips = 74;
+    DeleteMsgsTips deleteMsgsTips = 75;
+    MarkAsReadTips markAsReadTips = 76;
+    FriendsInfoUpdateTips friendsInfoUpdateTips = 77;
+    SubUserOnlineStatusTips subUserOnlineStatusTips = 78;
+    StreamMsgTips streamMsgTips = 79;
   }
-  AttachedInfoElem attachedInfoElem = 39;
 }
-
-// ############## notification ##############
-
 
 // ##########################################
 message MessageReceipt {

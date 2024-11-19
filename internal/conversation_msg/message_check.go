@@ -3,8 +3,9 @@ package conversation_msg
 import (
 	"context"
 	"errors"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"time"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
@@ -415,7 +416,7 @@ func (c *Conversation) groupHandle(ctx context.Context, self, others []*model_st
 	allSenders := datautil.Slice(allMessage, func(e *model_struct.LocalChatLog) string {
 		return e.SendID
 	})
-	groupMap, err := c.group.GetGroupMemberNameAndFaceURL(ctx, lc.GroupID, datautil.Distinct(allSenders))
+	groupMap, err := c.group.GetGroupMembersInfo(ctx, lc.GroupID, datautil.Distinct(allSenders))
 	if err != nil {
 		log.ZError(ctx, "get group member info err", err)
 		return
