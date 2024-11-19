@@ -4,30 +4,9 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
 import "message.proto";
-import "common.proto";
 import "shared.proto";
 
-message Conversation {
-  string conversationID = 1;
-  common.SessionType conversationType = 2;
-  string userID = 3;
-  string groupID = 4;
-  string showName = 5;
-  string faceURL = 6;
-  common.ConvRecvMsgOpt recvMsgOpt = 7;
-  int32 unreadCount = 8;
-  common.ConvGroupAtType groupAtType = 9;
-  string latestMsg = 10;
-  int64 latestMsgSendTime = 11;
-  string draftText = 12;
-  int64 draftTextTime = 13;
-  bool isPinned = 14;
-  bool isPrivateChat = 15;
-  int32 burnDuration = 16;
-  string ex = 17;
-  int64 msgDestructTime = 18;
-  bool isMsgDestruct = 19;
-}
+
 
 
 message ConversationArgs {

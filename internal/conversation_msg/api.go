@@ -755,7 +755,7 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 			findResultItem.ConversationID = v.conversation.ConversationID
 			findResultItem.FaceURL = v.conversation.FaceURL
 			findResultItem.ShowName = v.conversation.ShowName
-			findResultItem.ConversationType = v.conversation.ConversationType
+			findResultItem.ConversationType = int32(v.conversation.ConversationType)
 			findResultItem.MessageList = tempMessageList
 			findResultItem.MessageCount = int32(len(findResultItem.MessageList))
 			r.FindResultItems = append(r.FindResultItems, &findResultItem)
@@ -1043,26 +1043,7 @@ func (c *Conversation) SearchConversation(ctx context.Context, req *sdkpb.Search
 	if err != nil {
 		return nil, err
 	}
-
-	apiConversations := make([]*sdkpb.Conversation, len(conversations))
-	for i, localConv := range conversations {
-		apiConv := &sdkpb.Conversation{
-			ConversationID:   localConv.ConversationID,
-			ConversationType: localConv.ConversationType,
-			UserID:           localConv.UserID,
-			GroupID:          localConv.GroupID,
-			RecvMsgOpt:       localConv.RecvMsgOpt,
-			UnreadCount:      localConv.UnreadCount,
-			DraftTextTime:    localConv.DraftTextTime,
-			IsPinned:         localConv.IsPinned,
-			IsPrivateChat:    localConv.IsPrivateChat,
-			BurnDuration:     localConv.BurnDuration,
-			GroupAtType:      localConv.GroupAtType,
-			Ex:               localConv.Ex,
-		}
-		apiConversations[i] = apiConv
-	}
 	return &sdkpb.SearchConversationResp{
-		ConversationList: apiConversations,
+		ConversationList: datautil.Batch(LocalConversationToSdkPB, conversations),
 	}, nil
 }

@@ -2,6 +2,8 @@ syntax = "proto3";
 package openim.sdk.shared;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 
+import "common.proto";
+
 // ############## user ################
 
 message UserInfo {
@@ -143,14 +145,14 @@ message GroupRequestInfo {
 
 message Conversation {
   string conversationID = 1;
-  int32 conversationType = 2;
+  common.SessionType conversationType = 2;
   string userID = 3;
   string groupID = 4;
   string showName = 5;
   string faceURL = 6;
-  int32 recvMsgOpt = 7;
+  common.ConvRecvMsgOpt recvMsgOpt = 7;
   int32 unreadCount = 8;
-  int32 groupAtType = 9;
+  common.ConvGroupAtType groupAtType = 9;
   string latestMsg = 10;
   int64 latestMsgSendTime = 11;
   string draftText = 12;
