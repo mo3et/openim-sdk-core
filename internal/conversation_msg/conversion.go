@@ -1,7 +1,6 @@
 package conversation_msg
 
 import (
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	pbConversation "github.com/openimsdk/protocol/conversation"
@@ -65,14 +64,15 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 		AttachedInfo:     serverMessage.AttachedInfo,
 		Ex:               serverMessage.Ex,
 	}
-	if serverMessage.SessionType == constant.WriteGroupChatType || serverMessage.SessionType == constant.ReadGroupChatType {
+	switch sdkpb.SessionType(serverMessage.SessionType) {
+	case sdkpb.SessionType_WriteGroupChatType, sdkpb.SessionType_ReadGroupChatType:
 		localMessage.RecvID = serverMessage.GroupID
 	}
 	return localMessage
 }
 
-func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.Conversation {
-	return &sdkpb.Conversation{
+func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.IMConversation {
+	return &sdkpb.IMConversation{
 		ConversationID:   conversation.ConversationID,
 		ConversationType: sdkpb.SessionType(conversation.ConversationType),
 		UserID:           conversation.UserID,

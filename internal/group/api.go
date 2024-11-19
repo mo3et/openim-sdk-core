@@ -35,7 +35,7 @@ import (
 	"github.com/openimsdk/protocol/group"
 )
 
-func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sdkpb.GroupInfo, error) {
+func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sdkpb.IMGroup, error) {
 	req.GroupInfo.CreatorUserID = g.loginUserID
 	resp, err := g.createGroup(ctx, &group.CreateGroupReq{
 		MemberUserIDs: req.MemberUserIDs,
@@ -494,7 +494,7 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 }
 
 func (g *Group) GetGroupRequest(ctx context.Context, req *sdkpb.GetGroupRequestReq) (*sdkpb.GetGroupRequestResp, error) {
-	var requests []*sdkpb.GroupRequestInfo
+	var requests []*sdkpb.IMGroupRequest
 	if req.Send {
 		res, err := g.db.GetSendGroupApplication(ctx)
 		if err != nil {
