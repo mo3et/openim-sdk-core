@@ -8,7 +8,6 @@ import (
 	"math"
 	"sync"
 
-	sdk "github.com/openimsdk/openim-sdk-core/v3/pkg/sdk_params_callback"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
@@ -674,10 +673,10 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struc
 		for _, w := range newMessagesList {
 			conversationID := utils.GetConversationIDByMsg(w)
 			if v, ok := cc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.msgListener().OnRecvOfflineNewMessage(utils.StructToJsonString(w))
+				c.msgListener().OnRecvOfflineNewMessage(&sdkpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 			if v, ok := nc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.msgListener().OnRecvOfflineNewMessage(utils.StructToJsonString(w))
+				c.msgListener().OnRecvOfflineNewMessage(&sdkpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 		}
 	} else {
@@ -686,58 +685,10 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struc
 				continue
 			}
 			if _, ok := onlineMsg[onlineMsgKey{ClientMsgID: w.ClientMsgID, ServerMsgID: w.ServerMsgID}]; ok {
-				c.msgListener().OnRecvOnlineOnlyMessage(utils.StructToJsonString(w))
+				c.msgListener().OnRecvOnlineOnlyMessage(&sdkpb.EventOnRecvOnlineOnlyMessageData{Message: w})
 			} else {
-				c.msgListener().OnRecvNewMessage(utils.StructToJsonString(w))
+				c.msgListener().OnRecvNewMessage(&sdkpb.EventOnRecvNewMessageData{Message: w})
 			}
-		}
-	}
-}
-
-func (c *Conversation) batchNewMessages(ctx context.Context, newMessagesList sdk_struct.NewMsgList, conversationChanged, newConversation map[string]*model_struct.LocalConversation, onlineMsg map[onlineMsgKey]struct{}) {
-	if len(newMessagesList) == 0 {
-		log.ZWarn(ctx, "newMessagesList is empty", errs.New("newMessagesList is empty"))
-		return
-	}
-
-	sort.Sort(newMessagesList)
-	var needNotificationMsgList sdk_struct.NewMsgList
-
-	// offline
-	if c.GetBackground() {
-		u, err := c.user.GetSelfUserInfo(ctx)
-		if err != nil {
-			log.ZWarn(ctx, "GetSelfUserInfo err", err)
-		}
-
-		if u.GlobalRecvMsgOpt != constant.ReceiveMessage {
-			return
-		}
-
-		for _, w := range newMessagesList {
-			conversationID := utils.GetConversationIDByMsg(w)
-			if v, ok := conversationChanged[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				needNotificationMsgList = append(needNotificationMsgList, w)
-			}
-			if v, ok := newConversation[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				needNotificationMsgList = append(needNotificationMsgList, w)
-			}
-		}
-
-		if len(needNotificationMsgList) != 0 {
-			c.msgListener().OnRecvOfflineNewMessage(utils.StructToJsonString(needNotificationMsgList))
-		}
-	} else { // online
-		for _, w := range newMessagesList {
-			if w.ContentType == constant.Typing {
-				continue
-			}
-
-			needNotificationMsgList = append(needNotificationMsgList, w)
-		}
-
-		if len(needNotificationMsgList) != 0 {
-			c.msgListener().OnRecvOnlineOnlyMessage(utils.StructToJsonString(needNotificationMsgList))
 		}
 	}
 }
@@ -785,12 +736,14 @@ func (c *Conversation) batchAddFaceURLAndName(ctx context.Context, conversations
 		return err
 	}
 
-	groupInfoList, err := c.group.GetSpecifiedGroupsInfo(ctx, groupIDs)
+	groupInfoList, err := c.group.GetSpecifiedGroupsInfo(ctx, &sdkpb.GetSpecifiedGroupsInfoReq{
+		GroupIDs: groupIDs,
+	})
 	if err != nil {
 		return err
 	}
 
-	groups := datautil.SliceToMap(groupInfoList, func(groupInfo *model_struct.LocalGroup) string {
+	groups := datautil.SliceToMap(groupInfoList.Groups, func(groupInfo *sdkpb.GroupInfo) string {
 		return groupInfo.GroupID
 	})
 
@@ -886,25 +839,25 @@ func (c *Conversation) ChangeInputStates(ctx context.Context, conversationID str
 	return c.typing.ChangeInputStates(ctx, conversationID, focus)
 }
 
-func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversationID string, seq int64, before int64, after int64) ([]*sdk_struct.MsgStruct, error) {
-	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &sdk.GetAdvancedHistoryMessageListCallback{})
+func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversationID string, seq int64, before int64, after int64) ([]*sdkpb.IMMessage, error) {
+	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &sdkpb.GetAdvancedHistoryMessageListCallback{})
 	res, err := c.db.GetMessagesBySeqs(ctx, conversationID, []int64{seq})
 	if err != nil {
 		return nil, err
 	}
 	if len(res) == 0 {
-		return []*sdk_struct.MsgStruct{}, nil
+		return []*sdkpb.IMMessage{}, nil
 	}
 	_, msgList := c.LocalChatLog2MsgStruct(ctx, []*model_struct.LocalChatLog{res[0]})
 	if len(msgList) == 0 {
-		return []*sdk_struct.MsgStruct{}, nil
+		return []*sdkpb.IMMessage{}, nil
 	}
 	msg := msgList[0]
-	result := make([]*sdk_struct.MsgStruct, 0, before+after+1)
+	result := make([]*sdkpb.IMMessage, 0, before+after+1)
 	if before > 0 {
-		req := sdk.GetAdvancedHistoryMessageListParams{
+		req := &sdkpb.GetAdvancedHistoryMessageListParams{
 			ConversationID:   conversationID,
-			Count:            int(before),
+			Count:            int32(before),
 			StartClientMsgID: msg.ClientMsgID,
 		}
 		val, err := c.getAdvancedHistoryMessageList(ctx, req, false)
@@ -915,9 +868,9 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 	}
 	result = append(result, msg)
 	if after > 0 {
-		req := sdk.GetAdvancedHistoryMessageListParams{
+		req := &sdkpb.GetAdvancedHistoryMessageListParams{
 			ConversationID:   conversationID,
-			Count:            int(after),
+			Count:            int32(after),
 			StartClientMsgID: msg.ClientMsgID,
 		}
 		val, err := c.getAdvancedHistoryMessageList(ctx, req, true)

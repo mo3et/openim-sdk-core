@@ -94,5 +94,5 @@ type UploadFileCallback interface {
 }
 
 type UploadLogsCallback interface {
-	OnUploadLogsProgress(*pb.EventEventOnUploadLogsProgressData)
+	OnUploadLogsProgress(*pb.EventOnUploadLogsProgressData)
 }

@@ -22,7 +22,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
@@ -156,7 +156,7 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 		return err
 	}
 
-	var latestMsg sdk_struct.MsgStruct
+	var latestMsg sdkpb.IMMessage
 	// Convert the latest message in the conversation table.
 	utils.JsonStringToStruct(conversation.LatestMsg, &latestMsg)
 
@@ -180,7 +180,7 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{conversationID}}})
 	}
-	c.msgListener().OnMsgDeleted(utils.StructToJsonString(s))
+	c.msgListener().OnMsgDeleted(&sdkpb.EventOnMsgDeletedData{Message: LocalChatLogToIMMessage(s)})
 	return nil
 }
 

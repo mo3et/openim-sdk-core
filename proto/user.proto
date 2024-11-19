@@ -4,16 +4,7 @@ package openim.sdk.user;
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/user";
 
-message UserInfo {
-  string userID = 1;
-  string nickname = 2;
-  string faceURL = 3;
-  string ex = 4;
-  int64 createTime = 5;
-  int32 appMangerLevel = 6;
-  int32 globalRecvMsgOpt = 7;
-  string attached = 8;
-}
+import "shared.proto";
 
 message CommandInfo {
   string userID = 1;
@@ -26,7 +17,7 @@ message CommandInfo {
 
 message GetSelfUserInfoReq {}
 message GetSelfUserInfoResp {
-  UserInfo user = 1;
+  shared.UserInfo user = 1;
 }
 
 message SetSelfInfoReq {
@@ -72,12 +63,12 @@ message GetUsersInfoReq {
   repeated string userIDs = 1;
 }
 message GetUsersInfoResp {
-  repeated UserInfo users = 1;
+  repeated shared.UserInfo users = 1;
 }
 
 message GetUsersInfoFromServerReq {
   repeated string userIDs = 1;
 }
 message GetUsersInfoFromServerResp {
-  repeated UserInfo users = 1;
+  repeated shared.UserInfo users = 1;
 }

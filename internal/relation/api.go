@@ -302,7 +302,7 @@ func (r *Relation) GetBlacks(ctx context.Context, req *sdkpb.GetBlacksReq) (*sdk
 }
 
 func (r *Relation) UpdateFriends(ctx context.Context, req *sdkpb.UpdatesFriendsReq) (*sdkpb.UpdatesFriendsResp, error) {
-	sReq := &relation.UpdateFriendsReq{FriendUserIDs: req.UserIDs, IsPinned: wrapperspb.BoolPtr(req.Pinned), Remark: wrapperspb.StringPtr(req.Remark), Ex: wrapperspb.StringPtr(req.Ex)}
+	sReq := &relation.UpdateFriendsReq{FriendUserIDs: []string{req.UserID}, IsPinned: wrapperspb.BoolPtr(req.Pinned), Remark: wrapperspb.StringPtr(req.Remark), Ex: wrapperspb.StringPtr(req.Ex)}
 	if err := r.updateFriends(ctx, sReq); err != nil {
 		return nil, err
 	}

@@ -1,18 +1,11 @@
 package conversation_msg
 
 import (
-	"context"
-	"encoding/json"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/protocol/sdkws"
-	"github.com/openimsdk/tools/log"
-	"github.com/openimsdk/tools/utils/stringutil"
-
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	pbConversation "github.com/openimsdk/protocol/conversation"
+	"github.com/openimsdk/protocol/sdkws"
 )
 
 func ServerConversationToLocal(conversation *pbConversation.Conversation) *model_struct.LocalConversation {

@@ -1,45 +1,13 @@
 syntax = "proto3";
 package openim.sdk.message;
 
-//import "google/protobuf/any.proto";
 import "common.proto";
-
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
 
-message MessageReceipt {
-  string groupID = 1;
-  string userID = 2;
-  repeated string msgIDList = 3;
-  int64 readTime = 4;
-  int32 msgFrom = 5;
-  int32 contentType = 6;
-  int32 sessionType = 7;
-}
-
-message MessageRevoked {
-  string revokerID = 1;
-  int32 revokerRole = 2;
-  string clientMsgID = 3;
-  string revokerNickname = 4;
-  int64 revokeTime = 5;
-  int64 sourceMessageSendTime = 6;
-  string sourceMessageSendID = 7;
-  string sourceMessageSenderNickname = 8;
-  int32 sessionType = 9;
-  int64 seq = 10;
-  string ex = 11;
-  bool isAdminRevoke = 12;
-}
-
-message MessageReaction {
-  string clientMsgID = 1;
-  int32 reactionType = 2;
-  int32 counter = 3;
-  string userID = 4;
-  string groupID = 5;
-  int32 sessionType = 6;
-  string info = 7;
+message AtInfo {
+  string atUserID = 1;
+  string groupNickname = 2;
 }
 
 message ImageInfo {
@@ -144,6 +112,14 @@ message FileElem {
   string fileType = 6;
 }
 
+message MessageEntity {
+  string type = 1;
+  int32 offset = 2;
+  int32 length = 3;
+  string url = 4;
+  string ex = 5;
+}
+
 message MergeElem {
   string title = 1;
   repeated string abstractList = 2;
@@ -202,17 +178,10 @@ message StreamElem {
   bool end = 4;
 }
 
-message AtInfo {
-  string atUserID = 1;
-  string groupNickname = 2;
-}
-
-message AttachedInfoElem {
-  GroupHasReadInfo groupHasReadInfo = 1;
-  bool isPrivateChat = 2;
-  int32 burnDuration = 3;
-  int64 hasReadTime = 4;
-  UploadProgress progress = 5;
+message GroupHasReadInfo {
+  repeated string hasReadUserIDList = 1;
+  int32 hasReadCount = 2;
+  int32 groupMemberCount = 3;
 }
 
 message UploadProgress {
@@ -222,32 +191,12 @@ message UploadProgress {
   string uploadID = 4;
 }
 
-message ReactionElem {
-  int32 counter = 1;
-  int32 type = 2;
-  repeated UserReactionElem userReactionList = 3;
-  bool canRepeat = 4;
-  string info = 5;
-}
-
-message UserReactionElem {
-  string userID = 1;
-  int32 counter = 2;
-  string info = 3;
-}
-
-message MessageEntity {
-  string type = 1;
-  int32 offset = 2;
-  int32 length = 3;
-  string url = 4;
-  string ex = 5;
-}
-
-message GroupHasReadInfo {
-  repeated string hasReadUserIDList = 1;
-  int32 hasReadCount = 2;
-  int32 groupMemberCount = 3;
+message AttachedInfoElem {
+  GroupHasReadInfo groupHasReadInfo = 1;
+  bool isPrivateChat = 2;
+  int32 burnDuration = 3;
+  int64 hasReadTime = 4;
+  UploadProgress progress = 5;
 }
 
 message IMMessage {
@@ -291,232 +240,4 @@ message IMMessage {
   AttachedInfoElem attachedInfoElem = 39;
 }
 
-message GetAdvancedHistoryMessageListParams {
-  string conversationID = 1;
-  string startClientMsgID = 2;
-  int32 count = 3;
-}
-
-message GetAdvancedHistoryMessageListCallback {
-  repeated message.IMMessage messageList = 1;
-  bool isEnd = 2;
-  int32 errCode = 3;
-  string errMsg = 4;
-}
-
-// ------------------------------------------------------------------------------------------------------
-message SendMessageReq {
-  IMMessage message = 1;
-  string recvID = 2;
-  string groupID = 3;
-  common.OfflinePushInfo offlinePushInfo = 4;
-  bool isOnlineOnly = 5;
-}
-message SendMessageResp {
-  IMMessage message = 1;
-}
-
-message GetAdvancedHistoryMessageListReq {
-  string conversationID = 1;
-  GetAdvancedHistoryMessageListParams getAdvancedHistoryMessageListParams = 2;
-}
-message GetAdvancedHistoryMessageListResp {
-  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
-}
-
-message GetAdvancedHistoryMessageListReverseReq {
-  string conversationID = 1;
-  GetAdvancedHistoryMessageListParams getAdvancedHistoryMessageListParams = 2;
-}
-message GetAdvancedHistoryMessageListReverseResp {
-  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
-}
-
-message RevokeMessageReq {
-  string conversationID = 1;
-  string clientMsgID = 2;
-}
-message RevokeMessageResp {}
-
-message TypingStatusUpdateReq {
-  string recvID = 1;
-  string msgTip = 2;
-}
-message TypingStatusUpdateResp {}
-
-message DeleteMessageReq {
-  string conversationID = 1;
-  string clientMsgID = 2;
-}
-message DeleteMessageResp {}
-
-message DeleteAllMsgFromLocalAndServerReq {}
-message DeleteAllMsgFromLocalAndServerResp {}
-
-message DeleteAllMessageFromLocalStorageReq {}
-message DeleteAllMessageFromLocalStorageResp {}
-
-message InsertSingleMessageToLocalStorageReq {
-  IMMessage msg = 1;
-  string recvID = 2;
-  string sendID = 3;
-}
-message InsertSingleMessageToLocalStorageResp {
-  IMMessage msg = 1;
-}
-
-message InsertGroupMessageToLocalStorageReq {
-  IMMessage msg = 1;
-  string groupID = 2;
-  string sendID = 3;
-}
-message InsertGroupMessageToLocalStorageResp {
-  IMMessage msg = 1;
-}
-
-message CreateTextMessageReq {
-  string text = 1;
-}
-message CreateTextMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateAdvancedTextMessageReq {
-  string text = 1;
-  repeated MessageEntity messageEntities = 2;
-}
-message CreateAdvancedTextMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateTextAtMessageReq {
-  string text = 1;
-  repeated string userIDList = 2;
-  repeated AtInfo usersInfo = 3;
-  IMMessage quoteMessage = 4;
-}
-message CreateTextAtMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateLocationMessageReq {
-  string description = 1;
-  double longitude = 2;
-  double latitude = 3;
-}
-message CreateLocationMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateCustomMessageReq {
-  string data = 1;
-  string extension = 2;
-  string description = 3;
-}
-message CreateCustomMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateQuoteMessageReq {
-  string text = 1;
-  IMMessage quoteMessage = 2;
-}
-message CreateQuoteMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateAdvancedQuoteMessageReq {
-  string text = 1;
-  IMMessage quoteMessage = 2;
-  repeated MessageEntity messageEntities = 3;
-}
-message CreateAdvancedQuoteMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateCardMessageReq {
-  CardElem card = 1;
-}
-message CreateCardMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateImageMessageReq {
-  string imageSourcePath = 1;
-  PictureBaseInfo sourcePicture = 2;
-  PictureBaseInfo bigPicture = 3;
-  PictureBaseInfo snapshotPicture = 4;
-}
-message CreateImageMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateSoundMessageReq {
-  string soundPath = 1;
-  int64 duration = 2;
-  SoundBaseInfo soundElem = 3;
-}
-message CreateSoundMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateVideoMessageReq {
-  string videoSourcePath = 1;
-  string videoType = 2;
-  int64 duration = 3;
-  string snapshotSourcePath = 4;
-  VideoBaseInfo videoElem = 5;
-}
-message CreateVideoMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateFileMessageReq {
-  string fileSourcePath = 1;
-  string fileName = 2;
-  FileBaseInfo fileElem = 3;
-}
-message CreateFileMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateMergerMessageReq {
-  repeated IMMessage messages = 1;
-  string title = 2;
-  repeated string summaries = 3;
-}
-message CreateMergerMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateFaceMessageReq {
-  int32 index = 1;
-  string data = 2;
-}
-message CreateFaceMessageResp {
-  IMMessage message = 1;
-}
-
-message CreateForwardMessageReq {
-  IMMessage message = 1;
-}
-message CreateForwardMessageResp {
-  IMMessage message = 1;
-}
-
-message UploadLogsReq {
-  int32 line = 1;
-  string ex = 2;
-}
-message UploadLogsResp {}
-
-message LogReq {
-  int32 logLevel = 1;
-  string file = 2;
-  int32 line = 3;
-  string msg = 4;
-  string err = 5;
-//  repeated google.protobuf.Any keysAndValues = 6;
-}
-message LogResp {}
-
+// ############## notification ##############

@@ -16,7 +16,7 @@ type progressConvert struct {
 }
 
 func (p *progressConvert) Open(size int64) {
-	p.p.OnUploadLogsProgress(&pb.EventEventOnUploadLogsProgressData{
+	p.p.OnUploadLogsProgress(&pb.EventOnUploadLogsProgressData{
 		Progress: 0,
 		Total:    size,
 	})
@@ -34,14 +34,14 @@ func (p *progressConvert) UploadPartComplete(index int, partSize int64, partHash
 
 func (p *progressConvert) UploadComplete(fileSize int64, streamSize int64, storageSize int64) {
 	//log.ZDebug(p.ctx, "upload log progress", "fileSize", fileSize, "current", streamSize)
-	p.p.OnUploadLogsProgress(&pb.EventEventOnUploadLogsProgressData{
+	p.p.OnUploadLogsProgress(&pb.EventOnUploadLogsProgressData{
 		Progress: streamSize,
 		Total:    streamSize,
 	})
 }
 
 func (p *progressConvert) Complete(size int64, url string, typ int) {
-	p.p.OnUploadLogsProgress(&pb.EventEventOnUploadLogsProgressData{
+	p.p.OnUploadLogsProgress(&pb.EventOnUploadLogsProgressData{
 		Progress: size,
 		Total:    size,
 	})

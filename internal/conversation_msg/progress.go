@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"encoding/json"
+
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
@@ -24,7 +25,7 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-func NewUploadFileCallback(ctx context.Context, progress func(progress *sdkpb.EventOnSendMsgProgressData), msg *sdkpb.MsgStruct, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
+func NewUploadFileCallback(ctx context.Context, progress func(progress *sdkpb.EventOnSendMsgProgressData), msg *sdkpb.IMMessage, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
 	if msg.AttachedInfoElem == nil {
 		msg.AttachedInfoElem = &sdkpb.AttachedInfoElem{}
 	}
@@ -37,7 +38,7 @@ func NewUploadFileCallback(ctx context.Context, progress func(progress *sdkpb.Ev
 type msgUploadFileCallback struct {
 	ctx            context.Context
 	db             db_interface.DataBase
-	msg            *sdkpb.MsgStruct
+	msg            *sdkpb.IMMessage
 	conversationID string
 	value          int
 	progress       func(progress *sdkpb.EventOnSendMsgProgressData)

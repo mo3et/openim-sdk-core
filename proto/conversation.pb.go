@@ -20,197 +20,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Conversation struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ConversationID    string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ConversationType  int32  `protobuf:"varint,2,opt,name=conversationType,proto3" json:"conversationType,omitempty"`
-	UserID            string `protobuf:"bytes,3,opt,name=userID,proto3" json:"userID,omitempty"`
-	GroupID           string `protobuf:"bytes,4,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	ShowName          string `protobuf:"bytes,5,opt,name=showName,proto3" json:"showName,omitempty"`
-	FaceURL           string `protobuf:"bytes,6,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	RecvMsgOpt        int32  `protobuf:"varint,7,opt,name=recvMsgOpt,proto3" json:"recvMsgOpt,omitempty"`
-	UnreadCount       int32  `protobuf:"varint,8,opt,name=unreadCount,proto3" json:"unreadCount,omitempty"`
-	GroupAtType       int32  `protobuf:"varint,9,opt,name=groupAtType,proto3" json:"groupAtType,omitempty"`
-	LatestMsg         string `protobuf:"bytes,10,opt,name=latestMsg,proto3" json:"latestMsg,omitempty"`
-	LatestMsgSendTime int64  `protobuf:"varint,11,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime,omitempty"`
-	DraftText         string `protobuf:"bytes,12,opt,name=draftText,proto3" json:"draftText,omitempty"`
-	DraftTextTime     int64  `protobuf:"varint,13,opt,name=draftTextTime,proto3" json:"draftTextTime,omitempty"`
-	IsPinned          bool   `protobuf:"varint,14,opt,name=isPinned,proto3" json:"isPinned,omitempty"`
-	IsPrivateChat     bool   `protobuf:"varint,15,opt,name=isPrivateChat,proto3" json:"isPrivateChat,omitempty"`
-	BurnDuration      int32  `protobuf:"varint,16,opt,name=burnDuration,proto3" json:"burnDuration,omitempty"`
-	Ex                string `protobuf:"bytes,17,opt,name=ex,proto3" json:"ex,omitempty"`
-	MsgDestructTime   int64  `protobuf:"varint,18,opt,name=msgDestructTime,proto3" json:"msgDestructTime,omitempty"`
-	IsMsgDestruct     bool   `protobuf:"varint,19,opt,name=isMsgDestruct,proto3" json:"isMsgDestruct,omitempty"`
-}
-
-func (x *Conversation) Reset() {
-	*x = Conversation{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Conversation) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Conversation) ProtoMessage() {}
-
-func (x *Conversation) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Conversation.ProtoReflect.Descriptor instead.
-func (*Conversation) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *Conversation) GetConversationID() string {
-	if x != nil {
-		return x.ConversationID
-	}
-	return ""
-}
-
-func (x *Conversation) GetConversationType() int32 {
-	if x != nil {
-		return x.ConversationType
-	}
-	return 0
-}
-
-func (x *Conversation) GetUserID() string {
-	if x != nil {
-		return x.UserID
-	}
-	return ""
-}
-
-func (x *Conversation) GetGroupID() string {
-	if x != nil {
-		return x.GroupID
-	}
-	return ""
-}
-
-func (x *Conversation) GetShowName() string {
-	if x != nil {
-		return x.ShowName
-	}
-	return ""
-}
-
-func (x *Conversation) GetFaceURL() string {
-	if x != nil {
-		return x.FaceURL
-	}
-	return ""
-}
-
-func (x *Conversation) GetRecvMsgOpt() int32 {
-	if x != nil {
-		return x.RecvMsgOpt
-	}
-	return 0
-}
-
-func (x *Conversation) GetUnreadCount() int32 {
-	if x != nil {
-		return x.UnreadCount
-	}
-	return 0
-}
-
-func (x *Conversation) GetGroupAtType() int32 {
-	if x != nil {
-		return x.GroupAtType
-	}
-	return 0
-}
-
-func (x *Conversation) GetLatestMsg() string {
-	if x != nil {
-		return x.LatestMsg
-	}
-	return ""
-}
-
-func (x *Conversation) GetLatestMsgSendTime() int64 {
-	if x != nil {
-		return x.LatestMsgSendTime
-	}
-	return 0
-}
-
-func (x *Conversation) GetDraftText() string {
-	if x != nil {
-		return x.DraftText
-	}
-	return ""
-}
-
-func (x *Conversation) GetDraftTextTime() int64 {
-	if x != nil {
-		return x.DraftTextTime
-	}
-	return 0
-}
-
-func (x *Conversation) GetIsPinned() bool {
-	if x != nil {
-		return x.IsPinned
-	}
-	return false
-}
-
-func (x *Conversation) GetIsPrivateChat() bool {
-	if x != nil {
-		return x.IsPrivateChat
-	}
-	return false
-}
-
-func (x *Conversation) GetBurnDuration() int32 {
-	if x != nil {
-		return x.BurnDuration
-	}
-	return 0
-}
-
-func (x *Conversation) GetEx() string {
-	if x != nil {
-		return x.Ex
-	}
-	return ""
-}
-
-func (x *Conversation) GetMsgDestructTime() int64 {
-	if x != nil {
-		return x.MsgDestructTime
-	}
-	return 0
-}
-
-func (x *Conversation) GetIsMsgDestruct() bool {
-	if x != nil {
-		return x.IsMsgDestruct
-	}
-	return false
-}
-
 type ConversationArgs struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -223,7 +32,7 @@ type ConversationArgs struct {
 func (x *ConversationArgs) Reset() {
 	*x = ConversationArgs{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[1]
+		mi := &file_conversation_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -236,7 +45,7 @@ func (x *ConversationArgs) String() string {
 func (*ConversationArgs) ProtoMessage() {}
 
 func (x *ConversationArgs) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[1]
+	mi := &file_conversation_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -249,7 +58,7 @@ func (x *ConversationArgs) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConversationArgs.ProtoReflect.Descriptor instead.
 func (*ConversationArgs) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{1}
+	return file_conversation_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *ConversationArgs) GetConversationID() string {
@@ -278,7 +87,7 @@ type FindMessageListCallback struct {
 func (x *FindMessageListCallback) Reset() {
 	*x = FindMessageListCallback{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[2]
+		mi := &file_conversation_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -291,7 +100,7 @@ func (x *FindMessageListCallback) String() string {
 func (*FindMessageListCallback) ProtoMessage() {}
 
 func (x *FindMessageListCallback) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[2]
+	mi := &file_conversation_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -304,7 +113,7 @@ func (x *FindMessageListCallback) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindMessageListCallback.ProtoReflect.Descriptor instead.
 func (*FindMessageListCallback) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{2}
+	return file_conversation_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *FindMessageListCallback) GetTotalCount() int32 {
@@ -340,7 +149,7 @@ type SearchLocalMessagesParams struct {
 func (x *SearchLocalMessagesParams) Reset() {
 	*x = SearchLocalMessagesParams{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[3]
+		mi := &file_conversation_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -353,7 +162,7 @@ func (x *SearchLocalMessagesParams) String() string {
 func (*SearchLocalMessagesParams) ProtoMessage() {}
 
 func (x *SearchLocalMessagesParams) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[3]
+	mi := &file_conversation_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -366,7 +175,7 @@ func (x *SearchLocalMessagesParams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchLocalMessagesParams.ProtoReflect.Descriptor instead.
 func (*SearchLocalMessagesParams) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{3}
+	return file_conversation_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *SearchLocalMessagesParams) GetConversationID() string {
@@ -444,7 +253,7 @@ type SearchLocalMessagesCallback struct {
 func (x *SearchLocalMessagesCallback) Reset() {
 	*x = SearchLocalMessagesCallback{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[4]
+		mi := &file_conversation_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -457,7 +266,7 @@ func (x *SearchLocalMessagesCallback) String() string {
 func (*SearchLocalMessagesCallback) ProtoMessage() {}
 
 func (x *SearchLocalMessagesCallback) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[4]
+	mi := &file_conversation_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -470,7 +279,7 @@ func (x *SearchLocalMessagesCallback) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchLocalMessagesCallback.ProtoReflect.Descriptor instead.
 func (*SearchLocalMessagesCallback) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{4}
+	return file_conversation_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SearchLocalMessagesCallback) GetTotalCount() int32 {
@@ -504,7 +313,7 @@ type SearchByConversationResult struct {
 func (x *SearchByConversationResult) Reset() {
 	*x = SearchByConversationResult{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[5]
+		mi := &file_conversation_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -517,7 +326,7 @@ func (x *SearchByConversationResult) String() string {
 func (*SearchByConversationResult) ProtoMessage() {}
 
 func (x *SearchByConversationResult) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[5]
+	mi := &file_conversation_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -530,7 +339,7 @@ func (x *SearchByConversationResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchByConversationResult.ProtoReflect.Descriptor instead.
 func (*SearchByConversationResult) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{5}
+	return file_conversation_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *SearchByConversationResult) GetConversationID() string {
@@ -592,7 +401,7 @@ type GetAllConversationListReq struct {
 func (x *GetAllConversationListReq) Reset() {
 	*x = GetAllConversationListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[6]
+		mi := &file_conversation_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -605,7 +414,7 @@ func (x *GetAllConversationListReq) String() string {
 func (*GetAllConversationListReq) ProtoMessage() {}
 
 func (x *GetAllConversationListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[6]
+	mi := &file_conversation_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -618,7 +427,7 @@ func (x *GetAllConversationListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllConversationListReq.ProtoReflect.Descriptor instead.
 func (*GetAllConversationListReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{6}
+	return file_conversation_proto_rawDescGZIP(), []int{5}
 }
 
 type GetAllConversationListResp struct {
@@ -632,7 +441,7 @@ type GetAllConversationListResp struct {
 func (x *GetAllConversationListResp) Reset() {
 	*x = GetAllConversationListResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[7]
+		mi := &file_conversation_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -645,7 +454,7 @@ func (x *GetAllConversationListResp) String() string {
 func (*GetAllConversationListResp) ProtoMessage() {}
 
 func (x *GetAllConversationListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[7]
+	mi := &file_conversation_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -658,7 +467,7 @@ func (x *GetAllConversationListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllConversationListResp.ProtoReflect.Descriptor instead.
 func (*GetAllConversationListResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{7}
+	return file_conversation_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetAllConversationListResp) GetConversationList() []*Conversation {
@@ -680,7 +489,7 @@ type GetConversationListSplitReq struct {
 func (x *GetConversationListSplitReq) Reset() {
 	*x = GetConversationListSplitReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[8]
+		mi := &file_conversation_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -693,7 +502,7 @@ func (x *GetConversationListSplitReq) String() string {
 func (*GetConversationListSplitReq) ProtoMessage() {}
 
 func (x *GetConversationListSplitReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[8]
+	mi := &file_conversation_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -706,7 +515,7 @@ func (x *GetConversationListSplitReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConversationListSplitReq.ProtoReflect.Descriptor instead.
 func (*GetConversationListSplitReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{8}
+	return file_conversation_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetConversationListSplitReq) GetOffset() int32 {
@@ -734,7 +543,7 @@ type GetConversationListSplitResp struct {
 func (x *GetConversationListSplitResp) Reset() {
 	*x = GetConversationListSplitResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[9]
+		mi := &file_conversation_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -747,7 +556,7 @@ func (x *GetConversationListSplitResp) String() string {
 func (*GetConversationListSplitResp) ProtoMessage() {}
 
 func (x *GetConversationListSplitResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[9]
+	mi := &file_conversation_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -760,7 +569,7 @@ func (x *GetConversationListSplitResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConversationListSplitResp.ProtoReflect.Descriptor instead.
 func (*GetConversationListSplitResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{9}
+	return file_conversation_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetConversationListSplitResp) GetConversationList() []*Conversation {
@@ -781,7 +590,7 @@ type HideConversationReq struct {
 func (x *HideConversationReq) Reset() {
 	*x = HideConversationReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[10]
+		mi := &file_conversation_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -794,7 +603,7 @@ func (x *HideConversationReq) String() string {
 func (*HideConversationReq) ProtoMessage() {}
 
 func (x *HideConversationReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[10]
+	mi := &file_conversation_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -807,7 +616,7 @@ func (x *HideConversationReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HideConversationReq.ProtoReflect.Descriptor instead.
 func (*HideConversationReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{10}
+	return file_conversation_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *HideConversationReq) GetConversationID() string {
@@ -826,7 +635,7 @@ type HideConversationResp struct {
 func (x *HideConversationResp) Reset() {
 	*x = HideConversationResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[11]
+		mi := &file_conversation_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -839,7 +648,7 @@ func (x *HideConversationResp) String() string {
 func (*HideConversationResp) ProtoMessage() {}
 
 func (x *HideConversationResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[11]
+	mi := &file_conversation_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -852,7 +661,7 @@ func (x *HideConversationResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HideConversationResp.ProtoReflect.Descriptor instead.
 func (*HideConversationResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{11}
+	return file_conversation_proto_rawDescGZIP(), []int{10}
 }
 
 type GetAtAllTagReq struct {
@@ -864,7 +673,7 @@ type GetAtAllTagReq struct {
 func (x *GetAtAllTagReq) Reset() {
 	*x = GetAtAllTagReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[12]
+		mi := &file_conversation_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -877,7 +686,7 @@ func (x *GetAtAllTagReq) String() string {
 func (*GetAtAllTagReq) ProtoMessage() {}
 
 func (x *GetAtAllTagReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[12]
+	mi := &file_conversation_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -890,7 +699,7 @@ func (x *GetAtAllTagReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAtAllTagReq.ProtoReflect.Descriptor instead.
 func (*GetAtAllTagReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{12}
+	return file_conversation_proto_rawDescGZIP(), []int{11}
 }
 
 type GetAtAllTagResp struct {
@@ -904,7 +713,7 @@ type GetAtAllTagResp struct {
 func (x *GetAtAllTagResp) Reset() {
 	*x = GetAtAllTagResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[13]
+		mi := &file_conversation_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -917,7 +726,7 @@ func (x *GetAtAllTagResp) String() string {
 func (*GetAtAllTagResp) ProtoMessage() {}
 
 func (x *GetAtAllTagResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[13]
+	mi := &file_conversation_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -930,7 +739,7 @@ func (x *GetAtAllTagResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAtAllTagResp.ProtoReflect.Descriptor instead.
 func (*GetAtAllTagResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{13}
+	return file_conversation_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetAtAllTagResp) GetTag() string {
@@ -952,7 +761,7 @@ type GetOneConversationReq struct {
 func (x *GetOneConversationReq) Reset() {
 	*x = GetOneConversationReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[14]
+		mi := &file_conversation_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -965,7 +774,7 @@ func (x *GetOneConversationReq) String() string {
 func (*GetOneConversationReq) ProtoMessage() {}
 
 func (x *GetOneConversationReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[14]
+	mi := &file_conversation_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -978,7 +787,7 @@ func (x *GetOneConversationReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOneConversationReq.ProtoReflect.Descriptor instead.
 func (*GetOneConversationReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{14}
+	return file_conversation_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetOneConversationReq) GetSessionType() int32 {
@@ -1006,7 +815,7 @@ type GetOneConversationResp struct {
 func (x *GetOneConversationResp) Reset() {
 	*x = GetOneConversationResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[15]
+		mi := &file_conversation_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1019,7 +828,7 @@ func (x *GetOneConversationResp) String() string {
 func (*GetOneConversationResp) ProtoMessage() {}
 
 func (x *GetOneConversationResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[15]
+	mi := &file_conversation_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1032,7 +841,7 @@ func (x *GetOneConversationResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOneConversationResp.ProtoReflect.Descriptor instead.
 func (*GetOneConversationResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{15}
+	return file_conversation_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *GetOneConversationResp) GetConversation() *Conversation {
@@ -1053,7 +862,7 @@ type GetMultipleConversationReq struct {
 func (x *GetMultipleConversationReq) Reset() {
 	*x = GetMultipleConversationReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[16]
+		mi := &file_conversation_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1066,7 +875,7 @@ func (x *GetMultipleConversationReq) String() string {
 func (*GetMultipleConversationReq) ProtoMessage() {}
 
 func (x *GetMultipleConversationReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[16]
+	mi := &file_conversation_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1079,7 +888,7 @@ func (x *GetMultipleConversationReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMultipleConversationReq.ProtoReflect.Descriptor instead.
 func (*GetMultipleConversationReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{16}
+	return file_conversation_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetMultipleConversationReq) GetConversationIDList() []string {
@@ -1100,7 +909,7 @@ type GetMultipleConversationResp struct {
 func (x *GetMultipleConversationResp) Reset() {
 	*x = GetMultipleConversationResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[17]
+		mi := &file_conversation_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1113,7 +922,7 @@ func (x *GetMultipleConversationResp) String() string {
 func (*GetMultipleConversationResp) ProtoMessage() {}
 
 func (x *GetMultipleConversationResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[17]
+	mi := &file_conversation_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1126,7 +935,7 @@ func (x *GetMultipleConversationResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMultipleConversationResp.ProtoReflect.Descriptor instead.
 func (*GetMultipleConversationResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{17}
+	return file_conversation_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *GetMultipleConversationResp) GetConversationList() []*Conversation {
@@ -1145,7 +954,7 @@ type HideAllConversationsReq struct {
 func (x *HideAllConversationsReq) Reset() {
 	*x = HideAllConversationsReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[18]
+		mi := &file_conversation_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1158,7 +967,7 @@ func (x *HideAllConversationsReq) String() string {
 func (*HideAllConversationsReq) ProtoMessage() {}
 
 func (x *HideAllConversationsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[18]
+	mi := &file_conversation_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1171,7 +980,7 @@ func (x *HideAllConversationsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HideAllConversationsReq.ProtoReflect.Descriptor instead.
 func (*HideAllConversationsReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{18}
+	return file_conversation_proto_rawDescGZIP(), []int{17}
 }
 
 type HideAllConversationsResp struct {
@@ -1183,7 +992,7 @@ type HideAllConversationsResp struct {
 func (x *HideAllConversationsResp) Reset() {
 	*x = HideAllConversationsResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[19]
+		mi := &file_conversation_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1196,7 +1005,7 @@ func (x *HideAllConversationsResp) String() string {
 func (*HideAllConversationsResp) ProtoMessage() {}
 
 func (x *HideAllConversationsResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[19]
+	mi := &file_conversation_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1209,7 +1018,7 @@ func (x *HideAllConversationsResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HideAllConversationsResp.ProtoReflect.Descriptor instead.
 func (*HideAllConversationsResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{19}
+	return file_conversation_proto_rawDescGZIP(), []int{18}
 }
 
 type SetConversationDraftReq struct {
@@ -1224,7 +1033,7 @@ type SetConversationDraftReq struct {
 func (x *SetConversationDraftReq) Reset() {
 	*x = SetConversationDraftReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[20]
+		mi := &file_conversation_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1237,7 +1046,7 @@ func (x *SetConversationDraftReq) String() string {
 func (*SetConversationDraftReq) ProtoMessage() {}
 
 func (x *SetConversationDraftReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[20]
+	mi := &file_conversation_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1250,7 +1059,7 @@ func (x *SetConversationDraftReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetConversationDraftReq.ProtoReflect.Descriptor instead.
 func (*SetConversationDraftReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{20}
+	return file_conversation_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *SetConversationDraftReq) GetConversationID() string {
@@ -1276,7 +1085,7 @@ type SetConversationDraftResp struct {
 func (x *SetConversationDraftResp) Reset() {
 	*x = SetConversationDraftResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[21]
+		mi := &file_conversation_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1289,7 +1098,7 @@ func (x *SetConversationDraftResp) String() string {
 func (*SetConversationDraftResp) ProtoMessage() {}
 
 func (x *SetConversationDraftResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[21]
+	mi := &file_conversation_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1302,7 +1111,7 @@ func (x *SetConversationDraftResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetConversationDraftResp.ProtoReflect.Descriptor instead.
 func (*SetConversationDraftResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{21}
+	return file_conversation_proto_rawDescGZIP(), []int{20}
 }
 
 type SetConversationReq struct {
@@ -1310,14 +1119,21 @@ type SetConversationReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string        `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	Conversation   *Conversation `protobuf:"bytes,2,opt,name=conversation,proto3" json:"conversation,omitempty"`
+	ConversationID  string  `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	RecvMsgOpt      *int32  `protobuf:"varint,2,opt,name=recvMsgOpt,proto3,oneof" json:"recvMsgOpt,omitempty"`
+	GroupAtType     *int32  `protobuf:"varint,3,opt,name=groupAtType,proto3,oneof" json:"groupAtType,omitempty"`
+	IsPinned        *bool   `protobuf:"varint,4,opt,name=isPinned,proto3,oneof" json:"isPinned,omitempty"`
+	IsPrivateChat   *bool   `protobuf:"varint,5,opt,name=isPrivateChat,proto3,oneof" json:"isPrivateChat,omitempty"`
+	BurnDuration    *int32  `protobuf:"varint,6,opt,name=burnDuration,proto3,oneof" json:"burnDuration,omitempty"`
+	Ex              *string `protobuf:"bytes,7,opt,name=ex,proto3,oneof" json:"ex,omitempty"`
+	MsgDestructTime *int64  `protobuf:"varint,8,opt,name=msgDestructTime,proto3,oneof" json:"msgDestructTime,omitempty"`
+	IsMsgDestruct   *bool   `protobuf:"varint,9,opt,name=isMsgDestruct,proto3,oneof" json:"isMsgDestruct,omitempty"`
 }
 
 func (x *SetConversationReq) Reset() {
 	*x = SetConversationReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[22]
+		mi := &file_conversation_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1330,7 +1146,7 @@ func (x *SetConversationReq) String() string {
 func (*SetConversationReq) ProtoMessage() {}
 
 func (x *SetConversationReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[22]
+	mi := &file_conversation_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1343,7 +1159,7 @@ func (x *SetConversationReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetConversationReq.ProtoReflect.Descriptor instead.
 func (*SetConversationReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{22}
+	return file_conversation_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *SetConversationReq) GetConversationID() string {
@@ -1353,11 +1169,60 @@ func (x *SetConversationReq) GetConversationID() string {
 	return ""
 }
 
-func (x *SetConversationReq) GetConversation() *Conversation {
-	if x != nil {
-		return x.Conversation
+func (x *SetConversationReq) GetRecvMsgOpt() int32 {
+	if x != nil && x.RecvMsgOpt != nil {
+		return *x.RecvMsgOpt
 	}
-	return nil
+	return 0
+}
+
+func (x *SetConversationReq) GetGroupAtType() int32 {
+	if x != nil && x.GroupAtType != nil {
+		return *x.GroupAtType
+	}
+	return 0
+}
+
+func (x *SetConversationReq) GetIsPinned() bool {
+	if x != nil && x.IsPinned != nil {
+		return *x.IsPinned
+	}
+	return false
+}
+
+func (x *SetConversationReq) GetIsPrivateChat() bool {
+	if x != nil && x.IsPrivateChat != nil {
+		return *x.IsPrivateChat
+	}
+	return false
+}
+
+func (x *SetConversationReq) GetBurnDuration() int32 {
+	if x != nil && x.BurnDuration != nil {
+		return *x.BurnDuration
+	}
+	return 0
+}
+
+func (x *SetConversationReq) GetEx() string {
+	if x != nil && x.Ex != nil {
+		return *x.Ex
+	}
+	return ""
+}
+
+func (x *SetConversationReq) GetMsgDestructTime() int64 {
+	if x != nil && x.MsgDestructTime != nil {
+		return *x.MsgDestructTime
+	}
+	return 0
+}
+
+func (x *SetConversationReq) GetIsMsgDestruct() bool {
+	if x != nil && x.IsMsgDestruct != nil {
+		return *x.IsMsgDestruct
+	}
+	return false
 }
 
 type SetConversationResp struct {
@@ -1369,7 +1234,7 @@ type SetConversationResp struct {
 func (x *SetConversationResp) Reset() {
 	*x = SetConversationResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[23]
+		mi := &file_conversation_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1382,7 +1247,7 @@ func (x *SetConversationResp) String() string {
 func (*SetConversationResp) ProtoMessage() {}
 
 func (x *SetConversationResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[23]
+	mi := &file_conversation_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1395,7 +1260,7 @@ func (x *SetConversationResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetConversationResp.ProtoReflect.Descriptor instead.
 func (*SetConversationResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{23}
+	return file_conversation_proto_rawDescGZIP(), []int{22}
 }
 
 type GetTotalUnreadMsgCountReq struct {
@@ -1407,7 +1272,7 @@ type GetTotalUnreadMsgCountReq struct {
 func (x *GetTotalUnreadMsgCountReq) Reset() {
 	*x = GetTotalUnreadMsgCountReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[24]
+		mi := &file_conversation_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1420,7 +1285,7 @@ func (x *GetTotalUnreadMsgCountReq) String() string {
 func (*GetTotalUnreadMsgCountReq) ProtoMessage() {}
 
 func (x *GetTotalUnreadMsgCountReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[24]
+	mi := &file_conversation_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1433,7 +1298,7 @@ func (x *GetTotalUnreadMsgCountReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTotalUnreadMsgCountReq.ProtoReflect.Descriptor instead.
 func (*GetTotalUnreadMsgCountReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{24}
+	return file_conversation_proto_rawDescGZIP(), []int{23}
 }
 
 type GetTotalUnreadMsgCountResp struct {
@@ -1447,7 +1312,7 @@ type GetTotalUnreadMsgCountResp struct {
 func (x *GetTotalUnreadMsgCountResp) Reset() {
 	*x = GetTotalUnreadMsgCountResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[25]
+		mi := &file_conversation_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1460,7 +1325,7 @@ func (x *GetTotalUnreadMsgCountResp) String() string {
 func (*GetTotalUnreadMsgCountResp) ProtoMessage() {}
 
 func (x *GetTotalUnreadMsgCountResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[25]
+	mi := &file_conversation_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1473,7 +1338,7 @@ func (x *GetTotalUnreadMsgCountResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTotalUnreadMsgCountResp.ProtoReflect.Descriptor instead.
 func (*GetTotalUnreadMsgCountResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{25}
+	return file_conversation_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *GetTotalUnreadMsgCountResp) GetTotalUnreadCount() int32 {
@@ -1495,7 +1360,7 @@ type GetConversationIDBySessionTypeReq struct {
 func (x *GetConversationIDBySessionTypeReq) Reset() {
 	*x = GetConversationIDBySessionTypeReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[26]
+		mi := &file_conversation_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1508,7 +1373,7 @@ func (x *GetConversationIDBySessionTypeReq) String() string {
 func (*GetConversationIDBySessionTypeReq) ProtoMessage() {}
 
 func (x *GetConversationIDBySessionTypeReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[26]
+	mi := &file_conversation_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1521,7 +1386,7 @@ func (x *GetConversationIDBySessionTypeReq) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use GetConversationIDBySessionTypeReq.ProtoReflect.Descriptor instead.
 func (*GetConversationIDBySessionTypeReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{26}
+	return file_conversation_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *GetConversationIDBySessionTypeReq) GetSourceID() string {
@@ -1549,7 +1414,7 @@ type GetConversationIDBySessionTypeResp struct {
 func (x *GetConversationIDBySessionTypeResp) Reset() {
 	*x = GetConversationIDBySessionTypeResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[27]
+		mi := &file_conversation_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1562,7 +1427,7 @@ func (x *GetConversationIDBySessionTypeResp) String() string {
 func (*GetConversationIDBySessionTypeResp) ProtoMessage() {}
 
 func (x *GetConversationIDBySessionTypeResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[27]
+	mi := &file_conversation_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1575,7 +1440,7 @@ func (x *GetConversationIDBySessionTypeResp) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use GetConversationIDBySessionTypeResp.ProtoReflect.Descriptor instead.
 func (*GetConversationIDBySessionTypeResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{27}
+	return file_conversation_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetConversationIDBySessionTypeResp) GetConversationID() string {
@@ -1596,7 +1461,7 @@ type FindMessageListReq struct {
 func (x *FindMessageListReq) Reset() {
 	*x = FindMessageListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[28]
+		mi := &file_conversation_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1609,7 +1474,7 @@ func (x *FindMessageListReq) String() string {
 func (*FindMessageListReq) ProtoMessage() {}
 
 func (x *FindMessageListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[28]
+	mi := &file_conversation_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1622,7 +1487,7 @@ func (x *FindMessageListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindMessageListReq.ProtoReflect.Descriptor instead.
 func (*FindMessageListReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{28}
+	return file_conversation_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *FindMessageListReq) GetConversationsArgs() []*ConversationArgs {
@@ -1644,7 +1509,7 @@ type FindMessageListResp struct {
 func (x *FindMessageListResp) Reset() {
 	*x = FindMessageListResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[29]
+		mi := &file_conversation_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1657,7 +1522,7 @@ func (x *FindMessageListResp) String() string {
 func (*FindMessageListResp) ProtoMessage() {}
 
 func (x *FindMessageListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[29]
+	mi := &file_conversation_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1670,7 +1535,7 @@ func (x *FindMessageListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindMessageListResp.ProtoReflect.Descriptor instead.
 func (*FindMessageListResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{29}
+	return file_conversation_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *FindMessageListResp) GetFindResultItems() []*SearchByConversationResult {
@@ -1698,7 +1563,7 @@ type MarkConversationMessageAsReadReq struct {
 func (x *MarkConversationMessageAsReadReq) Reset() {
 	*x = MarkConversationMessageAsReadReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[30]
+		mi := &file_conversation_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1711,7 +1576,7 @@ func (x *MarkConversationMessageAsReadReq) String() string {
 func (*MarkConversationMessageAsReadReq) ProtoMessage() {}
 
 func (x *MarkConversationMessageAsReadReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[30]
+	mi := &file_conversation_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1724,7 +1589,7 @@ func (x *MarkConversationMessageAsReadReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MarkConversationMessageAsReadReq.ProtoReflect.Descriptor instead.
 func (*MarkConversationMessageAsReadReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{30}
+	return file_conversation_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *MarkConversationMessageAsReadReq) GetConversationID() string {
@@ -1743,7 +1608,7 @@ type MarkConversationMessageAsReadResp struct {
 func (x *MarkConversationMessageAsReadResp) Reset() {
 	*x = MarkConversationMessageAsReadResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[31]
+		mi := &file_conversation_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1756,7 +1621,7 @@ func (x *MarkConversationMessageAsReadResp) String() string {
 func (*MarkConversationMessageAsReadResp) ProtoMessage() {}
 
 func (x *MarkConversationMessageAsReadResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[31]
+	mi := &file_conversation_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1769,7 +1634,7 @@ func (x *MarkConversationMessageAsReadResp) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use MarkConversationMessageAsReadResp.ProtoReflect.Descriptor instead.
 func (*MarkConversationMessageAsReadResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{31}
+	return file_conversation_proto_rawDescGZIP(), []int{30}
 }
 
 type MarkAllConversationMessageAsReadReq struct {
@@ -1781,7 +1646,7 @@ type MarkAllConversationMessageAsReadReq struct {
 func (x *MarkAllConversationMessageAsReadReq) Reset() {
 	*x = MarkAllConversationMessageAsReadReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[32]
+		mi := &file_conversation_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1794,7 +1659,7 @@ func (x *MarkAllConversationMessageAsReadReq) String() string {
 func (*MarkAllConversationMessageAsReadReq) ProtoMessage() {}
 
 func (x *MarkAllConversationMessageAsReadReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[32]
+	mi := &file_conversation_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1807,7 +1672,7 @@ func (x *MarkAllConversationMessageAsReadReq) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use MarkAllConversationMessageAsReadReq.ProtoReflect.Descriptor instead.
 func (*MarkAllConversationMessageAsReadReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{32}
+	return file_conversation_proto_rawDescGZIP(), []int{31}
 }
 
 type MarkAllConversationMessageAsReadResp struct {
@@ -1819,7 +1684,7 @@ type MarkAllConversationMessageAsReadResp struct {
 func (x *MarkAllConversationMessageAsReadResp) Reset() {
 	*x = MarkAllConversationMessageAsReadResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[33]
+		mi := &file_conversation_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1832,7 +1697,7 @@ func (x *MarkAllConversationMessageAsReadResp) String() string {
 func (*MarkAllConversationMessageAsReadResp) ProtoMessage() {}
 
 func (x *MarkAllConversationMessageAsReadResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[33]
+	mi := &file_conversation_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1845,7 +1710,7 @@ func (x *MarkAllConversationMessageAsReadResp) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use MarkAllConversationMessageAsReadResp.ProtoReflect.Descriptor instead.
 func (*MarkAllConversationMessageAsReadResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{33}
+	return file_conversation_proto_rawDescGZIP(), []int{32}
 }
 
 type DeleteMessageFromLocalStorageReq struct {
@@ -1860,7 +1725,7 @@ type DeleteMessageFromLocalStorageReq struct {
 func (x *DeleteMessageFromLocalStorageReq) Reset() {
 	*x = DeleteMessageFromLocalStorageReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[34]
+		mi := &file_conversation_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1873,7 +1738,7 @@ func (x *DeleteMessageFromLocalStorageReq) String() string {
 func (*DeleteMessageFromLocalStorageReq) ProtoMessage() {}
 
 func (x *DeleteMessageFromLocalStorageReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[34]
+	mi := &file_conversation_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1886,7 +1751,7 @@ func (x *DeleteMessageFromLocalStorageReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteMessageFromLocalStorageReq.ProtoReflect.Descriptor instead.
 func (*DeleteMessageFromLocalStorageReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{34}
+	return file_conversation_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *DeleteMessageFromLocalStorageReq) GetConversationID() string {
@@ -1912,7 +1777,7 @@ type DeleteMessageFromLocalStorageResp struct {
 func (x *DeleteMessageFromLocalStorageResp) Reset() {
 	*x = DeleteMessageFromLocalStorageResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[35]
+		mi := &file_conversation_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1925,7 +1790,7 @@ func (x *DeleteMessageFromLocalStorageResp) String() string {
 func (*DeleteMessageFromLocalStorageResp) ProtoMessage() {}
 
 func (x *DeleteMessageFromLocalStorageResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[35]
+	mi := &file_conversation_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1938,7 +1803,7 @@ func (x *DeleteMessageFromLocalStorageResp) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use DeleteMessageFromLocalStorageResp.ProtoReflect.Descriptor instead.
 func (*DeleteMessageFromLocalStorageResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{35}
+	return file_conversation_proto_rawDescGZIP(), []int{34}
 }
 
 type ClearConversationAndDeleteAllMsgReq struct {
@@ -1952,7 +1817,7 @@ type ClearConversationAndDeleteAllMsgReq struct {
 func (x *ClearConversationAndDeleteAllMsgReq) Reset() {
 	*x = ClearConversationAndDeleteAllMsgReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[36]
+		mi := &file_conversation_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1965,7 +1830,7 @@ func (x *ClearConversationAndDeleteAllMsgReq) String() string {
 func (*ClearConversationAndDeleteAllMsgReq) ProtoMessage() {}
 
 func (x *ClearConversationAndDeleteAllMsgReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[36]
+	mi := &file_conversation_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1978,7 +1843,7 @@ func (x *ClearConversationAndDeleteAllMsgReq) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use ClearConversationAndDeleteAllMsgReq.ProtoReflect.Descriptor instead.
 func (*ClearConversationAndDeleteAllMsgReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{36}
+	return file_conversation_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *ClearConversationAndDeleteAllMsgReq) GetConversationID() string {
@@ -1997,7 +1862,7 @@ type ClearConversationAndDeleteAllMsgResp struct {
 func (x *ClearConversationAndDeleteAllMsgResp) Reset() {
 	*x = ClearConversationAndDeleteAllMsgResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[37]
+		mi := &file_conversation_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2010,7 +1875,7 @@ func (x *ClearConversationAndDeleteAllMsgResp) String() string {
 func (*ClearConversationAndDeleteAllMsgResp) ProtoMessage() {}
 
 func (x *ClearConversationAndDeleteAllMsgResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[37]
+	mi := &file_conversation_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2023,7 +1888,7 @@ func (x *ClearConversationAndDeleteAllMsgResp) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use ClearConversationAndDeleteAllMsgResp.ProtoReflect.Descriptor instead.
 func (*ClearConversationAndDeleteAllMsgResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{37}
+	return file_conversation_proto_rawDescGZIP(), []int{36}
 }
 
 type DeleteConversationAndDeleteAllMsgReq struct {
@@ -2037,7 +1902,7 @@ type DeleteConversationAndDeleteAllMsgReq struct {
 func (x *DeleteConversationAndDeleteAllMsgReq) Reset() {
 	*x = DeleteConversationAndDeleteAllMsgReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[38]
+		mi := &file_conversation_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2050,7 +1915,7 @@ func (x *DeleteConversationAndDeleteAllMsgReq) String() string {
 func (*DeleteConversationAndDeleteAllMsgReq) ProtoMessage() {}
 
 func (x *DeleteConversationAndDeleteAllMsgReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[38]
+	mi := &file_conversation_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2063,7 +1928,7 @@ func (x *DeleteConversationAndDeleteAllMsgReq) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use DeleteConversationAndDeleteAllMsgReq.ProtoReflect.Descriptor instead.
 func (*DeleteConversationAndDeleteAllMsgReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{38}
+	return file_conversation_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *DeleteConversationAndDeleteAllMsgReq) GetConversationID() string {
@@ -2082,7 +1947,7 @@ type DeleteConversationAndDeleteAllMsgResp struct {
 func (x *DeleteConversationAndDeleteAllMsgResp) Reset() {
 	*x = DeleteConversationAndDeleteAllMsgResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[39]
+		mi := &file_conversation_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2095,7 +1960,7 @@ func (x *DeleteConversationAndDeleteAllMsgResp) String() string {
 func (*DeleteConversationAndDeleteAllMsgResp) ProtoMessage() {}
 
 func (x *DeleteConversationAndDeleteAllMsgResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[39]
+	mi := &file_conversation_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2108,7 +1973,7 @@ func (x *DeleteConversationAndDeleteAllMsgResp) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use DeleteConversationAndDeleteAllMsgResp.ProtoReflect.Descriptor instead.
 func (*DeleteConversationAndDeleteAllMsgResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{39}
+	return file_conversation_proto_rawDescGZIP(), []int{38}
 }
 
 type SearchLocalMessagesReq struct {
@@ -2122,7 +1987,7 @@ type SearchLocalMessagesReq struct {
 func (x *SearchLocalMessagesReq) Reset() {
 	*x = SearchLocalMessagesReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[40]
+		mi := &file_conversation_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2135,7 +2000,7 @@ func (x *SearchLocalMessagesReq) String() string {
 func (*SearchLocalMessagesReq) ProtoMessage() {}
 
 func (x *SearchLocalMessagesReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[40]
+	mi := &file_conversation_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2148,7 +2013,7 @@ func (x *SearchLocalMessagesReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchLocalMessagesReq.ProtoReflect.Descriptor instead.
 func (*SearchLocalMessagesReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{40}
+	return file_conversation_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *SearchLocalMessagesReq) GetSearchParam() *SearchLocalMessagesParams {
@@ -2169,7 +2034,7 @@ type SearchLocalMessagesResp struct {
 func (x *SearchLocalMessagesResp) Reset() {
 	*x = SearchLocalMessagesResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[41]
+		mi := &file_conversation_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2182,7 +2047,7 @@ func (x *SearchLocalMessagesResp) String() string {
 func (*SearchLocalMessagesResp) ProtoMessage() {}
 
 func (x *SearchLocalMessagesResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[41]
+	mi := &file_conversation_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2195,7 +2060,7 @@ func (x *SearchLocalMessagesResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchLocalMessagesResp.ProtoReflect.Descriptor instead.
 func (*SearchLocalMessagesResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{41}
+	return file_conversation_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *SearchLocalMessagesResp) GetSearchResult() *SearchLocalMessagesCallback {
@@ -2218,7 +2083,7 @@ type SetMessageLocalExReq struct {
 func (x *SetMessageLocalExReq) Reset() {
 	*x = SetMessageLocalExReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[42]
+		mi := &file_conversation_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2231,7 +2096,7 @@ func (x *SetMessageLocalExReq) String() string {
 func (*SetMessageLocalExReq) ProtoMessage() {}
 
 func (x *SetMessageLocalExReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[42]
+	mi := &file_conversation_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2244,7 +2109,7 @@ func (x *SetMessageLocalExReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetMessageLocalExReq.ProtoReflect.Descriptor instead.
 func (*SetMessageLocalExReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{42}
+	return file_conversation_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *SetMessageLocalExReq) GetConversationID() string {
@@ -2279,7 +2144,7 @@ type SetMessageLocalExResp struct {
 func (x *SetMessageLocalExResp) Reset() {
 	*x = SetMessageLocalExResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[43]
+		mi := &file_conversation_proto_msgTypes[42]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2292,7 +2157,7 @@ func (x *SetMessageLocalExResp) String() string {
 func (*SetMessageLocalExResp) ProtoMessage() {}
 
 func (x *SetMessageLocalExResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[43]
+	mi := &file_conversation_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2305,7 +2170,7 @@ func (x *SetMessageLocalExResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetMessageLocalExResp.ProtoReflect.Descriptor instead.
 func (*SetMessageLocalExResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{43}
+	return file_conversation_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *SetMessageLocalExResp) GetSuccess() bool {
@@ -2326,7 +2191,7 @@ type SearchConversationReq struct {
 func (x *SearchConversationReq) Reset() {
 	*x = SearchConversationReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[44]
+		mi := &file_conversation_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2339,7 +2204,7 @@ func (x *SearchConversationReq) String() string {
 func (*SearchConversationReq) ProtoMessage() {}
 
 func (x *SearchConversationReq) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[44]
+	mi := &file_conversation_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2352,7 +2217,7 @@ func (x *SearchConversationReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchConversationReq.ProtoReflect.Descriptor instead.
 func (*SearchConversationReq) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{44}
+	return file_conversation_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *SearchConversationReq) GetSearchParam() string {
@@ -2373,7 +2238,7 @@ type SearchConversationResp struct {
 func (x *SearchConversationResp) Reset() {
 	*x = SearchConversationResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conversation_proto_msgTypes[45]
+		mi := &file_conversation_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2386,7 +2251,7 @@ func (x *SearchConversationResp) String() string {
 func (*SearchConversationResp) ProtoMessage() {}
 
 func (x *SearchConversationResp) ProtoReflect() protoreflect.Message {
-	mi := &file_conversation_proto_msgTypes[45]
+	mi := &file_conversation_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2399,7 +2264,7 @@ func (x *SearchConversationResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchConversationResp.ProtoReflect.Descriptor instead.
 func (*SearchConversationResp) Descriptor() ([]byte, []int) {
-	return file_conversation_proto_rawDescGZIP(), []int{45}
+	return file_conversation_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *SearchConversationResp) GetConversationList() []*Conversation {
@@ -2415,191 +2280,172 @@ var file_conversation_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x17, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b,
 	0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x0d, 0x6d,
-	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x84, 0x05, 0x0a,
-	0x0c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x26, 0x0a,
-	0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x2a, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52,
-	0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70,
-	0x65, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x03, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x67, 0x72, 0x6f,
-	0x75, 0x70, 0x49, 0x44, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75,
-	0x70, 0x49, 0x44, 0x12, 0x1a, 0x0a, 0x08, 0x73, 0x68, 0x6f, 0x77, 0x4e, 0x61, 0x6d, 0x65, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x68, 0x6f, 0x77, 0x4e, 0x61, 0x6d, 0x65, 0x12,
-	0x18, 0x0a, 0x07, 0x66, 0x61, 0x63, 0x65, 0x55, 0x52, 0x4c, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x07, 0x66, 0x61, 0x63, 0x65, 0x55, 0x52, 0x4c, 0x12, 0x1e, 0x0a, 0x0a, 0x72, 0x65, 0x63,
-	0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x72,
-	0x65, 0x63, 0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x12, 0x20, 0x0a, 0x0b, 0x75, 0x6e, 0x72,
-	0x65, 0x61, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x08, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b,
-	0x75, 0x6e, 0x72, 0x65, 0x61, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x20, 0x0a, 0x0b, 0x67,
-	0x72, 0x6f, 0x75, 0x70, 0x41, 0x74, 0x54, 0x79, 0x70, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28, 0x05,
-	0x52, 0x0b, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x41, 0x74, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1c, 0x0a,
-	0x09, 0x6c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x4d, 0x73, 0x67, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x09, 0x6c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x4d, 0x73, 0x67, 0x12, 0x2c, 0x0a, 0x11, 0x6c,
-	0x61, 0x74, 0x65, 0x73, 0x74, 0x4d, 0x73, 0x67, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65,
-	0x18, 0x0b, 0x20, 0x01, 0x28, 0x03, 0x52, 0x11, 0x6c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x4d, 0x73,
-	0x67, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x64, 0x72, 0x61,
-	0x66, 0x74, 0x54, 0x65, 0x78, 0x74, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x64, 0x72,
-	0x61, 0x66, 0x74, 0x54, 0x65, 0x78, 0x74, 0x12, 0x24, 0x0a, 0x0d, 0x64, 0x72, 0x61, 0x66, 0x74,
-	0x54, 0x65, 0x78, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0d,
-	0x64, 0x72, 0x61, 0x66, 0x74, 0x54, 0x65, 0x78, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x1a, 0x0a,
-	0x08, 0x69, 0x73, 0x50, 0x69, 0x6e, 0x6e, 0x65, 0x64, 0x18, 0x0e, 0x20, 0x01, 0x28, 0x08, 0x52,
-	0x08, 0x69, 0x73, 0x50, 0x69, 0x6e, 0x6e, 0x65, 0x64, 0x12, 0x24, 0x0a, 0x0d, 0x69, 0x73, 0x50,
-	0x72, 0x69, 0x76, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x74, 0x18, 0x0f, 0x20, 0x01, 0x28, 0x08,
-	0x52, 0x0d, 0x69, 0x73, 0x50, 0x72, 0x69, 0x76, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x74, 0x12,
-	0x22, 0x0a, 0x0c, 0x62, 0x75, 0x72, 0x6e, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18,
-	0x10, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0c, 0x62, 0x75, 0x72, 0x6e, 0x44, 0x75, 0x72, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x65, 0x78, 0x18, 0x11, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x02, 0x65, 0x78, 0x12, 0x28, 0x0a, 0x0f, 0x6d, 0x73, 0x67, 0x44, 0x65, 0x73, 0x74, 0x72, 0x75,
-	0x63, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x12, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0f, 0x6d, 0x73,
-	0x67, 0x44, 0x65, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x24, 0x0a,
-	0x0d, 0x69, 0x73, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x18, 0x13,
-	0x20, 0x01, 0x28, 0x08, 0x52, 0x0d, 0x69, 0x73, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x73, 0x74, 0x72,
-	0x75, 0x63, 0x74, 0x22, 0x64, 0x0a, 0x10, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x41, 0x72, 0x67, 0x73, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65,
-	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12,
-	0x28, 0x0a, 0x0f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4d, 0x73, 0x67, 0x49, 0x44, 0x4c, 0x69,
-	0x73, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74,
-	0x4d, 0x73, 0x67, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x98, 0x01, 0x0a, 0x17, 0x46, 0x69,
-	0x6e, 0x64, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x61, 0x6c,
-	0x6c, 0x62, 0x61, 0x63, 0x6b, 0x12, 0x1e, 0x0a, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f,
-	0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c,
-	0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x5d, 0x0a, 0x0f, 0x66, 0x69, 0x6e, 0x64, 0x52, 0x65, 0x73,
-	0x75, 0x6c, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x33,
-	0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x42,
-	0x79, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73,
-	0x75, 0x6c, 0x74, 0x52, 0x0f, 0x66, 0x69, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x49,
-	0x74, 0x65, 0x6d, 0x73, 0x22, 0xff, 0x02, 0x0a, 0x19, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4c,
-	0x6f, 0x63, 0x61, 0x6c, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73, 0x50, 0x61, 0x72, 0x61,
-	0x6d, 0x73, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x20, 0x0a, 0x0b, 0x6b, 0x65,
-	0x79, 0x77, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52,
-	0x0b, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x32, 0x0a, 0x14,
-	0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x4d, 0x61, 0x74, 0x63, 0x68,
-	0x54, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x14, 0x6b, 0x65, 0x79, 0x77,
-	0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x54, 0x79, 0x70, 0x65,
-	0x12, 0x2a, 0x0a, 0x10, 0x73, 0x65, 0x6e, 0x64, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44,
-	0x4c, 0x69, 0x73, 0x74, 0x18, 0x04, 0x20, 0x03, 0x28, 0x09, 0x52, 0x10, 0x73, 0x65, 0x6e, 0x64,
-	0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x28, 0x0a, 0x0f,
-	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x18,
-	0x05, 0x20, 0x03, 0x28, 0x05, 0x52, 0x0f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79,
-	0x70, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x2e, 0x0a, 0x12, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68,
-	0x54, 0x69, 0x6d, 0x65, 0x50, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x06, 0x20, 0x01,
-	0x28, 0x03, 0x52, 0x12, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x69, 0x6d, 0x65, 0x50, 0x6f,
-	0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x0a, 0x10, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68,
-	0x54, 0x69, 0x6d, 0x65, 0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x10, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x69, 0x6d, 0x65, 0x50, 0x65, 0x72, 0x69,
-	0x6f, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x18,
-	0x08, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x70, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x64, 0x65, 0x78,
-	0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x05, 0x52,
-	0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0xa0, 0x01, 0x0a, 0x1b, 0x53, 0x65, 0x61, 0x72, 0x63,
-	0x68, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73, 0x43, 0x61,
-	0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x12, 0x1e, 0x0a, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43,
-	0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x74, 0x6f, 0x74, 0x61,
-	0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x61, 0x0a, 0x11, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68,
-	0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28,
-	0x0b, 0x32, 0x33, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63,
-	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x61, 0x72,
-	0x63, 0x68, 0x42, 0x79, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52, 0x11, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65,
-	0x73, 0x75, 0x6c, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x22, 0xb9, 0x02, 0x0a, 0x1a, 0x53, 0x65,
-	0x61, 0x72, 0x63, 0x68, 0x42, 0x79, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44,
-	0x12, 0x2a, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x54, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1a, 0x0a, 0x08,
-	0x73, 0x68, 0x6f, 0x77, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
-	0x73, 0x68, 0x6f, 0x77, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x66, 0x61, 0x63, 0x65,
-	0x55, 0x52, 0x4c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x66, 0x61, 0x63, 0x65, 0x55,
-	0x52, 0x4c, 0x12, 0x2c, 0x0a, 0x11, 0x6c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x4d, 0x73, 0x67, 0x53,
-	0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x11, 0x6c,
-	0x61, 0x74, 0x65, 0x73, 0x74, 0x4d, 0x73, 0x67, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65,
-	0x12, 0x22, 0x0a, 0x0c, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74,
-	0x18, 0x06, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0c, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x43,
-	0x6f, 0x75, 0x6e, 0x74, 0x12, 0x3f, 0x0a, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c,
-	0x69, 0x73, 0x74, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e,
-	0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49,
-	0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
-	0x65, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x1b, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43,
-	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52,
-	0x65, 0x71, 0x22, 0x6f, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x12, 0x51, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x6f, 0x70, 0x65,
-	0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c,
-	0x69, 0x73, 0x74, 0x22, 0x4b, 0x0a, 0x1b, 0x47, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72,
-	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x53, 0x70, 0x6c, 0x69, 0x74, 0x52,
-	0x65, 0x71, 0x12, 0x16, 0x0a, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x05, 0x52, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f,
-	0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74,
-	0x22, 0x71, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x53, 0x70, 0x6c, 0x69, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x12, 0x51, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x6f, 0x70, 0x65,
-	0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c,
-	0x69, 0x73, 0x74, 0x22, 0x3d, 0x0a, 0x13, 0x48, 0x69, 0x64, 0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65,
-	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f,
-	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x49, 0x44, 0x22, 0x16, 0x0a, 0x14, 0x48, 0x69, 0x64, 0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72,
-	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x22, 0x10, 0x0a, 0x0e, 0x47, 0x65,
-	0x74, 0x41, 0x74, 0x41, 0x6c, 0x6c, 0x54, 0x61, 0x67, 0x52, 0x65, 0x71, 0x22, 0x23, 0x0a, 0x0f,
-	0x47, 0x65, 0x74, 0x41, 0x74, 0x41, 0x6c, 0x6c, 0x54, 0x61, 0x67, 0x52, 0x65, 0x73, 0x70, 0x12,
-	0x10, 0x0a, 0x03, 0x74, 0x61, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x74, 0x61,
-	0x67, 0x22, 0x55, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65,
-	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x20, 0x0a, 0x0b, 0x73, 0x65,
-	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52,
-	0x0b, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1a, 0x0a, 0x08,
-	0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
-	0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x49, 0x44, 0x22, 0x63, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x4f,
-	0x6e, 0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
-	0x73, 0x70, 0x12, 0x49, 0x0a, 0x0c, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0c, 0x73, 0x68,
+	0x61, 0x72, 0x65, 0x64, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x64, 0x0a, 0x10, 0x43, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x72, 0x67, 0x73, 0x12, 0x26,
+	0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x28, 0x0a, 0x0f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74,
+	0x4d, 0x73, 0x67, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52,
+	0x0f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4d, 0x73, 0x67, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74,
+	0x22, 0x98, 0x01, 0x0a, 0x17, 0x46, 0x69, 0x6e, 0x64, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x4c, 0x69, 0x73, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x12, 0x1e, 0x0a, 0x0a,
+	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
+	0x52, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x5d, 0x0a, 0x0f,
+	0x66, 0x69, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x18,
+	0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x33, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73,
+	0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+	0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x42, 0x79, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52, 0x0f, 0x66, 0x69, 0x6e, 0x64,
+	0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x22, 0xff, 0x02, 0x0a, 0x19,
+	0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x4d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x73, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e,
+	0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49,
+	0x44, 0x12, 0x20, 0x0a, 0x0b, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74,
+	0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0b, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4c,
+	0x69, 0x73, 0x74, 0x12, 0x32, 0x0a, 0x14, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4c, 0x69,
+	0x73, 0x74, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x54, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x14, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x4d, 0x61,
+	0x74, 0x63, 0x68, 0x54, 0x79, 0x70, 0x65, 0x12, 0x2a, 0x0a, 0x10, 0x73, 0x65, 0x6e, 0x64, 0x65,
+	0x72, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x04, 0x20, 0x03, 0x28,
+	0x09, 0x52, 0x10, 0x73, 0x65, 0x6e, 0x64, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x4c,
+	0x69, 0x73, 0x74, 0x12, 0x28, 0x0a, 0x0f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79,
+	0x70, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x05, 0x20, 0x03, 0x28, 0x05, 0x52, 0x0f, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x2e, 0x0a,
+	0x12, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x69, 0x6d, 0x65, 0x50, 0x6f, 0x73, 0x69, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x12, 0x73, 0x65, 0x61, 0x72, 0x63,
+	0x68, 0x54, 0x69, 0x6d, 0x65, 0x50, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x0a,
+	0x10, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x69, 0x6d, 0x65, 0x50, 0x65, 0x72, 0x69, 0x6f,
+	0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x10, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54,
+	0x69, 0x6d, 0x65, 0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x61, 0x67,
+	0x65, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x18, 0x08, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x70, 0x61,
+	0x67, 0x65, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74,
+	0x18, 0x09, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0xa0, 0x01,
+	0x0a, 0x1b, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x73, 0x43, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b, 0x12, 0x1e, 0x0a,
+	0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x61, 0x0a,
+	0x11, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x49, 0x74, 0x65,
+	0x6d, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x33, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69,
 	0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x0c, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x4c, 0x0a,
-	0x1a, 0x47, 0x65, 0x74, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x65, 0x43, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x2e, 0x0a, 0x12, 0x63,
-	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x4c, 0x69, 0x73,
-	0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x12, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x70, 0x0a, 0x1b, 0x47,
-	0x65, 0x74, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72,
-	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x12, 0x51, 0x0a, 0x10, 0x63, 0x6f,
-	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01,
-	0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64,
-	0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43,
-	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x10, 0x63, 0x6f, 0x6e,
-	0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x19, 0x0a,
-	0x17, 0x48, 0x69, 0x64, 0x65, 0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x22, 0x1a, 0x0a, 0x18, 0x48, 0x69, 0x64, 0x65,
-	0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73,
-	0x52, 0x65, 0x73, 0x70, 0x22, 0x5f, 0x0a, 0x17, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65,
-	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x72, 0x61, 0x66, 0x74, 0x52, 0x65, 0x71, 0x12,
+	0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x42, 0x79, 0x43, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52, 0x11, 0x73,
+	0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73,
+	0x22, 0xb9, 0x02, 0x0a, 0x1a, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x42, 0x79, 0x43, 0x6f, 0x6e,
+	0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12,
 	0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49,
 	0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x1c, 0x0a, 0x09, 0x64, 0x72, 0x61, 0x66, 0x74,
-	0x54, 0x65, 0x78, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x64, 0x72, 0x61, 0x66,
-	0x74, 0x54, 0x65, 0x78, 0x74, 0x22, 0x1a, 0x0a, 0x18, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x72, 0x61, 0x66, 0x74, 0x52, 0x65, 0x73,
-	0x70, 0x22, 0x87, 0x01, 0x0a, 0x12, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44,
-	0x12, 0x49, 0x0a, 0x0c, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e,
-	0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x63,
-	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x15, 0x0a, 0x13, 0x53,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x2a, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54,
+	0x79, 0x70, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x73, 0x68, 0x6f, 0x77, 0x4e, 0x61, 0x6d, 0x65, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x68, 0x6f, 0x77, 0x4e, 0x61, 0x6d, 0x65, 0x12,
+	0x18, 0x0a, 0x07, 0x66, 0x61, 0x63, 0x65, 0x55, 0x52, 0x4c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x66, 0x61, 0x63, 0x65, 0x55, 0x52, 0x4c, 0x12, 0x2c, 0x0a, 0x11, 0x6c, 0x61, 0x74,
+	0x65, 0x73, 0x74, 0x4d, 0x73, 0x67, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x11, 0x6c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x4d, 0x73, 0x67, 0x53,
+	0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x6d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0c, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x3f, 0x0a, 0x0b, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x1d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x49, 0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52,
+	0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x1b, 0x0a, 0x19,
+	0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x69, 0x0a, 0x1a, 0x47, 0x65, 0x74,
+	0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x4b, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x1f, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x73,
+	0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x4c, 0x69, 0x73, 0x74, 0x22, 0x4b, 0x0a, 0x1b, 0x47, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x53, 0x70, 0x6c, 0x69, 0x74,
+	0x52, 0x65, 0x71, 0x12, 0x16, 0x0a, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x63,
+	0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e,
+	0x74, 0x22, 0x6b, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x53, 0x70, 0x6c, 0x69, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x12, 0x4b, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x6f, 0x70,
+	0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e,
+	0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x10, 0x63, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x3d,
+	0x0a, 0x13, 0x48, 0x69, 0x64, 0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63,
+	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x22, 0x16, 0x0a,
+	0x14, 0x48, 0x69, 0x64, 0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x65, 0x73, 0x70, 0x22, 0x10, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41, 0x74, 0x41, 0x6c,
+	0x6c, 0x54, 0x61, 0x67, 0x52, 0x65, 0x71, 0x22, 0x23, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x41, 0x74,
+	0x41, 0x6c, 0x6c, 0x54, 0x61, 0x67, 0x52, 0x65, 0x73, 0x70, 0x12, 0x10, 0x0a, 0x03, 0x74, 0x61,
+	0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x74, 0x61, 0x67, 0x22, 0x55, 0x0a, 0x15,
+	0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x20, 0x0a, 0x0b, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x54, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x73, 0x65, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x73, 0x6f, 0x75, 0x72, 0x63,
+	0x65, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x6f, 0x75, 0x72, 0x63,
+	0x65, 0x49, 0x44, 0x22, 0x5d, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x43, 0x6f, 0x6e,
+	0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x12, 0x43, 0x0a,
+	0x0c, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b,
+	0x2e, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x22, 0x4c, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c,
+	0x65, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
+	0x12, 0x2e, 0x0a, 0x12, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x12, 0x63, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74,
+	0x22, 0x6a, 0x0a, 0x1b, 0x47, 0x65, 0x74, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x65, 0x43,
+	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x12,
+	0x4b, 0x0a, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c,
+	0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x6f, 0x70, 0x65, 0x6e,
+	0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x43, 0x6f,
+	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76,
+	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x19, 0x0a, 0x17,
+	0x48, 0x69, 0x64, 0x65, 0x41, 0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x22, 0x1a, 0x0a, 0x18, 0x48, 0x69, 0x64, 0x65, 0x41,
+	0x6c, 0x6c, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x22, 0x5f, 0x0a, 0x17, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72,
+	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x72, 0x61, 0x66, 0x74, 0x52, 0x65, 0x71, 0x12, 0x26,
+	0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x1c, 0x0a, 0x09, 0x64, 0x72, 0x61, 0x66, 0x74, 0x54,
+	0x65, 0x78, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x64, 0x72, 0x61, 0x66, 0x74,
+	0x54, 0x65, 0x78, 0x74, 0x22, 0x1a, 0x0a, 0x18, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x72, 0x61, 0x66, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x22, 0xe8, 0x03, 0x0a, 0x12, 0x53, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12,
+	0x23, 0x0a, 0x0a, 0x72, 0x65, 0x63, 0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x05, 0x48, 0x00, 0x52, 0x0a, 0x72, 0x65, 0x63, 0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70,
+	0x74, 0x88, 0x01, 0x01, 0x12, 0x25, 0x0a, 0x0b, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x41, 0x74, 0x54,
+	0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x48, 0x01, 0x52, 0x0b, 0x67, 0x72, 0x6f,
+	0x75, 0x70, 0x41, 0x74, 0x54, 0x79, 0x70, 0x65, 0x88, 0x01, 0x01, 0x12, 0x1f, 0x0a, 0x08, 0x69,
+	0x73, 0x50, 0x69, 0x6e, 0x6e, 0x65, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x08, 0x48, 0x02, 0x52,
+	0x08, 0x69, 0x73, 0x50, 0x69, 0x6e, 0x6e, 0x65, 0x64, 0x88, 0x01, 0x01, 0x12, 0x29, 0x0a, 0x0d,
+	0x69, 0x73, 0x50, 0x72, 0x69, 0x76, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x74, 0x18, 0x05, 0x20,
+	0x01, 0x28, 0x08, 0x48, 0x03, 0x52, 0x0d, 0x69, 0x73, 0x50, 0x72, 0x69, 0x76, 0x61, 0x74, 0x65,
+	0x43, 0x68, 0x61, 0x74, 0x88, 0x01, 0x01, 0x12, 0x27, 0x0a, 0x0c, 0x62, 0x75, 0x72, 0x6e, 0x44,
+	0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x06, 0x20, 0x01, 0x28, 0x05, 0x48, 0x04, 0x52,
+	0x0c, 0x62, 0x75, 0x72, 0x6e, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x88, 0x01, 0x01,
+	0x12, 0x13, 0x0a, 0x02, 0x65, 0x78, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x48, 0x05, 0x52, 0x02,
+	0x65, 0x78, 0x88, 0x01, 0x01, 0x12, 0x2d, 0x0a, 0x0f, 0x6d, 0x73, 0x67, 0x44, 0x65, 0x73, 0x74,
+	0x72, 0x75, 0x63, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x48, 0x06,
+	0x52, 0x0f, 0x6d, 0x73, 0x67, 0x44, 0x65, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x54, 0x69, 0x6d,
+	0x65, 0x88, 0x01, 0x01, 0x12, 0x29, 0x0a, 0x0d, 0x69, 0x73, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x73,
+	0x74, 0x72, 0x75, 0x63, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x08, 0x48, 0x07, 0x52, 0x0d, 0x69,
+	0x73, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x88, 0x01, 0x01, 0x42,
+	0x0d, 0x0a, 0x0b, 0x5f, 0x72, 0x65, 0x63, 0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x42, 0x0e,
+	0x0a, 0x0c, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x41, 0x74, 0x54, 0x79, 0x70, 0x65, 0x42, 0x0b,
+	0x0a, 0x09, 0x5f, 0x69, 0x73, 0x50, 0x69, 0x6e, 0x6e, 0x65, 0x64, 0x42, 0x10, 0x0a, 0x0e, 0x5f,
+	0x69, 0x73, 0x50, 0x72, 0x69, 0x76, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x74, 0x42, 0x0f, 0x0a,
+	0x0d, 0x5f, 0x62, 0x75, 0x72, 0x6e, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x05,
+	0x0a, 0x03, 0x5f, 0x65, 0x78, 0x42, 0x12, 0x0a, 0x10, 0x5f, 0x6d, 0x73, 0x67, 0x44, 0x65, 0x73,
+	0x74, 0x72, 0x75, 0x63, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x42, 0x10, 0x0a, 0x0e, 0x5f, 0x69, 0x73,
+	0x4d, 0x73, 0x67, 0x44, 0x65, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x22, 0x15, 0x0a, 0x13, 0x53,
 	0x65, 0x74, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
 	0x73, 0x70, 0x22, 0x1b, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x55, 0x6e,
 	0x72, 0x65, 0x61, 0x64, 0x4d, 0x73, 0x67, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x22,
@@ -2700,18 +2546,17 @@ var file_conversation_proto_rawDesc = []byte{
 	0x68, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
 	0x12, 0x20, 0x0a, 0x0b, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x50, 0x61, 0x72,
-	0x61, 0x6d, 0x22, 0x6b, 0x0a, 0x16, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x43, 0x6f, 0x6e, 0x76,
-	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x12, 0x51, 0x0a, 0x10,
+	0x61, 0x6d, 0x22, 0x65, 0x0a, 0x16, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x43, 0x6f, 0x6e, 0x76,
+	0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x12, 0x4b, 0x0a, 0x10,
 	0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74,
-	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e,
-	0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x10, 0x63,
-	0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x42,
-	0x38, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70,
-	0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73,
-	0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e,
+	0x73, 0x64, 0x6b, 0x2e, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x43, 0x6f, 0x6e, 0x76, 0x65,
+	0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x42, 0x38, 0x5a, 0x2d, 0x67, 0x69, 0x74,
+	0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64,
+	0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72,
+	0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65,
+	0x6e, 0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2726,75 +2571,74 @@ func file_conversation_proto_rawDescGZIP() []byte {
 	return file_conversation_proto_rawDescData
 }
 
-var file_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
+var file_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
 var file_conversation_proto_goTypes = []interface{}{
-	(*Conversation)(nil),                          // 0: openim.sdk.conversation.Conversation
-	(*ConversationArgs)(nil),                      // 1: openim.sdk.conversation.ConversationArgs
-	(*FindMessageListCallback)(nil),               // 2: openim.sdk.conversation.FindMessageListCallback
-	(*SearchLocalMessagesParams)(nil),             // 3: openim.sdk.conversation.SearchLocalMessagesParams
-	(*SearchLocalMessagesCallback)(nil),           // 4: openim.sdk.conversation.SearchLocalMessagesCallback
-	(*SearchByConversationResult)(nil),            // 5: openim.sdk.conversation.SearchByConversationResult
-	(*GetAllConversationListReq)(nil),             // 6: openim.sdk.conversation.GetAllConversationListReq
-	(*GetAllConversationListResp)(nil),            // 7: openim.sdk.conversation.GetAllConversationListResp
-	(*GetConversationListSplitReq)(nil),           // 8: openim.sdk.conversation.GetConversationListSplitReq
-	(*GetConversationListSplitResp)(nil),          // 9: openim.sdk.conversation.GetConversationListSplitResp
-	(*HideConversationReq)(nil),                   // 10: openim.sdk.conversation.HideConversationReq
-	(*HideConversationResp)(nil),                  // 11: openim.sdk.conversation.HideConversationResp
-	(*GetAtAllTagReq)(nil),                        // 12: openim.sdk.conversation.GetAtAllTagReq
-	(*GetAtAllTagResp)(nil),                       // 13: openim.sdk.conversation.GetAtAllTagResp
-	(*GetOneConversationReq)(nil),                 // 14: openim.sdk.conversation.GetOneConversationReq
-	(*GetOneConversationResp)(nil),                // 15: openim.sdk.conversation.GetOneConversationResp
-	(*GetMultipleConversationReq)(nil),            // 16: openim.sdk.conversation.GetMultipleConversationReq
-	(*GetMultipleConversationResp)(nil),           // 17: openim.sdk.conversation.GetMultipleConversationResp
-	(*HideAllConversationsReq)(nil),               // 18: openim.sdk.conversation.HideAllConversationsReq
-	(*HideAllConversationsResp)(nil),              // 19: openim.sdk.conversation.HideAllConversationsResp
-	(*SetConversationDraftReq)(nil),               // 20: openim.sdk.conversation.SetConversationDraftReq
-	(*SetConversationDraftResp)(nil),              // 21: openim.sdk.conversation.SetConversationDraftResp
-	(*SetConversationReq)(nil),                    // 22: openim.sdk.conversation.SetConversationReq
-	(*SetConversationResp)(nil),                   // 23: openim.sdk.conversation.SetConversationResp
-	(*GetTotalUnreadMsgCountReq)(nil),             // 24: openim.sdk.conversation.GetTotalUnreadMsgCountReq
-	(*GetTotalUnreadMsgCountResp)(nil),            // 25: openim.sdk.conversation.GetTotalUnreadMsgCountResp
-	(*GetConversationIDBySessionTypeReq)(nil),     // 26: openim.sdk.conversation.GetConversationIDBySessionTypeReq
-	(*GetConversationIDBySessionTypeResp)(nil),    // 27: openim.sdk.conversation.GetConversationIDBySessionTypeResp
-	(*FindMessageListReq)(nil),                    // 28: openim.sdk.conversation.FindMessageListReq
-	(*FindMessageListResp)(nil),                   // 29: openim.sdk.conversation.FindMessageListResp
-	(*MarkConversationMessageAsReadReq)(nil),      // 30: openim.sdk.conversation.MarkConversationMessageAsReadReq
-	(*MarkConversationMessageAsReadResp)(nil),     // 31: openim.sdk.conversation.MarkConversationMessageAsReadResp
-	(*MarkAllConversationMessageAsReadReq)(nil),   // 32: openim.sdk.conversation.MarkAllConversationMessageAsReadReq
-	(*MarkAllConversationMessageAsReadResp)(nil),  // 33: openim.sdk.conversation.MarkAllConversationMessageAsReadResp
-	(*DeleteMessageFromLocalStorageReq)(nil),      // 34: openim.sdk.conversation.DeleteMessageFromLocalStorageReq
-	(*DeleteMessageFromLocalStorageResp)(nil),     // 35: openim.sdk.conversation.DeleteMessageFromLocalStorageResp
-	(*ClearConversationAndDeleteAllMsgReq)(nil),   // 36: openim.sdk.conversation.ClearConversationAndDeleteAllMsgReq
-	(*ClearConversationAndDeleteAllMsgResp)(nil),  // 37: openim.sdk.conversation.ClearConversationAndDeleteAllMsgResp
-	(*DeleteConversationAndDeleteAllMsgReq)(nil),  // 38: openim.sdk.conversation.DeleteConversationAndDeleteAllMsgReq
-	(*DeleteConversationAndDeleteAllMsgResp)(nil), // 39: openim.sdk.conversation.DeleteConversationAndDeleteAllMsgResp
-	(*SearchLocalMessagesReq)(nil),                // 40: openim.sdk.conversation.SearchLocalMessagesReq
-	(*SearchLocalMessagesResp)(nil),               // 41: openim.sdk.conversation.SearchLocalMessagesResp
-	(*SetMessageLocalExReq)(nil),                  // 42: openim.sdk.conversation.SetMessageLocalExReq
-	(*SetMessageLocalExResp)(nil),                 // 43: openim.sdk.conversation.SetMessageLocalExResp
-	(*SearchConversationReq)(nil),                 // 44: openim.sdk.conversation.SearchConversationReq
-	(*SearchConversationResp)(nil),                // 45: openim.sdk.conversation.SearchConversationResp
-	(*IMMessage)(nil),                             // 46: openim.sdk.message.IMMessage
+	(*ConversationArgs)(nil),                      // 0: openim.sdk.conversation.ConversationArgs
+	(*FindMessageListCallback)(nil),               // 1: openim.sdk.conversation.FindMessageListCallback
+	(*SearchLocalMessagesParams)(nil),             // 2: openim.sdk.conversation.SearchLocalMessagesParams
+	(*SearchLocalMessagesCallback)(nil),           // 3: openim.sdk.conversation.SearchLocalMessagesCallback
+	(*SearchByConversationResult)(nil),            // 4: openim.sdk.conversation.SearchByConversationResult
+	(*GetAllConversationListReq)(nil),             // 5: openim.sdk.conversation.GetAllConversationListReq
+	(*GetAllConversationListResp)(nil),            // 6: openim.sdk.conversation.GetAllConversationListResp
+	(*GetConversationListSplitReq)(nil),           // 7: openim.sdk.conversation.GetConversationListSplitReq
+	(*GetConversationListSplitResp)(nil),          // 8: openim.sdk.conversation.GetConversationListSplitResp
+	(*HideConversationReq)(nil),                   // 9: openim.sdk.conversation.HideConversationReq
+	(*HideConversationResp)(nil),                  // 10: openim.sdk.conversation.HideConversationResp
+	(*GetAtAllTagReq)(nil),                        // 11: openim.sdk.conversation.GetAtAllTagReq
+	(*GetAtAllTagResp)(nil),                       // 12: openim.sdk.conversation.GetAtAllTagResp
+	(*GetOneConversationReq)(nil),                 // 13: openim.sdk.conversation.GetOneConversationReq
+	(*GetOneConversationResp)(nil),                // 14: openim.sdk.conversation.GetOneConversationResp
+	(*GetMultipleConversationReq)(nil),            // 15: openim.sdk.conversation.GetMultipleConversationReq
+	(*GetMultipleConversationResp)(nil),           // 16: openim.sdk.conversation.GetMultipleConversationResp
+	(*HideAllConversationsReq)(nil),               // 17: openim.sdk.conversation.HideAllConversationsReq
+	(*HideAllConversationsResp)(nil),              // 18: openim.sdk.conversation.HideAllConversationsResp
+	(*SetConversationDraftReq)(nil),               // 19: openim.sdk.conversation.SetConversationDraftReq
+	(*SetConversationDraftResp)(nil),              // 20: openim.sdk.conversation.SetConversationDraftResp
+	(*SetConversationReq)(nil),                    // 21: openim.sdk.conversation.SetConversationReq
+	(*SetConversationResp)(nil),                   // 22: openim.sdk.conversation.SetConversationResp
+	(*GetTotalUnreadMsgCountReq)(nil),             // 23: openim.sdk.conversation.GetTotalUnreadMsgCountReq
+	(*GetTotalUnreadMsgCountResp)(nil),            // 24: openim.sdk.conversation.GetTotalUnreadMsgCountResp
+	(*GetConversationIDBySessionTypeReq)(nil),     // 25: openim.sdk.conversation.GetConversationIDBySessionTypeReq
+	(*GetConversationIDBySessionTypeResp)(nil),    // 26: openim.sdk.conversation.GetConversationIDBySessionTypeResp
+	(*FindMessageListReq)(nil),                    // 27: openim.sdk.conversation.FindMessageListReq
+	(*FindMessageListResp)(nil),                   // 28: openim.sdk.conversation.FindMessageListResp
+	(*MarkConversationMessageAsReadReq)(nil),      // 29: openim.sdk.conversation.MarkConversationMessageAsReadReq
+	(*MarkConversationMessageAsReadResp)(nil),     // 30: openim.sdk.conversation.MarkConversationMessageAsReadResp
+	(*MarkAllConversationMessageAsReadReq)(nil),   // 31: openim.sdk.conversation.MarkAllConversationMessageAsReadReq
+	(*MarkAllConversationMessageAsReadResp)(nil),  // 32: openim.sdk.conversation.MarkAllConversationMessageAsReadResp
+	(*DeleteMessageFromLocalStorageReq)(nil),      // 33: openim.sdk.conversation.DeleteMessageFromLocalStorageReq
+	(*DeleteMessageFromLocalStorageResp)(nil),     // 34: openim.sdk.conversation.DeleteMessageFromLocalStorageResp
+	(*ClearConversationAndDeleteAllMsgReq)(nil),   // 35: openim.sdk.conversation.ClearConversationAndDeleteAllMsgReq
+	(*ClearConversationAndDeleteAllMsgResp)(nil),  // 36: openim.sdk.conversation.ClearConversationAndDeleteAllMsgResp
+	(*DeleteConversationAndDeleteAllMsgReq)(nil),  // 37: openim.sdk.conversation.DeleteConversationAndDeleteAllMsgReq
+	(*DeleteConversationAndDeleteAllMsgResp)(nil), // 38: openim.sdk.conversation.DeleteConversationAndDeleteAllMsgResp
+	(*SearchLocalMessagesReq)(nil),                // 39: openim.sdk.conversation.SearchLocalMessagesReq
+	(*SearchLocalMessagesResp)(nil),               // 40: openim.sdk.conversation.SearchLocalMessagesResp
+	(*SetMessageLocalExReq)(nil),                  // 41: openim.sdk.conversation.SetMessageLocalExReq
+	(*SetMessageLocalExResp)(nil),                 // 42: openim.sdk.conversation.SetMessageLocalExResp
+	(*SearchConversationReq)(nil),                 // 43: openim.sdk.conversation.SearchConversationReq
+	(*SearchConversationResp)(nil),                // 44: openim.sdk.conversation.SearchConversationResp
+	(*IMMessage)(nil),                             // 45: openim.sdk.message.IMMessage
+	(*Conversation)(nil),                          // 46: openim.sdk.shared.Conversation
 }
 var file_conversation_proto_depIdxs = []int32{
-	5,  // 0: openim.sdk.conversation.FindMessageListCallback.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
-	5,  // 1: openim.sdk.conversation.SearchLocalMessagesCallback.searchResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
-	46, // 2: openim.sdk.conversation.SearchByConversationResult.messageList:type_name -> openim.sdk.message.IMMessage
-	0,  // 3: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.conversation.Conversation
-	0,  // 4: openim.sdk.conversation.GetConversationListSplitResp.conversationList:type_name -> openim.sdk.conversation.Conversation
-	0,  // 5: openim.sdk.conversation.GetOneConversationResp.conversation:type_name -> openim.sdk.conversation.Conversation
-	0,  // 6: openim.sdk.conversation.GetMultipleConversationResp.conversationList:type_name -> openim.sdk.conversation.Conversation
-	0,  // 7: openim.sdk.conversation.SetConversationReq.conversation:type_name -> openim.sdk.conversation.Conversation
-	1,  // 8: openim.sdk.conversation.FindMessageListReq.conversationsArgs:type_name -> openim.sdk.conversation.ConversationArgs
-	5,  // 9: openim.sdk.conversation.FindMessageListResp.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
-	3,  // 10: openim.sdk.conversation.SearchLocalMessagesReq.searchParam:type_name -> openim.sdk.conversation.SearchLocalMessagesParams
-	4,  // 11: openim.sdk.conversation.SearchLocalMessagesResp.searchResult:type_name -> openim.sdk.conversation.SearchLocalMessagesCallback
-	0,  // 12: openim.sdk.conversation.SearchConversationResp.conversationList:type_name -> openim.sdk.conversation.Conversation
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	4,  // 0: openim.sdk.conversation.FindMessageListCallback.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
+	4,  // 1: openim.sdk.conversation.SearchLocalMessagesCallback.searchResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
+	45, // 2: openim.sdk.conversation.SearchByConversationResult.messageList:type_name -> openim.sdk.message.IMMessage
+	46, // 3: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.shared.Conversation
+	46, // 4: openim.sdk.conversation.GetConversationListSplitResp.conversationList:type_name -> openim.sdk.shared.Conversation
+	46, // 5: openim.sdk.conversation.GetOneConversationResp.conversation:type_name -> openim.sdk.shared.Conversation
+	46, // 6: openim.sdk.conversation.GetMultipleConversationResp.conversationList:type_name -> openim.sdk.shared.Conversation
+	0,  // 7: openim.sdk.conversation.FindMessageListReq.conversationsArgs:type_name -> openim.sdk.conversation.ConversationArgs
+	4,  // 8: openim.sdk.conversation.FindMessageListResp.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
+	2,  // 9: openim.sdk.conversation.SearchLocalMessagesReq.searchParam:type_name -> openim.sdk.conversation.SearchLocalMessagesParams
+	3,  // 10: openim.sdk.conversation.SearchLocalMessagesResp.searchResult:type_name -> openim.sdk.conversation.SearchLocalMessagesCallback
+	46, // 11: openim.sdk.conversation.SearchConversationResp.conversationList:type_name -> openim.sdk.shared.Conversation
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_conversation_proto_init() }
@@ -2803,20 +2647,9 @@ func file_conversation_proto_init() {
 		return
 	}
 	file_message_proto_init()
+	file_shared_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_conversation_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Conversation); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_conversation_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ConversationArgs); i {
 			case 0:
 				return &v.state
@@ -2828,7 +2661,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FindMessageListCallback); i {
 			case 0:
 				return &v.state
@@ -2840,7 +2673,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SearchLocalMessagesParams); i {
 			case 0:
 				return &v.state
@@ -2852,7 +2685,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SearchLocalMessagesCallback); i {
 			case 0:
 				return &v.state
@@ -2864,7 +2697,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SearchByConversationResult); i {
 			case 0:
 				return &v.state
@@ -2876,7 +2709,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetAllConversationListReq); i {
 			case 0:
 				return &v.state
@@ -2888,7 +2721,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetAllConversationListResp); i {
 			case 0:
 				return &v.state
@@ -2900,7 +2733,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetConversationListSplitReq); i {
 			case 0:
 				return &v.state
@@ -2912,7 +2745,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetConversationListSplitResp); i {
 			case 0:
 				return &v.state
@@ -2924,7 +2757,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*HideConversationReq); i {
 			case 0:
 				return &v.state
@@ -2936,7 +2769,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*HideConversationResp); i {
 			case 0:
 				return &v.state
@@ -2948,7 +2781,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetAtAllTagReq); i {
 			case 0:
 				return &v.state
@@ -2960,7 +2793,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetAtAllTagResp); i {
 			case 0:
 				return &v.state
@@ -2972,7 +2805,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetOneConversationReq); i {
 			case 0:
 				return &v.state
@@ -2984,7 +2817,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetOneConversationResp); i {
 			case 0:
 				return &v.state
@@ -2996,7 +2829,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetMultipleConversationReq); i {
 			case 0:
 				return &v.state
@@ -3008,7 +2841,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetMultipleConversationResp); i {
 			case 0:
 				return &v.state
@@ -3020,7 +2853,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*HideAllConversationsReq); i {
 			case 0:
 				return &v.state
@@ -3032,7 +2865,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*HideAllConversationsResp); i {
 			case 0:
 				return &v.state
@@ -3044,7 +2877,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetConversationDraftReq); i {
 			case 0:
 				return &v.state
@@ -3056,7 +2889,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetConversationDraftResp); i {
 			case 0:
 				return &v.state
@@ -3068,7 +2901,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetConversationReq); i {
 			case 0:
 				return &v.state
@@ -3080,7 +2913,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetConversationResp); i {
 			case 0:
 				return &v.state
@@ -3092,7 +2925,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetTotalUnreadMsgCountReq); i {
 			case 0:
 				return &v.state
@@ -3104,7 +2937,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetTotalUnreadMsgCountResp); i {
 			case 0:
 				return &v.state
@@ -3116,7 +2949,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetConversationIDBySessionTypeReq); i {
 			case 0:
 				return &v.state
@@ -3128,7 +2961,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetConversationIDBySessionTypeResp); i {
 			case 0:
 				return &v.state
@@ -3140,7 +2973,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FindMessageListReq); i {
 			case 0:
 				return &v.state
@@ -3152,7 +2985,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FindMessageListResp); i {
 			case 0:
 				return &v.state
@@ -3164,7 +2997,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MarkConversationMessageAsReadReq); i {
 			case 0:
 				return &v.state
@@ -3176,7 +3009,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MarkConversationMessageAsReadResp); i {
 			case 0:
 				return &v.state
@@ -3188,7 +3021,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MarkAllConversationMessageAsReadReq); i {
 			case 0:
 				return &v.state
@@ -3200,7 +3033,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MarkAllConversationMessageAsReadResp); i {
 			case 0:
 				return &v.state
@@ -3212,7 +3045,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteMessageFromLocalStorageReq); i {
 			case 0:
 				return &v.state
@@ -3224,7 +3057,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteMessageFromLocalStorageResp); i {
 			case 0:
 				return &v.state
@@ -3236,7 +3069,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ClearConversationAndDeleteAllMsgReq); i {
 			case 0:
 				return &v.state
@@ -3248,7 +3081,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ClearConversationAndDeleteAllMsgResp); i {
 			case 0:
 				return &v.state
@@ -3260,7 +3093,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteConversationAndDeleteAllMsgReq); i {
 			case 0:
 				return &v.state
@@ -3272,7 +3105,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteConversationAndDeleteAllMsgResp); i {
 			case 0:
 				return &v.state
@@ -3284,7 +3117,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SearchLocalMessagesReq); i {
 			case 0:
 				return &v.state
@@ -3296,7 +3129,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SearchLocalMessagesResp); i {
 			case 0:
 				return &v.state
@@ -3308,7 +3141,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetMessageLocalExReq); i {
 			case 0:
 				return &v.state
@@ -3320,7 +3153,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetMessageLocalExResp); i {
 			case 0:
 				return &v.state
@@ -3332,7 +3165,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SearchConversationReq); i {
 			case 0:
 				return &v.state
@@ -3344,7 +3177,7 @@ func file_conversation_proto_init() {
 				return nil
 			}
 		}
-		file_conversation_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
+		file_conversation_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SearchConversationResp); i {
 			case 0:
 				return &v.state
@@ -3357,13 +3190,14 @@ func file_conversation_proto_init() {
 			}
 		}
 	}
+	file_conversation_proto_msgTypes[21].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_conversation_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   46,
+			NumMessages:   45,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -22,7 +22,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-	"unsafe"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/flagconst"
 	"github.com/openimsdk/openim-sdk-core/v3/internal/relation"
@@ -214,10 +213,6 @@ func (u *LoginMgr) SetAdvancedMsgListener(advancedMsgListener open_im_sdk_callba
 	u.advancedMsgListener = advancedMsgListener
 }
 
-func (u *LoginMgr) SetMessageKvInfoListener(messageKvInfoListener open_im_sdk_callback.OnMessageKvInfoListener) {
-	u.msgKvListener = messageKvInfoListener
-}
-
 func (u *LoginMgr) SetFriendshipListener(friendshipListener open_im_sdk_callback.OnFriendshipListener) {
 	u.friendshipListener = friendshipListener
 }
@@ -354,23 +349,6 @@ func (u *LoginMgr) initialize(ctx context.Context, userID string) error {
 	return nil
 }
 
-func (u *LoginMgr) setListener(ctx context.Context) {
-	setListener(ctx, &u.userListener, u.UserListener, u.user.SetListener, newEmptyUserListener)
-	setListener(ctx, &u.friendshipListener, u.FriendshipListener, u.relation.SetListener, newEmptyFriendshipListener)
-	setListener(ctx, &u.groupListener, u.GroupListener, u.group.SetGroupListener, newEmptyGroupListener)
-	setListener(ctx, &u.conversationListener, u.ConversationListener, u.conversation.SetConversationListener, newEmptyConversationListener)
-	setListener(ctx, &u.advancedMsgListener, u.AdvancedMsgListener, u.conversation.SetMsgListener, newEmptyAdvancedMsgListener)
-	setListener(ctx, &u.businessListener, u.BusinessListener, u.conversation.SetBusinessListener, newEmptyCustomBusinessListener)
-	setListener(ctx, &u.connListener, u.ConnListener, u.longConnMgr.SetListener, newEmptyConnListener)
-}
-
-func setListener[T any](ctx context.Context, listener *T, getter func() T, setFunc func(listener func() T), newFunc func(context.Context) T) {
-	if *(*unsafe.Pointer)(unsafe.Pointer(listener)) == nil && newFunc != nil {
-		*listener = newFunc(ctx)
-	}
-	setFunc(getter)
-}
-
 func (u *LoginMgr) run(ctx context.Context) {
 	u.longConnMgr.Run(ctx)
 	go u.msgSyncer.DoListener(ctx)
@@ -420,7 +398,7 @@ func (u *LoginMgr) logout(ctx context.Context, isTokenValid bool) error {
 	if !isTokenValid {
 		ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 		defer cancel()
-		err := u.longConnMgr.SendReqWaitResp(ctx, &push.DelUserPushTokenReq{UserID: u.info.UserID, PlatformID: int32(u.info.PlatformID)}, constant.LogoutMsg, &push.DelUserPushTokenResp{})
+		err := u.longConnMgr.SendReqWaitResp(ctx, &push.DelUserPushTokenReq{UserID: u.info.UserID, PlatformID: int32(u.info.Platform)}, constant.LogoutMsg, &push.DelUserPushTokenResp{})
 		if err != nil {
 			log.ZWarn(ctx, "TriggerCmdLogout server recycle resources failed...", err)
 		} else {

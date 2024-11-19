@@ -13,6 +13,7 @@ import (
 
 	pconstant "github.com/openimsdk/protocol/constant"
 	pbConversation "github.com/openimsdk/protocol/conversation"
+	"github.com/openimsdk/protocol/wrapperspb"
 	"github.com/openimsdk/tools/utils/datautil"
 
 	"github.com/openimsdk/tools/errs"
@@ -31,8 +32,6 @@ import (
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/sdkws"
-
-	"github.com/jinzhu/copier"
 )
 
 var (
@@ -150,7 +149,20 @@ func (c *Conversation) SetConversation(ctx context.Context, req *sdkpb.SetConver
 	if err != nil {
 		return nil, err
 	}
-	apiReq := &pbConversation.SetConversationsReq{Conversation: req.Conversation}
+	apiReq := &pbConversation.SetConversationsReq{Conversation: &pbConversation.ConversationReq{
+		ConversationID:   lc.ConversationID,
+		ConversationType: lc.ConversationType,
+		UserID:           lc.UserID,
+		GroupID:          lc.GroupID,
+		RecvMsgOpt:       wrapperspb.Int32Ptr(req.RecvMsgOpt),
+		IsPinned:         wrapperspb.BoolPtr(req.IsPinned),
+		IsPrivateChat:    wrapperspb.BoolPtr(req.IsPrivateChat),
+		Ex:               wrapperspb.StringPtr(req.Ex),
+		BurnDuration:     wrapperspb.Int32Ptr(req.BurnDuration),
+		GroupAtType:      wrapperspb.Int32Ptr(req.GroupAtType),
+		MsgDestructTime:  wrapperspb.Int64Ptr(req.MsgDestructTime),
+		IsMsgDestruct:    wrapperspb.BoolPtr(req.IsMsgDestruct),
+	}}
 	err = c.setConversation(ctx, apiReq, lc)
 	if err != nil {
 		return nil, err
@@ -172,7 +184,7 @@ func (c *Conversation) GetTotalUnreadMsgCount(ctx context.Context, req *sdkpb.Ge
 
 func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) *model_struct.LocalErrChatLog {
 	var lc model_struct.LocalErrChatLog
-	copier.Copy(&lc, src)
+	//copier.Copy(&lc, src)
 	return &lc
 
 }
@@ -647,7 +659,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.IMMessage
 }
 
 func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessage, lc *model_struct.LocalConversation,
-	delFiles []string, offlinePushInfo *sdkws.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
+	delFiles []string, offlinePushInfo *sdkpb.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 		utils.SetSwitchFromOptions(options, constant.IsPersistent, false)

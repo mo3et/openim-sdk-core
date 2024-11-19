@@ -3,18 +3,20 @@ package conversation_msg
 import (
 	"context"
 	"encoding/json"
-	"github.com/jinzhu/copier"
+	"time"
+
+	"github.com/patrickmn/go-cache"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/datautil"
-	"github.com/patrickmn/go-cache"
-	"time"
 )
 
 const (
@@ -101,21 +103,21 @@ func (e *typing) ChangeInputStates(ctx context.Context, conversationID string, f
 }
 
 func (e *typing) sendMsg(ctx context.Context, conversation *model_struct.LocalConversation, focus bool) error {
-	s := sdk_struct.MsgStruct{}
+	s := sdkpb.IMMessage{}
 	err := e.conv.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Typing)
 	if err != nil {
 		return err
 	}
 	s.RecvID = conversation.UserID
 	s.GroupID = conversation.GroupID
-	s.SessionType = conversation.ConversationType
-	var typingElem sdk_struct.TypingElem
+	s.SessionType = sdkpb.SessionType(conversation.ConversationType)
+	var typingElem sdkpb.TypingElem
 	if focus {
 		typingElem.MsgTips = "yes"
 	} else {
 		typingElem.MsgTips = "no"
 	}
-	s.Content = utils.StructToJsonString(typingElem)
+	s.Content = &sdkpb.IMMessage_TypingElem{TypingElem: &typingElem}
 	options := make(map[string]bool, 6)
 	utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 	utils.SetSwitchFromOptions(options, constant.IsPersistent, false)
@@ -124,13 +126,10 @@ func (e *typing) sendMsg(ctx context.Context, conversation *model_struct.LocalCo
 	utils.SetSwitchFromOptions(options, constant.IsSenderConversationUpdate, false)
 	utils.SetSwitchFromOptions(options, constant.IsUnreadCount, false)
 	utils.SetSwitchFromOptions(options, constant.IsOfflinePush, false)
-	var wsMsgData sdkws.MsgData
-	copier.Copy(&wsMsgData, s)
-	wsMsgData.Content = []byte(s.Content)
-	wsMsgData.CreateTime = s.CreateTime
+	wsMsgData := IMMessageToMsgData(&s)
 	wsMsgData.Options = options
 	var sendMsgResp sdkws.UserSendMsgResp
-	err = e.conv.LongConnMgr.SendReqWaitResp(ctx, &wsMsgData, constant.SendMsg, &sendMsgResp)
+	err = e.conv.LongConnMgr.SendReqWaitResp(ctx, wsMsgData, constant.SendMsg, &sendMsgResp)
 	if err != nil {
 		log.ZError(ctx, "typing msg to server failed", err, "message", s)
 		return err
@@ -199,8 +198,8 @@ type InputStatesChangedData struct {
 }
 
 func (e *typing) changes(conversationID string, userID string) {
-	data := InputStatesChangedData{ConversationID: conversationID, UserID: userID, PlatformIDs: e.GetInputStates(conversationID, userID)}
-	e.conv.ConversationListener().OnConversationUserInputStatusChanged(utils.StructToJsonString(data))
+	e.conv.ConversationListener().OnConversationUserInputStatusChanged(
+		&sdkpb.EventOnConversationUserInputStatusChangedData{ConversationID: conversationID, UserID: userID, PlatformIDs: e.GetInputStates(conversationID, userID)})
 }
 
 func (e *typing) GetInputStates(conversationID string, userID string) []int32 {
