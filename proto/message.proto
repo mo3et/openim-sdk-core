@@ -220,18 +220,3 @@ message CreateForwardMessageResp {
   shared.IMMessage message = 1;
 }
 
-message UploadLogsReq {
-  int32 line = 1;
-  string ex = 2;
-}
-message UploadLogsResp {}
-
-message LogReq {
-  int32 logLevel = 1;
-  string file = 2;
-  int32 line = 3;
-  string msg = 4;
-  string err = 5;
-  //  repeated google.protobuf.Any keysAndValues = 6;
-}
-message LogResp {}

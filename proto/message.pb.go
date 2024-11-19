@@ -2746,216 +2746,6 @@ func (x *CreateForwardMessageResp) GetMessage() *IMMessage {
 	return nil
 }
 
-type UploadLogsReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Line int32  `protobuf:"varint,1,opt,name=line,proto3" json:"line,omitempty"`
-	Ex   string `protobuf:"bytes,2,opt,name=ex,proto3" json:"ex,omitempty"`
-}
-
-func (x *UploadLogsReq) Reset() {
-	*x = UploadLogsReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[52]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UploadLogsReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UploadLogsReq) ProtoMessage() {}
-
-func (x *UploadLogsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[52]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UploadLogsReq.ProtoReflect.Descriptor instead.
-func (*UploadLogsReq) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{52}
-}
-
-func (x *UploadLogsReq) GetLine() int32 {
-	if x != nil {
-		return x.Line
-	}
-	return 0
-}
-
-func (x *UploadLogsReq) GetEx() string {
-	if x != nil {
-		return x.Ex
-	}
-	return ""
-}
-
-type UploadLogsResp struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *UploadLogsResp) Reset() {
-	*x = UploadLogsResp{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[53]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UploadLogsResp) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UploadLogsResp) ProtoMessage() {}
-
-func (x *UploadLogsResp) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[53]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UploadLogsResp.ProtoReflect.Descriptor instead.
-func (*UploadLogsResp) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{53}
-}
-
-type LogReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	LogLevel int32  `protobuf:"varint,1,opt,name=logLevel,proto3" json:"logLevel,omitempty"`
-	File     string `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
-	Line     int32  `protobuf:"varint,3,opt,name=line,proto3" json:"line,omitempty"`
-	Msg      string `protobuf:"bytes,4,opt,name=msg,proto3" json:"msg,omitempty"`
-	Err      string `protobuf:"bytes,5,opt,name=err,proto3" json:"err,omitempty"` //  repeated google.protobuf.Any keysAndValues = 6;
-}
-
-func (x *LogReq) Reset() {
-	*x = LogReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[54]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *LogReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*LogReq) ProtoMessage() {}
-
-func (x *LogReq) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[54]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use LogReq.ProtoReflect.Descriptor instead.
-func (*LogReq) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{54}
-}
-
-func (x *LogReq) GetLogLevel() int32 {
-	if x != nil {
-		return x.LogLevel
-	}
-	return 0
-}
-
-func (x *LogReq) GetFile() string {
-	if x != nil {
-		return x.File
-	}
-	return ""
-}
-
-func (x *LogReq) GetLine() int32 {
-	if x != nil {
-		return x.Line
-	}
-	return 0
-}
-
-func (x *LogReq) GetMsg() string {
-	if x != nil {
-		return x.Msg
-	}
-	return ""
-}
-
-func (x *LogReq) GetErr() string {
-	if x != nil {
-		return x.Err
-	}
-	return ""
-}
-
-type LogResp struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *LogResp) Reset() {
-	*x = LogResp{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[55]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *LogResp) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*LogResp) ProtoMessage() {}
-
-func (x *LogResp) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[55]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use LogResp.ProtoReflect.Descriptor instead.
-func (*LogResp) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{55}
-}
-
 var File_message_proto protoreflect.FileDescriptor
 
 var file_message_proto_rawDesc = []byte{
@@ -3321,23 +3111,11 @@ var file_message_proto_rawDesc = []byte{
 	0x36, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x1c, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x73, 0x68,
 	0x61, 0x72, 0x65, 0x64, 0x2e, 0x49, 0x4d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x07,
-	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x33, 0x0a, 0x0d, 0x55, 0x70, 0x6c, 0x6f, 0x61,
-	0x64, 0x4c, 0x6f, 0x67, 0x73, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x6c, 0x69, 0x6e, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x6c, 0x69, 0x6e, 0x65, 0x12, 0x0e, 0x0a, 0x02,
-	0x65, 0x78, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x65, 0x78, 0x22, 0x10, 0x0a, 0x0e,
-	0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x4c, 0x6f, 0x67, 0x73, 0x52, 0x65, 0x73, 0x70, 0x22, 0x70,
-	0x0a, 0x06, 0x4c, 0x6f, 0x67, 0x52, 0x65, 0x71, 0x12, 0x1a, 0x0a, 0x08, 0x6c, 0x6f, 0x67, 0x4c,
-	0x65, 0x76, 0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x6c, 0x6f, 0x67, 0x4c,
-	0x65, 0x76, 0x65, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6c, 0x69, 0x6e, 0x65,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x6c, 0x69, 0x6e, 0x65, 0x12, 0x10, 0x0a, 0x03,
-	0x6d, 0x73, 0x67, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x12, 0x10,
-	0x0a, 0x03, 0x65, 0x72, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x65, 0x72, 0x72,
-	0x22, 0x09, 0x0a, 0x07, 0x4c, 0x6f, 0x67, 0x52, 0x65, 0x73, 0x70, 0x42, 0x38, 0x5a, 0x2d, 0x67,
-	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d,
-	0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63,
-	0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0xaa, 0x02, 0x06, 0x4f,
-	0x70, 0x65, 0x6e, 0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x42, 0x38, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75,
+	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f,
+	0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f,
+	0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e, 0x49,
+	0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3352,7 +3130,7 @@ func file_message_proto_rawDescGZIP() []byte {
 	return file_message_proto_rawDescData
 }
 
-var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 56)
+var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 52)
 var file_message_proto_goTypes = []interface{}{
 	(*GetAdvancedHistoryMessageListParams)(nil),      // 0: openim.sdk.message.GetAdvancedHistoryMessageListParams
 	(*GetAdvancedHistoryMessageListCallback)(nil),    // 1: openim.sdk.message.GetAdvancedHistoryMessageListCallback
@@ -3406,63 +3184,59 @@ var file_message_proto_goTypes = []interface{}{
 	(*CreateFaceMessageResp)(nil),                    // 49: openim.sdk.message.CreateFaceMessageResp
 	(*CreateForwardMessageReq)(nil),                  // 50: openim.sdk.message.CreateForwardMessageReq
 	(*CreateForwardMessageResp)(nil),                 // 51: openim.sdk.message.CreateForwardMessageResp
-	(*UploadLogsReq)(nil),                            // 52: openim.sdk.message.UploadLogsReq
-	(*UploadLogsResp)(nil),                           // 53: openim.sdk.message.UploadLogsResp
-	(*LogReq)(nil),                                   // 54: openim.sdk.message.LogReq
-	(*LogResp)(nil),                                  // 55: openim.sdk.message.LogResp
-	(*IMMessage)(nil),                                // 56: openim.sdk.shared.IMMessage
-	(*OfflinePushInfo)(nil),                          // 57: openim.sdk.common.OfflinePushInfo
-	(*MessageEntity)(nil),                            // 58: openim.sdk.shared.MessageEntity
-	(*AtInfo)(nil),                                   // 59: openim.sdk.shared.AtInfo
-	(*CardElem)(nil),                                 // 60: openim.sdk.shared.CardElem
-	(*PictureBaseInfo)(nil),                          // 61: openim.sdk.shared.PictureBaseInfo
-	(*SoundBaseInfo)(nil),                            // 62: openim.sdk.shared.SoundBaseInfo
-	(*VideoBaseInfo)(nil),                            // 63: openim.sdk.shared.VideoBaseInfo
-	(*FileBaseInfo)(nil),                             // 64: openim.sdk.shared.FileBaseInfo
+	(*IMMessage)(nil),                                // 52: openim.sdk.shared.IMMessage
+	(*OfflinePushInfo)(nil),                          // 53: openim.sdk.common.OfflinePushInfo
+	(*MessageEntity)(nil),                            // 54: openim.sdk.shared.MessageEntity
+	(*AtInfo)(nil),                                   // 55: openim.sdk.shared.AtInfo
+	(*CardElem)(nil),                                 // 56: openim.sdk.shared.CardElem
+	(*PictureBaseInfo)(nil),                          // 57: openim.sdk.shared.PictureBaseInfo
+	(*SoundBaseInfo)(nil),                            // 58: openim.sdk.shared.SoundBaseInfo
+	(*VideoBaseInfo)(nil),                            // 59: openim.sdk.shared.VideoBaseInfo
+	(*FileBaseInfo)(nil),                             // 60: openim.sdk.shared.FileBaseInfo
 }
 var file_message_proto_depIdxs = []int32{
-	56, // 0: openim.sdk.message.GetAdvancedHistoryMessageListCallback.messageList:type_name -> openim.sdk.shared.IMMessage
-	56, // 1: openim.sdk.message.SendMessageReq.message:type_name -> openim.sdk.shared.IMMessage
-	57, // 2: openim.sdk.message.SendMessageReq.offlinePushInfo:type_name -> openim.sdk.common.OfflinePushInfo
-	56, // 3: openim.sdk.message.SendMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 0: openim.sdk.message.GetAdvancedHistoryMessageListCallback.messageList:type_name -> openim.sdk.shared.IMMessage
+	52, // 1: openim.sdk.message.SendMessageReq.message:type_name -> openim.sdk.shared.IMMessage
+	53, // 2: openim.sdk.message.SendMessageReq.offlinePushInfo:type_name -> openim.sdk.common.OfflinePushInfo
+	52, // 3: openim.sdk.message.SendMessageResp.message:type_name -> openim.sdk.shared.IMMessage
 	0,  // 4: openim.sdk.message.GetAdvancedHistoryMessageListReq.getAdvancedHistoryMessageListParams:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListParams
 	1,  // 5: openim.sdk.message.GetAdvancedHistoryMessageListResp.getAdvancedHistoryMessageListCallback:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListCallback
 	0,  // 6: openim.sdk.message.GetAdvancedHistoryMessageListReverseReq.getAdvancedHistoryMessageListParams:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListParams
 	1,  // 7: openim.sdk.message.GetAdvancedHistoryMessageListReverseResp.getAdvancedHistoryMessageListCallback:type_name -> openim.sdk.message.GetAdvancedHistoryMessageListCallback
-	56, // 8: openim.sdk.message.InsertSingleMessageToLocalStorageReq.msg:type_name -> openim.sdk.shared.IMMessage
-	56, // 9: openim.sdk.message.InsertSingleMessageToLocalStorageResp.msg:type_name -> openim.sdk.shared.IMMessage
-	56, // 10: openim.sdk.message.InsertGroupMessageToLocalStorageReq.msg:type_name -> openim.sdk.shared.IMMessage
-	56, // 11: openim.sdk.message.InsertGroupMessageToLocalStorageResp.msg:type_name -> openim.sdk.shared.IMMessage
-	56, // 12: openim.sdk.message.CreateTextMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	58, // 13: openim.sdk.message.CreateAdvancedTextMessageReq.messageEntities:type_name -> openim.sdk.shared.MessageEntity
-	56, // 14: openim.sdk.message.CreateAdvancedTextMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	59, // 15: openim.sdk.message.CreateTextAtMessageReq.usersInfo:type_name -> openim.sdk.shared.AtInfo
-	56, // 16: openim.sdk.message.CreateTextAtMessageReq.quoteMessage:type_name -> openim.sdk.shared.IMMessage
-	56, // 17: openim.sdk.message.CreateTextAtMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	56, // 18: openim.sdk.message.CreateLocationMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	56, // 19: openim.sdk.message.CreateCustomMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	56, // 20: openim.sdk.message.CreateQuoteMessageReq.quoteMessage:type_name -> openim.sdk.shared.IMMessage
-	56, // 21: openim.sdk.message.CreateQuoteMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	56, // 22: openim.sdk.message.CreateAdvancedQuoteMessageReq.quoteMessage:type_name -> openim.sdk.shared.IMMessage
-	58, // 23: openim.sdk.message.CreateAdvancedQuoteMessageReq.messageEntities:type_name -> openim.sdk.shared.MessageEntity
-	56, // 24: openim.sdk.message.CreateAdvancedQuoteMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	60, // 25: openim.sdk.message.CreateCardMessageReq.card:type_name -> openim.sdk.shared.CardElem
-	56, // 26: openim.sdk.message.CreateCardMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	61, // 27: openim.sdk.message.CreateImageMessageReq.sourcePicture:type_name -> openim.sdk.shared.PictureBaseInfo
-	61, // 28: openim.sdk.message.CreateImageMessageReq.bigPicture:type_name -> openim.sdk.shared.PictureBaseInfo
-	61, // 29: openim.sdk.message.CreateImageMessageReq.snapshotPicture:type_name -> openim.sdk.shared.PictureBaseInfo
-	56, // 30: openim.sdk.message.CreateImageMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	62, // 31: openim.sdk.message.CreateSoundMessageReq.soundElem:type_name -> openim.sdk.shared.SoundBaseInfo
-	56, // 32: openim.sdk.message.CreateSoundMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	63, // 33: openim.sdk.message.CreateVideoMessageReq.videoElem:type_name -> openim.sdk.shared.VideoBaseInfo
-	56, // 34: openim.sdk.message.CreateVideoMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	64, // 35: openim.sdk.message.CreateFileMessageReq.fileElem:type_name -> openim.sdk.shared.FileBaseInfo
-	56, // 36: openim.sdk.message.CreateFileMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	56, // 37: openim.sdk.message.CreateMergerMessageReq.messages:type_name -> openim.sdk.shared.IMMessage
-	56, // 38: openim.sdk.message.CreateMergerMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	56, // 39: openim.sdk.message.CreateFaceMessageResp.message:type_name -> openim.sdk.shared.IMMessage
-	56, // 40: openim.sdk.message.CreateForwardMessageReq.message:type_name -> openim.sdk.shared.IMMessage
-	56, // 41: openim.sdk.message.CreateForwardMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 8: openim.sdk.message.InsertSingleMessageToLocalStorageReq.msg:type_name -> openim.sdk.shared.IMMessage
+	52, // 9: openim.sdk.message.InsertSingleMessageToLocalStorageResp.msg:type_name -> openim.sdk.shared.IMMessage
+	52, // 10: openim.sdk.message.InsertGroupMessageToLocalStorageReq.msg:type_name -> openim.sdk.shared.IMMessage
+	52, // 11: openim.sdk.message.InsertGroupMessageToLocalStorageResp.msg:type_name -> openim.sdk.shared.IMMessage
+	52, // 12: openim.sdk.message.CreateTextMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	54, // 13: openim.sdk.message.CreateAdvancedTextMessageReq.messageEntities:type_name -> openim.sdk.shared.MessageEntity
+	52, // 14: openim.sdk.message.CreateAdvancedTextMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	55, // 15: openim.sdk.message.CreateTextAtMessageReq.usersInfo:type_name -> openim.sdk.shared.AtInfo
+	52, // 16: openim.sdk.message.CreateTextAtMessageReq.quoteMessage:type_name -> openim.sdk.shared.IMMessage
+	52, // 17: openim.sdk.message.CreateTextAtMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 18: openim.sdk.message.CreateLocationMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 19: openim.sdk.message.CreateCustomMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 20: openim.sdk.message.CreateQuoteMessageReq.quoteMessage:type_name -> openim.sdk.shared.IMMessage
+	52, // 21: openim.sdk.message.CreateQuoteMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 22: openim.sdk.message.CreateAdvancedQuoteMessageReq.quoteMessage:type_name -> openim.sdk.shared.IMMessage
+	54, // 23: openim.sdk.message.CreateAdvancedQuoteMessageReq.messageEntities:type_name -> openim.sdk.shared.MessageEntity
+	52, // 24: openim.sdk.message.CreateAdvancedQuoteMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	56, // 25: openim.sdk.message.CreateCardMessageReq.card:type_name -> openim.sdk.shared.CardElem
+	52, // 26: openim.sdk.message.CreateCardMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	57, // 27: openim.sdk.message.CreateImageMessageReq.sourcePicture:type_name -> openim.sdk.shared.PictureBaseInfo
+	57, // 28: openim.sdk.message.CreateImageMessageReq.bigPicture:type_name -> openim.sdk.shared.PictureBaseInfo
+	57, // 29: openim.sdk.message.CreateImageMessageReq.snapshotPicture:type_name -> openim.sdk.shared.PictureBaseInfo
+	52, // 30: openim.sdk.message.CreateImageMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	58, // 31: openim.sdk.message.CreateSoundMessageReq.soundElem:type_name -> openim.sdk.shared.SoundBaseInfo
+	52, // 32: openim.sdk.message.CreateSoundMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	59, // 33: openim.sdk.message.CreateVideoMessageReq.videoElem:type_name -> openim.sdk.shared.VideoBaseInfo
+	52, // 34: openim.sdk.message.CreateVideoMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	60, // 35: openim.sdk.message.CreateFileMessageReq.fileElem:type_name -> openim.sdk.shared.FileBaseInfo
+	52, // 36: openim.sdk.message.CreateFileMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 37: openim.sdk.message.CreateMergerMessageReq.messages:type_name -> openim.sdk.shared.IMMessage
+	52, // 38: openim.sdk.message.CreateMergerMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 39: openim.sdk.message.CreateFaceMessageResp.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 40: openim.sdk.message.CreateForwardMessageReq.message:type_name -> openim.sdk.shared.IMMessage
+	52, // 41: openim.sdk.message.CreateForwardMessageResp.message:type_name -> openim.sdk.shared.IMMessage
 	42, // [42:42] is the sub-list for method output_type
 	42, // [42:42] is the sub-list for method input_type
 	42, // [42:42] is the sub-list for extension type_name
@@ -4102,54 +3876,6 @@ func file_message_proto_init() {
 				return nil
 			}
 		}
-		file_message_proto_msgTypes[52].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UploadLogsReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_message_proto_msgTypes[53].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UploadLogsResp); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_message_proto_msgTypes[54].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LogReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_message_proto_msgTypes[55].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LogResp); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -4157,7 +3883,7 @@ func file_message_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   56,
+			NumMessages:   52,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -111,9 +111,7 @@ type ConversationModel interface {
 	DeleteAllConversation(ctx context.Context) error
 	GetConversation(ctx context.Context, conversationID string) (*model_struct.LocalConversation, error)
 	UpdateConversation(ctx context.Context, c *model_struct.LocalConversation) error
-	UpdateConversationForSync(ctx context.Context, c *model_struct.LocalConversation) error
 	BatchUpdateConversationList(ctx context.Context, conversationList []*model_struct.LocalConversation) error
-	ConversationIfExists(ctx context.Context, conversationID string) (bool, error)
 	ResetConversation(ctx context.Context, conversationID string) error
 	ResetAllConversation(ctx context.Context) error
 	ClearConversation(ctx context.Context, conversationID string) error

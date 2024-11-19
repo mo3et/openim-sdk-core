@@ -118,10 +118,11 @@ func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress op
 	reqLog := &third.UploadLogsReq{
 		Platform: int32(t.platform),
 		//Todo systemType change to appFramework
-		AppFramework: pb.AppFramework_name[int32(t.appFramework)],
-		Version:      version.Version,
-		FileURLs:     []*third.FileURL{{Filename: zippath, URL: resp.URL}},
-		Ex:           ex,
+		//AppFramework: pb.AppFramework_name[int32(t.appFramework)],
+		SystemType: pb.AppFramework_name[int32(t.appFramework)],
+		Version:    version.Version,
+		FileURLs:   []*third.FileURL{{Filename: zippath, URL: resp.URL}},
+		Ex:         ex,
 	}
 	return api.UploadLogs.Execute(ctx, reqLog)
 }
@@ -192,8 +193,6 @@ func readLastNLines(filename string, n int) ([]string, error) {
 	return result, nil
 }
 
-func (t *Third) printLog(ctx context.Context, logLevel int, file string, line int, msg, err string, keysAndValues []any) {
-	errString := errs.New(err)
-
-	log.SDKLog(ctx, logLevel, file, line, msg, errString, keysAndValues)
+func (t *Third) printLog(ctx context.Context, logLevel int, file string, line int, msg string, err error, kvs []any) {
+	log.SDKLog(ctx, logLevel, file, line, msg, err, kvs)
 }

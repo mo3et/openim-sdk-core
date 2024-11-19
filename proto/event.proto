@@ -17,8 +17,9 @@ enum FuncRequestEventName {
   UploadLogs = 7;
   UploadFile = 8;
   Log = 9;
-
-  EventOnSendMsgProgress = 12;
+  UpdateFcmToken = 10;
+  SetAppBadge = 11;
+  EventOnSendMsgProgress =12;
   EventOnUploadFileProgress = 13;
   EventOnUploadLogsProgress = 14;
   EventOnConnecting = 15;

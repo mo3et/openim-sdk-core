@@ -48,7 +48,6 @@ type ContextInfo interface {
 	DataDir() string
 	LogLevel() uint32
 	OperationID() string
-	IsExternalExtensions() bool
 }
 
 func Info(ctx context.Context) ContextInfo {
@@ -98,7 +97,7 @@ func (i *info) Token() string {
 }
 
 func (i *info) PlatformID() int32 {
-	return int32(i.conf.PlatformID)
+	return int32(i.conf.Platform)
 }
 
 func (i *info) ApiAddr() string {
@@ -119,10 +118,6 @@ func (i *info) LogLevel() uint32 {
 
 func (i *info) OperationID() string {
 	return mcontext.GetOperationID(i.ctx)
-}
-
-func (i *info) IsExternalExtensions() bool {
-	return i.conf.IsExternalExtensions
 }
 
 type apiErrCode struct{}

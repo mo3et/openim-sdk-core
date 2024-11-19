@@ -22,8 +22,13 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
+type ResultData struct {
+	cData  *C.uint8_t
+	length int
+}
+
 var (
-	resultMap = make(map[uint64]*C.uint8_t)
+	resultMap = make(map[uint64]*ResultData)
 	mu        sync.Mutex
 )
 
@@ -47,7 +52,10 @@ func dispatchResultForC(handleID uint64, data []byte) {
 
 	mu.Lock()
 	fmt.Println("resp c data put into resultMap", handleID)
-	resultMap[handleID] = cData
+	resultMap[handleID] = &ResultData{
+		cData:  cData,
+		length: len(data),
+	}
 	mu.Unlock()
 	if C.eventCallBack != nil {
 		len := C.int(len(data))
@@ -64,10 +72,10 @@ func monitorResultMapSize() {
 		for _, result := range resultMap {
 			totalBytes += result.length // Use the actual length stored in ResultData
 		}
+		mu.Unlock()
 		totalMB := float64(totalBytes) / (1024 * 1024)
 		fmt.Printf("Current resultMap size: %.2f MB\n", totalMB)
 		log.ZDebug(context.Background(), fmt.Sprintf("Current resultMap size: %.2f MB", totalMB))
-		mu.Unlock()
 	}
 }
 
@@ -91,9 +99,9 @@ func ffi_drop_handle(handleID uint64) {
 	mu.Lock()
 	defer mu.Unlock()
 	fmt.Println("ffi_drop_handle come here", handleID)
-	if cData, ok := resultMap[handleID]; ok {
+	if result, ok := resultMap[handleID]; ok {
 		fmt.Println("free resource", handleID)
-		C.free(unsafe.Pointer(cData))
+		C.free(unsafe.Pointer(result.cData))
 		delete(resultMap, handleID)
 	} else {
 		fmt.Println("can not find resource", handleID)

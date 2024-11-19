@@ -73,16 +73,17 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 
 func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.Conversation {
 	return &sdkpb.Conversation{
-		ConversationID:    conversation.ConversationID,
-		ConversationType:  sdkpb.SessionType(conversation.ConversationType),
-		UserID:            conversation.UserID,
-		GroupID:           conversation.GroupID,
-		ShowName:          conversation.ShowName,
-		FaceURL:           conversation.FaceURL,
-		RecvMsgOpt:        sdkpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
-		UnreadCount:       conversation.UnreadCount,
-		GroupAtType:       sdkpb.ConvGroupAtType(conversation.GroupAtType),
-		LatestMsg:         conversation.LatestMsg,
+		ConversationID:   conversation.ConversationID,
+		ConversationType: sdkpb.SessionType(conversation.ConversationType),
+		UserID:           conversation.UserID,
+		GroupID:          conversation.GroupID,
+		ShowName:         conversation.ShowName,
+		FaceURL:          conversation.FaceURL,
+		RecvMsgOpt:       sdkpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
+		UnreadCount:      conversation.UnreadCount,
+		GroupAtType:      sdkpb.ConvGroupAtType(conversation.GroupAtType),
+		//todo
+		//LatestMsg:         conversation.LatestMsg,
 		LatestMsgSendTime: conversation.LatestMsgSendTime,
 		DraftText:         conversation.DraftText,
 		DraftTextTime:     conversation.DraftTextTime,

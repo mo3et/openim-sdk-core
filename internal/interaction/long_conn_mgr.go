@@ -36,6 +36,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
@@ -635,7 +636,7 @@ func (l *LongConnMgr) reConn(ctx context.Context, num *int) (needRecon bool, err
 	}
 	l.connWrite.Lock()
 	defer l.connWrite.Unlock()
-	l.listener().OnConnecting()
+	l.listener().OnConnecting(&sdkpb.EventOnConnectingData{})
 	l.SetConnectionStatus(Connecting)
 	url := fmt.Sprintf("%s?sendID=%s&token=%s&platformID=%d&operationID=%s&isBackground=%t",
 		ccontext.Info(ctx).WsAddr(), ccontext.Info(ctx).UserID(), ccontext.Info(ctx).Token(),
@@ -677,17 +678,17 @@ func (l *LongConnMgr) reConn(ctx context.Context, num *int) (needRecon bool, err
 				return true, err
 			}
 		}
-		l.listener().OnConnectFailed(sdkerrs.NetworkError, err.Error())
+		l.listener().OnConnectFailed(&sdkpb.EventOnConnectFailedData{ErrCode: sdkerrs.NetworkError, ErrMsg: err.Error()})
 		return true, err
 	}
 	if err := l.writeConnFirstSubMsg(ctx); err != nil {
 		log.ZError(ctx, "first write user online sub info error", err)
 		ccontext.GetApiErrCodeCallback(ctx).OnError(ctx, err)
-		l.listener().OnConnectFailed(sdkerrs.NetworkError, err.Error())
+		l.listener().OnConnectFailed(&sdkpb.EventOnConnectFailedData{ErrCode: sdkerrs.NetworkError, ErrMsg: err.Error()})
 		l.conn.Close()
 		return true, err
 	}
-	l.listener().OnConnectSuccess()
+	l.listener().OnConnectSuccess(&sdkpb.EventOnConnectSuccessData{})
 	l.sub.onConnSuccess()
 	l.ctx = newContext(l.conn.LocalAddr())
 	l.ctx = context.WithValue(ctx, "ConnContext", l.ctx)
