@@ -49,7 +49,7 @@ message SearchByConversationResult {
 // -----------------------------------------------------------------------------------------------------------------
 message GetAllConversationListReq{}
 message GetAllConversationListResp{
-  repeated shared.Conversation conversationList = 1;
+  repeated shared.IMConversation conversationList = 1;
 }
 
 message GetConversationListSplitReq {
@@ -57,7 +57,7 @@ message GetConversationListSplitReq {
   int32 count = 2;
 }
 message GetConversationListSplitResp {
-  repeated shared.Conversation conversationList = 1;
+  repeated shared.IMConversation conversationList = 1;
 }
 
 message HideConversationReq {
@@ -75,14 +75,14 @@ message GetOneConversationReq {
   string sourceID = 2;
 }
 message GetOneConversationResp {
-  shared.Conversation conversation = 1;
+  shared.IMConversation conversation = 1;
 }
 
 message GetMultipleConversationReq {
   repeated string conversationIDList = 1;
 }
 message GetMultipleConversationResp {
-  repeated shared.Conversation conversationList = 1;
+  repeated shared.IMConversation conversationList = 1;
 }
 
 message HideAllConversationsReq {}
@@ -173,5 +173,5 @@ message SearchConversationReq {
   string searchParam = 1;
 }
 message SearchConversationResp {
-  repeated shared.Conversation conversationList = 1;
+  repeated shared.IMConversation conversationList = 1;
 }

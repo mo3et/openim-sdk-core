@@ -6,7 +6,7 @@ import "common.proto";
 
 // ############## user ################
 
-message UserInfo {
+message IMUser {
   string userID = 1;
   string nickname = 2;
   string faceURL = 3;
@@ -28,7 +28,7 @@ message CommandInfo {
 
 // ############## relation ################
 
-message FriendInfo {
+message IMFriend {
   string ownerUserID    = 1;
   string friendUserID   = 2;
   string remark         = 3;
@@ -42,7 +42,7 @@ message FriendInfo {
   bool isPinned       = 11;
 }
 
-message BlackInfo {
+message IMBlack {
   string ownerUserID = 1;
   string blockUserID = 2;
   string nickname = 3;
@@ -54,7 +54,7 @@ message BlackInfo {
   string attached = 9;
 }
 
-message FriendRequestInfo {
+message IMFriendRequest {
   string fromUserID = 1;
   string fromNickname = 2;
   string fromFaceURL = 3;
@@ -88,7 +88,7 @@ enum GroupFilter {
   OwnerAndAdmin         = 5;
 }
 
-message GroupInfo {
+message IMGroup {
   string groupID = 1;
   string groupName = 2;
   string notification = 3;
@@ -108,7 +108,7 @@ message GroupInfo {
   string attachedInfo = 17;
 }
 
-message GroupMemberInfo {
+message IMGroupMember {
   string groupID = 1;
   string userID = 2;
   string nickname = 3;
@@ -123,7 +123,7 @@ message GroupMemberInfo {
   string attachedInfo = 12;
 }
 
-message GroupRequestInfo {
+message IMGroupRequest {
   string groupID = 1;
   string groupName = 2;
   string notification = 3;
@@ -152,7 +152,7 @@ message GroupRequestInfo {
 
 // ############## conversation ################
 
-message Conversation {
+message IMConversation {
   string conversationID = 1;
   common.SessionType conversationType = 2;
   string userID = 3;
@@ -372,133 +372,133 @@ message AttachedInfoElem {
 
 //	OnGroupCreated()
 message GroupCreatedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
-  repeated shared.GroupMemberInfo memberList = 3;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  repeated shared.IMGroupMember memberList = 3;
   int64 operationTime = 4;
-  shared.GroupMemberInfo groupOwnerUser = 5;
+  shared.IMGroupMember groupOwnerUser = 5;
 }
 
 //	OnGroupInfoSet()
 message GroupInfoSetTips {
-  shared.GroupMemberInfo opUser = 1; //who do this
+  shared.IMGroupMember opUser = 1; //who do this
   int64 muteTime = 2;
-  shared.GroupInfo group = 3;
+  shared.IMGroup group = 3;
 }
 
 message GroupInfoSetNameTips {
-  shared.GroupMemberInfo opUser = 1; //who do this
-  shared.GroupInfo group = 2;
+  shared.IMGroupMember opUser = 1; //who do this
+  shared.IMGroup group = 2;
 }
 
 message GroupInfoSetAnnouncementTips {
-  shared.GroupMemberInfo opUser = 1; //who do this
-  shared.GroupInfo group = 2;
+  shared.IMGroupMember opUser = 1; //who do this
+  shared.IMGroup group = 2;
 }
 
 //	OnJoinGroupApplication()
 message JoinGroupApplicationTips {
-  shared.GroupInfo group = 1;
-  shared.UserInfo applicant = 2;
+  shared.IMGroup group = 1;
+  shared.IMUser applicant = 2;
   string reqMsg = 3;
 }
 
 //	OnQuitGroup()
 //Actively leave the group
 message MemberQuitTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo quitUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember quitUser = 2;
   int64 operationTime = 3;
 }
 
 //	OnApplicationGroupAccepted()
 message GroupApplicationAcceptedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
   string handleMsg = 4;
   int32 receiverAs = 5; // admin(==1) or applicant(==0)
 }
 
 //	OnApplicationGroupRejected()
 message GroupApplicationRejectedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
   string handleMsg = 4;
   int32 receiverAs = 5; // admin(==1) or applicant(==0)
 }
 
 //	OnTransferGroupOwner()
 message GroupOwnerTransferredTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
-  shared.GroupMemberInfo newGroupOwner = 3;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  shared.IMGroupMember newGroupOwner = 3;
   string oldGroupOwner = 4;
   int64 operationTime = 5;
-  shared.GroupMemberInfo oldGroupOwnerInfo = 6;
+  shared.IMGroupMember oldGroupOwnerInfo = 6;
 }
 
 //	OnMemberKicked()
 message MemberKickedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
-  repeated shared.GroupMemberInfo kickedUserList = 3;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  repeated shared.IMGroupMember kickedUserList = 3;
   int64 operationTime = 4;
 }
 
 //	OnMemberInvited()
 message MemberInvitedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
-  repeated shared.GroupMemberInfo invitedUserList = 3;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  repeated shared.IMGroupMember invitedUserList = 3;
   int64 operationTime = 4;
-  shared.GroupMemberInfo inviterUser = 7;
+  shared.IMGroupMember inviterUser = 7;
 }
 
 //Actively join the group
 message MemberEnterTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo entrantUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember entrantUser = 2;
   int64 operationTime = 3;
 }
 
 message GroupDismissedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
   int64 operationTime = 3;
 }
 
 message GroupMemberMutedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
   int64 operationTime = 3;
-  shared.GroupMemberInfo mutedUser = 4;
+  shared.IMGroupMember mutedUser = 4;
   uint32 mutedSeconds = 5;
 }
 
 message GroupMemberCancelMutedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
   int64 operationTime = 3;
-  shared.GroupMemberInfo mutedUser = 4;
+  shared.IMGroupMember mutedUser = 4;
 }
 
 message GroupMutedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
   int64 operationTime = 3;
 }
 
 message GroupCancelMutedTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
   int64 operationTime = 3;
 }
 
 message GroupMemberInfoSetTips {
-  shared.GroupInfo group = 1;
-  shared.GroupMemberInfo opUser = 2;
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
   int64 operationTime = 3;
-  shared.GroupMemberInfo changedUser = 4;
+  shared.IMGroupMember changedUser = 4;
 }
 
 //////////////////////friend/////////////////////
@@ -532,9 +532,9 @@ message FriendApplicationRejectedTips {
 
 // FromUserID  Added a friend ToUserID
 message FriendAddedTips {
-  shared.FriendInfo friend = 1;
+  shared.IMFriend friend = 1;
   int64 operationTime = 2;
-  shared.UserInfo opUser = 3; //who do this
+  shared.IMUser opUser = 3; //who do this
 }
 
 // FromUserID  deleted a friend ToUserID
