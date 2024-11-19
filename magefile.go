@@ -31,8 +31,10 @@ var protoModules = []string{
 	"group",
 	"init",
 	"message",
+	"msg",
 	"msggateway",
 	"relation",
+	"shared",
 	"user",
 }
 
@@ -42,6 +44,25 @@ var protoDir = "./proto"
 protoc --go_out=:./ --go_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto *.proto
 protoc --go_out=./${name} --go_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto/go/${name} proto/${name}.proto
 */
+
+func All() error {
+	if err := GenGo(); err != nil {
+		return err
+	}
+	if err := GenJava(); err != nil {
+		return err
+	}
+	if err := GenCSharp(); err != nil {
+		return err
+	}
+	if err := GenJS(); err != nil {
+		return err
+	}
+	if err := GenTS(); err != nil {
+		return err
+	}
+	return nil
+}
 
 func GenGo() error {
 	log.Println("Generating Go code from proto files")
@@ -71,7 +92,7 @@ func GenGo() error {
 			"--go_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto/" + filepath.Join(GO, module),
 			filepath.Join("proto", module) + ".proto",
 		}
-		log.Println("args : ", args)
+		// log.Println("args : ", args)
 		cmd := exec.Command(protoc, args...)
 		connectStd(cmd)
 		if err := cmd.Run(); err != nil {
