@@ -2,54 +2,7 @@
 // file: user.proto
 
 import * as jspb from "google-protobuf";
-
-export class UserInfo extends jspb.Message {
-  getUserid(): string;
-  setUserid(value: string): void;
-
-  getNickname(): string;
-  setNickname(value: string): void;
-
-  getFaceurl(): string;
-  setFaceurl(value: string): void;
-
-  getEx(): string;
-  setEx(value: string): void;
-
-  getCreatetime(): number;
-  setCreatetime(value: number): void;
-
-  getAppmangerlevel(): number;
-  setAppmangerlevel(value: number): void;
-
-  getGlobalrecvmsgopt(): number;
-  setGlobalrecvmsgopt(value: number): void;
-
-  getAttached(): string;
-  setAttached(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): UserInfo.AsObject;
-  static toObject(includeInstance: boolean, msg: UserInfo): UserInfo.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: UserInfo, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): UserInfo;
-  static deserializeBinaryFromReader(message: UserInfo, reader: jspb.BinaryReader): UserInfo;
-}
-
-export namespace UserInfo {
-  export type AsObject = {
-    userid: string,
-    nickname: string,
-    faceurl: string,
-    ex: string,
-    createtime: number,
-    appmangerlevel: number,
-    globalrecvmsgopt: number,
-    attached: string,
-  }
-}
+import * as shared_pb from "./shared_pb";
 
 export class CommandInfo extends jspb.Message {
   getUserid(): string;
@@ -110,8 +63,8 @@ export namespace GetSelfUserInfoReq {
 export class GetSelfUserInfoResp extends jspb.Message {
   hasUser(): boolean;
   clearUser(): void;
-  getUser(): UserInfo | undefined;
-  setUser(value?: UserInfo): void;
+  getUser(): shared_pb.UserInfo | undefined;
+  setUser(value?: shared_pb.UserInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetSelfUserInfoResp.AsObject;
@@ -125,7 +78,7 @@ export class GetSelfUserInfoResp extends jspb.Message {
 
 export namespace GetSelfUserInfoResp {
   export type AsObject = {
-    user?: UserInfo.AsObject,
+    user?: shared_pb.UserInfo.AsObject,
   }
 }
 
@@ -407,9 +360,9 @@ export namespace GetUsersInfoReq {
 
 export class GetUsersInfoResp extends jspb.Message {
   clearUsersList(): void;
-  getUsersList(): Array<UserInfo>;
-  setUsersList(value: Array<UserInfo>): void;
-  addUsers(value?: UserInfo, index?: number): UserInfo;
+  getUsersList(): Array<shared_pb.UserInfo>;
+  setUsersList(value: Array<shared_pb.UserInfo>): void;
+  addUsers(value?: shared_pb.UserInfo, index?: number): shared_pb.UserInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetUsersInfoResp.AsObject;
@@ -423,7 +376,7 @@ export class GetUsersInfoResp extends jspb.Message {
 
 export namespace GetUsersInfoResp {
   export type AsObject = {
-    usersList: Array<UserInfo.AsObject>,
+    usersList: Array<shared_pb.UserInfo.AsObject>,
   }
 }
 
@@ -451,9 +404,9 @@ export namespace GetUsersInfoFromServerReq {
 
 export class GetUsersInfoFromServerResp extends jspb.Message {
   clearUsersList(): void;
-  getUsersList(): Array<UserInfo>;
-  setUsersList(value: Array<UserInfo>): void;
-  addUsers(value?: UserInfo, index?: number): UserInfo;
+  getUsersList(): Array<shared_pb.UserInfo>;
+  setUsersList(value: Array<shared_pb.UserInfo>): void;
+  addUsers(value?: shared_pb.UserInfo, index?: number): shared_pb.UserInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetUsersInfoFromServerResp.AsObject;
@@ -467,7 +420,7 @@ export class GetUsersInfoFromServerResp extends jspb.Message {
 
 export namespace GetUsersInfoFromServerResp {
   export type AsObject = {
-    usersList: Array<UserInfo.AsObject>,
+    usersList: Array<shared_pb.UserInfo.AsObject>,
   }
 }
 

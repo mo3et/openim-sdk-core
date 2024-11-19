@@ -24,180 +24,181 @@ namespace Openim.Event {
     static EventReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgtldmVudC5wcm90bxIMb3BlbmltLmV2ZW50Ggtncm91cC5wcm90bxoOcmVs",
-            "YXRpb24ucHJvdG8aDW1lc3NhZ2UucHJvdG8iLgoaRXZlbnRPblNlbmRNc2dQ",
-            "cm9ncmVzc0RhdGESEAoIcHJvZ3Jlc3MYASABKAUiMQodRXZlbnRPblVwbG9h",
-            "ZEZpbGVQcm9ncmVzc0RhdGESEAoIcHJvZ3Jlc3MYASABKAUiRQoiRXZlbnRF",
-            "dmVudE9uVXBsb2FkTG9nc1Byb2dyZXNzRGF0YRIQCghwcm9ncmVzcxgBIAEo",
-            "AxINCgV0b3RhbBgCIAEoAyIXChVFdmVudE9uQ29ubmVjdGluZ0RhdGEiGwoZ",
-            "RXZlbnRPbkNvbm5lY3RTdWNjZXNzRGF0YSI7ChhFdmVudE9uQ29ubmVjdEZh",
-            "aWxlZERhdGESDwoHZXJyQ29kZRgBIAEoBRIOCgZlcnJNc2cYAiABKAkiGgoY",
-            "RXZlbnRPbktpY2tlZE9mZmxpbmVEYXRhIh0KG0V2ZW50T25Vc2VyVG9rZW5F",
-            "eHBpcmVkRGF0YSItChtFdmVudE9uVXNlclRva2VuSW52YWxpZERhdGESDgoG",
-            "ZXJyTXNnGAEgASgJIjEKGkV2ZW50T25TeW5jU2VydmVyU3RhcnREYXRhEhMK",
-            "C3JlaW5zdGFsbGVkGAEgASgIIjIKG0V2ZW50T25TeW5jU2VydmVyRmluaXNo",
-            "RGF0YRITCgtyZWluc3RhbGxlZBgBIAEoCCIyChtFdmVudE9uU3luY1NlcnZl",
-            "ckZhaWxlZERhdGESEwoLcmVpbnN0YWxsZWQYASABKAgiMQodRXZlbnRPblN5",
-            "bmNTZXJ2ZXJQcm9ncmVzc0RhdGESEAoIcHJvZ3Jlc3MYASABKAUiNgoaRXZl",
-            "bnRPbk5ld0NvbnZlcnNhdGlvbkRhdGESGAoQY29udmVyc2F0aW9uTGlzdBgB",
-            "IAEoCSI6Ch5FdmVudE9uQ29udmVyc2F0aW9uQ2hhbmdlZERhdGESGAoQY29u",
-            "dmVyc2F0aW9uTGlzdBgBIAEoCSJFCilFdmVudE9uVG90YWxVbnJlYWRNZXNz",
-            "YWdlQ291bnRDaGFuZ2VkRGF0YRIYChB0b3RhbFVucmVhZENvdW50GAEgASgF",
-            "Ij8KLUV2ZW50T25Db252ZXJzYXRpb25Vc2VySW5wdXRTdGF0dXNDaGFuZ2Vk",
-            "RGF0YRIOCgZjaGFuZ2UYASABKAkiSwoZRXZlbnRPblJlY3ZOZXdNZXNzYWdl",
-            "RGF0YRIuCgdtZXNzYWdlGAEgASgLMh0ub3BlbmltLnNkay5tZXNzYWdlLklN",
-            "TWVzc2FnZSI3Ch1FdmVudE9uUmVjdkMyQ1JlYWRSZWNlaXB0RGF0YRIWCg5t",
-            "c2dSZWNlaXB0TGlzdBgBIAEoCSI6CiBFdmVudE9uTmV3UmVjdk1lc3NhZ2VS",
-            "ZXZva2VkRGF0YRIWCg5tZXNzYWdlUmV2b2tlZBgBIAEoCSJSCiBFdmVudE9u",
-            "UmVjdk9mZmxpbmVOZXdNZXNzYWdlRGF0YRIuCgdtZXNzYWdlGAEgASgLMh0u",
-            "b3BlbmltLnNkay5tZXNzYWdlLklNTWVzc2FnZSJHChVFdmVudE9uTXNnRGVs",
-            "ZXRlZERhdGESLgoHbWVzc2FnZRgBIAEoCzIdLm9wZW5pbS5zZGsubWVzc2Fn",
-            "ZS5JTU1lc3NhZ2UiUgogRXZlbnRPblJlY3ZPbmxpbmVPbmx5TWVzc2FnZURh",
-            "dGESLgoHbWVzc2FnZRgBIAEoCzIdLm9wZW5pbS5zZGsubWVzc2FnZS5JTU1l",
-            "c3NhZ2UiRgoURXZlbnRPbk1zZ0VkaXRlZERhdGESLgoHbWVzc2FnZRgBIAEo",
-            "CzIdLm9wZW5pbS5zZGsubWVzc2FnZS5JTU1lc3NhZ2UiXAohRXZlbnRPbkZy",
-            "aWVuZEFwcGxpY2F0aW9uQWRkZWREYXRhEjcKB3JlcXVlc3QYASABKAsyJi5v",
-            "cGVuaW0uc2RrLnJlbGF0aW9uLkZyaWVuZFJlcXVlc3RJbmZvIl4KI0V2ZW50",
-            "T25GcmllbmRBcHBsaWNhdGlvbkRlbGV0ZWREYXRhEjcKB3JlcXVlc3QYASAB",
-            "KAsyJi5vcGVuaW0uc2RrLnJlbGF0aW9uLkZyaWVuZFJlcXVlc3RJbmZvIl8K",
-            "JEV2ZW50T25GcmllbmRBcHBsaWNhdGlvbkFjY2VwdGVkRGF0YRI3CgdyZXF1",
-            "ZXN0GAEgASgLMiYub3BlbmltLnNkay5yZWxhdGlvbi5GcmllbmRSZXF1ZXN0",
-            "SW5mbyJfCiRFdmVudE9uRnJpZW5kQXBwbGljYXRpb25SZWplY3RlZERhdGES",
-            "NwoHcmVxdWVzdBgBIAEoCzImLm9wZW5pbS5zZGsucmVsYXRpb24uRnJpZW5k",
-            "UmVxdWVzdEluZm8iSQoWRXZlbnRPbkZyaWVuZEFkZGVkRGF0YRIvCgZmcmll",
-            "bmQYASABKAsyHy5vcGVuaW0uc2RrLnJlbGF0aW9uLkZyaWVuZEluZm8iSwoY",
-            "RXZlbnRPbkZyaWVuZERlbGV0ZWREYXRhEi8KBmZyaWVuZBgBIAEoCzIfLm9w",
-            "ZW5pbS5zZGsucmVsYXRpb24uRnJpZW5kSW5mbyJPChxFdmVudE9uRnJpZW5k",
-            "SW5mb0NoYW5nZWREYXRhEi8KBmZyaWVuZBgBIAEoCzIfLm9wZW5pbS5zZGsu",
-            "cmVsYXRpb24uRnJpZW5kSW5mbyJGChVFdmVudE9uQmxhY2tBZGRlZERhdGES",
-            "LQoFYmxhY2sYASABKAsyHi5vcGVuaW0uc2RrLnJlbGF0aW9uLkJsYWNrSW5m",
-            "byJIChdFdmVudE9uQmxhY2tEZWxldGVkRGF0YRItCgVibGFjaxgBIAEoCzIe",
-            "Lm9wZW5pbS5zZGsucmVsYXRpb24uQmxhY2tJbmZvIkkKG0V2ZW50T25Kb2lu",
-            "ZWRHcm91cEFkZGVkRGF0YRIqCgVncm91cBgBIAEoCzIbLm9wZW5pbS5zZGsu",
-            "Z3JvdXAuR3JvdXBJbmZvIksKHUV2ZW50T25Kb2luZWRHcm91cERlbGV0ZWRE",
-            "YXRhEioKBWdyb3VwGAEgASgLMhsub3BlbmltLnNkay5ncm91cC5Hcm91cElu",
-            "Zm8iUAobRXZlbnRPbkdyb3VwTWVtYmVyQWRkZWREYXRhEjEKBm1lbWJlchgB",
-            "IAEoCzIhLm9wZW5pbS5zZGsuZ3JvdXAuR3JvdXBNZW1iZXJJbmZvIlIKHUV2",
-            "ZW50T25Hcm91cE1lbWJlckRlbGV0ZWREYXRhEjEKBm1lbWJlchgBIAEoCzIh",
-            "Lm9wZW5pbS5zZGsuZ3JvdXAuR3JvdXBNZW1iZXJJbmZvIlcKIEV2ZW50T25H",
-            "cm91cEFwcGxpY2F0aW9uQWRkZWREYXRhEjMKB3JlcXVlc3QYASABKAsyIi5v",
-            "cGVuaW0uc2RrLmdyb3VwLkdyb3VwUmVxdWVzdEluZm8iWQoiRXZlbnRPbkdy",
-            "b3VwQXBwbGljYXRpb25EZWxldGVkRGF0YRIzCgdyZXF1ZXN0GAEgASgLMiIu",
-            "b3BlbmltLnNkay5ncm91cC5Hcm91cFJlcXVlc3RJbmZvIkkKG0V2ZW50T25H",
-            "cm91cEluZm9DaGFuZ2VkRGF0YRIqCgVncm91cBgBIAEoCzIbLm9wZW5pbS5z",
-            "ZGsuZ3JvdXAuR3JvdXBJbmZvIkcKGUV2ZW50T25Hcm91cERpc21pc3NlZERh",
-            "dGESKgoFZ3JvdXAYASABKAsyGy5vcGVuaW0uc2RrLmdyb3VwLkdyb3VwSW5m",
-            "byJWCiFFdmVudE9uR3JvdXBNZW1iZXJJbmZvQ2hhbmdlZERhdGESMQoGbWVt",
-            "YmVyGAEgASgLMiEub3BlbmltLnNkay5ncm91cC5Hcm91cE1lbWJlckluZm8i",
-            "WgojRXZlbnRPbkdyb3VwQXBwbGljYXRpb25BY2NlcHRlZERhdGESMwoHcmVx",
-            "dWVzdBgBIAEoCzIiLm9wZW5pbS5zZGsuZ3JvdXAuR3JvdXBSZXF1ZXN0SW5m",
-            "byJaCiNFdmVudE9uR3JvdXBBcHBsaWNhdGlvblJlamVjdGVkRGF0YRIzCgdy",
-            "ZXF1ZXN0GAEgASgLMiIub3BlbmltLnNkay5ncm91cC5Hcm91cFJlcXVlc3RJ",
-            "bmZvIj8KJEV2ZW50T25SZWN2Q3VzdG9tQnVzaW5lc3NNZXNzYWdlRGF0YRIX",
-            "Cg9idXNpbmVzc01lc3NhZ2UYASABKAkiLgoaRXZlbnRPblNlbGZJbmZvVXBk",
-            "YXRlZERhdGESEAoIdXNlckluZm8YASABKAkiQwocRXZlbnRPblVzZXJTdGF0",
-            "dXNDaGFuZ2VkRGF0YRIOCgZ1c2VySUQYASABKAkSEwoLcGxhdGZvcm1JRHMY",
-            "AiADKAUiMAoZRXZlbnRPblVzZXJDb21tYW5kQWRkRGF0YRITCgt1c2VyQ29t",
-            "bWFuZBgBIAEoCSIzChxFdmVudE9uVXNlckNvbW1hbmREZWxldGVEYXRhEhMK",
-            "C3VzZXJDb21tYW5kGAEgASgJIjMKHEV2ZW50T25Vc2VyQ29tbWFuZFVwZGF0",
-            "ZURhdGESEwoLdXNlckNvbW1hbmQYASABKAkqxB8KFEZ1bmNSZXF1ZXN0RXZl",
-            "bnROYW1lEggKBE5vbmUQABIaChZHZXRBbGxDb252ZXJzYXRpb25MaXN0EAES",
-            "FwoTR2V0Q29udmVyc2F0aW9uTGlzdBACEhMKD0dldENvbnZlcnNhdGlvbhAD",
-            "EgsKB0luaXRTREsQBBIJCgVMb2dpbhAFEg8KC1NlbmRNZXNzYWdlEAYSDgoK",
-            "VXBsb2FkTG9ncxAHEg4KClVwbG9hZEZpbGUQCBIHCgNMb2cQCRIaChZFdmVu",
-            "dE9uU2VuZE1zZ1Byb2dyZXNzEAwSHQoZRXZlbnRPblVwbG9hZEZpbGVQcm9n",
-            "cmVzcxANEh0KGUV2ZW50T25VcGxvYWRMb2dzUHJvZ3Jlc3MQDhIVChFFdmVu",
-            "dE9uQ29ubmVjdGluZxAPEhkKFUV2ZW50T25Db25uZWN0U3VjY2VzcxAQEhgK",
-            "FEV2ZW50T25Db25uZWN0RmFpbGVkEBESGAoURXZlbnRPbktpY2tlZE9mZmxp",
-            "bmUQEhIbChdFdmVudE9uVXNlclRva2VuRXhwaXJlZBATEhsKF0V2ZW50T25V",
-            "c2VyVG9rZW5JbnZhbGlkEBQSGgoWRXZlbnRPblN5bmNTZXJ2ZXJTdGFydBAV",
-            "EhsKF0V2ZW50T25TeW5jU2VydmVyRmluaXNoEBYSGwoXRXZlbnRPblN5bmNT",
-            "ZXJ2ZXJGYWlsZWQQFxIdChlFdmVudE9uU3luY1NlcnZlclByb2dyZXNzEBgS",
-            "GgoWRXZlbnRPbk5ld0NvbnZlcnNhdGlvbhAZEh4KGkV2ZW50T25Db252ZXJz",
-            "YXRpb25DaGFuZ2VkEBoSKQolRXZlbnRPblRvdGFsVW5yZWFkTWVzc2FnZUNv",
-            "dW50Q2hhbmdlZBAbEi0KKUV2ZW50T25Db252ZXJzYXRpb25Vc2VySW5wdXRT",
-            "dGF0dXNDaGFuZ2VkEBwSGQoVRXZlbnRPblJlY3ZOZXdNZXNzYWdlEB0SHQoZ",
-            "RXZlbnRPblJlY3ZDMkNSZWFkUmVjZWlwdBAeEiAKHEV2ZW50T25OZXdSZWN2",
-            "TWVzc2FnZVJldm9rZWQQHxIgChxFdmVudE9uUmVjdk9mZmxpbmVOZXdNZXNz",
-            "YWdlECASFQoRRXZlbnRPbk1zZ0RlbGV0ZWQQIRIgChxFdmVudE9uUmVjdk9u",
-            "bGluZU9ubHlNZXNzYWdlECISFAoQRXZlbnRPbk1zZ0VkaXRlZBAjEiEKHUV2",
-            "ZW50T25GcmllbmRBcHBsaWNhdGlvbkFkZGVkECQSIwofRXZlbnRPbkZyaWVu",
-            "ZEFwcGxpY2F0aW9uRGVsZXRlZBAlEiQKIEV2ZW50T25GcmllbmRBcHBsaWNh",
-            "dGlvbkFjY2VwdGVkECYSJAogRXZlbnRPbkZyaWVuZEFwcGxpY2F0aW9uUmVq",
-            "ZWN0ZWQQJxIWChJFdmVudE9uRnJpZW5kQWRkZWQQKBIYChRFdmVudE9uRnJp",
-            "ZW5kRGVsZXRlZBApEhwKGEV2ZW50T25GcmllbmRJbmZvQ2hhbmdlZBAqEhUK",
-            "EUV2ZW50T25CbGFja0FkZGVkECsSFwoTRXZlbnRPbkJsYWNrRGVsZXRlZBAs",
-            "EhsKF0V2ZW50T25Kb2luZWRHcm91cEFkZGVkEC0SHQoZRXZlbnRPbkpvaW5l",
-            "ZEdyb3VwRGVsZXRlZBAuEhsKF0V2ZW50T25Hcm91cE1lbWJlckFkZGVkEC8S",
-            "HQoZRXZlbnRPbkdyb3VwTWVtYmVyRGVsZXRlZBAwEiAKHEV2ZW50T25Hcm91",
-            "cEFwcGxpY2F0aW9uQWRkZWQQMRIiCh5FdmVudE9uR3JvdXBBcHBsaWNhdGlv",
-            "bkRlbGV0ZWQQMhIbChdFdmVudE9uR3JvdXBJbmZvQ2hhbmdlZBAzEhkKFUV2",
-            "ZW50T25Hcm91cERpc21pc3NlZBA0EiEKHUV2ZW50T25Hcm91cE1lbWJlcklu",
-            "Zm9DaGFuZ2VkEDUSIwofRXZlbnRPbkdyb3VwQXBwbGljYXRpb25BY2NlcHRl",
-            "ZBA2EiMKH0V2ZW50T25Hcm91cEFwcGxpY2F0aW9uUmVqZWN0ZWQQNxIkCiBF",
-            "dmVudE9uUmVjdkN1c3RvbUJ1c2luZXNzTWVzc2FnZRA4EhoKFkV2ZW50T25T",
-            "ZWxmSW5mb1VwZGF0ZWQQORIcChhFdmVudE9uVXNlclN0YXR1c0NoYW5nZWQQ",
-            "OhIZChVFdmVudE9uVXNlckNvbW1hbmRBZGQQOxIcChhFdmVudE9uVXNlckNv",
-            "bW1hbmREZWxldGUQPBIcChhFdmVudE9uVXNlckNvbW1hbmRVcGRhdGUQPRIQ",
-            "CgtDcmVhdGVHcm91cBDoBxIOCglKb2luR3JvdXAQ6QcSDgoJUXVpdEdyb3Vw",
-            "EOoHEhEKDERpc21pc3NHcm91cBDrBxIUCg9DaGFuZ2VHcm91cE11dGUQ7AcS",
-            "GgoVQ2hhbmdlR3JvdXBNZW1iZXJNdXRlEO0HEhcKElRyYW5zZmVyR3JvdXBP",
-            "d25lchDuBxIUCg9LaWNrR3JvdXBNZW1iZXIQ7wcSEQoMU2V0R3JvdXBJbmZv",
-            "EPAHEhcKElNldEdyb3VwTWVtYmVySW5mbxDxBxIUCg9HZXRKb2luZWRHcm91",
-            "cHMQ8gcSGAoTR2V0Sm9pbmVkR3JvdXBzUGFnZRDzBxIbChZHZXRTcGVjaWZp",
-            "ZWRHcm91cHNJbmZvEPQHEhEKDFNlYXJjaEdyb3VwcxD1BxIgChtHZXRHcm91",
-            "cE1lbWJlck93bmVyQW5kQWRtaW4Q9gcSJAofR2V0R3JvdXBNZW1iZXJzQnlK",
-            "b2luVGltZUZpbHRlchD3BxIhChxHZXRTcGVjaWZpZWRHcm91cE1lbWJlcnNJ",
-            "bmZvEPgHEhQKD0dldEdyb3VwTWVtYmVycxD5BxIUCg9HZXRHcm91cFJlcXVl",
-            "c3QQ+gcSFwoSU2VhcmNoR3JvdXBNZW1iZXJzEPsHEhAKC0lzSm9pbkdyb3Vw",
-            "EPwHEhQKD0dldFVzZXJzSW5Hcm91cBD9BxIWChFJbnZpdGVVc2VyVG9Hcm91",
-            "cBD+BxIYChNIYW5kbGVyR3JvdXBSZXF1ZXN0EP8HEhcKEkdldEdyb3VwTWVt",
-            "YmVySW5mbxCACBIYChNHZXRTcGVjaWZpZWRGcmllbmRzEMwIEg4KCUFkZEZy",
-            "aWVuZBDNCBIWChFHZXRGcmllbmRSZXF1ZXN0cxDOCBIZChRIYW5kbGVyRnJp",
-            "ZW5kUmVxdWVzdBDPCBIQCgtDaGVja0ZyaWVuZBDQCBIRCgxEZWxldGVGcmll",
-            "bmQQ0QgSDwoKR2V0RnJpZW5kcxDSCBITCg5HZXRGcmllbmRzUGFnZRDTCBIS",
-            "Cg1TZWFyY2hGcmllbmRzENQIEg0KCEFkZEJsYWNrENUIEhAKC0RlbGV0ZUJs",
-            "YWNrENYIEg4KCUdldEJsYWNrcxDXCBISCg1VcGRhdGVGcmllbmRzENgIEh0K",
-            "GEdldENvbnZlcnNhdGlvbkxpc3RTcGxpdBDQDxIVChBIaWRlQ29udmVyc2F0",
-            "aW9uENEPEhAKC0dldEF0QWxsVGFnENIPEhcKEkdldE9uZUNvbnZlcnNhdGlv",
-            "bhDTDxIcChdHZXRNdWx0aXBsZUNvbnZlcnNhdGlvbhDUDxIZChRIaWRlQWxs",
-            "Q29udmVyc2F0aW9ucxDVDxIZChRTZXRDb252ZXJzYXRpb25EcmFmdBDWDxIU",
-            "Cg9TZXRDb252ZXJzYXRpb24Q1w8SGwoWR2V0VG90YWxVbnJlYWRNc2dDb3Vu",
-            "dBDYDxIjCh5HZXRDb252ZXJzYXRpb25JREJ5U2Vzc2lvblR5cGUQ2Q8SFAoP",
-            "RmluZE1lc3NhZ2VMaXN0ENoPEiIKHUdldEFkdmFuY2VkSGlzdG9yeU1lc3Nh",
-            "Z2VMaXN0ENsPEikKJEdldEFkdmFuY2VkSGlzdG9yeU1lc3NhZ2VMaXN0UmV2",
-            "ZXJzZRDcDxISCg1SZXZva2VNZXNzYWdlEN0PEhcKElR5cGluZ1N0YXR1c1Vw",
-            "ZGF0ZRDeDxIiCh1NYXJrQ29udmVyc2F0aW9uTWVzc2FnZUFzUmVhZBDfDxIl",
-            "CiBNYXJrQWxsQ29udmVyc2F0aW9uTWVzc2FnZUFzUmVhZBDgDxIiCh1EZWxl",
-            "dGVNZXNzYWdlRnJvbUxvY2FsU3RvcmFnZRDhDxISCg1EZWxldGVNZXNzYWdl",
-            "EOIPEiMKHkRlbGV0ZUFsbE1zZ0Zyb21Mb2NhbEFuZFNlcnZlchDjDxIlCiBE",
-            "ZWxldGVBbGxNZXNzYWdlRnJvbUxvY2FsU3RvcmFnZRDkDxIlCiBDbGVhckNv",
-            "bnZlcnNhdGlvbkFuZERlbGV0ZUFsbE1zZxDlDxImCiFEZWxldGVDb252ZXJz",
-            "YXRpb25BbmREZWxldGVBbGxNc2cQ5g8SJgohSW5zZXJ0U2luZ2xlTWVzc2Fn",
-            "ZVRvTG9jYWxTdG9yYWdlEOcPEiUKIEluc2VydEdyb3VwTWVzc2FnZVRvTG9j",
-            "YWxTdG9yYWdlEOgPEhgKE1NlYXJjaExvY2FsTWVzc2FnZXMQ6Q8SFgoRU2V0",
-            "TWVzc2FnZUxvY2FsRXgQ6g8SFwoSU2VhcmNoQ29udmVyc2F0aW9uEOsPEhYK",
-            "EUNyZWF0ZVRleHRNZXNzYWdlEOwPEh4KGUNyZWF0ZUFkdmFuY2VkVGV4dE1l",
-            "c3NhZ2UQ7Q8SGAoTQ3JlYXRlVGV4dEF0TWVzc2FnZRDuDxIaChVDcmVhdGVM",
-            "b2NhdGlvbk1lc3NhZ2UQ7w8SGAoTQ3JlYXRlQ3VzdG9tTWVzc2FnZRDwDxIX",
-            "ChJDcmVhdGVRdW90ZU1lc3NhZ2UQ8Q8SHwoaQ3JlYXRlQWR2YW5jZWRRdW90",
-            "ZU1lc3NhZ2UQ8g8SFgoRQ3JlYXRlQ2FyZE1lc3NhZ2UQ8w8SFwoSQ3JlYXRl",
-            "SW1hZ2VNZXNzYWdlEPQPEhcKEkNyZWF0ZVNvdW5kTWVzc2FnZRD1DxIXChJD",
-            "cmVhdGVWaWRlb01lc3NhZ2UQ9g8SFgoRQ3JlYXRlRmlsZU1lc3NhZ2UQ9w8S",
-            "GAoTQ3JlYXRlTWVyZ2VyTWVzc2FnZRD4DxIWChFDcmVhdGVGYWNlTWVzc2Fn",
-            "ZRD5DxIZChRDcmVhdGVGb3J3YXJkTWVzc2FnZRD6DxIdChhQcm9jZXNzVXNl",
-            "ckNvbW1hbmRHZXRBbGwQtBASFAoPR2V0U2VsZlVzZXJJbmZvELUQEhAKC1Nl",
-            "dFNlbGZJbmZvELYQEhoKFVByb2Nlc3NVc2VyQ29tbWFuZEFkZBC3EBIdChhQ",
-            "cm9jZXNzVXNlckNvbW1hbmREZWxldGUQuBASHQoYUHJvY2Vzc1VzZXJDb21t",
-            "YW5kVXBkYXRlELkQEhEKDEdldFVzZXJzSW5mbxC6EBIbChZHZXRVc2Vyc0lu",
-            "Zm9Gcm9tU2VydmVyELsQQjhaNmdpdGh1Yi5jb20vb3Blbmltc2RrL29wZW5p",
-            "bS1zZGstY29yZS92My9wcm90by9nby9ldmVudGIGcHJvdG8z"));
+            "CgtldmVudC5wcm90bxIMb3BlbmltLmV2ZW50Gg1tZXNzYWdlLnByb3RvGgxz",
+            "aGFyZWQucHJvdG8iLgoaRXZlbnRPblNlbmRNc2dQcm9ncmVzc0RhdGESEAoI",
+            "cHJvZ3Jlc3MYASABKAUiMQodRXZlbnRPblVwbG9hZEZpbGVQcm9ncmVzc0Rh",
+            "dGESEAoIcHJvZ3Jlc3MYASABKAUiQAodRXZlbnRPblVwbG9hZExvZ3NQcm9n",
+            "cmVzc0RhdGESEAoIcHJvZ3Jlc3MYASABKAMSDQoFdG90YWwYAiABKAMiFwoV",
+            "RXZlbnRPbkNvbm5lY3RpbmdEYXRhIhsKGUV2ZW50T25Db25uZWN0U3VjY2Vz",
+            "c0RhdGEiOwoYRXZlbnRPbkNvbm5lY3RGYWlsZWREYXRhEg8KB2VyckNvZGUY",
+            "ASABKAUSDgoGZXJyTXNnGAIgASgJIhoKGEV2ZW50T25LaWNrZWRPZmZsaW5l",
+            "RGF0YSIdChtFdmVudE9uVXNlclRva2VuRXhwaXJlZERhdGEiLQobRXZlbnRP",
+            "blVzZXJUb2tlbkludmFsaWREYXRhEg4KBmVyck1zZxgBIAEoCSIxChpFdmVu",
+            "dE9uU3luY1NlcnZlclN0YXJ0RGF0YRITCgtyZWluc3RhbGxlZBgBIAEoCCIy",
+            "ChtFdmVudE9uU3luY1NlcnZlckZpbmlzaERhdGESEwoLcmVpbnN0YWxsZWQY",
+            "ASABKAgiMgobRXZlbnRPblN5bmNTZXJ2ZXJGYWlsZWREYXRhEhMKC3JlaW5z",
+            "dGFsbGVkGAEgASgIIjEKHUV2ZW50T25TeW5jU2VydmVyUHJvZ3Jlc3NEYXRh",
+            "EhAKCHByb2dyZXNzGAEgASgFIjYKGkV2ZW50T25OZXdDb252ZXJzYXRpb25E",
+            "YXRhEhgKEGNvbnZlcnNhdGlvbkxpc3QYASABKAkiOgoeRXZlbnRPbkNvbnZl",
+            "cnNhdGlvbkNoYW5nZWREYXRhEhgKEGNvbnZlcnNhdGlvbkxpc3QYASABKAki",
+            "RQopRXZlbnRPblRvdGFsVW5yZWFkTWVzc2FnZUNvdW50Q2hhbmdlZERhdGES",
+            "GAoQdG90YWxVbnJlYWRDb3VudBgBIAEoBSJsCi1FdmVudE9uQ29udmVyc2F0",
+            "aW9uVXNlcklucHV0U3RhdHVzQ2hhbmdlZERhdGESFgoOY29udmVyc2F0aW9u",
+            "SUQYASABKAkSDgoGdXNlcklEGAIgASgJEhMKC3BsYXRmb3JtSURzGAMgAygF",
+            "IksKGUV2ZW50T25SZWN2TmV3TWVzc2FnZURhdGESLgoHbWVzc2FnZRgBIAEo",
+            "CzIdLm9wZW5pbS5zZGsubWVzc2FnZS5JTU1lc3NhZ2UiNwodRXZlbnRPblJl",
+            "Y3ZDMkNSZWFkUmVjZWlwdERhdGESFgoObXNnUmVjZWlwdExpc3QYASABKAki",
+            "OgogRXZlbnRPbk5ld1JlY3ZNZXNzYWdlUmV2b2tlZERhdGESFgoObWVzc2Fn",
+            "ZVJldm9rZWQYASABKAkiUgogRXZlbnRPblJlY3ZPZmZsaW5lTmV3TWVzc2Fn",
+            "ZURhdGESLgoHbWVzc2FnZRgBIAEoCzIdLm9wZW5pbS5zZGsubWVzc2FnZS5J",
+            "TU1lc3NhZ2UiRwoVRXZlbnRPbk1zZ0RlbGV0ZWREYXRhEi4KB21lc3NhZ2UY",
+            "ASABKAsyHS5vcGVuaW0uc2RrLm1lc3NhZ2UuSU1NZXNzYWdlIlIKIEV2ZW50",
+            "T25SZWN2T25saW5lT25seU1lc3NhZ2VEYXRhEi4KB21lc3NhZ2UYASABKAsy",
+            "HS5vcGVuaW0uc2RrLm1lc3NhZ2UuSU1NZXNzYWdlIkYKFEV2ZW50T25Nc2dF",
+            "ZGl0ZWREYXRhEi4KB21lc3NhZ2UYASABKAsyHS5vcGVuaW0uc2RrLm1lc3Nh",
+            "Z2UuSU1NZXNzYWdlIloKIUV2ZW50T25GcmllbmRBcHBsaWNhdGlvbkFkZGVk",
+            "RGF0YRI1CgdyZXF1ZXN0GAEgASgLMiQub3BlbmltLnNkay5zaGFyZWQuRnJp",
+            "ZW5kUmVxdWVzdEluZm8iXAojRXZlbnRPbkZyaWVuZEFwcGxpY2F0aW9uRGVs",
+            "ZXRlZERhdGESNQoHcmVxdWVzdBgBIAEoCzIkLm9wZW5pbS5zZGsuc2hhcmVk",
+            "LkZyaWVuZFJlcXVlc3RJbmZvIl0KJEV2ZW50T25GcmllbmRBcHBsaWNhdGlv",
+            "bkFjY2VwdGVkRGF0YRI1CgdyZXF1ZXN0GAEgASgLMiQub3BlbmltLnNkay5z",
+            "aGFyZWQuRnJpZW5kUmVxdWVzdEluZm8iXQokRXZlbnRPbkZyaWVuZEFwcGxp",
+            "Y2F0aW9uUmVqZWN0ZWREYXRhEjUKB3JlcXVlc3QYASABKAsyJC5vcGVuaW0u",
+            "c2RrLnNoYXJlZC5GcmllbmRSZXF1ZXN0SW5mbyJHChZFdmVudE9uRnJpZW5k",
+            "QWRkZWREYXRhEi0KBmZyaWVuZBgBIAEoCzIdLm9wZW5pbS5zZGsuc2hhcmVk",
+            "LkZyaWVuZEluZm8iSQoYRXZlbnRPbkZyaWVuZERlbGV0ZWREYXRhEi0KBmZy",
+            "aWVuZBgBIAEoCzIdLm9wZW5pbS5zZGsuc2hhcmVkLkZyaWVuZEluZm8iTQoc",
+            "RXZlbnRPbkZyaWVuZEluZm9DaGFuZ2VkRGF0YRItCgZmcmllbmQYASABKAsy",
+            "HS5vcGVuaW0uc2RrLnNoYXJlZC5GcmllbmRJbmZvIkQKFUV2ZW50T25CbGFj",
+            "a0FkZGVkRGF0YRIrCgVibGFjaxgBIAEoCzIcLm9wZW5pbS5zZGsuc2hhcmVk",
+            "LkJsYWNrSW5mbyJGChdFdmVudE9uQmxhY2tEZWxldGVkRGF0YRIrCgVibGFj",
+            "axgBIAEoCzIcLm9wZW5pbS5zZGsuc2hhcmVkLkJsYWNrSW5mbyJKChtFdmVu",
+            "dE9uSm9pbmVkR3JvdXBBZGRlZERhdGESKwoFZ3JvdXAYASABKAsyHC5vcGVu",
+            "aW0uc2RrLnNoYXJlZC5Hcm91cEluZm8iTAodRXZlbnRPbkpvaW5lZEdyb3Vw",
+            "RGVsZXRlZERhdGESKwoFZ3JvdXAYASABKAsyHC5vcGVuaW0uc2RrLnNoYXJl",
+            "ZC5Hcm91cEluZm8iUQobRXZlbnRPbkdyb3VwTWVtYmVyQWRkZWREYXRhEjIK",
+            "Bm1lbWJlchgBIAEoCzIiLm9wZW5pbS5zZGsuc2hhcmVkLkdyb3VwTWVtYmVy",
+            "SW5mbyJTCh1FdmVudE9uR3JvdXBNZW1iZXJEZWxldGVkRGF0YRIyCgZtZW1i",
+            "ZXIYASABKAsyIi5vcGVuaW0uc2RrLnNoYXJlZC5Hcm91cE1lbWJlckluZm8i",
+            "WAogRXZlbnRPbkdyb3VwQXBwbGljYXRpb25BZGRlZERhdGESNAoHcmVxdWVz",
+            "dBgBIAEoCzIjLm9wZW5pbS5zZGsuc2hhcmVkLkdyb3VwUmVxdWVzdEluZm8i",
+            "WgoiRXZlbnRPbkdyb3VwQXBwbGljYXRpb25EZWxldGVkRGF0YRI0CgdyZXF1",
+            "ZXN0GAEgASgLMiMub3BlbmltLnNkay5zaGFyZWQuR3JvdXBSZXF1ZXN0SW5m",
+            "byJKChtFdmVudE9uR3JvdXBJbmZvQ2hhbmdlZERhdGESKwoFZ3JvdXAYASAB",
+            "KAsyHC5vcGVuaW0uc2RrLnNoYXJlZC5Hcm91cEluZm8iSAoZRXZlbnRPbkdy",
+            "b3VwRGlzbWlzc2VkRGF0YRIrCgVncm91cBgBIAEoCzIcLm9wZW5pbS5zZGsu",
+            "c2hhcmVkLkdyb3VwSW5mbyJXCiFFdmVudE9uR3JvdXBNZW1iZXJJbmZvQ2hh",
+            "bmdlZERhdGESMgoGbWVtYmVyGAEgASgLMiIub3BlbmltLnNkay5zaGFyZWQu",
+            "R3JvdXBNZW1iZXJJbmZvIlsKI0V2ZW50T25Hcm91cEFwcGxpY2F0aW9uQWNj",
+            "ZXB0ZWREYXRhEjQKB3JlcXVlc3QYASABKAsyIy5vcGVuaW0uc2RrLnNoYXJl",
+            "ZC5Hcm91cFJlcXVlc3RJbmZvIlsKI0V2ZW50T25Hcm91cEFwcGxpY2F0aW9u",
+            "UmVqZWN0ZWREYXRhEjQKB3JlcXVlc3QYASABKAsyIy5vcGVuaW0uc2RrLnNo",
+            "YXJlZC5Hcm91cFJlcXVlc3RJbmZvIj8KJEV2ZW50T25SZWN2Q3VzdG9tQnVz",
+            "aW5lc3NNZXNzYWdlRGF0YRIXCg9idXNpbmVzc01lc3NhZ2UYASABKAkiLgoa",
+            "RXZlbnRPblNlbGZJbmZvVXBkYXRlZERhdGESEAoIdXNlckluZm8YASABKAki",
+            "QwocRXZlbnRPblVzZXJTdGF0dXNDaGFuZ2VkRGF0YRIOCgZ1c2VySUQYASAB",
+            "KAkSEwoLcGxhdGZvcm1JRHMYAiADKAUiMAoZRXZlbnRPblVzZXJDb21tYW5k",
+            "QWRkRGF0YRITCgt1c2VyQ29tbWFuZBgBIAEoCSIzChxFdmVudE9uVXNlckNv",
+            "bW1hbmREZWxldGVEYXRhEhMKC3VzZXJDb21tYW5kGAEgASgJIjMKHEV2ZW50",
+            "T25Vc2VyQ29tbWFuZFVwZGF0ZURhdGESEwoLdXNlckNvbW1hbmQYASABKAkq",
+            "xB8KFEZ1bmNSZXF1ZXN0RXZlbnROYW1lEggKBE5vbmUQABIaChZHZXRBbGxD",
+            "b252ZXJzYXRpb25MaXN0EAESFwoTR2V0Q29udmVyc2F0aW9uTGlzdBACEhMK",
+            "D0dldENvbnZlcnNhdGlvbhADEgsKB0luaXRTREsQBBIJCgVMb2dpbhAFEg8K",
+            "C1NlbmRNZXNzYWdlEAYSDgoKVXBsb2FkTG9ncxAHEg4KClVwbG9hZEZpbGUQ",
+            "CBIHCgNMb2cQCRIaChZFdmVudE9uU2VuZE1zZ1Byb2dyZXNzEAwSHQoZRXZl",
+            "bnRPblVwbG9hZEZpbGVQcm9ncmVzcxANEh0KGUV2ZW50T25VcGxvYWRMb2dz",
+            "UHJvZ3Jlc3MQDhIVChFFdmVudE9uQ29ubmVjdGluZxAPEhkKFUV2ZW50T25D",
+            "b25uZWN0U3VjY2VzcxAQEhgKFEV2ZW50T25Db25uZWN0RmFpbGVkEBESGAoU",
+            "RXZlbnRPbktpY2tlZE9mZmxpbmUQEhIbChdFdmVudE9uVXNlclRva2VuRXhw",
+            "aXJlZBATEhsKF0V2ZW50T25Vc2VyVG9rZW5JbnZhbGlkEBQSGgoWRXZlbnRP",
+            "blN5bmNTZXJ2ZXJTdGFydBAVEhsKF0V2ZW50T25TeW5jU2VydmVyRmluaXNo",
+            "EBYSGwoXRXZlbnRPblN5bmNTZXJ2ZXJGYWlsZWQQFxIdChlFdmVudE9uU3lu",
+            "Y1NlcnZlclByb2dyZXNzEBgSGgoWRXZlbnRPbk5ld0NvbnZlcnNhdGlvbhAZ",
+            "Eh4KGkV2ZW50T25Db252ZXJzYXRpb25DaGFuZ2VkEBoSKQolRXZlbnRPblRv",
+            "dGFsVW5yZWFkTWVzc2FnZUNvdW50Q2hhbmdlZBAbEi0KKUV2ZW50T25Db252",
+            "ZXJzYXRpb25Vc2VySW5wdXRTdGF0dXNDaGFuZ2VkEBwSGQoVRXZlbnRPblJl",
+            "Y3ZOZXdNZXNzYWdlEB0SHQoZRXZlbnRPblJlY3ZDMkNSZWFkUmVjZWlwdBAe",
+            "EiAKHEV2ZW50T25OZXdSZWN2TWVzc2FnZVJldm9rZWQQHxIgChxFdmVudE9u",
+            "UmVjdk9mZmxpbmVOZXdNZXNzYWdlECASFQoRRXZlbnRPbk1zZ0RlbGV0ZWQQ",
+            "IRIgChxFdmVudE9uUmVjdk9ubGluZU9ubHlNZXNzYWdlECISFAoQRXZlbnRP",
+            "bk1zZ0VkaXRlZBAjEiEKHUV2ZW50T25GcmllbmRBcHBsaWNhdGlvbkFkZGVk",
+            "ECQSIwofRXZlbnRPbkZyaWVuZEFwcGxpY2F0aW9uRGVsZXRlZBAlEiQKIEV2",
+            "ZW50T25GcmllbmRBcHBsaWNhdGlvbkFjY2VwdGVkECYSJAogRXZlbnRPbkZy",
+            "aWVuZEFwcGxpY2F0aW9uUmVqZWN0ZWQQJxIWChJFdmVudE9uRnJpZW5kQWRk",
+            "ZWQQKBIYChRFdmVudE9uRnJpZW5kRGVsZXRlZBApEhwKGEV2ZW50T25Gcmll",
+            "bmRJbmZvQ2hhbmdlZBAqEhUKEUV2ZW50T25CbGFja0FkZGVkECsSFwoTRXZl",
+            "bnRPbkJsYWNrRGVsZXRlZBAsEhsKF0V2ZW50T25Kb2luZWRHcm91cEFkZGVk",
+            "EC0SHQoZRXZlbnRPbkpvaW5lZEdyb3VwRGVsZXRlZBAuEhsKF0V2ZW50T25H",
+            "cm91cE1lbWJlckFkZGVkEC8SHQoZRXZlbnRPbkdyb3VwTWVtYmVyRGVsZXRl",
+            "ZBAwEiAKHEV2ZW50T25Hcm91cEFwcGxpY2F0aW9uQWRkZWQQMRIiCh5FdmVu",
+            "dE9uR3JvdXBBcHBsaWNhdGlvbkRlbGV0ZWQQMhIbChdFdmVudE9uR3JvdXBJ",
+            "bmZvQ2hhbmdlZBAzEhkKFUV2ZW50T25Hcm91cERpc21pc3NlZBA0EiEKHUV2",
+            "ZW50T25Hcm91cE1lbWJlckluZm9DaGFuZ2VkEDUSIwofRXZlbnRPbkdyb3Vw",
+            "QXBwbGljYXRpb25BY2NlcHRlZBA2EiMKH0V2ZW50T25Hcm91cEFwcGxpY2F0",
+            "aW9uUmVqZWN0ZWQQNxIkCiBFdmVudE9uUmVjdkN1c3RvbUJ1c2luZXNzTWVz",
+            "c2FnZRA4EhoKFkV2ZW50T25TZWxmSW5mb1VwZGF0ZWQQORIcChhFdmVudE9u",
+            "VXNlclN0YXR1c0NoYW5nZWQQOhIZChVFdmVudE9uVXNlckNvbW1hbmRBZGQQ",
+            "OxIcChhFdmVudE9uVXNlckNvbW1hbmREZWxldGUQPBIcChhFdmVudE9uVXNl",
+            "ckNvbW1hbmRVcGRhdGUQPRIQCgtDcmVhdGVHcm91cBDoBxIOCglKb2luR3Jv",
+            "dXAQ6QcSDgoJUXVpdEdyb3VwEOoHEhEKDERpc21pc3NHcm91cBDrBxIUCg9D",
+            "aGFuZ2VHcm91cE11dGUQ7AcSGgoVQ2hhbmdlR3JvdXBNZW1iZXJNdXRlEO0H",
+            "EhcKElRyYW5zZmVyR3JvdXBPd25lchDuBxIUCg9LaWNrR3JvdXBNZW1iZXIQ",
+            "7wcSEQoMU2V0R3JvdXBJbmZvEPAHEhcKElNldEdyb3VwTWVtYmVySW5mbxDx",
+            "BxIUCg9HZXRKb2luZWRHcm91cHMQ8gcSGAoTR2V0Sm9pbmVkR3JvdXBzUGFn",
+            "ZRDzBxIbChZHZXRTcGVjaWZpZWRHcm91cHNJbmZvEPQHEhEKDFNlYXJjaEdy",
+            "b3VwcxD1BxIgChtHZXRHcm91cE1lbWJlck93bmVyQW5kQWRtaW4Q9gcSJAof",
+            "R2V0R3JvdXBNZW1iZXJzQnlKb2luVGltZUZpbHRlchD3BxIhChxHZXRTcGVj",
+            "aWZpZWRHcm91cE1lbWJlcnNJbmZvEPgHEhQKD0dldEdyb3VwTWVtYmVycxD5",
+            "BxIUCg9HZXRHcm91cFJlcXVlc3QQ+gcSFwoSU2VhcmNoR3JvdXBNZW1iZXJz",
+            "EPsHEhAKC0lzSm9pbkdyb3VwEPwHEhQKD0dldFVzZXJzSW5Hcm91cBD9BxIW",
+            "ChFJbnZpdGVVc2VyVG9Hcm91cBD+BxIYChNIYW5kbGVyR3JvdXBSZXF1ZXN0",
+            "EP8HEhcKEkdldEdyb3VwTWVtYmVySW5mbxCACBIYChNHZXRTcGVjaWZpZWRG",
+            "cmllbmRzEMwIEg4KCUFkZEZyaWVuZBDNCBIWChFHZXRGcmllbmRSZXF1ZXN0",
+            "cxDOCBIZChRIYW5kbGVyRnJpZW5kUmVxdWVzdBDPCBIQCgtDaGVja0ZyaWVu",
+            "ZBDQCBIRCgxEZWxldGVGcmllbmQQ0QgSDwoKR2V0RnJpZW5kcxDSCBITCg5H",
+            "ZXRGcmllbmRzUGFnZRDTCBISCg1TZWFyY2hGcmllbmRzENQIEg0KCEFkZEJs",
+            "YWNrENUIEhAKC0RlbGV0ZUJsYWNrENYIEg4KCUdldEJsYWNrcxDXCBISCg1V",
+            "cGRhdGVGcmllbmRzENgIEh0KGEdldENvbnZlcnNhdGlvbkxpc3RTcGxpdBDQ",
+            "DxIVChBIaWRlQ29udmVyc2F0aW9uENEPEhAKC0dldEF0QWxsVGFnENIPEhcK",
+            "EkdldE9uZUNvbnZlcnNhdGlvbhDTDxIcChdHZXRNdWx0aXBsZUNvbnZlcnNh",
+            "dGlvbhDUDxIZChRIaWRlQWxsQ29udmVyc2F0aW9ucxDVDxIZChRTZXRDb252",
+            "ZXJzYXRpb25EcmFmdBDWDxIUCg9TZXRDb252ZXJzYXRpb24Q1w8SGwoWR2V0",
+            "VG90YWxVbnJlYWRNc2dDb3VudBDYDxIjCh5HZXRDb252ZXJzYXRpb25JREJ5",
+            "U2Vzc2lvblR5cGUQ2Q8SFAoPRmluZE1lc3NhZ2VMaXN0ENoPEiIKHUdldEFk",
+            "dmFuY2VkSGlzdG9yeU1lc3NhZ2VMaXN0ENsPEikKJEdldEFkdmFuY2VkSGlz",
+            "dG9yeU1lc3NhZ2VMaXN0UmV2ZXJzZRDcDxISCg1SZXZva2VNZXNzYWdlEN0P",
+            "EhcKElR5cGluZ1N0YXR1c1VwZGF0ZRDeDxIiCh1NYXJrQ29udmVyc2F0aW9u",
+            "TWVzc2FnZUFzUmVhZBDfDxIlCiBNYXJrQWxsQ29udmVyc2F0aW9uTWVzc2Fn",
+            "ZUFzUmVhZBDgDxIiCh1EZWxldGVNZXNzYWdlRnJvbUxvY2FsU3RvcmFnZRDh",
+            "DxISCg1EZWxldGVNZXNzYWdlEOIPEiMKHkRlbGV0ZUFsbE1zZ0Zyb21Mb2Nh",
+            "bEFuZFNlcnZlchDjDxIlCiBEZWxldGVBbGxNZXNzYWdlRnJvbUxvY2FsU3Rv",
+            "cmFnZRDkDxIlCiBDbGVhckNvbnZlcnNhdGlvbkFuZERlbGV0ZUFsbE1zZxDl",
+            "DxImCiFEZWxldGVDb252ZXJzYXRpb25BbmREZWxldGVBbGxNc2cQ5g8SJgoh",
+            "SW5zZXJ0U2luZ2xlTWVzc2FnZVRvTG9jYWxTdG9yYWdlEOcPEiUKIEluc2Vy",
+            "dEdyb3VwTWVzc2FnZVRvTG9jYWxTdG9yYWdlEOgPEhgKE1NlYXJjaExvY2Fs",
+            "TWVzc2FnZXMQ6Q8SFgoRU2V0TWVzc2FnZUxvY2FsRXgQ6g8SFwoSU2VhcmNo",
+            "Q29udmVyc2F0aW9uEOsPEhYKEUNyZWF0ZVRleHRNZXNzYWdlEOwPEh4KGUNy",
+            "ZWF0ZUFkdmFuY2VkVGV4dE1lc3NhZ2UQ7Q8SGAoTQ3JlYXRlVGV4dEF0TWVz",
+            "c2FnZRDuDxIaChVDcmVhdGVMb2NhdGlvbk1lc3NhZ2UQ7w8SGAoTQ3JlYXRl",
+            "Q3VzdG9tTWVzc2FnZRDwDxIXChJDcmVhdGVRdW90ZU1lc3NhZ2UQ8Q8SHwoa",
+            "Q3JlYXRlQWR2YW5jZWRRdW90ZU1lc3NhZ2UQ8g8SFgoRQ3JlYXRlQ2FyZE1l",
+            "c3NhZ2UQ8w8SFwoSQ3JlYXRlSW1hZ2VNZXNzYWdlEPQPEhcKEkNyZWF0ZVNv",
+            "dW5kTWVzc2FnZRD1DxIXChJDcmVhdGVWaWRlb01lc3NhZ2UQ9g8SFgoRQ3Jl",
+            "YXRlRmlsZU1lc3NhZ2UQ9w8SGAoTQ3JlYXRlTWVyZ2VyTWVzc2FnZRD4DxIW",
+            "ChFDcmVhdGVGYWNlTWVzc2FnZRD5DxIZChRDcmVhdGVGb3J3YXJkTWVzc2Fn",
+            "ZRD6DxIdChhQcm9jZXNzVXNlckNvbW1hbmRHZXRBbGwQtBASFAoPR2V0U2Vs",
+            "ZlVzZXJJbmZvELUQEhAKC1NldFNlbGZJbmZvELYQEhoKFVByb2Nlc3NVc2Vy",
+            "Q29tbWFuZEFkZBC3EBIdChhQcm9jZXNzVXNlckNvbW1hbmREZWxldGUQuBAS",
+            "HQoYUHJvY2Vzc1VzZXJDb21tYW5kVXBkYXRlELkQEhEKDEdldFVzZXJzSW5m",
+            "bxC6EBIbChZHZXRVc2Vyc0luZm9Gcm9tU2VydmVyELsQQjhaNmdpdGh1Yi5j",
+            "b20vb3Blbmltc2RrL29wZW5pbS1zZGstY29yZS92My9wcm90by9nby9ldmVu",
+            "dGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::OpenIM.GroupReflection.Descriptor, global::OpenIM.RelationReflection.Descriptor, global::OpenIM.MessageReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::OpenIM.MessageReflection.Descriptor, global::Openim.Sdk.Shared.SharedReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Openim.Event.FuncRequestEventName), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnSendMsgProgressData), global::Openim.Event.EventOnSendMsgProgressData.Parser, new[]{ "Progress" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnUploadFileProgressData), global::Openim.Event.EventOnUploadFileProgressData.Parser, new[]{ "Progress" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventEventOnUploadLogsProgressData), global::Openim.Event.EventEventOnUploadLogsProgressData.Parser, new[]{ "Progress", "Total" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnUploadLogsProgressData), global::Openim.Event.EventOnUploadLogsProgressData.Parser, new[]{ "Progress", "Total" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnConnectingData), global::Openim.Event.EventOnConnectingData.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnConnectSuccessData), global::Openim.Event.EventOnConnectSuccessData.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnConnectFailedData), global::Openim.Event.EventOnConnectFailedData.Parser, new[]{ "ErrCode", "ErrMsg" }, null, null, null, null),
@@ -211,7 +212,7 @@ namespace Openim.Event {
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnNewConversationData), global::Openim.Event.EventOnNewConversationData.Parser, new[]{ "ConversationList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnConversationChangedData), global::Openim.Event.EventOnConversationChangedData.Parser, new[]{ "ConversationList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnTotalUnreadMessageCountChangedData), global::Openim.Event.EventOnTotalUnreadMessageCountChangedData.Parser, new[]{ "TotalUnreadCount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnConversationUserInputStatusChangedData), global::Openim.Event.EventOnConversationUserInputStatusChangedData.Parser, new[]{ "Change" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnConversationUserInputStatusChangedData), global::Openim.Event.EventOnConversationUserInputStatusChangedData.Parser, new[]{ "ConversationID", "UserID", "PlatformIDs" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnRecvNewMessageData), global::Openim.Event.EventOnRecvNewMessageData.Parser, new[]{ "Message" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnRecvC2CReadReceiptData), global::Openim.Event.EventOnRecvC2CReadReceiptData.Parser, new[]{ "MsgReceiptList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Openim.Event.EventOnNewRecvMessageRevokedData), global::Openim.Event.EventOnNewRecvMessageRevokedData.Parser, new[]{ "MessageRevoked" }, null, null, null, null),
@@ -818,16 +819,16 @@ namespace Openim.Event {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class EventEventOnUploadLogsProgressData : pb::IMessage<EventEventOnUploadLogsProgressData>
+  public sealed partial class EventOnUploadLogsProgressData : pb::IMessage<EventOnUploadLogsProgressData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<EventEventOnUploadLogsProgressData> _parser = new pb::MessageParser<EventEventOnUploadLogsProgressData>(() => new EventEventOnUploadLogsProgressData());
+    private static readonly pb::MessageParser<EventOnUploadLogsProgressData> _parser = new pb::MessageParser<EventOnUploadLogsProgressData>(() => new EventOnUploadLogsProgressData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<EventEventOnUploadLogsProgressData> Parser { get { return _parser; } }
+    public static pb::MessageParser<EventOnUploadLogsProgressData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -843,7 +844,7 @@ namespace Openim.Event {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public EventEventOnUploadLogsProgressData() {
+    public EventOnUploadLogsProgressData() {
       OnConstruction();
     }
 
@@ -851,7 +852,7 @@ namespace Openim.Event {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public EventEventOnUploadLogsProgressData(EventEventOnUploadLogsProgressData other) : this() {
+    public EventOnUploadLogsProgressData(EventOnUploadLogsProgressData other) : this() {
       progress_ = other.progress_;
       total_ = other.total_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -859,8 +860,8 @@ namespace Openim.Event {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public EventEventOnUploadLogsProgressData Clone() {
-      return new EventEventOnUploadLogsProgressData(this);
+    public EventOnUploadLogsProgressData Clone() {
+      return new EventOnUploadLogsProgressData(this);
     }
 
     /// <summary>Field number for the "progress" field.</summary>
@@ -890,12 +891,12 @@ namespace Openim.Event {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as EventEventOnUploadLogsProgressData);
+      return Equals(other as EventOnUploadLogsProgressData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(EventEventOnUploadLogsProgressData other) {
+    public bool Equals(EventOnUploadLogsProgressData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -981,7 +982,7 @@ namespace Openim.Event {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(EventEventOnUploadLogsProgressData other) {
+    public void MergeFrom(EventOnUploadLogsProgressData other) {
       if (other == null) {
         return;
       }
@@ -3550,7 +3551,9 @@ namespace Openim.Event {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EventOnConversationUserInputStatusChangedData(EventOnConversationUserInputStatusChangedData other) : this() {
-      change_ = other.change_;
+      conversationID_ = other.conversationID_;
+      userID_ = other.userID_;
+      platformIDs_ = other.platformIDs_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3560,16 +3563,39 @@ namespace Openim.Event {
       return new EventOnConversationUserInputStatusChangedData(this);
     }
 
-    /// <summary>Field number for the "change" field.</summary>
-    public const int ChangeFieldNumber = 1;
-    private string change_ = "";
+    /// <summary>Field number for the "conversationID" field.</summary>
+    public const int ConversationIDFieldNumber = 1;
+    private string conversationID_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Change {
-      get { return change_; }
+    public string ConversationID {
+      get { return conversationID_; }
       set {
-        change_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        conversationID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
+    }
+
+    /// <summary>Field number for the "userID" field.</summary>
+    public const int UserIDFieldNumber = 2;
+    private string userID_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string UserID {
+      get { return userID_; }
+      set {
+        userID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "platformIDs" field.</summary>
+    public const int PlatformIDsFieldNumber = 3;
+    private static readonly pb::FieldCodec<int> _repeated_platformIDs_codec
+        = pb::FieldCodec.ForInt32(26);
+    private readonly pbc::RepeatedField<int> platformIDs_ = new pbc::RepeatedField<int>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<int> PlatformIDs {
+      get { return platformIDs_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3587,7 +3613,9 @@ namespace Openim.Event {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Change != other.Change) return false;
+      if (ConversationID != other.ConversationID) return false;
+      if (UserID != other.UserID) return false;
+      if(!platformIDs_.Equals(other.platformIDs_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3595,7 +3623,9 @@ namespace Openim.Event {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Change.Length != 0) hash ^= Change.GetHashCode();
+      if (ConversationID.Length != 0) hash ^= ConversationID.GetHashCode();
+      if (UserID.Length != 0) hash ^= UserID.GetHashCode();
+      hash ^= platformIDs_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3614,10 +3644,15 @@ namespace Openim.Event {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Change.Length != 0) {
+      if (ConversationID.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Change);
+        output.WriteString(ConversationID);
       }
+      if (UserID.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(UserID);
+      }
+      platformIDs_.WriteTo(output, _repeated_platformIDs_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3628,10 +3663,15 @@ namespace Openim.Event {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Change.Length != 0) {
+      if (ConversationID.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Change);
+        output.WriteString(ConversationID);
       }
+      if (UserID.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(UserID);
+      }
+      platformIDs_.WriteTo(ref output, _repeated_platformIDs_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3642,9 +3682,13 @@ namespace Openim.Event {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Change.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Change);
+      if (ConversationID.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ConversationID);
       }
+      if (UserID.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserID);
+      }
+      size += platformIDs_.CalculateSize(_repeated_platformIDs_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -3657,9 +3701,13 @@ namespace Openim.Event {
       if (other == null) {
         return;
       }
-      if (other.Change.Length != 0) {
-        Change = other.Change;
+      if (other.ConversationID.Length != 0) {
+        ConversationID = other.ConversationID;
       }
+      if (other.UserID.Length != 0) {
+        UserID = other.UserID;
+      }
+      platformIDs_.Add(other.platformIDs_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -3680,7 +3728,16 @@ namespace Openim.Event {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Change = input.ReadString();
+            ConversationID = input.ReadString();
+            break;
+          }
+          case 18: {
+            UserID = input.ReadString();
+            break;
+          }
+          case 26:
+          case 24: {
+            platformIDs_.AddEntriesFrom(input, _repeated_platformIDs_codec);
             break;
           }
         }
@@ -3703,7 +3760,16 @@ namespace Openim.Event {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            Change = input.ReadString();
+            ConversationID = input.ReadString();
+            break;
+          }
+          case 18: {
+            UserID = input.ReadString();
+            break;
+          }
+          case 26:
+          case 24: {
+            platformIDs_.AddEntriesFrom(ref input, _repeated_platformIDs_codec);
             break;
           }
         }
@@ -5194,10 +5260,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "request" field.</summary>
     public const int RequestFieldNumber = 1;
-    private global::OpenIM.FriendRequestInfo request_;
+    private global::Openim.Sdk.Shared.FriendRequestInfo request_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.FriendRequestInfo Request {
+    public global::Openim.Sdk.Shared.FriendRequestInfo Request {
       get { return request_; }
       set {
         request_ = value;
@@ -5291,7 +5357,7 @@ namespace Openim.Event {
       }
       if (other.request_ != null) {
         if (request_ == null) {
-          Request = new global::OpenIM.FriendRequestInfo();
+          Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
         }
         Request.MergeFrom(other.Request);
       }
@@ -5316,7 +5382,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.FriendRequestInfo();
+              Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -5342,7 +5408,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.FriendRequestInfo();
+              Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -5401,10 +5467,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "request" field.</summary>
     public const int RequestFieldNumber = 1;
-    private global::OpenIM.FriendRequestInfo request_;
+    private global::Openim.Sdk.Shared.FriendRequestInfo request_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.FriendRequestInfo Request {
+    public global::Openim.Sdk.Shared.FriendRequestInfo Request {
       get { return request_; }
       set {
         request_ = value;
@@ -5498,7 +5564,7 @@ namespace Openim.Event {
       }
       if (other.request_ != null) {
         if (request_ == null) {
-          Request = new global::OpenIM.FriendRequestInfo();
+          Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
         }
         Request.MergeFrom(other.Request);
       }
@@ -5523,7 +5589,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.FriendRequestInfo();
+              Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -5549,7 +5615,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.FriendRequestInfo();
+              Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -5608,10 +5674,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "request" field.</summary>
     public const int RequestFieldNumber = 1;
-    private global::OpenIM.FriendRequestInfo request_;
+    private global::Openim.Sdk.Shared.FriendRequestInfo request_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.FriendRequestInfo Request {
+    public global::Openim.Sdk.Shared.FriendRequestInfo Request {
       get { return request_; }
       set {
         request_ = value;
@@ -5705,7 +5771,7 @@ namespace Openim.Event {
       }
       if (other.request_ != null) {
         if (request_ == null) {
-          Request = new global::OpenIM.FriendRequestInfo();
+          Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
         }
         Request.MergeFrom(other.Request);
       }
@@ -5730,7 +5796,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.FriendRequestInfo();
+              Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -5756,7 +5822,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.FriendRequestInfo();
+              Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -5815,10 +5881,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "request" field.</summary>
     public const int RequestFieldNumber = 1;
-    private global::OpenIM.FriendRequestInfo request_;
+    private global::Openim.Sdk.Shared.FriendRequestInfo request_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.FriendRequestInfo Request {
+    public global::Openim.Sdk.Shared.FriendRequestInfo Request {
       get { return request_; }
       set {
         request_ = value;
@@ -5912,7 +5978,7 @@ namespace Openim.Event {
       }
       if (other.request_ != null) {
         if (request_ == null) {
-          Request = new global::OpenIM.FriendRequestInfo();
+          Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
         }
         Request.MergeFrom(other.Request);
       }
@@ -5937,7 +6003,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.FriendRequestInfo();
+              Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -5963,7 +6029,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.FriendRequestInfo();
+              Request = new global::Openim.Sdk.Shared.FriendRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -6022,10 +6088,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "friend" field.</summary>
     public const int FriendFieldNumber = 1;
-    private global::OpenIM.FriendInfo friend_;
+    private global::Openim.Sdk.Shared.FriendInfo friend_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.FriendInfo Friend {
+    public global::Openim.Sdk.Shared.FriendInfo Friend {
       get { return friend_; }
       set {
         friend_ = value;
@@ -6119,7 +6185,7 @@ namespace Openim.Event {
       }
       if (other.friend_ != null) {
         if (friend_ == null) {
-          Friend = new global::OpenIM.FriendInfo();
+          Friend = new global::Openim.Sdk.Shared.FriendInfo();
         }
         Friend.MergeFrom(other.Friend);
       }
@@ -6144,7 +6210,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (friend_ == null) {
-              Friend = new global::OpenIM.FriendInfo();
+              Friend = new global::Openim.Sdk.Shared.FriendInfo();
             }
             input.ReadMessage(Friend);
             break;
@@ -6170,7 +6236,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (friend_ == null) {
-              Friend = new global::OpenIM.FriendInfo();
+              Friend = new global::Openim.Sdk.Shared.FriendInfo();
             }
             input.ReadMessage(Friend);
             break;
@@ -6229,10 +6295,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "friend" field.</summary>
     public const int FriendFieldNumber = 1;
-    private global::OpenIM.FriendInfo friend_;
+    private global::Openim.Sdk.Shared.FriendInfo friend_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.FriendInfo Friend {
+    public global::Openim.Sdk.Shared.FriendInfo Friend {
       get { return friend_; }
       set {
         friend_ = value;
@@ -6326,7 +6392,7 @@ namespace Openim.Event {
       }
       if (other.friend_ != null) {
         if (friend_ == null) {
-          Friend = new global::OpenIM.FriendInfo();
+          Friend = new global::Openim.Sdk.Shared.FriendInfo();
         }
         Friend.MergeFrom(other.Friend);
       }
@@ -6351,7 +6417,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (friend_ == null) {
-              Friend = new global::OpenIM.FriendInfo();
+              Friend = new global::Openim.Sdk.Shared.FriendInfo();
             }
             input.ReadMessage(Friend);
             break;
@@ -6377,7 +6443,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (friend_ == null) {
-              Friend = new global::OpenIM.FriendInfo();
+              Friend = new global::Openim.Sdk.Shared.FriendInfo();
             }
             input.ReadMessage(Friend);
             break;
@@ -6436,10 +6502,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "friend" field.</summary>
     public const int FriendFieldNumber = 1;
-    private global::OpenIM.FriendInfo friend_;
+    private global::Openim.Sdk.Shared.FriendInfo friend_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.FriendInfo Friend {
+    public global::Openim.Sdk.Shared.FriendInfo Friend {
       get { return friend_; }
       set {
         friend_ = value;
@@ -6533,7 +6599,7 @@ namespace Openim.Event {
       }
       if (other.friend_ != null) {
         if (friend_ == null) {
-          Friend = new global::OpenIM.FriendInfo();
+          Friend = new global::Openim.Sdk.Shared.FriendInfo();
         }
         Friend.MergeFrom(other.Friend);
       }
@@ -6558,7 +6624,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (friend_ == null) {
-              Friend = new global::OpenIM.FriendInfo();
+              Friend = new global::Openim.Sdk.Shared.FriendInfo();
             }
             input.ReadMessage(Friend);
             break;
@@ -6584,7 +6650,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (friend_ == null) {
-              Friend = new global::OpenIM.FriendInfo();
+              Friend = new global::Openim.Sdk.Shared.FriendInfo();
             }
             input.ReadMessage(Friend);
             break;
@@ -6643,10 +6709,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "black" field.</summary>
     public const int BlackFieldNumber = 1;
-    private global::OpenIM.BlackInfo black_;
+    private global::Openim.Sdk.Shared.BlackInfo black_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.BlackInfo Black {
+    public global::Openim.Sdk.Shared.BlackInfo Black {
       get { return black_; }
       set {
         black_ = value;
@@ -6740,7 +6806,7 @@ namespace Openim.Event {
       }
       if (other.black_ != null) {
         if (black_ == null) {
-          Black = new global::OpenIM.BlackInfo();
+          Black = new global::Openim.Sdk.Shared.BlackInfo();
         }
         Black.MergeFrom(other.Black);
       }
@@ -6765,7 +6831,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (black_ == null) {
-              Black = new global::OpenIM.BlackInfo();
+              Black = new global::Openim.Sdk.Shared.BlackInfo();
             }
             input.ReadMessage(Black);
             break;
@@ -6791,7 +6857,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (black_ == null) {
-              Black = new global::OpenIM.BlackInfo();
+              Black = new global::Openim.Sdk.Shared.BlackInfo();
             }
             input.ReadMessage(Black);
             break;
@@ -6850,10 +6916,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "black" field.</summary>
     public const int BlackFieldNumber = 1;
-    private global::OpenIM.BlackInfo black_;
+    private global::Openim.Sdk.Shared.BlackInfo black_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.BlackInfo Black {
+    public global::Openim.Sdk.Shared.BlackInfo Black {
       get { return black_; }
       set {
         black_ = value;
@@ -6947,7 +7013,7 @@ namespace Openim.Event {
       }
       if (other.black_ != null) {
         if (black_ == null) {
-          Black = new global::OpenIM.BlackInfo();
+          Black = new global::Openim.Sdk.Shared.BlackInfo();
         }
         Black.MergeFrom(other.Black);
       }
@@ -6972,7 +7038,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (black_ == null) {
-              Black = new global::OpenIM.BlackInfo();
+              Black = new global::Openim.Sdk.Shared.BlackInfo();
             }
             input.ReadMessage(Black);
             break;
@@ -6998,7 +7064,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (black_ == null) {
-              Black = new global::OpenIM.BlackInfo();
+              Black = new global::Openim.Sdk.Shared.BlackInfo();
             }
             input.ReadMessage(Black);
             break;
@@ -7060,10 +7126,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "group" field.</summary>
     public const int GroupFieldNumber = 1;
-    private global::OpenIM.GroupInfo group_;
+    private global::Openim.Sdk.Shared.GroupInfo group_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupInfo Group {
+    public global::Openim.Sdk.Shared.GroupInfo Group {
       get { return group_; }
       set {
         group_ = value;
@@ -7157,7 +7223,7 @@ namespace Openim.Event {
       }
       if (other.group_ != null) {
         if (group_ == null) {
-          Group = new global::OpenIM.GroupInfo();
+          Group = new global::Openim.Sdk.Shared.GroupInfo();
         }
         Group.MergeFrom(other.Group);
       }
@@ -7182,7 +7248,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (group_ == null) {
-              Group = new global::OpenIM.GroupInfo();
+              Group = new global::Openim.Sdk.Shared.GroupInfo();
             }
             input.ReadMessage(Group);
             break;
@@ -7208,7 +7274,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (group_ == null) {
-              Group = new global::OpenIM.GroupInfo();
+              Group = new global::Openim.Sdk.Shared.GroupInfo();
             }
             input.ReadMessage(Group);
             break;
@@ -7267,10 +7333,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "group" field.</summary>
     public const int GroupFieldNumber = 1;
-    private global::OpenIM.GroupInfo group_;
+    private global::Openim.Sdk.Shared.GroupInfo group_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupInfo Group {
+    public global::Openim.Sdk.Shared.GroupInfo Group {
       get { return group_; }
       set {
         group_ = value;
@@ -7364,7 +7430,7 @@ namespace Openim.Event {
       }
       if (other.group_ != null) {
         if (group_ == null) {
-          Group = new global::OpenIM.GroupInfo();
+          Group = new global::Openim.Sdk.Shared.GroupInfo();
         }
         Group.MergeFrom(other.Group);
       }
@@ -7389,7 +7455,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (group_ == null) {
-              Group = new global::OpenIM.GroupInfo();
+              Group = new global::Openim.Sdk.Shared.GroupInfo();
             }
             input.ReadMessage(Group);
             break;
@@ -7415,7 +7481,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (group_ == null) {
-              Group = new global::OpenIM.GroupInfo();
+              Group = new global::Openim.Sdk.Shared.GroupInfo();
             }
             input.ReadMessage(Group);
             break;
@@ -7474,10 +7540,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "member" field.</summary>
     public const int MemberFieldNumber = 1;
-    private global::OpenIM.GroupMemberInfo member_;
+    private global::Openim.Sdk.Shared.GroupMemberInfo member_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupMemberInfo Member {
+    public global::Openim.Sdk.Shared.GroupMemberInfo Member {
       get { return member_; }
       set {
         member_ = value;
@@ -7571,7 +7637,7 @@ namespace Openim.Event {
       }
       if (other.member_ != null) {
         if (member_ == null) {
-          Member = new global::OpenIM.GroupMemberInfo();
+          Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
         }
         Member.MergeFrom(other.Member);
       }
@@ -7596,7 +7662,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (member_ == null) {
-              Member = new global::OpenIM.GroupMemberInfo();
+              Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
             }
             input.ReadMessage(Member);
             break;
@@ -7622,7 +7688,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (member_ == null) {
-              Member = new global::OpenIM.GroupMemberInfo();
+              Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
             }
             input.ReadMessage(Member);
             break;
@@ -7681,10 +7747,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "member" field.</summary>
     public const int MemberFieldNumber = 1;
-    private global::OpenIM.GroupMemberInfo member_;
+    private global::Openim.Sdk.Shared.GroupMemberInfo member_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupMemberInfo Member {
+    public global::Openim.Sdk.Shared.GroupMemberInfo Member {
       get { return member_; }
       set {
         member_ = value;
@@ -7778,7 +7844,7 @@ namespace Openim.Event {
       }
       if (other.member_ != null) {
         if (member_ == null) {
-          Member = new global::OpenIM.GroupMemberInfo();
+          Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
         }
         Member.MergeFrom(other.Member);
       }
@@ -7803,7 +7869,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (member_ == null) {
-              Member = new global::OpenIM.GroupMemberInfo();
+              Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
             }
             input.ReadMessage(Member);
             break;
@@ -7829,7 +7895,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (member_ == null) {
-              Member = new global::OpenIM.GroupMemberInfo();
+              Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
             }
             input.ReadMessage(Member);
             break;
@@ -7888,10 +7954,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "request" field.</summary>
     public const int RequestFieldNumber = 1;
-    private global::OpenIM.GroupRequestInfo request_;
+    private global::Openim.Sdk.Shared.GroupRequestInfo request_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupRequestInfo Request {
+    public global::Openim.Sdk.Shared.GroupRequestInfo Request {
       get { return request_; }
       set {
         request_ = value;
@@ -7985,7 +8051,7 @@ namespace Openim.Event {
       }
       if (other.request_ != null) {
         if (request_ == null) {
-          Request = new global::OpenIM.GroupRequestInfo();
+          Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
         }
         Request.MergeFrom(other.Request);
       }
@@ -8010,7 +8076,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.GroupRequestInfo();
+              Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -8036,7 +8102,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.GroupRequestInfo();
+              Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -8095,10 +8161,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "request" field.</summary>
     public const int RequestFieldNumber = 1;
-    private global::OpenIM.GroupRequestInfo request_;
+    private global::Openim.Sdk.Shared.GroupRequestInfo request_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupRequestInfo Request {
+    public global::Openim.Sdk.Shared.GroupRequestInfo Request {
       get { return request_; }
       set {
         request_ = value;
@@ -8192,7 +8258,7 @@ namespace Openim.Event {
       }
       if (other.request_ != null) {
         if (request_ == null) {
-          Request = new global::OpenIM.GroupRequestInfo();
+          Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
         }
         Request.MergeFrom(other.Request);
       }
@@ -8217,7 +8283,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.GroupRequestInfo();
+              Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -8243,7 +8309,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.GroupRequestInfo();
+              Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -8302,10 +8368,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "group" field.</summary>
     public const int GroupFieldNumber = 1;
-    private global::OpenIM.GroupInfo group_;
+    private global::Openim.Sdk.Shared.GroupInfo group_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupInfo Group {
+    public global::Openim.Sdk.Shared.GroupInfo Group {
       get { return group_; }
       set {
         group_ = value;
@@ -8399,7 +8465,7 @@ namespace Openim.Event {
       }
       if (other.group_ != null) {
         if (group_ == null) {
-          Group = new global::OpenIM.GroupInfo();
+          Group = new global::Openim.Sdk.Shared.GroupInfo();
         }
         Group.MergeFrom(other.Group);
       }
@@ -8424,7 +8490,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (group_ == null) {
-              Group = new global::OpenIM.GroupInfo();
+              Group = new global::Openim.Sdk.Shared.GroupInfo();
             }
             input.ReadMessage(Group);
             break;
@@ -8450,7 +8516,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (group_ == null) {
-              Group = new global::OpenIM.GroupInfo();
+              Group = new global::Openim.Sdk.Shared.GroupInfo();
             }
             input.ReadMessage(Group);
             break;
@@ -8509,10 +8575,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "group" field.</summary>
     public const int GroupFieldNumber = 1;
-    private global::OpenIM.GroupInfo group_;
+    private global::Openim.Sdk.Shared.GroupInfo group_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupInfo Group {
+    public global::Openim.Sdk.Shared.GroupInfo Group {
       get { return group_; }
       set {
         group_ = value;
@@ -8606,7 +8672,7 @@ namespace Openim.Event {
       }
       if (other.group_ != null) {
         if (group_ == null) {
-          Group = new global::OpenIM.GroupInfo();
+          Group = new global::Openim.Sdk.Shared.GroupInfo();
         }
         Group.MergeFrom(other.Group);
       }
@@ -8631,7 +8697,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (group_ == null) {
-              Group = new global::OpenIM.GroupInfo();
+              Group = new global::Openim.Sdk.Shared.GroupInfo();
             }
             input.ReadMessage(Group);
             break;
@@ -8657,7 +8723,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (group_ == null) {
-              Group = new global::OpenIM.GroupInfo();
+              Group = new global::Openim.Sdk.Shared.GroupInfo();
             }
             input.ReadMessage(Group);
             break;
@@ -8716,10 +8782,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "member" field.</summary>
     public const int MemberFieldNumber = 1;
-    private global::OpenIM.GroupMemberInfo member_;
+    private global::Openim.Sdk.Shared.GroupMemberInfo member_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupMemberInfo Member {
+    public global::Openim.Sdk.Shared.GroupMemberInfo Member {
       get { return member_; }
       set {
         member_ = value;
@@ -8813,7 +8879,7 @@ namespace Openim.Event {
       }
       if (other.member_ != null) {
         if (member_ == null) {
-          Member = new global::OpenIM.GroupMemberInfo();
+          Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
         }
         Member.MergeFrom(other.Member);
       }
@@ -8838,7 +8904,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (member_ == null) {
-              Member = new global::OpenIM.GroupMemberInfo();
+              Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
             }
             input.ReadMessage(Member);
             break;
@@ -8864,7 +8930,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (member_ == null) {
-              Member = new global::OpenIM.GroupMemberInfo();
+              Member = new global::Openim.Sdk.Shared.GroupMemberInfo();
             }
             input.ReadMessage(Member);
             break;
@@ -8923,10 +8989,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "request" field.</summary>
     public const int RequestFieldNumber = 1;
-    private global::OpenIM.GroupRequestInfo request_;
+    private global::Openim.Sdk.Shared.GroupRequestInfo request_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupRequestInfo Request {
+    public global::Openim.Sdk.Shared.GroupRequestInfo Request {
       get { return request_; }
       set {
         request_ = value;
@@ -9020,7 +9086,7 @@ namespace Openim.Event {
       }
       if (other.request_ != null) {
         if (request_ == null) {
-          Request = new global::OpenIM.GroupRequestInfo();
+          Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
         }
         Request.MergeFrom(other.Request);
       }
@@ -9045,7 +9111,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.GroupRequestInfo();
+              Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -9071,7 +9137,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.GroupRequestInfo();
+              Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -9130,10 +9196,10 @@ namespace Openim.Event {
 
     /// <summary>Field number for the "request" field.</summary>
     public const int RequestFieldNumber = 1;
-    private global::OpenIM.GroupRequestInfo request_;
+    private global::Openim.Sdk.Shared.GroupRequestInfo request_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.GroupRequestInfo Request {
+    public global::Openim.Sdk.Shared.GroupRequestInfo Request {
       get { return request_; }
       set {
         request_ = value;
@@ -9227,7 +9293,7 @@ namespace Openim.Event {
       }
       if (other.request_ != null) {
         if (request_ == null) {
-          Request = new global::OpenIM.GroupRequestInfo();
+          Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
         }
         Request.MergeFrom(other.Request);
       }
@@ -9252,7 +9318,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.GroupRequestInfo();
+              Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
             }
             input.ReadMessage(Request);
             break;
@@ -9278,7 +9344,7 @@ namespace Openim.Event {
             break;
           case 10: {
             if (request_ == null) {
-              Request = new global::OpenIM.GroupRequestInfo();
+              Request = new global::Openim.Sdk.Shared.GroupRequestInfo();
             }
             input.ReadMessage(Request);
             break;

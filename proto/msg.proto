@@ -1,11 +1,12 @@
 syntax = "proto3";
 package openim.sdk.msg;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
-option csharp_namespace = "OpenIM";
 
 //import "google/protobuf/any.proto";
 import "common.proto";
 import "message.proto";
+
+option csharp_namespace = "OpenIM";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/msg";
 
 message MessageReceipt {
   string groupID = 1;
@@ -42,7 +43,6 @@ message MessageReaction {
   string info = 7;
 }
 
-
 message ReactionElem {
   int32 counter = 1;
   int32 type = 2;
@@ -62,7 +62,6 @@ message GroupHasReadInfo {
   int32 hasReadCount = 2;
   int32 groupMemberCount = 3;
 }
-
 
 message GetAdvancedHistoryMessageListParams {
   string conversationID = 1;
@@ -88,7 +87,6 @@ message SendMessageReq {
 message SendMessageResp {
   openim.sdk.message.IMMessage message = 1;
 }
-
 
 message GetAdvancedHistoryMessageListReq {
   string conversationID = 1;
@@ -290,7 +288,6 @@ message LogReq {
   int32 line = 3;
   string msg = 4;
   string err = 5;
-//  repeated google.protobuf.Any keysAndValues = 6;
+  //  repeated google.protobuf.Any keysAndValues = 6;
 }
 message LogResp {}
-

@@ -2,9 +2,8 @@
 // file: event.proto
 
 import * as jspb from "google-protobuf";
-import * as group_pb from "./group_pb";
-import * as relation_pb from "./relation_pb";
 import * as message_pb from "./message_pb";
+import * as shared_pb from "./shared_pb";
 
 export class EventOnSendMsgProgressData extends jspb.Message {
   getProgress(): number;
@@ -46,7 +45,7 @@ export namespace EventOnUploadFileProgressData {
   }
 }
 
-export class EventEventOnUploadLogsProgressData extends jspb.Message {
+export class EventOnUploadLogsProgressData extends jspb.Message {
   getProgress(): number;
   setProgress(value: number): void;
 
@@ -54,16 +53,16 @@ export class EventEventOnUploadLogsProgressData extends jspb.Message {
   setTotal(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): EventEventOnUploadLogsProgressData.AsObject;
-  static toObject(includeInstance: boolean, msg: EventEventOnUploadLogsProgressData): EventEventOnUploadLogsProgressData.AsObject;
+  toObject(includeInstance?: boolean): EventOnUploadLogsProgressData.AsObject;
+  static toObject(includeInstance: boolean, msg: EventOnUploadLogsProgressData): EventOnUploadLogsProgressData.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: EventEventOnUploadLogsProgressData, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): EventEventOnUploadLogsProgressData;
-  static deserializeBinaryFromReader(message: EventEventOnUploadLogsProgressData, reader: jspb.BinaryReader): EventEventOnUploadLogsProgressData;
+  static serializeBinaryToWriter(message: EventOnUploadLogsProgressData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): EventOnUploadLogsProgressData;
+  static deserializeBinaryFromReader(message: EventOnUploadLogsProgressData, reader: jspb.BinaryReader): EventOnUploadLogsProgressData;
 }
 
-export namespace EventEventOnUploadLogsProgressData {
+export namespace EventOnUploadLogsProgressData {
   export type AsObject = {
     progress: number,
     total: number,
@@ -319,8 +318,16 @@ export namespace EventOnTotalUnreadMessageCountChangedData {
 }
 
 export class EventOnConversationUserInputStatusChangedData extends jspb.Message {
-  getChange(): string;
-  setChange(value: string): void;
+  getConversationid(): string;
+  setConversationid(value: string): void;
+
+  getUserid(): string;
+  setUserid(value: string): void;
+
+  clearPlatformidsList(): void;
+  getPlatformidsList(): Array<number>;
+  setPlatformidsList(value: Array<number>): void;
+  addPlatformids(value: number, index?: number): number;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnConversationUserInputStatusChangedData.AsObject;
@@ -334,7 +341,9 @@ export class EventOnConversationUserInputStatusChangedData extends jspb.Message 
 
 export namespace EventOnConversationUserInputStatusChangedData {
   export type AsObject = {
-    change: string,
+    conversationid: string,
+    userid: string,
+    platformidsList: Array<number>,
   }
 }
 
@@ -491,8 +500,8 @@ export namespace EventOnMsgEditedData {
 export class EventOnFriendApplicationAddedData extends jspb.Message {
   hasRequest(): boolean;
   clearRequest(): void;
-  getRequest(): relation_pb.FriendRequestInfo | undefined;
-  setRequest(value?: relation_pb.FriendRequestInfo): void;
+  getRequest(): shared_pb.FriendRequestInfo | undefined;
+  setRequest(value?: shared_pb.FriendRequestInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnFriendApplicationAddedData.AsObject;
@@ -506,15 +515,15 @@ export class EventOnFriendApplicationAddedData extends jspb.Message {
 
 export namespace EventOnFriendApplicationAddedData {
   export type AsObject = {
-    request?: relation_pb.FriendRequestInfo.AsObject,
+    request?: shared_pb.FriendRequestInfo.AsObject,
   }
 }
 
 export class EventOnFriendApplicationDeletedData extends jspb.Message {
   hasRequest(): boolean;
   clearRequest(): void;
-  getRequest(): relation_pb.FriendRequestInfo | undefined;
-  setRequest(value?: relation_pb.FriendRequestInfo): void;
+  getRequest(): shared_pb.FriendRequestInfo | undefined;
+  setRequest(value?: shared_pb.FriendRequestInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnFriendApplicationDeletedData.AsObject;
@@ -528,15 +537,15 @@ export class EventOnFriendApplicationDeletedData extends jspb.Message {
 
 export namespace EventOnFriendApplicationDeletedData {
   export type AsObject = {
-    request?: relation_pb.FriendRequestInfo.AsObject,
+    request?: shared_pb.FriendRequestInfo.AsObject,
   }
 }
 
 export class EventOnFriendApplicationAcceptedData extends jspb.Message {
   hasRequest(): boolean;
   clearRequest(): void;
-  getRequest(): relation_pb.FriendRequestInfo | undefined;
-  setRequest(value?: relation_pb.FriendRequestInfo): void;
+  getRequest(): shared_pb.FriendRequestInfo | undefined;
+  setRequest(value?: shared_pb.FriendRequestInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnFriendApplicationAcceptedData.AsObject;
@@ -550,15 +559,15 @@ export class EventOnFriendApplicationAcceptedData extends jspb.Message {
 
 export namespace EventOnFriendApplicationAcceptedData {
   export type AsObject = {
-    request?: relation_pb.FriendRequestInfo.AsObject,
+    request?: shared_pb.FriendRequestInfo.AsObject,
   }
 }
 
 export class EventOnFriendApplicationRejectedData extends jspb.Message {
   hasRequest(): boolean;
   clearRequest(): void;
-  getRequest(): relation_pb.FriendRequestInfo | undefined;
-  setRequest(value?: relation_pb.FriendRequestInfo): void;
+  getRequest(): shared_pb.FriendRequestInfo | undefined;
+  setRequest(value?: shared_pb.FriendRequestInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnFriendApplicationRejectedData.AsObject;
@@ -572,15 +581,15 @@ export class EventOnFriendApplicationRejectedData extends jspb.Message {
 
 export namespace EventOnFriendApplicationRejectedData {
   export type AsObject = {
-    request?: relation_pb.FriendRequestInfo.AsObject,
+    request?: shared_pb.FriendRequestInfo.AsObject,
   }
 }
 
 export class EventOnFriendAddedData extends jspb.Message {
   hasFriend(): boolean;
   clearFriend(): void;
-  getFriend(): relation_pb.FriendInfo | undefined;
-  setFriend(value?: relation_pb.FriendInfo): void;
+  getFriend(): shared_pb.FriendInfo | undefined;
+  setFriend(value?: shared_pb.FriendInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnFriendAddedData.AsObject;
@@ -594,15 +603,15 @@ export class EventOnFriendAddedData extends jspb.Message {
 
 export namespace EventOnFriendAddedData {
   export type AsObject = {
-    friend?: relation_pb.FriendInfo.AsObject,
+    friend?: shared_pb.FriendInfo.AsObject,
   }
 }
 
 export class EventOnFriendDeletedData extends jspb.Message {
   hasFriend(): boolean;
   clearFriend(): void;
-  getFriend(): relation_pb.FriendInfo | undefined;
-  setFriend(value?: relation_pb.FriendInfo): void;
+  getFriend(): shared_pb.FriendInfo | undefined;
+  setFriend(value?: shared_pb.FriendInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnFriendDeletedData.AsObject;
@@ -616,15 +625,15 @@ export class EventOnFriendDeletedData extends jspb.Message {
 
 export namespace EventOnFriendDeletedData {
   export type AsObject = {
-    friend?: relation_pb.FriendInfo.AsObject,
+    friend?: shared_pb.FriendInfo.AsObject,
   }
 }
 
 export class EventOnFriendInfoChangedData extends jspb.Message {
   hasFriend(): boolean;
   clearFriend(): void;
-  getFriend(): relation_pb.FriendInfo | undefined;
-  setFriend(value?: relation_pb.FriendInfo): void;
+  getFriend(): shared_pb.FriendInfo | undefined;
+  setFriend(value?: shared_pb.FriendInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnFriendInfoChangedData.AsObject;
@@ -638,15 +647,15 @@ export class EventOnFriendInfoChangedData extends jspb.Message {
 
 export namespace EventOnFriendInfoChangedData {
   export type AsObject = {
-    friend?: relation_pb.FriendInfo.AsObject,
+    friend?: shared_pb.FriendInfo.AsObject,
   }
 }
 
 export class EventOnBlackAddedData extends jspb.Message {
   hasBlack(): boolean;
   clearBlack(): void;
-  getBlack(): relation_pb.BlackInfo | undefined;
-  setBlack(value?: relation_pb.BlackInfo): void;
+  getBlack(): shared_pb.BlackInfo | undefined;
+  setBlack(value?: shared_pb.BlackInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnBlackAddedData.AsObject;
@@ -660,15 +669,15 @@ export class EventOnBlackAddedData extends jspb.Message {
 
 export namespace EventOnBlackAddedData {
   export type AsObject = {
-    black?: relation_pb.BlackInfo.AsObject,
+    black?: shared_pb.BlackInfo.AsObject,
   }
 }
 
 export class EventOnBlackDeletedData extends jspb.Message {
   hasBlack(): boolean;
   clearBlack(): void;
-  getBlack(): relation_pb.BlackInfo | undefined;
-  setBlack(value?: relation_pb.BlackInfo): void;
+  getBlack(): shared_pb.BlackInfo | undefined;
+  setBlack(value?: shared_pb.BlackInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnBlackDeletedData.AsObject;
@@ -682,15 +691,15 @@ export class EventOnBlackDeletedData extends jspb.Message {
 
 export namespace EventOnBlackDeletedData {
   export type AsObject = {
-    black?: relation_pb.BlackInfo.AsObject,
+    black?: shared_pb.BlackInfo.AsObject,
   }
 }
 
 export class EventOnJoinedGroupAddedData extends jspb.Message {
   hasGroup(): boolean;
   clearGroup(): void;
-  getGroup(): group_pb.GroupInfo | undefined;
-  setGroup(value?: group_pb.GroupInfo): void;
+  getGroup(): shared_pb.GroupInfo | undefined;
+  setGroup(value?: shared_pb.GroupInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnJoinedGroupAddedData.AsObject;
@@ -704,15 +713,15 @@ export class EventOnJoinedGroupAddedData extends jspb.Message {
 
 export namespace EventOnJoinedGroupAddedData {
   export type AsObject = {
-    group?: group_pb.GroupInfo.AsObject,
+    group?: shared_pb.GroupInfo.AsObject,
   }
 }
 
 export class EventOnJoinedGroupDeletedData extends jspb.Message {
   hasGroup(): boolean;
   clearGroup(): void;
-  getGroup(): group_pb.GroupInfo | undefined;
-  setGroup(value?: group_pb.GroupInfo): void;
+  getGroup(): shared_pb.GroupInfo | undefined;
+  setGroup(value?: shared_pb.GroupInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnJoinedGroupDeletedData.AsObject;
@@ -726,15 +735,15 @@ export class EventOnJoinedGroupDeletedData extends jspb.Message {
 
 export namespace EventOnJoinedGroupDeletedData {
   export type AsObject = {
-    group?: group_pb.GroupInfo.AsObject,
+    group?: shared_pb.GroupInfo.AsObject,
   }
 }
 
 export class EventOnGroupMemberAddedData extends jspb.Message {
   hasMember(): boolean;
   clearMember(): void;
-  getMember(): group_pb.GroupMemberInfo | undefined;
-  setMember(value?: group_pb.GroupMemberInfo): void;
+  getMember(): shared_pb.GroupMemberInfo | undefined;
+  setMember(value?: shared_pb.GroupMemberInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupMemberAddedData.AsObject;
@@ -748,15 +757,15 @@ export class EventOnGroupMemberAddedData extends jspb.Message {
 
 export namespace EventOnGroupMemberAddedData {
   export type AsObject = {
-    member?: group_pb.GroupMemberInfo.AsObject,
+    member?: shared_pb.GroupMemberInfo.AsObject,
   }
 }
 
 export class EventOnGroupMemberDeletedData extends jspb.Message {
   hasMember(): boolean;
   clearMember(): void;
-  getMember(): group_pb.GroupMemberInfo | undefined;
-  setMember(value?: group_pb.GroupMemberInfo): void;
+  getMember(): shared_pb.GroupMemberInfo | undefined;
+  setMember(value?: shared_pb.GroupMemberInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupMemberDeletedData.AsObject;
@@ -770,15 +779,15 @@ export class EventOnGroupMemberDeletedData extends jspb.Message {
 
 export namespace EventOnGroupMemberDeletedData {
   export type AsObject = {
-    member?: group_pb.GroupMemberInfo.AsObject,
+    member?: shared_pb.GroupMemberInfo.AsObject,
   }
 }
 
 export class EventOnGroupApplicationAddedData extends jspb.Message {
   hasRequest(): boolean;
   clearRequest(): void;
-  getRequest(): group_pb.GroupRequestInfo | undefined;
-  setRequest(value?: group_pb.GroupRequestInfo): void;
+  getRequest(): shared_pb.GroupRequestInfo | undefined;
+  setRequest(value?: shared_pb.GroupRequestInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupApplicationAddedData.AsObject;
@@ -792,15 +801,15 @@ export class EventOnGroupApplicationAddedData extends jspb.Message {
 
 export namespace EventOnGroupApplicationAddedData {
   export type AsObject = {
-    request?: group_pb.GroupRequestInfo.AsObject,
+    request?: shared_pb.GroupRequestInfo.AsObject,
   }
 }
 
 export class EventOnGroupApplicationDeletedData extends jspb.Message {
   hasRequest(): boolean;
   clearRequest(): void;
-  getRequest(): group_pb.GroupRequestInfo | undefined;
-  setRequest(value?: group_pb.GroupRequestInfo): void;
+  getRequest(): shared_pb.GroupRequestInfo | undefined;
+  setRequest(value?: shared_pb.GroupRequestInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupApplicationDeletedData.AsObject;
@@ -814,15 +823,15 @@ export class EventOnGroupApplicationDeletedData extends jspb.Message {
 
 export namespace EventOnGroupApplicationDeletedData {
   export type AsObject = {
-    request?: group_pb.GroupRequestInfo.AsObject,
+    request?: shared_pb.GroupRequestInfo.AsObject,
   }
 }
 
 export class EventOnGroupInfoChangedData extends jspb.Message {
   hasGroup(): boolean;
   clearGroup(): void;
-  getGroup(): group_pb.GroupInfo | undefined;
-  setGroup(value?: group_pb.GroupInfo): void;
+  getGroup(): shared_pb.GroupInfo | undefined;
+  setGroup(value?: shared_pb.GroupInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupInfoChangedData.AsObject;
@@ -836,15 +845,15 @@ export class EventOnGroupInfoChangedData extends jspb.Message {
 
 export namespace EventOnGroupInfoChangedData {
   export type AsObject = {
-    group?: group_pb.GroupInfo.AsObject,
+    group?: shared_pb.GroupInfo.AsObject,
   }
 }
 
 export class EventOnGroupDismissedData extends jspb.Message {
   hasGroup(): boolean;
   clearGroup(): void;
-  getGroup(): group_pb.GroupInfo | undefined;
-  setGroup(value?: group_pb.GroupInfo): void;
+  getGroup(): shared_pb.GroupInfo | undefined;
+  setGroup(value?: shared_pb.GroupInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupDismissedData.AsObject;
@@ -858,15 +867,15 @@ export class EventOnGroupDismissedData extends jspb.Message {
 
 export namespace EventOnGroupDismissedData {
   export type AsObject = {
-    group?: group_pb.GroupInfo.AsObject,
+    group?: shared_pb.GroupInfo.AsObject,
   }
 }
 
 export class EventOnGroupMemberInfoChangedData extends jspb.Message {
   hasMember(): boolean;
   clearMember(): void;
-  getMember(): group_pb.GroupMemberInfo | undefined;
-  setMember(value?: group_pb.GroupMemberInfo): void;
+  getMember(): shared_pb.GroupMemberInfo | undefined;
+  setMember(value?: shared_pb.GroupMemberInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupMemberInfoChangedData.AsObject;
@@ -880,15 +889,15 @@ export class EventOnGroupMemberInfoChangedData extends jspb.Message {
 
 export namespace EventOnGroupMemberInfoChangedData {
   export type AsObject = {
-    member?: group_pb.GroupMemberInfo.AsObject,
+    member?: shared_pb.GroupMemberInfo.AsObject,
   }
 }
 
 export class EventOnGroupApplicationAcceptedData extends jspb.Message {
   hasRequest(): boolean;
   clearRequest(): void;
-  getRequest(): group_pb.GroupRequestInfo | undefined;
-  setRequest(value?: group_pb.GroupRequestInfo): void;
+  getRequest(): shared_pb.GroupRequestInfo | undefined;
+  setRequest(value?: shared_pb.GroupRequestInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupApplicationAcceptedData.AsObject;
@@ -902,15 +911,15 @@ export class EventOnGroupApplicationAcceptedData extends jspb.Message {
 
 export namespace EventOnGroupApplicationAcceptedData {
   export type AsObject = {
-    request?: group_pb.GroupRequestInfo.AsObject,
+    request?: shared_pb.GroupRequestInfo.AsObject,
   }
 }
 
 export class EventOnGroupApplicationRejectedData extends jspb.Message {
   hasRequest(): boolean;
   clearRequest(): void;
-  getRequest(): group_pb.GroupRequestInfo | undefined;
-  setRequest(value?: group_pb.GroupRequestInfo): void;
+  getRequest(): shared_pb.GroupRequestInfo | undefined;
+  setRequest(value?: shared_pb.GroupRequestInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EventOnGroupApplicationRejectedData.AsObject;
@@ -924,7 +933,7 @@ export class EventOnGroupApplicationRejectedData extends jspb.Message {
 
 export namespace EventOnGroupApplicationRejectedData {
   export type AsObject = {
-    request?: group_pb.GroupRequestInfo.AsObject,
+    request?: shared_pb.GroupRequestInfo.AsObject,
   }
 }
 

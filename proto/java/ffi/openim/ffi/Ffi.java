@@ -30,15 +30,15 @@ public final class Ffi {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+     * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
      * @return The enum numeric value on the wire for funcName.
      */
     int getFuncNameValue();
     /**
-     * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+     * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
      * @return The funcName.
      */
-    openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName getFuncName();
+    openim.event.Event.FuncRequestEventName getFuncName();
 
     /**
      * <code>bytes data = 2;</code>
@@ -88,19 +88,19 @@ public final class Ffi {
     public static final int FUNCNAME_FIELD_NUMBER = 1;
     private int funcName_ = 0;
     /**
-     * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+     * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
      * @return The enum numeric value on the wire for funcName.
      */
     @java.lang.Override public int getFuncNameValue() {
       return funcName_;
     }
     /**
-     * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+     * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
      * @return The funcName.
      */
-    @java.lang.Override public openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName getFuncName() {
-      openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName result = openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.forNumber(funcName_);
-      return result == null ? openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.UNRECOGNIZED : result;
+    @java.lang.Override public openim.event.Event.FuncRequestEventName getFuncName() {
+      openim.event.Event.FuncRequestEventName result = openim.event.Event.FuncRequestEventName.forNumber(funcName_);
+      return result == null ? openim.event.Event.FuncRequestEventName.UNRECOGNIZED : result;
     }
 
     public static final int DATA_FIELD_NUMBER = 2;
@@ -128,7 +128,7 @@ public final class Ffi {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (funcName_ != openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.None.getNumber()) {
+      if (funcName_ != openim.event.Event.FuncRequestEventName.None.getNumber()) {
         output.writeEnum(1, funcName_);
       }
       if (!data_.isEmpty()) {
@@ -143,7 +143,7 @@ public final class Ffi {
       if (size != -1) return size;
 
       size = 0;
-      if (funcName_ != openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.None.getNumber()) {
+      if (funcName_ != openim.event.Event.FuncRequestEventName.None.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, funcName_);
       }
@@ -431,14 +431,14 @@ public final class Ffi {
 
       private int funcName_ = 0;
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
        * @return The enum numeric value on the wire for funcName.
        */
       @java.lang.Override public int getFuncNameValue() {
         return funcName_;
       }
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
        * @param value The enum numeric value on the wire for funcName to set.
        * @return This builder for chaining.
        */
@@ -449,20 +449,20 @@ public final class Ffi {
         return this;
       }
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
        * @return The funcName.
        */
       @java.lang.Override
-      public openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName getFuncName() {
-        openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName result = openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.forNumber(funcName_);
-        return result == null ? openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.UNRECOGNIZED : result;
+      public openim.event.Event.FuncRequestEventName getFuncName() {
+        openim.event.Event.FuncRequestEventName result = openim.event.Event.FuncRequestEventName.forNumber(funcName_);
+        return result == null ? openim.event.Event.FuncRequestEventName.UNRECOGNIZED : result;
       }
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
        * @param value The funcName to set.
        * @return This builder for chaining.
        */
-      public Builder setFuncName(openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName value) {
+      public Builder setFuncName(openim.event.Event.FuncRequestEventName value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -472,7 +472,7 @@ public final class Ffi {
         return this;
       }
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 1;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearFuncName() {
@@ -588,15 +588,15 @@ public final class Ffi {
         getErrMsgBytes();
 
     /**
-     * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+     * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
      * @return The enum numeric value on the wire for funcName.
      */
     int getFuncNameValue();
     /**
-     * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+     * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
      * @return The funcName.
      */
-    openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName getFuncName();
+    openim.event.Event.FuncRequestEventName getFuncName();
 
     /**
      * <code>bytes data = 4;</code>
@@ -703,19 +703,19 @@ public final class Ffi {
     public static final int FUNCNAME_FIELD_NUMBER = 3;
     private int funcName_ = 0;
     /**
-     * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+     * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
      * @return The enum numeric value on the wire for funcName.
      */
     @java.lang.Override public int getFuncNameValue() {
       return funcName_;
     }
     /**
-     * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+     * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
      * @return The funcName.
      */
-    @java.lang.Override public openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName getFuncName() {
-      openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName result = openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.forNumber(funcName_);
-      return result == null ? openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.UNRECOGNIZED : result;
+    @java.lang.Override public openim.event.Event.FuncRequestEventName getFuncName() {
+      openim.event.Event.FuncRequestEventName result = openim.event.Event.FuncRequestEventName.forNumber(funcName_);
+      return result == null ? openim.event.Event.FuncRequestEventName.UNRECOGNIZED : result;
     }
 
     public static final int DATA_FIELD_NUMBER = 4;
@@ -760,7 +760,7 @@ public final class Ffi {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(errMsg_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 2, errMsg_);
       }
-      if (funcName_ != openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.None.getNumber()) {
+      if (funcName_ != openim.event.Event.FuncRequestEventName.None.getNumber()) {
         output.writeEnum(3, funcName_);
       }
       if (!data_.isEmpty()) {
@@ -785,7 +785,7 @@ public final class Ffi {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(errMsg_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(2, errMsg_);
       }
-      if (funcName_ != openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.None.getNumber()) {
+      if (funcName_ != openim.event.Event.FuncRequestEventName.None.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(3, funcName_);
       }
@@ -1232,14 +1232,14 @@ public final class Ffi {
 
       private int funcName_ = 0;
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
        * @return The enum numeric value on the wire for funcName.
        */
       @java.lang.Override public int getFuncNameValue() {
         return funcName_;
       }
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
        * @param value The enum numeric value on the wire for funcName to set.
        * @return This builder for chaining.
        */
@@ -1250,20 +1250,20 @@ public final class Ffi {
         return this;
       }
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
        * @return The funcName.
        */
       @java.lang.Override
-      public openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName getFuncName() {
-        openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName result = openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.forNumber(funcName_);
-        return result == null ? openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName.UNRECOGNIZED : result;
+      public openim.event.Event.FuncRequestEventName getFuncName() {
+        openim.event.Event.FuncRequestEventName result = openim.event.Event.FuncRequestEventName.forNumber(funcName_);
+        return result == null ? openim.event.Event.FuncRequestEventName.UNRECOGNIZED : result;
       }
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
        * @param value The funcName to set.
        * @return This builder for chaining.
        */
-      public Builder setFuncName(openim.sdk.conversation.ConversationOuterClass.FuncRequestEventName value) {
+      public Builder setFuncName(openim.event.Event.FuncRequestEventName value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -1273,7 +1273,7 @@ public final class Ffi {
         return this;
       }
       /**
-       * <code>.openim.sdk.conversation.FuncRequestEventName funcName = 3;</code>
+       * <code>.openim.event.FuncRequestEventName funcName = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearFuncName() {
@@ -1417,20 +1417,19 @@ public final class Ffi {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tffi.proto\022\nopenim.ffi\032\022conversation.pr" +
-      "oto\"[\n\nFfiRequest\022?\n\010funcName\030\001 \001(\0162-.op" +
-      "enim.sdk.conversation.FuncRequestEventNa" +
-      "me\022\014\n\004data\030\002 \001(\014\"\215\001\n\tFfiResult\022\017\n\007errCod" +
-      "e\030\001 \001(\005\022\016\n\006errMsg\030\002 \001(\t\022?\n\010funcName\030\003 \001(" +
-      "\0162-.openim.sdk.conversation.FuncRequestE" +
-      "ventName\022\014\n\004data\030\004 \001(\014\022\020\n\010handleID\030\005 \001(\004" +
-      "B6Z4github.com/openimsdk/openim-sdk-core" +
-      "/v3/proto/go/ffib\006proto3"
+      "\n\tffi.proto\022\nopenim.ffi\032\013event.proto\"P\n\n" +
+      "FfiRequest\0224\n\010funcName\030\001 \001(\0162\".openim.ev" +
+      "ent.FuncRequestEventName\022\014\n\004data\030\002 \001(\014\"\202" +
+      "\001\n\tFfiResult\022\017\n\007errCode\030\001 \001(\005\022\016\n\006errMsg\030" +
+      "\002 \001(\t\0224\n\010funcName\030\003 \001(\0162\".openim.event.F" +
+      "uncRequestEventName\022\014\n\004data\030\004 \001(\014\022\020\n\010han" +
+      "dleID\030\005 \001(\004B6Z4github.com/openimsdk/open" +
+      "im-sdk-core/v3/proto/go/ffib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          openim.sdk.conversation.ConversationOuterClass.getDescriptor(),
+          openim.event.Event.getDescriptor(),
         });
     internal_static_openim_ffi_FfiRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1445,7 +1444,7 @@ public final class Ffi {
         internal_static_openim_ffi_FfiResult_descriptor,
         new java.lang.String[] { "ErrCode", "ErrMsg", "FuncName", "Data", "HandleID", });
     descriptor.resolveAllFeaturesImmutable();
-    openim.sdk.conversation.ConversationOuterClass.getDescriptor();
+    openim.event.Event.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -12065,24 +12065,9 @@ public final class Msggateway {
       "List\030\002 \003(\t\"\025\n\023KickUserOfflineResp\"O\n\032Mul" +
       "tiTerminalLoginCheckReq\022\016\n\006userID\030\001 \001(\t\022" +
       "\022\n\nplatformID\030\002 \001(\005\022\r\n\005token\030\003 \001(\t\"\035\n\033Mu" +
-      "ltiTerminalLoginCheckResp2\323\004\n\nmsgGateway" +
-      "\022L\n\rOnlinePushMsg\022\034.openim.ffi.OnlinePus" +
-      "hMsgReq\032\035.openim.ffi.OnlinePushMsgResp\022a" +
-      "\n\024GetUsersOnlineStatus\022#.openim.ffi.GetU" +
-      "sersOnlineStatusReq\032$.openim.ffi.GetUser" +
-      "sOnlineStatusResp\022d\n\025OnlineBatchPushOneM" +
-      "sg\022$.openim.ffi.OnlineBatchPushOneMsgReq" +
-      "\032%.openim.ffi.OnlineBatchPushOneMsgResp\022" +
-      "n\n\037SuperGroupOnlineBatchPushOneMsg\022$.ope" +
-      "nim.ffi.OnlineBatchPushOneMsgReq\032%.openi" +
-      "m.ffi.OnlineBatchPushOneMsgResp\022R\n\017KickU" +
-      "serOffline\022\036.openim.ffi.KickUserOfflineR" +
-      "eq\032\037.openim.ffi.KickUserOfflineResp\022j\n\027M" +
-      "ultiTerminalLoginCheck\022&.openim.ffi.Mult" +
-      "iTerminalLoginCheckReq\032\'.openim.ffi.Mult" +
-      "iTerminalLoginCheckRespB=Z;github.com/op" +
-      "enimsdk/openim-sdk-core/v3/proto/go/msgg" +
-      "atewayb\006proto3"
+      "ltiTerminalLoginCheckRespB=Z;github.com/" +
+      "openimsdk/openim-sdk-core/v3/proto/go/ms" +
+      "ggatewayb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

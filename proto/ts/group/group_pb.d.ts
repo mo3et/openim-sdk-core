@@ -3,267 +3,7 @@
 
 import * as jspb from "google-protobuf";
 import * as common_pb from "./common_pb";
-import * as user_pb from "./user_pb";
-
-export class GroupInfo extends jspb.Message {
-  getGroupid(): string;
-  setGroupid(value: string): void;
-
-  getGroupname(): string;
-  setGroupname(value: string): void;
-
-  getNotification(): string;
-  setNotification(value: string): void;
-
-  getIntroduction(): string;
-  setIntroduction(value: string): void;
-
-  getFaceurl(): string;
-  setFaceurl(value: string): void;
-
-  getOwneruserid(): string;
-  setOwneruserid(value: string): void;
-
-  getCreatetime(): number;
-  setCreatetime(value: number): void;
-
-  getMembercount(): number;
-  setMembercount(value: number): void;
-
-  getEx(): string;
-  setEx(value: string): void;
-
-  getStatus(): GroupStatusMap[keyof GroupStatusMap];
-  setStatus(value: GroupStatusMap[keyof GroupStatusMap]): void;
-
-  getCreatoruserid(): string;
-  setCreatoruserid(value: string): void;
-
-  getNeedverification(): number;
-  setNeedverification(value: number): void;
-
-  getLookmemberinfo(): number;
-  setLookmemberinfo(value: number): void;
-
-  getApplymemberfriend(): number;
-  setApplymemberfriend(value: number): void;
-
-  getNotificationupdatetime(): number;
-  setNotificationupdatetime(value: number): void;
-
-  getNotificationuserid(): string;
-  setNotificationuserid(value: string): void;
-
-  getAttachedinfo(): string;
-  setAttachedinfo(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupInfo.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupInfo): GroupInfo.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupInfo, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupInfo;
-  static deserializeBinaryFromReader(message: GroupInfo, reader: jspb.BinaryReader): GroupInfo;
-}
-
-export namespace GroupInfo {
-  export type AsObject = {
-    groupid: string,
-    groupname: string,
-    notification: string,
-    introduction: string,
-    faceurl: string,
-    owneruserid: string,
-    createtime: number,
-    membercount: number,
-    ex: string,
-    status: GroupStatusMap[keyof GroupStatusMap],
-    creatoruserid: string,
-    needverification: number,
-    lookmemberinfo: number,
-    applymemberfriend: number,
-    notificationupdatetime: number,
-    notificationuserid: string,
-    attachedinfo: string,
-  }
-}
-
-export class GroupMemberInfo extends jspb.Message {
-  getGroupid(): string;
-  setGroupid(value: string): void;
-
-  getUserid(): string;
-  setUserid(value: string): void;
-
-  getNickname(): string;
-  setNickname(value: string): void;
-
-  getFaceurl(): string;
-  setFaceurl(value: string): void;
-
-  getRolelevel(): number;
-  setRolelevel(value: number): void;
-
-  getJointime(): number;
-  setJointime(value: number): void;
-
-  getJoinsource(): number;
-  setJoinsource(value: number): void;
-
-  getInviteruserid(): string;
-  setInviteruserid(value: string): void;
-
-  getMuteendtime(): number;
-  setMuteendtime(value: number): void;
-
-  getOperatoruserid(): string;
-  setOperatoruserid(value: string): void;
-
-  getEx(): string;
-  setEx(value: string): void;
-
-  getAttachedinfo(): string;
-  setAttachedinfo(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupMemberInfo.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupMemberInfo): GroupMemberInfo.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupMemberInfo, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupMemberInfo;
-  static deserializeBinaryFromReader(message: GroupMemberInfo, reader: jspb.BinaryReader): GroupMemberInfo;
-}
-
-export namespace GroupMemberInfo {
-  export type AsObject = {
-    groupid: string,
-    userid: string,
-    nickname: string,
-    faceurl: string,
-    rolelevel: number,
-    jointime: number,
-    joinsource: number,
-    inviteruserid: string,
-    muteendtime: number,
-    operatoruserid: string,
-    ex: string,
-    attachedinfo: string,
-  }
-}
-
-export class GroupRequestInfo extends jspb.Message {
-  getGroupid(): string;
-  setGroupid(value: string): void;
-
-  getGroupname(): string;
-  setGroupname(value: string): void;
-
-  getNotification(): string;
-  setNotification(value: string): void;
-
-  getIntroduction(): string;
-  setIntroduction(value: string): void;
-
-  getGroupfaceurl(): string;
-  setGroupfaceurl(value: string): void;
-
-  getCreatetime(): number;
-  setCreatetime(value: number): void;
-
-  getStatus(): number;
-  setStatus(value: number): void;
-
-  getCreatoruserid(): string;
-  setCreatoruserid(value: string): void;
-
-  getGrouptype(): number;
-  setGrouptype(value: number): void;
-
-  getOwneruserid(): string;
-  setOwneruserid(value: string): void;
-
-  getMembercount(): number;
-  setMembercount(value: number): void;
-
-  getUserid(): string;
-  setUserid(value: string): void;
-
-  getNickname(): string;
-  setNickname(value: string): void;
-
-  getUserfaceurl(): string;
-  setUserfaceurl(value: string): void;
-
-  getHandleresult(): number;
-  setHandleresult(value: number): void;
-
-  getReqmsg(): string;
-  setReqmsg(value: string): void;
-
-  getHandledmsg(): string;
-  setHandledmsg(value: string): void;
-
-  getReqtime(): number;
-  setReqtime(value: number): void;
-
-  getHandleuserid(): string;
-  setHandleuserid(value: string): void;
-
-  getHandledtime(): number;
-  setHandledtime(value: number): void;
-
-  getEx(): string;
-  setEx(value: string): void;
-
-  getAttachedinfo(): string;
-  setAttachedinfo(value: string): void;
-
-  getJoinsource(): number;
-  setJoinsource(value: number): void;
-
-  getInviteruserid(): string;
-  setInviteruserid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupRequestInfo.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupRequestInfo): GroupRequestInfo.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupRequestInfo, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupRequestInfo;
-  static deserializeBinaryFromReader(message: GroupRequestInfo, reader: jspb.BinaryReader): GroupRequestInfo;
-}
-
-export namespace GroupRequestInfo {
-  export type AsObject = {
-    groupid: string,
-    groupname: string,
-    notification: string,
-    introduction: string,
-    groupfaceurl: string,
-    createtime: number,
-    status: number,
-    creatoruserid: string,
-    grouptype: number,
-    owneruserid: string,
-    membercount: number,
-    userid: string,
-    nickname: string,
-    userfaceurl: string,
-    handleresult: number,
-    reqmsg: string,
-    handledmsg: string,
-    reqtime: number,
-    handleuserid: string,
-    handledtime: number,
-    ex: string,
-    attachedinfo: string,
-    joinsource: number,
-    inviteruserid: string,
-  }
-}
+import * as shared_pb from "./shared_pb";
 
 export class CreateGroupReq extends jspb.Message {
   clearMemberuseridsList(): void;
@@ -278,8 +18,8 @@ export class CreateGroupReq extends jspb.Message {
 
   hasGroupinfo(): boolean;
   clearGroupinfo(): void;
-  getGroupinfo(): GroupInfo | undefined;
-  setGroupinfo(value?: GroupInfo): void;
+  getGroupinfo(): shared_pb.GroupInfo | undefined;
+  setGroupinfo(value?: shared_pb.GroupInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateGroupReq.AsObject;
@@ -295,15 +35,15 @@ export namespace CreateGroupReq {
   export type AsObject = {
     memberuseridsList: Array<string>,
     adminuseridsList: Array<string>,
-    groupinfo?: GroupInfo.AsObject,
+    groupinfo?: shared_pb.GroupInfo.AsObject,
   }
 }
 
 export class CreateGroupResp extends jspb.Message {
   hasGroupinfo(): boolean;
   clearGroupinfo(): void;
-  getGroupinfo(): GroupInfo | undefined;
-  setGroupinfo(value?: GroupInfo): void;
+  getGroupinfo(): shared_pb.GroupInfo | undefined;
+  setGroupinfo(value?: shared_pb.GroupInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateGroupResp.AsObject;
@@ -317,7 +57,7 @@ export class CreateGroupResp extends jspb.Message {
 
 export namespace CreateGroupResp {
   export type AsObject = {
-    groupinfo?: GroupInfo.AsObject,
+    groupinfo?: shared_pb.GroupInfo.AsObject,
   }
 }
 
@@ -777,9 +517,9 @@ export namespace GetJoinedGroupsReq {
 
 export class GetJoinedGroupsResp extends jspb.Message {
   clearGroupsList(): void;
-  getGroupsList(): Array<GroupInfo>;
-  setGroupsList(value: Array<GroupInfo>): void;
-  addGroups(value?: GroupInfo, index?: number): GroupInfo;
+  getGroupsList(): Array<shared_pb.GroupInfo>;
+  setGroupsList(value: Array<shared_pb.GroupInfo>): void;
+  addGroups(value?: shared_pb.GroupInfo, index?: number): shared_pb.GroupInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetJoinedGroupsResp.AsObject;
@@ -793,7 +533,7 @@ export class GetJoinedGroupsResp extends jspb.Message {
 
 export namespace GetJoinedGroupsResp {
   export type AsObject = {
-    groupsList: Array<GroupInfo.AsObject>,
+    groupsList: Array<shared_pb.GroupInfo.AsObject>,
   }
 }
 
@@ -821,9 +561,9 @@ export namespace GetJoinedGroupsPageReq {
 
 export class GetJoinedGroupsPageResp extends jspb.Message {
   clearGroupsList(): void;
-  getGroupsList(): Array<GroupInfo>;
-  setGroupsList(value: Array<GroupInfo>): void;
-  addGroups(value?: GroupInfo, index?: number): GroupInfo;
+  getGroupsList(): Array<shared_pb.GroupInfo>;
+  setGroupsList(value: Array<shared_pb.GroupInfo>): void;
+  addGroups(value?: shared_pb.GroupInfo, index?: number): shared_pb.GroupInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetJoinedGroupsPageResp.AsObject;
@@ -837,7 +577,7 @@ export class GetJoinedGroupsPageResp extends jspb.Message {
 
 export namespace GetJoinedGroupsPageResp {
   export type AsObject = {
-    groupsList: Array<GroupInfo.AsObject>,
+    groupsList: Array<shared_pb.GroupInfo.AsObject>,
   }
 }
 
@@ -865,9 +605,9 @@ export namespace GetSpecifiedGroupsInfoReq {
 
 export class GetSpecifiedGroupsInfoResp extends jspb.Message {
   clearGroupsList(): void;
-  getGroupsList(): Array<GroupInfo>;
-  setGroupsList(value: Array<GroupInfo>): void;
-  addGroups(value?: GroupInfo, index?: number): GroupInfo;
+  getGroupsList(): Array<shared_pb.GroupInfo>;
+  setGroupsList(value: Array<shared_pb.GroupInfo>): void;
+  addGroups(value?: shared_pb.GroupInfo, index?: number): shared_pb.GroupInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetSpecifiedGroupsInfoResp.AsObject;
@@ -881,7 +621,7 @@ export class GetSpecifiedGroupsInfoResp extends jspb.Message {
 
 export namespace GetSpecifiedGroupsInfoResp {
   export type AsObject = {
-    groupsList: Array<GroupInfo.AsObject>,
+    groupsList: Array<shared_pb.GroupInfo.AsObject>,
   }
 }
 
@@ -915,9 +655,9 @@ export namespace SearchGroupsReq {
 
 export class SearchGroupsResp extends jspb.Message {
   clearGroupsList(): void;
-  getGroupsList(): Array<GroupInfo>;
-  setGroupsList(value: Array<GroupInfo>): void;
-  addGroups(value?: GroupInfo, index?: number): GroupInfo;
+  getGroupsList(): Array<shared_pb.GroupInfo>;
+  setGroupsList(value: Array<shared_pb.GroupInfo>): void;
+  addGroups(value?: shared_pb.GroupInfo, index?: number): shared_pb.GroupInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SearchGroupsResp.AsObject;
@@ -931,7 +671,7 @@ export class SearchGroupsResp extends jspb.Message {
 
 export namespace SearchGroupsResp {
   export type AsObject = {
-    groupsList: Array<GroupInfo.AsObject>,
+    groupsList: Array<shared_pb.GroupInfo.AsObject>,
   }
 }
 
@@ -957,9 +697,9 @@ export namespace GetGroupMemberOwnerAndAdminReq {
 
 export class GetGroupMemberOwnerAndAdminResp extends jspb.Message {
   clearMembersList(): void;
-  getMembersList(): Array<GroupMemberInfo>;
-  setMembersList(value: Array<GroupMemberInfo>): void;
-  addMembers(value?: GroupMemberInfo, index?: number): GroupMemberInfo;
+  getMembersList(): Array<shared_pb.GroupMemberInfo>;
+  setMembersList(value: Array<shared_pb.GroupMemberInfo>): void;
+  addMembers(value?: shared_pb.GroupMemberInfo, index?: number): shared_pb.GroupMemberInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetGroupMemberOwnerAndAdminResp.AsObject;
@@ -973,7 +713,7 @@ export class GetGroupMemberOwnerAndAdminResp extends jspb.Message {
 
 export namespace GetGroupMemberOwnerAndAdminResp {
   export type AsObject = {
-    membersList: Array<GroupMemberInfo.AsObject>,
+    membersList: Array<shared_pb.GroupMemberInfo.AsObject>,
   }
 }
 
@@ -1013,9 +753,9 @@ export namespace GetGroupMembersByJoinTimeFilterReq {
 
 export class GetGroupMembersByJoinTimeFilterResp extends jspb.Message {
   clearMembersList(): void;
-  getMembersList(): Array<GroupMemberInfo>;
-  setMembersList(value: Array<GroupMemberInfo>): void;
-  addMembers(value?: GroupMemberInfo, index?: number): GroupMemberInfo;
+  getMembersList(): Array<shared_pb.GroupMemberInfo>;
+  setMembersList(value: Array<shared_pb.GroupMemberInfo>): void;
+  addMembers(value?: shared_pb.GroupMemberInfo, index?: number): shared_pb.GroupMemberInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetGroupMembersByJoinTimeFilterResp.AsObject;
@@ -1029,7 +769,7 @@ export class GetGroupMembersByJoinTimeFilterResp extends jspb.Message {
 
 export namespace GetGroupMembersByJoinTimeFilterResp {
   export type AsObject = {
-    membersList: Array<GroupMemberInfo.AsObject>,
+    membersList: Array<shared_pb.GroupMemberInfo.AsObject>,
   }
 }
 
@@ -1061,9 +801,9 @@ export namespace GetSpecifiedGroupMembersInfoReq {
 
 export class GetSpecifiedGroupMembersInfoResp extends jspb.Message {
   clearMembersList(): void;
-  getMembersList(): Array<GroupMemberInfo>;
-  setMembersList(value: Array<GroupMemberInfo>): void;
-  addMembers(value?: GroupMemberInfo, index?: number): GroupMemberInfo;
+  getMembersList(): Array<shared_pb.GroupMemberInfo>;
+  setMembersList(value: Array<shared_pb.GroupMemberInfo>): void;
+  addMembers(value?: shared_pb.GroupMemberInfo, index?: number): shared_pb.GroupMemberInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetSpecifiedGroupMembersInfoResp.AsObject;
@@ -1077,7 +817,7 @@ export class GetSpecifiedGroupMembersInfoResp extends jspb.Message {
 
 export namespace GetSpecifiedGroupMembersInfoResp {
   export type AsObject = {
-    membersList: Array<GroupMemberInfo.AsObject>,
+    membersList: Array<shared_pb.GroupMemberInfo.AsObject>,
   }
 }
 
@@ -1085,8 +825,8 @@ export class GetGroupMembersReq extends jspb.Message {
   getGroupid(): string;
   setGroupid(value: string): void;
 
-  getFilter(): GroupFilterMap[keyof GroupFilterMap];
-  setFilter(value: GroupFilterMap[keyof GroupFilterMap]): void;
+  getFilter(): shared_pb.GroupFilterMap[keyof shared_pb.GroupFilterMap];
+  setFilter(value: shared_pb.GroupFilterMap[keyof shared_pb.GroupFilterMap]): void;
 
   hasPagination(): boolean;
   clearPagination(): void;
@@ -1106,16 +846,16 @@ export class GetGroupMembersReq extends jspb.Message {
 export namespace GetGroupMembersReq {
   export type AsObject = {
     groupid: string,
-    filter: GroupFilterMap[keyof GroupFilterMap],
+    filter: shared_pb.GroupFilterMap[keyof shared_pb.GroupFilterMap],
     pagination?: common_pb.RequestPagination.AsObject,
   }
 }
 
 export class GetGroupMembersResp extends jspb.Message {
   clearMembersList(): void;
-  getMembersList(): Array<GroupMemberInfo>;
-  setMembersList(value: Array<GroupMemberInfo>): void;
-  addMembers(value?: GroupMemberInfo, index?: number): GroupMemberInfo;
+  getMembersList(): Array<shared_pb.GroupMemberInfo>;
+  setMembersList(value: Array<shared_pb.GroupMemberInfo>): void;
+  addMembers(value?: shared_pb.GroupMemberInfo, index?: number): shared_pb.GroupMemberInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetGroupMembersResp.AsObject;
@@ -1129,7 +869,7 @@ export class GetGroupMembersResp extends jspb.Message {
 
 export namespace GetGroupMembersResp {
   export type AsObject = {
-    membersList: Array<GroupMemberInfo.AsObject>,
+    membersList: Array<shared_pb.GroupMemberInfo.AsObject>,
   }
 }
 
@@ -1155,9 +895,9 @@ export namespace GetGroupRequestReq {
 
 export class GetGroupRequestResp extends jspb.Message {
   clearRequestsList(): void;
-  getRequestsList(): Array<GroupRequestInfo>;
-  setRequestsList(value: Array<GroupRequestInfo>): void;
-  addRequests(value?: GroupRequestInfo, index?: number): GroupRequestInfo;
+  getRequestsList(): Array<shared_pb.GroupRequestInfo>;
+  setRequestsList(value: Array<shared_pb.GroupRequestInfo>): void;
+  addRequests(value?: shared_pb.GroupRequestInfo, index?: number): shared_pb.GroupRequestInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetGroupRequestResp.AsObject;
@@ -1171,7 +911,7 @@ export class GetGroupRequestResp extends jspb.Message {
 
 export namespace GetGroupRequestResp {
   export type AsObject = {
-    requestsList: Array<GroupRequestInfo.AsObject>,
+    requestsList: Array<shared_pb.GroupRequestInfo.AsObject>,
   }
 }
 
@@ -1215,9 +955,9 @@ export namespace SearchGroupMembersReq {
 
 export class SearchGroupMembersResp extends jspb.Message {
   clearMembersList(): void;
-  getMembersList(): Array<GroupMemberInfo>;
-  setMembersList(value: Array<GroupMemberInfo>): void;
-  addMembers(value?: GroupMemberInfo, index?: number): GroupMemberInfo;
+  getMembersList(): Array<shared_pb.GroupMemberInfo>;
+  setMembersList(value: Array<shared_pb.GroupMemberInfo>): void;
+  addMembers(value?: shared_pb.GroupMemberInfo, index?: number): shared_pb.GroupMemberInfo;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SearchGroupMembersResp.AsObject;
@@ -1231,7 +971,7 @@ export class SearchGroupMembersResp extends jspb.Message {
 
 export namespace SearchGroupMembersResp {
   export type AsObject = {
-    membersList: Array<GroupMemberInfo.AsObject>,
+    membersList: Array<shared_pb.GroupMemberInfo.AsObject>,
   }
 }
 
@@ -1448,7 +1188,7 @@ export namespace GetGroupMemberInfoReq {
 }
 
 export class GetGroupMemberInfoResp extends jspb.Message {
-  getMembersMap(): jspb.Map<string, GroupMemberInfo>;
+  getMembersMap(): jspb.Map<string, shared_pb.GroupMemberInfo>;
   clearMembersMap(): void;
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetGroupMemberInfoResp.AsObject;
@@ -1462,785 +1202,7 @@ export class GetGroupMemberInfoResp extends jspb.Message {
 
 export namespace GetGroupMemberInfoResp {
   export type AsObject = {
-    membersMap: Array<[string, GroupMemberInfo.AsObject]>,
+    membersMap: Array<[string, shared_pb.GroupMemberInfo.AsObject]>,
   }
 }
-
-export class GroupCreatedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  clearMemberlistList(): void;
-  getMemberlistList(): Array<GroupMemberInfo>;
-  setMemberlistList(value: Array<GroupMemberInfo>): void;
-  addMemberlist(value?: GroupMemberInfo, index?: number): GroupMemberInfo;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  hasGroupowneruser(): boolean;
-  clearGroupowneruser(): void;
-  getGroupowneruser(): GroupMemberInfo | undefined;
-  setGroupowneruser(value?: GroupMemberInfo): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupCreatedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupCreatedTips): GroupCreatedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupCreatedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupCreatedTips;
-  static deserializeBinaryFromReader(message: GroupCreatedTips, reader: jspb.BinaryReader): GroupCreatedTips;
-}
-
-export namespace GroupCreatedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    memberlistList: Array<GroupMemberInfo.AsObject>,
-    operationtime: number,
-    groupowneruser?: GroupMemberInfo.AsObject,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupInfoSetTips extends jspb.Message {
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getMutetime(): number;
-  setMutetime(value: number): void;
-
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupInfoSetTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupInfoSetTips): GroupInfoSetTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupInfoSetTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupInfoSetTips;
-  static deserializeBinaryFromReader(message: GroupInfoSetTips, reader: jspb.BinaryReader): GroupInfoSetTips;
-}
-
-export namespace GroupInfoSetTips {
-  export type AsObject = {
-    opuser?: GroupMemberInfo.AsObject,
-    mutetime: number,
-    group?: GroupInfo.AsObject,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupInfoSetNameTips extends jspb.Message {
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupInfoSetNameTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupInfoSetNameTips): GroupInfoSetNameTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupInfoSetNameTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupInfoSetNameTips;
-  static deserializeBinaryFromReader(message: GroupInfoSetNameTips, reader: jspb.BinaryReader): GroupInfoSetNameTips;
-}
-
-export namespace GroupInfoSetNameTips {
-  export type AsObject = {
-    opuser?: GroupMemberInfo.AsObject,
-    group?: GroupInfo.AsObject,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupInfoSetAnnouncementTips extends jspb.Message {
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupInfoSetAnnouncementTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupInfoSetAnnouncementTips): GroupInfoSetAnnouncementTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupInfoSetAnnouncementTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupInfoSetAnnouncementTips;
-  static deserializeBinaryFromReader(message: GroupInfoSetAnnouncementTips, reader: jspb.BinaryReader): GroupInfoSetAnnouncementTips;
-}
-
-export namespace GroupInfoSetAnnouncementTips {
-  export type AsObject = {
-    opuser?: GroupMemberInfo.AsObject,
-    group?: GroupInfo.AsObject,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class JoinGroupApplicationTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasApplicant(): boolean;
-  clearApplicant(): void;
-  getApplicant(): user_pb.UserInfo | undefined;
-  setApplicant(value?: user_pb.UserInfo): void;
-
-  getReqmsg(): string;
-  setReqmsg(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): JoinGroupApplicationTips.AsObject;
-  static toObject(includeInstance: boolean, msg: JoinGroupApplicationTips): JoinGroupApplicationTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: JoinGroupApplicationTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): JoinGroupApplicationTips;
-  static deserializeBinaryFromReader(message: JoinGroupApplicationTips, reader: jspb.BinaryReader): JoinGroupApplicationTips;
-}
-
-export namespace JoinGroupApplicationTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    applicant?: user_pb.UserInfo.AsObject,
-    reqmsg: string,
-  }
-}
-
-export class MemberQuitTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasQuituser(): boolean;
-  clearQuituser(): void;
-  getQuituser(): GroupMemberInfo | undefined;
-  setQuituser(value?: GroupMemberInfo): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): MemberQuitTips.AsObject;
-  static toObject(includeInstance: boolean, msg: MemberQuitTips): MemberQuitTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: MemberQuitTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): MemberQuitTips;
-  static deserializeBinaryFromReader(message: MemberQuitTips, reader: jspb.BinaryReader): MemberQuitTips;
-}
-
-export namespace MemberQuitTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    quituser?: GroupMemberInfo.AsObject,
-    operationtime: number,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupApplicationAcceptedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getHandlemsg(): string;
-  setHandlemsg(value: string): void;
-
-  getReceiveras(): number;
-  setReceiveras(value: number): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupApplicationAcceptedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupApplicationAcceptedTips): GroupApplicationAcceptedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupApplicationAcceptedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupApplicationAcceptedTips;
-  static deserializeBinaryFromReader(message: GroupApplicationAcceptedTips, reader: jspb.BinaryReader): GroupApplicationAcceptedTips;
-}
-
-export namespace GroupApplicationAcceptedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    handlemsg: string,
-    receiveras: number,
-  }
-}
-
-export class GroupApplicationRejectedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getHandlemsg(): string;
-  setHandlemsg(value: string): void;
-
-  getReceiveras(): number;
-  setReceiveras(value: number): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupApplicationRejectedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupApplicationRejectedTips): GroupApplicationRejectedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupApplicationRejectedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupApplicationRejectedTips;
-  static deserializeBinaryFromReader(message: GroupApplicationRejectedTips, reader: jspb.BinaryReader): GroupApplicationRejectedTips;
-}
-
-export namespace GroupApplicationRejectedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    handlemsg: string,
-    receiveras: number,
-  }
-}
-
-export class GroupOwnerTransferredTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  hasNewgroupowner(): boolean;
-  clearNewgroupowner(): void;
-  getNewgroupowner(): GroupMemberInfo | undefined;
-  setNewgroupowner(value?: GroupMemberInfo): void;
-
-  getOldgroupowner(): string;
-  setOldgroupowner(value: string): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  hasOldgroupownerinfo(): boolean;
-  clearOldgroupownerinfo(): void;
-  getOldgroupownerinfo(): GroupMemberInfo | undefined;
-  setOldgroupownerinfo(value?: GroupMemberInfo): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupOwnerTransferredTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupOwnerTransferredTips): GroupOwnerTransferredTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupOwnerTransferredTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupOwnerTransferredTips;
-  static deserializeBinaryFromReader(message: GroupOwnerTransferredTips, reader: jspb.BinaryReader): GroupOwnerTransferredTips;
-}
-
-export namespace GroupOwnerTransferredTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    newgroupowner?: GroupMemberInfo.AsObject,
-    oldgroupowner: string,
-    operationtime: number,
-    oldgroupownerinfo?: GroupMemberInfo.AsObject,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class MemberKickedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  clearKickeduserlistList(): void;
-  getKickeduserlistList(): Array<GroupMemberInfo>;
-  setKickeduserlistList(value: Array<GroupMemberInfo>): void;
-  addKickeduserlist(value?: GroupMemberInfo, index?: number): GroupMemberInfo;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): MemberKickedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: MemberKickedTips): MemberKickedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: MemberKickedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): MemberKickedTips;
-  static deserializeBinaryFromReader(message: MemberKickedTips, reader: jspb.BinaryReader): MemberKickedTips;
-}
-
-export namespace MemberKickedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    kickeduserlistList: Array<GroupMemberInfo.AsObject>,
-    operationtime: number,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class MemberInvitedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  clearInviteduserlistList(): void;
-  getInviteduserlistList(): Array<GroupMemberInfo>;
-  setInviteduserlistList(value: Array<GroupMemberInfo>): void;
-  addInviteduserlist(value?: GroupMemberInfo, index?: number): GroupMemberInfo;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  hasInviteruser(): boolean;
-  clearInviteruser(): void;
-  getInviteruser(): GroupMemberInfo | undefined;
-  setInviteruser(value?: GroupMemberInfo): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): MemberInvitedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: MemberInvitedTips): MemberInvitedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: MemberInvitedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): MemberInvitedTips;
-  static deserializeBinaryFromReader(message: MemberInvitedTips, reader: jspb.BinaryReader): MemberInvitedTips;
-}
-
-export namespace MemberInvitedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    inviteduserlistList: Array<GroupMemberInfo.AsObject>,
-    operationtime: number,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-    inviteruser?: GroupMemberInfo.AsObject,
-  }
-}
-
-export class MemberEnterTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasEntrantuser(): boolean;
-  clearEntrantuser(): void;
-  getEntrantuser(): GroupMemberInfo | undefined;
-  setEntrantuser(value?: GroupMemberInfo): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): MemberEnterTips.AsObject;
-  static toObject(includeInstance: boolean, msg: MemberEnterTips): MemberEnterTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: MemberEnterTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): MemberEnterTips;
-  static deserializeBinaryFromReader(message: MemberEnterTips, reader: jspb.BinaryReader): MemberEnterTips;
-}
-
-export namespace MemberEnterTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    entrantuser?: GroupMemberInfo.AsObject,
-    operationtime: number,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupDismissedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupDismissedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupDismissedTips): GroupDismissedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupDismissedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupDismissedTips;
-  static deserializeBinaryFromReader(message: GroupDismissedTips, reader: jspb.BinaryReader): GroupDismissedTips;
-}
-
-export namespace GroupDismissedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    operationtime: number,
-  }
-}
-
-export class GroupMemberMutedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  hasMuteduser(): boolean;
-  clearMuteduser(): void;
-  getMuteduser(): GroupMemberInfo | undefined;
-  setMuteduser(value?: GroupMemberInfo): void;
-
-  getMutedseconds(): number;
-  setMutedseconds(value: number): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupMemberMutedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupMemberMutedTips): GroupMemberMutedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupMemberMutedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupMemberMutedTips;
-  static deserializeBinaryFromReader(message: GroupMemberMutedTips, reader: jspb.BinaryReader): GroupMemberMutedTips;
-}
-
-export namespace GroupMemberMutedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    operationtime: number,
-    muteduser?: GroupMemberInfo.AsObject,
-    mutedseconds: number,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupMemberCancelMutedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  hasMuteduser(): boolean;
-  clearMuteduser(): void;
-  getMuteduser(): GroupMemberInfo | undefined;
-  setMuteduser(value?: GroupMemberInfo): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupMemberCancelMutedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupMemberCancelMutedTips): GroupMemberCancelMutedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupMemberCancelMutedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupMemberCancelMutedTips;
-  static deserializeBinaryFromReader(message: GroupMemberCancelMutedTips, reader: jspb.BinaryReader): GroupMemberCancelMutedTips;
-}
-
-export namespace GroupMemberCancelMutedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    operationtime: number,
-    muteduser?: GroupMemberInfo.AsObject,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupMutedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupMutedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupMutedTips): GroupMutedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupMutedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupMutedTips;
-  static deserializeBinaryFromReader(message: GroupMutedTips, reader: jspb.BinaryReader): GroupMutedTips;
-}
-
-export namespace GroupMutedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    operationtime: number,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupCancelMutedTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupCancelMutedTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupCancelMutedTips): GroupCancelMutedTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupCancelMutedTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupCancelMutedTips;
-  static deserializeBinaryFromReader(message: GroupCancelMutedTips, reader: jspb.BinaryReader): GroupCancelMutedTips;
-}
-
-export namespace GroupCancelMutedTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    operationtime: number,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-  }
-}
-
-export class GroupMemberInfoSetTips extends jspb.Message {
-  hasGroup(): boolean;
-  clearGroup(): void;
-  getGroup(): GroupInfo | undefined;
-  setGroup(value?: GroupInfo): void;
-
-  hasOpuser(): boolean;
-  clearOpuser(): void;
-  getOpuser(): GroupMemberInfo | undefined;
-  setOpuser(value?: GroupMemberInfo): void;
-
-  getOperationtime(): number;
-  setOperationtime(value: number): void;
-
-  hasChangeduser(): boolean;
-  clearChangeduser(): void;
-  getChangeduser(): GroupMemberInfo | undefined;
-  setChangeduser(value?: GroupMemberInfo): void;
-
-  getGroupmemberversion(): number;
-  setGroupmemberversion(value: number): void;
-
-  getGroupmemberversionid(): string;
-  setGroupmemberversionid(value: string): void;
-
-  getGroupsortversion(): number;
-  setGroupsortversion(value: number): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GroupMemberInfoSetTips.AsObject;
-  static toObject(includeInstance: boolean, msg: GroupMemberInfoSetTips): GroupMemberInfoSetTips.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GroupMemberInfoSetTips, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GroupMemberInfoSetTips;
-  static deserializeBinaryFromReader(message: GroupMemberInfoSetTips, reader: jspb.BinaryReader): GroupMemberInfoSetTips;
-}
-
-export namespace GroupMemberInfoSetTips {
-  export type AsObject = {
-    group?: GroupInfo.AsObject,
-    opuser?: GroupMemberInfo.AsObject,
-    operationtime: number,
-    changeduser?: GroupMemberInfo.AsObject,
-    groupmemberversion: number,
-    groupmemberversionid: string,
-    groupsortversion: number,
-  }
-}
-
-export interface GroupStatusMap {
-  DEFAULT: 0;
-  DISMISSED: 2;
-}
-
-export const GroupStatus: GroupStatusMap;
-
-export interface GroupFilterMap {
-  ALL: 0;
-  OWNER: 1;
-  ADMIN: 2;
-  ORDINARYUSERS: 3;
-  ADMINANDORDINARYUSERS: 4;
-  OWNERANDADMIN: 5;
-}
-
-export const GroupFilter: GroupFilterMap;
 

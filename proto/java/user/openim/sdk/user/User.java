@@ -25,1325 +25,6 @@ public final class User {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface UserInfoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.user.UserInfo)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string userID = 1;</code>
-     * @return The userID.
-     */
-    java.lang.String getUserID();
-    /**
-     * <code>string userID = 1;</code>
-     * @return The bytes for userID.
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
-
-    /**
-     * <code>string nickname = 2;</code>
-     * @return The nickname.
-     */
-    java.lang.String getNickname();
-    /**
-     * <code>string nickname = 2;</code>
-     * @return The bytes for nickname.
-     */
-    com.google.protobuf.ByteString
-        getNicknameBytes();
-
-    /**
-     * <code>string faceURL = 3;</code>
-     * @return The faceURL.
-     */
-    java.lang.String getFaceURL();
-    /**
-     * <code>string faceURL = 3;</code>
-     * @return The bytes for faceURL.
-     */
-    com.google.protobuf.ByteString
-        getFaceURLBytes();
-
-    /**
-     * <code>string ex = 4;</code>
-     * @return The ex.
-     */
-    java.lang.String getEx();
-    /**
-     * <code>string ex = 4;</code>
-     * @return The bytes for ex.
-     */
-    com.google.protobuf.ByteString
-        getExBytes();
-
-    /**
-     * <code>int64 createTime = 5;</code>
-     * @return The createTime.
-     */
-    long getCreateTime();
-
-    /**
-     * <code>int32 appMangerLevel = 6;</code>
-     * @return The appMangerLevel.
-     */
-    int getAppMangerLevel();
-
-    /**
-     * <code>int32 globalRecvMsgOpt = 7;</code>
-     * @return The globalRecvMsgOpt.
-     */
-    int getGlobalRecvMsgOpt();
-
-    /**
-     * <code>string attached = 8;</code>
-     * @return The attached.
-     */
-    java.lang.String getAttached();
-    /**
-     * <code>string attached = 8;</code>
-     * @return The bytes for attached.
-     */
-    com.google.protobuf.ByteString
-        getAttachedBytes();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.user.UserInfo}
-   */
-  public static final class UserInfo extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.user.UserInfo)
-      UserInfoOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        UserInfo.class.getName());
-    }
-    // Use UserInfo.newBuilder() to construct.
-    private UserInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private UserInfo() {
-      userID_ = "";
-      nickname_ = "";
-      faceURL_ = "";
-      ex_ = "";
-      attached_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.user.User.internal_static_openim_sdk_user_UserInfo_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.user.User.internal_static_openim_sdk_user_UserInfo_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.user.User.UserInfo.class, openim.sdk.user.User.UserInfo.Builder.class);
-    }
-
-    public static final int USERID_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object userID_ = "";
-    /**
-     * <code>string userID = 1;</code>
-     * @return The userID.
-     */
-    @java.lang.Override
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        userID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string userID = 1;</code>
-     * @return The bytes for userID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NICKNAME_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object nickname_ = "";
-    /**
-     * <code>string nickname = 2;</code>
-     * @return The nickname.
-     */
-    @java.lang.Override
-    public java.lang.String getNickname() {
-      java.lang.Object ref = nickname_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nickname_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string nickname = 2;</code>
-     * @return The bytes for nickname.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNicknameBytes() {
-      java.lang.Object ref = nickname_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nickname_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FACEURL_FIELD_NUMBER = 3;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object faceURL_ = "";
-    /**
-     * <code>string faceURL = 3;</code>
-     * @return The faceURL.
-     */
-    @java.lang.Override
-    public java.lang.String getFaceURL() {
-      java.lang.Object ref = faceURL_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        faceURL_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string faceURL = 3;</code>
-     * @return The bytes for faceURL.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFaceURLBytes() {
-      java.lang.Object ref = faceURL_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        faceURL_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EX_FIELD_NUMBER = 4;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object ex_ = "";
-    /**
-     * <code>string ex = 4;</code>
-     * @return The ex.
-     */
-    @java.lang.Override
-    public java.lang.String getEx() {
-      java.lang.Object ref = ex_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ex_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ex = 4;</code>
-     * @return The bytes for ex.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getExBytes() {
-      java.lang.Object ref = ex_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ex_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int CREATETIME_FIELD_NUMBER = 5;
-    private long createTime_ = 0L;
-    /**
-     * <code>int64 createTime = 5;</code>
-     * @return The createTime.
-     */
-    @java.lang.Override
-    public long getCreateTime() {
-      return createTime_;
-    }
-
-    public static final int APPMANGERLEVEL_FIELD_NUMBER = 6;
-    private int appMangerLevel_ = 0;
-    /**
-     * <code>int32 appMangerLevel = 6;</code>
-     * @return The appMangerLevel.
-     */
-    @java.lang.Override
-    public int getAppMangerLevel() {
-      return appMangerLevel_;
-    }
-
-    public static final int GLOBALRECVMSGOPT_FIELD_NUMBER = 7;
-    private int globalRecvMsgOpt_ = 0;
-    /**
-     * <code>int32 globalRecvMsgOpt = 7;</code>
-     * @return The globalRecvMsgOpt.
-     */
-    @java.lang.Override
-    public int getGlobalRecvMsgOpt() {
-      return globalRecvMsgOpt_;
-    }
-
-    public static final int ATTACHED_FIELD_NUMBER = 8;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object attached_ = "";
-    /**
-     * <code>string attached = 8;</code>
-     * @return The attached.
-     */
-    @java.lang.Override
-    public java.lang.String getAttached() {
-      java.lang.Object ref = attached_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        attached_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string attached = 8;</code>
-     * @return The bytes for attached.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAttachedBytes() {
-      java.lang.Object ref = attached_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        attached_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, userID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nickname_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, nickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(faceURL_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, faceURL_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ex_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 4, ex_);
-      }
-      if (createTime_ != 0L) {
-        output.writeInt64(5, createTime_);
-      }
-      if (appMangerLevel_ != 0) {
-        output.writeInt32(6, appMangerLevel_);
-      }
-      if (globalRecvMsgOpt_ != 0) {
-        output.writeInt32(7, globalRecvMsgOpt_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(attached_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 8, attached_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, userID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nickname_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, nickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(faceURL_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, faceURL_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ex_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, ex_);
-      }
-      if (createTime_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(5, createTime_);
-      }
-      if (appMangerLevel_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, appMangerLevel_);
-      }
-      if (globalRecvMsgOpt_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, globalRecvMsgOpt_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(attached_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, attached_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.user.User.UserInfo)) {
-        return super.equals(obj);
-      }
-      openim.sdk.user.User.UserInfo other = (openim.sdk.user.User.UserInfo) obj;
-
-      if (!getUserID()
-          .equals(other.getUserID())) return false;
-      if (!getNickname()
-          .equals(other.getNickname())) return false;
-      if (!getFaceURL()
-          .equals(other.getFaceURL())) return false;
-      if (!getEx()
-          .equals(other.getEx())) return false;
-      if (getCreateTime()
-          != other.getCreateTime()) return false;
-      if (getAppMangerLevel()
-          != other.getAppMangerLevel()) return false;
-      if (getGlobalRecvMsgOpt()
-          != other.getGlobalRecvMsgOpt()) return false;
-      if (!getAttached()
-          .equals(other.getAttached())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + getUserID().hashCode();
-      hash = (37 * hash) + NICKNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getNickname().hashCode();
-      hash = (37 * hash) + FACEURL_FIELD_NUMBER;
-      hash = (53 * hash) + getFaceURL().hashCode();
-      hash = (37 * hash) + EX_FIELD_NUMBER;
-      hash = (53 * hash) + getEx().hashCode();
-      hash = (37 * hash) + CREATETIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCreateTime());
-      hash = (37 * hash) + APPMANGERLEVEL_FIELD_NUMBER;
-      hash = (53 * hash) + getAppMangerLevel();
-      hash = (37 * hash) + GLOBALRECVMSGOPT_FIELD_NUMBER;
-      hash = (53 * hash) + getGlobalRecvMsgOpt();
-      hash = (37 * hash) + ATTACHED_FIELD_NUMBER;
-      hash = (53 * hash) + getAttached().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.user.User.UserInfo parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.user.User.UserInfo parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.user.User.UserInfo parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.user.User.UserInfo parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.user.User.UserInfo prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.user.UserInfo}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.user.UserInfo)
-        openim.sdk.user.User.UserInfoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.user.User.internal_static_openim_sdk_user_UserInfo_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.user.User.internal_static_openim_sdk_user_UserInfo_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.user.User.UserInfo.class, openim.sdk.user.User.UserInfo.Builder.class);
-      }
-
-      // Construct using openim.sdk.user.User.UserInfo.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        userID_ = "";
-        nickname_ = "";
-        faceURL_ = "";
-        ex_ = "";
-        createTime_ = 0L;
-        appMangerLevel_ = 0;
-        globalRecvMsgOpt_ = 0;
-        attached_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.user.User.internal_static_openim_sdk_user_UserInfo_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.user.User.UserInfo getDefaultInstanceForType() {
-        return openim.sdk.user.User.UserInfo.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.user.User.UserInfo build() {
-        openim.sdk.user.User.UserInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.user.User.UserInfo buildPartial() {
-        openim.sdk.user.User.UserInfo result = new openim.sdk.user.User.UserInfo(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.user.User.UserInfo result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.userID_ = userID_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.nickname_ = nickname_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.faceURL_ = faceURL_;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.ex_ = ex_;
-        }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.createTime_ = createTime_;
-        }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.appMangerLevel_ = appMangerLevel_;
-        }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
-          result.globalRecvMsgOpt_ = globalRecvMsgOpt_;
-        }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
-          result.attached_ = attached_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.user.User.UserInfo) {
-          return mergeFrom((openim.sdk.user.User.UserInfo)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.user.User.UserInfo other) {
-        if (other == openim.sdk.user.User.UserInfo.getDefaultInstance()) return this;
-        if (!other.getUserID().isEmpty()) {
-          userID_ = other.userID_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (!other.getNickname().isEmpty()) {
-          nickname_ = other.nickname_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        if (!other.getFaceURL().isEmpty()) {
-          faceURL_ = other.faceURL_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        if (!other.getEx().isEmpty()) {
-          ex_ = other.ex_;
-          bitField0_ |= 0x00000008;
-          onChanged();
-        }
-        if (other.getCreateTime() != 0L) {
-          setCreateTime(other.getCreateTime());
-        }
-        if (other.getAppMangerLevel() != 0) {
-          setAppMangerLevel(other.getAppMangerLevel());
-        }
-        if (other.getGlobalRecvMsgOpt() != 0) {
-          setGlobalRecvMsgOpt(other.getGlobalRecvMsgOpt());
-        }
-        if (!other.getAttached().isEmpty()) {
-          attached_ = other.attached_;
-          bitField0_ |= 0x00000080;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                userID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                nickname_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 26: {
-                faceURL_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 26
-              case 34: {
-                ex_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 34
-              case 40: {
-                createTime_ = input.readInt64();
-                bitField0_ |= 0x00000010;
-                break;
-              } // case 40
-              case 48: {
-                appMangerLevel_ = input.readInt32();
-                bitField0_ |= 0x00000020;
-                break;
-              } // case 48
-              case 56: {
-                globalRecvMsgOpt_ = input.readInt32();
-                bitField0_ |= 0x00000040;
-                break;
-              } // case 56
-              case 66: {
-                attached_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000080;
-                break;
-              } // case 66
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object userID_ = "";
-      /**
-       * <code>string userID = 1;</code>
-       * @return The userID.
-       */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          userID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string userID = 1;</code>
-       * @return The bytes for userID.
-       */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string userID = 1;</code>
-       * @param value The userID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        userID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string userID = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearUserID() {
-        userID_ = getDefaultInstance().getUserID();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string userID = 1;</code>
-       * @param value The bytes for userID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        userID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object nickname_ = "";
-      /**
-       * <code>string nickname = 2;</code>
-       * @return The nickname.
-       */
-      public java.lang.String getNickname() {
-        java.lang.Object ref = nickname_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nickname_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string nickname = 2;</code>
-       * @return The bytes for nickname.
-       */
-      public com.google.protobuf.ByteString
-          getNicknameBytes() {
-        java.lang.Object ref = nickname_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nickname_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string nickname = 2;</code>
-       * @param value The nickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNickname(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        nickname_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nickname = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearNickname() {
-        nickname_ = getDefaultInstance().getNickname();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nickname = 2;</code>
-       * @param value The bytes for nickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNicknameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        nickname_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object faceURL_ = "";
-      /**
-       * <code>string faceURL = 3;</code>
-       * @return The faceURL.
-       */
-      public java.lang.String getFaceURL() {
-        java.lang.Object ref = faceURL_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          faceURL_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string faceURL = 3;</code>
-       * @return The bytes for faceURL.
-       */
-      public com.google.protobuf.ByteString
-          getFaceURLBytes() {
-        java.lang.Object ref = faceURL_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          faceURL_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string faceURL = 3;</code>
-       * @param value The faceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFaceURL(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        faceURL_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string faceURL = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFaceURL() {
-        faceURL_ = getDefaultInstance().getFaceURL();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string faceURL = 3;</code>
-       * @param value The bytes for faceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFaceURLBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        faceURL_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object ex_ = "";
-      /**
-       * <code>string ex = 4;</code>
-       * @return The ex.
-       */
-      public java.lang.String getEx() {
-        java.lang.Object ref = ex_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ex_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string ex = 4;</code>
-       * @return The bytes for ex.
-       */
-      public com.google.protobuf.ByteString
-          getExBytes() {
-        java.lang.Object ref = ex_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ex_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ex = 4;</code>
-       * @param value The ex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEx(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ex_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ex = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearEx() {
-        ex_ = getDefaultInstance().getEx();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ex = 4;</code>
-       * @param value The bytes for ex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setExBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        ex_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-
-      private long createTime_ ;
-      /**
-       * <code>int64 createTime = 5;</code>
-       * @return The createTime.
-       */
-      @java.lang.Override
-      public long getCreateTime() {
-        return createTime_;
-      }
-      /**
-       * <code>int64 createTime = 5;</code>
-       * @param value The createTime to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCreateTime(long value) {
-
-        createTime_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 createTime = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCreateTime() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        createTime_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private int appMangerLevel_ ;
-      /**
-       * <code>int32 appMangerLevel = 6;</code>
-       * @return The appMangerLevel.
-       */
-      @java.lang.Override
-      public int getAppMangerLevel() {
-        return appMangerLevel_;
-      }
-      /**
-       * <code>int32 appMangerLevel = 6;</code>
-       * @param value The appMangerLevel to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAppMangerLevel(int value) {
-
-        appMangerLevel_ = value;
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 appMangerLevel = 6;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAppMangerLevel() {
-        bitField0_ = (bitField0_ & ~0x00000020);
-        appMangerLevel_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int globalRecvMsgOpt_ ;
-      /**
-       * <code>int32 globalRecvMsgOpt = 7;</code>
-       * @return The globalRecvMsgOpt.
-       */
-      @java.lang.Override
-      public int getGlobalRecvMsgOpt() {
-        return globalRecvMsgOpt_;
-      }
-      /**
-       * <code>int32 globalRecvMsgOpt = 7;</code>
-       * @param value The globalRecvMsgOpt to set.
-       * @return This builder for chaining.
-       */
-      public Builder setGlobalRecvMsgOpt(int value) {
-
-        globalRecvMsgOpt_ = value;
-        bitField0_ |= 0x00000040;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 globalRecvMsgOpt = 7;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearGlobalRecvMsgOpt() {
-        bitField0_ = (bitField0_ & ~0x00000040);
-        globalRecvMsgOpt_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object attached_ = "";
-      /**
-       * <code>string attached = 8;</code>
-       * @return The attached.
-       */
-      public java.lang.String getAttached() {
-        java.lang.Object ref = attached_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          attached_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string attached = 8;</code>
-       * @return The bytes for attached.
-       */
-      public com.google.protobuf.ByteString
-          getAttachedBytes() {
-        java.lang.Object ref = attached_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          attached_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string attached = 8;</code>
-       * @param value The attached to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttached(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        attached_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string attached = 8;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAttached() {
-        attached_ = getDefaultInstance().getAttached();
-        bitField0_ = (bitField0_ & ~0x00000080);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string attached = 8;</code>
-       * @param value The bytes for attached to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttachedBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        attached_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.user.UserInfo)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.user.UserInfo)
-    private static final openim.sdk.user.User.UserInfo DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.user.User.UserInfo();
-    }
-
-    public static openim.sdk.user.User.UserInfo getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<UserInfo>
-        PARSER = new com.google.protobuf.AbstractParser<UserInfo>() {
-      @java.lang.Override
-      public UserInfo parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<UserInfo> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<UserInfo> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.user.User.UserInfo getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface CommandInfoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:openim.sdk.user.CommandInfo)
       com.google.protobuf.MessageOrBuilder {
@@ -2803,19 +1484,19 @@ public final class User {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.openim.sdk.user.UserInfo user = 1;</code>
+     * <code>.openim.sdk.shared.UserInfo user = 1;</code>
      * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
-     * <code>.openim.sdk.user.UserInfo user = 1;</code>
+     * <code>.openim.sdk.shared.UserInfo user = 1;</code>
      * @return The user.
      */
-    openim.sdk.user.User.UserInfo getUser();
+    openim.sdk.shared.Shared.UserInfo getUser();
     /**
-     * <code>.openim.sdk.user.UserInfo user = 1;</code>
+     * <code>.openim.sdk.shared.UserInfo user = 1;</code>
      */
-    openim.sdk.user.User.UserInfoOrBuilder getUserOrBuilder();
+    openim.sdk.shared.Shared.UserInfoOrBuilder getUserOrBuilder();
   }
   /**
    * Protobuf type {@code openim.sdk.user.GetSelfUserInfoResp}
@@ -2856,9 +1537,9 @@ public final class User {
 
     private int bitField0_;
     public static final int USER_FIELD_NUMBER = 1;
-    private openim.sdk.user.User.UserInfo user_;
+    private openim.sdk.shared.Shared.UserInfo user_;
     /**
-     * <code>.openim.sdk.user.UserInfo user = 1;</code>
+     * <code>.openim.sdk.shared.UserInfo user = 1;</code>
      * @return Whether the user field is set.
      */
     @java.lang.Override
@@ -2866,19 +1547,19 @@ public final class User {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>.openim.sdk.user.UserInfo user = 1;</code>
+     * <code>.openim.sdk.shared.UserInfo user = 1;</code>
      * @return The user.
      */
     @java.lang.Override
-    public openim.sdk.user.User.UserInfo getUser() {
-      return user_ == null ? openim.sdk.user.User.UserInfo.getDefaultInstance() : user_;
+    public openim.sdk.shared.Shared.UserInfo getUser() {
+      return user_ == null ? openim.sdk.shared.Shared.UserInfo.getDefaultInstance() : user_;
     }
     /**
-     * <code>.openim.sdk.user.UserInfo user = 1;</code>
+     * <code>.openim.sdk.shared.UserInfo user = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.user.User.UserInfoOrBuilder getUserOrBuilder() {
-      return user_ == null ? openim.sdk.user.User.UserInfo.getDefaultInstance() : user_;
+    public openim.sdk.shared.Shared.UserInfoOrBuilder getUserOrBuilder() {
+      return user_ == null ? openim.sdk.shared.Shared.UserInfo.getDefaultInstance() : user_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3196,31 +1877,31 @@ public final class User {
       }
       private int bitField0_;
 
-      private openim.sdk.user.User.UserInfo user_;
+      private openim.sdk.shared.Shared.UserInfo user_;
       private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder> userBuilder_;
+          openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder> userBuilder_;
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        * @return The user.
        */
-      public openim.sdk.user.User.UserInfo getUser() {
+      public openim.sdk.shared.Shared.UserInfo getUser() {
         if (userBuilder_ == null) {
-          return user_ == null ? openim.sdk.user.User.UserInfo.getDefaultInstance() : user_;
+          return user_ == null ? openim.sdk.shared.Shared.UserInfo.getDefaultInstance() : user_;
         } else {
           return userBuilder_.getMessage();
         }
       }
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        */
-      public Builder setUser(openim.sdk.user.User.UserInfo value) {
+      public Builder setUser(openim.sdk.shared.Shared.UserInfo value) {
         if (userBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3234,10 +1915,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        */
       public Builder setUser(
-          openim.sdk.user.User.UserInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.UserInfo.Builder builderForValue) {
         if (userBuilder_ == null) {
           user_ = builderForValue.build();
         } else {
@@ -3248,13 +1929,13 @@ public final class User {
         return this;
       }
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        */
-      public Builder mergeUser(openim.sdk.user.User.UserInfo value) {
+      public Builder mergeUser(openim.sdk.shared.Shared.UserInfo value) {
         if (userBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0) &&
             user_ != null &&
-            user_ != openim.sdk.user.User.UserInfo.getDefaultInstance()) {
+            user_ != openim.sdk.shared.Shared.UserInfo.getDefaultInstance()) {
             getUserBuilder().mergeFrom(value);
           } else {
             user_ = value;
@@ -3269,7 +1950,7 @@ public final class User {
         return this;
       }
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        */
       public Builder clearUser() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -3282,33 +1963,33 @@ public final class User {
         return this;
       }
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo.Builder getUserBuilder() {
+      public openim.sdk.shared.Shared.UserInfo.Builder getUserBuilder() {
         bitField0_ |= 0x00000001;
         onChanged();
         return getUserFieldBuilder().getBuilder();
       }
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        */
-      public openim.sdk.user.User.UserInfoOrBuilder getUserOrBuilder() {
+      public openim.sdk.shared.Shared.UserInfoOrBuilder getUserOrBuilder() {
         if (userBuilder_ != null) {
           return userBuilder_.getMessageOrBuilder();
         } else {
           return user_ == null ?
-              openim.sdk.user.User.UserInfo.getDefaultInstance() : user_;
+              openim.sdk.shared.Shared.UserInfo.getDefaultInstance() : user_;
         }
       }
       /**
-       * <code>.openim.sdk.user.UserInfo user = 1;</code>
+       * <code>.openim.sdk.shared.UserInfo user = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder> 
+          openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder> 
           getUserFieldBuilder() {
         if (userBuilder_ == null) {
           userBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder>(
+              openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder>(
                   getUser(),
                   getParentForChildren(),
                   isClean());
@@ -10490,27 +9171,27 @@ public final class User {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
-    java.util.List<openim.sdk.user.User.UserInfo> 
+    java.util.List<openim.sdk.shared.Shared.UserInfo> 
         getUsersList();
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
-    openim.sdk.user.User.UserInfo getUsers(int index);
+    openim.sdk.shared.Shared.UserInfo getUsers(int index);
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     int getUsersCount();
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
-    java.util.List<? extends openim.sdk.user.User.UserInfoOrBuilder> 
+    java.util.List<? extends openim.sdk.shared.Shared.UserInfoOrBuilder> 
         getUsersOrBuilderList();
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
-    openim.sdk.user.User.UserInfoOrBuilder getUsersOrBuilder(
+    openim.sdk.shared.Shared.UserInfoOrBuilder getUsersOrBuilder(
         int index);
   }
   /**
@@ -10553,41 +9234,41 @@ public final class User {
 
     public static final int USERS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private java.util.List<openim.sdk.user.User.UserInfo> users_;
+    private java.util.List<openim.sdk.shared.Shared.UserInfo> users_;
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<openim.sdk.user.User.UserInfo> getUsersList() {
+    public java.util.List<openim.sdk.shared.Shared.UserInfo> getUsersList() {
       return users_;
     }
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends openim.sdk.user.User.UserInfoOrBuilder> 
+    public java.util.List<? extends openim.sdk.shared.Shared.UserInfoOrBuilder> 
         getUsersOrBuilderList() {
       return users_;
     }
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
     public int getUsersCount() {
       return users_.size();
     }
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.user.User.UserInfo getUsers(int index) {
+    public openim.sdk.shared.Shared.UserInfo getUsers(int index) {
       return users_.get(index);
     }
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.user.User.UserInfoOrBuilder getUsersOrBuilder(
+    public openim.sdk.shared.Shared.UserInfoOrBuilder getUsersOrBuilder(
         int index) {
       return users_.get(index);
     }
@@ -10905,9 +9586,9 @@ public final class User {
                 done = true;
                 break;
               case 10: {
-                openim.sdk.user.User.UserInfo m =
+                openim.sdk.shared.Shared.UserInfo m =
                     input.readMessage(
-                        openim.sdk.user.User.UserInfo.parser(),
+                        openim.sdk.shared.Shared.UserInfo.parser(),
                         extensionRegistry);
                 if (usersBuilder_ == null) {
                   ensureUsersIsMutable();
@@ -10934,22 +9615,22 @@ public final class User {
       }
       private int bitField0_;
 
-      private java.util.List<openim.sdk.user.User.UserInfo> users_ =
+      private java.util.List<openim.sdk.shared.Shared.UserInfo> users_ =
         java.util.Collections.emptyList();
       private void ensureUsersIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          users_ = new java.util.ArrayList<openim.sdk.user.User.UserInfo>(users_);
+          users_ = new java.util.ArrayList<openim.sdk.shared.Shared.UserInfo>(users_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder> usersBuilder_;
+          openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder> usersBuilder_;
 
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public java.util.List<openim.sdk.user.User.UserInfo> getUsersList() {
+      public java.util.List<openim.sdk.shared.Shared.UserInfo> getUsersList() {
         if (usersBuilder_ == null) {
           return java.util.Collections.unmodifiableList(users_);
         } else {
@@ -10957,7 +9638,7 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public int getUsersCount() {
         if (usersBuilder_ == null) {
@@ -10967,9 +9648,9 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo getUsers(int index) {
+      public openim.sdk.shared.Shared.UserInfo getUsers(int index) {
         if (usersBuilder_ == null) {
           return users_.get(index);
         } else {
@@ -10977,10 +9658,10 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder setUsers(
-          int index, openim.sdk.user.User.UserInfo value) {
+          int index, openim.sdk.shared.Shared.UserInfo value) {
         if (usersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -10994,10 +9675,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder setUsers(
-          int index, openim.sdk.user.User.UserInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.UserInfo.Builder builderForValue) {
         if (usersBuilder_ == null) {
           ensureUsersIsMutable();
           users_.set(index, builderForValue.build());
@@ -11008,9 +9689,9 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public Builder addUsers(openim.sdk.user.User.UserInfo value) {
+      public Builder addUsers(openim.sdk.shared.Shared.UserInfo value) {
         if (usersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -11024,10 +9705,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder addUsers(
-          int index, openim.sdk.user.User.UserInfo value) {
+          int index, openim.sdk.shared.Shared.UserInfo value) {
         if (usersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -11041,10 +9722,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder addUsers(
-          openim.sdk.user.User.UserInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.UserInfo.Builder builderForValue) {
         if (usersBuilder_ == null) {
           ensureUsersIsMutable();
           users_.add(builderForValue.build());
@@ -11055,10 +9736,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder addUsers(
-          int index, openim.sdk.user.User.UserInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.UserInfo.Builder builderForValue) {
         if (usersBuilder_ == null) {
           ensureUsersIsMutable();
           users_.add(index, builderForValue.build());
@@ -11069,10 +9750,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder addAllUsers(
-          java.lang.Iterable<? extends openim.sdk.user.User.UserInfo> values) {
+          java.lang.Iterable<? extends openim.sdk.shared.Shared.UserInfo> values) {
         if (usersBuilder_ == null) {
           ensureUsersIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -11084,7 +9765,7 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder clearUsers() {
         if (usersBuilder_ == null) {
@@ -11097,7 +9778,7 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder removeUsers(int index) {
         if (usersBuilder_ == null) {
@@ -11110,16 +9791,16 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo.Builder getUsersBuilder(
+      public openim.sdk.shared.Shared.UserInfo.Builder getUsersBuilder(
           int index) {
         return getUsersFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfoOrBuilder getUsersOrBuilder(
+      public openim.sdk.shared.Shared.UserInfoOrBuilder getUsersOrBuilder(
           int index) {
         if (usersBuilder_ == null) {
           return users_.get(index);  } else {
@@ -11127,9 +9808,9 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public java.util.List<? extends openim.sdk.user.User.UserInfoOrBuilder> 
+      public java.util.List<? extends openim.sdk.shared.Shared.UserInfoOrBuilder> 
            getUsersOrBuilderList() {
         if (usersBuilder_ != null) {
           return usersBuilder_.getMessageOrBuilderList();
@@ -11138,33 +9819,33 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo.Builder addUsersBuilder() {
+      public openim.sdk.shared.Shared.UserInfo.Builder addUsersBuilder() {
         return getUsersFieldBuilder().addBuilder(
-            openim.sdk.user.User.UserInfo.getDefaultInstance());
+            openim.sdk.shared.Shared.UserInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo.Builder addUsersBuilder(
+      public openim.sdk.shared.Shared.UserInfo.Builder addUsersBuilder(
           int index) {
         return getUsersFieldBuilder().addBuilder(
-            index, openim.sdk.user.User.UserInfo.getDefaultInstance());
+            index, openim.sdk.shared.Shared.UserInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public java.util.List<openim.sdk.user.User.UserInfo.Builder> 
+      public java.util.List<openim.sdk.shared.Shared.UserInfo.Builder> 
            getUsersBuilderList() {
         return getUsersFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder> 
+          openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder> 
           getUsersFieldBuilder() {
         if (usersBuilder_ == null) {
           usersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder>(
+              openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder>(
                   users_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -11806,27 +10487,27 @@ public final class User {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
-    java.util.List<openim.sdk.user.User.UserInfo> 
+    java.util.List<openim.sdk.shared.Shared.UserInfo> 
         getUsersList();
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
-    openim.sdk.user.User.UserInfo getUsers(int index);
+    openim.sdk.shared.Shared.UserInfo getUsers(int index);
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     int getUsersCount();
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
-    java.util.List<? extends openim.sdk.user.User.UserInfoOrBuilder> 
+    java.util.List<? extends openim.sdk.shared.Shared.UserInfoOrBuilder> 
         getUsersOrBuilderList();
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
-    openim.sdk.user.User.UserInfoOrBuilder getUsersOrBuilder(
+    openim.sdk.shared.Shared.UserInfoOrBuilder getUsersOrBuilder(
         int index);
   }
   /**
@@ -11869,41 +10550,41 @@ public final class User {
 
     public static final int USERS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private java.util.List<openim.sdk.user.User.UserInfo> users_;
+    private java.util.List<openim.sdk.shared.Shared.UserInfo> users_;
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<openim.sdk.user.User.UserInfo> getUsersList() {
+    public java.util.List<openim.sdk.shared.Shared.UserInfo> getUsersList() {
       return users_;
     }
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends openim.sdk.user.User.UserInfoOrBuilder> 
+    public java.util.List<? extends openim.sdk.shared.Shared.UserInfoOrBuilder> 
         getUsersOrBuilderList() {
       return users_;
     }
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
     public int getUsersCount() {
       return users_.size();
     }
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.user.User.UserInfo getUsers(int index) {
+    public openim.sdk.shared.Shared.UserInfo getUsers(int index) {
       return users_.get(index);
     }
     /**
-     * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+     * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.user.User.UserInfoOrBuilder getUsersOrBuilder(
+    public openim.sdk.shared.Shared.UserInfoOrBuilder getUsersOrBuilder(
         int index) {
       return users_.get(index);
     }
@@ -12221,9 +10902,9 @@ public final class User {
                 done = true;
                 break;
               case 10: {
-                openim.sdk.user.User.UserInfo m =
+                openim.sdk.shared.Shared.UserInfo m =
                     input.readMessage(
-                        openim.sdk.user.User.UserInfo.parser(),
+                        openim.sdk.shared.Shared.UserInfo.parser(),
                         extensionRegistry);
                 if (usersBuilder_ == null) {
                   ensureUsersIsMutable();
@@ -12250,22 +10931,22 @@ public final class User {
       }
       private int bitField0_;
 
-      private java.util.List<openim.sdk.user.User.UserInfo> users_ =
+      private java.util.List<openim.sdk.shared.Shared.UserInfo> users_ =
         java.util.Collections.emptyList();
       private void ensureUsersIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          users_ = new java.util.ArrayList<openim.sdk.user.User.UserInfo>(users_);
+          users_ = new java.util.ArrayList<openim.sdk.shared.Shared.UserInfo>(users_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder> usersBuilder_;
+          openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder> usersBuilder_;
 
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public java.util.List<openim.sdk.user.User.UserInfo> getUsersList() {
+      public java.util.List<openim.sdk.shared.Shared.UserInfo> getUsersList() {
         if (usersBuilder_ == null) {
           return java.util.Collections.unmodifiableList(users_);
         } else {
@@ -12273,7 +10954,7 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public int getUsersCount() {
         if (usersBuilder_ == null) {
@@ -12283,9 +10964,9 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo getUsers(int index) {
+      public openim.sdk.shared.Shared.UserInfo getUsers(int index) {
         if (usersBuilder_ == null) {
           return users_.get(index);
         } else {
@@ -12293,10 +10974,10 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder setUsers(
-          int index, openim.sdk.user.User.UserInfo value) {
+          int index, openim.sdk.shared.Shared.UserInfo value) {
         if (usersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -12310,10 +10991,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder setUsers(
-          int index, openim.sdk.user.User.UserInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.UserInfo.Builder builderForValue) {
         if (usersBuilder_ == null) {
           ensureUsersIsMutable();
           users_.set(index, builderForValue.build());
@@ -12324,9 +11005,9 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public Builder addUsers(openim.sdk.user.User.UserInfo value) {
+      public Builder addUsers(openim.sdk.shared.Shared.UserInfo value) {
         if (usersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -12340,10 +11021,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder addUsers(
-          int index, openim.sdk.user.User.UserInfo value) {
+          int index, openim.sdk.shared.Shared.UserInfo value) {
         if (usersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -12357,10 +11038,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder addUsers(
-          openim.sdk.user.User.UserInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.UserInfo.Builder builderForValue) {
         if (usersBuilder_ == null) {
           ensureUsersIsMutable();
           users_.add(builderForValue.build());
@@ -12371,10 +11052,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder addUsers(
-          int index, openim.sdk.user.User.UserInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.UserInfo.Builder builderForValue) {
         if (usersBuilder_ == null) {
           ensureUsersIsMutable();
           users_.add(index, builderForValue.build());
@@ -12385,10 +11066,10 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder addAllUsers(
-          java.lang.Iterable<? extends openim.sdk.user.User.UserInfo> values) {
+          java.lang.Iterable<? extends openim.sdk.shared.Shared.UserInfo> values) {
         if (usersBuilder_ == null) {
           ensureUsersIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -12400,7 +11081,7 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder clearUsers() {
         if (usersBuilder_ == null) {
@@ -12413,7 +11094,7 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
       public Builder removeUsers(int index) {
         if (usersBuilder_ == null) {
@@ -12426,16 +11107,16 @@ public final class User {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo.Builder getUsersBuilder(
+      public openim.sdk.shared.Shared.UserInfo.Builder getUsersBuilder(
           int index) {
         return getUsersFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfoOrBuilder getUsersOrBuilder(
+      public openim.sdk.shared.Shared.UserInfoOrBuilder getUsersOrBuilder(
           int index) {
         if (usersBuilder_ == null) {
           return users_.get(index);  } else {
@@ -12443,9 +11124,9 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public java.util.List<? extends openim.sdk.user.User.UserInfoOrBuilder> 
+      public java.util.List<? extends openim.sdk.shared.Shared.UserInfoOrBuilder> 
            getUsersOrBuilderList() {
         if (usersBuilder_ != null) {
           return usersBuilder_.getMessageOrBuilderList();
@@ -12454,33 +11135,33 @@ public final class User {
         }
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo.Builder addUsersBuilder() {
+      public openim.sdk.shared.Shared.UserInfo.Builder addUsersBuilder() {
         return getUsersFieldBuilder().addBuilder(
-            openim.sdk.user.User.UserInfo.getDefaultInstance());
+            openim.sdk.shared.Shared.UserInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public openim.sdk.user.User.UserInfo.Builder addUsersBuilder(
+      public openim.sdk.shared.Shared.UserInfo.Builder addUsersBuilder(
           int index) {
         return getUsersFieldBuilder().addBuilder(
-            index, openim.sdk.user.User.UserInfo.getDefaultInstance());
+            index, openim.sdk.shared.Shared.UserInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.user.UserInfo users = 1;</code>
+       * <code>repeated .openim.sdk.shared.UserInfo users = 1;</code>
        */
-      public java.util.List<openim.sdk.user.User.UserInfo.Builder> 
+      public java.util.List<openim.sdk.shared.Shared.UserInfo.Builder> 
            getUsersBuilderList() {
         return getUsersFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder> 
+          openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder> 
           getUsersFieldBuilder() {
         if (usersBuilder_ == null) {
           usersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder>(
+              openim.sdk.shared.Shared.UserInfo, openim.sdk.shared.Shared.UserInfo.Builder, openim.sdk.shared.Shared.UserInfoOrBuilder>(
                   users_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -12541,11 +11222,6 @@ public final class User {
 
   }
 
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_user_UserInfo_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_user_UserInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_openim_sdk_user_CommandInfo_descriptor;
   private static final 
@@ -12640,156 +11316,148 @@ public final class User {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nuser.proto\022\017openim.sdk.user\"\241\001\n\010UserIn" +
-      "fo\022\016\n\006userID\030\001 \001(\t\022\020\n\010nickname\030\002 \001(\t\022\017\n\007" +
-      "faceURL\030\003 \001(\t\022\n\n\002ex\030\004 \001(\t\022\022\n\ncreateTime\030" +
-      "\005 \001(\003\022\026\n\016appMangerLevel\030\006 \001(\005\022\030\n\020globalR" +
-      "ecvMsgOpt\030\007 \001(\005\022\020\n\010attached\030\010 \001(\t\"h\n\013Com" +
-      "mandInfo\022\016\n\006userID\030\001 \001(\t\022\014\n\004type\030\002 \001(\005\022\022" +
-      "\n\ncreateTime\030\003 \001(\003\022\014\n\004uuid\030\004 \001(\t\022\r\n\005valu" +
-      "e\030\005 \001(\t\022\n\n\002ex\030\006 \001(\t\"\024\n\022GetSelfUserInfoRe" +
-      "q\">\n\023GetSelfUserInfoResp\022\'\n\004user\030\001 \001(\0132\031" +
-      ".openim.sdk.user.UserInfo\"\262\001\n\016SetSelfInf" +
-      "oReq\022\016\n\006userID\030\001 \001(\t\022\025\n\010nickname\030\002 \001(\tH\000" +
-      "\210\001\001\022\024\n\007faceURL\030\003 \001(\tH\001\210\001\001\022\017\n\002ex\030\004 \001(\tH\002\210" +
-      "\001\001\022\035\n\020globalRecvMsgOpt\030\007 \001(\005H\003\210\001\001B\013\n\t_ni" +
-      "cknameB\n\n\010_faceURLB\005\n\003_exB\023\n\021_globalRecv" +
-      "MsgOpt\"\021\n\017SetSelfInfoResp\"|\n\030ProcessUser" +
-      "CommandAddReq\022\016\n\006userID\030\001 \001(\t\022\014\n\004type\030\002 " +
-      "\001(\005\022\014\n\004uuid\030\003 \001(\t\022\022\n\005value\030\004 \001(\tH\000\210\001\001\022\017\n" +
-      "\002ex\030\005 \001(\tH\001\210\001\001B\010\n\006_valueB\005\n\003_ex\"\033\n\031Proce" +
-      "ssUserCommandAddResp\"I\n\033ProcessUserComma" +
-      "ndDeleteReq\022\016\n\006userID\030\001 \001(\t\022\014\n\004type\030\002 \001(" +
-      "\005\022\014\n\004uuid\030\003 \001(\t\"\036\n\034ProcessUserCommandDel" +
-      "eteResp\"\177\n\033ProcessUserCommandUpdateReq\022\016" +
-      "\n\006userID\030\001 \001(\t\022\014\n\004type\030\002 \001(\005\022\014\n\004uuid\030\003 \001" +
-      "(\t\022\022\n\005value\030\004 \001(\tH\000\210\001\001\022\017\n\002ex\030\005 \001(\tH\001\210\001\001B" +
-      "\010\n\006_valueB\005\n\003_ex\"\036\n\034ProcessUserCommandUp" +
-      "dateResp\"\035\n\033ProcessUserCommandGetAllReq\"" +
-      "N\n\034ProcessUserCommandGetAllResp\022.\n\010comma" +
-      "nds\030\001 \003(\0132\034.openim.sdk.user.CommandInfo\"" +
-      "\"\n\017GetUsersInfoReq\022\017\n\007userIDs\030\001 \003(\t\"<\n\020G" +
-      "etUsersInfoResp\022(\n\005users\030\001 \003(\0132\031.openim." +
-      "sdk.user.UserInfo\",\n\031GetUsersInfoFromSer" +
-      "verReq\022\017\n\007userIDs\030\001 \003(\t\"F\n\032GetUsersInfoF" +
-      "romServerResp\022(\n\005users\030\001 \003(\0132\031.openim.sd" +
-      "k.user.UserInfoB@Z5github.com/openimsdk/" +
-      "openim-sdk-core/v3/proto/go/user\252\002\006OpenI" +
-      "Mb\006proto3"
+      "\n\nuser.proto\022\017openim.sdk.user\032\014shared.pr" +
+      "oto\"h\n\013CommandInfo\022\016\n\006userID\030\001 \001(\t\022\014\n\004ty" +
+      "pe\030\002 \001(\005\022\022\n\ncreateTime\030\003 \001(\003\022\014\n\004uuid\030\004 \001" +
+      "(\t\022\r\n\005value\030\005 \001(\t\022\n\n\002ex\030\006 \001(\t\"\024\n\022GetSelf" +
+      "UserInfoReq\"@\n\023GetSelfUserInfoResp\022)\n\004us" +
+      "er\030\001 \001(\0132\033.openim.sdk.shared.UserInfo\"\262\001" +
+      "\n\016SetSelfInfoReq\022\016\n\006userID\030\001 \001(\t\022\025\n\010nick" +
+      "name\030\002 \001(\tH\000\210\001\001\022\024\n\007faceURL\030\003 \001(\tH\001\210\001\001\022\017\n" +
+      "\002ex\030\004 \001(\tH\002\210\001\001\022\035\n\020globalRecvMsgOpt\030\007 \001(\005" +
+      "H\003\210\001\001B\013\n\t_nicknameB\n\n\010_faceURLB\005\n\003_exB\023\n" +
+      "\021_globalRecvMsgOpt\"\021\n\017SetSelfInfoResp\"|\n" +
+      "\030ProcessUserCommandAddReq\022\016\n\006userID\030\001 \001(" +
+      "\t\022\014\n\004type\030\002 \001(\005\022\014\n\004uuid\030\003 \001(\t\022\022\n\005value\030\004" +
+      " \001(\tH\000\210\001\001\022\017\n\002ex\030\005 \001(\tH\001\210\001\001B\010\n\006_valueB\005\n\003" +
+      "_ex\"\033\n\031ProcessUserCommandAddResp\"I\n\033Proc" +
+      "essUserCommandDeleteReq\022\016\n\006userID\030\001 \001(\t\022" +
+      "\014\n\004type\030\002 \001(\005\022\014\n\004uuid\030\003 \001(\t\"\036\n\034ProcessUs" +
+      "erCommandDeleteResp\"\177\n\033ProcessUserComman" +
+      "dUpdateReq\022\016\n\006userID\030\001 \001(\t\022\014\n\004type\030\002 \001(\005" +
+      "\022\014\n\004uuid\030\003 \001(\t\022\022\n\005value\030\004 \001(\tH\000\210\001\001\022\017\n\002ex" +
+      "\030\005 \001(\tH\001\210\001\001B\010\n\006_valueB\005\n\003_ex\"\036\n\034ProcessU" +
+      "serCommandUpdateResp\"\035\n\033ProcessUserComma" +
+      "ndGetAllReq\"N\n\034ProcessUserCommandGetAllR" +
+      "esp\022.\n\010commands\030\001 \003(\0132\034.openim.sdk.user." +
+      "CommandInfo\"\"\n\017GetUsersInfoReq\022\017\n\007userID" +
+      "s\030\001 \003(\t\">\n\020GetUsersInfoResp\022*\n\005users\030\001 \003" +
+      "(\0132\033.openim.sdk.shared.UserInfo\",\n\031GetUs" +
+      "ersInfoFromServerReq\022\017\n\007userIDs\030\001 \003(\t\"H\n" +
+      "\032GetUsersInfoFromServerResp\022*\n\005users\030\001 \003" +
+      "(\0132\033.openim.sdk.shared.UserInfoB@Z5githu" +
+      "b.com/openimsdk/openim-sdk-core/v3/proto" +
+      "/go/user\252\002\006OpenIMb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          openim.sdk.shared.Shared.getDescriptor(),
         });
-    internal_static_openim_sdk_user_UserInfo_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_openim_sdk_user_UserInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_user_UserInfo_descriptor,
-        new java.lang.String[] { "UserID", "Nickname", "FaceURL", "Ex", "CreateTime", "AppMangerLevel", "GlobalRecvMsgOpt", "Attached", });
     internal_static_openim_sdk_user_CommandInfo_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_openim_sdk_user_CommandInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_CommandInfo_descriptor,
         new java.lang.String[] { "UserID", "Type", "CreateTime", "Uuid", "Value", "Ex", });
     internal_static_openim_sdk_user_GetSelfUserInfoReq_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_openim_sdk_user_GetSelfUserInfoReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_GetSelfUserInfoReq_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_user_GetSelfUserInfoResp_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_openim_sdk_user_GetSelfUserInfoResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_GetSelfUserInfoResp_descriptor,
         new java.lang.String[] { "User", });
     internal_static_openim_sdk_user_SetSelfInfoReq_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_openim_sdk_user_SetSelfInfoReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_SetSelfInfoReq_descriptor,
         new java.lang.String[] { "UserID", "Nickname", "FaceURL", "Ex", "GlobalRecvMsgOpt", });
     internal_static_openim_sdk_user_SetSelfInfoResp_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_openim_sdk_user_SetSelfInfoResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_SetSelfInfoResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_user_ProcessUserCommandAddReq_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_openim_sdk_user_ProcessUserCommandAddReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_ProcessUserCommandAddReq_descriptor,
         new java.lang.String[] { "UserID", "Type", "Uuid", "Value", "Ex", });
     internal_static_openim_sdk_user_ProcessUserCommandAddResp_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_openim_sdk_user_ProcessUserCommandAddResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_ProcessUserCommandAddResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_user_ProcessUserCommandDeleteReq_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_openim_sdk_user_ProcessUserCommandDeleteReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_ProcessUserCommandDeleteReq_descriptor,
         new java.lang.String[] { "UserID", "Type", "Uuid", });
     internal_static_openim_sdk_user_ProcessUserCommandDeleteResp_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_openim_sdk_user_ProcessUserCommandDeleteResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_ProcessUserCommandDeleteResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_user_ProcessUserCommandUpdateReq_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_openim_sdk_user_ProcessUserCommandUpdateReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_ProcessUserCommandUpdateReq_descriptor,
         new java.lang.String[] { "UserID", "Type", "Uuid", "Value", "Ex", });
     internal_static_openim_sdk_user_ProcessUserCommandUpdateResp_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_openim_sdk_user_ProcessUserCommandUpdateResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_ProcessUserCommandUpdateResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_user_ProcessUserCommandGetAllReq_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_openim_sdk_user_ProcessUserCommandGetAllReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_ProcessUserCommandGetAllReq_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_user_ProcessUserCommandGetAllResp_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_openim_sdk_user_ProcessUserCommandGetAllResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_ProcessUserCommandGetAllResp_descriptor,
         new java.lang.String[] { "Commands", });
     internal_static_openim_sdk_user_GetUsersInfoReq_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_openim_sdk_user_GetUsersInfoReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_GetUsersInfoReq_descriptor,
         new java.lang.String[] { "UserIDs", });
     internal_static_openim_sdk_user_GetUsersInfoResp_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_openim_sdk_user_GetUsersInfoResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_GetUsersInfoResp_descriptor,
         new java.lang.String[] { "Users", });
     internal_static_openim_sdk_user_GetUsersInfoFromServerReq_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_openim_sdk_user_GetUsersInfoFromServerReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_GetUsersInfoFromServerReq_descriptor,
         new java.lang.String[] { "UserIDs", });
     internal_static_openim_sdk_user_GetUsersInfoFromServerResp_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_openim_sdk_user_GetUsersInfoFromServerResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_user_GetUsersInfoFromServerResp_descriptor,
         new java.lang.String[] { "Users", });
     descriptor.resolveAllFeaturesImmutable();
+    openim.sdk.shared.Shared.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

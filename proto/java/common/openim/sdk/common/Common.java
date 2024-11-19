@@ -1071,6 +1071,10 @@ public final class Common {
      */
     Face(115),
     /**
+     * <code>Stream = 116;</code>
+     */
+    Stream(116),
+    /**
      * <code>AdvancedText = 117;</code>
      */
     AdvancedText(117),
@@ -1079,11 +1083,6 @@ public final class Common {
      */
     CustomMsgNotTriggerConversation(119),
     /**
-     * <pre>
-     * NotificationBegin = 1000;
-     * FriendNotificationBegin = 1200;
-     * </pre>
-     *
      * <code>CustomMsgOnlineOnly = 120;</code>
      */
     CustomMsgOnlineOnly(120),
@@ -1344,6 +1343,10 @@ public final class Common {
      */
     public static final int Face_VALUE = 115;
     /**
+     * <code>Stream = 116;</code>
+     */
+    public static final int Stream_VALUE = 116;
+    /**
      * <code>AdvancedText = 117;</code>
      */
     public static final int AdvancedText_VALUE = 117;
@@ -1352,11 +1355,6 @@ public final class Common {
      */
     public static final int CustomMsgNotTriggerConversation_VALUE = 119;
     /**
-     * <pre>
-     * NotificationBegin = 1000;
-     * FriendNotificationBegin = 1200;
-     * </pre>
-     *
      * <code>CustomMsgOnlineOnly = 120;</code>
      */
     public static final int CustomMsgOnlineOnly_VALUE = 120;
@@ -1588,6 +1586,7 @@ public final class Common {
         case 113: return Typing;
         case 114: return Quote;
         case 115: return Face;
+        case 116: return Stream;
         case 117: return AdvancedText;
         case 119: return CustomMsgNotTriggerConversation;
         case 120: return CustomMsgOnlineOnly;
@@ -3536,54 +3535,54 @@ public final class Common {
       "\022\014\n\010Avalonia\020\n\022\013\n\007Cordova\020\013\022\n\n\006UniApp\020\014*" +
       "g\n\tMsgStatus\022\016\n\nMsgStatus_\020\000\022\013\n\007Sending\020" +
       "\001\022\017\n\013SendSuccess\020\002\022\016\n\nSendFailed\020\003\022\016\n\nHa" +
-      "sDeleted\020\004\022\014\n\010Filtered\020\005*\275\r\n\013ContentType" +
+      "sDeleted\020\004\022\014\n\010Filtered\020\005*\311\r\n\013ContentType" +
       "\022\020\n\014ContentType_\020\000\022\010\n\004Text\020e\022\013\n\007Picture\020" +
       "f\022\t\n\005Sound\020g\022\t\n\005Video\020h\022\010\n\004File\020i\022\n\n\006AtT" +
       "ext\020j\022\t\n\005Merge\020k\022\010\n\004Card\020l\022\014\n\010Location\020m" +
       "\022\n\n\006Custom\020n\022\n\n\006Typing\020q\022\t\n\005Quote\020r\022\010\n\004F" +
-      "ace\020s\022\020\n\014AdvancedText\020u\022#\n\037CustomMsgNotT" +
-      "riggerConversation\020w\022\027\n\023CustomMsgOnlineO" +
-      "nly\020x\022*\n%FriendApplicationApprovedNotifi" +
-      "cation\020\261\t\022*\n%FriendApplicationRejectedNo" +
-      "tification\020\262\t\022\"\n\035FriendApplicationNotifi" +
-      "cation\020\263\t\022\034\n\027FriendAddedNotification\020\264\t\022" +
-      "\036\n\031FriendDeletedNotification\020\265\t\022 \n\033Frien" +
-      "dRemarkSetNotification\020\266\t\022\033\n\026BlackAddedN" +
-      "otification\020\267\t\022\035\n\030BlackDeletedNotificati" +
-      "on\020\270\t\022\"\n\035FriendInfoUpdatedNotification\020\271" +
-      "\t\022\"\n\035FriendsInfoUpdateNotification\020\272\t\022#\n" +
-      "\036ConversationChangeNotification\020\224\n\022 \n\033Us" +
-      "erInfoUpdatedNotification\020\227\n\022!\n\034UserStat" +
-      "usChangeNotification\020\230\n\022\037\n\032UserCommandAd" +
-      "dNotification\020\231\n\022\"\n\035UserCommandDeleteNot" +
-      "ification\020\232\n\022\"\n\035UserCommandUpdateNotific" +
-      "ation\020\233\n\022\035\n\030GroupCreatedNotification\020\335\013\022" +
-      "\035\n\030GroupInfoSetNotification\020\336\013\022%\n JoinGr" +
-      "oupApplicationNotification\020\337\013\022\033\n\026MemberQ" +
-      "uitNotification\020\340\013\022)\n$GroupApplicationAc" +
-      "ceptedNotification\020\341\013\022)\n$GroupApplicatio" +
-      "nRejectedNotification\020\342\013\022&\n!GroupOwnerTr" +
-      "ansferredNotification\020\343\013\022\035\n\030MemberKicked" +
-      "Notification\020\344\013\022\036\n\031MemberInvitedNotifica" +
-      "tion\020\345\013\022\034\n\027MemberEnterNotification\020\346\013\022\037\n" +
-      "\032GroupDismissedNotification\020\347\013\022!\n\034GroupM" +
-      "emberMutedNotification\020\350\013\022\'\n\"GroupMember" +
-      "CancelMutedNotification\020\351\013\022\033\n\026GroupMuted" +
-      "Notification\020\352\013\022!\n\034GroupCancelMutedNotif" +
-      "ication\020\353\013\022#\n\036GroupMemberInfoSetNotifica" +
-      "tion\020\354\013\022&\n!GroupMemberSetToAdminNotifica" +
-      "tion\020\355\013\022-\n(GroupMemberSetToOrdinaryUserN" +
-      "otification\020\356\013\022)\n$GroupInfoSetAnnounceme" +
-      "ntNotification\020\357\013\022!\n\034GroupInfoSetNameNot" +
-      "ification\020\360\013\022(\n#ConversationPrivateChatN" +
-      "otification\020\245\r\022\"\n\035ClearConversationNotif" +
-      "ication\020\247\r\022\031\n\024BusinessNotification\020\321\017\022\027\n" +
-      "\022RevokeNotification\020\265\020\022\033\n\026DeleteMsgsNoti" +
-      "fication\020\266\020\022\023\n\016HasReadReceipt\020\230\021*B\n\016Appr" +
-      "ovalStatus\022\013\n\007Default\020\000\022\014\n\010Approved\020\001\022\025\n" +
-      "\010Rejected\020\377\377\377\377\377\377\377\377\377\001B9Z7github.com/openi" +
-      "msdk/openim-sdk-core/v3/proto/go/commonb" +
-      "\006proto3"
+      "ace\020s\022\n\n\006Stream\020t\022\020\n\014AdvancedText\020u\022#\n\037C" +
+      "ustomMsgNotTriggerConversation\020w\022\027\n\023Cust" +
+      "omMsgOnlineOnly\020x\022*\n%FriendApplicationAp" +
+      "provedNotification\020\261\t\022*\n%FriendApplicati" +
+      "onRejectedNotification\020\262\t\022\"\n\035FriendAppli" +
+      "cationNotification\020\263\t\022\034\n\027FriendAddedNoti" +
+      "fication\020\264\t\022\036\n\031FriendDeletedNotification" +
+      "\020\265\t\022 \n\033FriendRemarkSetNotification\020\266\t\022\033\n" +
+      "\026BlackAddedNotification\020\267\t\022\035\n\030BlackDelet" +
+      "edNotification\020\270\t\022\"\n\035FriendInfoUpdatedNo" +
+      "tification\020\271\t\022\"\n\035FriendsInfoUpdateNotifi" +
+      "cation\020\272\t\022#\n\036ConversationChangeNotificat" +
+      "ion\020\224\n\022 \n\033UserInfoUpdatedNotification\020\227\n" +
+      "\022!\n\034UserStatusChangeNotification\020\230\n\022\037\n\032U" +
+      "serCommandAddNotification\020\231\n\022\"\n\035UserComm" +
+      "andDeleteNotification\020\232\n\022\"\n\035UserCommandU" +
+      "pdateNotification\020\233\n\022\035\n\030GroupCreatedNoti" +
+      "fication\020\335\013\022\035\n\030GroupInfoSetNotification\020" +
+      "\336\013\022%\n JoinGroupApplicationNotification\020\337" +
+      "\013\022\033\n\026MemberQuitNotification\020\340\013\022)\n$GroupA" +
+      "pplicationAcceptedNotification\020\341\013\022)\n$Gro" +
+      "upApplicationRejectedNotification\020\342\013\022&\n!" +
+      "GroupOwnerTransferredNotification\020\343\013\022\035\n\030" +
+      "MemberKickedNotification\020\344\013\022\036\n\031MemberInv" +
+      "itedNotification\020\345\013\022\034\n\027MemberEnterNotifi" +
+      "cation\020\346\013\022\037\n\032GroupDismissedNotification\020" +
+      "\347\013\022!\n\034GroupMemberMutedNotification\020\350\013\022\'\n" +
+      "\"GroupMemberCancelMutedNotification\020\351\013\022\033" +
+      "\n\026GroupMutedNotification\020\352\013\022!\n\034GroupCanc" +
+      "elMutedNotification\020\353\013\022#\n\036GroupMemberInf" +
+      "oSetNotification\020\354\013\022&\n!GroupMemberSetToA" +
+      "dminNotification\020\355\013\022-\n(GroupMemberSetToO" +
+      "rdinaryUserNotification\020\356\013\022)\n$GroupInfoS" +
+      "etAnnouncementNotification\020\357\013\022!\n\034GroupIn" +
+      "foSetNameNotification\020\360\013\022(\n#Conversation" +
+      "PrivateChatNotification\020\245\r\022\"\n\035ClearConve" +
+      "rsationNotification\020\247\r\022\031\n\024BusinessNotifi" +
+      "cation\020\321\017\022\027\n\022RevokeNotification\020\265\020\022\033\n\026De" +
+      "leteMsgsNotification\020\266\020\022\023\n\016HasReadReceip" +
+      "t\020\230\021*B\n\016ApprovalStatus\022\013\n\007Default\020\000\022\014\n\010A" +
+      "pproved\020\001\022\025\n\010Rejected\020\377\377\377\377\377\377\377\377\377\001B9Z7gith" +
+      "ub.com/openimsdk/openim-sdk-core/v3/prot" +
+      "o/go/commonb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

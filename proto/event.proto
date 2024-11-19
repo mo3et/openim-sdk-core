@@ -1,24 +1,24 @@
 syntax = "proto3";
 package openim.event;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
-import "shared.proto";
+
 import "message.proto";
+import "shared.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/event";
 
-enum FuncRequestEventName{
+enum FuncRequestEventName {
   None = 0;
   GetAllConversationList = 1;
   GetConversationList = 2;
   GetConversation = 3;
   InitSDK = 4;
   Login = 5;
-  SendMessage=6;
+  SendMessage = 6;
   UploadLogs = 7;
   UploadFile = 8;
   Log = 9;
 
-  EventOnSendMsgProgress =12;
+  EventOnSendMsgProgress = 12;
   EventOnUploadFileProgress = 13;
   EventOnUploadLogsProgress = 14;
   EventOnConnecting = 15;
@@ -169,17 +169,17 @@ enum FuncRequestEventName{
   ProcessUserCommandUpdate = 2105;
   GetUsersInfo = 2106;
   GetUsersInfoFromServer = 2107;
-};
+}
 
-message EventOnSendMsgProgressData{
+message EventOnSendMsgProgressData {
   int32 progress = 1;
 }
 
-message EventOnUploadFileProgressData{
+message EventOnUploadFileProgressData {
   int32 progress = 1;
 }
 
-message EventOnUploadLogsProgressData{
+message EventOnUploadLogsProgressData {
   int64 progress = 1;
   int64 total = 2;
 }
@@ -196,52 +196,52 @@ message EventOnUserTokenInvalidData {
   string errMsg = 1;
 }
 message EventOnSyncServerStartData {
-  bool reinstalled =1;
-};
+  bool reinstalled = 1;
+}
 message EventOnSyncServerFinishData {
   bool reinstalled = 1;
-};
+}
 message EventOnSyncServerFailedData {
   bool reinstalled = 1;
-};
+}
 message EventOnSyncServerProgressData {
   int32 progress = 1;
-};
+}
 message EventOnNewConversationData {
   string conversationList = 1;
-};
+}
 message EventOnConversationChangedData {
   string conversationList = 1;
-};
+}
 message EventOnTotalUnreadMessageCountChangedData {
   int32 totalUnreadCount = 1;
-};
+}
 message EventOnConversationUserInputStatusChangedData {
-  string conversationID  = 1;
-  string userID   = 2;
+  string conversationID = 1;
+  string userID = 2;
   repeated int32 platformIDs = 3;
-};
+}
 message EventOnRecvNewMessageData {
   openim.sdk.message.IMMessage message = 1;
-};
+}
 message EventOnRecvC2CReadReceiptData {
   string msgReceiptList = 1;
-};
+}
 message EventOnNewRecvMessageRevokedData {
   string messageRevoked = 1;
-};
+}
 message EventOnRecvOfflineNewMessageData {
   openim.sdk.message.IMMessage message = 1;
-};
+}
 message EventOnMsgDeletedData {
   openim.sdk.message.IMMessage message = 1;
-};
+}
 message EventOnRecvOnlineOnlyMessageData {
   openim.sdk.message.IMMessage message = 1;
-};
+}
 message EventOnMsgEditedData {
   openim.sdk.message.IMMessage message = 1;
-};
+}
 
 // FriendCallback Data Types
 message EventOnFriendApplicationAddedData {

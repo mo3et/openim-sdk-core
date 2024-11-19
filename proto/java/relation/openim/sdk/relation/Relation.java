@@ -142,5521 +142,6 @@ public final class Relation {
     // @@protoc_insertion_point(enum_scope:openim.sdk.relation.Relationship)
   }
 
-  public interface FriendInfoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendInfo)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string ownerUserID = 1;</code>
-     * @return The ownerUserID.
-     */
-    java.lang.String getOwnerUserID();
-    /**
-     * <code>string ownerUserID = 1;</code>
-     * @return The bytes for ownerUserID.
-     */
-    com.google.protobuf.ByteString
-        getOwnerUserIDBytes();
-
-    /**
-     * <code>string friendUserID = 2;</code>
-     * @return The friendUserID.
-     */
-    java.lang.String getFriendUserID();
-    /**
-     * <code>string friendUserID = 2;</code>
-     * @return The bytes for friendUserID.
-     */
-    com.google.protobuf.ByteString
-        getFriendUserIDBytes();
-
-    /**
-     * <code>string remark = 3;</code>
-     * @return The remark.
-     */
-    java.lang.String getRemark();
-    /**
-     * <code>string remark = 3;</code>
-     * @return The bytes for remark.
-     */
-    com.google.protobuf.ByteString
-        getRemarkBytes();
-
-    /**
-     * <code>int64 createTime = 4;</code>
-     * @return The createTime.
-     */
-    long getCreateTime();
-
-    /**
-     * <code>int32 addSource = 5;</code>
-     * @return The addSource.
-     */
-    int getAddSource();
-
-    /**
-     * <code>string operatorUserID = 6;</code>
-     * @return The operatorUserID.
-     */
-    java.lang.String getOperatorUserID();
-    /**
-     * <code>string operatorUserID = 6;</code>
-     * @return The bytes for operatorUserID.
-     */
-    com.google.protobuf.ByteString
-        getOperatorUserIDBytes();
-
-    /**
-     * <code>string nickname = 7;</code>
-     * @return The nickname.
-     */
-    java.lang.String getNickname();
-    /**
-     * <code>string nickname = 7;</code>
-     * @return The bytes for nickname.
-     */
-    com.google.protobuf.ByteString
-        getNicknameBytes();
-
-    /**
-     * <code>string faceURL = 8;</code>
-     * @return The faceURL.
-     */
-    java.lang.String getFaceURL();
-    /**
-     * <code>string faceURL = 8;</code>
-     * @return The bytes for faceURL.
-     */
-    com.google.protobuf.ByteString
-        getFaceURLBytes();
-
-    /**
-     * <code>string ex = 9;</code>
-     * @return The ex.
-     */
-    java.lang.String getEx();
-    /**
-     * <code>string ex = 9;</code>
-     * @return The bytes for ex.
-     */
-    com.google.protobuf.ByteString
-        getExBytes();
-
-    /**
-     * <code>string attachedInfo = 10;</code>
-     * @return The attachedInfo.
-     */
-    java.lang.String getAttachedInfo();
-    /**
-     * <code>string attachedInfo = 10;</code>
-     * @return The bytes for attachedInfo.
-     */
-    com.google.protobuf.ByteString
-        getAttachedInfoBytes();
-
-    /**
-     * <code>bool isPinned = 11;</code>
-     * @return The isPinned.
-     */
-    boolean getIsPinned();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.relation.FriendInfo}
-   */
-  public static final class FriendInfo extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendInfo)
-      FriendInfoOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendInfo.class.getName());
-    }
-    // Use FriendInfo.newBuilder() to construct.
-    private FriendInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendInfo() {
-      ownerUserID_ = "";
-      friendUserID_ = "";
-      remark_ = "";
-      operatorUserID_ = "";
-      nickname_ = "";
-      faceURL_ = "";
-      ex_ = "";
-      attachedInfo_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfo_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfo_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendInfo.class, openim.sdk.relation.Relation.FriendInfo.Builder.class);
-    }
-
-    public static final int OWNERUSERID_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object ownerUserID_ = "";
-    /**
-     * <code>string ownerUserID = 1;</code>
-     * @return The ownerUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getOwnerUserID() {
-      java.lang.Object ref = ownerUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ownerUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ownerUserID = 1;</code>
-     * @return The bytes for ownerUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getOwnerUserIDBytes() {
-      java.lang.Object ref = ownerUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ownerUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FRIENDUSERID_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object friendUserID_ = "";
-    /**
-     * <code>string friendUserID = 2;</code>
-     * @return The friendUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getFriendUserID() {
-      java.lang.Object ref = friendUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        friendUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string friendUserID = 2;</code>
-     * @return The bytes for friendUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFriendUserIDBytes() {
-      java.lang.Object ref = friendUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        friendUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int REMARK_FIELD_NUMBER = 3;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object remark_ = "";
-    /**
-     * <code>string remark = 3;</code>
-     * @return The remark.
-     */
-    @java.lang.Override
-    public java.lang.String getRemark() {
-      java.lang.Object ref = remark_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        remark_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string remark = 3;</code>
-     * @return The bytes for remark.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getRemarkBytes() {
-      java.lang.Object ref = remark_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        remark_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int CREATETIME_FIELD_NUMBER = 4;
-    private long createTime_ = 0L;
-    /**
-     * <code>int64 createTime = 4;</code>
-     * @return The createTime.
-     */
-    @java.lang.Override
-    public long getCreateTime() {
-      return createTime_;
-    }
-
-    public static final int ADDSOURCE_FIELD_NUMBER = 5;
-    private int addSource_ = 0;
-    /**
-     * <code>int32 addSource = 5;</code>
-     * @return The addSource.
-     */
-    @java.lang.Override
-    public int getAddSource() {
-      return addSource_;
-    }
-
-    public static final int OPERATORUSERID_FIELD_NUMBER = 6;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object operatorUserID_ = "";
-    /**
-     * <code>string operatorUserID = 6;</code>
-     * @return The operatorUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getOperatorUserID() {
-      java.lang.Object ref = operatorUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        operatorUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string operatorUserID = 6;</code>
-     * @return The bytes for operatorUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getOperatorUserIDBytes() {
-      java.lang.Object ref = operatorUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        operatorUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NICKNAME_FIELD_NUMBER = 7;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object nickname_ = "";
-    /**
-     * <code>string nickname = 7;</code>
-     * @return The nickname.
-     */
-    @java.lang.Override
-    public java.lang.String getNickname() {
-      java.lang.Object ref = nickname_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nickname_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string nickname = 7;</code>
-     * @return The bytes for nickname.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNicknameBytes() {
-      java.lang.Object ref = nickname_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nickname_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FACEURL_FIELD_NUMBER = 8;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object faceURL_ = "";
-    /**
-     * <code>string faceURL = 8;</code>
-     * @return The faceURL.
-     */
-    @java.lang.Override
-    public java.lang.String getFaceURL() {
-      java.lang.Object ref = faceURL_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        faceURL_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string faceURL = 8;</code>
-     * @return The bytes for faceURL.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFaceURLBytes() {
-      java.lang.Object ref = faceURL_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        faceURL_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EX_FIELD_NUMBER = 9;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object ex_ = "";
-    /**
-     * <code>string ex = 9;</code>
-     * @return The ex.
-     */
-    @java.lang.Override
-    public java.lang.String getEx() {
-      java.lang.Object ref = ex_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ex_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ex = 9;</code>
-     * @return The bytes for ex.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getExBytes() {
-      java.lang.Object ref = ex_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ex_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ATTACHEDINFO_FIELD_NUMBER = 10;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object attachedInfo_ = "";
-    /**
-     * <code>string attachedInfo = 10;</code>
-     * @return The attachedInfo.
-     */
-    @java.lang.Override
-    public java.lang.String getAttachedInfo() {
-      java.lang.Object ref = attachedInfo_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        attachedInfo_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string attachedInfo = 10;</code>
-     * @return The bytes for attachedInfo.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAttachedInfoBytes() {
-      java.lang.Object ref = attachedInfo_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        attachedInfo_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ISPINNED_FIELD_NUMBER = 11;
-    private boolean isPinned_ = false;
-    /**
-     * <code>bool isPinned = 11;</code>
-     * @return The isPinned.
-     */
-    @java.lang.Override
-    public boolean getIsPinned() {
-      return isPinned_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ownerUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, ownerUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, friendUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(remark_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, remark_);
-      }
-      if (createTime_ != 0L) {
-        output.writeInt64(4, createTime_);
-      }
-      if (addSource_ != 0) {
-        output.writeInt32(5, addSource_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(operatorUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 6, operatorUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nickname_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 7, nickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(faceURL_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 8, faceURL_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ex_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 9, ex_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(attachedInfo_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 10, attachedInfo_);
-      }
-      if (isPinned_ != false) {
-        output.writeBool(11, isPinned_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ownerUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, ownerUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, friendUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(remark_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, remark_);
-      }
-      if (createTime_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, createTime_);
-      }
-      if (addSource_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, addSource_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(operatorUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(6, operatorUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nickname_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(7, nickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(faceURL_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, faceURL_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ex_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(9, ex_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(attachedInfo_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, attachedInfo_);
-      }
-      if (isPinned_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(11, isPinned_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendInfo)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendInfo other = (openim.sdk.relation.Relation.FriendInfo) obj;
-
-      if (!getOwnerUserID()
-          .equals(other.getOwnerUserID())) return false;
-      if (!getFriendUserID()
-          .equals(other.getFriendUserID())) return false;
-      if (!getRemark()
-          .equals(other.getRemark())) return false;
-      if (getCreateTime()
-          != other.getCreateTime()) return false;
-      if (getAddSource()
-          != other.getAddSource()) return false;
-      if (!getOperatorUserID()
-          .equals(other.getOperatorUserID())) return false;
-      if (!getNickname()
-          .equals(other.getNickname())) return false;
-      if (!getFaceURL()
-          .equals(other.getFaceURL())) return false;
-      if (!getEx()
-          .equals(other.getEx())) return false;
-      if (!getAttachedInfo()
-          .equals(other.getAttachedInfo())) return false;
-      if (getIsPinned()
-          != other.getIsPinned()) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + OWNERUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getOwnerUserID().hashCode();
-      hash = (37 * hash) + FRIENDUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getFriendUserID().hashCode();
-      hash = (37 * hash) + REMARK_FIELD_NUMBER;
-      hash = (53 * hash) + getRemark().hashCode();
-      hash = (37 * hash) + CREATETIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCreateTime());
-      hash = (37 * hash) + ADDSOURCE_FIELD_NUMBER;
-      hash = (53 * hash) + getAddSource();
-      hash = (37 * hash) + OPERATORUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getOperatorUserID().hashCode();
-      hash = (37 * hash) + NICKNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getNickname().hashCode();
-      hash = (37 * hash) + FACEURL_FIELD_NUMBER;
-      hash = (53 * hash) + getFaceURL().hashCode();
-      hash = (37 * hash) + EX_FIELD_NUMBER;
-      hash = (53 * hash) + getEx().hashCode();
-      hash = (37 * hash) + ATTACHEDINFO_FIELD_NUMBER;
-      hash = (53 * hash) + getAttachedInfo().hashCode();
-      hash = (37 * hash) + ISPINNED_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsPinned());
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendInfo parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendInfo parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendInfo parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendInfo prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.relation.FriendInfo}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendInfo)
-        openim.sdk.relation.Relation.FriendInfoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfo_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfo_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendInfo.class, openim.sdk.relation.Relation.FriendInfo.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendInfo.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        ownerUserID_ = "";
-        friendUserID_ = "";
-        remark_ = "";
-        createTime_ = 0L;
-        addSource_ = 0;
-        operatorUserID_ = "";
-        nickname_ = "";
-        faceURL_ = "";
-        ex_ = "";
-        attachedInfo_ = "";
-        isPinned_ = false;
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfo_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendInfo getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendInfo.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendInfo build() {
-        openim.sdk.relation.Relation.FriendInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendInfo buildPartial() {
-        openim.sdk.relation.Relation.FriendInfo result = new openim.sdk.relation.Relation.FriendInfo(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendInfo result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.ownerUserID_ = ownerUserID_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.friendUserID_ = friendUserID_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.remark_ = remark_;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.createTime_ = createTime_;
-        }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.addSource_ = addSource_;
-        }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.operatorUserID_ = operatorUserID_;
-        }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
-          result.nickname_ = nickname_;
-        }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
-          result.faceURL_ = faceURL_;
-        }
-        if (((from_bitField0_ & 0x00000100) != 0)) {
-          result.ex_ = ex_;
-        }
-        if (((from_bitField0_ & 0x00000200) != 0)) {
-          result.attachedInfo_ = attachedInfo_;
-        }
-        if (((from_bitField0_ & 0x00000400) != 0)) {
-          result.isPinned_ = isPinned_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendInfo) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendInfo)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendInfo other) {
-        if (other == openim.sdk.relation.Relation.FriendInfo.getDefaultInstance()) return this;
-        if (!other.getOwnerUserID().isEmpty()) {
-          ownerUserID_ = other.ownerUserID_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (!other.getFriendUserID().isEmpty()) {
-          friendUserID_ = other.friendUserID_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        if (!other.getRemark().isEmpty()) {
-          remark_ = other.remark_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        if (other.getCreateTime() != 0L) {
-          setCreateTime(other.getCreateTime());
-        }
-        if (other.getAddSource() != 0) {
-          setAddSource(other.getAddSource());
-        }
-        if (!other.getOperatorUserID().isEmpty()) {
-          operatorUserID_ = other.operatorUserID_;
-          bitField0_ |= 0x00000020;
-          onChanged();
-        }
-        if (!other.getNickname().isEmpty()) {
-          nickname_ = other.nickname_;
-          bitField0_ |= 0x00000040;
-          onChanged();
-        }
-        if (!other.getFaceURL().isEmpty()) {
-          faceURL_ = other.faceURL_;
-          bitField0_ |= 0x00000080;
-          onChanged();
-        }
-        if (!other.getEx().isEmpty()) {
-          ex_ = other.ex_;
-          bitField0_ |= 0x00000100;
-          onChanged();
-        }
-        if (!other.getAttachedInfo().isEmpty()) {
-          attachedInfo_ = other.attachedInfo_;
-          bitField0_ |= 0x00000200;
-          onChanged();
-        }
-        if (other.getIsPinned() != false) {
-          setIsPinned(other.getIsPinned());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                ownerUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                friendUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 26: {
-                remark_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 26
-              case 32: {
-                createTime_ = input.readInt64();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 32
-              case 40: {
-                addSource_ = input.readInt32();
-                bitField0_ |= 0x00000010;
-                break;
-              } // case 40
-              case 50: {
-                operatorUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000020;
-                break;
-              } // case 50
-              case 58: {
-                nickname_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000040;
-                break;
-              } // case 58
-              case 66: {
-                faceURL_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000080;
-                break;
-              } // case 66
-              case 74: {
-                ex_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000100;
-                break;
-              } // case 74
-              case 82: {
-                attachedInfo_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000200;
-                break;
-              } // case 82
-              case 88: {
-                isPinned_ = input.readBool();
-                bitField0_ |= 0x00000400;
-                break;
-              } // case 88
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object ownerUserID_ = "";
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @return The ownerUserID.
-       */
-      public java.lang.String getOwnerUserID() {
-        java.lang.Object ref = ownerUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ownerUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @return The bytes for ownerUserID.
-       */
-      public com.google.protobuf.ByteString
-          getOwnerUserIDBytes() {
-        java.lang.Object ref = ownerUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ownerUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @param value The ownerUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOwnerUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ownerUserID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearOwnerUserID() {
-        ownerUserID_ = getDefaultInstance().getOwnerUserID();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @param value The bytes for ownerUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOwnerUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        ownerUserID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object friendUserID_ = "";
-      /**
-       * <code>string friendUserID = 2;</code>
-       * @return The friendUserID.
-       */
-      public java.lang.String getFriendUserID() {
-        java.lang.Object ref = friendUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          friendUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string friendUserID = 2;</code>
-       * @return The bytes for friendUserID.
-       */
-      public com.google.protobuf.ByteString
-          getFriendUserIDBytes() {
-        java.lang.Object ref = friendUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          friendUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string friendUserID = 2;</code>
-       * @param value The friendUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        friendUserID_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendUserID = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendUserID() {
-        friendUserID_ = getDefaultInstance().getFriendUserID();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendUserID = 2;</code>
-       * @param value The bytes for friendUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        friendUserID_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object remark_ = "";
-      /**
-       * <code>string remark = 3;</code>
-       * @return The remark.
-       */
-      public java.lang.String getRemark() {
-        java.lang.Object ref = remark_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          remark_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string remark = 3;</code>
-       * @return The bytes for remark.
-       */
-      public com.google.protobuf.ByteString
-          getRemarkBytes() {
-        java.lang.Object ref = remark_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          remark_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string remark = 3;</code>
-       * @param value The remark to set.
-       * @return This builder for chaining.
-       */
-      public Builder setRemark(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        remark_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string remark = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearRemark() {
-        remark_ = getDefaultInstance().getRemark();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string remark = 3;</code>
-       * @param value The bytes for remark to set.
-       * @return This builder for chaining.
-       */
-      public Builder setRemarkBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        remark_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      private long createTime_ ;
-      /**
-       * <code>int64 createTime = 4;</code>
-       * @return The createTime.
-       */
-      @java.lang.Override
-      public long getCreateTime() {
-        return createTime_;
-      }
-      /**
-       * <code>int64 createTime = 4;</code>
-       * @param value The createTime to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCreateTime(long value) {
-
-        createTime_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 createTime = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCreateTime() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        createTime_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private int addSource_ ;
-      /**
-       * <code>int32 addSource = 5;</code>
-       * @return The addSource.
-       */
-      @java.lang.Override
-      public int getAddSource() {
-        return addSource_;
-      }
-      /**
-       * <code>int32 addSource = 5;</code>
-       * @param value The addSource to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAddSource(int value) {
-
-        addSource_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 addSource = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAddSource() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        addSource_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object operatorUserID_ = "";
-      /**
-       * <code>string operatorUserID = 6;</code>
-       * @return The operatorUserID.
-       */
-      public java.lang.String getOperatorUserID() {
-        java.lang.Object ref = operatorUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          operatorUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string operatorUserID = 6;</code>
-       * @return The bytes for operatorUserID.
-       */
-      public com.google.protobuf.ByteString
-          getOperatorUserIDBytes() {
-        java.lang.Object ref = operatorUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          operatorUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string operatorUserID = 6;</code>
-       * @param value The operatorUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOperatorUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        operatorUserID_ = value;
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string operatorUserID = 6;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearOperatorUserID() {
-        operatorUserID_ = getDefaultInstance().getOperatorUserID();
-        bitField0_ = (bitField0_ & ~0x00000020);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string operatorUserID = 6;</code>
-       * @param value The bytes for operatorUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOperatorUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        operatorUserID_ = value;
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object nickname_ = "";
-      /**
-       * <code>string nickname = 7;</code>
-       * @return The nickname.
-       */
-      public java.lang.String getNickname() {
-        java.lang.Object ref = nickname_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nickname_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string nickname = 7;</code>
-       * @return The bytes for nickname.
-       */
-      public com.google.protobuf.ByteString
-          getNicknameBytes() {
-        java.lang.Object ref = nickname_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nickname_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string nickname = 7;</code>
-       * @param value The nickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNickname(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        nickname_ = value;
-        bitField0_ |= 0x00000040;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nickname = 7;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearNickname() {
-        nickname_ = getDefaultInstance().getNickname();
-        bitField0_ = (bitField0_ & ~0x00000040);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nickname = 7;</code>
-       * @param value The bytes for nickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNicknameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        nickname_ = value;
-        bitField0_ |= 0x00000040;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object faceURL_ = "";
-      /**
-       * <code>string faceURL = 8;</code>
-       * @return The faceURL.
-       */
-      public java.lang.String getFaceURL() {
-        java.lang.Object ref = faceURL_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          faceURL_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string faceURL = 8;</code>
-       * @return The bytes for faceURL.
-       */
-      public com.google.protobuf.ByteString
-          getFaceURLBytes() {
-        java.lang.Object ref = faceURL_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          faceURL_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string faceURL = 8;</code>
-       * @param value The faceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFaceURL(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        faceURL_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string faceURL = 8;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFaceURL() {
-        faceURL_ = getDefaultInstance().getFaceURL();
-        bitField0_ = (bitField0_ & ~0x00000080);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string faceURL = 8;</code>
-       * @param value The bytes for faceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFaceURLBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        faceURL_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object ex_ = "";
-      /**
-       * <code>string ex = 9;</code>
-       * @return The ex.
-       */
-      public java.lang.String getEx() {
-        java.lang.Object ref = ex_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ex_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string ex = 9;</code>
-       * @return The bytes for ex.
-       */
-      public com.google.protobuf.ByteString
-          getExBytes() {
-        java.lang.Object ref = ex_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ex_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ex = 9;</code>
-       * @param value The ex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEx(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ex_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ex = 9;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearEx() {
-        ex_ = getDefaultInstance().getEx();
-        bitField0_ = (bitField0_ & ~0x00000100);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ex = 9;</code>
-       * @param value The bytes for ex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setExBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        ex_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object attachedInfo_ = "";
-      /**
-       * <code>string attachedInfo = 10;</code>
-       * @return The attachedInfo.
-       */
-      public java.lang.String getAttachedInfo() {
-        java.lang.Object ref = attachedInfo_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          attachedInfo_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string attachedInfo = 10;</code>
-       * @return The bytes for attachedInfo.
-       */
-      public com.google.protobuf.ByteString
-          getAttachedInfoBytes() {
-        java.lang.Object ref = attachedInfo_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          attachedInfo_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string attachedInfo = 10;</code>
-       * @param value The attachedInfo to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttachedInfo(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        attachedInfo_ = value;
-        bitField0_ |= 0x00000200;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string attachedInfo = 10;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAttachedInfo() {
-        attachedInfo_ = getDefaultInstance().getAttachedInfo();
-        bitField0_ = (bitField0_ & ~0x00000200);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string attachedInfo = 10;</code>
-       * @param value The bytes for attachedInfo to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttachedInfoBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        attachedInfo_ = value;
-        bitField0_ |= 0x00000200;
-        onChanged();
-        return this;
-      }
-
-      private boolean isPinned_ ;
-      /**
-       * <code>bool isPinned = 11;</code>
-       * @return The isPinned.
-       */
-      @java.lang.Override
-      public boolean getIsPinned() {
-        return isPinned_;
-      }
-      /**
-       * <code>bool isPinned = 11;</code>
-       * @param value The isPinned to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIsPinned(boolean value) {
-
-        isPinned_ = value;
-        bitField0_ |= 0x00000400;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool isPinned = 11;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearIsPinned() {
-        bitField0_ = (bitField0_ & ~0x00000400);
-        isPinned_ = false;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendInfo)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendInfo)
-    private static final openim.sdk.relation.Relation.FriendInfo DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendInfo();
-    }
-
-    public static openim.sdk.relation.Relation.FriendInfo getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendInfo>
-        PARSER = new com.google.protobuf.AbstractParser<FriendInfo>() {
-      @java.lang.Override
-      public FriendInfo parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendInfo> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendInfo> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfo getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BlackInfoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.BlackInfo)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string ownerUserID = 1;</code>
-     * @return The ownerUserID.
-     */
-    java.lang.String getOwnerUserID();
-    /**
-     * <code>string ownerUserID = 1;</code>
-     * @return The bytes for ownerUserID.
-     */
-    com.google.protobuf.ByteString
-        getOwnerUserIDBytes();
-
-    /**
-     * <code>string blockUserID = 2;</code>
-     * @return The blockUserID.
-     */
-    java.lang.String getBlockUserID();
-    /**
-     * <code>string blockUserID = 2;</code>
-     * @return The bytes for blockUserID.
-     */
-    com.google.protobuf.ByteString
-        getBlockUserIDBytes();
-
-    /**
-     * <code>string nickname = 3;</code>
-     * @return The nickname.
-     */
-    java.lang.String getNickname();
-    /**
-     * <code>string nickname = 3;</code>
-     * @return The bytes for nickname.
-     */
-    com.google.protobuf.ByteString
-        getNicknameBytes();
-
-    /**
-     * <code>string faceURL = 4;</code>
-     * @return The faceURL.
-     */
-    java.lang.String getFaceURL();
-    /**
-     * <code>string faceURL = 4;</code>
-     * @return The bytes for faceURL.
-     */
-    com.google.protobuf.ByteString
-        getFaceURLBytes();
-
-    /**
-     * <code>int64 createTime = 5;</code>
-     * @return The createTime.
-     */
-    long getCreateTime();
-
-    /**
-     * <code>int32 addSource = 6;</code>
-     * @return The addSource.
-     */
-    int getAddSource();
-
-    /**
-     * <code>string operatorUserID = 7;</code>
-     * @return The operatorUserID.
-     */
-    java.lang.String getOperatorUserID();
-    /**
-     * <code>string operatorUserID = 7;</code>
-     * @return The bytes for operatorUserID.
-     */
-    com.google.protobuf.ByteString
-        getOperatorUserIDBytes();
-
-    /**
-     * <code>string ex = 8;</code>
-     * @return The ex.
-     */
-    java.lang.String getEx();
-    /**
-     * <code>string ex = 8;</code>
-     * @return The bytes for ex.
-     */
-    com.google.protobuf.ByteString
-        getExBytes();
-
-    /**
-     * <code>string attached = 9;</code>
-     * @return The attached.
-     */
-    java.lang.String getAttached();
-    /**
-     * <code>string attached = 9;</code>
-     * @return The bytes for attached.
-     */
-    com.google.protobuf.ByteString
-        getAttachedBytes();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.relation.BlackInfo}
-   */
-  public static final class BlackInfo extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.BlackInfo)
-      BlackInfoOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        BlackInfo.class.getName());
-    }
-    // Use BlackInfo.newBuilder() to construct.
-    private BlackInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private BlackInfo() {
-      ownerUserID_ = "";
-      blockUserID_ = "";
-      nickname_ = "";
-      faceURL_ = "";
-      operatorUserID_ = "";
-      ex_ = "";
-      attached_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackInfo_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackInfo_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.BlackInfo.class, openim.sdk.relation.Relation.BlackInfo.Builder.class);
-    }
-
-    public static final int OWNERUSERID_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object ownerUserID_ = "";
-    /**
-     * <code>string ownerUserID = 1;</code>
-     * @return The ownerUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getOwnerUserID() {
-      java.lang.Object ref = ownerUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ownerUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ownerUserID = 1;</code>
-     * @return The bytes for ownerUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getOwnerUserIDBytes() {
-      java.lang.Object ref = ownerUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ownerUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int BLOCKUSERID_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object blockUserID_ = "";
-    /**
-     * <code>string blockUserID = 2;</code>
-     * @return The blockUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getBlockUserID() {
-      java.lang.Object ref = blockUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        blockUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string blockUserID = 2;</code>
-     * @return The bytes for blockUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getBlockUserIDBytes() {
-      java.lang.Object ref = blockUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        blockUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NICKNAME_FIELD_NUMBER = 3;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object nickname_ = "";
-    /**
-     * <code>string nickname = 3;</code>
-     * @return The nickname.
-     */
-    @java.lang.Override
-    public java.lang.String getNickname() {
-      java.lang.Object ref = nickname_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nickname_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string nickname = 3;</code>
-     * @return The bytes for nickname.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNicknameBytes() {
-      java.lang.Object ref = nickname_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nickname_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FACEURL_FIELD_NUMBER = 4;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object faceURL_ = "";
-    /**
-     * <code>string faceURL = 4;</code>
-     * @return The faceURL.
-     */
-    @java.lang.Override
-    public java.lang.String getFaceURL() {
-      java.lang.Object ref = faceURL_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        faceURL_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string faceURL = 4;</code>
-     * @return The bytes for faceURL.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFaceURLBytes() {
-      java.lang.Object ref = faceURL_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        faceURL_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int CREATETIME_FIELD_NUMBER = 5;
-    private long createTime_ = 0L;
-    /**
-     * <code>int64 createTime = 5;</code>
-     * @return The createTime.
-     */
-    @java.lang.Override
-    public long getCreateTime() {
-      return createTime_;
-    }
-
-    public static final int ADDSOURCE_FIELD_NUMBER = 6;
-    private int addSource_ = 0;
-    /**
-     * <code>int32 addSource = 6;</code>
-     * @return The addSource.
-     */
-    @java.lang.Override
-    public int getAddSource() {
-      return addSource_;
-    }
-
-    public static final int OPERATORUSERID_FIELD_NUMBER = 7;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object operatorUserID_ = "";
-    /**
-     * <code>string operatorUserID = 7;</code>
-     * @return The operatorUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getOperatorUserID() {
-      java.lang.Object ref = operatorUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        operatorUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string operatorUserID = 7;</code>
-     * @return The bytes for operatorUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getOperatorUserIDBytes() {
-      java.lang.Object ref = operatorUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        operatorUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EX_FIELD_NUMBER = 8;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object ex_ = "";
-    /**
-     * <code>string ex = 8;</code>
-     * @return The ex.
-     */
-    @java.lang.Override
-    public java.lang.String getEx() {
-      java.lang.Object ref = ex_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ex_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ex = 8;</code>
-     * @return The bytes for ex.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getExBytes() {
-      java.lang.Object ref = ex_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ex_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ATTACHED_FIELD_NUMBER = 9;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object attached_ = "";
-    /**
-     * <code>string attached = 9;</code>
-     * @return The attached.
-     */
-    @java.lang.Override
-    public java.lang.String getAttached() {
-      java.lang.Object ref = attached_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        attached_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string attached = 9;</code>
-     * @return The bytes for attached.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAttachedBytes() {
-      java.lang.Object ref = attached_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        attached_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ownerUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, ownerUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(blockUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, blockUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nickname_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, nickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(faceURL_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 4, faceURL_);
-      }
-      if (createTime_ != 0L) {
-        output.writeInt64(5, createTime_);
-      }
-      if (addSource_ != 0) {
-        output.writeInt32(6, addSource_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(operatorUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 7, operatorUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ex_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 8, ex_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(attached_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 9, attached_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ownerUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, ownerUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(blockUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, blockUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nickname_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, nickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(faceURL_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, faceURL_);
-      }
-      if (createTime_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(5, createTime_);
-      }
-      if (addSource_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, addSource_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(operatorUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(7, operatorUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ex_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, ex_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(attached_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(9, attached_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.BlackInfo)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.BlackInfo other = (openim.sdk.relation.Relation.BlackInfo) obj;
-
-      if (!getOwnerUserID()
-          .equals(other.getOwnerUserID())) return false;
-      if (!getBlockUserID()
-          .equals(other.getBlockUserID())) return false;
-      if (!getNickname()
-          .equals(other.getNickname())) return false;
-      if (!getFaceURL()
-          .equals(other.getFaceURL())) return false;
-      if (getCreateTime()
-          != other.getCreateTime()) return false;
-      if (getAddSource()
-          != other.getAddSource()) return false;
-      if (!getOperatorUserID()
-          .equals(other.getOperatorUserID())) return false;
-      if (!getEx()
-          .equals(other.getEx())) return false;
-      if (!getAttached()
-          .equals(other.getAttached())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + OWNERUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getOwnerUserID().hashCode();
-      hash = (37 * hash) + BLOCKUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getBlockUserID().hashCode();
-      hash = (37 * hash) + NICKNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getNickname().hashCode();
-      hash = (37 * hash) + FACEURL_FIELD_NUMBER;
-      hash = (53 * hash) + getFaceURL().hashCode();
-      hash = (37 * hash) + CREATETIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCreateTime());
-      hash = (37 * hash) + ADDSOURCE_FIELD_NUMBER;
-      hash = (53 * hash) + getAddSource();
-      hash = (37 * hash) + OPERATORUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getOperatorUserID().hashCode();
-      hash = (37 * hash) + EX_FIELD_NUMBER;
-      hash = (53 * hash) + getEx().hashCode();
-      hash = (37 * hash) + ATTACHED_FIELD_NUMBER;
-      hash = (53 * hash) + getAttached().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.BlackInfo parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.BlackInfo parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.BlackInfo parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.BlackInfo prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.relation.BlackInfo}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.BlackInfo)
-        openim.sdk.relation.Relation.BlackInfoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackInfo_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackInfo_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.BlackInfo.class, openim.sdk.relation.Relation.BlackInfo.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.BlackInfo.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        ownerUserID_ = "";
-        blockUserID_ = "";
-        nickname_ = "";
-        faceURL_ = "";
-        createTime_ = 0L;
-        addSource_ = 0;
-        operatorUserID_ = "";
-        ex_ = "";
-        attached_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackInfo_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackInfo getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.BlackInfo.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackInfo build() {
-        openim.sdk.relation.Relation.BlackInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackInfo buildPartial() {
-        openim.sdk.relation.Relation.BlackInfo result = new openim.sdk.relation.Relation.BlackInfo(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.BlackInfo result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.ownerUserID_ = ownerUserID_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.blockUserID_ = blockUserID_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.nickname_ = nickname_;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.faceURL_ = faceURL_;
-        }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.createTime_ = createTime_;
-        }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.addSource_ = addSource_;
-        }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
-          result.operatorUserID_ = operatorUserID_;
-        }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
-          result.ex_ = ex_;
-        }
-        if (((from_bitField0_ & 0x00000100) != 0)) {
-          result.attached_ = attached_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.BlackInfo) {
-          return mergeFrom((openim.sdk.relation.Relation.BlackInfo)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.BlackInfo other) {
-        if (other == openim.sdk.relation.Relation.BlackInfo.getDefaultInstance()) return this;
-        if (!other.getOwnerUserID().isEmpty()) {
-          ownerUserID_ = other.ownerUserID_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (!other.getBlockUserID().isEmpty()) {
-          blockUserID_ = other.blockUserID_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        if (!other.getNickname().isEmpty()) {
-          nickname_ = other.nickname_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        if (!other.getFaceURL().isEmpty()) {
-          faceURL_ = other.faceURL_;
-          bitField0_ |= 0x00000008;
-          onChanged();
-        }
-        if (other.getCreateTime() != 0L) {
-          setCreateTime(other.getCreateTime());
-        }
-        if (other.getAddSource() != 0) {
-          setAddSource(other.getAddSource());
-        }
-        if (!other.getOperatorUserID().isEmpty()) {
-          operatorUserID_ = other.operatorUserID_;
-          bitField0_ |= 0x00000040;
-          onChanged();
-        }
-        if (!other.getEx().isEmpty()) {
-          ex_ = other.ex_;
-          bitField0_ |= 0x00000080;
-          onChanged();
-        }
-        if (!other.getAttached().isEmpty()) {
-          attached_ = other.attached_;
-          bitField0_ |= 0x00000100;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                ownerUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                blockUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 26: {
-                nickname_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 26
-              case 34: {
-                faceURL_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 34
-              case 40: {
-                createTime_ = input.readInt64();
-                bitField0_ |= 0x00000010;
-                break;
-              } // case 40
-              case 48: {
-                addSource_ = input.readInt32();
-                bitField0_ |= 0x00000020;
-                break;
-              } // case 48
-              case 58: {
-                operatorUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000040;
-                break;
-              } // case 58
-              case 66: {
-                ex_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000080;
-                break;
-              } // case 66
-              case 74: {
-                attached_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000100;
-                break;
-              } // case 74
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object ownerUserID_ = "";
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @return The ownerUserID.
-       */
-      public java.lang.String getOwnerUserID() {
-        java.lang.Object ref = ownerUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ownerUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @return The bytes for ownerUserID.
-       */
-      public com.google.protobuf.ByteString
-          getOwnerUserIDBytes() {
-        java.lang.Object ref = ownerUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ownerUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @param value The ownerUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOwnerUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ownerUserID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearOwnerUserID() {
-        ownerUserID_ = getDefaultInstance().getOwnerUserID();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ownerUserID = 1;</code>
-       * @param value The bytes for ownerUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOwnerUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        ownerUserID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object blockUserID_ = "";
-      /**
-       * <code>string blockUserID = 2;</code>
-       * @return The blockUserID.
-       */
-      public java.lang.String getBlockUserID() {
-        java.lang.Object ref = blockUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          blockUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string blockUserID = 2;</code>
-       * @return The bytes for blockUserID.
-       */
-      public com.google.protobuf.ByteString
-          getBlockUserIDBytes() {
-        java.lang.Object ref = blockUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          blockUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string blockUserID = 2;</code>
-       * @param value The blockUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setBlockUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        blockUserID_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string blockUserID = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearBlockUserID() {
-        blockUserID_ = getDefaultInstance().getBlockUserID();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string blockUserID = 2;</code>
-       * @param value The bytes for blockUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setBlockUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        blockUserID_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object nickname_ = "";
-      /**
-       * <code>string nickname = 3;</code>
-       * @return The nickname.
-       */
-      public java.lang.String getNickname() {
-        java.lang.Object ref = nickname_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nickname_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string nickname = 3;</code>
-       * @return The bytes for nickname.
-       */
-      public com.google.protobuf.ByteString
-          getNicknameBytes() {
-        java.lang.Object ref = nickname_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nickname_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string nickname = 3;</code>
-       * @param value The nickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNickname(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        nickname_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nickname = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearNickname() {
-        nickname_ = getDefaultInstance().getNickname();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nickname = 3;</code>
-       * @param value The bytes for nickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNicknameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        nickname_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object faceURL_ = "";
-      /**
-       * <code>string faceURL = 4;</code>
-       * @return The faceURL.
-       */
-      public java.lang.String getFaceURL() {
-        java.lang.Object ref = faceURL_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          faceURL_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string faceURL = 4;</code>
-       * @return The bytes for faceURL.
-       */
-      public com.google.protobuf.ByteString
-          getFaceURLBytes() {
-        java.lang.Object ref = faceURL_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          faceURL_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string faceURL = 4;</code>
-       * @param value The faceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFaceURL(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        faceURL_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string faceURL = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFaceURL() {
-        faceURL_ = getDefaultInstance().getFaceURL();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string faceURL = 4;</code>
-       * @param value The bytes for faceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFaceURLBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        faceURL_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-
-      private long createTime_ ;
-      /**
-       * <code>int64 createTime = 5;</code>
-       * @return The createTime.
-       */
-      @java.lang.Override
-      public long getCreateTime() {
-        return createTime_;
-      }
-      /**
-       * <code>int64 createTime = 5;</code>
-       * @param value The createTime to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCreateTime(long value) {
-
-        createTime_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 createTime = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCreateTime() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        createTime_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private int addSource_ ;
-      /**
-       * <code>int32 addSource = 6;</code>
-       * @return The addSource.
-       */
-      @java.lang.Override
-      public int getAddSource() {
-        return addSource_;
-      }
-      /**
-       * <code>int32 addSource = 6;</code>
-       * @param value The addSource to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAddSource(int value) {
-
-        addSource_ = value;
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 addSource = 6;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAddSource() {
-        bitField0_ = (bitField0_ & ~0x00000020);
-        addSource_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object operatorUserID_ = "";
-      /**
-       * <code>string operatorUserID = 7;</code>
-       * @return The operatorUserID.
-       */
-      public java.lang.String getOperatorUserID() {
-        java.lang.Object ref = operatorUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          operatorUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string operatorUserID = 7;</code>
-       * @return The bytes for operatorUserID.
-       */
-      public com.google.protobuf.ByteString
-          getOperatorUserIDBytes() {
-        java.lang.Object ref = operatorUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          operatorUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string operatorUserID = 7;</code>
-       * @param value The operatorUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOperatorUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        operatorUserID_ = value;
-        bitField0_ |= 0x00000040;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string operatorUserID = 7;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearOperatorUserID() {
-        operatorUserID_ = getDefaultInstance().getOperatorUserID();
-        bitField0_ = (bitField0_ & ~0x00000040);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string operatorUserID = 7;</code>
-       * @param value The bytes for operatorUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOperatorUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        operatorUserID_ = value;
-        bitField0_ |= 0x00000040;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object ex_ = "";
-      /**
-       * <code>string ex = 8;</code>
-       * @return The ex.
-       */
-      public java.lang.String getEx() {
-        java.lang.Object ref = ex_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ex_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string ex = 8;</code>
-       * @return The bytes for ex.
-       */
-      public com.google.protobuf.ByteString
-          getExBytes() {
-        java.lang.Object ref = ex_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ex_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ex = 8;</code>
-       * @param value The ex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEx(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ex_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ex = 8;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearEx() {
-        ex_ = getDefaultInstance().getEx();
-        bitField0_ = (bitField0_ & ~0x00000080);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ex = 8;</code>
-       * @param value The bytes for ex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setExBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        ex_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object attached_ = "";
-      /**
-       * <code>string attached = 9;</code>
-       * @return The attached.
-       */
-      public java.lang.String getAttached() {
-        java.lang.Object ref = attached_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          attached_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string attached = 9;</code>
-       * @return The bytes for attached.
-       */
-      public com.google.protobuf.ByteString
-          getAttachedBytes() {
-        java.lang.Object ref = attached_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          attached_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string attached = 9;</code>
-       * @param value The attached to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttached(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        attached_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string attached = 9;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAttached() {
-        attached_ = getDefaultInstance().getAttached();
-        bitField0_ = (bitField0_ & ~0x00000100);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string attached = 9;</code>
-       * @param value The bytes for attached to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttachedBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        attached_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.BlackInfo)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.BlackInfo)
-    private static final openim.sdk.relation.Relation.BlackInfo DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.BlackInfo();
-    }
-
-    public static openim.sdk.relation.Relation.BlackInfo getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BlackInfo>
-        PARSER = new com.google.protobuf.AbstractParser<BlackInfo>() {
-      @java.lang.Override
-      public BlackInfo parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<BlackInfo> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BlackInfo> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.BlackInfo getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FriendRequestInfoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendRequestInfo)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string fromUserID = 1;</code>
-     * @return The fromUserID.
-     */
-    java.lang.String getFromUserID();
-    /**
-     * <code>string fromUserID = 1;</code>
-     * @return The bytes for fromUserID.
-     */
-    com.google.protobuf.ByteString
-        getFromUserIDBytes();
-
-    /**
-     * <code>string fromNickname = 2;</code>
-     * @return The fromNickname.
-     */
-    java.lang.String getFromNickname();
-    /**
-     * <code>string fromNickname = 2;</code>
-     * @return The bytes for fromNickname.
-     */
-    com.google.protobuf.ByteString
-        getFromNicknameBytes();
-
-    /**
-     * <code>string fromFaceURL = 3;</code>
-     * @return The fromFaceURL.
-     */
-    java.lang.String getFromFaceURL();
-    /**
-     * <code>string fromFaceURL = 3;</code>
-     * @return The bytes for fromFaceURL.
-     */
-    com.google.protobuf.ByteString
-        getFromFaceURLBytes();
-
-    /**
-     * <code>string toUserID = 4;</code>
-     * @return The toUserID.
-     */
-    java.lang.String getToUserID();
-    /**
-     * <code>string toUserID = 4;</code>
-     * @return The bytes for toUserID.
-     */
-    com.google.protobuf.ByteString
-        getToUserIDBytes();
-
-    /**
-     * <code>string toNickname = 5;</code>
-     * @return The toNickname.
-     */
-    java.lang.String getToNickname();
-    /**
-     * <code>string toNickname = 5;</code>
-     * @return The bytes for toNickname.
-     */
-    com.google.protobuf.ByteString
-        getToNicknameBytes();
-
-    /**
-     * <code>string toFaceURL = 6;</code>
-     * @return The toFaceURL.
-     */
-    java.lang.String getToFaceURL();
-    /**
-     * <code>string toFaceURL = 6;</code>
-     * @return The bytes for toFaceURL.
-     */
-    com.google.protobuf.ByteString
-        getToFaceURLBytes();
-
-    /**
-     * <code>int32 handleResult = 7;</code>
-     * @return The handleResult.
-     */
-    int getHandleResult();
-
-    /**
-     * <code>string reqMsg = 8;</code>
-     * @return The reqMsg.
-     */
-    java.lang.String getReqMsg();
-    /**
-     * <code>string reqMsg = 8;</code>
-     * @return The bytes for reqMsg.
-     */
-    com.google.protobuf.ByteString
-        getReqMsgBytes();
-
-    /**
-     * <code>int64 createTime = 9;</code>
-     * @return The createTime.
-     */
-    long getCreateTime();
-
-    /**
-     * <code>string handlerUserID = 10;</code>
-     * @return The handlerUserID.
-     */
-    java.lang.String getHandlerUserID();
-    /**
-     * <code>string handlerUserID = 10;</code>
-     * @return The bytes for handlerUserID.
-     */
-    com.google.protobuf.ByteString
-        getHandlerUserIDBytes();
-
-    /**
-     * <code>string handleMsg = 11;</code>
-     * @return The handleMsg.
-     */
-    java.lang.String getHandleMsg();
-    /**
-     * <code>string handleMsg = 11;</code>
-     * @return The bytes for handleMsg.
-     */
-    com.google.protobuf.ByteString
-        getHandleMsgBytes();
-
-    /**
-     * <code>int64 handleTime = 12;</code>
-     * @return The handleTime.
-     */
-    long getHandleTime();
-
-    /**
-     * <code>string ex = 13;</code>
-     * @return The ex.
-     */
-    java.lang.String getEx();
-    /**
-     * <code>string ex = 13;</code>
-     * @return The bytes for ex.
-     */
-    com.google.protobuf.ByteString
-        getExBytes();
-
-    /**
-     * <code>string attached = 14;</code>
-     * @return The attached.
-     */
-    java.lang.String getAttached();
-    /**
-     * <code>string attached = 14;</code>
-     * @return The bytes for attached.
-     */
-    com.google.protobuf.ByteString
-        getAttachedBytes();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.relation.FriendRequestInfo}
-   */
-  public static final class FriendRequestInfo extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendRequestInfo)
-      FriendRequestInfoOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendRequestInfo.class.getName());
-    }
-    // Use FriendRequestInfo.newBuilder() to construct.
-    private FriendRequestInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendRequestInfo() {
-      fromUserID_ = "";
-      fromNickname_ = "";
-      fromFaceURL_ = "";
-      toUserID_ = "";
-      toNickname_ = "";
-      toFaceURL_ = "";
-      reqMsg_ = "";
-      handlerUserID_ = "";
-      handleMsg_ = "";
-      ex_ = "";
-      attached_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendRequestInfo_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendRequestInfo_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendRequestInfo.class, openim.sdk.relation.Relation.FriendRequestInfo.Builder.class);
-    }
-
-    public static final int FROMUSERID_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object fromUserID_ = "";
-    /**
-     * <code>string fromUserID = 1;</code>
-     * @return The fromUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getFromUserID() {
-      java.lang.Object ref = fromUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fromUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string fromUserID = 1;</code>
-     * @return The bytes for fromUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFromUserIDBytes() {
-      java.lang.Object ref = fromUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fromUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FROMNICKNAME_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object fromNickname_ = "";
-    /**
-     * <code>string fromNickname = 2;</code>
-     * @return The fromNickname.
-     */
-    @java.lang.Override
-    public java.lang.String getFromNickname() {
-      java.lang.Object ref = fromNickname_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fromNickname_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string fromNickname = 2;</code>
-     * @return The bytes for fromNickname.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFromNicknameBytes() {
-      java.lang.Object ref = fromNickname_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fromNickname_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FROMFACEURL_FIELD_NUMBER = 3;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object fromFaceURL_ = "";
-    /**
-     * <code>string fromFaceURL = 3;</code>
-     * @return The fromFaceURL.
-     */
-    @java.lang.Override
-    public java.lang.String getFromFaceURL() {
-      java.lang.Object ref = fromFaceURL_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fromFaceURL_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string fromFaceURL = 3;</code>
-     * @return The bytes for fromFaceURL.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFromFaceURLBytes() {
-      java.lang.Object ref = fromFaceURL_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fromFaceURL_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TOUSERID_FIELD_NUMBER = 4;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object toUserID_ = "";
-    /**
-     * <code>string toUserID = 4;</code>
-     * @return The toUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getToUserID() {
-      java.lang.Object ref = toUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string toUserID = 4;</code>
-     * @return The bytes for toUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getToUserIDBytes() {
-      java.lang.Object ref = toUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TONICKNAME_FIELD_NUMBER = 5;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object toNickname_ = "";
-    /**
-     * <code>string toNickname = 5;</code>
-     * @return The toNickname.
-     */
-    @java.lang.Override
-    public java.lang.String getToNickname() {
-      java.lang.Object ref = toNickname_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toNickname_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string toNickname = 5;</code>
-     * @return The bytes for toNickname.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getToNicknameBytes() {
-      java.lang.Object ref = toNickname_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toNickname_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TOFACEURL_FIELD_NUMBER = 6;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object toFaceURL_ = "";
-    /**
-     * <code>string toFaceURL = 6;</code>
-     * @return The toFaceURL.
-     */
-    @java.lang.Override
-    public java.lang.String getToFaceURL() {
-      java.lang.Object ref = toFaceURL_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toFaceURL_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string toFaceURL = 6;</code>
-     * @return The bytes for toFaceURL.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getToFaceURLBytes() {
-      java.lang.Object ref = toFaceURL_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toFaceURL_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int HANDLERESULT_FIELD_NUMBER = 7;
-    private int handleResult_ = 0;
-    /**
-     * <code>int32 handleResult = 7;</code>
-     * @return The handleResult.
-     */
-    @java.lang.Override
-    public int getHandleResult() {
-      return handleResult_;
-    }
-
-    public static final int REQMSG_FIELD_NUMBER = 8;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object reqMsg_ = "";
-    /**
-     * <code>string reqMsg = 8;</code>
-     * @return The reqMsg.
-     */
-    @java.lang.Override
-    public java.lang.String getReqMsg() {
-      java.lang.Object ref = reqMsg_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        reqMsg_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string reqMsg = 8;</code>
-     * @return The bytes for reqMsg.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getReqMsgBytes() {
-      java.lang.Object ref = reqMsg_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        reqMsg_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int CREATETIME_FIELD_NUMBER = 9;
-    private long createTime_ = 0L;
-    /**
-     * <code>int64 createTime = 9;</code>
-     * @return The createTime.
-     */
-    @java.lang.Override
-    public long getCreateTime() {
-      return createTime_;
-    }
-
-    public static final int HANDLERUSERID_FIELD_NUMBER = 10;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object handlerUserID_ = "";
-    /**
-     * <code>string handlerUserID = 10;</code>
-     * @return The handlerUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getHandlerUserID() {
-      java.lang.Object ref = handlerUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        handlerUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string handlerUserID = 10;</code>
-     * @return The bytes for handlerUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getHandlerUserIDBytes() {
-      java.lang.Object ref = handlerUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        handlerUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int HANDLEMSG_FIELD_NUMBER = 11;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object handleMsg_ = "";
-    /**
-     * <code>string handleMsg = 11;</code>
-     * @return The handleMsg.
-     */
-    @java.lang.Override
-    public java.lang.String getHandleMsg() {
-      java.lang.Object ref = handleMsg_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        handleMsg_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string handleMsg = 11;</code>
-     * @return The bytes for handleMsg.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getHandleMsgBytes() {
-      java.lang.Object ref = handleMsg_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        handleMsg_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int HANDLETIME_FIELD_NUMBER = 12;
-    private long handleTime_ = 0L;
-    /**
-     * <code>int64 handleTime = 12;</code>
-     * @return The handleTime.
-     */
-    @java.lang.Override
-    public long getHandleTime() {
-      return handleTime_;
-    }
-
-    public static final int EX_FIELD_NUMBER = 13;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object ex_ = "";
-    /**
-     * <code>string ex = 13;</code>
-     * @return The ex.
-     */
-    @java.lang.Override
-    public java.lang.String getEx() {
-      java.lang.Object ref = ex_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ex_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ex = 13;</code>
-     * @return The bytes for ex.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getExBytes() {
-      java.lang.Object ref = ex_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ex_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ATTACHED_FIELD_NUMBER = 14;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object attached_ = "";
-    /**
-     * <code>string attached = 14;</code>
-     * @return The attached.
-     */
-    @java.lang.Override
-    public java.lang.String getAttached() {
-      java.lang.Object ref = attached_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        attached_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string attached = 14;</code>
-     * @return The bytes for attached.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAttachedBytes() {
-      java.lang.Object ref = attached_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        attached_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fromUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, fromUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fromNickname_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, fromNickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fromFaceURL_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, fromFaceURL_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(toUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 4, toUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(toNickname_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 5, toNickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(toFaceURL_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 6, toFaceURL_);
-      }
-      if (handleResult_ != 0) {
-        output.writeInt32(7, handleResult_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(reqMsg_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 8, reqMsg_);
-      }
-      if (createTime_ != 0L) {
-        output.writeInt64(9, createTime_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(handlerUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 10, handlerUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(handleMsg_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 11, handleMsg_);
-      }
-      if (handleTime_ != 0L) {
-        output.writeInt64(12, handleTime_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ex_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 13, ex_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(attached_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 14, attached_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fromUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, fromUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fromNickname_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, fromNickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fromFaceURL_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, fromFaceURL_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(toUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, toUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(toNickname_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(5, toNickname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(toFaceURL_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(6, toFaceURL_);
-      }
-      if (handleResult_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, handleResult_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(reqMsg_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, reqMsg_);
-      }
-      if (createTime_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(9, createTime_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(handlerUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, handlerUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(handleMsg_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(11, handleMsg_);
-      }
-      if (handleTime_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(12, handleTime_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(ex_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(13, ex_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(attached_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(14, attached_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendRequestInfo)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendRequestInfo other = (openim.sdk.relation.Relation.FriendRequestInfo) obj;
-
-      if (!getFromUserID()
-          .equals(other.getFromUserID())) return false;
-      if (!getFromNickname()
-          .equals(other.getFromNickname())) return false;
-      if (!getFromFaceURL()
-          .equals(other.getFromFaceURL())) return false;
-      if (!getToUserID()
-          .equals(other.getToUserID())) return false;
-      if (!getToNickname()
-          .equals(other.getToNickname())) return false;
-      if (!getToFaceURL()
-          .equals(other.getToFaceURL())) return false;
-      if (getHandleResult()
-          != other.getHandleResult()) return false;
-      if (!getReqMsg()
-          .equals(other.getReqMsg())) return false;
-      if (getCreateTime()
-          != other.getCreateTime()) return false;
-      if (!getHandlerUserID()
-          .equals(other.getHandlerUserID())) return false;
-      if (!getHandleMsg()
-          .equals(other.getHandleMsg())) return false;
-      if (getHandleTime()
-          != other.getHandleTime()) return false;
-      if (!getEx()
-          .equals(other.getEx())) return false;
-      if (!getAttached()
-          .equals(other.getAttached())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + FROMUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getFromUserID().hashCode();
-      hash = (37 * hash) + FROMNICKNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getFromNickname().hashCode();
-      hash = (37 * hash) + FROMFACEURL_FIELD_NUMBER;
-      hash = (53 * hash) + getFromFaceURL().hashCode();
-      hash = (37 * hash) + TOUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getToUserID().hashCode();
-      hash = (37 * hash) + TONICKNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getToNickname().hashCode();
-      hash = (37 * hash) + TOFACEURL_FIELD_NUMBER;
-      hash = (53 * hash) + getToFaceURL().hashCode();
-      hash = (37 * hash) + HANDLERESULT_FIELD_NUMBER;
-      hash = (53 * hash) + getHandleResult();
-      hash = (37 * hash) + REQMSG_FIELD_NUMBER;
-      hash = (53 * hash) + getReqMsg().hashCode();
-      hash = (37 * hash) + CREATETIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCreateTime());
-      hash = (37 * hash) + HANDLERUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getHandlerUserID().hashCode();
-      hash = (37 * hash) + HANDLEMSG_FIELD_NUMBER;
-      hash = (53 * hash) + getHandleMsg().hashCode();
-      hash = (37 * hash) + HANDLETIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getHandleTime());
-      hash = (37 * hash) + EX_FIELD_NUMBER;
-      hash = (53 * hash) + getEx().hashCode();
-      hash = (37 * hash) + ATTACHED_FIELD_NUMBER;
-      hash = (53 * hash) + getAttached().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendRequestInfo parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendRequestInfo prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.relation.FriendRequestInfo}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendRequestInfo)
-        openim.sdk.relation.Relation.FriendRequestInfoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendRequestInfo_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendRequestInfo_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendRequestInfo.class, openim.sdk.relation.Relation.FriendRequestInfo.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendRequestInfo.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromUserID_ = "";
-        fromNickname_ = "";
-        fromFaceURL_ = "";
-        toUserID_ = "";
-        toNickname_ = "";
-        toFaceURL_ = "";
-        handleResult_ = 0;
-        reqMsg_ = "";
-        createTime_ = 0L;
-        handlerUserID_ = "";
-        handleMsg_ = "";
-        handleTime_ = 0L;
-        ex_ = "";
-        attached_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendRequestInfo_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendRequestInfo getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendRequestInfo.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendRequestInfo build() {
-        openim.sdk.relation.Relation.FriendRequestInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendRequestInfo buildPartial() {
-        openim.sdk.relation.Relation.FriendRequestInfo result = new openim.sdk.relation.Relation.FriendRequestInfo(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendRequestInfo result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromUserID_ = fromUserID_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.fromNickname_ = fromNickname_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.fromFaceURL_ = fromFaceURL_;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.toUserID_ = toUserID_;
-        }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.toNickname_ = toNickname_;
-        }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.toFaceURL_ = toFaceURL_;
-        }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
-          result.handleResult_ = handleResult_;
-        }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
-          result.reqMsg_ = reqMsg_;
-        }
-        if (((from_bitField0_ & 0x00000100) != 0)) {
-          result.createTime_ = createTime_;
-        }
-        if (((from_bitField0_ & 0x00000200) != 0)) {
-          result.handlerUserID_ = handlerUserID_;
-        }
-        if (((from_bitField0_ & 0x00000400) != 0)) {
-          result.handleMsg_ = handleMsg_;
-        }
-        if (((from_bitField0_ & 0x00000800) != 0)) {
-          result.handleTime_ = handleTime_;
-        }
-        if (((from_bitField0_ & 0x00001000) != 0)) {
-          result.ex_ = ex_;
-        }
-        if (((from_bitField0_ & 0x00002000) != 0)) {
-          result.attached_ = attached_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendRequestInfo) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendRequestInfo)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendRequestInfo other) {
-        if (other == openim.sdk.relation.Relation.FriendRequestInfo.getDefaultInstance()) return this;
-        if (!other.getFromUserID().isEmpty()) {
-          fromUserID_ = other.fromUserID_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (!other.getFromNickname().isEmpty()) {
-          fromNickname_ = other.fromNickname_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        if (!other.getFromFaceURL().isEmpty()) {
-          fromFaceURL_ = other.fromFaceURL_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        if (!other.getToUserID().isEmpty()) {
-          toUserID_ = other.toUserID_;
-          bitField0_ |= 0x00000008;
-          onChanged();
-        }
-        if (!other.getToNickname().isEmpty()) {
-          toNickname_ = other.toNickname_;
-          bitField0_ |= 0x00000010;
-          onChanged();
-        }
-        if (!other.getToFaceURL().isEmpty()) {
-          toFaceURL_ = other.toFaceURL_;
-          bitField0_ |= 0x00000020;
-          onChanged();
-        }
-        if (other.getHandleResult() != 0) {
-          setHandleResult(other.getHandleResult());
-        }
-        if (!other.getReqMsg().isEmpty()) {
-          reqMsg_ = other.reqMsg_;
-          bitField0_ |= 0x00000080;
-          onChanged();
-        }
-        if (other.getCreateTime() != 0L) {
-          setCreateTime(other.getCreateTime());
-        }
-        if (!other.getHandlerUserID().isEmpty()) {
-          handlerUserID_ = other.handlerUserID_;
-          bitField0_ |= 0x00000200;
-          onChanged();
-        }
-        if (!other.getHandleMsg().isEmpty()) {
-          handleMsg_ = other.handleMsg_;
-          bitField0_ |= 0x00000400;
-          onChanged();
-        }
-        if (other.getHandleTime() != 0L) {
-          setHandleTime(other.getHandleTime());
-        }
-        if (!other.getEx().isEmpty()) {
-          ex_ = other.ex_;
-          bitField0_ |= 0x00001000;
-          onChanged();
-        }
-        if (!other.getAttached().isEmpty()) {
-          attached_ = other.attached_;
-          bitField0_ |= 0x00002000;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                fromUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                fromNickname_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 26: {
-                fromFaceURL_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 26
-              case 34: {
-                toUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 34
-              case 42: {
-                toNickname_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000010;
-                break;
-              } // case 42
-              case 50: {
-                toFaceURL_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000020;
-                break;
-              } // case 50
-              case 56: {
-                handleResult_ = input.readInt32();
-                bitField0_ |= 0x00000040;
-                break;
-              } // case 56
-              case 66: {
-                reqMsg_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000080;
-                break;
-              } // case 66
-              case 72: {
-                createTime_ = input.readInt64();
-                bitField0_ |= 0x00000100;
-                break;
-              } // case 72
-              case 82: {
-                handlerUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000200;
-                break;
-              } // case 82
-              case 90: {
-                handleMsg_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000400;
-                break;
-              } // case 90
-              case 96: {
-                handleTime_ = input.readInt64();
-                bitField0_ |= 0x00000800;
-                break;
-              } // case 96
-              case 106: {
-                ex_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00001000;
-                break;
-              } // case 106
-              case 114: {
-                attached_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00002000;
-                break;
-              } // case 114
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object fromUserID_ = "";
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @return The fromUserID.
-       */
-      public java.lang.String getFromUserID() {
-        java.lang.Object ref = fromUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fromUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @return The bytes for fromUserID.
-       */
-      public com.google.protobuf.ByteString
-          getFromUserIDBytes() {
-        java.lang.Object ref = fromUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fromUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @param value The fromUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFromUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        fromUserID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFromUserID() {
-        fromUserID_ = getDefaultInstance().getFromUserID();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @param value The bytes for fromUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFromUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        fromUserID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object fromNickname_ = "";
-      /**
-       * <code>string fromNickname = 2;</code>
-       * @return The fromNickname.
-       */
-      public java.lang.String getFromNickname() {
-        java.lang.Object ref = fromNickname_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fromNickname_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string fromNickname = 2;</code>
-       * @return The bytes for fromNickname.
-       */
-      public com.google.protobuf.ByteString
-          getFromNicknameBytes() {
-        java.lang.Object ref = fromNickname_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fromNickname_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string fromNickname = 2;</code>
-       * @param value The fromNickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFromNickname(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        fromNickname_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromNickname = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFromNickname() {
-        fromNickname_ = getDefaultInstance().getFromNickname();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromNickname = 2;</code>
-       * @param value The bytes for fromNickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFromNicknameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        fromNickname_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object fromFaceURL_ = "";
-      /**
-       * <code>string fromFaceURL = 3;</code>
-       * @return The fromFaceURL.
-       */
-      public java.lang.String getFromFaceURL() {
-        java.lang.Object ref = fromFaceURL_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fromFaceURL_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string fromFaceURL = 3;</code>
-       * @return The bytes for fromFaceURL.
-       */
-      public com.google.protobuf.ByteString
-          getFromFaceURLBytes() {
-        java.lang.Object ref = fromFaceURL_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fromFaceURL_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string fromFaceURL = 3;</code>
-       * @param value The fromFaceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFromFaceURL(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        fromFaceURL_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromFaceURL = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFromFaceURL() {
-        fromFaceURL_ = getDefaultInstance().getFromFaceURL();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromFaceURL = 3;</code>
-       * @param value The bytes for fromFaceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFromFaceURLBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        fromFaceURL_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toUserID_ = "";
-      /**
-       * <code>string toUserID = 4;</code>
-       * @return The toUserID.
-       */
-      public java.lang.String getToUserID() {
-        java.lang.Object ref = toUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string toUserID = 4;</code>
-       * @return The bytes for toUserID.
-       */
-      public com.google.protobuf.ByteString
-          getToUserIDBytes() {
-        java.lang.Object ref = toUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string toUserID = 4;</code>
-       * @param value The toUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setToUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        toUserID_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toUserID = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearToUserID() {
-        toUserID_ = getDefaultInstance().getToUserID();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toUserID = 4;</code>
-       * @param value The bytes for toUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setToUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        toUserID_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toNickname_ = "";
-      /**
-       * <code>string toNickname = 5;</code>
-       * @return The toNickname.
-       */
-      public java.lang.String getToNickname() {
-        java.lang.Object ref = toNickname_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toNickname_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string toNickname = 5;</code>
-       * @return The bytes for toNickname.
-       */
-      public com.google.protobuf.ByteString
-          getToNicknameBytes() {
-        java.lang.Object ref = toNickname_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toNickname_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string toNickname = 5;</code>
-       * @param value The toNickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setToNickname(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        toNickname_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toNickname = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearToNickname() {
-        toNickname_ = getDefaultInstance().getToNickname();
-        bitField0_ = (bitField0_ & ~0x00000010);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toNickname = 5;</code>
-       * @param value The bytes for toNickname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setToNicknameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        toNickname_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toFaceURL_ = "";
-      /**
-       * <code>string toFaceURL = 6;</code>
-       * @return The toFaceURL.
-       */
-      public java.lang.String getToFaceURL() {
-        java.lang.Object ref = toFaceURL_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toFaceURL_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string toFaceURL = 6;</code>
-       * @return The bytes for toFaceURL.
-       */
-      public com.google.protobuf.ByteString
-          getToFaceURLBytes() {
-        java.lang.Object ref = toFaceURL_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toFaceURL_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string toFaceURL = 6;</code>
-       * @param value The toFaceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setToFaceURL(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        toFaceURL_ = value;
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toFaceURL = 6;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearToFaceURL() {
-        toFaceURL_ = getDefaultInstance().getToFaceURL();
-        bitField0_ = (bitField0_ & ~0x00000020);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toFaceURL = 6;</code>
-       * @param value The bytes for toFaceURL to set.
-       * @return This builder for chaining.
-       */
-      public Builder setToFaceURLBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        toFaceURL_ = value;
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-
-      private int handleResult_ ;
-      /**
-       * <code>int32 handleResult = 7;</code>
-       * @return The handleResult.
-       */
-      @java.lang.Override
-      public int getHandleResult() {
-        return handleResult_;
-      }
-      /**
-       * <code>int32 handleResult = 7;</code>
-       * @param value The handleResult to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandleResult(int value) {
-
-        handleResult_ = value;
-        bitField0_ |= 0x00000040;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 handleResult = 7;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHandleResult() {
-        bitField0_ = (bitField0_ & ~0x00000040);
-        handleResult_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object reqMsg_ = "";
-      /**
-       * <code>string reqMsg = 8;</code>
-       * @return The reqMsg.
-       */
-      public java.lang.String getReqMsg() {
-        java.lang.Object ref = reqMsg_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          reqMsg_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string reqMsg = 8;</code>
-       * @return The bytes for reqMsg.
-       */
-      public com.google.protobuf.ByteString
-          getReqMsgBytes() {
-        java.lang.Object ref = reqMsg_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          reqMsg_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string reqMsg = 8;</code>
-       * @param value The reqMsg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setReqMsg(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        reqMsg_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string reqMsg = 8;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearReqMsg() {
-        reqMsg_ = getDefaultInstance().getReqMsg();
-        bitField0_ = (bitField0_ & ~0x00000080);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string reqMsg = 8;</code>
-       * @param value The bytes for reqMsg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setReqMsgBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        reqMsg_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-
-      private long createTime_ ;
-      /**
-       * <code>int64 createTime = 9;</code>
-       * @return The createTime.
-       */
-      @java.lang.Override
-      public long getCreateTime() {
-        return createTime_;
-      }
-      /**
-       * <code>int64 createTime = 9;</code>
-       * @param value The createTime to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCreateTime(long value) {
-
-        createTime_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 createTime = 9;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCreateTime() {
-        bitField0_ = (bitField0_ & ~0x00000100);
-        createTime_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object handlerUserID_ = "";
-      /**
-       * <code>string handlerUserID = 10;</code>
-       * @return The handlerUserID.
-       */
-      public java.lang.String getHandlerUserID() {
-        java.lang.Object ref = handlerUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          handlerUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string handlerUserID = 10;</code>
-       * @return The bytes for handlerUserID.
-       */
-      public com.google.protobuf.ByteString
-          getHandlerUserIDBytes() {
-        java.lang.Object ref = handlerUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          handlerUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string handlerUserID = 10;</code>
-       * @param value The handlerUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandlerUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        handlerUserID_ = value;
-        bitField0_ |= 0x00000200;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string handlerUserID = 10;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHandlerUserID() {
-        handlerUserID_ = getDefaultInstance().getHandlerUserID();
-        bitField0_ = (bitField0_ & ~0x00000200);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string handlerUserID = 10;</code>
-       * @param value The bytes for handlerUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandlerUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        handlerUserID_ = value;
-        bitField0_ |= 0x00000200;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object handleMsg_ = "";
-      /**
-       * <code>string handleMsg = 11;</code>
-       * @return The handleMsg.
-       */
-      public java.lang.String getHandleMsg() {
-        java.lang.Object ref = handleMsg_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          handleMsg_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string handleMsg = 11;</code>
-       * @return The bytes for handleMsg.
-       */
-      public com.google.protobuf.ByteString
-          getHandleMsgBytes() {
-        java.lang.Object ref = handleMsg_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          handleMsg_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string handleMsg = 11;</code>
-       * @param value The handleMsg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandleMsg(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        handleMsg_ = value;
-        bitField0_ |= 0x00000400;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string handleMsg = 11;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHandleMsg() {
-        handleMsg_ = getDefaultInstance().getHandleMsg();
-        bitField0_ = (bitField0_ & ~0x00000400);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string handleMsg = 11;</code>
-       * @param value The bytes for handleMsg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandleMsgBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        handleMsg_ = value;
-        bitField0_ |= 0x00000400;
-        onChanged();
-        return this;
-      }
-
-      private long handleTime_ ;
-      /**
-       * <code>int64 handleTime = 12;</code>
-       * @return The handleTime.
-       */
-      @java.lang.Override
-      public long getHandleTime() {
-        return handleTime_;
-      }
-      /**
-       * <code>int64 handleTime = 12;</code>
-       * @param value The handleTime to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandleTime(long value) {
-
-        handleTime_ = value;
-        bitField0_ |= 0x00000800;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 handleTime = 12;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHandleTime() {
-        bitField0_ = (bitField0_ & ~0x00000800);
-        handleTime_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object ex_ = "";
-      /**
-       * <code>string ex = 13;</code>
-       * @return The ex.
-       */
-      public java.lang.String getEx() {
-        java.lang.Object ref = ex_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ex_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string ex = 13;</code>
-       * @return The bytes for ex.
-       */
-      public com.google.protobuf.ByteString
-          getExBytes() {
-        java.lang.Object ref = ex_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ex_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ex = 13;</code>
-       * @param value The ex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEx(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ex_ = value;
-        bitField0_ |= 0x00001000;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ex = 13;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearEx() {
-        ex_ = getDefaultInstance().getEx();
-        bitField0_ = (bitField0_ & ~0x00001000);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ex = 13;</code>
-       * @param value The bytes for ex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setExBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        ex_ = value;
-        bitField0_ |= 0x00001000;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object attached_ = "";
-      /**
-       * <code>string attached = 14;</code>
-       * @return The attached.
-       */
-      public java.lang.String getAttached() {
-        java.lang.Object ref = attached_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          attached_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string attached = 14;</code>
-       * @return The bytes for attached.
-       */
-      public com.google.protobuf.ByteString
-          getAttachedBytes() {
-        java.lang.Object ref = attached_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          attached_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string attached = 14;</code>
-       * @param value The attached to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttached(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        attached_ = value;
-        bitField0_ |= 0x00002000;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string attached = 14;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAttached() {
-        attached_ = getDefaultInstance().getAttached();
-        bitField0_ = (bitField0_ & ~0x00002000);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string attached = 14;</code>
-       * @param value The bytes for attached to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttachedBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        attached_ = value;
-        bitField0_ |= 0x00002000;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendRequestInfo)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendRequestInfo)
-    private static final openim.sdk.relation.Relation.FriendRequestInfo DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendRequestInfo();
-    }
-
-    public static openim.sdk.relation.Relation.FriendRequestInfo getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendRequestInfo>
-        PARSER = new com.google.protobuf.AbstractParser<FriendRequestInfo>() {
-      @java.lang.Override
-      public FriendRequestInfo parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendRequestInfo> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendRequestInfo> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendRequestInfo getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface GetSpecifiedFriendsReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:openim.sdk.relation.GetSpecifiedFriendsReq)
       com.google.protobuf.MessageOrBuilder {
@@ -6311,27 +796,27 @@ public final class Relation {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    java.util.List<openim.sdk.relation.Relation.FriendInfo> 
+    java.util.List<openim.sdk.shared.Shared.FriendInfo> 
         getFriendsList();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendInfo getFriends(int index);
+    openim.sdk.shared.Shared.FriendInfo getFriends(int index);
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     int getFriendsCount();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+    java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
         getFriendsOrBuilderList();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+    openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
         int index);
   }
   /**
@@ -6374,41 +859,41 @@ public final class Relation {
 
     public static final int FRIENDS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private java.util.List<openim.sdk.relation.Relation.FriendInfo> friends_;
+    private java.util.List<openim.sdk.shared.Shared.FriendInfo> friends_;
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<openim.sdk.relation.Relation.FriendInfo> getFriendsList() {
+    public java.util.List<openim.sdk.shared.Shared.FriendInfo> getFriendsList() {
       return friends_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+    public java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
         getFriendsOrBuilderList() {
       return friends_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
     public int getFriendsCount() {
       return friends_.size();
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfo getFriends(int index) {
+    public openim.sdk.shared.Shared.FriendInfo getFriends(int index) {
       return friends_.get(index);
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+    public openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
         int index) {
       return friends_.get(index);
     }
@@ -6726,9 +1211,9 @@ public final class Relation {
                 done = true;
                 break;
               case 10: {
-                openim.sdk.relation.Relation.FriendInfo m =
+                openim.sdk.shared.Shared.FriendInfo m =
                     input.readMessage(
-                        openim.sdk.relation.Relation.FriendInfo.parser(),
+                        openim.sdk.shared.Shared.FriendInfo.parser(),
                         extensionRegistry);
                 if (friendsBuilder_ == null) {
                   ensureFriendsIsMutable();
@@ -6755,22 +1240,22 @@ public final class Relation {
       }
       private int bitField0_;
 
-      private java.util.List<openim.sdk.relation.Relation.FriendInfo> friends_ =
+      private java.util.List<openim.sdk.shared.Shared.FriendInfo> friends_ =
         java.util.Collections.emptyList();
       private void ensureFriendsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          friends_ = new java.util.ArrayList<openim.sdk.relation.Relation.FriendInfo>(friends_);
+          friends_ = new java.util.ArrayList<openim.sdk.shared.Shared.FriendInfo>(friends_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> friendsBuilder_;
+          openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder> friendsBuilder_;
 
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.FriendInfo> getFriendsList() {
+      public java.util.List<openim.sdk.shared.Shared.FriendInfo> getFriendsList() {
         if (friendsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(friends_);
         } else {
@@ -6778,7 +1263,7 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public int getFriendsCount() {
         if (friendsBuilder_ == null) {
@@ -6788,9 +1273,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo getFriends(int index) {
+      public openim.sdk.shared.Shared.FriendInfo getFriends(int index) {
         if (friendsBuilder_ == null) {
           return friends_.get(index);
         } else {
@@ -6798,10 +1283,10 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder setFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo value) {
+          int index, openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6815,10 +1300,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder setFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.set(index, builderForValue.build());
@@ -6829,9 +1314,9 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public Builder addFriends(openim.sdk.relation.Relation.FriendInfo value) {
+      public Builder addFriends(openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6845,10 +1330,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo value) {
+          int index, openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6862,10 +1347,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.add(builderForValue.build());
@@ -6876,10 +1361,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.add(index, builderForValue.build());
@@ -6890,10 +1375,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addAllFriends(
-          java.lang.Iterable<? extends openim.sdk.relation.Relation.FriendInfo> values) {
+          java.lang.Iterable<? extends openim.sdk.shared.Shared.FriendInfo> values) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -6905,7 +1390,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder clearFriends() {
         if (friendsBuilder_ == null) {
@@ -6918,7 +1403,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder removeFriends(int index) {
         if (friendsBuilder_ == null) {
@@ -6931,16 +1416,16 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder getFriendsBuilder(
+      public openim.sdk.shared.Shared.FriendInfo.Builder getFriendsBuilder(
           int index) {
         return getFriendsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+      public openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
           int index) {
         if (friendsBuilder_ == null) {
           return friends_.get(index);  } else {
@@ -6948,9 +1433,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+      public java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
            getFriendsOrBuilderList() {
         if (friendsBuilder_ != null) {
           return friendsBuilder_.getMessageOrBuilderList();
@@ -6959,33 +1444,33 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder addFriendsBuilder() {
+      public openim.sdk.shared.Shared.FriendInfo.Builder addFriendsBuilder() {
         return getFriendsFieldBuilder().addBuilder(
-            openim.sdk.relation.Relation.FriendInfo.getDefaultInstance());
+            openim.sdk.shared.Shared.FriendInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder addFriendsBuilder(
+      public openim.sdk.shared.Shared.FriendInfo.Builder addFriendsBuilder(
           int index) {
         return getFriendsFieldBuilder().addBuilder(
-            index, openim.sdk.relation.Relation.FriendInfo.getDefaultInstance());
+            index, openim.sdk.shared.Shared.FriendInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.FriendInfo.Builder> 
+      public java.util.List<openim.sdk.shared.Shared.FriendInfo.Builder> 
            getFriendsBuilderList() {
         return getFriendsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+          openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder> 
           getFriendsFieldBuilder() {
         if (friendsBuilder_ == null) {
           friendsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder>(
+              openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder>(
                   friends_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -8647,27 +3132,27 @@ public final class Relation {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
-    java.util.List<openim.sdk.relation.Relation.FriendRequestInfo> 
+    java.util.List<openim.sdk.shared.Shared.FriendRequestInfo> 
         getRequestsList();
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendRequestInfo getRequests(int index);
+    openim.sdk.shared.Shared.FriendRequestInfo getRequests(int index);
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
     int getRequestsCount();
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
-    java.util.List<? extends openim.sdk.relation.Relation.FriendRequestInfoOrBuilder> 
+    java.util.List<? extends openim.sdk.shared.Shared.FriendRequestInfoOrBuilder> 
         getRequestsOrBuilderList();
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendRequestInfoOrBuilder getRequestsOrBuilder(
+    openim.sdk.shared.Shared.FriendRequestInfoOrBuilder getRequestsOrBuilder(
         int index);
   }
   /**
@@ -8710,41 +3195,41 @@ public final class Relation {
 
     public static final int REQUESTS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private java.util.List<openim.sdk.relation.Relation.FriendRequestInfo> requests_;
+    private java.util.List<openim.sdk.shared.Shared.FriendRequestInfo> requests_;
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<openim.sdk.relation.Relation.FriendRequestInfo> getRequestsList() {
+    public java.util.List<openim.sdk.shared.Shared.FriendRequestInfo> getRequestsList() {
       return requests_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends openim.sdk.relation.Relation.FriendRequestInfoOrBuilder> 
+    public java.util.List<? extends openim.sdk.shared.Shared.FriendRequestInfoOrBuilder> 
         getRequestsOrBuilderList() {
       return requests_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
     @java.lang.Override
     public int getRequestsCount() {
       return requests_.size();
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendRequestInfo getRequests(int index) {
+    public openim.sdk.shared.Shared.FriendRequestInfo getRequests(int index) {
       return requests_.get(index);
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendRequestInfoOrBuilder getRequestsOrBuilder(
+    public openim.sdk.shared.Shared.FriendRequestInfoOrBuilder getRequestsOrBuilder(
         int index) {
       return requests_.get(index);
     }
@@ -9062,9 +3547,9 @@ public final class Relation {
                 done = true;
                 break;
               case 10: {
-                openim.sdk.relation.Relation.FriendRequestInfo m =
+                openim.sdk.shared.Shared.FriendRequestInfo m =
                     input.readMessage(
-                        openim.sdk.relation.Relation.FriendRequestInfo.parser(),
+                        openim.sdk.shared.Shared.FriendRequestInfo.parser(),
                         extensionRegistry);
                 if (requestsBuilder_ == null) {
                   ensureRequestsIsMutable();
@@ -9091,22 +3576,22 @@ public final class Relation {
       }
       private int bitField0_;
 
-      private java.util.List<openim.sdk.relation.Relation.FriendRequestInfo> requests_ =
+      private java.util.List<openim.sdk.shared.Shared.FriendRequestInfo> requests_ =
         java.util.Collections.emptyList();
       private void ensureRequestsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          requests_ = new java.util.ArrayList<openim.sdk.relation.Relation.FriendRequestInfo>(requests_);
+          requests_ = new java.util.ArrayList<openim.sdk.shared.Shared.FriendRequestInfo>(requests_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.FriendRequestInfo, openim.sdk.relation.Relation.FriendRequestInfo.Builder, openim.sdk.relation.Relation.FriendRequestInfoOrBuilder> requestsBuilder_;
+          openim.sdk.shared.Shared.FriendRequestInfo, openim.sdk.shared.Shared.FriendRequestInfo.Builder, openim.sdk.shared.Shared.FriendRequestInfoOrBuilder> requestsBuilder_;
 
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.FriendRequestInfo> getRequestsList() {
+      public java.util.List<openim.sdk.shared.Shared.FriendRequestInfo> getRequestsList() {
         if (requestsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(requests_);
         } else {
@@ -9114,7 +3599,7 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public int getRequestsCount() {
         if (requestsBuilder_ == null) {
@@ -9124,9 +3609,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendRequestInfo getRequests(int index) {
+      public openim.sdk.shared.Shared.FriendRequestInfo getRequests(int index) {
         if (requestsBuilder_ == null) {
           return requests_.get(index);
         } else {
@@ -9134,10 +3619,10 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public Builder setRequests(
-          int index, openim.sdk.relation.Relation.FriendRequestInfo value) {
+          int index, openim.sdk.shared.Shared.FriendRequestInfo value) {
         if (requestsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9151,10 +3636,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public Builder setRequests(
-          int index, openim.sdk.relation.Relation.FriendRequestInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.FriendRequestInfo.Builder builderForValue) {
         if (requestsBuilder_ == null) {
           ensureRequestsIsMutable();
           requests_.set(index, builderForValue.build());
@@ -9165,9 +3650,9 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public Builder addRequests(openim.sdk.relation.Relation.FriendRequestInfo value) {
+      public Builder addRequests(openim.sdk.shared.Shared.FriendRequestInfo value) {
         if (requestsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9181,10 +3666,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public Builder addRequests(
-          int index, openim.sdk.relation.Relation.FriendRequestInfo value) {
+          int index, openim.sdk.shared.Shared.FriendRequestInfo value) {
         if (requestsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9198,10 +3683,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public Builder addRequests(
-          openim.sdk.relation.Relation.FriendRequestInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.FriendRequestInfo.Builder builderForValue) {
         if (requestsBuilder_ == null) {
           ensureRequestsIsMutable();
           requests_.add(builderForValue.build());
@@ -9212,10 +3697,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public Builder addRequests(
-          int index, openim.sdk.relation.Relation.FriendRequestInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.FriendRequestInfo.Builder builderForValue) {
         if (requestsBuilder_ == null) {
           ensureRequestsIsMutable();
           requests_.add(index, builderForValue.build());
@@ -9226,10 +3711,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public Builder addAllRequests(
-          java.lang.Iterable<? extends openim.sdk.relation.Relation.FriendRequestInfo> values) {
+          java.lang.Iterable<? extends openim.sdk.shared.Shared.FriendRequestInfo> values) {
         if (requestsBuilder_ == null) {
           ensureRequestsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -9241,7 +3726,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public Builder clearRequests() {
         if (requestsBuilder_ == null) {
@@ -9254,7 +3739,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
       public Builder removeRequests(int index) {
         if (requestsBuilder_ == null) {
@@ -9267,16 +3752,16 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendRequestInfo.Builder getRequestsBuilder(
+      public openim.sdk.shared.Shared.FriendRequestInfo.Builder getRequestsBuilder(
           int index) {
         return getRequestsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendRequestInfoOrBuilder getRequestsOrBuilder(
+      public openim.sdk.shared.Shared.FriendRequestInfoOrBuilder getRequestsOrBuilder(
           int index) {
         if (requestsBuilder_ == null) {
           return requests_.get(index);  } else {
@@ -9284,9 +3769,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public java.util.List<? extends openim.sdk.relation.Relation.FriendRequestInfoOrBuilder> 
+      public java.util.List<? extends openim.sdk.shared.Shared.FriendRequestInfoOrBuilder> 
            getRequestsOrBuilderList() {
         if (requestsBuilder_ != null) {
           return requestsBuilder_.getMessageOrBuilderList();
@@ -9295,33 +3780,33 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendRequestInfo.Builder addRequestsBuilder() {
+      public openim.sdk.shared.Shared.FriendRequestInfo.Builder addRequestsBuilder() {
         return getRequestsFieldBuilder().addBuilder(
-            openim.sdk.relation.Relation.FriendRequestInfo.getDefaultInstance());
+            openim.sdk.shared.Shared.FriendRequestInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendRequestInfo.Builder addRequestsBuilder(
+      public openim.sdk.shared.Shared.FriendRequestInfo.Builder addRequestsBuilder(
           int index) {
         return getRequestsFieldBuilder().addBuilder(
-            index, openim.sdk.relation.Relation.FriendRequestInfo.getDefaultInstance());
+            index, openim.sdk.shared.Shared.FriendRequestInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendRequestInfo requests = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendRequestInfo requests = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.FriendRequestInfo.Builder> 
+      public java.util.List<openim.sdk.shared.Shared.FriendRequestInfo.Builder> 
            getRequestsBuilderList() {
         return getRequestsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.FriendRequestInfo, openim.sdk.relation.Relation.FriendRequestInfo.Builder, openim.sdk.relation.Relation.FriendRequestInfoOrBuilder> 
+          openim.sdk.shared.Shared.FriendRequestInfo, openim.sdk.shared.Shared.FriendRequestInfo.Builder, openim.sdk.shared.Shared.FriendRequestInfoOrBuilder> 
           getRequestsFieldBuilder() {
         if (requestsBuilder_ == null) {
           requestsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              openim.sdk.relation.Relation.FriendRequestInfo, openim.sdk.relation.Relation.FriendRequestInfo.Builder, openim.sdk.relation.Relation.FriendRequestInfoOrBuilder>(
+              openim.sdk.shared.Shared.FriendRequestInfo, openim.sdk.shared.Shared.FriendRequestInfo.Builder, openim.sdk.shared.Shared.FriendRequestInfoOrBuilder>(
                   requests_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -13703,27 +8188,27 @@ public final class Relation {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    java.util.List<openim.sdk.relation.Relation.FriendInfo> 
+    java.util.List<openim.sdk.shared.Shared.FriendInfo> 
         getFriendsList();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendInfo getFriends(int index);
+    openim.sdk.shared.Shared.FriendInfo getFriends(int index);
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     int getFriendsCount();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+    java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
         getFriendsOrBuilderList();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+    openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
         int index);
   }
   /**
@@ -13766,41 +8251,41 @@ public final class Relation {
 
     public static final int FRIENDS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private java.util.List<openim.sdk.relation.Relation.FriendInfo> friends_;
+    private java.util.List<openim.sdk.shared.Shared.FriendInfo> friends_;
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<openim.sdk.relation.Relation.FriendInfo> getFriendsList() {
+    public java.util.List<openim.sdk.shared.Shared.FriendInfo> getFriendsList() {
       return friends_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+    public java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
         getFriendsOrBuilderList() {
       return friends_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
     public int getFriendsCount() {
       return friends_.size();
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfo getFriends(int index) {
+    public openim.sdk.shared.Shared.FriendInfo getFriends(int index) {
       return friends_.get(index);
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+    public openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
         int index) {
       return friends_.get(index);
     }
@@ -14118,9 +8603,9 @@ public final class Relation {
                 done = true;
                 break;
               case 10: {
-                openim.sdk.relation.Relation.FriendInfo m =
+                openim.sdk.shared.Shared.FriendInfo m =
                     input.readMessage(
-                        openim.sdk.relation.Relation.FriendInfo.parser(),
+                        openim.sdk.shared.Shared.FriendInfo.parser(),
                         extensionRegistry);
                 if (friendsBuilder_ == null) {
                   ensureFriendsIsMutable();
@@ -14147,22 +8632,22 @@ public final class Relation {
       }
       private int bitField0_;
 
-      private java.util.List<openim.sdk.relation.Relation.FriendInfo> friends_ =
+      private java.util.List<openim.sdk.shared.Shared.FriendInfo> friends_ =
         java.util.Collections.emptyList();
       private void ensureFriendsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          friends_ = new java.util.ArrayList<openim.sdk.relation.Relation.FriendInfo>(friends_);
+          friends_ = new java.util.ArrayList<openim.sdk.shared.Shared.FriendInfo>(friends_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> friendsBuilder_;
+          openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder> friendsBuilder_;
 
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.FriendInfo> getFriendsList() {
+      public java.util.List<openim.sdk.shared.Shared.FriendInfo> getFriendsList() {
         if (friendsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(friends_);
         } else {
@@ -14170,7 +8655,7 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public int getFriendsCount() {
         if (friendsBuilder_ == null) {
@@ -14180,9 +8665,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo getFriends(int index) {
+      public openim.sdk.shared.Shared.FriendInfo getFriends(int index) {
         if (friendsBuilder_ == null) {
           return friends_.get(index);
         } else {
@@ -14190,10 +8675,10 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder setFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo value) {
+          int index, openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -14207,10 +8692,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder setFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.set(index, builderForValue.build());
@@ -14221,9 +8706,9 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public Builder addFriends(openim.sdk.relation.Relation.FriendInfo value) {
+      public Builder addFriends(openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -14237,10 +8722,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo value) {
+          int index, openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -14254,10 +8739,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.add(builderForValue.build());
@@ -14268,10 +8753,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.add(index, builderForValue.build());
@@ -14282,10 +8767,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addAllFriends(
-          java.lang.Iterable<? extends openim.sdk.relation.Relation.FriendInfo> values) {
+          java.lang.Iterable<? extends openim.sdk.shared.Shared.FriendInfo> values) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -14297,7 +8782,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder clearFriends() {
         if (friendsBuilder_ == null) {
@@ -14310,7 +8795,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder removeFriends(int index) {
         if (friendsBuilder_ == null) {
@@ -14323,16 +8808,16 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder getFriendsBuilder(
+      public openim.sdk.shared.Shared.FriendInfo.Builder getFriendsBuilder(
           int index) {
         return getFriendsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+      public openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
           int index) {
         if (friendsBuilder_ == null) {
           return friends_.get(index);  } else {
@@ -14340,9 +8825,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+      public java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
            getFriendsOrBuilderList() {
         if (friendsBuilder_ != null) {
           return friendsBuilder_.getMessageOrBuilderList();
@@ -14351,33 +8836,33 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder addFriendsBuilder() {
+      public openim.sdk.shared.Shared.FriendInfo.Builder addFriendsBuilder() {
         return getFriendsFieldBuilder().addBuilder(
-            openim.sdk.relation.Relation.FriendInfo.getDefaultInstance());
+            openim.sdk.shared.Shared.FriendInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder addFriendsBuilder(
+      public openim.sdk.shared.Shared.FriendInfo.Builder addFriendsBuilder(
           int index) {
         return getFriendsFieldBuilder().addBuilder(
-            index, openim.sdk.relation.Relation.FriendInfo.getDefaultInstance());
+            index, openim.sdk.shared.Shared.FriendInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.FriendInfo.Builder> 
+      public java.util.List<openim.sdk.shared.Shared.FriendInfo.Builder> 
            getFriendsBuilderList() {
         return getFriendsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+          openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder> 
           getFriendsFieldBuilder() {
         if (friendsBuilder_ == null) {
           friendsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder>(
+              openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder>(
                   friends_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -15086,27 +9571,27 @@ public final class Relation {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    java.util.List<openim.sdk.relation.Relation.FriendInfo> 
+    java.util.List<openim.sdk.shared.Shared.FriendInfo> 
         getFriendsList();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendInfo getFriends(int index);
+    openim.sdk.shared.Shared.FriendInfo getFriends(int index);
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     int getFriendsCount();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+    java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
         getFriendsOrBuilderList();
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+    openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
         int index);
   }
   /**
@@ -15149,41 +9634,41 @@ public final class Relation {
 
     public static final int FRIENDS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private java.util.List<openim.sdk.relation.Relation.FriendInfo> friends_;
+    private java.util.List<openim.sdk.shared.Shared.FriendInfo> friends_;
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<openim.sdk.relation.Relation.FriendInfo> getFriendsList() {
+    public java.util.List<openim.sdk.shared.Shared.FriendInfo> getFriendsList() {
       return friends_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+    public java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
         getFriendsOrBuilderList() {
       return friends_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
     public int getFriendsCount() {
       return friends_.size();
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfo getFriends(int index) {
+    public openim.sdk.shared.Shared.FriendInfo getFriends(int index) {
       return friends_.get(index);
     }
     /**
-     * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+     * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+    public openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
         int index) {
       return friends_.get(index);
     }
@@ -15501,9 +9986,9 @@ public final class Relation {
                 done = true;
                 break;
               case 10: {
-                openim.sdk.relation.Relation.FriendInfo m =
+                openim.sdk.shared.Shared.FriendInfo m =
                     input.readMessage(
-                        openim.sdk.relation.Relation.FriendInfo.parser(),
+                        openim.sdk.shared.Shared.FriendInfo.parser(),
                         extensionRegistry);
                 if (friendsBuilder_ == null) {
                   ensureFriendsIsMutable();
@@ -15530,22 +10015,22 @@ public final class Relation {
       }
       private int bitField0_;
 
-      private java.util.List<openim.sdk.relation.Relation.FriendInfo> friends_ =
+      private java.util.List<openim.sdk.shared.Shared.FriendInfo> friends_ =
         java.util.Collections.emptyList();
       private void ensureFriendsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          friends_ = new java.util.ArrayList<openim.sdk.relation.Relation.FriendInfo>(friends_);
+          friends_ = new java.util.ArrayList<openim.sdk.shared.Shared.FriendInfo>(friends_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> friendsBuilder_;
+          openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder> friendsBuilder_;
 
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.FriendInfo> getFriendsList() {
+      public java.util.List<openim.sdk.shared.Shared.FriendInfo> getFriendsList() {
         if (friendsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(friends_);
         } else {
@@ -15553,7 +10038,7 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public int getFriendsCount() {
         if (friendsBuilder_ == null) {
@@ -15563,9 +10048,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo getFriends(int index) {
+      public openim.sdk.shared.Shared.FriendInfo getFriends(int index) {
         if (friendsBuilder_ == null) {
           return friends_.get(index);
         } else {
@@ -15573,10 +10058,10 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder setFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo value) {
+          int index, openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15590,10 +10075,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder setFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.set(index, builderForValue.build());
@@ -15604,9 +10089,9 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public Builder addFriends(openim.sdk.relation.Relation.FriendInfo value) {
+      public Builder addFriends(openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15620,10 +10105,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo value) {
+          int index, openim.sdk.shared.Shared.FriendInfo value) {
         if (friendsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15637,10 +10122,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.add(builderForValue.build());
@@ -15651,10 +10136,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addFriends(
-          int index, openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           friends_.add(index, builderForValue.build());
@@ -15665,10 +10150,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder addAllFriends(
-          java.lang.Iterable<? extends openim.sdk.relation.Relation.FriendInfo> values) {
+          java.lang.Iterable<? extends openim.sdk.shared.Shared.FriendInfo> values) {
         if (friendsBuilder_ == null) {
           ensureFriendsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -15680,7 +10165,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder clearFriends() {
         if (friendsBuilder_ == null) {
@@ -15693,7 +10178,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
       public Builder removeFriends(int index) {
         if (friendsBuilder_ == null) {
@@ -15706,16 +10191,16 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder getFriendsBuilder(
+      public openim.sdk.shared.Shared.FriendInfo.Builder getFriendsBuilder(
           int index) {
         return getFriendsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendsOrBuilder(
+      public openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendsOrBuilder(
           int index) {
         if (friendsBuilder_ == null) {
           return friends_.get(index);  } else {
@@ -15723,9 +10208,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<? extends openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+      public java.util.List<? extends openim.sdk.shared.Shared.FriendInfoOrBuilder> 
            getFriendsOrBuilderList() {
         if (friendsBuilder_ != null) {
           return friendsBuilder_.getMessageOrBuilderList();
@@ -15734,33 +10219,33 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder addFriendsBuilder() {
+      public openim.sdk.shared.Shared.FriendInfo.Builder addFriendsBuilder() {
         return getFriendsFieldBuilder().addBuilder(
-            openim.sdk.relation.Relation.FriendInfo.getDefaultInstance());
+            openim.sdk.shared.Shared.FriendInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder addFriendsBuilder(
+      public openim.sdk.shared.Shared.FriendInfo.Builder addFriendsBuilder(
           int index) {
         return getFriendsFieldBuilder().addBuilder(
-            index, openim.sdk.relation.Relation.FriendInfo.getDefaultInstance());
+            index, openim.sdk.shared.Shared.FriendInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.FriendInfo friends = 1;</code>
+       * <code>repeated .openim.sdk.shared.FriendInfo friends = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.FriendInfo.Builder> 
+      public java.util.List<openim.sdk.shared.Shared.FriendInfo.Builder> 
            getFriendsBuilderList() {
         return getFriendsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+          openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder> 
           getFriendsFieldBuilder() {
         if (friendsBuilder_ == null) {
           friendsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder>(
+              openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder>(
                   friends_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -16555,19 +11040,19 @@ public final class Relation {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+     * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
      * @return Whether the friend field is set.
      */
     boolean hasFriend();
     /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+     * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
      * @return The friend.
      */
-    openim.sdk.relation.Relation.FriendInfo getFriend();
+    openim.sdk.shared.Shared.FriendInfo getFriend();
     /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+     * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
      */
-    openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendOrBuilder();
+    openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendOrBuilder();
 
     /**
      * <code>.openim.sdk.relation.Relationship relationship = 2;</code>
@@ -16620,9 +11105,9 @@ public final class Relation {
 
     private int bitField0_;
     public static final int FRIEND_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FriendInfo friend_;
+    private openim.sdk.shared.Shared.FriendInfo friend_;
     /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+     * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
      * @return Whether the friend field is set.
      */
     @java.lang.Override
@@ -16630,19 +11115,19 @@ public final class Relation {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+     * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
      * @return The friend.
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfo getFriend() {
-      return friend_ == null ? openim.sdk.relation.Relation.FriendInfo.getDefaultInstance() : friend_;
+    public openim.sdk.shared.Shared.FriendInfo getFriend() {
+      return friend_ == null ? openim.sdk.shared.Shared.FriendInfo.getDefaultInstance() : friend_;
     }
     /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+     * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendOrBuilder() {
-      return friend_ == null ? openim.sdk.relation.Relation.FriendInfo.getDefaultInstance() : friend_;
+    public openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendOrBuilder() {
+      return friend_ == null ? openim.sdk.shared.Shared.FriendInfo.getDefaultInstance() : friend_;
     }
 
     public static final int RELATIONSHIP_FIELD_NUMBER = 2;
@@ -17000,31 +11485,31 @@ public final class Relation {
       }
       private int bitField0_;
 
-      private openim.sdk.relation.Relation.FriendInfo friend_;
+      private openim.sdk.shared.Shared.FriendInfo friend_;
       private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> friendBuilder_;
+          openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder> friendBuilder_;
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        * @return Whether the friend field is set.
        */
       public boolean hasFriend() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        * @return The friend.
        */
-      public openim.sdk.relation.Relation.FriendInfo getFriend() {
+      public openim.sdk.shared.Shared.FriendInfo getFriend() {
         if (friendBuilder_ == null) {
-          return friend_ == null ? openim.sdk.relation.Relation.FriendInfo.getDefaultInstance() : friend_;
+          return friend_ == null ? openim.sdk.shared.Shared.FriendInfo.getDefaultInstance() : friend_;
         } else {
           return friendBuilder_.getMessage();
         }
       }
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        */
-      public Builder setFriend(openim.sdk.relation.Relation.FriendInfo value) {
+      public Builder setFriend(openim.sdk.shared.Shared.FriendInfo value) {
         if (friendBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -17038,10 +11523,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        */
       public Builder setFriend(
-          openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.FriendInfo.Builder builderForValue) {
         if (friendBuilder_ == null) {
           friend_ = builderForValue.build();
         } else {
@@ -17052,13 +11537,13 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        */
-      public Builder mergeFriend(openim.sdk.relation.Relation.FriendInfo value) {
+      public Builder mergeFriend(openim.sdk.shared.Shared.FriendInfo value) {
         if (friendBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0) &&
             friend_ != null &&
-            friend_ != openim.sdk.relation.Relation.FriendInfo.getDefaultInstance()) {
+            friend_ != openim.sdk.shared.Shared.FriendInfo.getDefaultInstance()) {
             getFriendBuilder().mergeFrom(value);
           } else {
             friend_ = value;
@@ -17073,7 +11558,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        */
       public Builder clearFriend() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -17086,33 +11571,33 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfo.Builder getFriendBuilder() {
+      public openim.sdk.shared.Shared.FriendInfo.Builder getFriendBuilder() {
         bitField0_ |= 0x00000001;
         onChanged();
         return getFriendFieldBuilder().getBuilder();
       }
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        */
-      public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendOrBuilder() {
+      public openim.sdk.shared.Shared.FriendInfoOrBuilder getFriendOrBuilder() {
         if (friendBuilder_ != null) {
           return friendBuilder_.getMessageOrBuilder();
         } else {
           return friend_ == null ?
-              openim.sdk.relation.Relation.FriendInfo.getDefaultInstance() : friend_;
+              openim.sdk.shared.Shared.FriendInfo.getDefaultInstance() : friend_;
         }
       }
       /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
+       * <code>.openim.sdk.shared.FriendInfo friend = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> 
+          openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder> 
           getFriendFieldBuilder() {
         if (friendBuilder_ == null) {
           friendBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder>(
+              openim.sdk.shared.Shared.FriendInfo, openim.sdk.shared.Shared.FriendInfo.Builder, openim.sdk.shared.Shared.FriendInfoOrBuilder>(
                   getFriend(),
                   getParentForChildren(),
                   isClean());
@@ -20203,27 +14688,27 @@ public final class Relation {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
-    java.util.List<openim.sdk.relation.Relation.BlackInfo> 
+    java.util.List<openim.sdk.shared.Shared.BlackInfo> 
         getBlacksList();
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
-    openim.sdk.relation.Relation.BlackInfo getBlacks(int index);
+    openim.sdk.shared.Shared.BlackInfo getBlacks(int index);
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
     int getBlacksCount();
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
-    java.util.List<? extends openim.sdk.relation.Relation.BlackInfoOrBuilder> 
+    java.util.List<? extends openim.sdk.shared.Shared.BlackInfoOrBuilder> 
         getBlacksOrBuilderList();
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
-    openim.sdk.relation.Relation.BlackInfoOrBuilder getBlacksOrBuilder(
+    openim.sdk.shared.Shared.BlackInfoOrBuilder getBlacksOrBuilder(
         int index);
   }
   /**
@@ -20266,41 +14751,41 @@ public final class Relation {
 
     public static final int BLACKS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private java.util.List<openim.sdk.relation.Relation.BlackInfo> blacks_;
+    private java.util.List<openim.sdk.shared.Shared.BlackInfo> blacks_;
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<openim.sdk.relation.Relation.BlackInfo> getBlacksList() {
+    public java.util.List<openim.sdk.shared.Shared.BlackInfo> getBlacksList() {
       return blacks_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends openim.sdk.relation.Relation.BlackInfoOrBuilder> 
+    public java.util.List<? extends openim.sdk.shared.Shared.BlackInfoOrBuilder> 
         getBlacksOrBuilderList() {
       return blacks_;
     }
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
     @java.lang.Override
     public int getBlacksCount() {
       return blacks_.size();
     }
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.BlackInfo getBlacks(int index) {
+    public openim.sdk.shared.Shared.BlackInfo getBlacks(int index) {
       return blacks_.get(index);
     }
     /**
-     * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+     * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
      */
     @java.lang.Override
-    public openim.sdk.relation.Relation.BlackInfoOrBuilder getBlacksOrBuilder(
+    public openim.sdk.shared.Shared.BlackInfoOrBuilder getBlacksOrBuilder(
         int index) {
       return blacks_.get(index);
     }
@@ -20618,9 +15103,9 @@ public final class Relation {
                 done = true;
                 break;
               case 10: {
-                openim.sdk.relation.Relation.BlackInfo m =
+                openim.sdk.shared.Shared.BlackInfo m =
                     input.readMessage(
-                        openim.sdk.relation.Relation.BlackInfo.parser(),
+                        openim.sdk.shared.Shared.BlackInfo.parser(),
                         extensionRegistry);
                 if (blacksBuilder_ == null) {
                   ensureBlacksIsMutable();
@@ -20647,22 +15132,22 @@ public final class Relation {
       }
       private int bitField0_;
 
-      private java.util.List<openim.sdk.relation.Relation.BlackInfo> blacks_ =
+      private java.util.List<openim.sdk.shared.Shared.BlackInfo> blacks_ =
         java.util.Collections.emptyList();
       private void ensureBlacksIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          blacks_ = new java.util.ArrayList<openim.sdk.relation.Relation.BlackInfo>(blacks_);
+          blacks_ = new java.util.ArrayList<openim.sdk.shared.Shared.BlackInfo>(blacks_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.BlackInfo, openim.sdk.relation.Relation.BlackInfo.Builder, openim.sdk.relation.Relation.BlackInfoOrBuilder> blacksBuilder_;
+          openim.sdk.shared.Shared.BlackInfo, openim.sdk.shared.Shared.BlackInfo.Builder, openim.sdk.shared.Shared.BlackInfoOrBuilder> blacksBuilder_;
 
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.BlackInfo> getBlacksList() {
+      public java.util.List<openim.sdk.shared.Shared.BlackInfo> getBlacksList() {
         if (blacksBuilder_ == null) {
           return java.util.Collections.unmodifiableList(blacks_);
         } else {
@@ -20670,7 +15155,7 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public int getBlacksCount() {
         if (blacksBuilder_ == null) {
@@ -20680,9 +15165,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public openim.sdk.relation.Relation.BlackInfo getBlacks(int index) {
+      public openim.sdk.shared.Shared.BlackInfo getBlacks(int index) {
         if (blacksBuilder_ == null) {
           return blacks_.get(index);
         } else {
@@ -20690,10 +15175,10 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public Builder setBlacks(
-          int index, openim.sdk.relation.Relation.BlackInfo value) {
+          int index, openim.sdk.shared.Shared.BlackInfo value) {
         if (blacksBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -20707,10 +15192,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public Builder setBlacks(
-          int index, openim.sdk.relation.Relation.BlackInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.BlackInfo.Builder builderForValue) {
         if (blacksBuilder_ == null) {
           ensureBlacksIsMutable();
           blacks_.set(index, builderForValue.build());
@@ -20721,9 +15206,9 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public Builder addBlacks(openim.sdk.relation.Relation.BlackInfo value) {
+      public Builder addBlacks(openim.sdk.shared.Shared.BlackInfo value) {
         if (blacksBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -20737,10 +15222,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public Builder addBlacks(
-          int index, openim.sdk.relation.Relation.BlackInfo value) {
+          int index, openim.sdk.shared.Shared.BlackInfo value) {
         if (blacksBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -20754,10 +15239,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public Builder addBlacks(
-          openim.sdk.relation.Relation.BlackInfo.Builder builderForValue) {
+          openim.sdk.shared.Shared.BlackInfo.Builder builderForValue) {
         if (blacksBuilder_ == null) {
           ensureBlacksIsMutable();
           blacks_.add(builderForValue.build());
@@ -20768,10 +15253,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public Builder addBlacks(
-          int index, openim.sdk.relation.Relation.BlackInfo.Builder builderForValue) {
+          int index, openim.sdk.shared.Shared.BlackInfo.Builder builderForValue) {
         if (blacksBuilder_ == null) {
           ensureBlacksIsMutable();
           blacks_.add(index, builderForValue.build());
@@ -20782,10 +15267,10 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public Builder addAllBlacks(
-          java.lang.Iterable<? extends openim.sdk.relation.Relation.BlackInfo> values) {
+          java.lang.Iterable<? extends openim.sdk.shared.Shared.BlackInfo> values) {
         if (blacksBuilder_ == null) {
           ensureBlacksIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -20797,7 +15282,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public Builder clearBlacks() {
         if (blacksBuilder_ == null) {
@@ -20810,7 +15295,7 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
       public Builder removeBlacks(int index) {
         if (blacksBuilder_ == null) {
@@ -20823,16 +15308,16 @@ public final class Relation {
         return this;
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public openim.sdk.relation.Relation.BlackInfo.Builder getBlacksBuilder(
+      public openim.sdk.shared.Shared.BlackInfo.Builder getBlacksBuilder(
           int index) {
         return getBlacksFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public openim.sdk.relation.Relation.BlackInfoOrBuilder getBlacksOrBuilder(
+      public openim.sdk.shared.Shared.BlackInfoOrBuilder getBlacksOrBuilder(
           int index) {
         if (blacksBuilder_ == null) {
           return blacks_.get(index);  } else {
@@ -20840,9 +15325,9 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public java.util.List<? extends openim.sdk.relation.Relation.BlackInfoOrBuilder> 
+      public java.util.List<? extends openim.sdk.shared.Shared.BlackInfoOrBuilder> 
            getBlacksOrBuilderList() {
         if (blacksBuilder_ != null) {
           return blacksBuilder_.getMessageOrBuilderList();
@@ -20851,33 +15336,33 @@ public final class Relation {
         }
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public openim.sdk.relation.Relation.BlackInfo.Builder addBlacksBuilder() {
+      public openim.sdk.shared.Shared.BlackInfo.Builder addBlacksBuilder() {
         return getBlacksFieldBuilder().addBuilder(
-            openim.sdk.relation.Relation.BlackInfo.getDefaultInstance());
+            openim.sdk.shared.Shared.BlackInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public openim.sdk.relation.Relation.BlackInfo.Builder addBlacksBuilder(
+      public openim.sdk.shared.Shared.BlackInfo.Builder addBlacksBuilder(
           int index) {
         return getBlacksFieldBuilder().addBuilder(
-            index, openim.sdk.relation.Relation.BlackInfo.getDefaultInstance());
+            index, openim.sdk.shared.Shared.BlackInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .openim.sdk.relation.BlackInfo blacks = 1;</code>
+       * <code>repeated .openim.sdk.shared.BlackInfo blacks = 1;</code>
        */
-      public java.util.List<openim.sdk.relation.Relation.BlackInfo.Builder> 
+      public java.util.List<openim.sdk.shared.Shared.BlackInfo.Builder> 
            getBlacksBuilderList() {
         return getBlacksFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          openim.sdk.relation.Relation.BlackInfo, openim.sdk.relation.Relation.BlackInfo.Builder, openim.sdk.relation.Relation.BlackInfoOrBuilder> 
+          openim.sdk.shared.Shared.BlackInfo, openim.sdk.shared.Shared.BlackInfo.Builder, openim.sdk.shared.Shared.BlackInfoOrBuilder> 
           getBlacksFieldBuilder() {
         if (blacksBuilder_ == null) {
           blacksBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              openim.sdk.relation.Relation.BlackInfo, openim.sdk.relation.Relation.BlackInfo.Builder, openim.sdk.relation.Relation.BlackInfoOrBuilder>(
+              openim.sdk.shared.Shared.BlackInfo, openim.sdk.shared.Shared.BlackInfo.Builder, openim.sdk.shared.Shared.BlackInfoOrBuilder>(
                   blacks_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -20943,29 +15428,16 @@ public final class Relation {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated string userIDs = 1;</code>
-     * @return A list containing the userIDs.
+     * <code>string userID = 1;</code>
+     * @return The userID.
      */
-    java.util.List<java.lang.String>
-        getUserIDsList();
+    java.lang.String getUserID();
     /**
-     * <code>repeated string userIDs = 1;</code>
-     * @return The count of userIDs.
-     */
-    int getUserIDsCount();
-    /**
-     * <code>repeated string userIDs = 1;</code>
-     * @param index The index of the element to return.
-     * @return The userIDs at the given index.
-     */
-    java.lang.String getUserIDs(int index);
-    /**
-     * <code>repeated string userIDs = 1;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the userIDs at the given index.
+     * <code>string userID = 1;</code>
+     * @return The bytes for userID.
      */
     com.google.protobuf.ByteString
-        getUserIDsBytes(int index);
+        getUserIDBytes();
 
     /**
      * <code>optional bool pinned = 2;</code>
@@ -21034,8 +15506,7 @@ public final class Relation {
       super(builder);
     }
     private UpdatesFriendsReq() {
-      userIDs_ =
-          com.google.protobuf.LazyStringArrayList.emptyList();
+      userID_ = "";
       remark_ = "";
       ex_ = "";
     }
@@ -21054,41 +15525,43 @@ public final class Relation {
     }
 
     private int bitField0_;
-    public static final int USERIDS_FIELD_NUMBER = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private com.google.protobuf.LazyStringArrayList userIDs_ =
-        com.google.protobuf.LazyStringArrayList.emptyList();
+    private volatile java.lang.Object userID_ = "";
     /**
-     * <code>repeated string userIDs = 1;</code>
-     * @return A list containing the userIDs.
+     * <code>string userID = 1;</code>
+     * @return The userID.
      */
-    public com.google.protobuf.ProtocolStringList
-        getUserIDsList() {
-      return userIDs_;
+    @java.lang.Override
+    public java.lang.String getUserID() {
+      java.lang.Object ref = userID_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userID_ = s;
+        return s;
+      }
     }
     /**
-     * <code>repeated string userIDs = 1;</code>
-     * @return The count of userIDs.
+     * <code>string userID = 1;</code>
+     * @return The bytes for userID.
      */
-    public int getUserIDsCount() {
-      return userIDs_.size();
-    }
-    /**
-     * <code>repeated string userIDs = 1;</code>
-     * @param index The index of the element to return.
-     * @return The userIDs at the given index.
-     */
-    public java.lang.String getUserIDs(int index) {
-      return userIDs_.get(index);
-    }
-    /**
-     * <code>repeated string userIDs = 1;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the userIDs at the given index.
-     */
+    @java.lang.Override
     public com.google.protobuf.ByteString
-        getUserIDsBytes(int index) {
-      return userIDs_.getByteString(index);
+        getUserIDBytes() {
+      java.lang.Object ref = userID_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userID_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int PINNED_FIELD_NUMBER = 2;
@@ -21218,8 +15691,8 @@ public final class Relation {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      for (int i = 0; i < userIDs_.size(); i++) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, userIDs_.getRaw(i));
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userID_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, userID_);
       }
       if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBool(2, pinned_);
@@ -21239,13 +15712,8 @@ public final class Relation {
       if (size != -1) return size;
 
       size = 0;
-      {
-        int dataSize = 0;
-        for (int i = 0; i < userIDs_.size(); i++) {
-          dataSize += computeStringSizeNoTag(userIDs_.getRaw(i));
-        }
-        size += dataSize;
-        size += 1 * getUserIDsList().size();
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userID_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, userID_);
       }
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
@@ -21272,8 +15740,8 @@ public final class Relation {
       }
       openim.sdk.relation.Relation.UpdatesFriendsReq other = (openim.sdk.relation.Relation.UpdatesFriendsReq) obj;
 
-      if (!getUserIDsList()
-          .equals(other.getUserIDsList())) return false;
+      if (!getUserID()
+          .equals(other.getUserID())) return false;
       if (hasPinned() != other.hasPinned()) return false;
       if (hasPinned()) {
         if (getPinned()
@@ -21300,10 +15768,8 @@ public final class Relation {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (getUserIDsCount() > 0) {
-        hash = (37 * hash) + USERIDS_FIELD_NUMBER;
-        hash = (53 * hash) + getUserIDsList().hashCode();
-      }
+      hash = (37 * hash) + USERID_FIELD_NUMBER;
+      hash = (53 * hash) + getUserID().hashCode();
       if (hasPinned()) {
         hash = (37 * hash) + PINNED_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
@@ -21448,8 +15914,7 @@ public final class Relation {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        userIDs_ =
-            com.google.protobuf.LazyStringArrayList.emptyList();
+        userID_ = "";
         pinned_ = false;
         remark_ = "";
         ex_ = "";
@@ -21487,8 +15952,7 @@ public final class Relation {
       private void buildPartial0(openim.sdk.relation.Relation.UpdatesFriendsReq result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          userIDs_.makeImmutable();
-          result.userIDs_ = userIDs_;
+          result.userID_ = userID_;
         }
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000002) != 0)) {
@@ -21518,14 +15982,9 @@ public final class Relation {
 
       public Builder mergeFrom(openim.sdk.relation.Relation.UpdatesFriendsReq other) {
         if (other == openim.sdk.relation.Relation.UpdatesFriendsReq.getDefaultInstance()) return this;
-        if (!other.userIDs_.isEmpty()) {
-          if (userIDs_.isEmpty()) {
-            userIDs_ = other.userIDs_;
-            bitField0_ |= 0x00000001;
-          } else {
-            ensureUserIDsIsMutable();
-            userIDs_.addAll(other.userIDs_);
-          }
+        if (!other.getUserID().isEmpty()) {
+          userID_ = other.userID_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
         if (other.hasPinned()) {
@@ -21568,9 +16027,8 @@ public final class Relation {
                 done = true;
                 break;
               case 10: {
-                java.lang.String s = input.readStringRequireUtf8();
-                ensureUserIDsIsMutable();
-                userIDs_.add(s);
+                userID_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
                 break;
               } // case 10
               case 16: {
@@ -21605,112 +16063,73 @@ public final class Relation {
       }
       private int bitField0_;
 
-      private com.google.protobuf.LazyStringArrayList userIDs_ =
-          com.google.protobuf.LazyStringArrayList.emptyList();
-      private void ensureUserIDsIsMutable() {
-        if (!userIDs_.isModifiable()) {
-          userIDs_ = new com.google.protobuf.LazyStringArrayList(userIDs_);
+      private java.lang.Object userID_ = "";
+      /**
+       * <code>string userID = 1;</code>
+       * @return The userID.
+       */
+      public java.lang.String getUserID() {
+        java.lang.Object ref = userID_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userID_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
         }
-        bitField0_ |= 0x00000001;
       }
       /**
-       * <code>repeated string userIDs = 1;</code>
-       * @return A list containing the userIDs.
-       */
-      public com.google.protobuf.ProtocolStringList
-          getUserIDsList() {
-        userIDs_.makeImmutable();
-        return userIDs_;
-      }
-      /**
-       * <code>repeated string userIDs = 1;</code>
-       * @return The count of userIDs.
-       */
-      public int getUserIDsCount() {
-        return userIDs_.size();
-      }
-      /**
-       * <code>repeated string userIDs = 1;</code>
-       * @param index The index of the element to return.
-       * @return The userIDs at the given index.
-       */
-      public java.lang.String getUserIDs(int index) {
-        return userIDs_.get(index);
-      }
-      /**
-       * <code>repeated string userIDs = 1;</code>
-       * @param index The index of the value to return.
-       * @return The bytes of the userIDs at the given index.
+       * <code>string userID = 1;</code>
+       * @return The bytes for userID.
        */
       public com.google.protobuf.ByteString
-          getUserIDsBytes(int index) {
-        return userIDs_.getByteString(index);
+          getUserIDBytes() {
+        java.lang.Object ref = userID_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userID_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
-       * <code>repeated string userIDs = 1;</code>
-       * @param index The index to set the value at.
-       * @param value The userIDs to set.
+       * <code>string userID = 1;</code>
+       * @param value The userID to set.
        * @return This builder for chaining.
        */
-      public Builder setUserIDs(
-          int index, java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ensureUserIDsIsMutable();
-        userIDs_.set(index, value);
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string userIDs = 1;</code>
-       * @param value The userIDs to add.
-       * @return This builder for chaining.
-       */
-      public Builder addUserIDs(
+      public Builder setUserID(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        ensureUserIDsIsMutable();
-        userIDs_.add(value);
+        userID_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string userIDs = 1;</code>
-       * @param values The userIDs to add.
+       * <code>string userID = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder addAllUserIDs(
-          java.lang.Iterable<java.lang.String> values) {
-        ensureUserIDsIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, userIDs_);
-        bitField0_ |= 0x00000001;
+      public Builder clearUserID() {
+        userID_ = getDefaultInstance().getUserID();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string userIDs = 1;</code>
+       * <code>string userID = 1;</code>
+       * @param value The bytes for userID to set.
        * @return This builder for chaining.
        */
-      public Builder clearUserIDs() {
-        userIDs_ =
-          com.google.protobuf.LazyStringArrayList.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string userIDs = 1;</code>
-       * @param value The bytes of the userIDs to add.
-       * @return This builder for chaining.
-       */
-      public Builder addUserIDsBytes(
+      public Builder setUserIDBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        ensureUserIDsIsMutable();
-        userIDs_.add(value);
+        userID_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
@@ -22320,8016 +16739,6 @@ public final class Relation {
 
   }
 
-  public interface FriendApplicationOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendApplication)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>int64 addTime = 1;</code>
-     * @return The addTime.
-     */
-    long getAddTime();
-
-    /**
-     * <code>string addSource = 2;</code>
-     * @return The addSource.
-     */
-    java.lang.String getAddSource();
-    /**
-     * <code>string addSource = 2;</code>
-     * @return The bytes for addSource.
-     */
-    com.google.protobuf.ByteString
-        getAddSourceBytes();
-
-    /**
-     * <code>string addWording = 3;</code>
-     * @return The addWording.
-     */
-    java.lang.String getAddWording();
-    /**
-     * <code>string addWording = 3;</code>
-     * @return The bytes for addWording.
-     */
-    com.google.protobuf.ByteString
-        getAddWordingBytes();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.relation.FriendApplication}
-   */
-  public static final class FriendApplication extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendApplication)
-      FriendApplicationOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendApplication.class.getName());
-    }
-    // Use FriendApplication.newBuilder() to construct.
-    private FriendApplication(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendApplication() {
-      addSource_ = "";
-      addWording_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplication_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplication_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendApplication.class, openim.sdk.relation.Relation.FriendApplication.Builder.class);
-    }
-
-    public static final int ADDTIME_FIELD_NUMBER = 1;
-    private long addTime_ = 0L;
-    /**
-     * <code>int64 addTime = 1;</code>
-     * @return The addTime.
-     */
-    @java.lang.Override
-    public long getAddTime() {
-      return addTime_;
-    }
-
-    public static final int ADDSOURCE_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object addSource_ = "";
-    /**
-     * <code>string addSource = 2;</code>
-     * @return The addSource.
-     */
-    @java.lang.Override
-    public java.lang.String getAddSource() {
-      java.lang.Object ref = addSource_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        addSource_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string addSource = 2;</code>
-     * @return The bytes for addSource.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAddSourceBytes() {
-      java.lang.Object ref = addSource_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        addSource_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ADDWORDING_FIELD_NUMBER = 3;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object addWording_ = "";
-    /**
-     * <code>string addWording = 3;</code>
-     * @return The addWording.
-     */
-    @java.lang.Override
-    public java.lang.String getAddWording() {
-      java.lang.Object ref = addWording_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        addWording_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string addWording = 3;</code>
-     * @return The bytes for addWording.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAddWordingBytes() {
-      java.lang.Object ref = addWording_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        addWording_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (addTime_ != 0L) {
-        output.writeInt64(1, addTime_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(addSource_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, addSource_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(addWording_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, addWording_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (addTime_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, addTime_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(addSource_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, addSource_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(addWording_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, addWording_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendApplication)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendApplication other = (openim.sdk.relation.Relation.FriendApplication) obj;
-
-      if (getAddTime()
-          != other.getAddTime()) return false;
-      if (!getAddSource()
-          .equals(other.getAddSource())) return false;
-      if (!getAddWording()
-          .equals(other.getAddWording())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ADDTIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAddTime());
-      hash = (37 * hash) + ADDSOURCE_FIELD_NUMBER;
-      hash = (53 * hash) + getAddSource().hashCode();
-      hash = (37 * hash) + ADDWORDING_FIELD_NUMBER;
-      hash = (53 * hash) + getAddWording().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplication parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplication parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendApplication parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendApplication prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.relation.FriendApplication}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendApplication)
-        openim.sdk.relation.Relation.FriendApplicationOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplication_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplication_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendApplication.class, openim.sdk.relation.Relation.FriendApplication.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendApplication.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        addTime_ = 0L;
-        addSource_ = "";
-        addWording_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplication_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplication getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendApplication.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplication build() {
-        openim.sdk.relation.Relation.FriendApplication result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplication buildPartial() {
-        openim.sdk.relation.Relation.FriendApplication result = new openim.sdk.relation.Relation.FriendApplication(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendApplication result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.addTime_ = addTime_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.addSource_ = addSource_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.addWording_ = addWording_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendApplication) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendApplication)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendApplication other) {
-        if (other == openim.sdk.relation.Relation.FriendApplication.getDefaultInstance()) return this;
-        if (other.getAddTime() != 0L) {
-          setAddTime(other.getAddTime());
-        }
-        if (!other.getAddSource().isEmpty()) {
-          addSource_ = other.addSource_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        if (!other.getAddWording().isEmpty()) {
-          addWording_ = other.addWording_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 8: {
-                addTime_ = input.readInt64();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 8
-              case 18: {
-                addSource_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 26: {
-                addWording_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 26
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private long addTime_ ;
-      /**
-       * <code>int64 addTime = 1;</code>
-       * @return The addTime.
-       */
-      @java.lang.Override
-      public long getAddTime() {
-        return addTime_;
-      }
-      /**
-       * <code>int64 addTime = 1;</code>
-       * @param value The addTime to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAddTime(long value) {
-
-        addTime_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 addTime = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAddTime() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        addTime_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object addSource_ = "";
-      /**
-       * <code>string addSource = 2;</code>
-       * @return The addSource.
-       */
-      public java.lang.String getAddSource() {
-        java.lang.Object ref = addSource_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          addSource_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string addSource = 2;</code>
-       * @return The bytes for addSource.
-       */
-      public com.google.protobuf.ByteString
-          getAddSourceBytes() {
-        java.lang.Object ref = addSource_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          addSource_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string addSource = 2;</code>
-       * @param value The addSource to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAddSource(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        addSource_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string addSource = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAddSource() {
-        addSource_ = getDefaultInstance().getAddSource();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string addSource = 2;</code>
-       * @param value The bytes for addSource to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAddSourceBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        addSource_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object addWording_ = "";
-      /**
-       * <code>string addWording = 3;</code>
-       * @return The addWording.
-       */
-      public java.lang.String getAddWording() {
-        java.lang.Object ref = addWording_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          addWording_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string addWording = 3;</code>
-       * @return The bytes for addWording.
-       */
-      public com.google.protobuf.ByteString
-          getAddWordingBytes() {
-        java.lang.Object ref = addWording_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          addWording_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string addWording = 3;</code>
-       * @param value The addWording to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAddWording(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        addWording_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string addWording = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAddWording() {
-        addWording_ = getDefaultInstance().getAddWording();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string addWording = 3;</code>
-       * @param value The bytes for addWording to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAddWordingBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        addWording_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendApplication)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendApplication)
-    private static final openim.sdk.relation.Relation.FriendApplication DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendApplication();
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplication getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendApplication>
-        PARSER = new com.google.protobuf.AbstractParser<FriendApplication>() {
-      @java.lang.Override
-      public FriendApplication parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendApplication> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendApplication> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendApplication getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FromToUserIDOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FromToUserID)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string fromUserID = 1;</code>
-     * @return The fromUserID.
-     */
-    java.lang.String getFromUserID();
-    /**
-     * <code>string fromUserID = 1;</code>
-     * @return The bytes for fromUserID.
-     */
-    com.google.protobuf.ByteString
-        getFromUserIDBytes();
-
-    /**
-     * <code>string toUserID = 2;</code>
-     * @return The toUserID.
-     */
-    java.lang.String getToUserID();
-    /**
-     * <code>string toUserID = 2;</code>
-     * @return The bytes for toUserID.
-     */
-    com.google.protobuf.ByteString
-        getToUserIDBytes();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.relation.FromToUserID}
-   */
-  public static final class FromToUserID extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FromToUserID)
-      FromToUserIDOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FromToUserID.class.getName());
-    }
-    // Use FromToUserID.newBuilder() to construct.
-    private FromToUserID(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FromToUserID() {
-      fromUserID_ = "";
-      toUserID_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FromToUserID_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FromToUserID_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FromToUserID.class, openim.sdk.relation.Relation.FromToUserID.Builder.class);
-    }
-
-    public static final int FROMUSERID_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object fromUserID_ = "";
-    /**
-     * <code>string fromUserID = 1;</code>
-     * @return The fromUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getFromUserID() {
-      java.lang.Object ref = fromUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fromUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string fromUserID = 1;</code>
-     * @return The bytes for fromUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFromUserIDBytes() {
-      java.lang.Object ref = fromUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fromUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TOUSERID_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object toUserID_ = "";
-    /**
-     * <code>string toUserID = 2;</code>
-     * @return The toUserID.
-     */
-    @java.lang.Override
-    public java.lang.String getToUserID() {
-      java.lang.Object ref = toUserID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toUserID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string toUserID = 2;</code>
-     * @return The bytes for toUserID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getToUserIDBytes() {
-      java.lang.Object ref = toUserID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toUserID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fromUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, fromUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(toUserID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, toUserID_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fromUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, fromUserID_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(toUserID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, toUserID_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FromToUserID)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FromToUserID other = (openim.sdk.relation.Relation.FromToUserID) obj;
-
-      if (!getFromUserID()
-          .equals(other.getFromUserID())) return false;
-      if (!getToUserID()
-          .equals(other.getToUserID())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + FROMUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getFromUserID().hashCode();
-      hash = (37 * hash) + TOUSERID_FIELD_NUMBER;
-      hash = (53 * hash) + getToUserID().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FromToUserID parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FromToUserID parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FromToUserID parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FromToUserID prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.relation.FromToUserID}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FromToUserID)
-        openim.sdk.relation.Relation.FromToUserIDOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FromToUserID_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FromToUserID_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FromToUserID.class, openim.sdk.relation.Relation.FromToUserID.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FromToUserID.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromUserID_ = "";
-        toUserID_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FromToUserID_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FromToUserID getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FromToUserID.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FromToUserID build() {
-        openim.sdk.relation.Relation.FromToUserID result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FromToUserID buildPartial() {
-        openim.sdk.relation.Relation.FromToUserID result = new openim.sdk.relation.Relation.FromToUserID(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FromToUserID result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromUserID_ = fromUserID_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.toUserID_ = toUserID_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FromToUserID) {
-          return mergeFrom((openim.sdk.relation.Relation.FromToUserID)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FromToUserID other) {
-        if (other == openim.sdk.relation.Relation.FromToUserID.getDefaultInstance()) return this;
-        if (!other.getFromUserID().isEmpty()) {
-          fromUserID_ = other.fromUserID_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (!other.getToUserID().isEmpty()) {
-          toUserID_ = other.toUserID_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                fromUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                toUserID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object fromUserID_ = "";
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @return The fromUserID.
-       */
-      public java.lang.String getFromUserID() {
-        java.lang.Object ref = fromUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fromUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @return The bytes for fromUserID.
-       */
-      public com.google.protobuf.ByteString
-          getFromUserIDBytes() {
-        java.lang.Object ref = fromUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fromUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @param value The fromUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFromUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        fromUserID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFromUserID() {
-        fromUserID_ = getDefaultInstance().getFromUserID();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromUserID = 1;</code>
-       * @param value The bytes for fromUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFromUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        fromUserID_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toUserID_ = "";
-      /**
-       * <code>string toUserID = 2;</code>
-       * @return The toUserID.
-       */
-      public java.lang.String getToUserID() {
-        java.lang.Object ref = toUserID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toUserID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string toUserID = 2;</code>
-       * @return The bytes for toUserID.
-       */
-      public com.google.protobuf.ByteString
-          getToUserIDBytes() {
-        java.lang.Object ref = toUserID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toUserID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string toUserID = 2;</code>
-       * @param value The toUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setToUserID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        toUserID_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toUserID = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearToUserID() {
-        toUserID_ = getDefaultInstance().getToUserID();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toUserID = 2;</code>
-       * @param value The bytes for toUserID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setToUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        toUserID_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FromToUserID)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FromToUserID)
-    private static final openim.sdk.relation.Relation.FromToUserID DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FromToUserID();
-    }
-
-    public static openim.sdk.relation.Relation.FromToUserID getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FromToUserID>
-        PARSER = new com.google.protobuf.AbstractParser<FromToUserID>() {
-      @java.lang.Override
-      public FromToUserID parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FromToUserID> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FromToUserID> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserID getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FriendApplicationTipsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendApplicationTips)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * from：发起者； to：接收者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    boolean hasFromToUserID();
-    /**
-     * <pre>
-     * from：发起者； to：接收者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    openim.sdk.relation.Relation.FromToUserID getFromToUserID();
-    /**
-     * <pre>
-     * from：发起者； to：接收者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder();
-  }
-  /**
-   * <pre>
-   * FromUserID apply to add ToUserID
-   * </pre>
-   *
-   * Protobuf type {@code openim.sdk.relation.FriendApplicationTips}
-   */
-  public static final class FriendApplicationTips extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendApplicationTips)
-      FriendApplicationTipsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendApplicationTips.class.getName());
-    }
-    // Use FriendApplicationTips.newBuilder() to construct.
-    private FriendApplicationTips(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendApplicationTips() {
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationTips_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationTips_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendApplicationTips.class, openim.sdk.relation.Relation.FriendApplicationTips.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int FROMTOUSERID_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-    /**
-     * <pre>
-     * from：发起者； to：接收者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    @java.lang.Override
-    public boolean hasFromToUserID() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <pre>
-     * from：发起者； to：接收者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-    /**
-     * <pre>
-     * from：发起者； to：接收者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getFromToUserID());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFromToUserID());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendApplicationTips)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendApplicationTips other = (openim.sdk.relation.Relation.FriendApplicationTips) obj;
-
-      if (hasFromToUserID() != other.hasFromToUserID()) return false;
-      if (hasFromToUserID()) {
-        if (!getFromToUserID()
-            .equals(other.getFromToUserID())) return false;
-      }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFromToUserID()) {
-        hash = (37 * hash) + FROMTOUSERID_FIELD_NUMBER;
-        hash = (53 * hash) + getFromToUserID().hashCode();
-      }
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationTips parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendApplicationTips prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * FromUserID apply to add ToUserID
-     * </pre>
-     *
-     * Protobuf type {@code openim.sdk.relation.FriendApplicationTips}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendApplicationTips)
-        openim.sdk.relation.Relation.FriendApplicationTipsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationTips_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationTips_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendApplicationTips.class, openim.sdk.relation.Relation.FriendApplicationTips.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendApplicationTips.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getFromToUserIDFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationTips_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationTips getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendApplicationTips.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationTips build() {
-        openim.sdk.relation.Relation.FriendApplicationTips result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationTips buildPartial() {
-        openim.sdk.relation.Relation.FriendApplicationTips result = new openim.sdk.relation.Relation.FriendApplicationTips(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendApplicationTips result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromToUserID_ = fromToUserIDBuilder_ == null
-              ? fromToUserID_
-              : fromToUserIDBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendApplicationTips) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendApplicationTips)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendApplicationTips other) {
-        if (other == openim.sdk.relation.Relation.FriendApplicationTips.getDefaultInstance()) return this;
-        if (other.hasFromToUserID()) {
-          mergeFromToUserID(other.getFromToUserID());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getFromToUserIDFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> fromToUserIDBuilder_;
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return Whether the fromToUserID field is set.
-       */
-      public boolean hasFromToUserID() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return The fromToUserID.
-       */
-      public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-        if (fromToUserIDBuilder_ == null) {
-          return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        } else {
-          return fromToUserIDBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          fromToUserID_ = value;
-        } else {
-          fromToUserIDBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(
-          openim.sdk.relation.Relation.FromToUserID.Builder builderForValue) {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserID_ = builderForValue.build();
-        } else {
-          fromToUserIDBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder mergeFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            fromToUserID_ != null &&
-            fromToUserID_ != openim.sdk.relation.Relation.FromToUserID.getDefaultInstance()) {
-            getFromToUserIDBuilder().mergeFrom(value);
-          } else {
-            fromToUserID_ = value;
-          }
-        } else {
-          fromToUserIDBuilder_.mergeFrom(value);
-        }
-        if (fromToUserID_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder clearFromToUserID() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserID.Builder getFromToUserIDBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFromToUserIDFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-        if (fromToUserIDBuilder_ != null) {
-          return fromToUserIDBuilder_.getMessageOrBuilder();
-        } else {
-          return fromToUserID_ == null ?
-              openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        }
-      }
-      /**
-       * <pre>
-       * from：发起者； to：接收者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> 
-          getFromToUserIDFieldBuilder() {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserIDBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder>(
-                  getFromToUserID(),
-                  getParentForChildren(),
-                  isClean());
-          fromToUserID_ = null;
-        }
-        return fromToUserIDBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendApplicationTips)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendApplicationTips)
-    private static final openim.sdk.relation.Relation.FriendApplicationTips DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendApplicationTips();
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationTips getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendApplicationTips>
-        PARSER = new com.google.protobuf.AbstractParser<FriendApplicationTips>() {
-      @java.lang.Override
-      public FriendApplicationTips parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendApplicationTips> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendApplicationTips> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendApplicationTips getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FriendApplicationApprovedTipsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendApplicationApprovedTips)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * from：同意者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    boolean hasFromToUserID();
-    /**
-     * <pre>
-     * from：同意者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    openim.sdk.relation.Relation.FromToUserID getFromToUserID();
-    /**
-     * <pre>
-     * from：同意者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder();
-
-    /**
-     * <code>string handleMsg = 2;</code>
-     * @return The handleMsg.
-     */
-    java.lang.String getHandleMsg();
-    /**
-     * <code>string handleMsg = 2;</code>
-     * @return The bytes for handleMsg.
-     */
-    com.google.protobuf.ByteString
-        getHandleMsgBytes();
-
-    /**
-     * <code>uint64 friendVersion = 3;</code>
-     * @return The friendVersion.
-     */
-    long getFriendVersion();
-
-    /**
-     * <code>string friendVersionID = 4;</code>
-     * @return The friendVersionID.
-     */
-    java.lang.String getFriendVersionID();
-    /**
-     * <code>string friendVersionID = 4;</code>
-     * @return The bytes for friendVersionID.
-     */
-    com.google.protobuf.ByteString
-        getFriendVersionIDBytes();
-  }
-  /**
-   * <pre>
-   * FromUserID accept or reject ToUserID
-   * </pre>
-   *
-   * Protobuf type {@code openim.sdk.relation.FriendApplicationApprovedTips}
-   */
-  public static final class FriendApplicationApprovedTips extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendApplicationApprovedTips)
-      FriendApplicationApprovedTipsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendApplicationApprovedTips.class.getName());
-    }
-    // Use FriendApplicationApprovedTips.newBuilder() to construct.
-    private FriendApplicationApprovedTips(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendApplicationApprovedTips() {
-      handleMsg_ = "";
-      friendVersionID_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationApprovedTips_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationApprovedTips_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendApplicationApprovedTips.class, openim.sdk.relation.Relation.FriendApplicationApprovedTips.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int FROMTOUSERID_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-    /**
-     * <pre>
-     * from：同意者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    @java.lang.Override
-    public boolean hasFromToUserID() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <pre>
-     * from：同意者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-    /**
-     * <pre>
-     * from：同意者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-
-    public static final int HANDLEMSG_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object handleMsg_ = "";
-    /**
-     * <code>string handleMsg = 2;</code>
-     * @return The handleMsg.
-     */
-    @java.lang.Override
-    public java.lang.String getHandleMsg() {
-      java.lang.Object ref = handleMsg_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        handleMsg_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string handleMsg = 2;</code>
-     * @return The bytes for handleMsg.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getHandleMsgBytes() {
-      java.lang.Object ref = handleMsg_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        handleMsg_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FRIENDVERSION_FIELD_NUMBER = 3;
-    private long friendVersion_ = 0L;
-    /**
-     * <code>uint64 friendVersion = 3;</code>
-     * @return The friendVersion.
-     */
-    @java.lang.Override
-    public long getFriendVersion() {
-      return friendVersion_;
-    }
-
-    public static final int FRIENDVERSIONID_FIELD_NUMBER = 4;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object friendVersionID_ = "";
-    /**
-     * <code>string friendVersionID = 4;</code>
-     * @return The friendVersionID.
-     */
-    @java.lang.Override
-    public java.lang.String getFriendVersionID() {
-      java.lang.Object ref = friendVersionID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        friendVersionID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string friendVersionID = 4;</code>
-     * @return The bytes for friendVersionID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFriendVersionIDBytes() {
-      java.lang.Object ref = friendVersionID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        friendVersionID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getFromToUserID());
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(handleMsg_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, handleMsg_);
-      }
-      if (friendVersion_ != 0L) {
-        output.writeUInt64(3, friendVersion_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendVersionID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 4, friendVersionID_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFromToUserID());
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(handleMsg_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, handleMsg_);
-      }
-      if (friendVersion_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(3, friendVersion_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendVersionID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, friendVersionID_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendApplicationApprovedTips)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendApplicationApprovedTips other = (openim.sdk.relation.Relation.FriendApplicationApprovedTips) obj;
-
-      if (hasFromToUserID() != other.hasFromToUserID()) return false;
-      if (hasFromToUserID()) {
-        if (!getFromToUserID()
-            .equals(other.getFromToUserID())) return false;
-      }
-      if (!getHandleMsg()
-          .equals(other.getHandleMsg())) return false;
-      if (getFriendVersion()
-          != other.getFriendVersion()) return false;
-      if (!getFriendVersionID()
-          .equals(other.getFriendVersionID())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFromToUserID()) {
-        hash = (37 * hash) + FROMTOUSERID_FIELD_NUMBER;
-        hash = (53 * hash) + getFromToUserID().hashCode();
-      }
-      hash = (37 * hash) + HANDLEMSG_FIELD_NUMBER;
-      hash = (53 * hash) + getHandleMsg().hashCode();
-      hash = (37 * hash) + FRIENDVERSION_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getFriendVersion());
-      hash = (37 * hash) + FRIENDVERSIONID_FIELD_NUMBER;
-      hash = (53 * hash) + getFriendVersionID().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendApplicationApprovedTips prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * FromUserID accept or reject ToUserID
-     * </pre>
-     *
-     * Protobuf type {@code openim.sdk.relation.FriendApplicationApprovedTips}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendApplicationApprovedTips)
-        openim.sdk.relation.Relation.FriendApplicationApprovedTipsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationApprovedTips_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationApprovedTips_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendApplicationApprovedTips.class, openim.sdk.relation.Relation.FriendApplicationApprovedTips.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendApplicationApprovedTips.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getFromToUserIDFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        handleMsg_ = "";
-        friendVersion_ = 0L;
-        friendVersionID_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationApprovedTips_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationApprovedTips getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendApplicationApprovedTips.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationApprovedTips build() {
-        openim.sdk.relation.Relation.FriendApplicationApprovedTips result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationApprovedTips buildPartial() {
-        openim.sdk.relation.Relation.FriendApplicationApprovedTips result = new openim.sdk.relation.Relation.FriendApplicationApprovedTips(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendApplicationApprovedTips result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromToUserID_ = fromToUserIDBuilder_ == null
-              ? fromToUserID_
-              : fromToUserIDBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.handleMsg_ = handleMsg_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.friendVersion_ = friendVersion_;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.friendVersionID_ = friendVersionID_;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendApplicationApprovedTips) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendApplicationApprovedTips)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendApplicationApprovedTips other) {
-        if (other == openim.sdk.relation.Relation.FriendApplicationApprovedTips.getDefaultInstance()) return this;
-        if (other.hasFromToUserID()) {
-          mergeFromToUserID(other.getFromToUserID());
-        }
-        if (!other.getHandleMsg().isEmpty()) {
-          handleMsg_ = other.handleMsg_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        if (other.getFriendVersion() != 0L) {
-          setFriendVersion(other.getFriendVersion());
-        }
-        if (!other.getFriendVersionID().isEmpty()) {
-          friendVersionID_ = other.friendVersionID_;
-          bitField0_ |= 0x00000008;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getFromToUserIDFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                handleMsg_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 24: {
-                friendVersion_ = input.readUInt64();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 24
-              case 34: {
-                friendVersionID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 34
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> fromToUserIDBuilder_;
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return Whether the fromToUserID field is set.
-       */
-      public boolean hasFromToUserID() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return The fromToUserID.
-       */
-      public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-        if (fromToUserIDBuilder_ == null) {
-          return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        } else {
-          return fromToUserIDBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          fromToUserID_ = value;
-        } else {
-          fromToUserIDBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(
-          openim.sdk.relation.Relation.FromToUserID.Builder builderForValue) {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserID_ = builderForValue.build();
-        } else {
-          fromToUserIDBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder mergeFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            fromToUserID_ != null &&
-            fromToUserID_ != openim.sdk.relation.Relation.FromToUserID.getDefaultInstance()) {
-            getFromToUserIDBuilder().mergeFrom(value);
-          } else {
-            fromToUserID_ = value;
-          }
-        } else {
-          fromToUserIDBuilder_.mergeFrom(value);
-        }
-        if (fromToUserID_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder clearFromToUserID() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserID.Builder getFromToUserIDBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFromToUserIDFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-        if (fromToUserIDBuilder_ != null) {
-          return fromToUserIDBuilder_.getMessageOrBuilder();
-        } else {
-          return fromToUserID_ == null ?
-              openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        }
-      }
-      /**
-       * <pre>
-       * from：同意者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> 
-          getFromToUserIDFieldBuilder() {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserIDBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder>(
-                  getFromToUserID(),
-                  getParentForChildren(),
-                  isClean());
-          fromToUserID_ = null;
-        }
-        return fromToUserIDBuilder_;
-      }
-
-      private java.lang.Object handleMsg_ = "";
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @return The handleMsg.
-       */
-      public java.lang.String getHandleMsg() {
-        java.lang.Object ref = handleMsg_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          handleMsg_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @return The bytes for handleMsg.
-       */
-      public com.google.protobuf.ByteString
-          getHandleMsgBytes() {
-        java.lang.Object ref = handleMsg_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          handleMsg_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @param value The handleMsg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandleMsg(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        handleMsg_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHandleMsg() {
-        handleMsg_ = getDefaultInstance().getHandleMsg();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @param value The bytes for handleMsg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandleMsgBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        handleMsg_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      private long friendVersion_ ;
-      /**
-       * <code>uint64 friendVersion = 3;</code>
-       * @return The friendVersion.
-       */
-      @java.lang.Override
-      public long getFriendVersion() {
-        return friendVersion_;
-      }
-      /**
-       * <code>uint64 friendVersion = 3;</code>
-       * @param value The friendVersion to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersion(long value) {
-
-        friendVersion_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 friendVersion = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendVersion() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        friendVersion_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object friendVersionID_ = "";
-      /**
-       * <code>string friendVersionID = 4;</code>
-       * @return The friendVersionID.
-       */
-      public java.lang.String getFriendVersionID() {
-        java.lang.Object ref = friendVersionID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          friendVersionID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string friendVersionID = 4;</code>
-       * @return The bytes for friendVersionID.
-       */
-      public com.google.protobuf.ByteString
-          getFriendVersionIDBytes() {
-        java.lang.Object ref = friendVersionID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          friendVersionID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string friendVersionID = 4;</code>
-       * @param value The friendVersionID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersionID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        friendVersionID_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendVersionID = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendVersionID() {
-        friendVersionID_ = getDefaultInstance().getFriendVersionID();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendVersionID = 4;</code>
-       * @param value The bytes for friendVersionID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersionIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        friendVersionID_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendApplicationApprovedTips)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendApplicationApprovedTips)
-    private static final openim.sdk.relation.Relation.FriendApplicationApprovedTips DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendApplicationApprovedTips();
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationApprovedTips getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendApplicationApprovedTips>
-        PARSER = new com.google.protobuf.AbstractParser<FriendApplicationApprovedTips>() {
-      @java.lang.Override
-      public FriendApplicationApprovedTips parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendApplicationApprovedTips> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendApplicationApprovedTips> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendApplicationApprovedTips getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FriendApplicationRejectedTipsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendApplicationRejectedTips)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * from：拒绝者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    boolean hasFromToUserID();
-    /**
-     * <pre>
-     * from：拒绝者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    openim.sdk.relation.Relation.FromToUserID getFromToUserID();
-    /**
-     * <pre>
-     * from：拒绝者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder();
-
-    /**
-     * <code>string handleMsg = 2;</code>
-     * @return The handleMsg.
-     */
-    java.lang.String getHandleMsg();
-    /**
-     * <code>string handleMsg = 2;</code>
-     * @return The bytes for handleMsg.
-     */
-    com.google.protobuf.ByteString
-        getHandleMsgBytes();
-  }
-  /**
-   * <pre>
-   * FromUserID accept or reject ToUserID
-   * </pre>
-   *
-   * Protobuf type {@code openim.sdk.relation.FriendApplicationRejectedTips}
-   */
-  public static final class FriendApplicationRejectedTips extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendApplicationRejectedTips)
-      FriendApplicationRejectedTipsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendApplicationRejectedTips.class.getName());
-    }
-    // Use FriendApplicationRejectedTips.newBuilder() to construct.
-    private FriendApplicationRejectedTips(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendApplicationRejectedTips() {
-      handleMsg_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationRejectedTips_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationRejectedTips_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendApplicationRejectedTips.class, openim.sdk.relation.Relation.FriendApplicationRejectedTips.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int FROMTOUSERID_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-    /**
-     * <pre>
-     * from：拒绝者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    @java.lang.Override
-    public boolean hasFromToUserID() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <pre>
-     * from：拒绝者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-    /**
-     * <pre>
-     * from：拒绝者；to：请求发起者
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-
-    public static final int HANDLEMSG_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object handleMsg_ = "";
-    /**
-     * <code>string handleMsg = 2;</code>
-     * @return The handleMsg.
-     */
-    @java.lang.Override
-    public java.lang.String getHandleMsg() {
-      java.lang.Object ref = handleMsg_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        handleMsg_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string handleMsg = 2;</code>
-     * @return The bytes for handleMsg.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getHandleMsgBytes() {
-      java.lang.Object ref = handleMsg_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        handleMsg_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getFromToUserID());
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(handleMsg_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, handleMsg_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFromToUserID());
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(handleMsg_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, handleMsg_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendApplicationRejectedTips)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendApplicationRejectedTips other = (openim.sdk.relation.Relation.FriendApplicationRejectedTips) obj;
-
-      if (hasFromToUserID() != other.hasFromToUserID()) return false;
-      if (hasFromToUserID()) {
-        if (!getFromToUserID()
-            .equals(other.getFromToUserID())) return false;
-      }
-      if (!getHandleMsg()
-          .equals(other.getHandleMsg())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFromToUserID()) {
-        hash = (37 * hash) + FROMTOUSERID_FIELD_NUMBER;
-        hash = (53 * hash) + getFromToUserID().hashCode();
-      }
-      hash = (37 * hash) + HANDLEMSG_FIELD_NUMBER;
-      hash = (53 * hash) + getHandleMsg().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendApplicationRejectedTips prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * FromUserID accept or reject ToUserID
-     * </pre>
-     *
-     * Protobuf type {@code openim.sdk.relation.FriendApplicationRejectedTips}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendApplicationRejectedTips)
-        openim.sdk.relation.Relation.FriendApplicationRejectedTipsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationRejectedTips_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationRejectedTips_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendApplicationRejectedTips.class, openim.sdk.relation.Relation.FriendApplicationRejectedTips.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendApplicationRejectedTips.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getFromToUserIDFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        handleMsg_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendApplicationRejectedTips_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationRejectedTips getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendApplicationRejectedTips.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationRejectedTips build() {
-        openim.sdk.relation.Relation.FriendApplicationRejectedTips result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendApplicationRejectedTips buildPartial() {
-        openim.sdk.relation.Relation.FriendApplicationRejectedTips result = new openim.sdk.relation.Relation.FriendApplicationRejectedTips(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendApplicationRejectedTips result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromToUserID_ = fromToUserIDBuilder_ == null
-              ? fromToUserID_
-              : fromToUserIDBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.handleMsg_ = handleMsg_;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendApplicationRejectedTips) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendApplicationRejectedTips)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendApplicationRejectedTips other) {
-        if (other == openim.sdk.relation.Relation.FriendApplicationRejectedTips.getDefaultInstance()) return this;
-        if (other.hasFromToUserID()) {
-          mergeFromToUserID(other.getFromToUserID());
-        }
-        if (!other.getHandleMsg().isEmpty()) {
-          handleMsg_ = other.handleMsg_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getFromToUserIDFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                handleMsg_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> fromToUserIDBuilder_;
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return Whether the fromToUserID field is set.
-       */
-      public boolean hasFromToUserID() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return The fromToUserID.
-       */
-      public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-        if (fromToUserIDBuilder_ == null) {
-          return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        } else {
-          return fromToUserIDBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          fromToUserID_ = value;
-        } else {
-          fromToUserIDBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(
-          openim.sdk.relation.Relation.FromToUserID.Builder builderForValue) {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserID_ = builderForValue.build();
-        } else {
-          fromToUserIDBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder mergeFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            fromToUserID_ != null &&
-            fromToUserID_ != openim.sdk.relation.Relation.FromToUserID.getDefaultInstance()) {
-            getFromToUserIDBuilder().mergeFrom(value);
-          } else {
-            fromToUserID_ = value;
-          }
-        } else {
-          fromToUserIDBuilder_.mergeFrom(value);
-        }
-        if (fromToUserID_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder clearFromToUserID() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserID.Builder getFromToUserIDBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFromToUserIDFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-        if (fromToUserIDBuilder_ != null) {
-          return fromToUserIDBuilder_.getMessageOrBuilder();
-        } else {
-          return fromToUserID_ == null ?
-              openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        }
-      }
-      /**
-       * <pre>
-       * from：拒绝者；to：请求发起者
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> 
-          getFromToUserIDFieldBuilder() {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserIDBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder>(
-                  getFromToUserID(),
-                  getParentForChildren(),
-                  isClean());
-          fromToUserID_ = null;
-        }
-        return fromToUserIDBuilder_;
-      }
-
-      private java.lang.Object handleMsg_ = "";
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @return The handleMsg.
-       */
-      public java.lang.String getHandleMsg() {
-        java.lang.Object ref = handleMsg_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          handleMsg_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @return The bytes for handleMsg.
-       */
-      public com.google.protobuf.ByteString
-          getHandleMsgBytes() {
-        java.lang.Object ref = handleMsg_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          handleMsg_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @param value The handleMsg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandleMsg(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        handleMsg_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHandleMsg() {
-        handleMsg_ = getDefaultInstance().getHandleMsg();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string handleMsg = 2;</code>
-       * @param value The bytes for handleMsg to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHandleMsgBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        handleMsg_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendApplicationRejectedTips)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendApplicationRejectedTips)
-    private static final openim.sdk.relation.Relation.FriendApplicationRejectedTips DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendApplicationRejectedTips();
-    }
-
-    public static openim.sdk.relation.Relation.FriendApplicationRejectedTips getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendApplicationRejectedTips>
-        PARSER = new com.google.protobuf.AbstractParser<FriendApplicationRejectedTips>() {
-      @java.lang.Override
-      public FriendApplicationRejectedTips parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendApplicationRejectedTips> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendApplicationRejectedTips> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendApplicationRejectedTips getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FriendAddedTipsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendAddedTips)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-     * @return Whether the friend field is set.
-     */
-    boolean hasFriend();
-    /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-     * @return The friend.
-     */
-    openim.sdk.relation.Relation.FriendInfo getFriend();
-    /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-     */
-    openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendOrBuilder();
-
-    /**
-     * <code>int64 operationTime = 2;</code>
-     * @return The operationTime.
-     */
-    long getOperationTime();
-
-    /**
-     * <pre>
-     * who do this
-     * </pre>
-     *
-     * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-     * @return Whether the opUser field is set.
-     */
-    boolean hasOpUser();
-    /**
-     * <pre>
-     * who do this
-     * </pre>
-     *
-     * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-     * @return The opUser.
-     */
-    openim.sdk.user.User.UserInfo getOpUser();
-    /**
-     * <pre>
-     * who do this
-     * </pre>
-     *
-     * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-     */
-    openim.sdk.user.User.UserInfoOrBuilder getOpUserOrBuilder();
-
-    /**
-     * <code>uint64 friendVersion = 4;</code>
-     * @return The friendVersion.
-     */
-    long getFriendVersion();
-
-    /**
-     * <code>string friendVersionID = 5;</code>
-     * @return The friendVersionID.
-     */
-    java.lang.String getFriendVersionID();
-    /**
-     * <code>string friendVersionID = 5;</code>
-     * @return The bytes for friendVersionID.
-     */
-    com.google.protobuf.ByteString
-        getFriendVersionIDBytes();
-  }
-  /**
-   * <pre>
-   * FromUserID  Added a friend ToUserID
-   * </pre>
-   *
-   * Protobuf type {@code openim.sdk.relation.FriendAddedTips}
-   */
-  public static final class FriendAddedTips extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendAddedTips)
-      FriendAddedTipsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendAddedTips.class.getName());
-    }
-    // Use FriendAddedTips.newBuilder() to construct.
-    private FriendAddedTips(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendAddedTips() {
-      friendVersionID_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendAddedTips_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendAddedTips_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendAddedTips.class, openim.sdk.relation.Relation.FriendAddedTips.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int FRIEND_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FriendInfo friend_;
-    /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-     * @return Whether the friend field is set.
-     */
-    @java.lang.Override
-    public boolean hasFriend() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-     * @return The friend.
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfo getFriend() {
-      return friend_ == null ? openim.sdk.relation.Relation.FriendInfo.getDefaultInstance() : friend_;
-    }
-    /**
-     * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendOrBuilder() {
-      return friend_ == null ? openim.sdk.relation.Relation.FriendInfo.getDefaultInstance() : friend_;
-    }
-
-    public static final int OPERATIONTIME_FIELD_NUMBER = 2;
-    private long operationTime_ = 0L;
-    /**
-     * <code>int64 operationTime = 2;</code>
-     * @return The operationTime.
-     */
-    @java.lang.Override
-    public long getOperationTime() {
-      return operationTime_;
-    }
-
-    public static final int OPUSER_FIELD_NUMBER = 3;
-    private openim.sdk.user.User.UserInfo opUser_;
-    /**
-     * <pre>
-     * who do this
-     * </pre>
-     *
-     * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-     * @return Whether the opUser field is set.
-     */
-    @java.lang.Override
-    public boolean hasOpUser() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
-    /**
-     * <pre>
-     * who do this
-     * </pre>
-     *
-     * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-     * @return The opUser.
-     */
-    @java.lang.Override
-    public openim.sdk.user.User.UserInfo getOpUser() {
-      return opUser_ == null ? openim.sdk.user.User.UserInfo.getDefaultInstance() : opUser_;
-    }
-    /**
-     * <pre>
-     * who do this
-     * </pre>
-     *
-     * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.user.User.UserInfoOrBuilder getOpUserOrBuilder() {
-      return opUser_ == null ? openim.sdk.user.User.UserInfo.getDefaultInstance() : opUser_;
-    }
-
-    public static final int FRIENDVERSION_FIELD_NUMBER = 4;
-    private long friendVersion_ = 0L;
-    /**
-     * <code>uint64 friendVersion = 4;</code>
-     * @return The friendVersion.
-     */
-    @java.lang.Override
-    public long getFriendVersion() {
-      return friendVersion_;
-    }
-
-    public static final int FRIENDVERSIONID_FIELD_NUMBER = 5;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object friendVersionID_ = "";
-    /**
-     * <code>string friendVersionID = 5;</code>
-     * @return The friendVersionID.
-     */
-    @java.lang.Override
-    public java.lang.String getFriendVersionID() {
-      java.lang.Object ref = friendVersionID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        friendVersionID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string friendVersionID = 5;</code>
-     * @return The bytes for friendVersionID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFriendVersionIDBytes() {
-      java.lang.Object ref = friendVersionID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        friendVersionID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getFriend());
-      }
-      if (operationTime_ != 0L) {
-        output.writeInt64(2, operationTime_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeMessage(3, getOpUser());
-      }
-      if (friendVersion_ != 0L) {
-        output.writeUInt64(4, friendVersion_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendVersionID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 5, friendVersionID_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFriend());
-      }
-      if (operationTime_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, operationTime_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getOpUser());
-      }
-      if (friendVersion_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(4, friendVersion_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendVersionID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(5, friendVersionID_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendAddedTips)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendAddedTips other = (openim.sdk.relation.Relation.FriendAddedTips) obj;
-
-      if (hasFriend() != other.hasFriend()) return false;
-      if (hasFriend()) {
-        if (!getFriend()
-            .equals(other.getFriend())) return false;
-      }
-      if (getOperationTime()
-          != other.getOperationTime()) return false;
-      if (hasOpUser() != other.hasOpUser()) return false;
-      if (hasOpUser()) {
-        if (!getOpUser()
-            .equals(other.getOpUser())) return false;
-      }
-      if (getFriendVersion()
-          != other.getFriendVersion()) return false;
-      if (!getFriendVersionID()
-          .equals(other.getFriendVersionID())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFriend()) {
-        hash = (37 * hash) + FRIEND_FIELD_NUMBER;
-        hash = (53 * hash) + getFriend().hashCode();
-      }
-      hash = (37 * hash) + OPERATIONTIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getOperationTime());
-      if (hasOpUser()) {
-        hash = (37 * hash) + OPUSER_FIELD_NUMBER;
-        hash = (53 * hash) + getOpUser().hashCode();
-      }
-      hash = (37 * hash) + FRIENDVERSION_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getFriendVersion());
-      hash = (37 * hash) + FRIENDVERSIONID_FIELD_NUMBER;
-      hash = (53 * hash) + getFriendVersionID().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendAddedTips parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendAddedTips parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendAddedTips parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendAddedTips prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * FromUserID  Added a friend ToUserID
-     * </pre>
-     *
-     * Protobuf type {@code openim.sdk.relation.FriendAddedTips}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendAddedTips)
-        openim.sdk.relation.Relation.FriendAddedTipsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendAddedTips_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendAddedTips_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendAddedTips.class, openim.sdk.relation.Relation.FriendAddedTips.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendAddedTips.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getFriendFieldBuilder();
-          getOpUserFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        friend_ = null;
-        if (friendBuilder_ != null) {
-          friendBuilder_.dispose();
-          friendBuilder_ = null;
-        }
-        operationTime_ = 0L;
-        opUser_ = null;
-        if (opUserBuilder_ != null) {
-          opUserBuilder_.dispose();
-          opUserBuilder_ = null;
-        }
-        friendVersion_ = 0L;
-        friendVersionID_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendAddedTips_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendAddedTips getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendAddedTips.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendAddedTips build() {
-        openim.sdk.relation.Relation.FriendAddedTips result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendAddedTips buildPartial() {
-        openim.sdk.relation.Relation.FriendAddedTips result = new openim.sdk.relation.Relation.FriendAddedTips(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendAddedTips result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.friend_ = friendBuilder_ == null
-              ? friend_
-              : friendBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.operationTime_ = operationTime_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.opUser_ = opUserBuilder_ == null
-              ? opUser_
-              : opUserBuilder_.build();
-          to_bitField0_ |= 0x00000002;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.friendVersion_ = friendVersion_;
-        }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.friendVersionID_ = friendVersionID_;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendAddedTips) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendAddedTips)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendAddedTips other) {
-        if (other == openim.sdk.relation.Relation.FriendAddedTips.getDefaultInstance()) return this;
-        if (other.hasFriend()) {
-          mergeFriend(other.getFriend());
-        }
-        if (other.getOperationTime() != 0L) {
-          setOperationTime(other.getOperationTime());
-        }
-        if (other.hasOpUser()) {
-          mergeOpUser(other.getOpUser());
-        }
-        if (other.getFriendVersion() != 0L) {
-          setFriendVersion(other.getFriendVersion());
-        }
-        if (!other.getFriendVersionID().isEmpty()) {
-          friendVersionID_ = other.friendVersionID_;
-          bitField0_ |= 0x00000010;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getFriendFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 16: {
-                operationTime_ = input.readInt64();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 16
-              case 26: {
-                input.readMessage(
-                    getOpUserFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 26
-              case 32: {
-                friendVersion_ = input.readUInt64();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 32
-              case 42: {
-                friendVersionID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000010;
-                break;
-              } // case 42
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private openim.sdk.relation.Relation.FriendInfo friend_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> friendBuilder_;
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       * @return Whether the friend field is set.
-       */
-      public boolean hasFriend() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       * @return The friend.
-       */
-      public openim.sdk.relation.Relation.FriendInfo getFriend() {
-        if (friendBuilder_ == null) {
-          return friend_ == null ? openim.sdk.relation.Relation.FriendInfo.getDefaultInstance() : friend_;
-        } else {
-          return friendBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       */
-      public Builder setFriend(openim.sdk.relation.Relation.FriendInfo value) {
-        if (friendBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          friend_ = value;
-        } else {
-          friendBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       */
-      public Builder setFriend(
-          openim.sdk.relation.Relation.FriendInfo.Builder builderForValue) {
-        if (friendBuilder_ == null) {
-          friend_ = builderForValue.build();
-        } else {
-          friendBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       */
-      public Builder mergeFriend(openim.sdk.relation.Relation.FriendInfo value) {
-        if (friendBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            friend_ != null &&
-            friend_ != openim.sdk.relation.Relation.FriendInfo.getDefaultInstance()) {
-            getFriendBuilder().mergeFrom(value);
-          } else {
-            friend_ = value;
-          }
-        } else {
-          friendBuilder_.mergeFrom(value);
-        }
-        if (friend_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       */
-      public Builder clearFriend() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        friend_ = null;
-        if (friendBuilder_ != null) {
-          friendBuilder_.dispose();
-          friendBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FriendInfo.Builder getFriendBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFriendFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FriendInfoOrBuilder getFriendOrBuilder() {
-        if (friendBuilder_ != null) {
-          return friendBuilder_.getMessageOrBuilder();
-        } else {
-          return friend_ == null ?
-              openim.sdk.relation.Relation.FriendInfo.getDefaultInstance() : friend_;
-        }
-      }
-      /**
-       * <code>.openim.sdk.relation.FriendInfo friend = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder> 
-          getFriendFieldBuilder() {
-        if (friendBuilder_ == null) {
-          friendBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FriendInfo, openim.sdk.relation.Relation.FriendInfo.Builder, openim.sdk.relation.Relation.FriendInfoOrBuilder>(
-                  getFriend(),
-                  getParentForChildren(),
-                  isClean());
-          friend_ = null;
-        }
-        return friendBuilder_;
-      }
-
-      private long operationTime_ ;
-      /**
-       * <code>int64 operationTime = 2;</code>
-       * @return The operationTime.
-       */
-      @java.lang.Override
-      public long getOperationTime() {
-        return operationTime_;
-      }
-      /**
-       * <code>int64 operationTime = 2;</code>
-       * @param value The operationTime to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOperationTime(long value) {
-
-        operationTime_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 operationTime = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearOperationTime() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        operationTime_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private openim.sdk.user.User.UserInfo opUser_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder> opUserBuilder_;
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       * @return Whether the opUser field is set.
-       */
-      public boolean hasOpUser() {
-        return ((bitField0_ & 0x00000004) != 0);
-      }
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       * @return The opUser.
-       */
-      public openim.sdk.user.User.UserInfo getOpUser() {
-        if (opUserBuilder_ == null) {
-          return opUser_ == null ? openim.sdk.user.User.UserInfo.getDefaultInstance() : opUser_;
-        } else {
-          return opUserBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       */
-      public Builder setOpUser(openim.sdk.user.User.UserInfo value) {
-        if (opUserBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          opUser_ = value;
-        } else {
-          opUserBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       */
-      public Builder setOpUser(
-          openim.sdk.user.User.UserInfo.Builder builderForValue) {
-        if (opUserBuilder_ == null) {
-          opUser_ = builderForValue.build();
-        } else {
-          opUserBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       */
-      public Builder mergeOpUser(openim.sdk.user.User.UserInfo value) {
-        if (opUserBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) != 0) &&
-            opUser_ != null &&
-            opUser_ != openim.sdk.user.User.UserInfo.getDefaultInstance()) {
-            getOpUserBuilder().mergeFrom(value);
-          } else {
-            opUser_ = value;
-          }
-        } else {
-          opUserBuilder_.mergeFrom(value);
-        }
-        if (opUser_ != null) {
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       */
-      public Builder clearOpUser() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        opUser_ = null;
-        if (opUserBuilder_ != null) {
-          opUserBuilder_.dispose();
-          opUserBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       */
-      public openim.sdk.user.User.UserInfo.Builder getOpUserBuilder() {
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return getOpUserFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       */
-      public openim.sdk.user.User.UserInfoOrBuilder getOpUserOrBuilder() {
-        if (opUserBuilder_ != null) {
-          return opUserBuilder_.getMessageOrBuilder();
-        } else {
-          return opUser_ == null ?
-              openim.sdk.user.User.UserInfo.getDefaultInstance() : opUser_;
-        }
-      }
-      /**
-       * <pre>
-       * who do this
-       * </pre>
-       *
-       * <code>.openim.sdk.user.UserInfo opUser = 3;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder> 
-          getOpUserFieldBuilder() {
-        if (opUserBuilder_ == null) {
-          opUserBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.user.User.UserInfo, openim.sdk.user.User.UserInfo.Builder, openim.sdk.user.User.UserInfoOrBuilder>(
-                  getOpUser(),
-                  getParentForChildren(),
-                  isClean());
-          opUser_ = null;
-        }
-        return opUserBuilder_;
-      }
-
-      private long friendVersion_ ;
-      /**
-       * <code>uint64 friendVersion = 4;</code>
-       * @return The friendVersion.
-       */
-      @java.lang.Override
-      public long getFriendVersion() {
-        return friendVersion_;
-      }
-      /**
-       * <code>uint64 friendVersion = 4;</code>
-       * @param value The friendVersion to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersion(long value) {
-
-        friendVersion_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 friendVersion = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendVersion() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        friendVersion_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object friendVersionID_ = "";
-      /**
-       * <code>string friendVersionID = 5;</code>
-       * @return The friendVersionID.
-       */
-      public java.lang.String getFriendVersionID() {
-        java.lang.Object ref = friendVersionID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          friendVersionID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string friendVersionID = 5;</code>
-       * @return The bytes for friendVersionID.
-       */
-      public com.google.protobuf.ByteString
-          getFriendVersionIDBytes() {
-        java.lang.Object ref = friendVersionID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          friendVersionID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string friendVersionID = 5;</code>
-       * @param value The friendVersionID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersionID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        friendVersionID_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendVersionID = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendVersionID() {
-        friendVersionID_ = getDefaultInstance().getFriendVersionID();
-        bitField0_ = (bitField0_ & ~0x00000010);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendVersionID = 5;</code>
-       * @param value The bytes for friendVersionID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersionIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        friendVersionID_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendAddedTips)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendAddedTips)
-    private static final openim.sdk.relation.Relation.FriendAddedTips DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendAddedTips();
-    }
-
-    public static openim.sdk.relation.Relation.FriendAddedTips getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendAddedTips>
-        PARSER = new com.google.protobuf.AbstractParser<FriendAddedTips>() {
-      @java.lang.Override
-      public FriendAddedTips parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendAddedTips> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendAddedTips> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendAddedTips getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FriendDeletedTipsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendDeletedTips)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * from：owner； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    boolean hasFromToUserID();
-    /**
-     * <pre>
-     * from：owner； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    openim.sdk.relation.Relation.FromToUserID getFromToUserID();
-    /**
-     * <pre>
-     * from：owner； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder();
-
-    /**
-     * <code>uint64 friendVersion = 2;</code>
-     * @return The friendVersion.
-     */
-    long getFriendVersion();
-
-    /**
-     * <code>string friendVersionID = 3;</code>
-     * @return The friendVersionID.
-     */
-    java.lang.String getFriendVersionID();
-    /**
-     * <code>string friendVersionID = 3;</code>
-     * @return The bytes for friendVersionID.
-     */
-    com.google.protobuf.ByteString
-        getFriendVersionIDBytes();
-  }
-  /**
-   * <pre>
-   * FromUserID  deleted a friend ToUserID
-   * </pre>
-   *
-   * Protobuf type {@code openim.sdk.relation.FriendDeletedTips}
-   */
-  public static final class FriendDeletedTips extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendDeletedTips)
-      FriendDeletedTipsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendDeletedTips.class.getName());
-    }
-    // Use FriendDeletedTips.newBuilder() to construct.
-    private FriendDeletedTips(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendDeletedTips() {
-      friendVersionID_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendDeletedTips_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendDeletedTips_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendDeletedTips.class, openim.sdk.relation.Relation.FriendDeletedTips.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int FROMTOUSERID_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-    /**
-     * <pre>
-     * from：owner； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    @java.lang.Override
-    public boolean hasFromToUserID() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <pre>
-     * from：owner； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-    /**
-     * <pre>
-     * from：owner； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-
-    public static final int FRIENDVERSION_FIELD_NUMBER = 2;
-    private long friendVersion_ = 0L;
-    /**
-     * <code>uint64 friendVersion = 2;</code>
-     * @return The friendVersion.
-     */
-    @java.lang.Override
-    public long getFriendVersion() {
-      return friendVersion_;
-    }
-
-    public static final int FRIENDVERSIONID_FIELD_NUMBER = 3;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object friendVersionID_ = "";
-    /**
-     * <code>string friendVersionID = 3;</code>
-     * @return The friendVersionID.
-     */
-    @java.lang.Override
-    public java.lang.String getFriendVersionID() {
-      java.lang.Object ref = friendVersionID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        friendVersionID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string friendVersionID = 3;</code>
-     * @return The bytes for friendVersionID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFriendVersionIDBytes() {
-      java.lang.Object ref = friendVersionID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        friendVersionID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getFromToUserID());
-      }
-      if (friendVersion_ != 0L) {
-        output.writeUInt64(2, friendVersion_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendVersionID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, friendVersionID_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFromToUserID());
-      }
-      if (friendVersion_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, friendVersion_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendVersionID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, friendVersionID_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendDeletedTips)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendDeletedTips other = (openim.sdk.relation.Relation.FriendDeletedTips) obj;
-
-      if (hasFromToUserID() != other.hasFromToUserID()) return false;
-      if (hasFromToUserID()) {
-        if (!getFromToUserID()
-            .equals(other.getFromToUserID())) return false;
-      }
-      if (getFriendVersion()
-          != other.getFriendVersion()) return false;
-      if (!getFriendVersionID()
-          .equals(other.getFriendVersionID())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFromToUserID()) {
-        hash = (37 * hash) + FROMTOUSERID_FIELD_NUMBER;
-        hash = (53 * hash) + getFromToUserID().hashCode();
-      }
-      hash = (37 * hash) + FRIENDVERSION_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getFriendVersion());
-      hash = (37 * hash) + FRIENDVERSIONID_FIELD_NUMBER;
-      hash = (53 * hash) + getFriendVersionID().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendDeletedTips parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendDeletedTips prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * FromUserID  deleted a friend ToUserID
-     * </pre>
-     *
-     * Protobuf type {@code openim.sdk.relation.FriendDeletedTips}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendDeletedTips)
-        openim.sdk.relation.Relation.FriendDeletedTipsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendDeletedTips_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendDeletedTips_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendDeletedTips.class, openim.sdk.relation.Relation.FriendDeletedTips.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendDeletedTips.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getFromToUserIDFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        friendVersion_ = 0L;
-        friendVersionID_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendDeletedTips_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendDeletedTips getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendDeletedTips.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendDeletedTips build() {
-        openim.sdk.relation.Relation.FriendDeletedTips result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendDeletedTips buildPartial() {
-        openim.sdk.relation.Relation.FriendDeletedTips result = new openim.sdk.relation.Relation.FriendDeletedTips(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendDeletedTips result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromToUserID_ = fromToUserIDBuilder_ == null
-              ? fromToUserID_
-              : fromToUserIDBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.friendVersion_ = friendVersion_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.friendVersionID_ = friendVersionID_;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendDeletedTips) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendDeletedTips)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendDeletedTips other) {
-        if (other == openim.sdk.relation.Relation.FriendDeletedTips.getDefaultInstance()) return this;
-        if (other.hasFromToUserID()) {
-          mergeFromToUserID(other.getFromToUserID());
-        }
-        if (other.getFriendVersion() != 0L) {
-          setFriendVersion(other.getFriendVersion());
-        }
-        if (!other.getFriendVersionID().isEmpty()) {
-          friendVersionID_ = other.friendVersionID_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getFromToUserIDFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 16: {
-                friendVersion_ = input.readUInt64();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 16
-              case 26: {
-                friendVersionID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 26
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> fromToUserIDBuilder_;
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return Whether the fromToUserID field is set.
-       */
-      public boolean hasFromToUserID() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return The fromToUserID.
-       */
-      public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-        if (fromToUserIDBuilder_ == null) {
-          return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        } else {
-          return fromToUserIDBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          fromToUserID_ = value;
-        } else {
-          fromToUserIDBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(
-          openim.sdk.relation.Relation.FromToUserID.Builder builderForValue) {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserID_ = builderForValue.build();
-        } else {
-          fromToUserIDBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder mergeFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            fromToUserID_ != null &&
-            fromToUserID_ != openim.sdk.relation.Relation.FromToUserID.getDefaultInstance()) {
-            getFromToUserIDBuilder().mergeFrom(value);
-          } else {
-            fromToUserID_ = value;
-          }
-        } else {
-          fromToUserIDBuilder_.mergeFrom(value);
-        }
-        if (fromToUserID_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder clearFromToUserID() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserID.Builder getFromToUserIDBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFromToUserIDFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-        if (fromToUserIDBuilder_ != null) {
-          return fromToUserIDBuilder_.getMessageOrBuilder();
-        } else {
-          return fromToUserID_ == null ?
-              openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        }
-      }
-      /**
-       * <pre>
-       * from：owner； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> 
-          getFromToUserIDFieldBuilder() {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserIDBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder>(
-                  getFromToUserID(),
-                  getParentForChildren(),
-                  isClean());
-          fromToUserID_ = null;
-        }
-        return fromToUserIDBuilder_;
-      }
-
-      private long friendVersion_ ;
-      /**
-       * <code>uint64 friendVersion = 2;</code>
-       * @return The friendVersion.
-       */
-      @java.lang.Override
-      public long getFriendVersion() {
-        return friendVersion_;
-      }
-      /**
-       * <code>uint64 friendVersion = 2;</code>
-       * @param value The friendVersion to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersion(long value) {
-
-        friendVersion_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 friendVersion = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendVersion() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        friendVersion_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object friendVersionID_ = "";
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @return The friendVersionID.
-       */
-      public java.lang.String getFriendVersionID() {
-        java.lang.Object ref = friendVersionID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          friendVersionID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @return The bytes for friendVersionID.
-       */
-      public com.google.protobuf.ByteString
-          getFriendVersionIDBytes() {
-        java.lang.Object ref = friendVersionID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          friendVersionID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @param value The friendVersionID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersionID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        friendVersionID_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendVersionID() {
-        friendVersionID_ = getDefaultInstance().getFriendVersionID();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @param value The bytes for friendVersionID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersionIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        friendVersionID_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendDeletedTips)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendDeletedTips)
-    private static final openim.sdk.relation.Relation.FriendDeletedTips DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendDeletedTips();
-    }
-
-    public static openim.sdk.relation.Relation.FriendDeletedTips getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendDeletedTips>
-        PARSER = new com.google.protobuf.AbstractParser<FriendDeletedTips>() {
-      @java.lang.Override
-      public FriendDeletedTips parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendDeletedTips> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendDeletedTips> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendDeletedTips getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BlackAddedTipsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.BlackAddedTips)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    boolean hasFromToUserID();
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    openim.sdk.relation.Relation.FromToUserID getFromToUserID();
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.relation.BlackAddedTips}
-   */
-  public static final class BlackAddedTips extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.BlackAddedTips)
-      BlackAddedTipsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        BlackAddedTips.class.getName());
-    }
-    // Use BlackAddedTips.newBuilder() to construct.
-    private BlackAddedTips(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private BlackAddedTips() {
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackAddedTips_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackAddedTips_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.BlackAddedTips.class, openim.sdk.relation.Relation.BlackAddedTips.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int FROMTOUSERID_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    @java.lang.Override
-    public boolean hasFromToUserID() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getFromToUserID());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFromToUserID());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.BlackAddedTips)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.BlackAddedTips other = (openim.sdk.relation.Relation.BlackAddedTips) obj;
-
-      if (hasFromToUserID() != other.hasFromToUserID()) return false;
-      if (hasFromToUserID()) {
-        if (!getFromToUserID()
-            .equals(other.getFromToUserID())) return false;
-      }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFromToUserID()) {
-        hash = (37 * hash) + FROMTOUSERID_FIELD_NUMBER;
-        hash = (53 * hash) + getFromToUserID().hashCode();
-      }
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.BlackAddedTips parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.BlackAddedTips parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.BlackAddedTips parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.BlackAddedTips prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.relation.BlackAddedTips}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.BlackAddedTips)
-        openim.sdk.relation.Relation.BlackAddedTipsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackAddedTips_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackAddedTips_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.BlackAddedTips.class, openim.sdk.relation.Relation.BlackAddedTips.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.BlackAddedTips.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getFromToUserIDFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackAddedTips_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackAddedTips getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.BlackAddedTips.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackAddedTips build() {
-        openim.sdk.relation.Relation.BlackAddedTips result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackAddedTips buildPartial() {
-        openim.sdk.relation.Relation.BlackAddedTips result = new openim.sdk.relation.Relation.BlackAddedTips(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.BlackAddedTips result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromToUserID_ = fromToUserIDBuilder_ == null
-              ? fromToUserID_
-              : fromToUserIDBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.BlackAddedTips) {
-          return mergeFrom((openim.sdk.relation.Relation.BlackAddedTips)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.BlackAddedTips other) {
-        if (other == openim.sdk.relation.Relation.BlackAddedTips.getDefaultInstance()) return this;
-        if (other.hasFromToUserID()) {
-          mergeFromToUserID(other.getFromToUserID());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getFromToUserIDFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> fromToUserIDBuilder_;
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return Whether the fromToUserID field is set.
-       */
-      public boolean hasFromToUserID() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return The fromToUserID.
-       */
-      public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-        if (fromToUserIDBuilder_ == null) {
-          return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        } else {
-          return fromToUserIDBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          fromToUserID_ = value;
-        } else {
-          fromToUserIDBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(
-          openim.sdk.relation.Relation.FromToUserID.Builder builderForValue) {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserID_ = builderForValue.build();
-        } else {
-          fromToUserIDBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder mergeFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            fromToUserID_ != null &&
-            fromToUserID_ != openim.sdk.relation.Relation.FromToUserID.getDefaultInstance()) {
-            getFromToUserIDBuilder().mergeFrom(value);
-          } else {
-            fromToUserID_ = value;
-          }
-        } else {
-          fromToUserIDBuilder_.mergeFrom(value);
-        }
-        if (fromToUserID_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder clearFromToUserID() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserID.Builder getFromToUserIDBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFromToUserIDFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-        if (fromToUserIDBuilder_ != null) {
-          return fromToUserIDBuilder_.getMessageOrBuilder();
-        } else {
-          return fromToUserID_ == null ?
-              openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        }
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> 
-          getFromToUserIDFieldBuilder() {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserIDBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder>(
-                  getFromToUserID(),
-                  getParentForChildren(),
-                  isClean());
-          fromToUserID_ = null;
-        }
-        return fromToUserIDBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.BlackAddedTips)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.BlackAddedTips)
-    private static final openim.sdk.relation.Relation.BlackAddedTips DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.BlackAddedTips();
-    }
-
-    public static openim.sdk.relation.Relation.BlackAddedTips getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BlackAddedTips>
-        PARSER = new com.google.protobuf.AbstractParser<BlackAddedTips>() {
-      @java.lang.Override
-      public BlackAddedTips parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<BlackAddedTips> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BlackAddedTips> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.BlackAddedTips getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BlackDeletedTipsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.BlackDeletedTips)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    boolean hasFromToUserID();
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    openim.sdk.relation.Relation.FromToUserID getFromToUserID();
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.relation.BlackDeletedTips}
-   */
-  public static final class BlackDeletedTips extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.BlackDeletedTips)
-      BlackDeletedTipsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        BlackDeletedTips.class.getName());
-    }
-    // Use BlackDeletedTips.newBuilder() to construct.
-    private BlackDeletedTips(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private BlackDeletedTips() {
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackDeletedTips_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackDeletedTips_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.BlackDeletedTips.class, openim.sdk.relation.Relation.BlackDeletedTips.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int FROMTOUSERID_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    @java.lang.Override
-    public boolean hasFromToUserID() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-    /**
-     * <pre>
-     * from：owner； to：black
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getFromToUserID());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFromToUserID());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.BlackDeletedTips)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.BlackDeletedTips other = (openim.sdk.relation.Relation.BlackDeletedTips) obj;
-
-      if (hasFromToUserID() != other.hasFromToUserID()) return false;
-      if (hasFromToUserID()) {
-        if (!getFromToUserID()
-            .equals(other.getFromToUserID())) return false;
-      }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFromToUserID()) {
-        hash = (37 * hash) + FROMTOUSERID_FIELD_NUMBER;
-        hash = (53 * hash) + getFromToUserID().hashCode();
-      }
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.BlackDeletedTips parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.BlackDeletedTips prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.relation.BlackDeletedTips}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.BlackDeletedTips)
-        openim.sdk.relation.Relation.BlackDeletedTipsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackDeletedTips_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackDeletedTips_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.BlackDeletedTips.class, openim.sdk.relation.Relation.BlackDeletedTips.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.BlackDeletedTips.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getFromToUserIDFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_BlackDeletedTips_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackDeletedTips getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.BlackDeletedTips.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackDeletedTips build() {
-        openim.sdk.relation.Relation.BlackDeletedTips result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.BlackDeletedTips buildPartial() {
-        openim.sdk.relation.Relation.BlackDeletedTips result = new openim.sdk.relation.Relation.BlackDeletedTips(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.BlackDeletedTips result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromToUserID_ = fromToUserIDBuilder_ == null
-              ? fromToUserID_
-              : fromToUserIDBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.BlackDeletedTips) {
-          return mergeFrom((openim.sdk.relation.Relation.BlackDeletedTips)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.BlackDeletedTips other) {
-        if (other == openim.sdk.relation.Relation.BlackDeletedTips.getDefaultInstance()) return this;
-        if (other.hasFromToUserID()) {
-          mergeFromToUserID(other.getFromToUserID());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getFromToUserIDFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> fromToUserIDBuilder_;
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return Whether the fromToUserID field is set.
-       */
-      public boolean hasFromToUserID() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return The fromToUserID.
-       */
-      public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-        if (fromToUserIDBuilder_ == null) {
-          return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        } else {
-          return fromToUserIDBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          fromToUserID_ = value;
-        } else {
-          fromToUserIDBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(
-          openim.sdk.relation.Relation.FromToUserID.Builder builderForValue) {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserID_ = builderForValue.build();
-        } else {
-          fromToUserIDBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder mergeFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            fromToUserID_ != null &&
-            fromToUserID_ != openim.sdk.relation.Relation.FromToUserID.getDefaultInstance()) {
-            getFromToUserIDBuilder().mergeFrom(value);
-          } else {
-            fromToUserID_ = value;
-          }
-        } else {
-          fromToUserIDBuilder_.mergeFrom(value);
-        }
-        if (fromToUserID_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder clearFromToUserID() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserID.Builder getFromToUserIDBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFromToUserIDFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-        if (fromToUserIDBuilder_ != null) {
-          return fromToUserIDBuilder_.getMessageOrBuilder();
-        } else {
-          return fromToUserID_ == null ?
-              openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        }
-      }
-      /**
-       * <pre>
-       * from：owner； to：black
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> 
-          getFromToUserIDFieldBuilder() {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserIDBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder>(
-                  getFromToUserID(),
-                  getParentForChildren(),
-                  isClean());
-          fromToUserID_ = null;
-        }
-        return fromToUserIDBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.BlackDeletedTips)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.BlackDeletedTips)
-    private static final openim.sdk.relation.Relation.BlackDeletedTips DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.BlackDeletedTips();
-    }
-
-    public static openim.sdk.relation.Relation.BlackDeletedTips getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BlackDeletedTips>
-        PARSER = new com.google.protobuf.AbstractParser<BlackDeletedTips>() {
-      @java.lang.Override
-      public BlackDeletedTips parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<BlackDeletedTips> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BlackDeletedTips> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.BlackDeletedTips getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FriendInfoChangedTipsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:openim.sdk.relation.FriendInfoChangedTips)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * from：changed； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    boolean hasFromToUserID();
-    /**
-     * <pre>
-     * from：changed； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    openim.sdk.relation.Relation.FromToUserID getFromToUserID();
-    /**
-     * <pre>
-     * from：changed； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder();
-
-    /**
-     * <code>uint64 friendVersion = 2;</code>
-     * @return The friendVersion.
-     */
-    long getFriendVersion();
-
-    /**
-     * <code>string friendVersionID = 3;</code>
-     * @return The friendVersionID.
-     */
-    java.lang.String getFriendVersionID();
-    /**
-     * <code>string friendVersionID = 3;</code>
-     * @return The bytes for friendVersionID.
-     */
-    com.google.protobuf.ByteString
-        getFriendVersionIDBytes();
-
-    /**
-     * <code>uint64 friendSortVersion = 4;</code>
-     * @return The friendSortVersion.
-     */
-    long getFriendSortVersion();
-  }
-  /**
-   * Protobuf type {@code openim.sdk.relation.FriendInfoChangedTips}
-   */
-  public static final class FriendInfoChangedTips extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:openim.sdk.relation.FriendInfoChangedTips)
-      FriendInfoChangedTipsOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 1,
-        /* suffix= */ "",
-        FriendInfoChangedTips.class.getName());
-    }
-    // Use FriendInfoChangedTips.newBuilder() to construct.
-    private FriendInfoChangedTips(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private FriendInfoChangedTips() {
-      friendVersionID_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfoChangedTips_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfoChangedTips_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              openim.sdk.relation.Relation.FriendInfoChangedTips.class, openim.sdk.relation.Relation.FriendInfoChangedTips.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int FROMTOUSERID_FIELD_NUMBER = 1;
-    private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-    /**
-     * <pre>
-     * from：changed； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return Whether the fromToUserID field is set.
-     */
-    @java.lang.Override
-    public boolean hasFromToUserID() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <pre>
-     * from：changed； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     * @return The fromToUserID.
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-    /**
-     * <pre>
-     * from：changed； to：friend
-     * </pre>
-     *
-     * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-     */
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-      return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-    }
-
-    public static final int FRIENDVERSION_FIELD_NUMBER = 2;
-    private long friendVersion_ = 0L;
-    /**
-     * <code>uint64 friendVersion = 2;</code>
-     * @return The friendVersion.
-     */
-    @java.lang.Override
-    public long getFriendVersion() {
-      return friendVersion_;
-    }
-
-    public static final int FRIENDVERSIONID_FIELD_NUMBER = 3;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object friendVersionID_ = "";
-    /**
-     * <code>string friendVersionID = 3;</code>
-     * @return The friendVersionID.
-     */
-    @java.lang.Override
-    public java.lang.String getFriendVersionID() {
-      java.lang.Object ref = friendVersionID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        friendVersionID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string friendVersionID = 3;</code>
-     * @return The bytes for friendVersionID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFriendVersionIDBytes() {
-      java.lang.Object ref = friendVersionID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        friendVersionID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FRIENDSORTVERSION_FIELD_NUMBER = 4;
-    private long friendSortVersion_ = 0L;
-    /**
-     * <code>uint64 friendSortVersion = 4;</code>
-     * @return The friendSortVersion.
-     */
-    @java.lang.Override
-    public long getFriendSortVersion() {
-      return friendSortVersion_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getFromToUserID());
-      }
-      if (friendVersion_ != 0L) {
-        output.writeUInt64(2, friendVersion_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendVersionID_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, friendVersionID_);
-      }
-      if (friendSortVersion_ != 0L) {
-        output.writeUInt64(4, friendSortVersion_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFromToUserID());
-      }
-      if (friendVersion_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, friendVersion_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(friendVersionID_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, friendVersionID_);
-      }
-      if (friendSortVersion_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(4, friendSortVersion_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof openim.sdk.relation.Relation.FriendInfoChangedTips)) {
-        return super.equals(obj);
-      }
-      openim.sdk.relation.Relation.FriendInfoChangedTips other = (openim.sdk.relation.Relation.FriendInfoChangedTips) obj;
-
-      if (hasFromToUserID() != other.hasFromToUserID()) return false;
-      if (hasFromToUserID()) {
-        if (!getFromToUserID()
-            .equals(other.getFromToUserID())) return false;
-      }
-      if (getFriendVersion()
-          != other.getFriendVersion()) return false;
-      if (!getFriendVersionID()
-          .equals(other.getFriendVersionID())) return false;
-      if (getFriendSortVersion()
-          != other.getFriendSortVersion()) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFromToUserID()) {
-        hash = (37 * hash) + FROMTOUSERID_FIELD_NUMBER;
-        hash = (53 * hash) + getFromToUserID().hashCode();
-      }
-      hash = (37 * hash) + FRIENDVERSION_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getFriendVersion());
-      hash = (37 * hash) + FRIENDVERSIONID_FIELD_NUMBER;
-      hash = (53 * hash) + getFriendVersionID().hashCode();
-      hash = (37 * hash) + FRIENDSORTVERSION_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getFriendSortVersion());
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(openim.sdk.relation.Relation.FriendInfoChangedTips prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code openim.sdk.relation.FriendInfoChangedTips}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:openim.sdk.relation.FriendInfoChangedTips)
-        openim.sdk.relation.Relation.FriendInfoChangedTipsOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfoChangedTips_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfoChangedTips_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                openim.sdk.relation.Relation.FriendInfoChangedTips.class, openim.sdk.relation.Relation.FriendInfoChangedTips.Builder.class);
-      }
-
-      // Construct using openim.sdk.relation.Relation.FriendInfoChangedTips.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getFromToUserIDFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        friendVersion_ = 0L;
-        friendVersionID_ = "";
-        friendSortVersion_ = 0L;
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return openim.sdk.relation.Relation.internal_static_openim_sdk_relation_FriendInfoChangedTips_descriptor;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendInfoChangedTips getDefaultInstanceForType() {
-        return openim.sdk.relation.Relation.FriendInfoChangedTips.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendInfoChangedTips build() {
-        openim.sdk.relation.Relation.FriendInfoChangedTips result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public openim.sdk.relation.Relation.FriendInfoChangedTips buildPartial() {
-        openim.sdk.relation.Relation.FriendInfoChangedTips result = new openim.sdk.relation.Relation.FriendInfoChangedTips(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(openim.sdk.relation.Relation.FriendInfoChangedTips result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.fromToUserID_ = fromToUserIDBuilder_ == null
-              ? fromToUserID_
-              : fromToUserIDBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.friendVersion_ = friendVersion_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.friendVersionID_ = friendVersionID_;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.friendSortVersion_ = friendSortVersion_;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof openim.sdk.relation.Relation.FriendInfoChangedTips) {
-          return mergeFrom((openim.sdk.relation.Relation.FriendInfoChangedTips)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(openim.sdk.relation.Relation.FriendInfoChangedTips other) {
-        if (other == openim.sdk.relation.Relation.FriendInfoChangedTips.getDefaultInstance()) return this;
-        if (other.hasFromToUserID()) {
-          mergeFromToUserID(other.getFromToUserID());
-        }
-        if (other.getFriendVersion() != 0L) {
-          setFriendVersion(other.getFriendVersion());
-        }
-        if (!other.getFriendVersionID().isEmpty()) {
-          friendVersionID_ = other.friendVersionID_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        if (other.getFriendSortVersion() != 0L) {
-          setFriendSortVersion(other.getFriendSortVersion());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getFromToUserIDFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 16: {
-                friendVersion_ = input.readUInt64();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 16
-              case 26: {
-                friendVersionID_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 26
-              case 32: {
-                friendSortVersion_ = input.readUInt64();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 32
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private openim.sdk.relation.Relation.FromToUserID fromToUserID_;
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> fromToUserIDBuilder_;
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return Whether the fromToUserID field is set.
-       */
-      public boolean hasFromToUserID() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       * @return The fromToUserID.
-       */
-      public openim.sdk.relation.Relation.FromToUserID getFromToUserID() {
-        if (fromToUserIDBuilder_ == null) {
-          return fromToUserID_ == null ? openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        } else {
-          return fromToUserIDBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          fromToUserID_ = value;
-        } else {
-          fromToUserIDBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder setFromToUserID(
-          openim.sdk.relation.Relation.FromToUserID.Builder builderForValue) {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserID_ = builderForValue.build();
-        } else {
-          fromToUserIDBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder mergeFromToUserID(openim.sdk.relation.Relation.FromToUserID value) {
-        if (fromToUserIDBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            fromToUserID_ != null &&
-            fromToUserID_ != openim.sdk.relation.Relation.FromToUserID.getDefaultInstance()) {
-            getFromToUserIDBuilder().mergeFrom(value);
-          } else {
-            fromToUserID_ = value;
-          }
-        } else {
-          fromToUserIDBuilder_.mergeFrom(value);
-        }
-        if (fromToUserID_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public Builder clearFromToUserID() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        fromToUserID_ = null;
-        if (fromToUserIDBuilder_ != null) {
-          fromToUserIDBuilder_.dispose();
-          fromToUserIDBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserID.Builder getFromToUserIDBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFromToUserIDFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      public openim.sdk.relation.Relation.FromToUserIDOrBuilder getFromToUserIDOrBuilder() {
-        if (fromToUserIDBuilder_ != null) {
-          return fromToUserIDBuilder_.getMessageOrBuilder();
-        } else {
-          return fromToUserID_ == null ?
-              openim.sdk.relation.Relation.FromToUserID.getDefaultInstance() : fromToUserID_;
-        }
-      }
-      /**
-       * <pre>
-       * from：changed； to：friend
-       * </pre>
-       *
-       * <code>.openim.sdk.relation.FromToUserID fromToUserID = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder> 
-          getFromToUserIDFieldBuilder() {
-        if (fromToUserIDBuilder_ == null) {
-          fromToUserIDBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              openim.sdk.relation.Relation.FromToUserID, openim.sdk.relation.Relation.FromToUserID.Builder, openim.sdk.relation.Relation.FromToUserIDOrBuilder>(
-                  getFromToUserID(),
-                  getParentForChildren(),
-                  isClean());
-          fromToUserID_ = null;
-        }
-        return fromToUserIDBuilder_;
-      }
-
-      private long friendVersion_ ;
-      /**
-       * <code>uint64 friendVersion = 2;</code>
-       * @return The friendVersion.
-       */
-      @java.lang.Override
-      public long getFriendVersion() {
-        return friendVersion_;
-      }
-      /**
-       * <code>uint64 friendVersion = 2;</code>
-       * @param value The friendVersion to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersion(long value) {
-
-        friendVersion_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 friendVersion = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendVersion() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        friendVersion_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object friendVersionID_ = "";
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @return The friendVersionID.
-       */
-      public java.lang.String getFriendVersionID() {
-        java.lang.Object ref = friendVersionID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          friendVersionID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @return The bytes for friendVersionID.
-       */
-      public com.google.protobuf.ByteString
-          getFriendVersionIDBytes() {
-        java.lang.Object ref = friendVersionID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          friendVersionID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @param value The friendVersionID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersionID(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        friendVersionID_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendVersionID() {
-        friendVersionID_ = getDefaultInstance().getFriendVersionID();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string friendVersionID = 3;</code>
-       * @param value The bytes for friendVersionID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendVersionIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        friendVersionID_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      private long friendSortVersion_ ;
-      /**
-       * <code>uint64 friendSortVersion = 4;</code>
-       * @return The friendSortVersion.
-       */
-      @java.lang.Override
-      public long getFriendSortVersion() {
-        return friendSortVersion_;
-      }
-      /**
-       * <code>uint64 friendSortVersion = 4;</code>
-       * @param value The friendSortVersion to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFriendSortVersion(long value) {
-
-        friendSortVersion_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 friendSortVersion = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFriendSortVersion() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        friendSortVersion_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:openim.sdk.relation.FriendInfoChangedTips)
-    }
-
-    // @@protoc_insertion_point(class_scope:openim.sdk.relation.FriendInfoChangedTips)
-    private static final openim.sdk.relation.Relation.FriendInfoChangedTips DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new openim.sdk.relation.Relation.FriendInfoChangedTips();
-    }
-
-    public static openim.sdk.relation.Relation.FriendInfoChangedTips getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FriendInfoChangedTips>
-        PARSER = new com.google.protobuf.AbstractParser<FriendInfoChangedTips>() {
-      @java.lang.Override
-      public FriendInfoChangedTips parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<FriendInfoChangedTips> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FriendInfoChangedTips> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public openim.sdk.relation.Relation.FriendInfoChangedTips getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendInfo_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendInfo_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_BlackInfo_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_BlackInfo_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendRequestInfo_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendRequestInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_openim_sdk_relation_GetSpecifiedFriendsReq_descriptor;
   private static final 
@@ -30470,56 +16879,6 @@ public final class Relation {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_openim_sdk_relation_UpdatesFriendsResp_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendApplication_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendApplication_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FromToUserID_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FromToUserID_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendApplicationTips_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendApplicationTips_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendApplicationApprovedTips_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendApplicationApprovedTips_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendApplicationRejectedTips_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendApplicationRejectedTips_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendAddedTips_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendAddedTips_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendDeletedTips_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendDeletedTips_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_BlackAddedTips_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_BlackAddedTips_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_BlackDeletedTips_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_BlackDeletedTips_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_openim_sdk_relation_FriendInfoChangedTips_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_openim_sdk_relation_FriendInfoChangedTips_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -30530,352 +16889,229 @@ public final class Relation {
   static {
     java.lang.String[] descriptorData = {
       "\n\016relation.proto\022\023openim.sdk.relation\032\014c" +
-      "ommon.proto\032\nuser.proto\"\335\001\n\nFriendInfo\022\023" +
-      "\n\013ownerUserID\030\001 \001(\t\022\024\n\014friendUserID\030\002 \001(" +
-      "\t\022\016\n\006remark\030\003 \001(\t\022\022\n\ncreateTime\030\004 \001(\003\022\021\n" +
-      "\taddSource\030\005 \001(\005\022\026\n\016operatorUserID\030\006 \001(\t" +
-      "\022\020\n\010nickname\030\007 \001(\t\022\017\n\007faceURL\030\010 \001(\t\022\n\n\002e" +
-      "x\030\t \001(\t\022\024\n\014attachedInfo\030\n \001(\t\022\020\n\010isPinne" +
-      "d\030\013 \001(\010\"\265\001\n\tBlackInfo\022\023\n\013ownerUserID\030\001 \001" +
-      "(\t\022\023\n\013blockUserID\030\002 \001(\t\022\020\n\010nickname\030\003 \001(" +
-      "\t\022\017\n\007faceURL\030\004 \001(\t\022\022\n\ncreateTime\030\005 \001(\003\022\021" +
-      "\n\taddSource\030\006 \001(\005\022\026\n\016operatorUserID\030\007 \001(" +
-      "\t\022\n\n\002ex\030\010 \001(\t\022\020\n\010attached\030\t \001(\t\"\241\002\n\021Frie" +
-      "ndRequestInfo\022\022\n\nfromUserID\030\001 \001(\t\022\024\n\014fro" +
-      "mNickname\030\002 \001(\t\022\023\n\013fromFaceURL\030\003 \001(\t\022\020\n\010" +
-      "toUserID\030\004 \001(\t\022\022\n\ntoNickname\030\005 \001(\t\022\021\n\tto" +
-      "FaceURL\030\006 \001(\t\022\024\n\014handleResult\030\007 \001(\005\022\016\n\006r" +
-      "eqMsg\030\010 \001(\t\022\022\n\ncreateTime\030\t \001(\003\022\025\n\rhandl" +
-      "erUserID\030\n \001(\t\022\021\n\thandleMsg\030\013 \001(\t\022\022\n\nhan" +
-      "dleTime\030\014 \001(\003\022\n\n\002ex\030\r \001(\t\022\020\n\010attached\030\016 " +
-      "\001(\t\"D\n\026GetSpecifiedFriendsReq\022\025\n\rfriendU" +
-      "serIDs\030\001 \003(\t\022\023\n\013filterBlack\030\002 \001(\010\"K\n\027Get" +
-      "SpecifiedFriendsResp\0220\n\007friends\030\001 \003(\0132\037." +
-      "openim.sdk.relation.FriendInfo\":\n\014AddFri" +
-      "endReq\022\016\n\006userID\030\001 \001(\t\022\016\n\006reqMsg\030\002 \001(\t\022\n" +
-      "\n\002ex\030\003 \001(\t\"\017\n\rAddFriendResp\"$\n\024GetFriend" +
-      "RequestsReq\022\014\n\004send\030\001 \001(\010\"Q\n\025GetFriendRe" +
-      "questsResp\0228\n\010requests\030\001 \003(\0132&.openim.sd" +
-      "k.relation.FriendRequestInfo\"o\n\027HandlerF" +
-      "riendRequestReq\022\016\n\006userID\030\001 \001(\t\022\021\n\thandl" +
-      "eMsg\030\002 \001(\t\0221\n\006status\030\003 \001(\0162!.openim.sdk." +
-      "common.ApprovalStatus\"\032\n\030HandlerFriendRe" +
-      "questResp\"\'\n\016CheckFriendReq\022\025\n\rfriendUse" +
-      "rIDs\030\001 \003(\t\"1\n\017CheckFriendInfo\022\016\n\006userID\030" +
-      "\001 \001(\t\022\016\n\006result\030\002 \001(\005\"G\n\017CheckFriendResp" +
-      "\0224\n\006result\030\001 \003(\0132$.openim.sdk.relation.C" +
-      "heckFriendInfo\"!\n\017DeleteFriendReq\022\016\n\006use" +
-      "rID\030\001 \001(\t\"\022\n\020DeleteFriendResp\"$\n\rGetFrie" +
-      "ndsReq\022\023\n\013filterBlack\030\001 \001(\010\"B\n\016GetFriend" +
-      "sResp\0220\n\007friends\030\001 \003(\0132\037.openim.sdk.rela" +
-      "tion.FriendInfo\"b\n\021GetFriendsPageReq\022\023\n\013" +
-      "filterBlack\030\001 \001(\010\0228\n\npagination\030\002 \001(\0132$." +
-      "openim.sdk.common.RequestPagination\"F\n\022G" +
-      "etFriendsPageResp\0220\n\007friends\030\001 \003(\0132\037.ope" +
-      "nim.sdk.relation.FriendInfo\"g\n\020SearchFri" +
-      "endsReq\022\017\n\007keyword\030\001 \001(\t\022\024\n\014searchUserID" +
-      "\030\002 \001(\010\022\026\n\016searchNickname\030\003 \001(\010\022\024\n\014search" +
-      "Remark\030\004 \001(\010\"}\n\021SearchFriendsInfo\022/\n\006fri" +
-      "end\030\001 \001(\0132\037.openim.sdk.relation.FriendIn" +
-      "fo\0227\n\014relationship\030\002 \001(\0162!.openim.sdk.re" +
-      "lation.Relationship\"L\n\021SearchFriendsResp" +
-      "\0227\n\007friends\030\001 \003(\0132&.openim.sdk.relation." +
-      "SearchFriendsInfo\")\n\013AddBlackReq\022\016\n\006user" +
-      "ID\030\001 \001(\t\022\n\n\002ex\030\002 \001(\t\"\016\n\014AddBlackResp\" \n\016" +
-      "DeleteBlackReq\022\016\n\006userID\030\001 \001(\t\"\021\n\017Delete" +
-      "BlackResp\"\016\n\014GetBlacksReq\"?\n\rGetBlacksRe" +
-      "sp\022.\n\006blacks\030\001 \003(\0132\036.openim.sdk.relation" +
-      ".BlackInfo\"|\n\021UpdatesFriendsReq\022\017\n\007userI" +
-      "Ds\030\001 \003(\t\022\023\n\006pinned\030\002 \001(\010H\000\210\001\001\022\023\n\006Remark\030" +
-      "\003 \001(\tH\001\210\001\001\022\017\n\002ex\030\004 \001(\tH\002\210\001\001B\t\n\007_pinnedB\t" +
-      "\n\007_RemarkB\005\n\003_ex\"\024\n\022UpdatesFriendsResp\"K" +
-      "\n\021FriendApplication\022\017\n\007addTime\030\001 \001(\003\022\021\n\t" +
-      "addSource\030\002 \001(\t\022\022\n\naddWording\030\003 \001(\t\"4\n\014F" +
-      "romToUserID\022\022\n\nfromUserID\030\001 \001(\t\022\020\n\010toUse" +
-      "rID\030\002 \001(\t\"P\n\025FriendApplicationTips\0227\n\014fr" +
-      "omToUserID\030\001 \001(\0132!.openim.sdk.relation.F" +
-      "romToUserID\"\233\001\n\035FriendApplicationApprove" +
-      "dTips\0227\n\014fromToUserID\030\001 \001(\0132!.openim.sdk" +
-      ".relation.FromToUserID\022\021\n\thandleMsg\030\002 \001(" +
-      "\t\022\025\n\rfriendVersion\030\003 \001(\004\022\027\n\017friendVersio" +
-      "nID\030\004 \001(\t\"k\n\035FriendApplicationRejectedTi" +
-      "ps\0227\n\014fromToUserID\030\001 \001(\0132!.openim.sdk.re" +
-      "lation.FromToUserID\022\021\n\thandleMsg\030\002 \001(\t\"\264" +
-      "\001\n\017FriendAddedTips\022/\n\006friend\030\001 \001(\0132\037.ope" +
-      "nim.sdk.relation.FriendInfo\022\025\n\roperation" +
-      "Time\030\002 \001(\003\022)\n\006opUser\030\003 \001(\0132\031.openim.sdk." +
-      "user.UserInfo\022\025\n\rfriendVersion\030\004 \001(\004\022\027\n\017" +
-      "friendVersionID\030\005 \001(\t\"|\n\021FriendDeletedTi" +
-      "ps\0227\n\014fromToUserID\030\001 \001(\0132!.openim.sdk.re" +
-      "lation.FromToUserID\022\025\n\rfriendVersion\030\002 \001" +
-      "(\004\022\027\n\017friendVersionID\030\003 \001(\t\"I\n\016BlackAdde" +
-      "dTips\0227\n\014fromToUserID\030\001 \001(\0132!.openim.sdk" +
-      ".relation.FromToUserID\"K\n\020BlackDeletedTi" +
-      "ps\0227\n\014fromToUserID\030\001 \001(\0132!.openim.sdk.re" +
-      "lation.FromToUserID\"\233\001\n\025FriendInfoChange" +
-      "dTips\0227\n\014fromToUserID\030\001 \001(\0132!.openim.sdk" +
-      ".relation.FromToUserID\022\025\n\rfriendVersion\030" +
-      "\002 \001(\004\022\027\n\017friendVersionID\030\003 \001(\t\022\031\n\021friend" +
-      "SortVersion\030\004 \001(\004*%\n\014Relationship\022\t\n\005Bla" +
-      "ck\020\000\022\n\n\006Friend\020\001BDZ9github.com/openimsdk" +
-      "/openim-sdk-core/v3/proto/go/relation\252\002\006" +
-      "OpenIMb\006proto3"
+      "ommon.proto\032\014shared.proto\"D\n\026GetSpecifie" +
+      "dFriendsReq\022\025\n\rfriendUserIDs\030\001 \003(\t\022\023\n\013fi" +
+      "lterBlack\030\002 \001(\010\"I\n\027GetSpecifiedFriendsRe" +
+      "sp\022.\n\007friends\030\001 \003(\0132\035.openim.sdk.shared." +
+      "FriendInfo\":\n\014AddFriendReq\022\016\n\006userID\030\001 \001" +
+      "(\t\022\016\n\006reqMsg\030\002 \001(\t\022\n\n\002ex\030\003 \001(\t\"\017\n\rAddFri" +
+      "endResp\"$\n\024GetFriendRequestsReq\022\014\n\004send\030" +
+      "\001 \001(\010\"O\n\025GetFriendRequestsResp\0226\n\010reques" +
+      "ts\030\001 \003(\0132$.openim.sdk.shared.FriendReque" +
+      "stInfo\"o\n\027HandlerFriendRequestReq\022\016\n\006use" +
+      "rID\030\001 \001(\t\022\021\n\thandleMsg\030\002 \001(\t\0221\n\006status\030\003" +
+      " \001(\0162!.openim.sdk.common.ApprovalStatus\"" +
+      "\032\n\030HandlerFriendRequestResp\"\'\n\016CheckFrie" +
+      "ndReq\022\025\n\rfriendUserIDs\030\001 \003(\t\"1\n\017CheckFri" +
+      "endInfo\022\016\n\006userID\030\001 \001(\t\022\016\n\006result\030\002 \001(\005\"" +
+      "G\n\017CheckFriendResp\0224\n\006result\030\001 \003(\0132$.ope" +
+      "nim.sdk.relation.CheckFriendInfo\"!\n\017Dele" +
+      "teFriendReq\022\016\n\006userID\030\001 \001(\t\"\022\n\020DeleteFri" +
+      "endResp\"$\n\rGetFriendsReq\022\023\n\013filterBlack\030" +
+      "\001 \001(\010\"@\n\016GetFriendsResp\022.\n\007friends\030\001 \003(\013" +
+      "2\035.openim.sdk.shared.FriendInfo\"b\n\021GetFr" +
+      "iendsPageReq\022\023\n\013filterBlack\030\001 \001(\010\0228\n\npag" +
+      "ination\030\002 \001(\0132$.openim.sdk.common.Reques" +
+      "tPagination\"D\n\022GetFriendsPageResp\022.\n\007fri" +
+      "ends\030\001 \003(\0132\035.openim.sdk.shared.FriendInf" +
+      "o\"g\n\020SearchFriendsReq\022\017\n\007keyword\030\001 \001(\t\022\024" +
+      "\n\014searchUserID\030\002 \001(\010\022\026\n\016searchNickname\030\003" +
+      " \001(\010\022\024\n\014searchRemark\030\004 \001(\010\"{\n\021SearchFrie" +
+      "ndsInfo\022-\n\006friend\030\001 \001(\0132\035.openim.sdk.sha" +
+      "red.FriendInfo\0227\n\014relationship\030\002 \001(\0162!.o" +
+      "penim.sdk.relation.Relationship\"L\n\021Searc" +
+      "hFriendsResp\0227\n\007friends\030\001 \003(\0132&.openim.s" +
+      "dk.relation.SearchFriendsInfo\")\n\013AddBlac" +
+      "kReq\022\016\n\006userID\030\001 \001(\t\022\n\n\002ex\030\002 \001(\t\"\016\n\014AddB" +
+      "lackResp\" \n\016DeleteBlackReq\022\016\n\006userID\030\001 \001" +
+      "(\t\"\021\n\017DeleteBlackResp\"\016\n\014GetBlacksReq\"=\n" +
+      "\rGetBlacksResp\022,\n\006blacks\030\001 \003(\0132\034.openim." +
+      "sdk.shared.BlackInfo\"{\n\021UpdatesFriendsRe" +
+      "q\022\016\n\006userID\030\001 \001(\t\022\023\n\006pinned\030\002 \001(\010H\000\210\001\001\022\023" +
+      "\n\006Remark\030\003 \001(\tH\001\210\001\001\022\017\n\002ex\030\004 \001(\tH\002\210\001\001B\t\n\007" +
+      "_pinnedB\t\n\007_RemarkB\005\n\003_ex\"\024\n\022UpdatesFrie" +
+      "ndsResp*%\n\014Relationship\022\t\n\005Black\020\000\022\n\n\006Fr" +
+      "iend\020\001BDZ9github.com/openimsdk/openim-sd" +
+      "k-core/v3/proto/go/relation\252\002\006OpenIMb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           openim.sdk.common.Common.getDescriptor(),
-          openim.sdk.user.User.getDescriptor(),
+          openim.sdk.shared.Shared.getDescriptor(),
         });
-    internal_static_openim_sdk_relation_FriendInfo_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_openim_sdk_relation_FriendInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendInfo_descriptor,
-        new java.lang.String[] { "OwnerUserID", "FriendUserID", "Remark", "CreateTime", "AddSource", "OperatorUserID", "Nickname", "FaceURL", "Ex", "AttachedInfo", "IsPinned", });
-    internal_static_openim_sdk_relation_BlackInfo_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_openim_sdk_relation_BlackInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_BlackInfo_descriptor,
-        new java.lang.String[] { "OwnerUserID", "BlockUserID", "Nickname", "FaceURL", "CreateTime", "AddSource", "OperatorUserID", "Ex", "Attached", });
-    internal_static_openim_sdk_relation_FriendRequestInfo_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_openim_sdk_relation_FriendRequestInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendRequestInfo_descriptor,
-        new java.lang.String[] { "FromUserID", "FromNickname", "FromFaceURL", "ToUserID", "ToNickname", "ToFaceURL", "HandleResult", "ReqMsg", "CreateTime", "HandlerUserID", "HandleMsg", "HandleTime", "Ex", "Attached", });
     internal_static_openim_sdk_relation_GetSpecifiedFriendsReq_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_openim_sdk_relation_GetSpecifiedFriendsReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetSpecifiedFriendsReq_descriptor,
         new java.lang.String[] { "FriendUserIDs", "FilterBlack", });
     internal_static_openim_sdk_relation_GetSpecifiedFriendsResp_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_openim_sdk_relation_GetSpecifiedFriendsResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetSpecifiedFriendsResp_descriptor,
         new java.lang.String[] { "Friends", });
     internal_static_openim_sdk_relation_AddFriendReq_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_openim_sdk_relation_AddFriendReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_AddFriendReq_descriptor,
         new java.lang.String[] { "UserID", "ReqMsg", "Ex", });
     internal_static_openim_sdk_relation_AddFriendResp_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_openim_sdk_relation_AddFriendResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_AddFriendResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_relation_GetFriendRequestsReq_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_openim_sdk_relation_GetFriendRequestsReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetFriendRequestsReq_descriptor,
         new java.lang.String[] { "Send", });
     internal_static_openim_sdk_relation_GetFriendRequestsResp_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_openim_sdk_relation_GetFriendRequestsResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetFriendRequestsResp_descriptor,
         new java.lang.String[] { "Requests", });
     internal_static_openim_sdk_relation_HandlerFriendRequestReq_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_openim_sdk_relation_HandlerFriendRequestReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_HandlerFriendRequestReq_descriptor,
         new java.lang.String[] { "UserID", "HandleMsg", "Status", });
     internal_static_openim_sdk_relation_HandlerFriendRequestResp_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_openim_sdk_relation_HandlerFriendRequestResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_HandlerFriendRequestResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_relation_CheckFriendReq_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_openim_sdk_relation_CheckFriendReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_CheckFriendReq_descriptor,
         new java.lang.String[] { "FriendUserIDs", });
     internal_static_openim_sdk_relation_CheckFriendInfo_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_openim_sdk_relation_CheckFriendInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_CheckFriendInfo_descriptor,
         new java.lang.String[] { "UserID", "Result", });
     internal_static_openim_sdk_relation_CheckFriendResp_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_openim_sdk_relation_CheckFriendResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_CheckFriendResp_descriptor,
         new java.lang.String[] { "Result", });
     internal_static_openim_sdk_relation_DeleteFriendReq_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_openim_sdk_relation_DeleteFriendReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_DeleteFriendReq_descriptor,
         new java.lang.String[] { "UserID", });
     internal_static_openim_sdk_relation_DeleteFriendResp_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_openim_sdk_relation_DeleteFriendResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_DeleteFriendResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_relation_GetFriendsReq_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_openim_sdk_relation_GetFriendsReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetFriendsReq_descriptor,
         new java.lang.String[] { "FilterBlack", });
     internal_static_openim_sdk_relation_GetFriendsResp_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_openim_sdk_relation_GetFriendsResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetFriendsResp_descriptor,
         new java.lang.String[] { "Friends", });
     internal_static_openim_sdk_relation_GetFriendsPageReq_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_openim_sdk_relation_GetFriendsPageReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetFriendsPageReq_descriptor,
         new java.lang.String[] { "FilterBlack", "Pagination", });
     internal_static_openim_sdk_relation_GetFriendsPageResp_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_openim_sdk_relation_GetFriendsPageResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetFriendsPageResp_descriptor,
         new java.lang.String[] { "Friends", });
     internal_static_openim_sdk_relation_SearchFriendsReq_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_openim_sdk_relation_SearchFriendsReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_SearchFriendsReq_descriptor,
         new java.lang.String[] { "Keyword", "SearchUserID", "SearchNickname", "SearchRemark", });
     internal_static_openim_sdk_relation_SearchFriendsInfo_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_openim_sdk_relation_SearchFriendsInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_SearchFriendsInfo_descriptor,
         new java.lang.String[] { "Friend", "Relationship", });
     internal_static_openim_sdk_relation_SearchFriendsResp_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_openim_sdk_relation_SearchFriendsResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_SearchFriendsResp_descriptor,
         new java.lang.String[] { "Friends", });
     internal_static_openim_sdk_relation_AddBlackReq_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_openim_sdk_relation_AddBlackReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_AddBlackReq_descriptor,
         new java.lang.String[] { "UserID", "Ex", });
     internal_static_openim_sdk_relation_AddBlackResp_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_openim_sdk_relation_AddBlackResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_AddBlackResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_relation_DeleteBlackReq_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_openim_sdk_relation_DeleteBlackReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_DeleteBlackReq_descriptor,
         new java.lang.String[] { "UserID", });
     internal_static_openim_sdk_relation_DeleteBlackResp_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_openim_sdk_relation_DeleteBlackResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_DeleteBlackResp_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_relation_GetBlacksReq_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_openim_sdk_relation_GetBlacksReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetBlacksReq_descriptor,
         new java.lang.String[] { });
     internal_static_openim_sdk_relation_GetBlacksResp_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_openim_sdk_relation_GetBlacksResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_GetBlacksResp_descriptor,
         new java.lang.String[] { "Blacks", });
     internal_static_openim_sdk_relation_UpdatesFriendsReq_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_openim_sdk_relation_UpdatesFriendsReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_UpdatesFriendsReq_descriptor,
-        new java.lang.String[] { "UserIDs", "Pinned", "Remark", "Ex", });
+        new java.lang.String[] { "UserID", "Pinned", "Remark", "Ex", });
     internal_static_openim_sdk_relation_UpdatesFriendsResp_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_openim_sdk_relation_UpdatesFriendsResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_openim_sdk_relation_UpdatesFriendsResp_descriptor,
         new java.lang.String[] { });
-    internal_static_openim_sdk_relation_FriendApplication_descriptor =
-      getDescriptor().getMessageTypes().get(31);
-    internal_static_openim_sdk_relation_FriendApplication_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendApplication_descriptor,
-        new java.lang.String[] { "AddTime", "AddSource", "AddWording", });
-    internal_static_openim_sdk_relation_FromToUserID_descriptor =
-      getDescriptor().getMessageTypes().get(32);
-    internal_static_openim_sdk_relation_FromToUserID_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FromToUserID_descriptor,
-        new java.lang.String[] { "FromUserID", "ToUserID", });
-    internal_static_openim_sdk_relation_FriendApplicationTips_descriptor =
-      getDescriptor().getMessageTypes().get(33);
-    internal_static_openim_sdk_relation_FriendApplicationTips_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendApplicationTips_descriptor,
-        new java.lang.String[] { "FromToUserID", });
-    internal_static_openim_sdk_relation_FriendApplicationApprovedTips_descriptor =
-      getDescriptor().getMessageTypes().get(34);
-    internal_static_openim_sdk_relation_FriendApplicationApprovedTips_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendApplicationApprovedTips_descriptor,
-        new java.lang.String[] { "FromToUserID", "HandleMsg", "FriendVersion", "FriendVersionID", });
-    internal_static_openim_sdk_relation_FriendApplicationRejectedTips_descriptor =
-      getDescriptor().getMessageTypes().get(35);
-    internal_static_openim_sdk_relation_FriendApplicationRejectedTips_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendApplicationRejectedTips_descriptor,
-        new java.lang.String[] { "FromToUserID", "HandleMsg", });
-    internal_static_openim_sdk_relation_FriendAddedTips_descriptor =
-      getDescriptor().getMessageTypes().get(36);
-    internal_static_openim_sdk_relation_FriendAddedTips_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendAddedTips_descriptor,
-        new java.lang.String[] { "Friend", "OperationTime", "OpUser", "FriendVersion", "FriendVersionID", });
-    internal_static_openim_sdk_relation_FriendDeletedTips_descriptor =
-      getDescriptor().getMessageTypes().get(37);
-    internal_static_openim_sdk_relation_FriendDeletedTips_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendDeletedTips_descriptor,
-        new java.lang.String[] { "FromToUserID", "FriendVersion", "FriendVersionID", });
-    internal_static_openim_sdk_relation_BlackAddedTips_descriptor =
-      getDescriptor().getMessageTypes().get(38);
-    internal_static_openim_sdk_relation_BlackAddedTips_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_BlackAddedTips_descriptor,
-        new java.lang.String[] { "FromToUserID", });
-    internal_static_openim_sdk_relation_BlackDeletedTips_descriptor =
-      getDescriptor().getMessageTypes().get(39);
-    internal_static_openim_sdk_relation_BlackDeletedTips_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_BlackDeletedTips_descriptor,
-        new java.lang.String[] { "FromToUserID", });
-    internal_static_openim_sdk_relation_FriendInfoChangedTips_descriptor =
-      getDescriptor().getMessageTypes().get(40);
-    internal_static_openim_sdk_relation_FriendInfoChangedTips_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_openim_sdk_relation_FriendInfoChangedTips_descriptor,
-        new java.lang.String[] { "FromToUserID", "FriendVersion", "FriendVersionID", "FriendSortVersion", });
     descriptor.resolveAllFeaturesImmutable();
     openim.sdk.common.Common.getDescriptor();
-    openim.sdk.user.User.getDescriptor();
+    openim.sdk.shared.Shared.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -24,42 +24,38 @@ namespace OpenIM {
     static UserReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgp1c2VyLnByb3RvEg9vcGVuaW0uc2RrLnVzZXIioQEKCFVzZXJJbmZvEg4K",
-            "BnVzZXJJRBgBIAEoCRIQCghuaWNrbmFtZRgCIAEoCRIPCgdmYWNlVVJMGAMg",
-            "ASgJEgoKAmV4GAQgASgJEhIKCmNyZWF0ZVRpbWUYBSABKAMSFgoOYXBwTWFu",
-            "Z2VyTGV2ZWwYBiABKAUSGAoQZ2xvYmFsUmVjdk1zZ09wdBgHIAEoBRIQCghh",
-            "dHRhY2hlZBgIIAEoCSJoCgtDb21tYW5kSW5mbxIOCgZ1c2VySUQYASABKAkS",
-            "DAoEdHlwZRgCIAEoBRISCgpjcmVhdGVUaW1lGAMgASgDEgwKBHV1aWQYBCAB",
-            "KAkSDQoFdmFsdWUYBSABKAkSCgoCZXgYBiABKAkiFAoSR2V0U2VsZlVzZXJJ",
-            "bmZvUmVxIj4KE0dldFNlbGZVc2VySW5mb1Jlc3ASJwoEdXNlchgBIAEoCzIZ",
-            "Lm9wZW5pbS5zZGsudXNlci5Vc2VySW5mbyKyAQoOU2V0U2VsZkluZm9SZXES",
-            "DgoGdXNlcklEGAEgASgJEhUKCG5pY2tuYW1lGAIgASgJSACIAQESFAoHZmFj",
-            "ZVVSTBgDIAEoCUgBiAEBEg8KAmV4GAQgASgJSAKIAQESHQoQZ2xvYmFsUmVj",
-            "dk1zZ09wdBgHIAEoBUgDiAEBQgsKCV9uaWNrbmFtZUIKCghfZmFjZVVSTEIF",
-            "CgNfZXhCEwoRX2dsb2JhbFJlY3ZNc2dPcHQiEQoPU2V0U2VsZkluZm9SZXNw",
-            "InwKGFByb2Nlc3NVc2VyQ29tbWFuZEFkZFJlcRIOCgZ1c2VySUQYASABKAkS",
-            "DAoEdHlwZRgCIAEoBRIMCgR1dWlkGAMgASgJEhIKBXZhbHVlGAQgASgJSACI",
-            "AQESDwoCZXgYBSABKAlIAYgBAUIICgZfdmFsdWVCBQoDX2V4IhsKGVByb2Nl",
-            "c3NVc2VyQ29tbWFuZEFkZFJlc3AiSQobUHJvY2Vzc1VzZXJDb21tYW5kRGVs",
-            "ZXRlUmVxEg4KBnVzZXJJRBgBIAEoCRIMCgR0eXBlGAIgASgFEgwKBHV1aWQY",
-            "AyABKAkiHgocUHJvY2Vzc1VzZXJDb21tYW5kRGVsZXRlUmVzcCJ/ChtQcm9j",
-            "ZXNzVXNlckNvbW1hbmRVcGRhdGVSZXESDgoGdXNlcklEGAEgASgJEgwKBHR5",
-            "cGUYAiABKAUSDAoEdXVpZBgDIAEoCRISCgV2YWx1ZRgEIAEoCUgAiAEBEg8K",
-            "AmV4GAUgASgJSAGIAQFCCAoGX3ZhbHVlQgUKA19leCIeChxQcm9jZXNzVXNl",
-            "ckNvbW1hbmRVcGRhdGVSZXNwIh0KG1Byb2Nlc3NVc2VyQ29tbWFuZEdldEFs",
-            "bFJlcSJOChxQcm9jZXNzVXNlckNvbW1hbmRHZXRBbGxSZXNwEi4KCGNvbW1h",
-            "bmRzGAEgAygLMhwub3BlbmltLnNkay51c2VyLkNvbW1hbmRJbmZvIiIKD0dl",
-            "dFVzZXJzSW5mb1JlcRIPCgd1c2VySURzGAEgAygJIjwKEEdldFVzZXJzSW5m",
-            "b1Jlc3ASKAoFdXNlcnMYASADKAsyGS5vcGVuaW0uc2RrLnVzZXIuVXNlcklu",
-            "Zm8iLAoZR2V0VXNlcnNJbmZvRnJvbVNlcnZlclJlcRIPCgd1c2VySURzGAEg",
-            "AygJIkYKGkdldFVzZXJzSW5mb0Zyb21TZXJ2ZXJSZXNwEigKBXVzZXJzGAEg",
-            "AygLMhkub3BlbmltLnNkay51c2VyLlVzZXJJbmZvQkBaNWdpdGh1Yi5jb20v",
-            "b3Blbmltc2RrL29wZW5pbS1zZGstY29yZS92My9wcm90by9nby91c2VyqgIG",
-            "T3BlbklNYgZwcm90bzM="));
+            "Cgp1c2VyLnByb3RvEg9vcGVuaW0uc2RrLnVzZXIaDHNoYXJlZC5wcm90byJo",
+            "CgtDb21tYW5kSW5mbxIOCgZ1c2VySUQYASABKAkSDAoEdHlwZRgCIAEoBRIS",
+            "CgpjcmVhdGVUaW1lGAMgASgDEgwKBHV1aWQYBCABKAkSDQoFdmFsdWUYBSAB",
+            "KAkSCgoCZXgYBiABKAkiFAoSR2V0U2VsZlVzZXJJbmZvUmVxIkAKE0dldFNl",
+            "bGZVc2VySW5mb1Jlc3ASKQoEdXNlchgBIAEoCzIbLm9wZW5pbS5zZGsuc2hh",
+            "cmVkLlVzZXJJbmZvIrIBCg5TZXRTZWxmSW5mb1JlcRIOCgZ1c2VySUQYASAB",
+            "KAkSFQoIbmlja25hbWUYAiABKAlIAIgBARIUCgdmYWNlVVJMGAMgASgJSAGI",
+            "AQESDwoCZXgYBCABKAlIAogBARIdChBnbG9iYWxSZWN2TXNnT3B0GAcgASgF",
+            "SAOIAQFCCwoJX25pY2tuYW1lQgoKCF9mYWNlVVJMQgUKA19leEITChFfZ2xv",
+            "YmFsUmVjdk1zZ09wdCIRCg9TZXRTZWxmSW5mb1Jlc3AifAoYUHJvY2Vzc1Vz",
+            "ZXJDb21tYW5kQWRkUmVxEg4KBnVzZXJJRBgBIAEoCRIMCgR0eXBlGAIgASgF",
+            "EgwKBHV1aWQYAyABKAkSEgoFdmFsdWUYBCABKAlIAIgBARIPCgJleBgFIAEo",
+            "CUgBiAEBQggKBl92YWx1ZUIFCgNfZXgiGwoZUHJvY2Vzc1VzZXJDb21tYW5k",
+            "QWRkUmVzcCJJChtQcm9jZXNzVXNlckNvbW1hbmREZWxldGVSZXESDgoGdXNl",
+            "cklEGAEgASgJEgwKBHR5cGUYAiABKAUSDAoEdXVpZBgDIAEoCSIeChxQcm9j",
+            "ZXNzVXNlckNvbW1hbmREZWxldGVSZXNwIn8KG1Byb2Nlc3NVc2VyQ29tbWFu",
+            "ZFVwZGF0ZVJlcRIOCgZ1c2VySUQYASABKAkSDAoEdHlwZRgCIAEoBRIMCgR1",
+            "dWlkGAMgASgJEhIKBXZhbHVlGAQgASgJSACIAQESDwoCZXgYBSABKAlIAYgB",
+            "AUIICgZfdmFsdWVCBQoDX2V4Ih4KHFByb2Nlc3NVc2VyQ29tbWFuZFVwZGF0",
+            "ZVJlc3AiHQobUHJvY2Vzc1VzZXJDb21tYW5kR2V0QWxsUmVxIk4KHFByb2Nl",
+            "c3NVc2VyQ29tbWFuZEdldEFsbFJlc3ASLgoIY29tbWFuZHMYASADKAsyHC5v",
+            "cGVuaW0uc2RrLnVzZXIuQ29tbWFuZEluZm8iIgoPR2V0VXNlcnNJbmZvUmVx",
+            "Eg8KB3VzZXJJRHMYASADKAkiPgoQR2V0VXNlcnNJbmZvUmVzcBIqCgV1c2Vy",
+            "cxgBIAMoCzIbLm9wZW5pbS5zZGsuc2hhcmVkLlVzZXJJbmZvIiwKGUdldFVz",
+            "ZXJzSW5mb0Zyb21TZXJ2ZXJSZXESDwoHdXNlcklEcxgBIAMoCSJIChpHZXRV",
+            "c2Vyc0luZm9Gcm9tU2VydmVyUmVzcBIqCgV1c2VycxgBIAMoCzIbLm9wZW5p",
+            "bS5zZGsuc2hhcmVkLlVzZXJJbmZvQkBaNWdpdGh1Yi5jb20vb3Blbmltc2Rr",
+            "L29wZW5pbS1zZGstY29yZS92My9wcm90by9nby91c2VyqgIGT3BlbklNYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::Openim.Sdk.Shared.SharedReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::OpenIM.UserInfo), global::OpenIM.UserInfo.Parser, new[]{ "UserID", "Nickname", "FaceURL", "Ex", "CreateTime", "AppMangerLevel", "GlobalRecvMsgOpt", "Attached" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OpenIM.CommandInfo), global::OpenIM.CommandInfo.Parser, new[]{ "UserID", "Type", "CreateTime", "Uuid", "Value", "Ex" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OpenIM.GetSelfUserInfoReq), global::OpenIM.GetSelfUserInfoReq.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OpenIM.GetSelfUserInfoResp), global::OpenIM.GetSelfUserInfoResp.Parser, new[]{ "User" }, null, null, null, null),
@@ -84,463 +80,6 @@ namespace OpenIM {
   }
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class UserInfo : pb::IMessage<UserInfo>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<UserInfo> _parser = new pb::MessageParser<UserInfo>(() => new UserInfo());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<UserInfo> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[0]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public UserInfo() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public UserInfo(UserInfo other) : this() {
-      userID_ = other.userID_;
-      nickname_ = other.nickname_;
-      faceURL_ = other.faceURL_;
-      ex_ = other.ex_;
-      createTime_ = other.createTime_;
-      appMangerLevel_ = other.appMangerLevel_;
-      globalRecvMsgOpt_ = other.globalRecvMsgOpt_;
-      attached_ = other.attached_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public UserInfo Clone() {
-      return new UserInfo(this);
-    }
-
-    /// <summary>Field number for the "userID" field.</summary>
-    public const int UserIDFieldNumber = 1;
-    private string userID_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string UserID {
-      get { return userID_; }
-      set {
-        userID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "nickname" field.</summary>
-    public const int NicknameFieldNumber = 2;
-    private string nickname_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Nickname {
-      get { return nickname_; }
-      set {
-        nickname_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "faceURL" field.</summary>
-    public const int FaceURLFieldNumber = 3;
-    private string faceURL_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string FaceURL {
-      get { return faceURL_; }
-      set {
-        faceURL_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "ex" field.</summary>
-    public const int ExFieldNumber = 4;
-    private string ex_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Ex {
-      get { return ex_; }
-      set {
-        ex_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "createTime" field.</summary>
-    public const int CreateTimeFieldNumber = 5;
-    private long createTime_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long CreateTime {
-      get { return createTime_; }
-      set {
-        createTime_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "appMangerLevel" field.</summary>
-    public const int AppMangerLevelFieldNumber = 6;
-    private int appMangerLevel_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int AppMangerLevel {
-      get { return appMangerLevel_; }
-      set {
-        appMangerLevel_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "globalRecvMsgOpt" field.</summary>
-    public const int GlobalRecvMsgOptFieldNumber = 7;
-    private int globalRecvMsgOpt_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int GlobalRecvMsgOpt {
-      get { return globalRecvMsgOpt_; }
-      set {
-        globalRecvMsgOpt_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "attached" field.</summary>
-    public const int AttachedFieldNumber = 8;
-    private string attached_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Attached {
-      get { return attached_; }
-      set {
-        attached_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as UserInfo);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(UserInfo other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (UserID != other.UserID) return false;
-      if (Nickname != other.Nickname) return false;
-      if (FaceURL != other.FaceURL) return false;
-      if (Ex != other.Ex) return false;
-      if (CreateTime != other.CreateTime) return false;
-      if (AppMangerLevel != other.AppMangerLevel) return false;
-      if (GlobalRecvMsgOpt != other.GlobalRecvMsgOpt) return false;
-      if (Attached != other.Attached) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (UserID.Length != 0) hash ^= UserID.GetHashCode();
-      if (Nickname.Length != 0) hash ^= Nickname.GetHashCode();
-      if (FaceURL.Length != 0) hash ^= FaceURL.GetHashCode();
-      if (Ex.Length != 0) hash ^= Ex.GetHashCode();
-      if (CreateTime != 0L) hash ^= CreateTime.GetHashCode();
-      if (AppMangerLevel != 0) hash ^= AppMangerLevel.GetHashCode();
-      if (GlobalRecvMsgOpt != 0) hash ^= GlobalRecvMsgOpt.GetHashCode();
-      if (Attached.Length != 0) hash ^= Attached.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (UserID.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(UserID);
-      }
-      if (Nickname.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Nickname);
-      }
-      if (FaceURL.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(FaceURL);
-      }
-      if (Ex.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(Ex);
-      }
-      if (CreateTime != 0L) {
-        output.WriteRawTag(40);
-        output.WriteInt64(CreateTime);
-      }
-      if (AppMangerLevel != 0) {
-        output.WriteRawTag(48);
-        output.WriteInt32(AppMangerLevel);
-      }
-      if (GlobalRecvMsgOpt != 0) {
-        output.WriteRawTag(56);
-        output.WriteInt32(GlobalRecvMsgOpt);
-      }
-      if (Attached.Length != 0) {
-        output.WriteRawTag(66);
-        output.WriteString(Attached);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (UserID.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(UserID);
-      }
-      if (Nickname.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Nickname);
-      }
-      if (FaceURL.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(FaceURL);
-      }
-      if (Ex.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(Ex);
-      }
-      if (CreateTime != 0L) {
-        output.WriteRawTag(40);
-        output.WriteInt64(CreateTime);
-      }
-      if (AppMangerLevel != 0) {
-        output.WriteRawTag(48);
-        output.WriteInt32(AppMangerLevel);
-      }
-      if (GlobalRecvMsgOpt != 0) {
-        output.WriteRawTag(56);
-        output.WriteInt32(GlobalRecvMsgOpt);
-      }
-      if (Attached.Length != 0) {
-        output.WriteRawTag(66);
-        output.WriteString(Attached);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (UserID.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserID);
-      }
-      if (Nickname.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Nickname);
-      }
-      if (FaceURL.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceURL);
-      }
-      if (Ex.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Ex);
-      }
-      if (CreateTime != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CreateTime);
-      }
-      if (AppMangerLevel != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppMangerLevel);
-      }
-      if (GlobalRecvMsgOpt != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GlobalRecvMsgOpt);
-      }
-      if (Attached.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Attached);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(UserInfo other) {
-      if (other == null) {
-        return;
-      }
-      if (other.UserID.Length != 0) {
-        UserID = other.UserID;
-      }
-      if (other.Nickname.Length != 0) {
-        Nickname = other.Nickname;
-      }
-      if (other.FaceURL.Length != 0) {
-        FaceURL = other.FaceURL;
-      }
-      if (other.Ex.Length != 0) {
-        Ex = other.Ex;
-      }
-      if (other.CreateTime != 0L) {
-        CreateTime = other.CreateTime;
-      }
-      if (other.AppMangerLevel != 0) {
-        AppMangerLevel = other.AppMangerLevel;
-      }
-      if (other.GlobalRecvMsgOpt != 0) {
-        GlobalRecvMsgOpt = other.GlobalRecvMsgOpt;
-      }
-      if (other.Attached.Length != 0) {
-        Attached = other.Attached;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-      if ((tag & 7) == 4) {
-        // Abort on any end group tag.
-        return;
-      }
-      switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            UserID = input.ReadString();
-            break;
-          }
-          case 18: {
-            Nickname = input.ReadString();
-            break;
-          }
-          case 26: {
-            FaceURL = input.ReadString();
-            break;
-          }
-          case 34: {
-            Ex = input.ReadString();
-            break;
-          }
-          case 40: {
-            CreateTime = input.ReadInt64();
-            break;
-          }
-          case 48: {
-            AppMangerLevel = input.ReadInt32();
-            break;
-          }
-          case 56: {
-            GlobalRecvMsgOpt = input.ReadInt32();
-            break;
-          }
-          case 66: {
-            Attached = input.ReadString();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-      if ((tag & 7) == 4) {
-        // Abort on any end group tag.
-        return;
-      }
-      switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            UserID = input.ReadString();
-            break;
-          }
-          case 18: {
-            Nickname = input.ReadString();
-            break;
-          }
-          case 26: {
-            FaceURL = input.ReadString();
-            break;
-          }
-          case 34: {
-            Ex = input.ReadString();
-            break;
-          }
-          case 40: {
-            CreateTime = input.ReadInt64();
-            break;
-          }
-          case 48: {
-            AppMangerLevel = input.ReadInt32();
-            break;
-          }
-          case 56: {
-            GlobalRecvMsgOpt = input.ReadInt32();
-            break;
-          }
-          case 66: {
-            Attached = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CommandInfo : pb::IMessage<CommandInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -555,7 +94,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[1]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -938,7 +477,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[2]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1099,7 +638,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[3]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1131,10 +670,10 @@ namespace OpenIM {
 
     /// <summary>Field number for the "user" field.</summary>
     public const int UserFieldNumber = 1;
-    private global::OpenIM.UserInfo user_;
+    private global::Openim.Sdk.Shared.UserInfo user_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::OpenIM.UserInfo User {
+    public global::Openim.Sdk.Shared.UserInfo User {
       get { return user_; }
       set {
         user_ = value;
@@ -1228,7 +767,7 @@ namespace OpenIM {
       }
       if (other.user_ != null) {
         if (user_ == null) {
-          User = new global::OpenIM.UserInfo();
+          User = new global::Openim.Sdk.Shared.UserInfo();
         }
         User.MergeFrom(other.User);
       }
@@ -1253,7 +792,7 @@ namespace OpenIM {
             break;
           case 10: {
             if (user_ == null) {
-              User = new global::OpenIM.UserInfo();
+              User = new global::Openim.Sdk.Shared.UserInfo();
             }
             input.ReadMessage(User);
             break;
@@ -1279,7 +818,7 @@ namespace OpenIM {
             break;
           case 10: {
             if (user_ == null) {
-              User = new global::OpenIM.UserInfo();
+              User = new global::Openim.Sdk.Shared.UserInfo();
             }
             input.ReadMessage(User);
             break;
@@ -1307,7 +846,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[4]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1711,7 +1250,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[5]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1872,7 +1411,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[6]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2246,7 +1785,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[7]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2407,7 +1946,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[8]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2679,7 +2218,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[9]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2840,7 +2379,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[10]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3214,7 +2753,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[11]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3375,7 +2914,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[12]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3536,7 +3075,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[13]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3723,7 +3262,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[14]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3910,7 +3449,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[15]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3942,12 +3481,12 @@ namespace OpenIM {
 
     /// <summary>Field number for the "users" field.</summary>
     public const int UsersFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::OpenIM.UserInfo> _repeated_users_codec
-        = pb::FieldCodec.ForMessage(10, global::OpenIM.UserInfo.Parser);
-    private readonly pbc::RepeatedField<global::OpenIM.UserInfo> users_ = new pbc::RepeatedField<global::OpenIM.UserInfo>();
+    private static readonly pb::FieldCodec<global::Openim.Sdk.Shared.UserInfo> _repeated_users_codec
+        = pb::FieldCodec.ForMessage(10, global::Openim.Sdk.Shared.UserInfo.Parser);
+    private readonly pbc::RepeatedField<global::Openim.Sdk.Shared.UserInfo> users_ = new pbc::RepeatedField<global::Openim.Sdk.Shared.UserInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::OpenIM.UserInfo> Users {
+    public pbc::RepeatedField<global::Openim.Sdk.Shared.UserInfo> Users {
       get { return users_; }
     }
 
@@ -4097,7 +3636,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[16]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4284,7 +3823,7 @@ namespace OpenIM {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[17]; }
+      get { return global::OpenIM.UserReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4316,12 +3855,12 @@ namespace OpenIM {
 
     /// <summary>Field number for the "users" field.</summary>
     public const int UsersFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::OpenIM.UserInfo> _repeated_users_codec
-        = pb::FieldCodec.ForMessage(10, global::OpenIM.UserInfo.Parser);
-    private readonly pbc::RepeatedField<global::OpenIM.UserInfo> users_ = new pbc::RepeatedField<global::OpenIM.UserInfo>();
+    private static readonly pb::FieldCodec<global::Openim.Sdk.Shared.UserInfo> _repeated_users_codec
+        = pb::FieldCodec.ForMessage(10, global::Openim.Sdk.Shared.UserInfo.Parser);
+    private readonly pbc::RepeatedField<global::Openim.Sdk.Shared.UserInfo> users_ = new pbc::RepeatedField<global::Openim.Sdk.Shared.UserInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::OpenIM.UserInfo> Users {
+    public pbc::RepeatedField<global::Openim.Sdk.Shared.UserInfo> Users {
       get { return users_; }
     }
 

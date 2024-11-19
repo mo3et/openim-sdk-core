@@ -1,6 +1,7 @@
 syntax = "proto3";
 package openim.sdk.shared;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared";
 
 // ############## user ################
 
@@ -18,17 +19,17 @@ message UserInfo {
 // ############## relation ################
 
 message FriendInfo {
-  string ownerUserID    = 1;
-  string friendUserID   = 2;
-  string remark         = 3;
-  int64 createTime     = 4;
-  int32 addSource      = 5;
+  string ownerUserID = 1;
+  string friendUserID = 2;
+  string remark = 3;
+  int64 createTime = 4;
+  int32 addSource = 5;
   string operatorUserID = 6;
-  string nickname       = 7;
-  string faceURL        = 8;
-  string ex             = 9;
-  string attachedInfo   = 10;
-  bool isPinned       = 11;
+  string nickname = 7;
+  string faceURL = 8;
+  string ex = 9;
+  string attachedInfo = 10;
+  bool isPinned = 11;
 }
 
 message BlackInfo {
@@ -62,19 +63,18 @@ message FriendRequestInfo {
 
 // ############## group ################
 
-
 enum GroupStatus {
   Default = 0;
   Dismissed = 2;
 }
 
 enum GroupFilter {
-  All                   = 0;
-  Owner                 = 1;
-  Admin                 = 2;
-  OrdinaryUsers         = 3;
+  All = 0;
+  Owner = 1;
+  Admin = 2;
+  OrdinaryUsers = 3;
   AdminAndOrdinaryUsers = 4;
-  OwnerAndAdmin         = 5;
+  OwnerAndAdmin = 5;
 }
 
 message GroupInfo {
@@ -162,4 +162,3 @@ message Conversation {
   int64 msgDestructTime = 18;
   bool isMsgDestruct = 19;
 }
-
