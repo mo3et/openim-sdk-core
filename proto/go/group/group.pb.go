@@ -27,9 +27,9 @@ type CreateGroupReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MemberUserIDs []string          `protobuf:"bytes,1,rep,name=memberUserIDs,proto3" json:"memberUserIDs,omitempty"`
-	AdminUserIDs  []string          `protobuf:"bytes,2,rep,name=adminUserIDs,proto3" json:"adminUserIDs,omitempty"`
-	GroupInfo     *shared.GroupInfo `protobuf:"bytes,3,opt,name=groupInfo,proto3" json:"groupInfo,omitempty"`
+	MemberUserIDs []string          `protobuf:"bytes,1,rep,name=memberUserIDs,proto3" json:"memberUserIDs"`
+	AdminUserIDs  []string          `protobuf:"bytes,2,rep,name=adminUserIDs,proto3" json:"adminUserIDs"`
+	GroupInfo     *shared.GroupInfo `protobuf:"bytes,3,opt,name=groupInfo,proto3" json:"groupInfo"`
 }
 
 func (x *CreateGroupReq) Reset() {
@@ -88,7 +88,7 @@ type CreateGroupResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupInfo *shared.GroupInfo `protobuf:"bytes,1,opt,name=groupInfo,proto3" json:"groupInfo,omitempty"`
+	GroupInfo *shared.GroupInfo `protobuf:"bytes,1,opt,name=groupInfo,proto3" json:"groupInfo"`
 }
 
 func (x *CreateGroupResp) Reset() {
@@ -133,10 +133,10 @@ type JoinGroupReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID    string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	ReqMessage string `protobuf:"bytes,2,opt,name=reqMessage,proto3" json:"reqMessage,omitempty"`
-	JoinSource int32  `protobuf:"varint,3,opt,name=joinSource,proto3" json:"joinSource,omitempty"`
-	Ex         string `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex,omitempty"`
+	GroupID    string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	ReqMessage string `protobuf:"bytes,2,opt,name=reqMessage,proto3" json:"reqMessage"`
+	JoinSource int32  `protobuf:"varint,3,opt,name=joinSource,proto3" json:"joinSource"`
+	Ex         string `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex"`
 }
 
 func (x *JoinGroupReq) Reset() {
@@ -238,7 +238,7 @@ type QuitGroupReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
+	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
 }
 
 func (x *QuitGroupReq) Reset() {
@@ -319,7 +319,7 @@ type DismissGroupReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
+	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
 }
 
 func (x *DismissGroupReq) Reset() {
@@ -400,8 +400,8 @@ type ChangeGroupMuteReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	Mute    bool   `protobuf:"varint,2,opt,name=mute,proto3" json:"mute,omitempty"`
+	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	Mute    bool   `protobuf:"varint,2,opt,name=mute,proto3" json:"mute"`
 }
 
 func (x *ChangeGroupMuteReq) Reset() {
@@ -489,9 +489,9 @@ type ChangeGroupMemberMuteReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID      string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserID       string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`
-	MutedSeconds uint32 `protobuf:"varint,3,opt,name=mutedSeconds,proto3" json:"mutedSeconds,omitempty"`
+	GroupID      string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserID       string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
+	MutedSeconds uint32 `protobuf:"varint,3,opt,name=mutedSeconds,proto3" json:"mutedSeconds"`
 }
 
 func (x *ChangeGroupMemberMuteReq) Reset() {
@@ -586,8 +586,8 @@ type TransferGroupOwnerReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID     string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	OwnerUserID string `protobuf:"bytes,2,opt,name=ownerUserID,proto3" json:"ownerUserID,omitempty"`
+	GroupID     string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	OwnerUserID string `protobuf:"bytes,2,opt,name=ownerUserID,proto3" json:"ownerUserID"`
 }
 
 func (x *TransferGroupOwnerReq) Reset() {
@@ -675,9 +675,9 @@ type KickGroupMemberReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID       string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	KickedUserIDs []string `protobuf:"bytes,2,rep,name=kickedUserIDs,proto3" json:"kickedUserIDs,omitempty"`
-	Reason        string   `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason,omitempty"`
+	GroupID       string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	KickedUserIDs []string `protobuf:"bytes,2,rep,name=kickedUserIDs,proto3" json:"kickedUserIDs"`
+	Reason        string   `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason"`
 }
 
 func (x *KickGroupMemberReq) Reset() {
@@ -772,15 +772,15 @@ type SetGroupInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID           string  `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	GroupName         *string `protobuf:"bytes,2,opt,name=groupName,proto3,oneof" json:"groupName,omitempty"`
-	Notification      *string `protobuf:"bytes,3,opt,name=notification,proto3,oneof" json:"notification,omitempty"`
-	Introduction      *string `protobuf:"bytes,4,opt,name=introduction,proto3,oneof" json:"introduction,omitempty"`
-	FaceURL           *string `protobuf:"bytes,5,opt,name=faceURL,proto3,oneof" json:"faceURL,omitempty"`
-	Ex                *string `protobuf:"bytes,6,opt,name=ex,proto3,oneof" json:"ex,omitempty"`
-	NeedVerification  *int32  `protobuf:"varint,7,opt,name=needVerification,proto3,oneof" json:"needVerification,omitempty"`
-	LookMemberInfo    *int32  `protobuf:"varint,8,opt,name=lookMemberInfo,proto3,oneof" json:"lookMemberInfo,omitempty"`
-	ApplyMemberFriend *int32  `protobuf:"varint,9,opt,name=applyMemberFriend,proto3,oneof" json:"applyMemberFriend,omitempty"`
+	GroupID           string  `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	GroupName         *string `protobuf:"bytes,2,opt,name=groupName,proto3,oneof" json:"groupName"`
+	Notification      *string `protobuf:"bytes,3,opt,name=notification,proto3,oneof" json:"notification"`
+	Introduction      *string `protobuf:"bytes,4,opt,name=introduction,proto3,oneof" json:"introduction"`
+	FaceURL           *string `protobuf:"bytes,5,opt,name=faceURL,proto3,oneof" json:"faceURL"`
+	Ex                *string `protobuf:"bytes,6,opt,name=ex,proto3,oneof" json:"ex"`
+	NeedVerification  *int32  `protobuf:"varint,7,opt,name=needVerification,proto3,oneof" json:"needVerification"`
+	LookMemberInfo    *int32  `protobuf:"varint,8,opt,name=lookMemberInfo,proto3,oneof" json:"lookMemberInfo"`
+	ApplyMemberFriend *int32  `protobuf:"varint,9,opt,name=applyMemberFriend,proto3,oneof" json:"applyMemberFriend"`
 }
 
 func (x *SetGroupInfoReq) Reset() {
@@ -917,12 +917,12 @@ type SetGroupMemberInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID   string  `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserID    string  `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`
-	Nickname  *string `protobuf:"bytes,3,opt,name=nickname,proto3,oneof" json:"nickname,omitempty"`
-	FaceURL   *string `protobuf:"bytes,4,opt,name=faceURL,proto3,oneof" json:"faceURL,omitempty"`
-	RoleLevel *int32  `protobuf:"varint,5,opt,name=roleLevel,proto3,oneof" json:"roleLevel,omitempty"`
-	Ex        *string `protobuf:"bytes,6,opt,name=ex,proto3,oneof" json:"ex,omitempty"`
+	GroupID   string  `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserID    string  `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
+	Nickname  *string `protobuf:"bytes,3,opt,name=nickname,proto3,oneof" json:"nickname"`
+	FaceURL   *string `protobuf:"bytes,4,opt,name=faceURL,proto3,oneof" json:"faceURL"`
+	RoleLevel *int32  `protobuf:"varint,5,opt,name=roleLevel,proto3,oneof" json:"roleLevel"`
+	Ex        *string `protobuf:"bytes,6,opt,name=ex,proto3,oneof" json:"ex"`
 }
 
 func (x *SetGroupMemberInfoReq) Reset() {
@@ -1074,7 +1074,7 @@ type GetJoinedGroupsResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Groups []*shared.GroupInfo `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+	Groups []*shared.GroupInfo `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups"`
 }
 
 func (x *GetJoinedGroupsResp) Reset() {
@@ -1119,7 +1119,7 @@ type GetJoinedGroupsPageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Pagination *common.RequestPagination `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	Pagination *common.RequestPagination `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination"`
 }
 
 func (x *GetJoinedGroupsPageReq) Reset() {
@@ -1164,7 +1164,7 @@ type GetJoinedGroupsPageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Groups []*shared.GroupInfo `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+	Groups []*shared.GroupInfo `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups"`
 }
 
 func (x *GetJoinedGroupsPageResp) Reset() {
@@ -1209,7 +1209,7 @@ type GetSpecifiedGroupsInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupIDs []string `protobuf:"bytes,1,rep,name=groupIDs,proto3" json:"groupIDs,omitempty"`
+	GroupIDs []string `protobuf:"bytes,1,rep,name=groupIDs,proto3" json:"groupIDs"`
 }
 
 func (x *GetSpecifiedGroupsInfoReq) Reset() {
@@ -1254,7 +1254,7 @@ type GetSpecifiedGroupsInfoResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Groups []*shared.GroupInfo `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+	Groups []*shared.GroupInfo `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups"`
 }
 
 func (x *GetSpecifiedGroupsInfoResp) Reset() {
@@ -1299,9 +1299,9 @@ type SearchGroupsReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Keyword         string `protobuf:"bytes,1,opt,name=keyword,proto3" json:"keyword,omitempty"`
-	SearchGroupID   bool   `protobuf:"varint,2,opt,name=searchGroupID,proto3" json:"searchGroupID,omitempty"`
-	SearchGroupName bool   `protobuf:"varint,3,opt,name=searchGroupName,proto3" json:"searchGroupName,omitempty"`
+	Keyword         string `protobuf:"bytes,1,opt,name=keyword,proto3" json:"keyword"`
+	SearchGroupID   bool   `protobuf:"varint,2,opt,name=searchGroupID,proto3" json:"searchGroupID"`
+	SearchGroupName bool   `protobuf:"varint,3,opt,name=searchGroupName,proto3" json:"searchGroupName"`
 }
 
 func (x *SearchGroupsReq) Reset() {
@@ -1360,7 +1360,7 @@ type SearchGroupsResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Groups []*shared.GroupInfo `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+	Groups []*shared.GroupInfo `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups"`
 }
 
 func (x *SearchGroupsResp) Reset() {
@@ -1405,7 +1405,7 @@ type GetGroupMemberOwnerAndAdminReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
+	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
 }
 
 func (x *GetGroupMemberOwnerAndAdminReq) Reset() {
@@ -1450,7 +1450,7 @@ type GetGroupMemberOwnerAndAdminResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members,omitempty"`
+	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members"`
 }
 
 func (x *GetGroupMemberOwnerAndAdminResp) Reset() {
@@ -1495,10 +1495,10 @@ type GetGroupMembersByJoinTimeFilterReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID       string                    `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	JoinTimeBegin int64                     `protobuf:"varint,2,opt,name=joinTimeBegin,proto3" json:"joinTimeBegin,omitempty"`
-	JoinTimeEnd   int64                     `protobuf:"varint,3,opt,name=joinTimeEnd,proto3" json:"joinTimeEnd,omitempty"`
-	Pagination    *common.RequestPagination `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	GroupID       string                    `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	JoinTimeBegin int64                     `protobuf:"varint,2,opt,name=joinTimeBegin,proto3" json:"joinTimeBegin"`
+	JoinTimeEnd   int64                     `protobuf:"varint,3,opt,name=joinTimeEnd,proto3" json:"joinTimeEnd"`
+	Pagination    *common.RequestPagination `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination"`
 }
 
 func (x *GetGroupMembersByJoinTimeFilterReq) Reset() {
@@ -1564,7 +1564,7 @@ type GetGroupMembersByJoinTimeFilterResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members,omitempty"`
+	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members"`
 }
 
 func (x *GetGroupMembersByJoinTimeFilterResp) Reset() {
@@ -1609,8 +1609,8 @@ type GetSpecifiedGroupMembersInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs,omitempty"`
+	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs"`
 }
 
 func (x *GetSpecifiedGroupMembersInfoReq) Reset() {
@@ -1662,7 +1662,7 @@ type GetSpecifiedGroupMembersInfoResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members,omitempty"`
+	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members"`
 }
 
 func (x *GetSpecifiedGroupMembersInfoResp) Reset() {
@@ -1707,9 +1707,9 @@ type GetGroupMembersReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID    string                    `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	Filter     shared.GroupFilter        `protobuf:"varint,2,opt,name=filter,proto3,enum=openim.sdk.shared.GroupFilter" json:"filter,omitempty"`
-	Pagination *common.RequestPagination `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	GroupID    string                    `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	Filter     shared.GroupFilter        `protobuf:"varint,2,opt,name=filter,proto3,enum=openim.sdk.shared.GroupFilter" json:"filter"`
+	Pagination *common.RequestPagination `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination"`
 }
 
 func (x *GetGroupMembersReq) Reset() {
@@ -1768,7 +1768,7 @@ type GetGroupMembersResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members,omitempty"`
+	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members"`
 }
 
 func (x *GetGroupMembersResp) Reset() {
@@ -1813,7 +1813,7 @@ type GetGroupRequestReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Send bool `protobuf:"varint,1,opt,name=send,proto3" json:"send,omitempty"`
+	Send bool `protobuf:"varint,1,opt,name=send,proto3" json:"send"`
 }
 
 func (x *GetGroupRequestReq) Reset() {
@@ -1858,7 +1858,7 @@ type GetGroupRequestResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Requests []*shared.GroupRequestInfo `protobuf:"bytes,1,rep,name=requests,proto3" json:"requests,omitempty"`
+	Requests []*shared.GroupRequestInfo `protobuf:"bytes,1,rep,name=requests,proto3" json:"requests"`
 }
 
 func (x *GetGroupRequestResp) Reset() {
@@ -1903,11 +1903,11 @@ type SearchGroupMembersReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID              string                    `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	Keyword              string                    `protobuf:"bytes,2,opt,name=Keyword,proto3" json:"Keyword,omitempty"`
-	SearchUserID         bool                      `protobuf:"varint,3,opt,name=searchUserID,proto3" json:"searchUserID,omitempty"`
-	SearchMemberNickname bool                      `protobuf:"varint,4,opt,name=searchMemberNickname,proto3" json:"searchMemberNickname,omitempty"`
-	Pagination           *common.RequestPagination `protobuf:"bytes,5,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	GroupID              string                    `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	Keyword              string                    `protobuf:"bytes,2,opt,name=Keyword,proto3" json:"Keyword"`
+	SearchUserID         bool                      `protobuf:"varint,3,opt,name=searchUserID,proto3" json:"searchUserID"`
+	SearchMemberNickname bool                      `protobuf:"varint,4,opt,name=searchMemberNickname,proto3" json:"searchMemberNickname"`
+	Pagination           *common.RequestPagination `protobuf:"bytes,5,opt,name=pagination,proto3" json:"pagination"`
 }
 
 func (x *SearchGroupMembersReq) Reset() {
@@ -1980,7 +1980,7 @@ type SearchGroupMembersResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members,omitempty"`
+	Members []*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members"`
 }
 
 func (x *SearchGroupMembersResp) Reset() {
@@ -2025,8 +2025,8 @@ type IsJoinGroupReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserID  string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`
+	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserID  string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
 }
 
 func (x *IsJoinGroupReq) Reset() {
@@ -2078,7 +2078,7 @@ type IsJoinGroupResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Joined bool `protobuf:"varint,1,opt,name=joined,proto3" json:"joined,omitempty"`
+	Joined bool `protobuf:"varint,1,opt,name=joined,proto3" json:"joined"`
 }
 
 func (x *IsJoinGroupResp) Reset() {
@@ -2123,8 +2123,8 @@ type GetUsersInGroupReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs,omitempty"`
+	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs"`
 }
 
 func (x *GetUsersInGroupReq) Reset() {
@@ -2176,7 +2176,7 @@ type GetUsersInGroupResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs,omitempty"`
+	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"`
 }
 
 func (x *GetUsersInGroupResp) Reset() {
@@ -2221,9 +2221,9 @@ type InviteUserToGroupReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs,omitempty"`
-	Reason  string   `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason,omitempty"`
+	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs"`
+	Reason  string   `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason"`
 }
 
 func (x *InviteUserToGroupReq) Reset() {
@@ -2318,10 +2318,10 @@ type HandlerGroupRequestReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID    string                `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	FromUserID string                `protobuf:"bytes,2,opt,name=fromUserID,proto3" json:"fromUserID,omitempty"`
-	HandledMsg string                `protobuf:"bytes,3,opt,name=handledMsg,proto3" json:"handledMsg,omitempty"`
-	Status     common.ApprovalStatus `protobuf:"varint,4,opt,name=status,proto3,enum=openim.sdk.common.ApprovalStatus" json:"status,omitempty"`
+	GroupID    string                `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	FromUserID string                `protobuf:"bytes,2,opt,name=fromUserID,proto3" json:"fromUserID"`
+	HandledMsg string                `protobuf:"bytes,3,opt,name=handledMsg,proto3" json:"handledMsg"`
+	Status     common.ApprovalStatus `protobuf:"varint,4,opt,name=status,proto3,enum=openim.sdk.common.ApprovalStatus" json:"status"`
 }
 
 func (x *HandlerGroupRequestReq) Reset() {
@@ -2423,8 +2423,8 @@ type GetGroupMemberInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs,omitempty"`
+	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs"`
 }
 
 func (x *GetGroupMemberInfoReq) Reset() {
@@ -2476,7 +2476,7 @@ type GetGroupMemberInfoResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Members map[string]*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Members map[string]*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
 func (x *GetGroupMemberInfoResp) Reset() {

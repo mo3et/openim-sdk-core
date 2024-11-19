@@ -632,12 +632,12 @@ type OfflinePushInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title         string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	Desc          string `protobuf:"bytes,2,opt,name=desc,proto3" json:"desc,omitempty"`
-	Ex            string `protobuf:"bytes,3,opt,name=ex,proto3" json:"ex,omitempty"`
-	IOSPushSound  string `protobuf:"bytes,4,opt,name=iOSPushSound,proto3" json:"iOSPushSound,omitempty"`
-	IOSBadgeCount bool   `protobuf:"varint,5,opt,name=iOSBadgeCount,proto3" json:"iOSBadgeCount,omitempty"`
-	SignalInfo    string `protobuf:"bytes,6,opt,name=signalInfo,proto3" json:"signalInfo,omitempty"`
+	Title         string `protobuf:"bytes,1,opt,name=title,proto3" json:"title"`
+	Desc          string `protobuf:"bytes,2,opt,name=desc,proto3" json:"desc"`
+	Ex            string `protobuf:"bytes,3,opt,name=ex,proto3" json:"ex"`
+	IOSPushSound  string `protobuf:"bytes,4,opt,name=iOSPushSound,proto3" json:"iOSPushSound"`
+	IOSBadgeCount bool   `protobuf:"varint,5,opt,name=iOSBadgeCount,proto3" json:"iOSBadgeCount"`
+	SignalInfo    string `protobuf:"bytes,6,opt,name=signalInfo,proto3" json:"signalInfo"`
 }
 
 func (x *OfflinePushInfo) Reset() {
@@ -717,8 +717,8 @@ type RequestPagination struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PageNumber int32 `protobuf:"varint,1,opt,name=pageNumber,proto3" json:"pageNumber,omitempty"`
-	ShowNumber int32 `protobuf:"varint,2,opt,name=showNumber,proto3" json:"showNumber,omitempty"`
+	PageNumber int32 `protobuf:"varint,1,opt,name=pageNumber,proto3" json:"pageNumber"`
+	ShowNumber int32 `protobuf:"varint,2,opt,name=showNumber,proto3" json:"showNumber"`
 }
 
 func (x *RequestPagination) Reset() {

@@ -26,14 +26,14 @@ type IMConfig struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AppFramework        common.AppFramework `protobuf:"varint,1,opt,name=appFramework,proto3,enum=openim.sdk.common.AppFramework" json:"appFramework,omitempty"`
-	Platform            common.Platform     `protobuf:"varint,2,opt,name=platform,proto3,enum=openim.sdk.common.Platform" json:"platform,omitempty"`
-	ApiAddr             string              `protobuf:"bytes,3,opt,name=apiAddr,proto3" json:"apiAddr,omitempty"`
-	WsAddr              string              `protobuf:"bytes,4,opt,name=wsAddr,proto3" json:"wsAddr,omitempty"`
-	DataDir             string              `protobuf:"bytes,5,opt,name=dataDir,proto3" json:"dataDir,omitempty"`
-	LogLevel            uint32              `protobuf:"varint,6,opt,name=logLevel,proto3" json:"logLevel,omitempty"`
-	IsLogStandardOutput bool                `protobuf:"varint,7,opt,name=isLogStandardOutput,proto3" json:"isLogStandardOutput,omitempty"`
-	LogFilePath         string              `protobuf:"bytes,8,opt,name=logFilePath,proto3" json:"logFilePath,omitempty"`
+	AppFramework        common.AppFramework `protobuf:"varint,1,opt,name=appFramework,proto3,enum=openim.sdk.common.AppFramework" json:"appFramework"`
+	Platform            common.Platform     `protobuf:"varint,2,opt,name=platform,proto3,enum=openim.sdk.common.Platform" json:"platform"`
+	ApiAddr             string              `protobuf:"bytes,3,opt,name=apiAddr,proto3" json:"apiAddr"`
+	WsAddr              string              `protobuf:"bytes,4,opt,name=wsAddr,proto3" json:"wsAddr"`
+	DataDir             string              `protobuf:"bytes,5,opt,name=dataDir,proto3" json:"dataDir"`
+	LogLevel            uint32              `protobuf:"varint,6,opt,name=logLevel,proto3" json:"logLevel"`
+	IsLogStandardOutput bool                `protobuf:"varint,7,opt,name=isLogStandardOutput,proto3" json:"isLogStandardOutput"`
+	LogFilePath         string              `protobuf:"bytes,8,opt,name=logFilePath,proto3" json:"logFilePath"`
 }
 
 func (x *IMConfig) Reset() {
@@ -127,7 +127,7 @@ type InitSDKReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Config *IMConfig `protobuf:"bytes,1,opt,name=config,proto3" json:"config,omitempty"`
+	Config *IMConfig `protobuf:"bytes,1,opt,name=config,proto3" json:"config"`
 }
 
 func (x *InitSDKReq) Reset() {
@@ -172,7 +172,7 @@ type InitSDKResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Suc bool `protobuf:"varint,1,opt,name=suc,proto3" json:"suc,omitempty"`
+	Suc bool `protobuf:"varint,1,opt,name=suc,proto3" json:"suc"`
 }
 
 func (x *InitSDKResp) Reset() {
@@ -217,8 +217,8 @@ type LoginReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Token  string `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Token  string `protobuf:"bytes,2,opt,name=token,proto3" json:"token"`
 }
 
 func (x *LoginReq) Reset() {

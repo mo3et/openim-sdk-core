@@ -26,8 +26,8 @@ type FfiRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FuncName event.FuncRequestEventName `protobuf:"varint,1,opt,name=funcName,proto3,enum=openim.event.FuncRequestEventName" json:"funcName,omitempty"`
-	Data     []byte                     `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	FuncName event.FuncRequestEventName `protobuf:"varint,1,opt,name=funcName,proto3,enum=openim.event.FuncRequestEventName" json:"funcName"`
+	Data     []byte                     `protobuf:"bytes,2,opt,name=data,proto3" json:"data"`
 }
 
 func (x *FfiRequest) Reset() {
@@ -79,11 +79,11 @@ type FfiResult struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ErrCode  int32                      `protobuf:"varint,1,opt,name=errCode,proto3" json:"errCode,omitempty"`
-	ErrMsg   string                     `protobuf:"bytes,2,opt,name=errMsg,proto3" json:"errMsg,omitempty"`
-	FuncName event.FuncRequestEventName `protobuf:"varint,3,opt,name=funcName,proto3,enum=openim.event.FuncRequestEventName" json:"funcName,omitempty"`
-	Data     []byte                     `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
-	HandleID uint64                     `protobuf:"varint,5,opt,name=handleID,proto3" json:"handleID,omitempty"`
+	ErrCode  int32                      `protobuf:"varint,1,opt,name=errCode,proto3" json:"errCode"`
+	ErrMsg   string                     `protobuf:"bytes,2,opt,name=errMsg,proto3" json:"errMsg"`
+	FuncName event.FuncRequestEventName `protobuf:"varint,3,opt,name=funcName,proto3,enum=openim.event.FuncRequestEventName" json:"funcName"`
+	Data     []byte                     `protobuf:"bytes,4,opt,name=data,proto3" json:"data"`
+	HandleID uint64                     `protobuf:"varint,5,opt,name=handleID,proto3" json:"handleID"`
 }
 
 func (x *FfiResult) Reset() {

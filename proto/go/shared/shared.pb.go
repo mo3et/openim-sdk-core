@@ -129,14 +129,14 @@ type UserInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID           string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Nickname         string `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	FaceURL          string `protobuf:"bytes,3,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	Ex               string `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex,omitempty"`
-	CreateTime       int64  `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	AppMangerLevel   int32  `protobuf:"varint,6,opt,name=appMangerLevel,proto3" json:"appMangerLevel,omitempty"`
-	GlobalRecvMsgOpt int32  `protobuf:"varint,7,opt,name=globalRecvMsgOpt,proto3" json:"globalRecvMsgOpt,omitempty"`
-	Attached         string `protobuf:"bytes,8,opt,name=attached,proto3" json:"attached,omitempty"`
+	UserID           string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Nickname         string `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname"`
+	FaceURL          string `protobuf:"bytes,3,opt,name=faceURL,proto3" json:"faceURL"`
+	Ex               string `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex"`
+	CreateTime       int64  `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime"`
+	AppMangerLevel   int32  `protobuf:"varint,6,opt,name=appMangerLevel,proto3" json:"appMangerLevel"`
+	GlobalRecvMsgOpt int32  `protobuf:"varint,7,opt,name=globalRecvMsgOpt,proto3" json:"globalRecvMsgOpt"`
+	Attached         string `protobuf:"bytes,8,opt,name=attached,proto3" json:"attached"`
 }
 
 func (x *UserInfo) Reset() {
@@ -230,17 +230,17 @@ type FriendInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerUserID    string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID,omitempty"`
-	FriendUserID   string `protobuf:"bytes,2,opt,name=friendUserID,proto3" json:"friendUserID,omitempty"`
-	Remark         string `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark,omitempty"`
-	CreateTime     int64  `protobuf:"varint,4,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	AddSource      int32  `protobuf:"varint,5,opt,name=addSource,proto3" json:"addSource,omitempty"`
-	OperatorUserID string `protobuf:"bytes,6,opt,name=operatorUserID,proto3" json:"operatorUserID,omitempty"`
-	Nickname       string `protobuf:"bytes,7,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	FaceURL        string `protobuf:"bytes,8,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	Ex             string `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
-	AttachedInfo   string `protobuf:"bytes,10,opt,name=attachedInfo,proto3" json:"attachedInfo,omitempty"`
-	IsPinned       bool   `protobuf:"varint,11,opt,name=isPinned,proto3" json:"isPinned,omitempty"`
+	OwnerUserID    string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`
+	FriendUserID   string `protobuf:"bytes,2,opt,name=friendUserID,proto3" json:"friendUserID"`
+	Remark         string `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark"`
+	CreateTime     int64  `protobuf:"varint,4,opt,name=createTime,proto3" json:"createTime"`
+	AddSource      int32  `protobuf:"varint,5,opt,name=addSource,proto3" json:"addSource"`
+	OperatorUserID string `protobuf:"bytes,6,opt,name=operatorUserID,proto3" json:"operatorUserID"`
+	Nickname       string `protobuf:"bytes,7,opt,name=nickname,proto3" json:"nickname"`
+	FaceURL        string `protobuf:"bytes,8,opt,name=faceURL,proto3" json:"faceURL"`
+	Ex             string `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex"`
+	AttachedInfo   string `protobuf:"bytes,10,opt,name=attachedInfo,proto3" json:"attachedInfo"`
+	IsPinned       bool   `protobuf:"varint,11,opt,name=isPinned,proto3" json:"isPinned"`
 }
 
 func (x *FriendInfo) Reset() {
@@ -355,15 +355,15 @@ type BlackInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerUserID    string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID,omitempty"`
-	BlockUserID    string `protobuf:"bytes,2,opt,name=blockUserID,proto3" json:"blockUserID,omitempty"`
-	Nickname       string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	FaceURL        string `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	CreateTime     int64  `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	AddSource      int32  `protobuf:"varint,6,opt,name=addSource,proto3" json:"addSource,omitempty"`
-	OperatorUserID string `protobuf:"bytes,7,opt,name=operatorUserID,proto3" json:"operatorUserID,omitempty"`
-	Ex             string `protobuf:"bytes,8,opt,name=ex,proto3" json:"ex,omitempty"`
-	Attached       string `protobuf:"bytes,9,opt,name=attached,proto3" json:"attached,omitempty"`
+	OwnerUserID    string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`
+	BlockUserID    string `protobuf:"bytes,2,opt,name=blockUserID,proto3" json:"blockUserID"`
+	Nickname       string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname"`
+	FaceURL        string `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL"`
+	CreateTime     int64  `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime"`
+	AddSource      int32  `protobuf:"varint,6,opt,name=addSource,proto3" json:"addSource"`
+	OperatorUserID string `protobuf:"bytes,7,opt,name=operatorUserID,proto3" json:"operatorUserID"`
+	Ex             string `protobuf:"bytes,8,opt,name=ex,proto3" json:"ex"`
+	Attached       string `protobuf:"bytes,9,opt,name=attached,proto3" json:"attached"`
 }
 
 func (x *BlackInfo) Reset() {
@@ -464,20 +464,20 @@ type FriendRequestInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FromUserID    string `protobuf:"bytes,1,opt,name=fromUserID,proto3" json:"fromUserID,omitempty"`
-	FromNickname  string `protobuf:"bytes,2,opt,name=fromNickname,proto3" json:"fromNickname,omitempty"`
-	FromFaceURL   string `protobuf:"bytes,3,opt,name=fromFaceURL,proto3" json:"fromFaceURL,omitempty"`
-	ToUserID      string `protobuf:"bytes,4,opt,name=toUserID,proto3" json:"toUserID,omitempty"`
-	ToNickname    string `protobuf:"bytes,5,opt,name=toNickname,proto3" json:"toNickname,omitempty"`
-	ToFaceURL     string `protobuf:"bytes,6,opt,name=toFaceURL,proto3" json:"toFaceURL,omitempty"`
-	HandleResult  int32  `protobuf:"varint,7,opt,name=handleResult,proto3" json:"handleResult,omitempty"`
-	ReqMsg        string `protobuf:"bytes,8,opt,name=reqMsg,proto3" json:"reqMsg,omitempty"`
-	CreateTime    int64  `protobuf:"varint,9,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	HandlerUserID string `protobuf:"bytes,10,opt,name=handlerUserID,proto3" json:"handlerUserID,omitempty"`
-	HandleMsg     string `protobuf:"bytes,11,opt,name=handleMsg,proto3" json:"handleMsg,omitempty"`
-	HandleTime    int64  `protobuf:"varint,12,opt,name=handleTime,proto3" json:"handleTime,omitempty"`
-	Ex            string `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex,omitempty"`
-	Attached      string `protobuf:"bytes,14,opt,name=attached,proto3" json:"attached,omitempty"`
+	FromUserID    string `protobuf:"bytes,1,opt,name=fromUserID,proto3" json:"fromUserID"`
+	FromNickname  string `protobuf:"bytes,2,opt,name=fromNickname,proto3" json:"fromNickname"`
+	FromFaceURL   string `protobuf:"bytes,3,opt,name=fromFaceURL,proto3" json:"fromFaceURL"`
+	ToUserID      string `protobuf:"bytes,4,opt,name=toUserID,proto3" json:"toUserID"`
+	ToNickname    string `protobuf:"bytes,5,opt,name=toNickname,proto3" json:"toNickname"`
+	ToFaceURL     string `protobuf:"bytes,6,opt,name=toFaceURL,proto3" json:"toFaceURL"`
+	HandleResult  int32  `protobuf:"varint,7,opt,name=handleResult,proto3" json:"handleResult"`
+	ReqMsg        string `protobuf:"bytes,8,opt,name=reqMsg,proto3" json:"reqMsg"`
+	CreateTime    int64  `protobuf:"varint,9,opt,name=createTime,proto3" json:"createTime"`
+	HandlerUserID string `protobuf:"bytes,10,opt,name=handlerUserID,proto3" json:"handlerUserID"`
+	HandleMsg     string `protobuf:"bytes,11,opt,name=handleMsg,proto3" json:"handleMsg"`
+	HandleTime    int64  `protobuf:"varint,12,opt,name=handleTime,proto3" json:"handleTime"`
+	Ex            string `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex"`
+	Attached      string `protobuf:"bytes,14,opt,name=attached,proto3" json:"attached"`
 }
 
 func (x *FriendRequestInfo) Reset() {
@@ -613,23 +613,23 @@ type GroupInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID                string      `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	GroupName              string      `protobuf:"bytes,2,opt,name=groupName,proto3" json:"groupName,omitempty"`
-	Notification           string      `protobuf:"bytes,3,opt,name=notification,proto3" json:"notification,omitempty"`
-	Introduction           string      `protobuf:"bytes,4,opt,name=introduction,proto3" json:"introduction,omitempty"`
-	FaceURL                string      `protobuf:"bytes,5,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	OwnerUserID            string      `protobuf:"bytes,6,opt,name=ownerUserID,proto3" json:"ownerUserID,omitempty"`
-	CreateTime             int64       `protobuf:"varint,7,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	MemberCount            int64       `protobuf:"varint,8,opt,name=memberCount,proto3" json:"memberCount,omitempty"`
-	Ex                     string      `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
-	Status                 GroupStatus `protobuf:"varint,10,opt,name=status,proto3,enum=openim.sdk.shared.GroupStatus" json:"status,omitempty"`
-	CreatorUserID          string      `protobuf:"bytes,11,opt,name=creatorUserID,proto3" json:"creatorUserID,omitempty"`
-	NeedVerification       int32       `protobuf:"varint,12,opt,name=needVerification,proto3" json:"needVerification,omitempty"`
-	LookMemberInfo         int32       `protobuf:"varint,13,opt,name=lookMemberInfo,proto3" json:"lookMemberInfo,omitempty"`
-	ApplyMemberFriend      int32       `protobuf:"varint,14,opt,name=applyMemberFriend,proto3" json:"applyMemberFriend,omitempty"`
-	NotificationUpdateTime int64       `protobuf:"varint,15,opt,name=notificationUpdateTime,proto3" json:"notificationUpdateTime,omitempty"`
-	NotificationUserID     string      `protobuf:"bytes,16,opt,name=notificationUserID,proto3" json:"notificationUserID,omitempty"`
-	AttachedInfo           string      `protobuf:"bytes,17,opt,name=attachedInfo,proto3" json:"attachedInfo,omitempty"`
+	GroupID                string      `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	GroupName              string      `protobuf:"bytes,2,opt,name=groupName,proto3" json:"groupName"`
+	Notification           string      `protobuf:"bytes,3,opt,name=notification,proto3" json:"notification"`
+	Introduction           string      `protobuf:"bytes,4,opt,name=introduction,proto3" json:"introduction"`
+	FaceURL                string      `protobuf:"bytes,5,opt,name=faceURL,proto3" json:"faceURL"`
+	OwnerUserID            string      `protobuf:"bytes,6,opt,name=ownerUserID,proto3" json:"ownerUserID"`
+	CreateTime             int64       `protobuf:"varint,7,opt,name=createTime,proto3" json:"createTime"`
+	MemberCount            int64       `protobuf:"varint,8,opt,name=memberCount,proto3" json:"memberCount"`
+	Ex                     string      `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex"`
+	Status                 GroupStatus `protobuf:"varint,10,opt,name=status,proto3,enum=openim.sdk.shared.GroupStatus" json:"status"`
+	CreatorUserID          string      `protobuf:"bytes,11,opt,name=creatorUserID,proto3" json:"creatorUserID"`
+	NeedVerification       int32       `protobuf:"varint,12,opt,name=needVerification,proto3" json:"needVerification"`
+	LookMemberInfo         int32       `protobuf:"varint,13,opt,name=lookMemberInfo,proto3" json:"lookMemberInfo"`
+	ApplyMemberFriend      int32       `protobuf:"varint,14,opt,name=applyMemberFriend,proto3" json:"applyMemberFriend"`
+	NotificationUpdateTime int64       `protobuf:"varint,15,opt,name=notificationUpdateTime,proto3" json:"notificationUpdateTime"`
+	NotificationUserID     string      `protobuf:"bytes,16,opt,name=notificationUserID,proto3" json:"notificationUserID"`
+	AttachedInfo           string      `protobuf:"bytes,17,opt,name=attachedInfo,proto3" json:"attachedInfo"`
 }
 
 func (x *GroupInfo) Reset() {
@@ -786,18 +786,18 @@ type GroupMemberInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID        string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserID         string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`
-	Nickname       string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	FaceURL        string `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	RoleLevel      int32  `protobuf:"varint,5,opt,name=roleLevel,proto3" json:"roleLevel,omitempty"`
-	JoinTime       int64  `protobuf:"varint,6,opt,name=joinTime,proto3" json:"joinTime,omitempty"`
-	JoinSource     int32  `protobuf:"varint,7,opt,name=joinSource,proto3" json:"joinSource,omitempty"`
-	InviterUserID  string `protobuf:"bytes,8,opt,name=inviterUserID,proto3" json:"inviterUserID,omitempty"`
-	MuteEndTime    int64  `protobuf:"varint,9,opt,name=muteEndTime,proto3" json:"muteEndTime,omitempty"`
-	OperatorUserID string `protobuf:"bytes,10,opt,name=operatorUserID,proto3" json:"operatorUserID,omitempty"`
-	Ex             string `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex,omitempty"`
-	AttachedInfo   string `protobuf:"bytes,12,opt,name=attachedInfo,proto3" json:"attachedInfo,omitempty"`
+	GroupID        string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserID         string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
+	Nickname       string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname"`
+	FaceURL        string `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL"`
+	RoleLevel      int32  `protobuf:"varint,5,opt,name=roleLevel,proto3" json:"roleLevel"`
+	JoinTime       int64  `protobuf:"varint,6,opt,name=joinTime,proto3" json:"joinTime"`
+	JoinSource     int32  `protobuf:"varint,7,opt,name=joinSource,proto3" json:"joinSource"`
+	InviterUserID  string `protobuf:"bytes,8,opt,name=inviterUserID,proto3" json:"inviterUserID"`
+	MuteEndTime    int64  `protobuf:"varint,9,opt,name=muteEndTime,proto3" json:"muteEndTime"`
+	OperatorUserID string `protobuf:"bytes,10,opt,name=operatorUserID,proto3" json:"operatorUserID"`
+	Ex             string `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex"`
+	AttachedInfo   string `protobuf:"bytes,12,opt,name=attachedInfo,proto3" json:"attachedInfo"`
 }
 
 func (x *GroupMemberInfo) Reset() {
@@ -919,30 +919,30 @@ type GroupRequestInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID       string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	GroupName     string `protobuf:"bytes,2,opt,name=groupName,proto3" json:"groupName,omitempty"`
-	Notification  string `protobuf:"bytes,3,opt,name=notification,proto3" json:"notification,omitempty"`
-	Introduction  string `protobuf:"bytes,4,opt,name=introduction,proto3" json:"introduction,omitempty"`
-	GroupFaceURL  string `protobuf:"bytes,5,opt,name=groupFaceURL,proto3" json:"groupFaceURL,omitempty"`
-	CreateTime    int64  `protobuf:"varint,6,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	Status        int32  `protobuf:"varint,7,opt,name=status,proto3" json:"status,omitempty"`
-	CreatorUserID string `protobuf:"bytes,8,opt,name=creatorUserID,proto3" json:"creatorUserID,omitempty"`
-	GroupType     int32  `protobuf:"varint,9,opt,name=groupType,proto3" json:"groupType,omitempty"`
-	OwnerUserID   string `protobuf:"bytes,10,opt,name=ownerUserID,proto3" json:"ownerUserID,omitempty"`
-	MemberCount   int32  `protobuf:"varint,11,opt,name=memberCount,proto3" json:"memberCount,omitempty"`
-	UserID        string `protobuf:"bytes,12,opt,name=userID,proto3" json:"userID,omitempty"`
-	Nickname      string `protobuf:"bytes,13,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	UserFaceURL   string `protobuf:"bytes,14,opt,name=userFaceURL,proto3" json:"userFaceURL,omitempty"`
-	HandleResult  int32  `protobuf:"varint,15,opt,name=handleResult,proto3" json:"handleResult,omitempty"`
-	ReqMsg        string `protobuf:"bytes,16,opt,name=reqMsg,proto3" json:"reqMsg,omitempty"`
-	HandledMsg    string `protobuf:"bytes,17,opt,name=handledMsg,proto3" json:"handledMsg,omitempty"`
-	ReqTime       int64  `protobuf:"varint,18,opt,name=reqTime,proto3" json:"reqTime,omitempty"`
-	HandleUserID  string `protobuf:"bytes,19,opt,name=handleUserID,proto3" json:"handleUserID,omitempty"`
-	HandledTime   int64  `protobuf:"varint,20,opt,name=handledTime,proto3" json:"handledTime,omitempty"`
-	Ex            string `protobuf:"bytes,21,opt,name=ex,proto3" json:"ex,omitempty"`
-	AttachedInfo  string `protobuf:"bytes,22,opt,name=attachedInfo,proto3" json:"attachedInfo,omitempty"`
-	JoinSource    int32  `protobuf:"varint,23,opt,name=joinSource,proto3" json:"joinSource,omitempty"`
-	InviterUserID string `protobuf:"bytes,24,opt,name=inviterUserID,proto3" json:"inviterUserID,omitempty"`
+	GroupID       string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	GroupName     string `protobuf:"bytes,2,opt,name=groupName,proto3" json:"groupName"`
+	Notification  string `protobuf:"bytes,3,opt,name=notification,proto3" json:"notification"`
+	Introduction  string `protobuf:"bytes,4,opt,name=introduction,proto3" json:"introduction"`
+	GroupFaceURL  string `protobuf:"bytes,5,opt,name=groupFaceURL,proto3" json:"groupFaceURL"`
+	CreateTime    int64  `protobuf:"varint,6,opt,name=createTime,proto3" json:"createTime"`
+	Status        int32  `protobuf:"varint,7,opt,name=status,proto3" json:"status"`
+	CreatorUserID string `protobuf:"bytes,8,opt,name=creatorUserID,proto3" json:"creatorUserID"`
+	GroupType     int32  `protobuf:"varint,9,opt,name=groupType,proto3" json:"groupType"`
+	OwnerUserID   string `protobuf:"bytes,10,opt,name=ownerUserID,proto3" json:"ownerUserID"`
+	MemberCount   int32  `protobuf:"varint,11,opt,name=memberCount,proto3" json:"memberCount"`
+	UserID        string `protobuf:"bytes,12,opt,name=userID,proto3" json:"userID"`
+	Nickname      string `protobuf:"bytes,13,opt,name=nickname,proto3" json:"nickname"`
+	UserFaceURL   string `protobuf:"bytes,14,opt,name=userFaceURL,proto3" json:"userFaceURL"`
+	HandleResult  int32  `protobuf:"varint,15,opt,name=handleResult,proto3" json:"handleResult"`
+	ReqMsg        string `protobuf:"bytes,16,opt,name=reqMsg,proto3" json:"reqMsg"`
+	HandledMsg    string `protobuf:"bytes,17,opt,name=handledMsg,proto3" json:"handledMsg"`
+	ReqTime       int64  `protobuf:"varint,18,opt,name=reqTime,proto3" json:"reqTime"`
+	HandleUserID  string `protobuf:"bytes,19,opt,name=handleUserID,proto3" json:"handleUserID"`
+	HandledTime   int64  `protobuf:"varint,20,opt,name=handledTime,proto3" json:"handledTime"`
+	Ex            string `protobuf:"bytes,21,opt,name=ex,proto3" json:"ex"`
+	AttachedInfo  string `protobuf:"bytes,22,opt,name=attachedInfo,proto3" json:"attachedInfo"`
+	JoinSource    int32  `protobuf:"varint,23,opt,name=joinSource,proto3" json:"joinSource"`
+	InviterUserID string `protobuf:"bytes,24,opt,name=inviterUserID,proto3" json:"inviterUserID"`
 }
 
 func (x *GroupRequestInfo) Reset() {
@@ -1148,25 +1148,25 @@ type Conversation struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID    string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ConversationType  int32  `protobuf:"varint,2,opt,name=conversationType,proto3" json:"conversationType,omitempty"`
-	UserID            string `protobuf:"bytes,3,opt,name=userID,proto3" json:"userID,omitempty"`
-	GroupID           string `protobuf:"bytes,4,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	ShowName          string `protobuf:"bytes,5,opt,name=showName,proto3" json:"showName,omitempty"`
-	FaceURL           string `protobuf:"bytes,6,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	RecvMsgOpt        int32  `protobuf:"varint,7,opt,name=recvMsgOpt,proto3" json:"recvMsgOpt,omitempty"`
-	UnreadCount       int32  `protobuf:"varint,8,opt,name=unreadCount,proto3" json:"unreadCount,omitempty"`
-	GroupAtType       int32  `protobuf:"varint,9,opt,name=groupAtType,proto3" json:"groupAtType,omitempty"`
-	LatestMsg         string `protobuf:"bytes,10,opt,name=latestMsg,proto3" json:"latestMsg,omitempty"`
-	LatestMsgSendTime int64  `protobuf:"varint,11,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime,omitempty"`
-	DraftText         string `protobuf:"bytes,12,opt,name=draftText,proto3" json:"draftText,omitempty"`
-	DraftTextTime     int64  `protobuf:"varint,13,opt,name=draftTextTime,proto3" json:"draftTextTime,omitempty"`
-	IsPinned          bool   `protobuf:"varint,14,opt,name=isPinned,proto3" json:"isPinned,omitempty"`
-	IsPrivateChat     bool   `protobuf:"varint,15,opt,name=isPrivateChat,proto3" json:"isPrivateChat,omitempty"`
-	BurnDuration      int32  `protobuf:"varint,16,opt,name=burnDuration,proto3" json:"burnDuration,omitempty"`
-	Ex                string `protobuf:"bytes,17,opt,name=ex,proto3" json:"ex,omitempty"`
-	MsgDestructTime   int64  `protobuf:"varint,18,opt,name=msgDestructTime,proto3" json:"msgDestructTime,omitempty"`
-	IsMsgDestruct     bool   `protobuf:"varint,19,opt,name=isMsgDestruct,proto3" json:"isMsgDestruct,omitempty"`
+	ConversationID    string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	ConversationType  int32  `protobuf:"varint,2,opt,name=conversationType,proto3" json:"conversationType"`
+	UserID            string `protobuf:"bytes,3,opt,name=userID,proto3" json:"userID"`
+	GroupID           string `protobuf:"bytes,4,opt,name=groupID,proto3" json:"groupID"`
+	ShowName          string `protobuf:"bytes,5,opt,name=showName,proto3" json:"showName"`
+	FaceURL           string `protobuf:"bytes,6,opt,name=faceURL,proto3" json:"faceURL"`
+	RecvMsgOpt        int32  `protobuf:"varint,7,opt,name=recvMsgOpt,proto3" json:"recvMsgOpt"`
+	UnreadCount       int32  `protobuf:"varint,8,opt,name=unreadCount,proto3" json:"unreadCount"`
+	GroupAtType       int32  `protobuf:"varint,9,opt,name=groupAtType,proto3" json:"groupAtType"`
+	LatestMsg         string `protobuf:"bytes,10,opt,name=latestMsg,proto3" json:"latestMsg"`
+	LatestMsgSendTime int64  `protobuf:"varint,11,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime"`
+	DraftText         string `protobuf:"bytes,12,opt,name=draftText,proto3" json:"draftText"`
+	DraftTextTime     int64  `protobuf:"varint,13,opt,name=draftTextTime,proto3" json:"draftTextTime"`
+	IsPinned          bool   `protobuf:"varint,14,opt,name=isPinned,proto3" json:"isPinned"`
+	IsPrivateChat     bool   `protobuf:"varint,15,opt,name=isPrivateChat,proto3" json:"isPrivateChat"`
+	BurnDuration      int32  `protobuf:"varint,16,opt,name=burnDuration,proto3" json:"burnDuration"`
+	Ex                string `protobuf:"bytes,17,opt,name=ex,proto3" json:"ex"`
+	MsgDestructTime   int64  `protobuf:"varint,18,opt,name=msgDestructTime,proto3" json:"msgDestructTime"`
+	IsMsgDestruct     bool   `protobuf:"varint,19,opt,name=isMsgDestruct,proto3" json:"isMsgDestruct"`
 }
 
 func (x *Conversation) Reset() {

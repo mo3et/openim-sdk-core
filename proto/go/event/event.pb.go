@@ -519,7 +519,7 @@ type EventOnSendMsgProgressData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress,omitempty"`
+	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress"`
 }
 
 func (x *EventOnSendMsgProgressData) Reset() {
@@ -564,7 +564,7 @@ type EventOnUploadFileProgressData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress,omitempty"`
+	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress"`
 }
 
 func (x *EventOnUploadFileProgressData) Reset() {
@@ -609,8 +609,8 @@ type EventOnUploadLogsProgressData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Progress int64 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress,omitempty"`
-	Total    int64 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	Progress int64 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress"`
+	Total    int64 `protobuf:"varint,2,opt,name=total,proto3" json:"total"`
 }
 
 func (x *EventOnUploadLogsProgressData) Reset() {
@@ -734,8 +734,8 @@ type EventOnConnectFailedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ErrCode int32  `protobuf:"varint,1,opt,name=errCode,proto3" json:"errCode,omitempty"`
-	ErrMsg  string `protobuf:"bytes,2,opt,name=errMsg,proto3" json:"errMsg,omitempty"`
+	ErrCode int32  `protobuf:"varint,1,opt,name=errCode,proto3" json:"errCode"`
+	ErrMsg  string `protobuf:"bytes,2,opt,name=errMsg,proto3" json:"errMsg"`
 }
 
 func (x *EventOnConnectFailedData) Reset() {
@@ -859,7 +859,7 @@ type EventOnUserTokenInvalidData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ErrMsg string `protobuf:"bytes,1,opt,name=errMsg,proto3" json:"errMsg,omitempty"`
+	ErrMsg string `protobuf:"bytes,1,opt,name=errMsg,proto3" json:"errMsg"`
 }
 
 func (x *EventOnUserTokenInvalidData) Reset() {
@@ -904,7 +904,7 @@ type EventOnSyncServerStartData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled,omitempty"`
+	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled"`
 }
 
 func (x *EventOnSyncServerStartData) Reset() {
@@ -949,7 +949,7 @@ type EventOnSyncServerFinishData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled,omitempty"`
+	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled"`
 }
 
 func (x *EventOnSyncServerFinishData) Reset() {
@@ -994,7 +994,7 @@ type EventOnSyncServerFailedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled,omitempty"`
+	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled"`
 }
 
 func (x *EventOnSyncServerFailedData) Reset() {
@@ -1039,7 +1039,7 @@ type EventOnSyncServerProgressData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress,omitempty"`
+	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress"`
 }
 
 func (x *EventOnSyncServerProgressData) Reset() {
@@ -1084,7 +1084,7 @@ type EventOnNewConversationData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationList string `protobuf:"bytes,1,opt,name=conversationList,proto3" json:"conversationList,omitempty"`
+	ConversationList string `protobuf:"bytes,1,opt,name=conversationList,proto3" json:"conversationList"`
 }
 
 func (x *EventOnNewConversationData) Reset() {
@@ -1129,7 +1129,7 @@ type EventOnConversationChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationList string `protobuf:"bytes,1,opt,name=conversationList,proto3" json:"conversationList,omitempty"`
+	ConversationList string `protobuf:"bytes,1,opt,name=conversationList,proto3" json:"conversationList"`
 }
 
 func (x *EventOnConversationChangedData) Reset() {
@@ -1174,7 +1174,7 @@ type EventOnTotalUnreadMessageCountChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	TotalUnreadCount int32 `protobuf:"varint,1,opt,name=totalUnreadCount,proto3" json:"totalUnreadCount,omitempty"`
+	TotalUnreadCount int32 `protobuf:"varint,1,opt,name=totalUnreadCount,proto3" json:"totalUnreadCount"`
 }
 
 func (x *EventOnTotalUnreadMessageCountChangedData) Reset() {
@@ -1219,9 +1219,9 @@ type EventOnConversationUserInputStatusChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string  `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	UserID         string  `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`
-	PlatformIDs    []int32 `protobuf:"varint,3,rep,packed,name=platformIDs,proto3" json:"platformIDs,omitempty"`
+	ConversationID string  `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	UserID         string  `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
+	PlatformIDs    []int32 `protobuf:"varint,3,rep,packed,name=platformIDs,proto3" json:"platformIDs"`
 }
 
 func (x *EventOnConversationUserInputStatusChangedData) Reset() {
@@ -1280,7 +1280,7 @@ type EventOnRecvNewMessageData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *EventOnRecvNewMessageData) Reset() {
@@ -1325,7 +1325,7 @@ type EventOnRecvC2CReadReceiptData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MsgReceiptList string `protobuf:"bytes,1,opt,name=msgReceiptList,proto3" json:"msgReceiptList,omitempty"`
+	MsgReceiptList string `protobuf:"bytes,1,opt,name=msgReceiptList,proto3" json:"msgReceiptList"`
 }
 
 func (x *EventOnRecvC2CReadReceiptData) Reset() {
@@ -1370,7 +1370,7 @@ type EventOnNewRecvMessageRevokedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MessageRevoked string `protobuf:"bytes,1,opt,name=messageRevoked,proto3" json:"messageRevoked,omitempty"`
+	MessageRevoked string `protobuf:"bytes,1,opt,name=messageRevoked,proto3" json:"messageRevoked"`
 }
 
 func (x *EventOnNewRecvMessageRevokedData) Reset() {
@@ -1415,7 +1415,7 @@ type EventOnRecvOfflineNewMessageData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *EventOnRecvOfflineNewMessageData) Reset() {
@@ -1460,7 +1460,7 @@ type EventOnMsgDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *EventOnMsgDeletedData) Reset() {
@@ -1505,7 +1505,7 @@ type EventOnRecvOnlineOnlyMessageData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *EventOnRecvOnlineOnlyMessageData) Reset() {
@@ -1550,7 +1550,7 @@ type EventOnMsgEditedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *EventOnMsgEditedData) Reset() {
@@ -1596,7 +1596,7 @@ type EventOnFriendApplicationAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Request *shared.FriendRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
+	Request *shared.FriendRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
 }
 
 func (x *EventOnFriendApplicationAddedData) Reset() {
@@ -1641,7 +1641,7 @@ type EventOnFriendApplicationDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Request *shared.FriendRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
+	Request *shared.FriendRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
 }
 
 func (x *EventOnFriendApplicationDeletedData) Reset() {
@@ -1686,7 +1686,7 @@ type EventOnFriendApplicationAcceptedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Request *shared.FriendRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
+	Request *shared.FriendRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
 }
 
 func (x *EventOnFriendApplicationAcceptedData) Reset() {
@@ -1731,7 +1731,7 @@ type EventOnFriendApplicationRejectedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Request *shared.FriendRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
+	Request *shared.FriendRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
 }
 
 func (x *EventOnFriendApplicationRejectedData) Reset() {
@@ -1776,7 +1776,7 @@ type EventOnFriendAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Friend *shared.FriendInfo `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend,omitempty"`
+	Friend *shared.FriendInfo `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend"`
 }
 
 func (x *EventOnFriendAddedData) Reset() {
@@ -1821,7 +1821,7 @@ type EventOnFriendDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Friend *shared.FriendInfo `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend,omitempty"`
+	Friend *shared.FriendInfo `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend"`
 }
 
 func (x *EventOnFriendDeletedData) Reset() {
@@ -1866,7 +1866,7 @@ type EventOnFriendInfoChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Friend *shared.FriendInfo `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend,omitempty"`
+	Friend *shared.FriendInfo `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend"`
 }
 
 func (x *EventOnFriendInfoChangedData) Reset() {
@@ -1911,7 +1911,7 @@ type EventOnBlackAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Black *shared.BlackInfo `protobuf:"bytes,1,opt,name=black,proto3" json:"black,omitempty"`
+	Black *shared.BlackInfo `protobuf:"bytes,1,opt,name=black,proto3" json:"black"`
 }
 
 func (x *EventOnBlackAddedData) Reset() {
@@ -1956,7 +1956,7 @@ type EventOnBlackDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Black *shared.BlackInfo `protobuf:"bytes,1,opt,name=black,proto3" json:"black,omitempty"`
+	Black *shared.BlackInfo `protobuf:"bytes,1,opt,name=black,proto3" json:"black"`
 }
 
 func (x *EventOnBlackDeletedData) Reset() {
@@ -2002,7 +2002,7 @@ type EventOnJoinedGroupAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Group *shared.GroupInfo `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
+	Group *shared.GroupInfo `protobuf:"bytes,1,opt,name=group,proto3" json:"group"`
 }
 
 func (x *EventOnJoinedGroupAddedData) Reset() {
@@ -2047,7 +2047,7 @@ type EventOnJoinedGroupDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Group *shared.GroupInfo `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
+	Group *shared.GroupInfo `protobuf:"bytes,1,opt,name=group,proto3" json:"group"`
 }
 
 func (x *EventOnJoinedGroupDeletedData) Reset() {
@@ -2092,7 +2092,7 @@ type EventOnGroupMemberAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Member *shared.GroupMemberInfo `protobuf:"bytes,1,opt,name=member,proto3" json:"member,omitempty"`
+	Member *shared.GroupMemberInfo `protobuf:"bytes,1,opt,name=member,proto3" json:"member"`
 }
 
 func (x *EventOnGroupMemberAddedData) Reset() {
@@ -2137,7 +2137,7 @@ type EventOnGroupMemberDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Member *shared.GroupMemberInfo `protobuf:"bytes,1,opt,name=member,proto3" json:"member,omitempty"`
+	Member *shared.GroupMemberInfo `protobuf:"bytes,1,opt,name=member,proto3" json:"member"`
 }
 
 func (x *EventOnGroupMemberDeletedData) Reset() {
@@ -2182,7 +2182,7 @@ type EventOnGroupApplicationAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Request *shared.GroupRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
+	Request *shared.GroupRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
 }
 
 func (x *EventOnGroupApplicationAddedData) Reset() {
@@ -2227,7 +2227,7 @@ type EventOnGroupApplicationDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Request *shared.GroupRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
+	Request *shared.GroupRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
 }
 
 func (x *EventOnGroupApplicationDeletedData) Reset() {
@@ -2272,7 +2272,7 @@ type EventOnGroupInfoChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Group *shared.GroupInfo `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
+	Group *shared.GroupInfo `protobuf:"bytes,1,opt,name=group,proto3" json:"group"`
 }
 
 func (x *EventOnGroupInfoChangedData) Reset() {
@@ -2317,7 +2317,7 @@ type EventOnGroupDismissedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Group *shared.GroupInfo `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
+	Group *shared.GroupInfo `protobuf:"bytes,1,opt,name=group,proto3" json:"group"`
 }
 
 func (x *EventOnGroupDismissedData) Reset() {
@@ -2362,7 +2362,7 @@ type EventOnGroupMemberInfoChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Member *shared.GroupMemberInfo `protobuf:"bytes,1,opt,name=member,proto3" json:"member,omitempty"`
+	Member *shared.GroupMemberInfo `protobuf:"bytes,1,opt,name=member,proto3" json:"member"`
 }
 
 func (x *EventOnGroupMemberInfoChangedData) Reset() {
@@ -2407,7 +2407,7 @@ type EventOnGroupApplicationAcceptedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Request *shared.GroupRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
+	Request *shared.GroupRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
 }
 
 func (x *EventOnGroupApplicationAcceptedData) Reset() {
@@ -2452,7 +2452,7 @@ type EventOnGroupApplicationRejectedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Request *shared.GroupRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request,omitempty"`
+	Request *shared.GroupRequestInfo `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
 }
 
 func (x *EventOnGroupApplicationRejectedData) Reset() {
@@ -2498,7 +2498,7 @@ type EventOnRecvCustomBusinessMessageData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	BusinessMessage string `protobuf:"bytes,1,opt,name=businessMessage,proto3" json:"businessMessage,omitempty"`
+	BusinessMessage string `protobuf:"bytes,1,opt,name=businessMessage,proto3" json:"businessMessage"`
 }
 
 func (x *EventOnRecvCustomBusinessMessageData) Reset() {
@@ -2544,7 +2544,7 @@ type EventOnSelfInfoUpdatedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserInfo string `protobuf:"bytes,1,opt,name=userInfo,proto3" json:"userInfo,omitempty"`
+	UserInfo string `protobuf:"bytes,1,opt,name=userInfo,proto3" json:"userInfo"`
 }
 
 func (x *EventOnSelfInfoUpdatedData) Reset() {
@@ -2589,8 +2589,8 @@ type EventOnUserStatusChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID      string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	PlatformIDs []int32 `protobuf:"varint,2,rep,packed,name=platformIDs,proto3" json:"platformIDs,omitempty"`
+	UserID      string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	PlatformIDs []int32 `protobuf:"varint,2,rep,packed,name=platformIDs,proto3" json:"platformIDs"`
 }
 
 func (x *EventOnUserStatusChangedData) Reset() {
@@ -2642,7 +2642,7 @@ type EventOnUserCommandAddData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserCommand string `protobuf:"bytes,1,opt,name=userCommand,proto3" json:"userCommand,omitempty"`
+	UserCommand string `protobuf:"bytes,1,opt,name=userCommand,proto3" json:"userCommand"`
 }
 
 func (x *EventOnUserCommandAddData) Reset() {
@@ -2687,7 +2687,7 @@ type EventOnUserCommandDeleteData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserCommand string `protobuf:"bytes,1,opt,name=userCommand,proto3" json:"userCommand,omitempty"`
+	UserCommand string `protobuf:"bytes,1,opt,name=userCommand,proto3" json:"userCommand"`
 }
 
 func (x *EventOnUserCommandDeleteData) Reset() {
@@ -2732,7 +2732,7 @@ type EventOnUserCommandUpdateData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserCommand string `protobuf:"bytes,1,opt,name=userCommand,proto3" json:"userCommand,omitempty"`
+	UserCommand string `protobuf:"bytes,1,opt,name=userCommand,proto3" json:"userCommand"`
 }
 
 func (x *EventOnUserCommandUpdateData) Reset() {

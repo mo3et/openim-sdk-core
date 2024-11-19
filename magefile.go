@@ -1,15 +1,16 @@
-// go:build mage
 //go:build mage
 // +build mage
 
 package main
 
 import (
+	"fmt"
 	"go/build"
 	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -38,7 +39,7 @@ var protoModules = []string{
 	"user",
 }
 
-var protoDir = "./proto"
+var protoDir = filepath.Join(".", "proto")
 
 /*
 protoc --go_out=:./ --go_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto *.proto
@@ -70,9 +71,9 @@ func All() error {
 }
 
 func GenGo() error {
-	log.Println("Generating Go code from proto files")
 	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Lshortfile)
+	// log.SetFlags(log.Lshortfile)
+	log.Println("Generating Go code from proto files")
 
 	goOutDir := filepath.Join(protoDir, GO)
 
@@ -80,11 +81,6 @@ func GenGo() error {
 	if err != nil {
 		return err
 	}
-
-	// protocGoPath, err := getToolPath("protoc-gen-go")
-	// if err != nil {
-	// 	return err
-	// }
 
 	for _, module := range protoModules {
 		if err := os.MkdirAll(filepath.Join(goOutDir, module), 0755); err != nil {
@@ -104,14 +100,22 @@ func GenGo() error {
 			return err
 		}
 	}
-	log.Println("genrating proto to path : ", goOutDir)
+
+	// log.Println("genrating proto to path : ", goOutDir)
+	if err := removeOmitemptyTags(); err != nil {
+		log.Println("Remove Omitempty is Error", err)
+		return err
+	} else {
+		log.Println("Remove Omitempty is Success")
+	}
+
 	return nil
 }
 
 func GenJava() error {
-	log.Println("Generating Java code from proto files")
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
+	log.Println("Generating Java code from proto files")
 
 	javaOutDir := filepath.Join(protoDir, JAVA)
 
@@ -143,9 +147,9 @@ func GenJava() error {
 }
 
 func GenCSharp() error {
-	log.Println("Generating C# code from proto files")
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
+	log.Println("Generating C# code from proto files")
 
 	csharpOutDir := filepath.Join(protoDir, CSharp)
 
@@ -177,9 +181,9 @@ func GenCSharp() error {
 }
 
 func GenJS() error {
-	log.Println("Generating JavaScript code from proto files")
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
+	log.Println("Generating JavaScript code from proto files")
 
 	jsOutDir := filepath.Join(protoDir, JS)
 
@@ -211,9 +215,9 @@ func GenJS() error {
 }
 
 func GenTS() error {
-	log.Println("Generating TypeScript code from proto files")
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
+	log.Println("Generating TypeScript code from proto files")
 
 	tsOutDir := filepath.Join(protoDir, TS)
 
@@ -290,4 +294,38 @@ func getToolPath(name string) (string, error) {
 func connectStd(cmd *exec.Cmd) {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
+}
+
+func removeOmitemptyTags() error {
+	protoGoDir := filepath.Join(protoDir, GO) // "./proto/go"
+
+	re := regexp.MustCompile(`,\s*omitempty`)
+
+	return filepath.Walk(protoGoDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Println("access path error:", err)
+			return err
+		}
+		if !info.IsDir() && strings.HasSuffix(path, ".pb.go") {
+			input, err := os.ReadFile(path)
+			if err != nil {
+				fmt.Println("ReadFile error. Path: %s, Error %v", path, err)
+				return err
+			}
+
+			output := re.ReplaceAllString(string(input), "")
+
+			// check replace is happened
+			if string(input) != output {
+				err = os.WriteFile(path, []byte(output), info.Mode())
+				if err != nil {
+					fmt.Printf("Error writing file: %s, error: %v\n", path, err)
+					return err
+				}
+				// fmt.Println("Modified file:", path)
+			}
+		}
+
+		return nil
+	})
 }

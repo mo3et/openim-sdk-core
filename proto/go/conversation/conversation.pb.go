@@ -27,25 +27,25 @@ type Conversation struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID    string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ConversationType  int32  `protobuf:"varint,2,opt,name=conversationType,proto3" json:"conversationType,omitempty"`
-	UserID            string `protobuf:"bytes,3,opt,name=userID,proto3" json:"userID,omitempty"`
-	GroupID           string `protobuf:"bytes,4,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	ShowName          string `protobuf:"bytes,5,opt,name=showName,proto3" json:"showName,omitempty"`
-	FaceURL           string `protobuf:"bytes,6,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	RecvMsgOpt        int32  `protobuf:"varint,7,opt,name=recvMsgOpt,proto3" json:"recvMsgOpt,omitempty"`
-	UnreadCount       int32  `protobuf:"varint,8,opt,name=unreadCount,proto3" json:"unreadCount,omitempty"`
-	GroupAtType       int32  `protobuf:"varint,9,opt,name=groupAtType,proto3" json:"groupAtType,omitempty"`
-	LatestMsg         string `protobuf:"bytes,10,opt,name=latestMsg,proto3" json:"latestMsg,omitempty"`
-	LatestMsgSendTime int64  `protobuf:"varint,11,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime,omitempty"`
-	DraftText         string `protobuf:"bytes,12,opt,name=draftText,proto3" json:"draftText,omitempty"`
-	DraftTextTime     int64  `protobuf:"varint,13,opt,name=draftTextTime,proto3" json:"draftTextTime,omitempty"`
-	IsPinned          bool   `protobuf:"varint,14,opt,name=isPinned,proto3" json:"isPinned,omitempty"`
-	IsPrivateChat     bool   `protobuf:"varint,15,opt,name=isPrivateChat,proto3" json:"isPrivateChat,omitempty"`
-	BurnDuration      int32  `protobuf:"varint,16,opt,name=burnDuration,proto3" json:"burnDuration,omitempty"`
-	Ex                string `protobuf:"bytes,17,opt,name=ex,proto3" json:"ex,omitempty"`
-	MsgDestructTime   int64  `protobuf:"varint,18,opt,name=msgDestructTime,proto3" json:"msgDestructTime,omitempty"`
-	IsMsgDestruct     bool   `protobuf:"varint,19,opt,name=isMsgDestruct,proto3" json:"isMsgDestruct,omitempty"`
+	ConversationID    string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	ConversationType  int32  `protobuf:"varint,2,opt,name=conversationType,proto3" json:"conversationType"`
+	UserID            string `protobuf:"bytes,3,opt,name=userID,proto3" json:"userID"`
+	GroupID           string `protobuf:"bytes,4,opt,name=groupID,proto3" json:"groupID"`
+	ShowName          string `protobuf:"bytes,5,opt,name=showName,proto3" json:"showName"`
+	FaceURL           string `protobuf:"bytes,6,opt,name=faceURL,proto3" json:"faceURL"`
+	RecvMsgOpt        int32  `protobuf:"varint,7,opt,name=recvMsgOpt,proto3" json:"recvMsgOpt"`
+	UnreadCount       int32  `protobuf:"varint,8,opt,name=unreadCount,proto3" json:"unreadCount"`
+	GroupAtType       int32  `protobuf:"varint,9,opt,name=groupAtType,proto3" json:"groupAtType"`
+	LatestMsg         string `protobuf:"bytes,10,opt,name=latestMsg,proto3" json:"latestMsg"`
+	LatestMsgSendTime int64  `protobuf:"varint,11,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime"`
+	DraftText         string `protobuf:"bytes,12,opt,name=draftText,proto3" json:"draftText"`
+	DraftTextTime     int64  `protobuf:"varint,13,opt,name=draftTextTime,proto3" json:"draftTextTime"`
+	IsPinned          bool   `protobuf:"varint,14,opt,name=isPinned,proto3" json:"isPinned"`
+	IsPrivateChat     bool   `protobuf:"varint,15,opt,name=isPrivateChat,proto3" json:"isPrivateChat"`
+	BurnDuration      int32  `protobuf:"varint,16,opt,name=burnDuration,proto3" json:"burnDuration"`
+	Ex                string `protobuf:"bytes,17,opt,name=ex,proto3" json:"ex"`
+	MsgDestructTime   int64  `protobuf:"varint,18,opt,name=msgDestructTime,proto3" json:"msgDestructTime"`
+	IsMsgDestruct     bool   `protobuf:"varint,19,opt,name=isMsgDestruct,proto3" json:"isMsgDestruct"`
 }
 
 func (x *Conversation) Reset() {
@@ -216,8 +216,8 @@ type ConversationArgs struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID  string   `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ClientMsgIDList []string `protobuf:"bytes,2,rep,name=clientMsgIDList,proto3" json:"clientMsgIDList,omitempty"`
+	ConversationID  string   `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	ClientMsgIDList []string `protobuf:"bytes,2,rep,name=clientMsgIDList,proto3" json:"clientMsgIDList"`
 }
 
 func (x *ConversationArgs) Reset() {
@@ -269,8 +269,8 @@ type FindMessageListCallback struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	TotalCount      int32                         `protobuf:"varint,1,opt,name=totalCount,proto3" json:"totalCount,omitempty"`
-	FindResultItems []*SearchByConversationResult `protobuf:"bytes,2,rep,name=findResultItems,proto3" json:"findResultItems,omitempty"`
+	TotalCount      int32                         `protobuf:"varint,1,opt,name=totalCount,proto3" json:"totalCount"`
+	FindResultItems []*SearchByConversationResult `protobuf:"bytes,2,rep,name=findResultItems,proto3" json:"findResultItems"`
 }
 
 func (x *FindMessageListCallback) Reset() {
@@ -322,15 +322,15 @@ type SearchLocalMessagesParams struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID       string   `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	KeywordList          []string `protobuf:"bytes,2,rep,name=keywordList,proto3" json:"keywordList,omitempty"`
-	KeywordListMatchType int32    `protobuf:"varint,3,opt,name=keywordListMatchType,proto3" json:"keywordListMatchType,omitempty"`
-	SenderUserIDList     []string `protobuf:"bytes,4,rep,name=senderUserIDList,proto3" json:"senderUserIDList,omitempty"`
-	MessageTypeList      []int32  `protobuf:"varint,5,rep,packed,name=messageTypeList,proto3" json:"messageTypeList,omitempty"`
-	SearchTimePosition   int64    `protobuf:"varint,6,opt,name=searchTimePosition,proto3" json:"searchTimePosition,omitempty"`
-	SearchTimePeriod     int64    `protobuf:"varint,7,opt,name=searchTimePeriod,proto3" json:"searchTimePeriod,omitempty"`
-	PageIndex            int32    `protobuf:"varint,8,opt,name=pageIndex,proto3" json:"pageIndex,omitempty"`
-	Count                int32    `protobuf:"varint,9,opt,name=count,proto3" json:"count,omitempty"`
+	ConversationID       string   `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	KeywordList          []string `protobuf:"bytes,2,rep,name=keywordList,proto3" json:"keywordList"`
+	KeywordListMatchType int32    `protobuf:"varint,3,opt,name=keywordListMatchType,proto3" json:"keywordListMatchType"`
+	SenderUserIDList     []string `protobuf:"bytes,4,rep,name=senderUserIDList,proto3" json:"senderUserIDList"`
+	MessageTypeList      []int32  `protobuf:"varint,5,rep,packed,name=messageTypeList,proto3" json:"messageTypeList"`
+	SearchTimePosition   int64    `protobuf:"varint,6,opt,name=searchTimePosition,proto3" json:"searchTimePosition"`
+	SearchTimePeriod     int64    `protobuf:"varint,7,opt,name=searchTimePeriod,proto3" json:"searchTimePeriod"`
+	PageIndex            int32    `protobuf:"varint,8,opt,name=pageIndex,proto3" json:"pageIndex"`
+	Count                int32    `protobuf:"varint,9,opt,name=count,proto3" json:"count"`
 }
 
 func (x *SearchLocalMessagesParams) Reset() {
@@ -431,8 +431,8 @@ type SearchLocalMessagesCallback struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	TotalCount        int32                         `protobuf:"varint,1,opt,name=totalCount,proto3" json:"totalCount,omitempty"`
-	SearchResultItems []*SearchByConversationResult `protobuf:"bytes,2,rep,name=searchResultItems,proto3" json:"searchResultItems,omitempty"`
+	TotalCount        int32                         `protobuf:"varint,1,opt,name=totalCount,proto3" json:"totalCount"`
+	SearchResultItems []*SearchByConversationResult `protobuf:"bytes,2,rep,name=searchResultItems,proto3" json:"searchResultItems"`
 }
 
 func (x *SearchLocalMessagesCallback) Reset() {
@@ -484,13 +484,13 @@ type SearchByConversationResult struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID    string               `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ConversationType  int32                `protobuf:"varint,2,opt,name=conversationType,proto3" json:"conversationType,omitempty"`
-	ShowName          string               `protobuf:"bytes,3,opt,name=showName,proto3" json:"showName,omitempty"`
-	FaceURL           string               `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	LatestMsgSendTime int64                `protobuf:"varint,5,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime,omitempty"`
-	MessageCount      int32                `protobuf:"varint,6,opt,name=messageCount,proto3" json:"messageCount,omitempty"`
-	MessageList       []*message.IMMessage `protobuf:"bytes,7,rep,name=messageList,proto3" json:"messageList,omitempty"`
+	ConversationID    string               `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	ConversationType  int32                `protobuf:"varint,2,opt,name=conversationType,proto3" json:"conversationType"`
+	ShowName          string               `protobuf:"bytes,3,opt,name=showName,proto3" json:"showName"`
+	FaceURL           string               `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL"`
+	LatestMsgSendTime int64                `protobuf:"varint,5,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime"`
+	MessageCount      int32                `protobuf:"varint,6,opt,name=messageCount,proto3" json:"messageCount"`
+	MessageList       []*message.IMMessage `protobuf:"bytes,7,rep,name=messageList,proto3" json:"messageList"`
 }
 
 func (x *SearchByConversationResult) Reset() {
@@ -614,7 +614,7 @@ type GetAllConversationListResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationList []*Conversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList,omitempty"`
+	ConversationList []*Conversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList"`
 }
 
 func (x *GetAllConversationListResp) Reset() {
@@ -659,8 +659,8 @@ type GetConversationListSplitReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Offset int32 `protobuf:"varint,1,opt,name=offset,proto3" json:"offset,omitempty"`
-	Count  int32 `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	Offset int32 `protobuf:"varint,1,opt,name=offset,proto3" json:"offset"`
+	Count  int32 `protobuf:"varint,2,opt,name=count,proto3" json:"count"`
 }
 
 func (x *GetConversationListSplitReq) Reset() {
@@ -712,7 +712,7 @@ type GetConversationListSplitResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationList []*shared.Conversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList,omitempty"`
+	ConversationList []*shared.Conversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList"`
 }
 
 func (x *GetConversationListSplitResp) Reset() {
@@ -757,7 +757,7 @@ type HideConversationReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
 }
 
 func (x *HideConversationReq) Reset() {
@@ -874,7 +874,7 @@ type GetAtAllTagResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Tag string `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag,omitempty"`
+	Tag string `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag"`
 }
 
 func (x *GetAtAllTagResp) Reset() {
@@ -919,8 +919,8 @@ type GetOneConversationReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SessionType int32  `protobuf:"varint,1,opt,name=sessionType,proto3" json:"sessionType,omitempty"`
-	SourceID    string `protobuf:"bytes,2,opt,name=sourceID,proto3" json:"sourceID,omitempty"`
+	SessionType int32  `protobuf:"varint,1,opt,name=sessionType,proto3" json:"sessionType"`
+	SourceID    string `protobuf:"bytes,2,opt,name=sourceID,proto3" json:"sourceID"`
 }
 
 func (x *GetOneConversationReq) Reset() {
@@ -972,7 +972,7 @@ type GetOneConversationResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Conversation *shared.Conversation `protobuf:"bytes,1,opt,name=conversation,proto3" json:"conversation,omitempty"`
+	Conversation *shared.Conversation `protobuf:"bytes,1,opt,name=conversation,proto3" json:"conversation"`
 }
 
 func (x *GetOneConversationResp) Reset() {
@@ -1017,7 +1017,7 @@ type GetMultipleConversationReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationIDList []string `protobuf:"bytes,1,rep,name=conversationIDList,proto3" json:"conversationIDList,omitempty"`
+	ConversationIDList []string `protobuf:"bytes,1,rep,name=conversationIDList,proto3" json:"conversationIDList"`
 }
 
 func (x *GetMultipleConversationReq) Reset() {
@@ -1062,7 +1062,7 @@ type GetMultipleConversationResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationList []*shared.Conversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList,omitempty"`
+	ConversationList []*shared.Conversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList"`
 }
 
 func (x *GetMultipleConversationResp) Reset() {
@@ -1179,8 +1179,8 @@ type SetConversationDraftReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	DraftText      string `protobuf:"bytes,2,opt,name=draftText,proto3" json:"draftText,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	DraftText      string `protobuf:"bytes,2,opt,name=draftText,proto3" json:"draftText"`
 }
 
 func (x *SetConversationDraftReq) Reset() {
@@ -1268,15 +1268,15 @@ type SetConversationReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID  string  `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	RecvMsgOpt      *int32  `protobuf:"varint,2,opt,name=recvMsgOpt,proto3,oneof" json:"recvMsgOpt,omitempty"`
-	GroupAtType     *int32  `protobuf:"varint,3,opt,name=groupAtType,proto3,oneof" json:"groupAtType,omitempty"`
-	IsPinned        *bool   `protobuf:"varint,4,opt,name=isPinned,proto3,oneof" json:"isPinned,omitempty"`
-	IsPrivateChat   *bool   `protobuf:"varint,5,opt,name=isPrivateChat,proto3,oneof" json:"isPrivateChat,omitempty"`
-	BurnDuration    *int32  `protobuf:"varint,6,opt,name=burnDuration,proto3,oneof" json:"burnDuration,omitempty"`
-	Ex              *string `protobuf:"bytes,7,opt,name=ex,proto3,oneof" json:"ex,omitempty"`
-	MsgDestructTime *int64  `protobuf:"varint,8,opt,name=msgDestructTime,proto3,oneof" json:"msgDestructTime,omitempty"`
-	IsMsgDestruct   *bool   `protobuf:"varint,9,opt,name=isMsgDestruct,proto3,oneof" json:"isMsgDestruct,omitempty"`
+	ConversationID  string  `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	RecvMsgOpt      *int32  `protobuf:"varint,2,opt,name=recvMsgOpt,proto3,oneof" json:"recvMsgOpt"`
+	GroupAtType     *int32  `protobuf:"varint,3,opt,name=groupAtType,proto3,oneof" json:"groupAtType"`
+	IsPinned        *bool   `protobuf:"varint,4,opt,name=isPinned,proto3,oneof" json:"isPinned"`
+	IsPrivateChat   *bool   `protobuf:"varint,5,opt,name=isPrivateChat,proto3,oneof" json:"isPrivateChat"`
+	BurnDuration    *int32  `protobuf:"varint,6,opt,name=burnDuration,proto3,oneof" json:"burnDuration"`
+	Ex              *string `protobuf:"bytes,7,opt,name=ex,proto3,oneof" json:"ex"`
+	MsgDestructTime *int64  `protobuf:"varint,8,opt,name=msgDestructTime,proto3,oneof" json:"msgDestructTime"`
+	IsMsgDestruct   *bool   `protobuf:"varint,9,opt,name=isMsgDestruct,proto3,oneof" json:"isMsgDestruct"`
 }
 
 func (x *SetConversationReq) Reset() {
@@ -1449,7 +1449,7 @@ type GetTotalUnreadMsgCountResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	TotalUnreadCount int32 `protobuf:"varint,1,opt,name=totalUnreadCount,proto3" json:"totalUnreadCount,omitempty"`
+	TotalUnreadCount int32 `protobuf:"varint,1,opt,name=totalUnreadCount,proto3" json:"totalUnreadCount"`
 }
 
 func (x *GetTotalUnreadMsgCountResp) Reset() {
@@ -1494,8 +1494,8 @@ type GetConversationIDBySessionTypeReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SourceID    string `protobuf:"bytes,1,opt,name=sourceID,proto3" json:"sourceID,omitempty"`
-	SessionType int32  `protobuf:"varint,2,opt,name=sessionType,proto3" json:"sessionType,omitempty"`
+	SourceID    string `protobuf:"bytes,1,opt,name=sourceID,proto3" json:"sourceID"`
+	SessionType int32  `protobuf:"varint,2,opt,name=sessionType,proto3" json:"sessionType"`
 }
 
 func (x *GetConversationIDBySessionTypeReq) Reset() {
@@ -1547,7 +1547,7 @@ type GetConversationIDBySessionTypeResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
 }
 
 func (x *GetConversationIDBySessionTypeResp) Reset() {
@@ -1592,7 +1592,7 @@ type FindMessageListReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationsArgs []*ConversationArgs `protobuf:"bytes,1,rep,name=conversationsArgs,proto3" json:"conversationsArgs,omitempty"`
+	ConversationsArgs []*ConversationArgs `protobuf:"bytes,1,rep,name=conversationsArgs,proto3" json:"conversationsArgs"`
 }
 
 func (x *FindMessageListReq) Reset() {
@@ -1637,8 +1637,8 @@ type FindMessageListResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FindResultItems []*SearchByConversationResult `protobuf:"bytes,1,rep,name=findResultItems,proto3" json:"findResultItems,omitempty"`
-	TotalCount      int32                         `protobuf:"varint,2,opt,name=totalCount,proto3" json:"totalCount,omitempty"`
+	FindResultItems []*SearchByConversationResult `protobuf:"bytes,1,rep,name=findResultItems,proto3" json:"findResultItems"`
+	TotalCount      int32                         `protobuf:"varint,2,opt,name=totalCount,proto3" json:"totalCount"`
 }
 
 func (x *FindMessageListResp) Reset() {
@@ -1690,7 +1690,7 @@ type MarkConversationMessageAsReadReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
 }
 
 func (x *MarkConversationMessageAsReadReq) Reset() {
@@ -1843,8 +1843,8 @@ type DeleteMessageFromLocalStorageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID"`
 }
 
 func (x *DeleteMessageFromLocalStorageReq) Reset() {
@@ -1932,7 +1932,7 @@ type ClearConversationAndDeleteAllMsgReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
 }
 
 func (x *ClearConversationAndDeleteAllMsgReq) Reset() {
@@ -2013,7 +2013,7 @@ type DeleteConversationAndDeleteAllMsgReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
 }
 
 func (x *DeleteConversationAndDeleteAllMsgReq) Reset() {
@@ -2094,7 +2094,7 @@ type SearchLocalMessagesReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SearchParam *SearchLocalMessagesParams `protobuf:"bytes,1,opt,name=searchParam,proto3" json:"searchParam,omitempty"`
+	SearchParam *SearchLocalMessagesParams `protobuf:"bytes,1,opt,name=searchParam,proto3" json:"searchParam"`
 }
 
 func (x *SearchLocalMessagesReq) Reset() {
@@ -2139,7 +2139,7 @@ type SearchLocalMessagesResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SearchResult *SearchLocalMessagesCallback `protobuf:"bytes,1,opt,name=searchResult,proto3" json:"searchResult,omitempty"`
+	SearchResult *SearchLocalMessagesCallback `protobuf:"bytes,1,opt,name=searchResult,proto3" json:"searchResult"`
 }
 
 func (x *SearchLocalMessagesResp) Reset() {
@@ -2184,9 +2184,9 @@ type SetMessageLocalExReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
-	LocalEx        string `protobuf:"bytes,3,opt,name=localEx,proto3" json:"localEx,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID"`
+	LocalEx        string `protobuf:"bytes,3,opt,name=localEx,proto3" json:"localEx"`
 }
 
 func (x *SetMessageLocalExReq) Reset() {
@@ -2245,7 +2245,7 @@ type SetMessageLocalExResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Success bool `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Success bool `protobuf:"varint,1,opt,name=success,proto3" json:"success"`
 }
 
 func (x *SetMessageLocalExResp) Reset() {
@@ -2290,7 +2290,7 @@ type SearchConversationReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SearchParam string `protobuf:"bytes,1,opt,name=searchParam,proto3" json:"searchParam,omitempty"`
+	SearchParam string `protobuf:"bytes,1,opt,name=searchParam,proto3" json:"searchParam"`
 }
 
 func (x *SearchConversationReq) Reset() {
@@ -2335,7 +2335,7 @@ type SearchConversationResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationList []*shared.Conversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList,omitempty"`
+	ConversationList []*shared.Conversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList"`
 }
 
 func (x *SearchConversationResp) Reset() {

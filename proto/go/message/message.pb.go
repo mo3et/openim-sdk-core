@@ -26,8 +26,8 @@ type AtInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AtUserID      string `protobuf:"bytes,1,opt,name=atUserID,proto3" json:"atUserID,omitempty"`
-	GroupNickname string `protobuf:"bytes,2,opt,name=groupNickname,proto3" json:"groupNickname,omitempty"`
+	AtUserID      string `protobuf:"bytes,1,opt,name=atUserID,proto3" json:"atUserID"`
+	GroupNickname string `protobuf:"bytes,2,opt,name=groupNickname,proto3" json:"groupNickname"`
 }
 
 func (x *AtInfo) Reset() {
@@ -79,10 +79,10 @@ type ImageInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Width  int32  `protobuf:"varint,1,opt,name=width,proto3" json:"width,omitempty"`
-	Height int32  `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"`
-	Type   string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
-	Size   int64  `protobuf:"varint,4,opt,name=size,proto3" json:"size,omitempty"`
+	Width  int32  `protobuf:"varint,1,opt,name=width,proto3" json:"width"`
+	Height int32  `protobuf:"varint,2,opt,name=height,proto3" json:"height"`
+	Type   string `protobuf:"bytes,3,opt,name=type,proto3" json:"type"`
+	Size   int64  `protobuf:"varint,4,opt,name=size,proto3" json:"size"`
 }
 
 func (x *ImageInfo) Reset() {
@@ -148,12 +148,12 @@ type PictureBaseInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Uuid   string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	Type   string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
-	Size   int64  `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
-	Width  int32  `protobuf:"varint,4,opt,name=width,proto3" json:"width,omitempty"`
-	Height int32  `protobuf:"varint,5,opt,name=height,proto3" json:"height,omitempty"`
-	Url    string `protobuf:"bytes,6,opt,name=url,proto3" json:"url,omitempty"`
+	Uuid   string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
+	Type   string `protobuf:"bytes,2,opt,name=type,proto3" json:"type"`
+	Size   int64  `protobuf:"varint,3,opt,name=size,proto3" json:"size"`
+	Width  int32  `protobuf:"varint,4,opt,name=width,proto3" json:"width"`
+	Height int32  `protobuf:"varint,5,opt,name=height,proto3" json:"height"`
+	Url    string `protobuf:"bytes,6,opt,name=url,proto3" json:"url"`
 }
 
 func (x *PictureBaseInfo) Reset() {
@@ -233,12 +233,12 @@ type SoundBaseInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Uuid      string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	SoundPath string `protobuf:"bytes,2,opt,name=soundPath,proto3" json:"soundPath,omitempty"`
-	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL,omitempty"`
-	DataSize  int64  `protobuf:"varint,4,opt,name=dataSize,proto3" json:"dataSize,omitempty"`
-	Duration  int64  `protobuf:"varint,5,opt,name=duration,proto3" json:"duration,omitempty"`
-	SoundType string `protobuf:"bytes,6,opt,name=soundType,proto3" json:"soundType,omitempty"`
+	Uuid      string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
+	SoundPath string `protobuf:"bytes,2,opt,name=soundPath,proto3" json:"soundPath"`
+	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL"`
+	DataSize  int64  `protobuf:"varint,4,opt,name=dataSize,proto3" json:"dataSize"`
+	Duration  int64  `protobuf:"varint,5,opt,name=duration,proto3" json:"duration"`
+	SoundType string `protobuf:"bytes,6,opt,name=soundType,proto3" json:"soundType"`
 }
 
 func (x *SoundBaseInfo) Reset() {
@@ -318,19 +318,19 @@ type VideoBaseInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	VideoPath      string `protobuf:"bytes,1,opt,name=videoPath,proto3" json:"videoPath,omitempty"`
-	VideoUUID      string `protobuf:"bytes,2,opt,name=videoUUID,proto3" json:"videoUUID,omitempty"`
-	VideoURL       string `protobuf:"bytes,3,opt,name=videoURL,proto3" json:"videoURL,omitempty"`
-	VideoType      string `protobuf:"bytes,4,opt,name=videoType,proto3" json:"videoType,omitempty"`
-	VideoSize      int64  `protobuf:"varint,5,opt,name=videoSize,proto3" json:"videoSize,omitempty"`
-	Duration       int64  `protobuf:"varint,6,opt,name=duration,proto3" json:"duration,omitempty"`
-	SnapshotPath   string `protobuf:"bytes,7,opt,name=snapshotPath,proto3" json:"snapshotPath,omitempty"`
-	SnapshotUUID   string `protobuf:"bytes,8,opt,name=snapshotUUID,proto3" json:"snapshotUUID,omitempty"`
-	SnapshotSize   int64  `protobuf:"varint,9,opt,name=snapshotSize,proto3" json:"snapshotSize,omitempty"`
-	SnapshotURL    string `protobuf:"bytes,10,opt,name=snapshotURL,proto3" json:"snapshotURL,omitempty"`
-	SnapshotWidth  int32  `protobuf:"varint,11,opt,name=snapshotWidth,proto3" json:"snapshotWidth,omitempty"`
-	SnapshotHeight int32  `protobuf:"varint,12,opt,name=snapshotHeight,proto3" json:"snapshotHeight,omitempty"`
-	SnapshotType   string `protobuf:"bytes,13,opt,name=snapshotType,proto3" json:"snapshotType,omitempty"`
+	VideoPath      string `protobuf:"bytes,1,opt,name=videoPath,proto3" json:"videoPath"`
+	VideoUUID      string `protobuf:"bytes,2,opt,name=videoUUID,proto3" json:"videoUUID"`
+	VideoURL       string `protobuf:"bytes,3,opt,name=videoURL,proto3" json:"videoURL"`
+	VideoType      string `protobuf:"bytes,4,opt,name=videoType,proto3" json:"videoType"`
+	VideoSize      int64  `protobuf:"varint,5,opt,name=videoSize,proto3" json:"videoSize"`
+	Duration       int64  `protobuf:"varint,6,opt,name=duration,proto3" json:"duration"`
+	SnapshotPath   string `protobuf:"bytes,7,opt,name=snapshotPath,proto3" json:"snapshotPath"`
+	SnapshotUUID   string `protobuf:"bytes,8,opt,name=snapshotUUID,proto3" json:"snapshotUUID"`
+	SnapshotSize   int64  `protobuf:"varint,9,opt,name=snapshotSize,proto3" json:"snapshotSize"`
+	SnapshotURL    string `protobuf:"bytes,10,opt,name=snapshotURL,proto3" json:"snapshotURL"`
+	SnapshotWidth  int32  `protobuf:"varint,11,opt,name=snapshotWidth,proto3" json:"snapshotWidth"`
+	SnapshotHeight int32  `protobuf:"varint,12,opt,name=snapshotHeight,proto3" json:"snapshotHeight"`
+	SnapshotType   string `protobuf:"bytes,13,opt,name=snapshotType,proto3" json:"snapshotType"`
 }
 
 func (x *VideoBaseInfo) Reset() {
@@ -459,12 +459,12 @@ type FileBaseInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FilePath  string `protobuf:"bytes,1,opt,name=filePath,proto3" json:"filePath,omitempty"`
-	Uuid      string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL,omitempty"`
-	FileName  string `protobuf:"bytes,4,opt,name=fileName,proto3" json:"fileName,omitempty"`
-	FileSize  int64  `protobuf:"varint,5,opt,name=fileSize,proto3" json:"fileSize,omitempty"`
-	FileType  string `protobuf:"bytes,6,opt,name=fileType,proto3" json:"fileType,omitempty"`
+	FilePath  string `protobuf:"bytes,1,opt,name=filePath,proto3" json:"filePath"`
+	Uuid      string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid"`
+	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL"`
+	FileName  string `protobuf:"bytes,4,opt,name=fileName,proto3" json:"fileName"`
+	FileSize  int64  `protobuf:"varint,5,opt,name=fileSize,proto3" json:"fileSize"`
+	FileType  string `protobuf:"bytes,6,opt,name=fileType,proto3" json:"fileType"`
 }
 
 func (x *FileBaseInfo) Reset() {
@@ -544,7 +544,7 @@ type TextElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Content string `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	Content string `protobuf:"bytes,1,opt,name=content,proto3" json:"content"`
 }
 
 func (x *TextElem) Reset() {
@@ -589,10 +589,10 @@ type CardElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID   string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Nickname string `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	FaceURL  string `protobuf:"bytes,3,opt,name=faceURL,proto3" json:"faceURL,omitempty"`
-	Ex       string `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex,omitempty"`
+	UserID   string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Nickname string `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname"`
+	FaceURL  string `protobuf:"bytes,3,opt,name=faceURL,proto3" json:"faceURL"`
+	Ex       string `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex"`
 }
 
 func (x *CardElem) Reset() {
@@ -658,10 +658,10 @@ type PictureElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SourcePath      string           `protobuf:"bytes,1,opt,name=sourcePath,proto3" json:"sourcePath,omitempty"`
-	SourcePicture   *PictureBaseInfo `protobuf:"bytes,2,opt,name=sourcePicture,proto3" json:"sourcePicture,omitempty"`
-	BigPicture      *PictureBaseInfo `protobuf:"bytes,3,opt,name=bigPicture,proto3" json:"bigPicture,omitempty"`
-	SnapshotPicture *PictureBaseInfo `protobuf:"bytes,4,opt,name=snapshotPicture,proto3" json:"snapshotPicture,omitempty"`
+	SourcePath      string           `protobuf:"bytes,1,opt,name=sourcePath,proto3" json:"sourcePath"`
+	SourcePicture   *PictureBaseInfo `protobuf:"bytes,2,opt,name=sourcePicture,proto3" json:"sourcePicture"`
+	BigPicture      *PictureBaseInfo `protobuf:"bytes,3,opt,name=bigPicture,proto3" json:"bigPicture"`
+	SnapshotPicture *PictureBaseInfo `protobuf:"bytes,4,opt,name=snapshotPicture,proto3" json:"snapshotPicture"`
 }
 
 func (x *PictureElem) Reset() {
@@ -727,12 +727,12 @@ type SoundElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Uuid      string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	SoundPath string `protobuf:"bytes,2,opt,name=soundPath,proto3" json:"soundPath,omitempty"`
-	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL,omitempty"`
-	DataSize  int64  `protobuf:"varint,4,opt,name=dataSize,proto3" json:"dataSize,omitempty"`
-	Duration  int64  `protobuf:"varint,5,opt,name=duration,proto3" json:"duration,omitempty"`
-	SoundType string `protobuf:"bytes,6,opt,name=soundType,proto3" json:"soundType,omitempty"`
+	Uuid      string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
+	SoundPath string `protobuf:"bytes,2,opt,name=soundPath,proto3" json:"soundPath"`
+	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL"`
+	DataSize  int64  `protobuf:"varint,4,opt,name=dataSize,proto3" json:"dataSize"`
+	Duration  int64  `protobuf:"varint,5,opt,name=duration,proto3" json:"duration"`
+	SoundType string `protobuf:"bytes,6,opt,name=soundType,proto3" json:"soundType"`
 }
 
 func (x *SoundElem) Reset() {
@@ -812,19 +812,19 @@ type VideoElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	VideoPath      string `protobuf:"bytes,1,opt,name=videoPath,proto3" json:"videoPath,omitempty"`
-	VideoUUID      string `protobuf:"bytes,2,opt,name=videoUUID,proto3" json:"videoUUID,omitempty"`
-	VideoURL       string `protobuf:"bytes,3,opt,name=videoURL,proto3" json:"videoURL,omitempty"`
-	VideoType      string `protobuf:"bytes,4,opt,name=videoType,proto3" json:"videoType,omitempty"`
-	VideoSize      int64  `protobuf:"varint,5,opt,name=videoSize,proto3" json:"videoSize,omitempty"`
-	Duration       int64  `protobuf:"varint,6,opt,name=duration,proto3" json:"duration,omitempty"`
-	SnapshotPath   string `protobuf:"bytes,7,opt,name=snapshotPath,proto3" json:"snapshotPath,omitempty"`
-	SnapshotUUID   string `protobuf:"bytes,8,opt,name=snapshotUUID,proto3" json:"snapshotUUID,omitempty"`
-	SnapshotSize   int64  `protobuf:"varint,9,opt,name=snapshotSize,proto3" json:"snapshotSize,omitempty"`
-	SnapshotURL    string `protobuf:"bytes,10,opt,name=snapshotURL,proto3" json:"snapshotURL,omitempty"`
-	SnapshotWidth  int32  `protobuf:"varint,11,opt,name=snapshotWidth,proto3" json:"snapshotWidth,omitempty"`
-	SnapshotHeight int32  `protobuf:"varint,12,opt,name=snapshotHeight,proto3" json:"snapshotHeight,omitempty"`
-	SnapshotType   string `protobuf:"bytes,13,opt,name=snapshotType,proto3" json:"snapshotType,omitempty"`
+	VideoPath      string `protobuf:"bytes,1,opt,name=videoPath,proto3" json:"videoPath"`
+	VideoUUID      string `protobuf:"bytes,2,opt,name=videoUUID,proto3" json:"videoUUID"`
+	VideoURL       string `protobuf:"bytes,3,opt,name=videoURL,proto3" json:"videoURL"`
+	VideoType      string `protobuf:"bytes,4,opt,name=videoType,proto3" json:"videoType"`
+	VideoSize      int64  `protobuf:"varint,5,opt,name=videoSize,proto3" json:"videoSize"`
+	Duration       int64  `protobuf:"varint,6,opt,name=duration,proto3" json:"duration"`
+	SnapshotPath   string `protobuf:"bytes,7,opt,name=snapshotPath,proto3" json:"snapshotPath"`
+	SnapshotUUID   string `protobuf:"bytes,8,opt,name=snapshotUUID,proto3" json:"snapshotUUID"`
+	SnapshotSize   int64  `protobuf:"varint,9,opt,name=snapshotSize,proto3" json:"snapshotSize"`
+	SnapshotURL    string `protobuf:"bytes,10,opt,name=snapshotURL,proto3" json:"snapshotURL"`
+	SnapshotWidth  int32  `protobuf:"varint,11,opt,name=snapshotWidth,proto3" json:"snapshotWidth"`
+	SnapshotHeight int32  `protobuf:"varint,12,opt,name=snapshotHeight,proto3" json:"snapshotHeight"`
+	SnapshotType   string `protobuf:"bytes,13,opt,name=snapshotType,proto3" json:"snapshotType"`
 }
 
 func (x *VideoElem) Reset() {
@@ -953,12 +953,12 @@ type FileElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FilePath  string `protobuf:"bytes,1,opt,name=filePath,proto3" json:"filePath,omitempty"`
-	Uuid      string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL,omitempty"`
-	FileName  string `protobuf:"bytes,4,opt,name=fileName,proto3" json:"fileName,omitempty"`
-	FileSize  int64  `protobuf:"varint,5,opt,name=fileSize,proto3" json:"fileSize,omitempty"`
-	FileType  string `protobuf:"bytes,6,opt,name=fileType,proto3" json:"fileType,omitempty"`
+	FilePath  string `protobuf:"bytes,1,opt,name=filePath,proto3" json:"filePath"`
+	Uuid      string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid"`
+	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL"`
+	FileName  string `protobuf:"bytes,4,opt,name=fileName,proto3" json:"fileName"`
+	FileSize  int64  `protobuf:"varint,5,opt,name=fileSize,proto3" json:"fileSize"`
+	FileType  string `protobuf:"bytes,6,opt,name=fileType,proto3" json:"fileType"`
 }
 
 func (x *FileElem) Reset() {
@@ -1038,11 +1038,11 @@ type MessageEntity struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type   string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Offset int32  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
-	Length int32  `protobuf:"varint,3,opt,name=length,proto3" json:"length,omitempty"`
-	Url    string `protobuf:"bytes,4,opt,name=url,proto3" json:"url,omitempty"`
-	Ex     string `protobuf:"bytes,5,opt,name=ex,proto3" json:"ex,omitempty"`
+	Type   string `protobuf:"bytes,1,opt,name=type,proto3" json:"type"`
+	Offset int32  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset"`
+	Length int32  `protobuf:"varint,3,opt,name=length,proto3" json:"length"`
+	Url    string `protobuf:"bytes,4,opt,name=url,proto3" json:"url"`
+	Ex     string `protobuf:"bytes,5,opt,name=ex,proto3" json:"ex"`
 }
 
 func (x *MessageEntity) Reset() {
@@ -1115,10 +1115,10 @@ type MergeElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title             string           `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	AbstractList      []string         `protobuf:"bytes,2,rep,name=abstractList,proto3" json:"abstractList,omitempty"`
-	MultiMessage      []*IMMessage     `protobuf:"bytes,3,rep,name=multiMessage,proto3" json:"multiMessage,omitempty"`
-	MessageEntityList []*MessageEntity `protobuf:"bytes,4,rep,name=messageEntityList,proto3" json:"messageEntityList,omitempty"`
+	Title             string           `protobuf:"bytes,1,opt,name=title,proto3" json:"title"`
+	AbstractList      []string         `protobuf:"bytes,2,rep,name=abstractList,proto3" json:"abstractList"`
+	MultiMessage      []*IMMessage     `protobuf:"bytes,3,rep,name=multiMessage,proto3" json:"multiMessage"`
+	MessageEntityList []*MessageEntity `protobuf:"bytes,4,rep,name=messageEntityList,proto3" json:"messageEntityList"`
 }
 
 func (x *MergeElem) Reset() {
@@ -1184,11 +1184,11 @@ type AtTextElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text         string     `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	AtUserList   []string   `protobuf:"bytes,2,rep,name=atUserList,proto3" json:"atUserList,omitempty"`
-	AtUsersInfo  []*AtInfo  `protobuf:"bytes,3,rep,name=atUsersInfo,proto3" json:"atUsersInfo,omitempty"`
-	QuoteMessage *IMMessage `protobuf:"bytes,4,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
-	IsAtSelf     bool       `protobuf:"varint,5,opt,name=isAtSelf,proto3" json:"isAtSelf,omitempty"`
+	Text         string     `protobuf:"bytes,1,opt,name=text,proto3" json:"text"`
+	AtUserList   []string   `protobuf:"bytes,2,rep,name=atUserList,proto3" json:"atUserList"`
+	AtUsersInfo  []*AtInfo  `protobuf:"bytes,3,rep,name=atUsersInfo,proto3" json:"atUsersInfo"`
+	QuoteMessage *IMMessage `protobuf:"bytes,4,opt,name=quoteMessage,proto3" json:"quoteMessage"`
+	IsAtSelf     bool       `protobuf:"varint,5,opt,name=isAtSelf,proto3" json:"isAtSelf"`
 }
 
 func (x *AtTextElem) Reset() {
@@ -1261,8 +1261,8 @@ type FaceElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Index int32  `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
-	Data  string `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Index int32  `protobuf:"varint,1,opt,name=index,proto3" json:"index"`
+	Data  string `protobuf:"bytes,2,opt,name=data,proto3" json:"data"`
 }
 
 func (x *FaceElem) Reset() {
@@ -1314,9 +1314,9 @@ type LocationElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Description string  `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
-	Longitude   float64 `protobuf:"fixed64,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Latitude    float64 `protobuf:"fixed64,3,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Description string  `protobuf:"bytes,1,opt,name=description,proto3" json:"description"`
+	Longitude   float64 `protobuf:"fixed64,2,opt,name=longitude,proto3" json:"longitude"`
+	Latitude    float64 `protobuf:"fixed64,3,opt,name=latitude,proto3" json:"latitude"`
 }
 
 func (x *LocationElem) Reset() {
@@ -1375,9 +1375,9 @@ type CustomElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data        string `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
-	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	Extension   string `protobuf:"bytes,3,opt,name=extension,proto3" json:"extension,omitempty"`
+	Data        string `protobuf:"bytes,1,opt,name=data,proto3" json:"data"`
+	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description"`
+	Extension   string `protobuf:"bytes,3,opt,name=extension,proto3" json:"extension"`
 }
 
 func (x *CustomElem) Reset() {
@@ -1436,9 +1436,9 @@ type QuoteElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text              string           `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	QuoteMessage      *IMMessage       `protobuf:"bytes,2,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
-	MessageEntityList []*MessageEntity `protobuf:"bytes,3,rep,name=messageEntityList,proto3" json:"messageEntityList,omitempty"`
+	Text              string           `protobuf:"bytes,1,opt,name=text,proto3" json:"text"`
+	QuoteMessage      *IMMessage       `protobuf:"bytes,2,opt,name=quoteMessage,proto3" json:"quoteMessage"`
+	MessageEntityList []*MessageEntity `protobuf:"bytes,3,rep,name=messageEntityList,proto3" json:"messageEntityList"`
 }
 
 func (x *QuoteElem) Reset() {
@@ -1497,7 +1497,7 @@ type NotificationElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Detail string `protobuf:"bytes,1,opt,name=detail,proto3" json:"detail,omitempty"`
+	Detail string `protobuf:"bytes,1,opt,name=detail,proto3" json:"detail"`
 }
 
 func (x *NotificationElem) Reset() {
@@ -1542,8 +1542,8 @@ type AdvancedTextElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text              string           `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	MessageEntityList []*MessageEntity `protobuf:"bytes,2,rep,name=messageEntityList,proto3" json:"messageEntityList,omitempty"`
+	Text              string           `protobuf:"bytes,1,opt,name=text,proto3" json:"text"`
+	MessageEntityList []*MessageEntity `protobuf:"bytes,2,rep,name=messageEntityList,proto3" json:"messageEntityList"`
 }
 
 func (x *AdvancedTextElem) Reset() {
@@ -1595,7 +1595,7 @@ type TypingElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MsgTips string `protobuf:"bytes,1,opt,name=msgTips,proto3" json:"msgTips,omitempty"`
+	MsgTips string `protobuf:"bytes,1,opt,name=msgTips,proto3" json:"msgTips"`
 }
 
 func (x *TypingElem) Reset() {
@@ -1640,10 +1640,10 @@ type StreamElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type    string   `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Content string   `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
-	Packets []string `protobuf:"bytes,3,rep,name=packets,proto3" json:"packets,omitempty"`
-	End     bool     `protobuf:"varint,4,opt,name=end,proto3" json:"end,omitempty"`
+	Type    string   `protobuf:"bytes,1,opt,name=type,proto3" json:"type"`
+	Content string   `protobuf:"bytes,2,opt,name=content,proto3" json:"content"`
+	Packets []string `protobuf:"bytes,3,rep,name=packets,proto3" json:"packets"`
+	End     bool     `protobuf:"varint,4,opt,name=end,proto3" json:"end"`
 }
 
 func (x *StreamElem) Reset() {
@@ -1709,9 +1709,9 @@ type GroupHasReadInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	HasReadUserIDList []string `protobuf:"bytes,1,rep,name=hasReadUserIDList,proto3" json:"hasReadUserIDList,omitempty"`
-	HasReadCount      int32    `protobuf:"varint,2,opt,name=hasReadCount,proto3" json:"hasReadCount,omitempty"`
-	GroupMemberCount  int32    `protobuf:"varint,3,opt,name=groupMemberCount,proto3" json:"groupMemberCount,omitempty"`
+	HasReadUserIDList []string `protobuf:"bytes,1,rep,name=hasReadUserIDList,proto3" json:"hasReadUserIDList"`
+	HasReadCount      int32    `protobuf:"varint,2,opt,name=hasReadCount,proto3" json:"hasReadCount"`
+	GroupMemberCount  int32    `protobuf:"varint,3,opt,name=groupMemberCount,proto3" json:"groupMemberCount"`
 }
 
 func (x *GroupHasReadInfo) Reset() {
@@ -1770,10 +1770,10 @@ type UploadProgress struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Total    int64  `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Save     int64  `protobuf:"varint,2,opt,name=save,proto3" json:"save,omitempty"`
-	Current  int64  `protobuf:"varint,3,opt,name=current,proto3" json:"current,omitempty"`
-	UploadID string `protobuf:"bytes,4,opt,name=uploadID,proto3" json:"uploadID,omitempty"`
+	Total    int64  `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Save     int64  `protobuf:"varint,2,opt,name=save,proto3" json:"save"`
+	Current  int64  `protobuf:"varint,3,opt,name=current,proto3" json:"current"`
+	UploadID string `protobuf:"bytes,4,opt,name=uploadID,proto3" json:"uploadID"`
 }
 
 func (x *UploadProgress) Reset() {
@@ -1839,11 +1839,11 @@ type AttachedInfoElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupHasReadInfo *GroupHasReadInfo `protobuf:"bytes,1,opt,name=groupHasReadInfo,proto3" json:"groupHasReadInfo,omitempty"`
-	IsPrivateChat    bool              `protobuf:"varint,2,opt,name=isPrivateChat,proto3" json:"isPrivateChat,omitempty"`
-	BurnDuration     int32             `protobuf:"varint,3,opt,name=burnDuration,proto3" json:"burnDuration,omitempty"`
-	HasReadTime      int64             `protobuf:"varint,4,opt,name=hasReadTime,proto3" json:"hasReadTime,omitempty"`
-	Progress         *UploadProgress   `protobuf:"bytes,5,opt,name=progress,proto3" json:"progress,omitempty"`
+	GroupHasReadInfo *GroupHasReadInfo `protobuf:"bytes,1,opt,name=groupHasReadInfo,proto3" json:"groupHasReadInfo"`
+	IsPrivateChat    bool              `protobuf:"varint,2,opt,name=isPrivateChat,proto3" json:"isPrivateChat"`
+	BurnDuration     int32             `protobuf:"varint,3,opt,name=burnDuration,proto3" json:"burnDuration"`
+	HasReadTime      int64             `protobuf:"varint,4,opt,name=hasReadTime,proto3" json:"hasReadTime"`
+	Progress         *UploadProgress   `protobuf:"bytes,5,opt,name=progress,proto3" json:"progress"`
 }
 
 func (x *AttachedInfoElem) Reset() {
@@ -1916,25 +1916,25 @@ type IMMessage struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ClientMsgID      string                  `protobuf:"bytes,1,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
-	ServerMsgID      string                  `protobuf:"bytes,2,opt,name=serverMsgID,proto3" json:"serverMsgID,omitempty"`
-	CreateTime       int64                   `protobuf:"varint,3,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	SendTime         int64                   `protobuf:"varint,4,opt,name=sendTime,proto3" json:"sendTime,omitempty"`
-	SessionType      common.SessionType      `protobuf:"varint,5,opt,name=sessionType,proto3,enum=openim.sdk.common.SessionType" json:"sessionType,omitempty"`
-	SendID           string                  `protobuf:"bytes,6,opt,name=sendID,proto3" json:"sendID,omitempty"`
-	RecvID           string                  `protobuf:"bytes,7,opt,name=recvID,proto3" json:"recvID,omitempty"`
-	MsgFrom          common.MsgFrom          `protobuf:"varint,8,opt,name=msgFrom,proto3,enum=openim.sdk.common.MsgFrom" json:"msgFrom,omitempty"`
-	ContentType      common.ContentType      `protobuf:"varint,9,opt,name=contentType,proto3,enum=openim.sdk.common.ContentType" json:"contentType,omitempty"`
-	SenderPlatformID common.Platform         `protobuf:"varint,10,opt,name=senderPlatformID,proto3,enum=openim.sdk.common.Platform" json:"senderPlatformID,omitempty"`
-	SenderNickname   string                  `protobuf:"bytes,11,opt,name=senderNickname,proto3" json:"senderNickname,omitempty"`
-	SenderFaceURL    string                  `protobuf:"bytes,12,opt,name=senderFaceURL,proto3" json:"senderFaceURL,omitempty"`
-	GroupID          string                  `protobuf:"bytes,13,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	Seq              int64                   `protobuf:"varint,15,opt,name=seq,proto3" json:"seq,omitempty"`
-	IsRead           bool                    `protobuf:"varint,16,opt,name=isRead,proto3" json:"isRead,omitempty"`
-	Status           common.MsgStatus        `protobuf:"varint,17,opt,name=status,proto3,enum=openim.sdk.common.MsgStatus" json:"status,omitempty"`
-	OfflinePush      *common.OfflinePushInfo `protobuf:"bytes,18,opt,name=offlinePush,proto3" json:"offlinePush,omitempty"`
-	Ex               string                  `protobuf:"bytes,20,opt,name=ex,proto3" json:"ex,omitempty"`
-	LocalEx          string                  `protobuf:"bytes,21,opt,name=localEx,proto3" json:"localEx,omitempty"`
+	ClientMsgID      string                  `protobuf:"bytes,1,opt,name=clientMsgID,proto3" json:"clientMsgID"`
+	ServerMsgID      string                  `protobuf:"bytes,2,opt,name=serverMsgID,proto3" json:"serverMsgID"`
+	CreateTime       int64                   `protobuf:"varint,3,opt,name=createTime,proto3" json:"createTime"`
+	SendTime         int64                   `protobuf:"varint,4,opt,name=sendTime,proto3" json:"sendTime"`
+	SessionType      common.SessionType      `protobuf:"varint,5,opt,name=sessionType,proto3,enum=openim.sdk.common.SessionType" json:"sessionType"`
+	SendID           string                  `protobuf:"bytes,6,opt,name=sendID,proto3" json:"sendID"`
+	RecvID           string                  `protobuf:"bytes,7,opt,name=recvID,proto3" json:"recvID"`
+	MsgFrom          common.MsgFrom          `protobuf:"varint,8,opt,name=msgFrom,proto3,enum=openim.sdk.common.MsgFrom" json:"msgFrom"`
+	ContentType      common.ContentType      `protobuf:"varint,9,opt,name=contentType,proto3,enum=openim.sdk.common.ContentType" json:"contentType"`
+	SenderPlatformID common.Platform         `protobuf:"varint,10,opt,name=senderPlatformID,proto3,enum=openim.sdk.common.Platform" json:"senderPlatformID"`
+	SenderNickname   string                  `protobuf:"bytes,11,opt,name=senderNickname,proto3" json:"senderNickname"`
+	SenderFaceURL    string                  `protobuf:"bytes,12,opt,name=senderFaceURL,proto3" json:"senderFaceURL"`
+	GroupID          string                  `protobuf:"bytes,13,opt,name=groupID,proto3" json:"groupID"`
+	Seq              int64                   `protobuf:"varint,15,opt,name=seq,proto3" json:"seq"`
+	IsRead           bool                    `protobuf:"varint,16,opt,name=isRead,proto3" json:"isRead"`
+	Status           common.MsgStatus        `protobuf:"varint,17,opt,name=status,proto3,enum=openim.sdk.common.MsgStatus" json:"status"`
+	OfflinePush      *common.OfflinePushInfo `protobuf:"bytes,18,opt,name=offlinePush,proto3" json:"offlinePush"`
+	Ex               string                  `protobuf:"bytes,20,opt,name=ex,proto3" json:"ex"`
+	LocalEx          string                  `protobuf:"bytes,21,opt,name=localEx,proto3" json:"localEx"`
 	// Types that are assignable to Content:
 	//
 	//	*IMMessage_TextElem
@@ -1954,7 +1954,7 @@ type IMMessage struct {
 	//	*IMMessage_TypingElem
 	//	*IMMessage_StreamElem
 	Content          isIMMessage_Content `protobuf_oneof:"content"`
-	AttachedInfoElem *AttachedInfoElem   `protobuf:"bytes,39,opt,name=attachedInfoElem,proto3" json:"attachedInfoElem,omitempty"`
+	AttachedInfoElem *AttachedInfoElem   `protobuf:"bytes,39,opt,name=attachedInfoElem,proto3" json:"attachedInfoElem"`
 }
 
 func (x *IMMessage) Reset() {

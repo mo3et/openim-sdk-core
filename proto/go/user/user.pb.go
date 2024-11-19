@@ -26,12 +26,12 @@ type CommandInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID     string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Type       int32  `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
-	CreateTime int64  `protobuf:"varint,3,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	Uuid       string `protobuf:"bytes,4,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	Value      string `protobuf:"bytes,5,opt,name=value,proto3" json:"value,omitempty"`
-	Ex         string `protobuf:"bytes,6,opt,name=ex,proto3" json:"ex,omitempty"`
+	UserID     string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Type       int32  `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
+	CreateTime int64  `protobuf:"varint,3,opt,name=createTime,proto3" json:"createTime"`
+	Uuid       string `protobuf:"bytes,4,opt,name=uuid,proto3" json:"uuid"`
+	Value      string `protobuf:"bytes,5,opt,name=value,proto3" json:"value"`
+	Ex         string `protobuf:"bytes,6,opt,name=ex,proto3" json:"ex"`
 }
 
 func (x *CommandInfo) Reset() {
@@ -147,7 +147,7 @@ type GetSelfUserInfoResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	User *shared.UserInfo `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	User *shared.UserInfo `protobuf:"bytes,1,opt,name=user,proto3" json:"user"`
 }
 
 func (x *GetSelfUserInfoResp) Reset() {
@@ -192,11 +192,11 @@ type SetSelfInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID           string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Nickname         *string `protobuf:"bytes,2,opt,name=nickname,proto3,oneof" json:"nickname,omitempty"`
-	FaceURL          *string `protobuf:"bytes,3,opt,name=faceURL,proto3,oneof" json:"faceURL,omitempty"`
-	Ex               *string `protobuf:"bytes,4,opt,name=ex,proto3,oneof" json:"ex,omitempty"`
-	GlobalRecvMsgOpt *int32  `protobuf:"varint,7,opt,name=globalRecvMsgOpt,proto3,oneof" json:"globalRecvMsgOpt,omitempty"`
+	UserID           string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Nickname         *string `protobuf:"bytes,2,opt,name=nickname,proto3,oneof" json:"nickname"`
+	FaceURL          *string `protobuf:"bytes,3,opt,name=faceURL,proto3,oneof" json:"faceURL"`
+	Ex               *string `protobuf:"bytes,4,opt,name=ex,proto3,oneof" json:"ex"`
+	GlobalRecvMsgOpt *int32  `protobuf:"varint,7,opt,name=globalRecvMsgOpt,proto3,oneof" json:"globalRecvMsgOpt"`
 }
 
 func (x *SetSelfInfoReq) Reset() {
@@ -305,11 +305,11 @@ type ProcessUserCommandAddReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Type   int32   `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
-	Uuid   string  `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	Value  *string `protobuf:"bytes,4,opt,name=value,proto3,oneof" json:"value,omitempty"`
-	Ex     *string `protobuf:"bytes,5,opt,name=ex,proto3,oneof" json:"ex,omitempty"`
+	UserID string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Type   int32   `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
+	Uuid   string  `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`
+	Value  *string `protobuf:"bytes,4,opt,name=value,proto3,oneof" json:"value"`
+	Ex     *string `protobuf:"bytes,5,opt,name=ex,proto3,oneof" json:"ex"`
 }
 
 func (x *ProcessUserCommandAddReq) Reset() {
@@ -418,9 +418,9 @@ type ProcessUserCommandDeleteReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Type   int32  `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
-	Uuid   string `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Type   int32  `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
+	Uuid   string `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`
 }
 
 func (x *ProcessUserCommandDeleteReq) Reset() {
@@ -515,11 +515,11 @@ type ProcessUserCommandUpdateReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Type   int32   `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
-	Uuid   string  `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	Value  *string `protobuf:"bytes,4,opt,name=value,proto3,oneof" json:"value,omitempty"`
-	Ex     *string `protobuf:"bytes,5,opt,name=ex,proto3,oneof" json:"ex,omitempty"`
+	UserID string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Type   int32   `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
+	Uuid   string  `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`
+	Value  *string `protobuf:"bytes,4,opt,name=value,proto3,oneof" json:"value"`
+	Ex     *string `protobuf:"bytes,5,opt,name=ex,proto3,oneof" json:"ex"`
 }
 
 func (x *ProcessUserCommandUpdateReq) Reset() {
@@ -664,7 +664,7 @@ type ProcessUserCommandGetAllResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Commands []*CommandInfo `protobuf:"bytes,1,rep,name=commands,proto3" json:"commands,omitempty"`
+	Commands []*CommandInfo `protobuf:"bytes,1,rep,name=commands,proto3" json:"commands"`
 }
 
 func (x *ProcessUserCommandGetAllResp) Reset() {
@@ -709,7 +709,7 @@ type GetUsersInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs,omitempty"`
+	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"`
 }
 
 func (x *GetUsersInfoReq) Reset() {
@@ -754,7 +754,7 @@ type GetUsersInfoResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Users []*shared.UserInfo `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	Users []*shared.UserInfo `protobuf:"bytes,1,rep,name=users,proto3" json:"users"`
 }
 
 func (x *GetUsersInfoResp) Reset() {
@@ -799,7 +799,7 @@ type GetUsersInfoFromServerReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs,omitempty"`
+	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"`
 }
 
 func (x *GetUsersInfoFromServerReq) Reset() {
@@ -844,7 +844,7 @@ type GetUsersInfoFromServerResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Users []*shared.UserInfo `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	Users []*shared.UserInfo `protobuf:"bytes,1,rep,name=users,proto3" json:"users"`
 }
 
 func (x *GetUsersInfoFromServerResp) Reset() {

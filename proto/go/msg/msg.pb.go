@@ -27,13 +27,13 @@ type MessageReceipt struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID     string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	UserID      string   `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`
-	MsgIDList   []string `protobuf:"bytes,3,rep,name=msgIDList,proto3" json:"msgIDList,omitempty"`
-	ReadTime    int64    `protobuf:"varint,4,opt,name=readTime,proto3" json:"readTime,omitempty"`
-	MsgFrom     int32    `protobuf:"varint,5,opt,name=msgFrom,proto3" json:"msgFrom,omitempty"`
-	ContentType int32    `protobuf:"varint,6,opt,name=contentType,proto3" json:"contentType,omitempty"`
-	SessionType int32    `protobuf:"varint,7,opt,name=sessionType,proto3" json:"sessionType,omitempty"`
+	GroupID     string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	UserID      string   `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
+	MsgIDList   []string `protobuf:"bytes,3,rep,name=msgIDList,proto3" json:"msgIDList"`
+	ReadTime    int64    `protobuf:"varint,4,opt,name=readTime,proto3" json:"readTime"`
+	MsgFrom     int32    `protobuf:"varint,5,opt,name=msgFrom,proto3" json:"msgFrom"`
+	ContentType int32    `protobuf:"varint,6,opt,name=contentType,proto3" json:"contentType"`
+	SessionType int32    `protobuf:"varint,7,opt,name=sessionType,proto3" json:"sessionType"`
 }
 
 func (x *MessageReceipt) Reset() {
@@ -120,18 +120,18 @@ type MessageRevoked struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	RevokerID                   string `protobuf:"bytes,1,opt,name=revokerID,proto3" json:"revokerID,omitempty"`
-	RevokerRole                 int32  `protobuf:"varint,2,opt,name=revokerRole,proto3" json:"revokerRole,omitempty"`
-	ClientMsgID                 string `protobuf:"bytes,3,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
-	RevokerNickname             string `protobuf:"bytes,4,opt,name=revokerNickname,proto3" json:"revokerNickname,omitempty"`
-	RevokeTime                  int64  `protobuf:"varint,5,opt,name=revokeTime,proto3" json:"revokeTime,omitempty"`
-	SourceMessageSendTime       int64  `protobuf:"varint,6,opt,name=sourceMessageSendTime,proto3" json:"sourceMessageSendTime,omitempty"`
-	SourceMessageSendID         string `protobuf:"bytes,7,opt,name=sourceMessageSendID,proto3" json:"sourceMessageSendID,omitempty"`
-	SourceMessageSenderNickname string `protobuf:"bytes,8,opt,name=sourceMessageSenderNickname,proto3" json:"sourceMessageSenderNickname,omitempty"`
-	SessionType                 int32  `protobuf:"varint,9,opt,name=sessionType,proto3" json:"sessionType,omitempty"`
-	Seq                         int64  `protobuf:"varint,10,opt,name=seq,proto3" json:"seq,omitempty"`
-	Ex                          string `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex,omitempty"`
-	IsAdminRevoke               bool   `protobuf:"varint,12,opt,name=isAdminRevoke,proto3" json:"isAdminRevoke,omitempty"`
+	RevokerID                   string `protobuf:"bytes,1,opt,name=revokerID,proto3" json:"revokerID"`
+	RevokerRole                 int32  `protobuf:"varint,2,opt,name=revokerRole,proto3" json:"revokerRole"`
+	ClientMsgID                 string `protobuf:"bytes,3,opt,name=clientMsgID,proto3" json:"clientMsgID"`
+	RevokerNickname             string `protobuf:"bytes,4,opt,name=revokerNickname,proto3" json:"revokerNickname"`
+	RevokeTime                  int64  `protobuf:"varint,5,opt,name=revokeTime,proto3" json:"revokeTime"`
+	SourceMessageSendTime       int64  `protobuf:"varint,6,opt,name=sourceMessageSendTime,proto3" json:"sourceMessageSendTime"`
+	SourceMessageSendID         string `protobuf:"bytes,7,opt,name=sourceMessageSendID,proto3" json:"sourceMessageSendID"`
+	SourceMessageSenderNickname string `protobuf:"bytes,8,opt,name=sourceMessageSenderNickname,proto3" json:"sourceMessageSenderNickname"`
+	SessionType                 int32  `protobuf:"varint,9,opt,name=sessionType,proto3" json:"sessionType"`
+	Seq                         int64  `protobuf:"varint,10,opt,name=seq,proto3" json:"seq"`
+	Ex                          string `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex"`
+	IsAdminRevoke               bool   `protobuf:"varint,12,opt,name=isAdminRevoke,proto3" json:"isAdminRevoke"`
 }
 
 func (x *MessageRevoked) Reset() {
@@ -253,13 +253,13 @@ type MessageReaction struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ClientMsgID  string `protobuf:"bytes,1,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
-	ReactionType int32  `protobuf:"varint,2,opt,name=reactionType,proto3" json:"reactionType,omitempty"`
-	Counter      int32  `protobuf:"varint,3,opt,name=counter,proto3" json:"counter,omitempty"`
-	UserID       string `protobuf:"bytes,4,opt,name=userID,proto3" json:"userID,omitempty"`
-	GroupID      string `protobuf:"bytes,5,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	SessionType  int32  `protobuf:"varint,6,opt,name=sessionType,proto3" json:"sessionType,omitempty"`
-	Info         string `protobuf:"bytes,7,opt,name=info,proto3" json:"info,omitempty"`
+	ClientMsgID  string `protobuf:"bytes,1,opt,name=clientMsgID,proto3" json:"clientMsgID"`
+	ReactionType int32  `protobuf:"varint,2,opt,name=reactionType,proto3" json:"reactionType"`
+	Counter      int32  `protobuf:"varint,3,opt,name=counter,proto3" json:"counter"`
+	UserID       string `protobuf:"bytes,4,opt,name=userID,proto3" json:"userID"`
+	GroupID      string `protobuf:"bytes,5,opt,name=groupID,proto3" json:"groupID"`
+	SessionType  int32  `protobuf:"varint,6,opt,name=sessionType,proto3" json:"sessionType"`
+	Info         string `protobuf:"bytes,7,opt,name=info,proto3" json:"info"`
 }
 
 func (x *MessageReaction) Reset() {
@@ -346,11 +346,11 @@ type ReactionElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Counter          int32               `protobuf:"varint,1,opt,name=counter,proto3" json:"counter,omitempty"`
-	Type             int32               `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
-	UserReactionList []*UserReactionElem `protobuf:"bytes,3,rep,name=userReactionList,proto3" json:"userReactionList,omitempty"`
-	CanRepeat        bool                `protobuf:"varint,4,opt,name=canRepeat,proto3" json:"canRepeat,omitempty"`
-	Info             string              `protobuf:"bytes,5,opt,name=info,proto3" json:"info,omitempty"`
+	Counter          int32               `protobuf:"varint,1,opt,name=counter,proto3" json:"counter"`
+	Type             int32               `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
+	UserReactionList []*UserReactionElem `protobuf:"bytes,3,rep,name=userReactionList,proto3" json:"userReactionList"`
+	CanRepeat        bool                `protobuf:"varint,4,opt,name=canRepeat,proto3" json:"canRepeat"`
+	Info             string              `protobuf:"bytes,5,opt,name=info,proto3" json:"info"`
 }
 
 func (x *ReactionElem) Reset() {
@@ -423,9 +423,9 @@ type UserReactionElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID  string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Counter int32  `protobuf:"varint,2,opt,name=counter,proto3" json:"counter,omitempty"`
-	Info    string `protobuf:"bytes,3,opt,name=info,proto3" json:"info,omitempty"`
+	UserID  string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Counter int32  `protobuf:"varint,2,opt,name=counter,proto3" json:"counter"`
+	Info    string `protobuf:"bytes,3,opt,name=info,proto3" json:"info"`
 }
 
 func (x *UserReactionElem) Reset() {
@@ -484,9 +484,9 @@ type GroupHasReadInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	HasReadUserIDList []string `protobuf:"bytes,1,rep,name=hasReadUserIDList,proto3" json:"hasReadUserIDList,omitempty"`
-	HasReadCount      int32    `protobuf:"varint,2,opt,name=hasReadCount,proto3" json:"hasReadCount,omitempty"`
-	GroupMemberCount  int32    `protobuf:"varint,3,opt,name=groupMemberCount,proto3" json:"groupMemberCount,omitempty"`
+	HasReadUserIDList []string `protobuf:"bytes,1,rep,name=hasReadUserIDList,proto3" json:"hasReadUserIDList"`
+	HasReadCount      int32    `protobuf:"varint,2,opt,name=hasReadCount,proto3" json:"hasReadCount"`
+	GroupMemberCount  int32    `protobuf:"varint,3,opt,name=groupMemberCount,proto3" json:"groupMemberCount"`
 }
 
 func (x *GroupHasReadInfo) Reset() {
@@ -545,9 +545,9 @@ type GetAdvancedHistoryMessageListParams struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID   string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	StartClientMsgID string `protobuf:"bytes,2,opt,name=startClientMsgID,proto3" json:"startClientMsgID,omitempty"`
-	Count            int32  `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"`
+	ConversationID   string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	StartClientMsgID string `protobuf:"bytes,2,opt,name=startClientMsgID,proto3" json:"startClientMsgID"`
+	Count            int32  `protobuf:"varint,3,opt,name=count,proto3" json:"count"`
 }
 
 func (x *GetAdvancedHistoryMessageListParams) Reset() {
@@ -606,10 +606,10 @@ type GetAdvancedHistoryMessageListCallback struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MessageList []*message.IMMessage `protobuf:"bytes,1,rep,name=messageList,proto3" json:"messageList,omitempty"`
-	IsEnd       bool                 `protobuf:"varint,2,opt,name=isEnd,proto3" json:"isEnd,omitempty"`
-	ErrCode     int32                `protobuf:"varint,3,opt,name=errCode,proto3" json:"errCode,omitempty"`
-	ErrMsg      string               `protobuf:"bytes,4,opt,name=errMsg,proto3" json:"errMsg,omitempty"`
+	MessageList []*message.IMMessage `protobuf:"bytes,1,rep,name=messageList,proto3" json:"messageList"`
+	IsEnd       bool                 `protobuf:"varint,2,opt,name=isEnd,proto3" json:"isEnd"`
+	ErrCode     int32                `protobuf:"varint,3,opt,name=errCode,proto3" json:"errCode"`
+	ErrMsg      string               `protobuf:"bytes,4,opt,name=errMsg,proto3" json:"errMsg"`
 }
 
 func (x *GetAdvancedHistoryMessageListCallback) Reset() {
@@ -676,11 +676,11 @@ type SendMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message         *message.IMMessage      `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	RecvID          string                  `protobuf:"bytes,2,opt,name=recvID,proto3" json:"recvID,omitempty"`
-	GroupID         string                  `protobuf:"bytes,3,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	OfflinePushInfo *common.OfflinePushInfo `protobuf:"bytes,4,opt,name=offlinePushInfo,proto3" json:"offlinePushInfo,omitempty"`
-	IsOnlineOnly    bool                    `protobuf:"varint,5,opt,name=isOnlineOnly,proto3" json:"isOnlineOnly,omitempty"`
+	Message         *message.IMMessage      `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
+	RecvID          string                  `protobuf:"bytes,2,opt,name=recvID,proto3" json:"recvID"`
+	GroupID         string                  `protobuf:"bytes,3,opt,name=groupID,proto3" json:"groupID"`
+	OfflinePushInfo *common.OfflinePushInfo `protobuf:"bytes,4,opt,name=offlinePushInfo,proto3" json:"offlinePushInfo"`
+	IsOnlineOnly    bool                    `protobuf:"varint,5,opt,name=isOnlineOnly,proto3" json:"isOnlineOnly"`
 }
 
 func (x *SendMessageReq) Reset() {
@@ -753,7 +753,7 @@ type SendMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *SendMessageResp) Reset() {
@@ -798,8 +798,8 @@ type GetAdvancedHistoryMessageListReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID                      string                               `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	GetAdvancedHistoryMessageListParams *GetAdvancedHistoryMessageListParams `protobuf:"bytes,2,opt,name=getAdvancedHistoryMessageListParams,proto3" json:"getAdvancedHistoryMessageListParams,omitempty"`
+	ConversationID                      string                               `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	GetAdvancedHistoryMessageListParams *GetAdvancedHistoryMessageListParams `protobuf:"bytes,2,opt,name=getAdvancedHistoryMessageListParams,proto3" json:"getAdvancedHistoryMessageListParams"`
 }
 
 func (x *GetAdvancedHistoryMessageListReq) Reset() {
@@ -851,7 +851,7 @@ type GetAdvancedHistoryMessageListResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GetAdvancedHistoryMessageListCallback *GetAdvancedHistoryMessageListCallback `protobuf:"bytes,1,opt,name=getAdvancedHistoryMessageListCallback,proto3" json:"getAdvancedHistoryMessageListCallback,omitempty"`
+	GetAdvancedHistoryMessageListCallback *GetAdvancedHistoryMessageListCallback `protobuf:"bytes,1,opt,name=getAdvancedHistoryMessageListCallback,proto3" json:"getAdvancedHistoryMessageListCallback"`
 }
 
 func (x *GetAdvancedHistoryMessageListResp) Reset() {
@@ -896,8 +896,8 @@ type GetAdvancedHistoryMessageListReverseReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID                      string                               `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	GetAdvancedHistoryMessageListParams *GetAdvancedHistoryMessageListParams `protobuf:"bytes,2,opt,name=getAdvancedHistoryMessageListParams,proto3" json:"getAdvancedHistoryMessageListParams,omitempty"`
+	ConversationID                      string                               `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	GetAdvancedHistoryMessageListParams *GetAdvancedHistoryMessageListParams `protobuf:"bytes,2,opt,name=getAdvancedHistoryMessageListParams,proto3" json:"getAdvancedHistoryMessageListParams"`
 }
 
 func (x *GetAdvancedHistoryMessageListReverseReq) Reset() {
@@ -949,7 +949,7 @@ type GetAdvancedHistoryMessageListReverseResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GetAdvancedHistoryMessageListCallback *GetAdvancedHistoryMessageListCallback `protobuf:"bytes,1,opt,name=getAdvancedHistoryMessageListCallback,proto3" json:"getAdvancedHistoryMessageListCallback,omitempty"`
+	GetAdvancedHistoryMessageListCallback *GetAdvancedHistoryMessageListCallback `protobuf:"bytes,1,opt,name=getAdvancedHistoryMessageListCallback,proto3" json:"getAdvancedHistoryMessageListCallback"`
 }
 
 func (x *GetAdvancedHistoryMessageListReverseResp) Reset() {
@@ -994,8 +994,8 @@ type RevokeMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID"`
 }
 
 func (x *RevokeMessageReq) Reset() {
@@ -1083,8 +1083,8 @@ type TypingStatusUpdateReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	RecvID string `protobuf:"bytes,1,opt,name=recvID,proto3" json:"recvID,omitempty"`
-	MsgTip string `protobuf:"bytes,2,opt,name=msgTip,proto3" json:"msgTip,omitempty"`
+	RecvID string `protobuf:"bytes,1,opt,name=recvID,proto3" json:"recvID"`
+	MsgTip string `protobuf:"bytes,2,opt,name=msgTip,proto3" json:"msgTip"`
 }
 
 func (x *TypingStatusUpdateReq) Reset() {
@@ -1172,8 +1172,8 @@ type DeleteMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID,omitempty"`
-	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID,omitempty"`
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	ClientMsgID    string `protobuf:"bytes,2,opt,name=clientMsgID,proto3" json:"clientMsgID"`
 }
 
 func (x *DeleteMessageReq) Reset() {
@@ -1405,9 +1405,9 @@ type InsertSingleMessageToLocalStorageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Msg    *message.IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
-	RecvID string             `protobuf:"bytes,2,opt,name=recvID,proto3" json:"recvID,omitempty"`
-	SendID string             `protobuf:"bytes,3,opt,name=sendID,proto3" json:"sendID,omitempty"`
+	Msg    *message.IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg"`
+	RecvID string             `protobuf:"bytes,2,opt,name=recvID,proto3" json:"recvID"`
+	SendID string             `protobuf:"bytes,3,opt,name=sendID,proto3" json:"sendID"`
 }
 
 func (x *InsertSingleMessageToLocalStorageReq) Reset() {
@@ -1466,7 +1466,7 @@ type InsertSingleMessageToLocalStorageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Msg *message.IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Msg *message.IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg"`
 }
 
 func (x *InsertSingleMessageToLocalStorageResp) Reset() {
@@ -1511,9 +1511,9 @@ type InsertGroupMessageToLocalStorageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Msg     *message.IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
-	GroupID string             `protobuf:"bytes,2,opt,name=groupID,proto3" json:"groupID,omitempty"`
-	SendID  string             `protobuf:"bytes,3,opt,name=sendID,proto3" json:"sendID,omitempty"`
+	Msg     *message.IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg"`
+	GroupID string             `protobuf:"bytes,2,opt,name=groupID,proto3" json:"groupID"`
+	SendID  string             `protobuf:"bytes,3,opt,name=sendID,proto3" json:"sendID"`
 }
 
 func (x *InsertGroupMessageToLocalStorageReq) Reset() {
@@ -1572,7 +1572,7 @@ type InsertGroupMessageToLocalStorageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Msg *message.IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Msg *message.IMMessage `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg"`
 }
 
 func (x *InsertGroupMessageToLocalStorageResp) Reset() {
@@ -1617,7 +1617,7 @@ type CreateTextMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text string `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	Text string `protobuf:"bytes,1,opt,name=text,proto3" json:"text"`
 }
 
 func (x *CreateTextMessageReq) Reset() {
@@ -1662,7 +1662,7 @@ type CreateTextMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateTextMessageResp) Reset() {
@@ -1707,8 +1707,8 @@ type CreateAdvancedTextMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text            string                   `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	MessageEntities []*message.MessageEntity `protobuf:"bytes,2,rep,name=messageEntities,proto3" json:"messageEntities,omitempty"`
+	Text            string                   `protobuf:"bytes,1,opt,name=text,proto3" json:"text"`
+	MessageEntities []*message.MessageEntity `protobuf:"bytes,2,rep,name=messageEntities,proto3" json:"messageEntities"`
 }
 
 func (x *CreateAdvancedTextMessageReq) Reset() {
@@ -1760,7 +1760,7 @@ type CreateAdvancedTextMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateAdvancedTextMessageResp) Reset() {
@@ -1805,10 +1805,10 @@ type CreateTextAtMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text         string             `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	UserIDList   []string           `protobuf:"bytes,2,rep,name=userIDList,proto3" json:"userIDList,omitempty"`
-	UsersInfo    []*message.AtInfo  `protobuf:"bytes,3,rep,name=usersInfo,proto3" json:"usersInfo,omitempty"`
-	QuoteMessage *message.IMMessage `protobuf:"bytes,4,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
+	Text         string             `protobuf:"bytes,1,opt,name=text,proto3" json:"text"`
+	UserIDList   []string           `protobuf:"bytes,2,rep,name=userIDList,proto3" json:"userIDList"`
+	UsersInfo    []*message.AtInfo  `protobuf:"bytes,3,rep,name=usersInfo,proto3" json:"usersInfo"`
+	QuoteMessage *message.IMMessage `protobuf:"bytes,4,opt,name=quoteMessage,proto3" json:"quoteMessage"`
 }
 
 func (x *CreateTextAtMessageReq) Reset() {
@@ -1874,7 +1874,7 @@ type CreateTextAtMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateTextAtMessageResp) Reset() {
@@ -1919,9 +1919,9 @@ type CreateLocationMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Description string  `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
-	Longitude   float64 `protobuf:"fixed64,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Latitude    float64 `protobuf:"fixed64,3,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Description string  `protobuf:"bytes,1,opt,name=description,proto3" json:"description"`
+	Longitude   float64 `protobuf:"fixed64,2,opt,name=longitude,proto3" json:"longitude"`
+	Latitude    float64 `protobuf:"fixed64,3,opt,name=latitude,proto3" json:"latitude"`
 }
 
 func (x *CreateLocationMessageReq) Reset() {
@@ -1980,7 +1980,7 @@ type CreateLocationMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateLocationMessageResp) Reset() {
@@ -2025,9 +2025,9 @@ type CreateCustomMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data        string `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
-	Extension   string `protobuf:"bytes,2,opt,name=extension,proto3" json:"extension,omitempty"`
-	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Data        string `protobuf:"bytes,1,opt,name=data,proto3" json:"data"`
+	Extension   string `protobuf:"bytes,2,opt,name=extension,proto3" json:"extension"`
+	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description"`
 }
 
 func (x *CreateCustomMessageReq) Reset() {
@@ -2086,7 +2086,7 @@ type CreateCustomMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateCustomMessageResp) Reset() {
@@ -2131,8 +2131,8 @@ type CreateQuoteMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text         string             `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	QuoteMessage *message.IMMessage `protobuf:"bytes,2,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
+	Text         string             `protobuf:"bytes,1,opt,name=text,proto3" json:"text"`
+	QuoteMessage *message.IMMessage `protobuf:"bytes,2,opt,name=quoteMessage,proto3" json:"quoteMessage"`
 }
 
 func (x *CreateQuoteMessageReq) Reset() {
@@ -2184,7 +2184,7 @@ type CreateQuoteMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateQuoteMessageResp) Reset() {
@@ -2229,9 +2229,9 @@ type CreateAdvancedQuoteMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text            string                   `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	QuoteMessage    *message.IMMessage       `protobuf:"bytes,2,opt,name=quoteMessage,proto3" json:"quoteMessage,omitempty"`
-	MessageEntities []*message.MessageEntity `protobuf:"bytes,3,rep,name=messageEntities,proto3" json:"messageEntities,omitempty"`
+	Text            string                   `protobuf:"bytes,1,opt,name=text,proto3" json:"text"`
+	QuoteMessage    *message.IMMessage       `protobuf:"bytes,2,opt,name=quoteMessage,proto3" json:"quoteMessage"`
+	MessageEntities []*message.MessageEntity `protobuf:"bytes,3,rep,name=messageEntities,proto3" json:"messageEntities"`
 }
 
 func (x *CreateAdvancedQuoteMessageReq) Reset() {
@@ -2290,7 +2290,7 @@ type CreateAdvancedQuoteMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateAdvancedQuoteMessageResp) Reset() {
@@ -2335,7 +2335,7 @@ type CreateCardMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Card *message.CardElem `protobuf:"bytes,1,opt,name=card,proto3" json:"card,omitempty"`
+	Card *message.CardElem `protobuf:"bytes,1,opt,name=card,proto3" json:"card"`
 }
 
 func (x *CreateCardMessageReq) Reset() {
@@ -2380,7 +2380,7 @@ type CreateCardMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateCardMessageResp) Reset() {
@@ -2425,10 +2425,10 @@ type CreateImageMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ImageSourcePath string                   `protobuf:"bytes,1,opt,name=imageSourcePath,proto3" json:"imageSourcePath,omitempty"`
-	SourcePicture   *message.PictureBaseInfo `protobuf:"bytes,2,opt,name=sourcePicture,proto3" json:"sourcePicture,omitempty"`
-	BigPicture      *message.PictureBaseInfo `protobuf:"bytes,3,opt,name=bigPicture,proto3" json:"bigPicture,omitempty"`
-	SnapshotPicture *message.PictureBaseInfo `protobuf:"bytes,4,opt,name=snapshotPicture,proto3" json:"snapshotPicture,omitempty"`
+	ImageSourcePath string                   `protobuf:"bytes,1,opt,name=imageSourcePath,proto3" json:"imageSourcePath"`
+	SourcePicture   *message.PictureBaseInfo `protobuf:"bytes,2,opt,name=sourcePicture,proto3" json:"sourcePicture"`
+	BigPicture      *message.PictureBaseInfo `protobuf:"bytes,3,opt,name=bigPicture,proto3" json:"bigPicture"`
+	SnapshotPicture *message.PictureBaseInfo `protobuf:"bytes,4,opt,name=snapshotPicture,proto3" json:"snapshotPicture"`
 }
 
 func (x *CreateImageMessageReq) Reset() {
@@ -2494,7 +2494,7 @@ type CreateImageMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateImageMessageResp) Reset() {
@@ -2539,9 +2539,9 @@ type CreateSoundMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SoundPath string                 `protobuf:"bytes,1,opt,name=soundPath,proto3" json:"soundPath,omitempty"`
-	Duration  int64                  `protobuf:"varint,2,opt,name=duration,proto3" json:"duration,omitempty"`
-	SoundElem *message.SoundBaseInfo `protobuf:"bytes,3,opt,name=soundElem,proto3" json:"soundElem,omitempty"`
+	SoundPath string                 `protobuf:"bytes,1,opt,name=soundPath,proto3" json:"soundPath"`
+	Duration  int64                  `protobuf:"varint,2,opt,name=duration,proto3" json:"duration"`
+	SoundElem *message.SoundBaseInfo `protobuf:"bytes,3,opt,name=soundElem,proto3" json:"soundElem"`
 }
 
 func (x *CreateSoundMessageReq) Reset() {
@@ -2600,7 +2600,7 @@ type CreateSoundMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateSoundMessageResp) Reset() {
@@ -2645,11 +2645,11 @@ type CreateVideoMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	VideoSourcePath    string                 `protobuf:"bytes,1,opt,name=videoSourcePath,proto3" json:"videoSourcePath,omitempty"`
-	VideoType          string                 `protobuf:"bytes,2,opt,name=videoType,proto3" json:"videoType,omitempty"`
-	Duration           int64                  `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
-	SnapshotSourcePath string                 `protobuf:"bytes,4,opt,name=snapshotSourcePath,proto3" json:"snapshotSourcePath,omitempty"`
-	VideoElem          *message.VideoBaseInfo `protobuf:"bytes,5,opt,name=videoElem,proto3" json:"videoElem,omitempty"`
+	VideoSourcePath    string                 `protobuf:"bytes,1,opt,name=videoSourcePath,proto3" json:"videoSourcePath"`
+	VideoType          string                 `protobuf:"bytes,2,opt,name=videoType,proto3" json:"videoType"`
+	Duration           int64                  `protobuf:"varint,3,opt,name=duration,proto3" json:"duration"`
+	SnapshotSourcePath string                 `protobuf:"bytes,4,opt,name=snapshotSourcePath,proto3" json:"snapshotSourcePath"`
+	VideoElem          *message.VideoBaseInfo `protobuf:"bytes,5,opt,name=videoElem,proto3" json:"videoElem"`
 }
 
 func (x *CreateVideoMessageReq) Reset() {
@@ -2722,7 +2722,7 @@ type CreateVideoMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateVideoMessageResp) Reset() {
@@ -2767,9 +2767,9 @@ type CreateFileMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FileSourcePath string                `protobuf:"bytes,1,opt,name=fileSourcePath,proto3" json:"fileSourcePath,omitempty"`
-	FileName       string                `protobuf:"bytes,2,opt,name=fileName,proto3" json:"fileName,omitempty"`
-	FileElem       *message.FileBaseInfo `protobuf:"bytes,3,opt,name=fileElem,proto3" json:"fileElem,omitempty"`
+	FileSourcePath string                `protobuf:"bytes,1,opt,name=fileSourcePath,proto3" json:"fileSourcePath"`
+	FileName       string                `protobuf:"bytes,2,opt,name=fileName,proto3" json:"fileName"`
+	FileElem       *message.FileBaseInfo `protobuf:"bytes,3,opt,name=fileElem,proto3" json:"fileElem"`
 }
 
 func (x *CreateFileMessageReq) Reset() {
@@ -2828,7 +2828,7 @@ type CreateFileMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateFileMessageResp) Reset() {
@@ -2873,9 +2873,9 @@ type CreateMergerMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Messages  []*message.IMMessage `protobuf:"bytes,1,rep,name=messages,proto3" json:"messages,omitempty"`
-	Title     string               `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	Summaries []string             `protobuf:"bytes,3,rep,name=summaries,proto3" json:"summaries,omitempty"`
+	Messages  []*message.IMMessage `protobuf:"bytes,1,rep,name=messages,proto3" json:"messages"`
+	Title     string               `protobuf:"bytes,2,opt,name=title,proto3" json:"title"`
+	Summaries []string             `protobuf:"bytes,3,rep,name=summaries,proto3" json:"summaries"`
 }
 
 func (x *CreateMergerMessageReq) Reset() {
@@ -2934,7 +2934,7 @@ type CreateMergerMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateMergerMessageResp) Reset() {
@@ -2979,8 +2979,8 @@ type CreateFaceMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Index int32  `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
-	Data  string `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Index int32  `protobuf:"varint,1,opt,name=index,proto3" json:"index"`
+	Data  string `protobuf:"bytes,2,opt,name=data,proto3" json:"data"`
 }
 
 func (x *CreateFaceMessageReq) Reset() {
@@ -3032,7 +3032,7 @@ type CreateFaceMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateFaceMessageResp) Reset() {
@@ -3077,7 +3077,7 @@ type CreateForwardMessageReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateForwardMessageReq) Reset() {
@@ -3122,7 +3122,7 @@ type CreateForwardMessageResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message *message.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *CreateForwardMessageResp) Reset() {
@@ -3167,8 +3167,8 @@ type UploadLogsReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Line int32  `protobuf:"varint,1,opt,name=line,proto3" json:"line,omitempty"`
-	Ex   string `protobuf:"bytes,2,opt,name=ex,proto3" json:"ex,omitempty"`
+	Line int32  `protobuf:"varint,1,opt,name=line,proto3" json:"line"`
+	Ex   string `protobuf:"bytes,2,opt,name=ex,proto3" json:"ex"`
 }
 
 func (x *UploadLogsReq) Reset() {
@@ -3256,11 +3256,11 @@ type LogReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	LogLevel int32  `protobuf:"varint,1,opt,name=logLevel,proto3" json:"logLevel,omitempty"`
-	File     string `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
-	Line     int32  `protobuf:"varint,3,opt,name=line,proto3" json:"line,omitempty"`
-	Msg      string `protobuf:"bytes,4,opt,name=msg,proto3" json:"msg,omitempty"`
-	Err      string `protobuf:"bytes,5,opt,name=err,proto3" json:"err,omitempty"` //  repeated google.protobuf.Any keysAndValues = 6;
+	LogLevel int32  `protobuf:"varint,1,opt,name=logLevel,proto3" json:"logLevel"`
+	File     string `protobuf:"bytes,2,opt,name=file,proto3" json:"file"`
+	Line     int32  `protobuf:"varint,3,opt,name=line,proto3" json:"line"`
+	Msg      string `protobuf:"bytes,4,opt,name=msg,proto3" json:"msg"`
+	Err      string `protobuf:"bytes,5,opt,name=err,proto3" json:"err"` //  repeated google.protobuf.Any keysAndValues = 6;
 }
 
 func (x *LogReq) Reset() {
