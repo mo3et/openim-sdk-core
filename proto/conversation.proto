@@ -46,7 +46,7 @@ message SearchByConversationResult {
 // -----------------------------------------------------------------------------------------------------------------
 message GetAllConversationListReq {}
 message GetAllConversationListResp {
-  repeated Conversation conversationList = 1;
+  repeated shared.Conversation conversationList = 1;
 }
 
 message GetConversationListSplitReq {
@@ -171,4 +171,3 @@ message SearchConversationReq {
 message SearchConversationResp {
   repeated shared.Conversation conversationList = 1;
 }
-// ----------------------------------------------------------------------------------------------------------

@@ -16,6 +16,14 @@ import (
 
 var Default = GenGo
 
+var Aliases = map[string]interface{}{
+	"go":   GenGo,
+	"java": GenJava,
+	"js":   GenJS,
+	"ts":   GenTS,
+	"a":    All,
+}
+
 var (
 	GO     = "go"
 	JAVA   = "java"
@@ -225,6 +233,8 @@ func GenTS() error {
 		return err
 	}
 
+	tsProto := filepath.Join(".", "node_modules", ".bin", "protoc-gen-ts_proto")
+
 	for _, module := range protoModules {
 		if err := os.MkdirAll(filepath.Join(tsOutDir, module), 0755); err != nil {
 			return err
@@ -232,7 +242,9 @@ func GenTS() error {
 
 		args := []string{
 			"--proto_path=" + protoDir,
-			"--ts_out=" + filepath.Join(tsOutDir, module),
+			"--plugin=protoc-gen-ts_proto=" + tsProto,
+			"--ts_proto_opt=esModuleInterop=true,messages=true",
+			"--ts_proto_out=" + filepath.Join(tsOutDir, module),
 			filepath.Join("proto", module) + ".proto",
 		}
 

@@ -1,7 +1,6 @@
 syntax = "proto3";
 package openim.event;
 
-import "message.proto";
 import "shared.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/event";
@@ -19,7 +18,7 @@ enum FuncRequestEventName {
   Log = 9;
   UpdateFcmToken = 10;
   SetAppBadge = 11;
-  EventOnSendMsgProgress =12;
+  EventOnSendMsgProgress = 12;
   EventOnUploadFileProgress = 13;
   EventOnUploadLogsProgress = 14;
   EventOnConnecting = 15;
