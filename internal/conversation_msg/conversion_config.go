@@ -12,6 +12,7 @@ type mateType struct {
 }
 
 var MateTypeMap = map[sdkpb.ContentType]mateType{
+	// message
 	sdkpb.ContentType_Text: {
 		New: func() any {
 			return &sdkpb.TextElem{}
@@ -166,7 +167,9 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_AdvancedTextElem{AdvancedTextElem: elem.(*sdkpb.AdvancedTextElem)}
 		},
 	},
+	// notification
 	sdkpb.ContentType_FriendApplicationApprovedNotification: {
+		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationApprovedTips{}
 		},
@@ -177,270 +180,495 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_AdvancedTextElem{AdvancedTextElem: elem.(*sdkpb.AdvancedTextElem)}
 		},
 	},
-	sdkpb.ContentType_FriendApplicationRejectedNotification:    {},
-	sdkpb.ContentType_FriendApplicationNotification:            {},
-	sdkpb.ContentType_FriendAddedNotification:                  {},
-	sdkpb.ContentType_FriendDeletedNotification:                {},
-	sdkpb.ContentType_FriendRemarkSetNotification:              {},
-	sdkpb.ContentType_BlackAddedNotification:                   {},
-	sdkpb.ContentType_BlackDeletedNotification:                 {},
-	sdkpb.ContentType_FriendInfoUpdatedNotification:            {},
-	sdkpb.ContentType_FriendsInfoUpdateNotification:            {},
-	sdkpb.ContentType_ConversationChangeNotification:           {},
-	sdkpb.ContentType_UserInfoUpdatedNotification:              {},
-	sdkpb.ContentType_UserStatusChangeNotification:             {},
-	sdkpb.ContentType_UserCommandAddNotification:               {},
-	sdkpb.ContentType_UserCommandDeleteNotification:            {},
-	sdkpb.ContentType_UserCommandUpdateNotification:            {},
-	sdkpb.ContentType_GroupCreatedNotification:                 {},
-	sdkpb.ContentType_GroupInfoSetNotification:                 {},
-	sdkpb.ContentType_JoinGroupApplicationNotification:         {},
-	sdkpb.ContentType_MemberQuitNotification:                   {},
-	sdkpb.ContentType_GroupApplicationAcceptedNotification:     {},
-	sdkpb.ContentType_GroupApplicationRejectedNotification:     {},
-	sdkpb.ContentType_GroupOwnerTransferredNotification:        {},
-	sdkpb.ContentType_MemberKickedNotification:                 {},
-	sdkpb.ContentType_MemberInvitedNotification:                {},
-	sdkpb.ContentType_MemberEnterNotification:                  {},
-	sdkpb.ContentType_GroupDismissedNotification:               {},
-	sdkpb.ContentType_GroupMemberMutedNotification:             {},
-	sdkpb.ContentType_GroupMemberCancelMutedNotification:       {},
-	sdkpb.ContentType_GroupMutedNotification:                   {},
-	sdkpb.ContentType_GroupCancelMutedNotification:             {},
-	sdkpb.ContentType_GroupMemberInfoSetNotification:           {},
-	sdkpb.ContentType_GroupMemberSetToAdminNotification:        {},
-	sdkpb.ContentType_GroupMemberSetToOrdinaryUserNotification: {},
-	sdkpb.ContentType_GroupInfoSetAnnouncementNotification:     {},
-	sdkpb.ContentType_GroupInfoSetNameNotification:             {},
-	sdkpb.ContentType_ConversationPrivateChatNotification:      {},
-	sdkpb.ContentType_ClearConversationNotification:            {},
-	sdkpb.ContentType_BusinessNotification:                     {},
-	sdkpb.ContentType_RevokeNotification:                       {},
-	sdkpb.ContentType_DeleteMsgsNotification:                   {},
-	sdkpb.ContentType_HasReadReceipt:                           {},
+	sdkpb.ContentType_FriendApplicationRejectedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_FriendApplicationNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_FriendAddedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_FriendDeletedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_FriendRemarkSetNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_BlackAddedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_BlackDeletedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_FriendInfoUpdatedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_FriendsInfoUpdateNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_ConversationChangeNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_UserInfoUpdatedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_UserStatusChangeNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_UserCommandAddNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_UserCommandDeleteNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_UserCommandUpdateNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupCreatedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupInfoSetNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_JoinGroupApplicationNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_MemberQuitNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupApplicationAcceptedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupApplicationRejectedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupOwnerTransferredNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_MemberKickedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_MemberInvitedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_MemberEnterNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupDismissedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupMemberMutedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupMemberCancelMutedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupMutedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupCancelMutedNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupMemberInfoSetNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupMemberSetToAdminNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupMemberSetToOrdinaryUserNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupInfoSetAnnouncementNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_GroupInfoSetNameNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_ConversationPrivateChatNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_ClearConversationNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_BusinessNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_RevokeNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_DeleteMsgsNotification: {
+		Notification: true,
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
+	sdkpb.ContentType_HasReadReceipt: {
+		New: func() any {
+			return &sdkpb.FriendApplicationRejectedTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_FriendApplicationRejectedTips).FriendApplicationRejectedTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
+		},
+	},
 }
-
-/*
-
-
-FriendApplicationApprovedTips= 1201;
-FriendApplicationRejectedTips= 1202;
-FriendApplicationTips= 1203;
-FriendAddedTips= 1204;
-FriendDeletedTips= 1205;
-FriendRemarkSetTips= 1206;
-BlackAddedTips= 1207;
-BlackDeletedTips= 1208;
-FriendInfoUpdatedTips= 1209;
-FriendsInfoUpdateTips= 1210;
-ConversationChangeTips= 1300;
-UserInfoUpdatedTips= 1303;
-UserStatusChangeTips= 1304;
-UserCommandAddTips= 1305;
-UserCommandDeleteTips= 1306;
-UserCommandUpdateTips= 1307;
-GroupCreatedTips= 1501;
-GroupInfoSetTips= 1502;
-JoinGroupApplicationTips= 1503;
-MemberQuitTips= 1504;
-GroupApplicationAcceptedTips= 1505;
-GroupApplicationRejectedTips= 1506;
-GroupOwnerTransferredTips= 1507;
-MemberKickedTips= 1508;
-MemberInvitedTips= 1509;
-MemberEnterTips= 1510;
-GroupDismissedTips= 1511;
-GroupMemberMutedTips= 1512;
-GroupMemberCancelMutedTips= 1513;
-GroupMutedTips= 1514;
-GroupCancelMutedTips= 1515;
-GroupMemberInfoSetTips= 1516;
-GroupMemberSetToAdminTips= 1517;
-GroupMemberSetToOrdinaryUserTips= 1518;
-GroupInfoSetAnnouncementTips= 1519;
-GroupInfoSetNameTips= 1520;
-ConversationPrivateChatTips= 1701;
-ClearConversationTips= 1703;
-BusinessTips= 2001;
-RevokeTips= 2101;
-DeleteMsgsTips= 2102;
-HasReadReceiptTips= 2200;
-
-
-
-
-sdkpb.FriendApplicationApprovedNotification: {},
-sdkpb.FriendApplicationRejectedNotification: {},
-sdkpb.FriendApplicationNotification: {},
-sdkpb.FriendAddedNotification: {},
-sdkpb.FriendDeletedNotification: {},
-sdkpb.FriendRemarkSetNotification: {},
-sdkpb.BlackAddedNotification: {},
-sdkpb.BlackDeletedNotification: {},
-sdkpb.FriendInfoUpdatedNotification: {},
-sdkpb.FriendsInfoUpdateNotification: {},
-sdkpb.ConversationChangeNotification: {},
-sdkpb.UserInfoUpdatedNotification: {},
-sdkpb.UserStatusChangeNotification: {},
-sdkpb.UserCommandAddNotification: {},
-sdkpb.UserCommandDeleteNotification: {},
-sdkpb.UserCommandUpdateNotification: {},
-sdkpb.GroupCreatedNotification: {},
-sdkpb.GroupInfoSetNotification: {},
-sdkpb.JoinGroupApplicationNotification: {},
-sdkpb.MemberQuitNotification: {},
-sdkpb.GroupApplicationAcceptedNotification: {},
-sdkpb.GroupApplicationRejectedNotification: {},
-sdkpb.GroupOwnerTransferredNotification: {},
-sdkpb.MemberKickedNotification: {},
-sdkpb.MemberInvitedNotification: {},
-sdkpb.MemberEnterNotification: {},
-sdkpb.GroupDismissedNotification: {},
-sdkpb.GroupMemberMutedNotification: {},
-sdkpb.GroupMemberCancelMutedNotification: {},
-sdkpb.GroupMutedNotification: {},
-sdkpb.GroupCancelMutedNotification: {},
-sdkpb.GroupMemberInfoSetNotification: {},
-sdkpb.GroupMemberSetToAdminNotification: {},
-sdkpb.GroupMemberSetToOrdinaryUserNotification: {},
-sdkpb.GroupInfoSetAnnouncementNotification: {},
-sdkpb.GroupInfoSetNameNotification: {},
-sdkpb.ConversationPrivateChatNotification: {},
-sdkpb.ClearConversationNotification: {},
-sdkpb.BusinessNotification: {},
-sdkpb.RevokeNotification: {},
-sdkpb.DeleteMsgsNotification: {},
-sdkpb.HasReadReceipt: {},
-
-
-FriendApplicationApprovedNotification
-FriendApplicationRejectedNotification
-FriendApplicationNotification
-FriendAddedNotification
-FriendDeletedNotification
-FriendRemarkSetNotification
-BlackAddedNotification
-BlackDeletedNotification
-FriendInfoUpdatedNotification
-FriendsInfoUpdateNotification
-ConversationChangeNotification
-UserInfoUpdatedNotification
-UserStatusChangeNotification
-UserCommandAddNotification
-UserCommandDeleteNotification
-UserCommandUpdateNotification
-GroupCreatedNotification
-GroupInfoSetNotification
-JoinGroupApplicationNotification
-MemberQuitNotification
-GroupApplicationAcceptedNotification
-GroupApplicationRejectedNotification
-GroupOwnerTransferredNotification
-MemberKickedNotification
-MemberInvitedNotification
-MemberEnterNotification
-GroupDismissedNotification
-GroupMemberMutedNotification
-GroupMemberCancelMutedNotification
-GroupMutedNotification
-GroupCancelMutedNotification
-GroupMemberInfoSetNotification
-GroupMemberSetToAdminNotification
-GroupMemberSetToOrdinaryUserNotification
-GroupInfoSetAnnouncementNotification
-GroupInfoSetNameNotification
-ConversationPrivateChatNotification
-ClearConversationNotification
-BusinessNotification
-RevokeNotification
-DeleteMsgsNotification
-HasReadReceiptNotification
-
-
- = 1201
- = 1202
- = 1203
- = 1204
- = 1205
- = 1206
- = 1207
- = 1208
- = 1209
- = 1210
- = 1300
- = 1303
- = 1304
- = 1305
- = 1306
- = 1307
- = 1501
- = 1502
- = 1503
- = 1504
- = 1505
- = 1506
- = 1507
- = 1508
- = 1509
- = 1510
- = 1511
- = 1512
- = 1513
- = 1514
- = 1515
- = 1516
- = 1517
- = 1518
- = 1519
- = 1520
- = 1701
- = 1703
- = 2001
- = 2101
- = 2102
- = 2200
-
- FriendApplicationApprovedNotification friendApplicationApproved = 1201;
- FriendApplicationRejectedNotification friendApplicationRejected = 1202;
- FriendApplicationNotification friendApplication = 1203;
- FriendAddedNotification friendAdded = 1204;
- FriendDeletedNotification friendDeleted = 1205;
- FriendRemarkSetNotification friendRemarkSet = 1206;
- BlackAddedNotification blackAdded = 1207;
- BlackDeletedNotification blackDeleted = 1208;
- FriendInfoUpdatedNotification friendInfoUpdated = 1209;
- FriendsInfoUpdateNotification friendsInfoUpdate = 1210;
- ConversationChangeNotification conversationChange = 1300;
- UserInfoUpdatedNotification userInfoUpdated = 1303;
- UserStatusChangeNotification userStatusChange = 1304;
- UserCommandAddNotification userCommandAdd = 1305;
- UserCommandDeleteNotification userCommandDelete = 1306;
- UserCommandUpdateNotification userCommandUpdate = 1307;
- GroupCreatedNotification groupCreated = 1501;
- GroupInfoSetNotification groupInfoSet = 1502;
- JoinGroupApplicationNotification joinGroupApplication = 1503;
- MemberQuitNotification memberQuit = 1504;
- GroupApplicationAcceptedNotification groupApplicationAccepted = 1505;
- GroupApplicationRejectedNotification groupApplicationRejected = 1506;
- GroupOwnerTransferredNotification groupOwnerTransferred = 1507;
- MemberKickedNotification memberKicked = 1508;
- MemberInvitedNotification memberInvited = 1509;
- MemberEnterNotification memberEnter = 1510;
- GroupDismissedNotification groupDismissed = 1511;
- GroupMemberMutedNotification groupMemberMuted = 1512;
- GroupMemberCancelMutedNotification groupMemberCancelMuted = 1513;
- GroupMutedNotification groupMuted = 1514;
- GroupCancelMutedNotification groupCancelMuted = 1515;
- GroupMemberInfoSetNotification groupMemberInfoSet = 1516;
- GroupMemberSetToAdminNotification groupMemberSetToAdmin = 1517;
- GroupMemberSetToOrdinaryUserNotification groupMemberSetToOrdinaryUser = 1518;
- GroupInfoSetAnnouncementNotification groupInfoSetAnnouncement = 1519;
- GroupInfoSetNameNotification groupInfoSetName = 1520;
- ConversationPrivateChatNotification conversationPrivateChat = 1701;
- ClearConversationNotification clearConversation = 1703;
- BusinessNotification business = 2001;
- RevokeNotification revoke = 2101;
- DeleteMsgsNotification deleteMsgs = 2102;
- HasReadReceiptNotification hasReadReceipt = 2200;
-
-*/
