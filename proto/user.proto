@@ -6,15 +6,6 @@ option csharp_namespace = "OpenIM";
 
 import "shared.proto";
 
-message CommandInfo {
-  string userID = 1;
-  int32 type = 2;
-  int64 createTime = 3;
-  string uuid = 4;
-  string value = 5;
-  string ex = 6;
-}
-
 message GetSelfUserInfoReq {}
 message GetSelfUserInfoResp {
   shared.UserInfo user = 1;
@@ -56,7 +47,7 @@ message ProcessUserCommandUpdateResp {}
 
 message ProcessUserCommandGetAllReq {}
 message ProcessUserCommandGetAllResp {
-  repeated CommandInfo commands = 1;
+  repeated shared.CommandInfo commands = 1;
 }
 
 message GetUsersInfoReq {
