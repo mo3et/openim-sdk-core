@@ -116,6 +116,108 @@ func GenJava() error {
 	return nil
 }
 
+func GenCSharp() error {
+	log.Println("Generating C# code from proto files")
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+
+	csharpOutDir := filepath.Join(protoDir, CSharp)
+
+	protoc, err := getToolPath("protoc")
+	if err != nil {
+		return err
+	}
+
+	for _, module := range protoModules {
+		if err := os.MkdirAll(filepath.Join(csharpOutDir, module), 0755); err != nil {
+			return err
+		}
+
+		args := []string{
+			"--proto_path=" + protoDir,
+			"--csharp_out=" + filepath.Join(csharpOutDir, module),
+			filepath.Join("proto", module) + ".proto",
+		}
+
+		cmd := exec.Command(protoc, args...)
+		connectStd(cmd)
+
+		if err := cmd.Run(); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func GenJS() error {
+	log.Println("Generating JavaScript code from proto files")
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+
+	jsOutDir := filepath.Join(protoDir, JS)
+
+	protoc, err := getToolPath("protoc")
+	if err != nil {
+		return err
+	}
+
+	for _, module := range protoModules {
+		if err := os.MkdirAll(filepath.Join(jsOutDir, module), 0755); err != nil {
+			return err
+		}
+
+		args := []string{
+			"--proto_path=" + protoDir,
+			"--js_out=import_style=commonjs,binary:" + filepath.Join(jsOutDir, module),
+			filepath.Join("proto", module) + ".proto",
+		}
+
+		cmd := exec.Command(protoc, args...)
+		connectStd(cmd)
+
+		if err := cmd.Run(); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func GenTS() error {
+	log.Println("Generating TypeScript code from proto files")
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+
+	tsOutDir := filepath.Join(protoDir, TS)
+
+	protoc, err := getToolPath("protoc")
+	if err != nil {
+		return err
+	}
+
+	for _, module := range protoModules {
+		if err := os.MkdirAll(filepath.Join(tsOutDir, module), 0755); err != nil {
+			return err
+		}
+
+		args := []string{
+			"--proto_path=" + protoDir,
+			"--ts_out=" + filepath.Join(tsOutDir, module),
+			filepath.Join("proto", module) + ".proto",
+		}
+
+		cmd := exec.Command(protoc, args...)
+		connectStd(cmd)
+
+		if err := cmd.Run(); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // Tools
 
 func getWorkDirToolPath(name string) string {
