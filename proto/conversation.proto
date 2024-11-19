@@ -3,31 +3,8 @@ package openim.sdk.conversation;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
 
-import "msg.proto";
-
-message Conversation {
-  string conversationID = 1;
-  int32 conversationType = 2;
-  string userID = 3;
-  string groupID = 4;
-  string showName = 5;
-  string faceURL = 6;
-  int32 recvMsgOpt = 7;
-  int32 unreadCount = 8;
-  int32 groupAtType = 9;
-  string latestMsg = 10;
-  int64 latestMsgSendTime = 11;
-  string draftText = 12;
-  int64 draftTextTime = 13;
-  bool isPinned = 14;
-  bool isPrivateChat = 15;
-  int32 burnDuration = 16;
-  string ex = 17;
-  int64 msgDestructTime = 18;
-  bool isMsgDestruct = 19;
-}
-
-
+import "message.proto";
+import "shared.proto";
 
 message ConversationArgs {
   string conversationID = 1;
@@ -63,13 +40,13 @@ message SearchByConversationResult {
   string faceURL = 4;
   int64 latestMsgSendTime = 5;
   int32 messageCount = 6;
-  repeated msg.IMMessage messageList = 7;
+  repeated openim.sdk.message.IMMessage messageList = 7;
 }
 
 // -----------------------------------------------------------------------------------------------------------------
 message GetAllConversationListReq{}
 message GetAllConversationListResp{
-  repeated Conversation conversationList = 1;
+  repeated shared.Conversation conversationList = 1;
 }
 
 message GetConversationListSplitReq {
@@ -77,7 +54,7 @@ message GetConversationListSplitReq {
   int32 count = 2;
 }
 message GetConversationListSplitResp {
-  repeated Conversation conversationList = 1;
+  repeated shared.Conversation conversationList = 1;
 }
 
 message HideConversationReq {
@@ -95,14 +72,14 @@ message GetOneConversationReq {
   string sourceID = 2;
 }
 message GetOneConversationResp {
-  Conversation conversation = 1;
+  shared.Conversation conversation = 1;
 }
 
 message GetMultipleConversationReq {
   repeated string conversationIDList = 1;
 }
 message GetMultipleConversationResp {
-  repeated Conversation conversationList = 1;
+  repeated shared.Conversation conversationList = 1;
 }
 
 message HideAllConversationsReq {}
@@ -193,8 +170,5 @@ message SearchConversationReq {
   string searchParam = 1;
 }
 message SearchConversationResp {
-  repeated Conversation conversationList = 1;
+  repeated shared.Conversation conversationList = 1;
 }
-// ----------------------------------------------------------------------------------------------------------
-
-
