@@ -100,7 +100,6 @@ enum FuncRequestEventName {
   GetUsersInGroup = 1021;
   InviteUserToGroup = 1022;
   HandlerGroupRequest = 1023;
-  GetGroupMemberInfo = 1024;
 
   GetSpecifiedFriends = 1100;
   AddFriend = 1101;
@@ -208,10 +207,10 @@ message EventOnSyncServerProgressData {
   int32 progress = 1;
 }
 message EventOnNewConversationData {
-  string conversationList = 1;
+  repeated openim.sdk.shared.Conversation conversationList = 1;
 }
 message EventOnConversationChangedData {
-  string conversationList = 1;
+  repeated openim.sdk.shared.Conversation conversationList = 1;
 }
 message EventOnTotalUnreadMessageCountChangedData {
   int32 totalUnreadCount = 1;
@@ -222,25 +221,50 @@ message EventOnConversationUserInputStatusChangedData {
   repeated int32 platformIDs = 3;
 }
 message EventOnRecvNewMessageData {
-  openim.sdk.message.IMMessage message = 1;
+  openim.sdk.shared.IMMessage message = 1;
 }
+message MessageReceipt {
+  string groupID = 1;
+  string userID = 2;
+  repeated string msgIDList = 3;
+  int64 readTime = 4;
+  int32 msgFrom = 5;
+  int32 contentType = 6;
+  int32 sessionType = 7;
+}
+
 message EventOnRecvC2CReadReceiptData {
-  string msgReceiptList = 1;
+  repeated MessageReceipt msgReceiptList = 1;
 }
+message MessageRevoked {
+  string revokerID = 1;
+  int32 revokerRole = 2;
+  string clientMsgID = 3;
+  string revokerNickname = 4;
+  int64 revokeTime = 5;
+  int64 sourceMessageSendTime = 6;
+  string sourceMessageSendID = 7;
+  string sourceMessageSenderNickname = 8;
+  int32 sessionType = 9;
+  int64 seq = 10;
+  string ex = 11;
+  bool isAdminRevoke = 12;
+}
+
 message EventOnNewRecvMessageRevokedData {
-  string messageRevoked = 1;
+  MessageRevoked messageRevoked = 1;
 }
 message EventOnRecvOfflineNewMessageData {
-  openim.sdk.message.IMMessage message = 1;
+  openim.sdk.shared.IMMessage message = 1;
 }
 message EventOnMsgDeletedData {
-  openim.sdk.message.IMMessage message = 1;
+  openim.sdk.shared.IMMessage message = 1;
 }
 message EventOnRecvOnlineOnlyMessageData {
-  openim.sdk.message.IMMessage message = 1;
+  openim.sdk.shared.IMMessage message = 1;
 }
 message EventOnMsgEditedData {
-  openim.sdk.message.IMMessage message = 1;
+  openim.sdk.shared.IMMessage message = 1;
 }
 
 // FriendCallback Data Types
@@ -332,7 +356,7 @@ message EventOnRecvCustomBusinessMessageData {
 
 // UserCallback Data Types
 message EventOnSelfInfoUpdatedData {
-  string userInfo = 1;
+  openim.sdk.shared.UserInfo user = 1;
 }
 
 message EventOnUserStatusChangedData {
@@ -341,13 +365,13 @@ message EventOnUserStatusChangedData {
 }
 
 message EventOnUserCommandAddData {
-  string userCommand = 1;
+  openim.sdk.shared.CommandInfo command = 1;
 }
 
 message EventOnUserCommandDeleteData {
-  string userCommand = 1;
+  openim.sdk.shared.CommandInfo command = 1;
 }
 
 message EventOnUserCommandUpdateData {
-  string userCommand = 1;
+  openim.sdk.shared.CommandInfo command = 1;
 }

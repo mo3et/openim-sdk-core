@@ -583,15 +583,3 @@ func (g *Group) HandlerGroupRequest(ctx context.Context, req *sdkpb.HandlerGroup
 	}
 	return &sdkpb.HandlerGroupRequestResp{}, nil
 }
-
-func (g *Group) GetGroupMemberInfo(ctx context.Context, req *sdkpb.GetGroupMemberInfoReq) (*sdkpb.GetGroupMemberInfoResp, error) {
-	members, err := g.GetGroupMembersInfo(ctx, req.GroupID, req.UserIDs)
-	if err != nil {
-		return nil, err
-	}
-	res := make(map[string]*sdkpb.GroupMemberInfo)
-	for userID, member := range members {
-		res[userID] = DBGroupMemberToSdk(member)
-	}
-	return &sdkpb.GetGroupMemberInfoResp{Members: res}, nil
-}

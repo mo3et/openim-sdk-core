@@ -18,7 +18,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	pconstant "github.com/openimsdk/protocol/constant"
 	"reflect"
 	"runtime"
 	"sync"
@@ -28,7 +27,9 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
+	pconstant "github.com/openimsdk/protocol/constant"
 
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
@@ -73,15 +74,15 @@ func (c *Conversation) syncFlag(c2v common.Cmd2Value) {
 	case constant.AppDataSyncStart:
 		log.ZDebug(ctx, "AppDataSyncStart")
 		c.startTime = time.Now()
-		c.ConversationListener().OnSyncServerStart(true)
-		c.ConversationListener().OnSyncServerProgress(1)
+		c.ConversationListener().OnSyncServerStart(&sdkpb.EventOnSyncServerStartData{Reinstalled: true})
+		c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: 1})
 		asyncWaitFunctions := []func(c context.Context) error{
 			c.group.SyncAllJoinedGroupsAndMembers,
 			c.relation.IncrSyncFriends,
 		}
 		runSyncFunctions(ctx, asyncWaitFunctions, asyncWait)
-		c.addInitProgress(InitSyncProgress * 4 / 10)              // add 40% of InitSyncProgress as progress
-		c.ConversationListener().OnSyncServerProgress(c.progress) // notify server current Progress
+		c.addInitProgress(InitSyncProgress * 4 / 10)                                                                     // add 40% of InitSyncProgress as progress
+		c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)}) // notify server current Progress
 
 		syncWaitFunctions := []func(c context.Context) error{
 			c.IncrSyncConversations,
@@ -89,8 +90,8 @@ func (c *Conversation) syncFlag(c2v common.Cmd2Value) {
 		}
 		runSyncFunctions(ctx, syncWaitFunctions, syncWait)
 		log.ZWarn(ctx, "core data sync over", nil, "cost time", time.Since(c.startTime).Seconds())
-		c.addInitProgress(InitSyncProgress * 6 / 10)              // add 60% of InitSyncProgress as progress
-		c.ConversationListener().OnSyncServerProgress(c.progress) // notify server current Progress
+		c.addInitProgress(InitSyncProgress * 6 / 10)                                                                     // add 60% of InitSyncProgress as progress
+		c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)}) // notify server current Progress
 
 		asyncNoWaitFunctions := []func(c context.Context) error{
 			c.user.SyncLoginUserInfoWithoutNotice,
@@ -106,17 +107,17 @@ func (c *Conversation) syncFlag(c2v common.Cmd2Value) {
 	case constant.AppDataSyncFinish:
 		log.ZDebug(ctx, "AppDataSyncFinish", "time", time.Since(c.startTime).Milliseconds())
 		c.progress = 100
-		c.ConversationListener().OnSyncServerProgress(c.progress)
-		c.ConversationListener().OnSyncServerFinish(true)
+		c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)})
+		c.ConversationListener().OnSyncServerFinish(&sdkpb.EventOnSyncServerFinishData{Reinstalled: true})
 	case constant.MsgSyncBegin:
 		log.ZDebug(ctx, "MsgSyncBegin")
-		c.ConversationListener().OnSyncServerStart(false)
+		c.ConversationListener().OnSyncServerStart(&sdkpb.EventOnSyncServerStartData{Reinstalled: false})
 		c.syncData(c2v)
 	case constant.MsgSyncFailed:
-		c.ConversationListener().OnSyncServerFailed(false)
+		c.ConversationListener().OnSyncServerFailed(&sdkpb.EventOnSyncServerFailedData{Reinstalled: false})
 	case constant.MsgSyncEnd:
 		log.ZDebug(ctx, "MsgSyncEnd", "time", time.Since(c.startTime).Milliseconds())
-		c.ConversationListener().OnSyncServerFinish(false)
+		c.ConversationListener().OnSyncServerFinish(&sdkpb.EventOnSyncServerFinishData{Reinstalled: false})
 	}
 }
 

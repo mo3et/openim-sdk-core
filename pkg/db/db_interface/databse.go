@@ -89,8 +89,6 @@ type MessageModel interface {
 
 	GetAlreadyExistSeqList(ctx context.Context, conversationID string, lostSeqList []int64) (seqList []int64, err error)
 
-	BatchInsertConversationUnreadMessageList(ctx context.Context, messageList []*model_struct.LocalConversationUnreadMessage) error
-	DeleteConversationUnreadMessageList(ctx context.Context, conversationID string, sendTime int64) int64
 	DeleteConversationMsgs(ctx context.Context, conversationID string, msgIDs []string) error
 	SetNotificationSeq(ctx context.Context, conversationID string, seq int64) error
 	BatchInsertNotificationSeq(ctx context.Context, notificationSeqs []*model_struct.NotificationSeqs) error
@@ -175,14 +173,6 @@ type FriendModel interface {
 	DeleteBlack(ctx context.Context, blockUserID string) error
 }
 
-type ReactionModel interface {
-	GetMessageReactionExtension(ctx context.Context, msgID string) (result *model_struct.LocalChatLogReactionExtensions, err error)
-	InsertMessageReactionExtension(ctx context.Context, messageReactionExtension *model_struct.LocalChatLogReactionExtensions) error
-	UpdateMessageReactionExtension(ctx context.Context, c *model_struct.LocalChatLogReactionExtensions) error
-	GetMultipleMessageReactionExtension(ctx context.Context, msgIDList []string) (result []*model_struct.LocalChatLogReactionExtensions, err error)
-	DeleteMessageReactionExtension(ctx context.Context, msgID string) error
-}
-
 type S3Model interface {
 	GetUpload(ctx context.Context, partHash string) (*model_struct.LocalUpload, error)
 	InsertUpload(ctx context.Context, upload *model_struct.LocalUpload) error
@@ -217,7 +207,6 @@ type DataBase interface {
 	ConversationModel
 	UserModel
 	FriendModel
-	ReactionModel
 	S3Model
 	SendingMessagesModel
 	VersionSyncModel

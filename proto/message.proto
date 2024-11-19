@@ -2,242 +2,236 @@ syntax = "proto3";
 package openim.sdk.message;
 
 import "common.proto";
+import "shared.proto";
+
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
 
-message AtInfo {
-  string atUserID = 1;
-  string groupNickname = 2;
+message GetAdvancedHistoryMessageListParams {
+  string conversationID = 1;
+  string startClientMsgID = 2;
+  int32 count = 3;
 }
 
-message ImageInfo {
-  int32 width = 1;
-  int32 height = 2;
-  string type = 3;
-  int64 size = 4;
+message GetAdvancedHistoryMessageListCallback {
+  repeated shared.IMMessage messageList = 1;
+  bool isEnd = 2;
+  int32 errCode = 3;
+  string errMsg = 4;
 }
 
-message PictureBaseInfo {
-  string uuid = 1;
-  string type = 2;
-  int64 size = 3;
-  int32 width = 4;
-  int32 height = 5;
-  string url = 6;
+// ------------------------------------------------------------------------------------------------------
+message SendMessageReq {
+  shared.IMMessage message = 1;
+  string recvID = 2;
+  string groupID = 3;
+  common.OfflinePushInfo offlinePushInfo = 4;
+  bool isOnlineOnly = 5;
+}
+message SendMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message SoundBaseInfo {
-  string uuid = 1;
-  string soundPath = 2;
-  string sourceURL = 3;
-  int64 dataSize = 4;
-  int64 duration = 5;
-  string soundType = 6;
+message GetAdvancedHistoryMessageListReq {
+  string conversationID = 1;
+  GetAdvancedHistoryMessageListParams getAdvancedHistoryMessageListParams = 2;
+}
+message GetAdvancedHistoryMessageListResp {
+  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
 }
 
-message VideoBaseInfo {
-  string videoPath = 1;
-  string videoUUID = 2;
-  string videoURL = 3;
-  string videoType = 4;
-  int64 videoSize = 5;
-  int64 duration = 6;
-  string snapshotPath = 7;
-  string snapshotUUID = 8;
-  int64 snapshotSize = 9;
-  string snapshotURL = 10;
-  int32 snapshotWidth = 11;
-  int32 snapshotHeight = 12;
-  string snapshotType = 13;
+message GetAdvancedHistoryMessageListReverseReq {
+  string conversationID = 1;
+  GetAdvancedHistoryMessageListParams getAdvancedHistoryMessageListParams = 2;
+}
+message GetAdvancedHistoryMessageListReverseResp {
+  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
 }
 
-message FileBaseInfo {
-  string filePath = 1;
-  string uuid = 2;
-  string sourceURL = 3;
-  string fileName = 4;
-  int64 fileSize = 5;
-  string fileType = 6;
+message RevokeMessageReq {
+  string conversationID = 1;
+  string clientMsgID = 2;
+}
+message RevokeMessageResp {}
+
+message TypingStatusUpdateReq {
+  string recvID = 1;
+  string msgTip = 2;
+}
+message TypingStatusUpdateResp {}
+
+message DeleteMessageReq {
+  string conversationID = 1;
+  string clientMsgID = 2;
+}
+message DeleteMessageResp {}
+
+message DeleteAllMsgFromLocalAndServerReq {}
+message DeleteAllMsgFromLocalAndServerResp {}
+
+message DeleteAllMessageFromLocalStorageReq {}
+message DeleteAllMessageFromLocalStorageResp {}
+
+message InsertSingleMessageToLocalStorageReq {
+  shared.IMMessage msg = 1;
+  string recvID = 2;
+  string sendID = 3;
+}
+message InsertSingleMessageToLocalStorageResp {
+  shared.IMMessage msg = 1;
 }
 
-message TextElem {
-  string content = 1;
+message InsertGroupMessageToLocalStorageReq {
+  shared.IMMessage msg = 1;
+  string groupID = 2;
+  string sendID = 3;
+}
+message InsertGroupMessageToLocalStorageResp {
+  shared.IMMessage msg = 1;
 }
 
-message CardElem {
-  string userID = 1;
-  string nickname = 2;
-  string faceURL = 3;
-  string ex = 4;
-}
-
-message PictureElem {
-  string sourcePath = 1;
-  PictureBaseInfo sourcePicture = 2;
-  PictureBaseInfo bigPicture = 3;
-  PictureBaseInfo snapshotPicture = 4;
-}
-
-message SoundElem {
-  string uuid = 1;
-  string soundPath = 2;
-  string sourceURL = 3;
-  int64 dataSize = 4;
-  int64 duration = 5;
-  string soundType = 6;
-}
-
-message VideoElem {
-  string videoPath = 1;
-  string videoUUID = 2;
-  string videoURL = 3;
-  string videoType = 4;
-  int64 videoSize = 5;
-  int64 duration = 6;
-  string snapshotPath = 7;
-  string snapshotUUID = 8;
-  int64 snapshotSize = 9;
-  string snapshotURL = 10;
-  int32 snapshotWidth = 11;
-  int32 snapshotHeight = 12;
-  string snapshotType = 13;
-}
-
-message FileElem {
-  string filePath = 1;
-  string uuid = 2;
-  string sourceURL = 3;
-  string fileName = 4;
-  int64 fileSize = 5;
-  string fileType = 6;
-}
-
-message MessageEntity {
-  string type = 1;
-  int32 offset = 2;
-  int32 length = 3;
-  string url = 4;
-  string ex = 5;
-}
-
-message MergeElem {
-  string title = 1;
-  repeated string abstractList = 2;
-  repeated IMMessage multiMessage = 3;
-  repeated MessageEntity messageEntityList = 4;
-}
-
-message AtTextElem {
+message CreateTextMessageReq {
   string text = 1;
-  repeated string atUserList = 2;
-  repeated AtInfo atUsersInfo = 3;
-  IMMessage quoteMessage = 4;
-  bool isAtSelf = 5;
+}
+message CreateTextMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message FaceElem {
-  int32 index = 1;
-  string data = 2;
+message CreateAdvancedTextMessageReq {
+  string text = 1;
+  repeated shared.MessageEntity messageEntities = 2;
+}
+message CreateAdvancedTextMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message LocationElem {
+message CreateTextAtMessageReq {
+  string text = 1;
+  repeated string userIDList = 2;
+  repeated shared.AtInfo usersInfo = 3;
+  shared.IMMessage quoteMessage = 4;
+}
+message CreateTextAtMessageResp {
+  shared.IMMessage message = 1;
+}
+
+message CreateLocationMessageReq {
   string description = 1;
   double longitude = 2;
   double latitude = 3;
 }
+message CreateLocationMessageResp {
+  shared.IMMessage message = 1;
+}
 
-message CustomElem {
+message CreateCustomMessageReq {
   string data = 1;
-  string description = 2;
-  string extension = 3;
+  string extension = 2;
+  string description = 3;
+}
+message CreateCustomMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message QuoteElem {
+message CreateQuoteMessageReq {
   string text = 1;
-  IMMessage quoteMessage = 2;
-  repeated MessageEntity messageEntityList = 3;
+  shared.IMMessage quoteMessage = 2;
+}
+message CreateQuoteMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message NotificationElem {
-  string detail = 1;
-}
-
-message AdvancedTextElem {
+message CreateAdvancedQuoteMessageReq {
   string text = 1;
-  repeated MessageEntity messageEntityList = 2;
+  shared.IMMessage quoteMessage = 2;
+  repeated shared.MessageEntity messageEntities = 3;
+}
+message CreateAdvancedQuoteMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message TypingElem {
-  string msgTips = 1;
+message CreateCardMessageReq {
+  shared.CardElem card = 1;
+}
+message CreateCardMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message StreamElem {
-  string type = 1;
-  string content = 2;
-  repeated string packets = 3;
-  bool end = 4;
+message CreateImageMessageReq {
+  string imageSourcePath = 1;
+  shared.PictureBaseInfo sourcePicture = 2;
+  shared.PictureBaseInfo bigPicture = 3;
+  shared.PictureBaseInfo snapshotPicture = 4;
+}
+message CreateImageMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message GroupHasReadInfo {
-  repeated string hasReadUserIDList = 1;
-  int32 hasReadCount = 2;
-  int32 groupMemberCount = 3;
+message CreateSoundMessageReq {
+  string soundPath = 1;
+  int64 duration = 2;
+  shared.SoundBaseInfo soundElem = 3;
+}
+message CreateSoundMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message UploadProgress {
-  int64 total = 1;
-  int64 save = 2;
-  int64 current = 3;
-  string uploadID = 4;
+message CreateVideoMessageReq {
+  string videoSourcePath = 1;
+  string videoType = 2;
+  int64 duration = 3;
+  string snapshotSourcePath = 4;
+  shared.VideoBaseInfo videoElem = 5;
+}
+message CreateVideoMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message AttachedInfoElem {
-  GroupHasReadInfo groupHasReadInfo = 1;
-  bool isPrivateChat = 2;
-  int32 burnDuration = 3;
-  int64 hasReadTime = 4;
-  UploadProgress progress = 5;
+message CreateFileMessageReq {
+  string fileSourcePath = 1;
+  string fileName = 2;
+  shared.FileBaseInfo fileElem = 3;
+}
+message CreateFileMessageResp {
+  shared.IMMessage message = 1;
 }
 
-message IMMessage {
-  string clientMsgID = 1;
-  string serverMsgID = 2;
-  int64 createTime = 3;
-  int64 sendTime = 4;
-  common.SessionType sessionType = 5;
-  string sendID = 6;
-  string recvID = 7;
-  common.MsgFrom msgFrom = 8;
-  common.ContentType contentType = 9;
-  common.Platform senderPlatformID = 10;
-  string senderNickname = 11;
-  string senderFaceURL = 12;
-  string groupID = 13;
-  int64 seq = 15;
-  bool isRead = 16;
-  common.MsgStatus status = 17;
-  common.OfflinePushInfo offlinePush = 18;
-  string ex = 20;
-  string localEx = 21;
-  oneof content {
-    TextElem textElem = 23;
-    CardElem cardElem = 24;
-    PictureElem pictureElem = 25;
-    SoundElem soundElem = 26;
-    VideoElem videoElem = 27;
-    FileElem fileElem = 28;
-    MergeElem mergeElem = 29;
-    AtTextElem atTextElem = 30;
-    FaceElem faceElem = 31;
-    LocationElem locationElem = 32;
-    CustomElem customElem = 33;
-    QuoteElem quoteElem = 34;
-    NotificationElem notificationElem = 35;
-    AdvancedTextElem advancedTextElem = 36;
-    TypingElem typingElem = 37;
-    StreamElem streamElem = 38;
-  }
-  AttachedInfoElem attachedInfoElem = 39;
+message CreateMergerMessageReq {
+  repeated shared.IMMessage messages = 1;
+  string title = 2;
+  repeated string summaries = 3;
+}
+message CreateMergerMessageResp {
+  shared.IMMessage message = 1;
 }
 
-// ############## notification ##############
+message CreateFaceMessageReq {
+  int32 index = 1;
+  string data = 2;
+}
+message CreateFaceMessageResp {
+  shared.IMMessage message = 1;
+}
+
+message CreateForwardMessageReq {
+  shared.IMMessage message = 1;
+}
+message CreateForwardMessageResp {
+  shared.IMMessage message = 1;
+}
+
+message UploadLogsReq {
+  int32 line = 1;
+  string ex = 2;
+}
+message UploadLogsResp {}
+
+message LogReq {
+  int32 logLevel = 1;
+  string file = 2;
+  int32 line = 3;
+  string msg = 4;
+  string err = 5;
+  //  repeated google.protobuf.Any keysAndValues = 6;
+}
+message LogResp {}

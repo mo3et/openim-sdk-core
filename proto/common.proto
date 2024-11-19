@@ -178,3 +178,16 @@ message RequestPagination {
   int32 pageNumber = 1;
   int32 showNumber = 2;
 }
+
+enum ConvRecvMsgOpt {
+  ReceiveMessage = 0;
+  NotReceiveMessage = 1;
+  ReceiveNotNotifyMessage = 2;
+}
+
+enum ConvGroupAtType{
+  AtNormal    = 0;
+  AtMe        = 1;
+  AtAll       = 2;
+  AtAllAtMe   = 3;
+}

@@ -112,7 +112,6 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_GetUsersInGroup:                 wrapFunc(open_im_sdk.UserForSDK.Group().GetUsersInGroup),
 	pb.FuncRequestEventName_InviteUserToGroup:               wrapFunc(open_im_sdk.UserForSDK.Group().InviteUserToGroup),
 	pb.FuncRequestEventName_HandlerGroupRequest:             wrapFunc(open_im_sdk.UserForSDK.Group().HandlerGroupRequest),
-	pb.FuncRequestEventName_GetGroupMemberInfo:              wrapFunc(open_im_sdk.UserForSDK.Group().GetGroupMemberInfo),
 
 	pb.FuncRequestEventName_GetSpecifiedFriends:  wrapFunc(open_im_sdk.UserForSDK.Relation().GetSpecifiedFriends),
 	pb.FuncRequestEventName_AddFriend:            wrapFunc(open_im_sdk.UserForSDK.Relation().AddFriend),

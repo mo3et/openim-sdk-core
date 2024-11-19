@@ -12,7 +12,7 @@ import (
 )
 
 func (u *User) SyncLoginUserInfo(ctx context.Context) error {
-	remoteUser, err := u.GetSingleUserFromServer(ctx, u.loginUserID)
+	remoteUser, err := u.getUserInfo(ctx, u.loginUserID)
 	if err != nil {
 		return err
 	}
@@ -25,11 +25,11 @@ func (u *User) SyncLoginUserInfo(ctx context.Context) error {
 		localUsers = []*model_struct.LocalUser{localUser}
 	}
 	log.ZDebug(ctx, "SyncLoginUserInfo", "remoteUser", remoteUser, "localUser", localUser)
-	return u.userSyncer.Sync(ctx, []*model_struct.LocalUser{remoteUser}, localUsers, nil)
+	return u.userSyncer.Sync(ctx, []*model_struct.LocalUser{ServerUserToLocalUser(remoteUser)}, localUsers, nil)
 }
 
 func (u *User) SyncLoginUserInfoWithoutNotice(ctx context.Context) error {
-	remoteUser, err := u.GetSingleUserFromServer(ctx, u.loginUserID)
+	remoteUser, err := u.getUserInfo(ctx, u.loginUserID)
 	if err != nil {
 		return err
 	}
@@ -42,7 +42,7 @@ func (u *User) SyncLoginUserInfoWithoutNotice(ctx context.Context) error {
 		localUsers = []*model_struct.LocalUser{localUser}
 	}
 	log.ZDebug(ctx, "SyncLoginUserInfo", "remoteUser", remoteUser, "localUser", localUser)
-	return u.userSyncer.Sync(ctx, []*model_struct.LocalUser{remoteUser}, localUsers, nil, false, true)
+	return u.userSyncer.Sync(ctx, []*model_struct.LocalUser{ServerUserToLocalUser(remoteUser)}, localUsers, nil, false, true)
 }
 
 func (u *User) SyncAllCommand(ctx context.Context) error {
