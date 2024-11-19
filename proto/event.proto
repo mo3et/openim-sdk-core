@@ -99,7 +99,7 @@ enum FuncRequestEventName{
   GetUsersInGroup = 1021;
   InviteUserToGroup = 1022;
   HandlerGroupRequest = 1023;
-  GetGroupMemberInfo = 1024;
+
 
   GetSpecifiedFriends = 1100;
   AddFriend = 1101;
