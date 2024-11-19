@@ -71,8 +71,8 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 	return localMessage
 }
 
-func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.Conversation {
-	return &sdkpb.Conversation{
+func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.IMConversation {
+	return &sdkpb.IMConversation{
 		ConversationID:   conversation.ConversationID,
 		ConversationType: sdkpb.SessionType(conversation.ConversationType),
 		UserID:           conversation.UserID,

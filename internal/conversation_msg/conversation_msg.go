@@ -715,7 +715,7 @@ func (c *Conversation) batchAddFaceURLAndName(ctx context.Context, conversations
 		return err
 	}
 
-	groups := datautil.SliceToMap(groupInfoList.Groups, func(groupInfo *sdkpb.GroupInfo) string {
+	groups := datautil.SliceToMap(groupInfoList.Groups, func(groupInfo *sdkpb.IMGroup) string {
 		return groupInfo.GroupID
 	})
 

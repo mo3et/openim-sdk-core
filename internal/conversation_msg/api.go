@@ -728,7 +728,7 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessa
 func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessageListReq) (*sdkpb.FindMessageListResp, error) {
 	var r sdkpb.FindMessageListResp
 	type tempConversationAndMessageList struct {
-		conversation *sdkpb.Conversation
+		conversation *sdkpb.IMConversation
 		msgIDList    []string
 	}
 	var s []*tempConversationAndMessageList
