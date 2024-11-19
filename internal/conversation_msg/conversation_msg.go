@@ -566,24 +566,6 @@ func (c *Conversation) diff(ctx context.Context, local, generated, cc, nc map[st
 	}
 }
 
-func (c *Conversation) genConversationGroupAtType(lc *model_struct.LocalConversation, s *sdk_struct.MsgStruct) {
-	if s.ContentType == constant.AtText {
-		tagMe := utils.IsContain(c.loginUserID, s.AtTextElem.AtUserList)
-		tagAll := utils.IsContain(constant.AtAllString, s.AtTextElem.AtUserList)
-		if tagAll {
-			if tagMe {
-				lc.GroupAtType = constant.AtAllAtMe
-				return
-			}
-			lc.GroupAtType = constant.AtAll
-			return
-		}
-		if tagMe {
-			lc.GroupAtType = constant.AtMe
-		}
-	}
-}
-
 func (c *Conversation) batchUpdateMessageList(ctx context.Context, updateMsg map[string][]*model_struct.LocalChatLog) error {
 	if updateMsg == nil {
 		return nil

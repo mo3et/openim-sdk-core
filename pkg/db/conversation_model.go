@@ -18,6 +18,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
@@ -110,36 +111,6 @@ func (d *DataBase) BatchInsertConversationList(ctx context.Context, conversation
 
 	if err := d.conn.WithContext(ctx).Create(conversationList).Error; err != nil {
 		return errs.WrapMsg(err, "BatchInsertConversationList failed")
-	}
-	return nil
-}
-
-func (d *DataBase) UpdateOrCreateConversations(ctx context.Context, conversationList []*model_struct.LocalConversation) error {
-	d.mRWMutex.Lock()
-	defer d.mRWMutex.Unlock()
-	var conversationIDs []string
-	if err := d.conn.WithContext(ctx).Model(&model_struct.LocalConversation{}).Pluck("conversation_id", &conversationIDs).Error; err != nil {
-		return err
-	}
-	var notExistConversations []*model_struct.LocalConversation
-	var existConversations []*model_struct.LocalConversation
-	for i, v := range conversationList {
-		if utils.IsContain(v.ConversationID, conversationIDs) {
-			existConversations = append(existConversations, v)
-			continue
-		} else {
-			notExistConversations = append(notExistConversations, conversationList[i])
-		}
-	}
-	if len(notExistConversations) > 0 {
-		if err := d.conn.WithContext(ctx).Create(notExistConversations).Error; err != nil {
-			return err
-		}
-	}
-	for _, v := range existConversations {
-		if err := d.conn.WithContext(ctx).Model(&model_struct.LocalConversation{}).Where("conversation_id = ?", v.ConversationID).Updates(map[string]interface{}{"unread_count": v.UnreadCount}).Error; err != nil {
-			return err
-		}
 	}
 	return nil
 }
