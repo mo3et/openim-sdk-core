@@ -1,34 +1,15 @@
-// Copyright © 2023 OpenIM SDK. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-//go:build !js
-// +build !js
-
 package db
 
 import (
 	"context"
 	"errors"
-	"path/filepath"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/storage"
 	"sync"
 	"time"
 
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/version"
 
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
@@ -135,60 +116,42 @@ func (d *DataBase) initDB(ctx context.Context, logLevel int) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
 
-	path := d.dbDir + "/OpenIM_" + constant.BigVersion + "_" + d.loginUserID + ".db"
-	dbFileName, err := filepath.Abs(path)
-	if err != nil {
-		return err
-	}
-	log.ZInfo(ctx, "sqlite", "path", dbFileName)
-	// slowThreshold := 500
-	// sqlLogger := log.NewSqlLogger(logger.LogLevel(sdk_struct.ServerConf.LogLevel), true, time.Duration(slowThreshold)*time.Millisecond)
 	if logLevel > 5 {
 		zLogLevel = logger.Info
 	} else {
 		zLogLevel = logger.Silent
 	}
-	var (
-		db *gorm.DB
-	)
-	db, err = gorm.Open(sqlite.Open(dbFileName), &gorm.Config{Logger: log.NewSqlLogger(zLogLevel, false, time.Millisecond*200)})
+	db, err := storage.OpenGorm(d.loginUserID, d.dbDir, log.NewSqlLogger(zLogLevel, false, time.Millisecond*200))
 	if err != nil {
-		return errs.WrapMsg(err, "open db failed "+dbFileName)
-	}
-
-	log.ZDebug(ctx, "open db success", "dbFileName", dbFileName)
-	sqlDB, err := db.DB()
-	if err != nil {
-		return errs.WrapMsg(err, "get sql db failed")
-	}
-
-	sqlDB.SetConnMaxLifetime(time.Hour * 1)
-	sqlDB.SetMaxOpenConns(3)
-	sqlDB.SetMaxIdleConns(2)
-	sqlDB.SetConnMaxIdleTime(time.Minute * 10)
-	d.conn = db
-
-	// base
-	if err = db.AutoMigrate(&model_struct.LocalAppSDKVersion{}); err != nil {
 		return err
 	}
+
+	log.ZDebug(ctx, "open db success")
+	//sqlDB, err := db.DB()
+	//if err != nil {
+	//	return errs.WrapMsg(err, "get sql db failed")
+	//}
+	//
+	//sqlDB.SetConnMaxLifetime(time.Hour * 1)
+	//sqlDB.SetMaxOpenConns(3)
+	//sqlDB.SetMaxIdleConns(2)
+	//sqlDB.SetConnMaxIdleTime(time.Minute * 10)
+	d.conn = db
 
 	if err = d.versionDataMigrate(ctx); err != nil {
 		return err
 	}
 
-	//if err := db.Table(constant.SuperGroupTableName).AutoMigrate(superGroup); err != nil {
-	//	return err
-	//}
-
 	return nil
 }
 
 func (d *DataBase) versionDataMigrate(ctx context.Context) error {
+	if err := d.conn.AutoMigrate(&model_struct.LocalAppSDKVersion{}); err != nil {
+		return err
+	}
 	verModel, err := d.GetAppSDKVersion(ctx)
 	if errs.Unwrap(err) == errs.ErrRecordNotFound {
 		err = d.conn.AutoMigrate(
-			&model_struct.LocalAppSDKVersion{},
 			&model_struct.LocalFriend{},
 			&model_struct.LocalFriendRequest{},
 			&model_struct.LocalGroup{},
@@ -201,6 +164,9 @@ func (d *DataBase) versionDataMigrate(ctx context.Context) error {
 			&model_struct.NotificationSeqs{},
 			&model_struct.LocalChatLog{},
 			&model_struct.LocalAdminGroupRequest{},
+			&model_struct.LocalWorkMomentsNotification{},
+			&model_struct.LocalWorkMomentsNotificationUnreadCount{},
+			&model_struct.TempCacheLocalChatLog{},
 			&model_struct.LocalChatLogReactionExtensions{},
 			&model_struct.LocalUpload{},
 			&model_struct.LocalStranger{},

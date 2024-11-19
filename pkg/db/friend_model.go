@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:build !js
-// +build !js
-
 package db
 
 import (
@@ -132,7 +129,7 @@ func (d *DataBase) GetFriendInfoList(ctx context.Context, friendUserIDList []str
 	err := errs.WrapMsg(d.conn.WithContext(ctx).Where("friend_user_id IN ?", friendUserIDList).Find(&friendList).Error, "GetFriendInfoListByFriendUserID failed")
 	return friendList, err
 }
-func (d *DataBase) UpdateColumnsFriend(ctx context.Context, friendIDs []string, args map[string]any) error {
+func (d *DataBase) UpdateColumnsFriend(ctx context.Context, friendIDs []string, args map[string]interface{}) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
 	return errs.WrapMsg(d.conn.WithContext(ctx).Model(&model_struct.LocalFriend{}).Where("friend_user_id IN ?", friendIDs).Updates(args).Error, "UpdateColumnsFriend failed")

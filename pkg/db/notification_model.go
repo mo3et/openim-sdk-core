@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:build !js
-// +build !js
-
 package db
 
 import (
@@ -27,7 +24,7 @@ import (
 func (d *DataBase) SetNotificationSeq(ctx context.Context, conversationID string, seq int64) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
-	cursor := d.conn.WithContext(ctx).Model(&model_struct.NotificationSeqs{}).Where("conversation_id = ?", conversationID).Updates(map[string]any{"seq": seq})
+	cursor := d.conn.WithContext(ctx).Model(&model_struct.NotificationSeqs{}).Where("conversation_id = ?", conversationID).Updates(map[string]interface{}{"seq": seq})
 	if cursor.Error != nil {
 		return errs.WrapMsg(cursor.Error, "Updates failed")
 	}

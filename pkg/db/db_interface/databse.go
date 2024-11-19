@@ -63,11 +63,12 @@ type MessageModel interface {
 	SearchMessageByContentTypeAndKeyword(ctx context.Context, contentType []int, conversationID string, senderUserIDList []string, keywordList []string, keywordListMatchType int, startTime, endTime int64) (result []*model_struct.LocalChatLog, err error)
 	GetMessage(ctx context.Context, conversationID, clientMsgID string) (*model_struct.LocalChatLog, error)
 	GetMessageBySeq(ctx context.Context, conversationID string, seq int64) (*model_struct.LocalChatLog, error)
-	UpdateColumnsMessage(ctx context.Context, conversationID string, ClientMsgID string, args map[string]any) error
+	UpdateColumnsMessage(ctx context.Context, conversationID string, ClientMsgID string, args map[string]interface{}) error
 	UpdateMessage(ctx context.Context, conversationID string, c *model_struct.LocalChatLog) error
 	UpdateMessageBySeq(ctx context.Context, conversationID string, c *model_struct.LocalChatLog) error
 	UpdateMessageTimeAndStatus(ctx context.Context, conversationID, clientMsgID string, serverMsgID string, sendTime int64, status int32) error
 	GetMessageList(ctx context.Context, conversationID string, count int, startTime int64, isReverse bool) (result []*model_struct.LocalChatLog, err error)
+	GetMessageListNoTime(ctx context.Context, conversationID string, count int, isReverse bool) (result []*model_struct.LocalChatLog, err error)
 	MarkConversationMessageAsReadDB(ctx context.Context, conversationID string, msgIDs []string) (rowsAffected int64, err error)
 	MarkConversationMessageAsReadBySeqs(ctx context.Context, conversationID string, seqs []int64) (rowsAffected int64, err error)
 	GetUnreadMessage(ctx context.Context, conversationID string) (result []*model_struct.LocalChatLog, err error)
@@ -89,6 +90,8 @@ type MessageModel interface {
 
 	GetAlreadyExistSeqList(ctx context.Context, conversationID string, lostSeqList []int64) (seqList []int64, err error)
 
+	BatchInsertConversationUnreadMessageList(ctx context.Context, messageList []*model_struct.LocalConversationUnreadMessage) error
+	DeleteConversationUnreadMessageList(ctx context.Context, conversationID string, sendTime int64) int64
 	DeleteConversationMsgs(ctx context.Context, conversationID string, msgIDs []string) error
 	SetNotificationSeq(ctx context.Context, conversationID string, seq int64) error
 	BatchInsertNotificationSeq(ctx context.Context, notificationSeqs []*model_struct.NotificationSeqs) error
@@ -111,14 +114,16 @@ type ConversationModel interface {
 	DeleteAllConversation(ctx context.Context) error
 	GetConversation(ctx context.Context, conversationID string) (*model_struct.LocalConversation, error)
 	UpdateConversation(ctx context.Context, c *model_struct.LocalConversation) error
+	UpdateConversationForSync(ctx context.Context, c *model_struct.LocalConversation) error
 	BatchUpdateConversationList(ctx context.Context, conversationList []*model_struct.LocalConversation) error
+	ConversationIfExists(ctx context.Context, conversationID string) (bool, error)
 	ResetConversation(ctx context.Context, conversationID string) error
 	ResetAllConversation(ctx context.Context) error
 	ClearConversation(ctx context.Context, conversationID string) error
 	SetConversationDraftDB(ctx context.Context, conversationID, draftText string) error
 	RemoveConversationDraft(ctx context.Context, conversationID, draftText string) error
 	UnPinConversation(ctx context.Context, conversationID string, isPinned int) error
-	UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]any) error
+	UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]interface{}) error
 	UpdateAllConversation(ctx context.Context, conversation *model_struct.LocalConversation) error
 	IncrConversationUnreadCount(ctx context.Context, conversationID string) error
 	DecrConversationUnreadCount(ctx context.Context, conversationID string, count int64) (err error)
@@ -132,7 +137,7 @@ type ConversationModel interface {
 type UserModel interface {
 	GetLoginUser(ctx context.Context, userID string) (*model_struct.LocalUser, error)
 	UpdateLoginUser(ctx context.Context, user *model_struct.LocalUser) error
-	UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]any) error
+	UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]interface{}) error
 	InsertLoginUser(ctx context.Context, user *model_struct.LocalUser) error
 	ProcessUserCommandAdd(ctx context.Context, command *model_struct.LocalUserCommand) error
 	ProcessUserCommandUpdate(ctx context.Context, command *model_struct.LocalUserCommand) error
@@ -160,7 +165,7 @@ type FriendModel interface {
 	GetSendFriendApplication(ctx context.Context) ([]*model_struct.LocalFriendRequest, error)
 	GetFriendApplicationByBothID(ctx context.Context, fromUserID, toUserID string) (*model_struct.LocalFriendRequest, error)
 	GetBothFriendReq(ctx context.Context, fromUserID, toUserID string) ([]*model_struct.LocalFriendRequest, error)
-	UpdateColumnsFriend(ctx context.Context, friendIDs []string, args map[string]any) error
+	UpdateColumnsFriend(ctx context.Context, friendIDs []string, args map[string]interface{}) error
 
 	GetBlackListDB(ctx context.Context) ([]*model_struct.LocalBlack, error)
 	GetBlackListUserID(ctx context.Context) (blackListUid []string, err error)
@@ -169,6 +174,14 @@ type FriendModel interface {
 	InsertBlack(ctx context.Context, black *model_struct.LocalBlack) error
 	UpdateBlack(ctx context.Context, black *model_struct.LocalBlack) error
 	DeleteBlack(ctx context.Context, blockUserID string) error
+}
+
+type ReactionModel interface {
+	GetMessageReactionExtension(ctx context.Context, msgID string) (result *model_struct.LocalChatLogReactionExtensions, err error)
+	InsertMessageReactionExtension(ctx context.Context, messageReactionExtension *model_struct.LocalChatLogReactionExtensions) error
+	UpdateMessageReactionExtension(ctx context.Context, c *model_struct.LocalChatLogReactionExtensions) error
+	GetMultipleMessageReactionExtension(ctx context.Context, msgIDList []string) (result []*model_struct.LocalChatLogReactionExtensions, err error)
+	DeleteMessageReactionExtension(ctx context.Context, msgID string) error
 }
 
 type S3Model interface {
@@ -205,6 +218,7 @@ type DataBase interface {
 	ConversationModel
 	UserModel
 	FriendModel
+	ReactionModel
 	S3Model
 	SendingMessagesModel
 	VersionSyncModel
