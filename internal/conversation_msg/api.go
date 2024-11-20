@@ -36,7 +36,6 @@ import (
 	msgpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
 	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
-	// sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/sdkws"
 )
 

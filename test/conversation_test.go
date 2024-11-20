@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
-	// sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	msgpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 )
@@ -100,8 +100,8 @@ func Test_GetTotalUnreadMsgCount(t *testing.T) {
 
 func Test_SendMessage(t *testing.T) {
 	ctx = context.WithValue(ctx, "callback", TestSendMsg{})
-	msg, _ := open_im_sdk.UserForSDK.Conversation().CreateTextMessage(ctx, &sdkpb.CreateTextMessageReq{Text: "textMsg"})
-	_, err := open_im_sdk.UserForSDK.Conversation().SendMessage(ctx, &sdkpb.SendMessageReq{
+	msg, _ := open_im_sdk.UserForSDK.Conversation().CreateTextMessage(ctx, &msgpb.CreateTextMessageReq{Text: "textMsg"})
+	_, err := open_im_sdk.UserForSDK.Conversation().SendMessage(ctx, &msgpb.SendMessageReq{
 		Message: msg.Message,
 	}, nil)
 	if err != nil {
