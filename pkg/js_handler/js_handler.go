@@ -6,10 +6,65 @@ import (
 	"syscall/js"
 	"time"
 
+	"google.golang.org/protobuf/proto"
+
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
+
+func call[A, B any](ctx context.Context, req *A) (resp *B, err error) {
+
+
+	pbReq, ok := any(req).(proto.Message)
+	if !ok {
+		return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
+	}
+
+	if err := proto.Marshal(req, msg); err != nil {
+		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
+	}
+
+
+	pbResp, err := fn(ctx, &pbReq)
+	if err != nil {
+		return nil, err
+	}
+	var pbResp B
+	respMsg, ok := any(&pbResp).(proto.Message)
+	if !ok {
+		return nil, sdkerrs.ErrArgs.WrapMsg("called function return value is not of type proto.Message")
+	}
+	if err := proto.Unmarshal(req, respMsg); err != nil {
+		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal resp")
+	}
+	return &respMsg, nil
+
+}
+
+var pbReq A
+
+msg, ok := any(&pbReq).(proto.Message)
+if !ok {
+return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
+}
+
+if err := proto.Unmarshal(req, msg); err != nil {
+return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
+}
+
+pbResp, err := fn(ctx, &pbReq)
+if err != nil {
+return nil, err
+}
+
+respMsg, ok := any(pbResp).(proto.Message)
+if !ok {
+return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
+}
+
+return proto.Marshal(respMsg)
 
 func waitAsyncFunc(ctx context.Context, data any) (js.Value, error) {
 	if !(result.Type() == js.TypeObject && result.InstanceOf(js.Global().Get("Promise"))) {
