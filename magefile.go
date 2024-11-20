@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
 )
 
@@ -24,6 +25,7 @@ var Aliases = map[string]interface{}{
 	"a":    All,
 }
 
+// Define output directories for each target language
 var (
 	GO     = "go"
 	JAVA   = "java"
@@ -32,6 +34,7 @@ var (
 	TS     = "ts"
 )
 
+// protoModules lists all the protobuf modules to be processed for code generation.
 var protoModules = []string{
 	"common",
 	"conversation",
@@ -46,7 +49,10 @@ var protoModules = []string{
 	"user",
 }
 
-var protoDir = filepath.Join(".", "proto")
+// proto files directory path
+// ignore Separator, just append folder name, like "./pb/proto" is (".", "pb", "proto")
+
+var protoDir = filepath.Join(".", "proto") // "./proto"
 
 /*
 protoc --go_out=:./ --go_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto *.proto
@@ -54,8 +60,8 @@ protoc --go_out=./${name} --go_opt=module=github.com/openimsdk/openim-sdk-core/v
 */
 
 /*
-JavaScript need install `protoc-gen-js`
-Typescript need install `ts-protoc-gen`
+JavaScript requires installing `protoc-gen-js` via a package manager
+TypeScript requires installing `ts-proto` via a package manager
 */
 
 func All() error {
@@ -82,6 +88,7 @@ func GenGo() error {
 	// log.SetFlags(log.Lshortfile)
 	log.Println("Generating Go code from proto files")
 
+	// pb generated output directory
 	goOutDir := filepath.Join(protoDir, GO)
 
 	protoc, err := getToolPath("protoc")
@@ -234,6 +241,15 @@ func GenTS() error {
 	}
 
 	tsProto := filepath.Join(".", "node_modules", ".bin", "protoc-gen-ts_proto")
+
+	if runtime.GOOS == "windows" {
+		tsProto = filepath.Join(".", "node_modules", ".bin", "protoc-gen-ts_proto.cmd")
+	}
+
+	if _, err := os.Stat(tsProto); err != nil {
+		log.Println("tsProto Not Found. Error: ", err, " tsProto Path: ", tsProto)
+		return err
+	}
 
 	for _, module := range protoModules {
 		if err := os.MkdirAll(filepath.Join(tsOutDir, module), 0755); err != nil {

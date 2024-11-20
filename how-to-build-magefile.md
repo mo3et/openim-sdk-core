@@ -4,7 +4,7 @@
 >
 > 主要是告诉别人如何加，写清楚，每个语言使用的工具和版本
 
-We use `mage` to replace `makefile` and `shell script` generation. **Mage** requires a Go environment.
+We use `mage` to replace `makefile` and `shell script`. **Mage** requires a Go environment.
 
 ## Dependencies:
 ### Install Go:
@@ -36,13 +36,24 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 - view the [ts-proto docs](https://github.com/stephenh/ts-proto#quickstart).
 - install `ts-proto` by `npm install ts-proto`.
 
-
 ## Usage:
-Normally, we use `mage Gen<Language>` to compile specifical language pb file.(like `mage GenGo`, `mage GenJava`, `mage GenCS`, `mage GenTS`). You can check target use `mage -l`.
+Normally, we use `mage Gen<Language>` to compile specifical language pb file.(like `mage gengo`, `mage genjava`, `mage gencs`, `mage gents`). You can check target use `mage -l`.
+
+You also use Aliases to simplify the command. For example, `mage gengo` can be replaced by `mage go`.
 
 
+You need to focus to `protoDir`, `protoModules` variables.
+- Modify the `protoDir` variable to the directory where the `.proto` files are located.
+- Add the new modules in `protoModules` when you create new `.proto` file and want to generate it.
 
-`mage -l` outputs all executable targets.
+You can also modify the `OutDir` to change the output directory. 
+
 
 ## Modify:
 Now we use Python as an example.
+
+
+
+## More:
+- [Protobuf docs](https://protobuf.dev/)
+- [gRPC docs](https://grpc.io/docs)
