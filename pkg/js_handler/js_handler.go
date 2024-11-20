@@ -14,7 +14,7 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-func call[A, B any](ctx context.Context, req *A) (resp *B, err error) {
+func Call[A, B any](ctx context.Context, req *A) (resp *B, err error) {
 
 
 	pbReq, ok := any(req).(proto.Message)
@@ -22,7 +22,8 @@ func call[A, B any](ctx context.Context, req *A) (resp *B, err error) {
 		return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
 	}
 
-	if err := proto.Marshal(req, msg); err != nil {
+	err := proto.Marshal(req);
+	if err != nil {
 		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
 	}
 
