@@ -15,32 +15,39 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-func Call[A, B any](ctx context.Context, funName sdkpb.FuncRequestEventName, req *A) (resp *B, err error) {
+var dispatchFfiResult func(ctc context.Context, funcName sdkpb.FuncRequestEventName, data []byte) ([]byte, error)
+
+func Call[A, B any](ctx context.Context, funName sdkpb.FuncRequestEventName, req *A) (*B, error) {
 
 	pbReq, ok := any(req).(proto.Message)
 	if !ok {
 		return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
 	}
 
-	err := proto.Marshal(req)
+	reqData, err := proto.Marshal(pbReq)
 	if err != nil {
 		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
 	}
-
-	pbResp, err := fn(ctx, &pbReq)
-	if err != nil {
-		return nil, err
+	var respData []byte
+	if dispatchFfiResult != nil {
+		respData, err = dispatchFfiResult(ctx, funName, reqData)
+	} else {
+		return nil, sdkerrs.ErrArgs.WrapMsg("dispatchFfiResult is nil")
 	}
-	var pbResp B
-	respMsg, ok := any(&pbResp).(proto.Message)
+	var resp B
+	pbResp, ok := any(&resp).(proto.Message)
 	if !ok {
 		return nil, sdkerrs.ErrArgs.WrapMsg("called function return value is not of type proto.Message")
 	}
-	if err := proto.Unmarshal(req, respMsg); err != nil {
+	if err := proto.Unmarshal(respData, pbResp); err != nil {
 		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal resp")
 	}
-	return &respMsg, nil
+	return &resp, nil
 
+}
+
+func SetDispatchFfiResult(f func(ctc context.Context, funcName sdkpb.FuncRequestEventName, data []byte) ([]byte, error)) {
+	dispatchFfiResult = f
 }
 
 func waitAsyncFunc(ctx context.Context, data any) (js.Value, error) {
