@@ -92,7 +92,7 @@ func (m *MetaManager) apiPost(ctx context.Context, route string, req, resp any) 
 		"body", string(respBody), "time", time.Since(start).Milliseconds())
 	var baseApi network.ApiResponse
 	if err := json.Unmarshal(respBody, &baseApi); err != nil {
-		return sdkerrs.ErrSdkInternal.WrapMsg(fmt.Sprintf("api %s json.Unmarshal(%q, %T) failed %s", m.apiAddr, string(respBody), &baseApi, err.Error()))
+		return sdkerrs.ErrInternal.WrapMsg(fmt.Sprintf("api %s json.Unmarshal(%q, %T) failed %s", m.apiAddr, string(respBody), &baseApi, err.Error()))
 	}
 	if baseApi.ErrCode != 0 {
 		err := sdkerrs.New(baseApi.ErrCode, baseApi.ErrMsg, baseApi.ErrDlt)
@@ -102,7 +102,7 @@ func (m *MetaManager) apiPost(ctx context.Context, route string, req, resp any) 
 		return nil
 	}
 	if err := json.Unmarshal(baseApi.Data, resp); err != nil {
-		return sdkerrs.ErrSdkInternal.WrapMsg(fmt.Sprintf("json.Unmarshal(%q, %T) failed %s", string(baseApi.Data), resp, err.Error()))
+		return sdkerrs.ErrInternal.WrapMsg(fmt.Sprintf("json.Unmarshal(%q, %T) failed %s", string(baseApi.Data), resp, err.Error()))
 	}
 	return nil
 }

@@ -320,7 +320,7 @@ func (u *LoginMgr) initialize(ctx context.Context, userID string) error {
 	var err error
 	u.db, err = db.NewDataBase(ctx, userID, u.info.DataDir, int(u.info.LogLevel))
 	if err != nil {
-		return sdkerrs.ErrSdkInternal.WrapMsg("init database " + err.Error())
+		return sdkerrs.ErrInternal.WrapMsg("init database " + err.Error())
 	}
 	u.checkSendingMessage(ctx)
 	u.user.SetLoginUserID(userID)

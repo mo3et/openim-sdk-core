@@ -383,7 +383,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			}
 		} else {
 			if oldMessage.Status != constant.MsgStatusSendFailed {
-				return nil, sdkerrs.ErrMsgRepeated
+				return nil, sdkerrs.ErrMsgRepeat
 			} else {
 				req.Message.Status = constant.MsgStatusSending
 				err = c.db.InsertSendingMessage(ctx, &model_struct.LocalSendingMessages{
@@ -631,7 +631,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.IMMessage
 			}
 		} else {
 			if oldMessage.Status != constant.MsgStatusSendFailed {
-				return nil, sdkerrs.ErrMsgRepeated
+				return nil, sdkerrs.ErrMsgRepeat
 			} else {
 				s.Status = constant.MsgStatusSending
 				err = c.db.InsertSendingMessage(ctx, &model_struct.LocalSendingMessages{
@@ -687,7 +687,7 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessa
 	err := c.LongConnMgr.SendReqWaitResp(ctx, wsMsgData, constant.SendMsg, &sendMsgResp)
 	if err != nil {
 		//if send message network timeout need to double-check message has received by db.
-		if sdkerrs.ErrNetworkTimeOut.Is(err) && !isOnlineOnly {
+		if sdkerrs.ErrNetworkTimeout.Is(err) && !isOnlineOnly {
 			oldMessage, _ := c.db.GetMessage(ctx, lc.ConversationID, s.ClientMsgID)
 			if oldMessage.Status == constant.MsgStatusSendSuccess {
 				sendMsgResp.SendTime = oldMessage.SendTime

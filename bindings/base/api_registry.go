@@ -50,7 +50,7 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 		}
 		cb, ok := callbackRegistry[name]
 		if !ok {
-			return nil, sdkerrs.ErrSdkInternal.WrapMsg("callback maybe not registered")
+			return nil, sdkerrs.ErrInternal.WrapMsg("callback maybe not registered")
 		}
 		pbResp, err := fn(ctx, &pbReq, cb(handlerID).(C))
 		if err != nil {

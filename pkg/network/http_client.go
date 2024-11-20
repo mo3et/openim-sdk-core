@@ -80,7 +80,7 @@ func ApiPost(ctx context.Context, api string, req, resp any) (err error) {
 	reqBody, err := json.Marshal(req)
 	if err != nil {
 		log.ZError(ctx, "ApiRequest", err, "type", "json.Marshal(req) failed")
-		return sdkerrs.ErrSdkInternal.WrapMsg("json.Marshal(req) failed " + err.Error())
+		return sdkerrs.ErrInternal.WrapMsg("json.Marshal(req) failed " + err.Error())
 	}
 
 	// Construct the full API URL and create a new HTTP request with context.
@@ -89,7 +89,7 @@ func ApiPost(ctx context.Context, api string, req, resp any) (err error) {
 	request, err := http.NewRequestWithContext(ctx, http.MethodPost, reqUrl, bytes.NewReader(reqBody))
 	if err != nil {
 		log.ZError(ctx, "ApiRequest", err, "type", "http.NewRequestWithContext failed")
-		return sdkerrs.ErrSdkInternal.WrapMsg("sdk http.NewRequestWithContext failed " + err.Error())
+		return sdkerrs.ErrInternal.WrapMsg("sdk http.NewRequestWithContext failed " + err.Error())
 	}
 
 	// Set headers for the request.
@@ -124,7 +124,7 @@ func ApiPost(ctx context.Context, api string, req, resp any) (err error) {
 	respBody, err := io.ReadAll(body)
 	if err != nil {
 		log.ZError(ctx, "ApiResponse", err, "type", "read body", "status", response.Status)
-		return sdkerrs.ErrSdkInternal.WrapMsg("io.ReadAll(ApiResponse) failed " + err.Error())
+		return sdkerrs.ErrInternal.WrapMsg("io.ReadAll(ApiResponse) failed " + err.Error())
 	}
 
 	// Log the response for debugging purposes.
@@ -134,7 +134,7 @@ func ApiPost(ctx context.Context, api string, req, resp any) (err error) {
 	var baseApi ApiResponse
 	if err := json.Unmarshal(respBody, &baseApi); err != nil {
 		log.ZError(ctx, "ApiResponse", err, "type", "api code parse")
-		return sdkerrs.ErrSdkInternal.WrapMsg(fmt.Sprintf("api %s json.Unmarshal(%q, %T) failed %s", api, string(respBody), &baseApi, err.Error()))
+		return sdkerrs.ErrInternal.WrapMsg(fmt.Sprintf("api %s json.Unmarshal(%q, %T) failed %s", api, string(respBody), &baseApi, err.Error()))
 	}
 
 	// Check if the API returned an error code and handle it.
@@ -153,7 +153,7 @@ func ApiPost(ctx context.Context, api string, req, resp any) (err error) {
 	// Unmarshal the actual data part of the response into the provided response object.
 	if err := json.Unmarshal(baseApi.Data, resp); err != nil {
 		log.ZError(ctx, "ApiResponse", err, "type", "api data parse", "data", string(baseApi.Data), "bind", fmt.Sprintf("%T", resp))
-		return sdkerrs.ErrSdkInternal.WrapMsg(fmt.Sprintf("json.Unmarshal(%q, %T) failed %s", string(baseApi.Data), resp, err.Error()))
+		return sdkerrs.ErrInternal.WrapMsg(fmt.Sprintf("json.Unmarshal(%q, %T) failed %s", string(baseApi.Data), resp, err.Error()))
 	}
 
 	return nil

@@ -159,7 +159,7 @@ func (l *LongConnMgr) SendReqWaitResp(ctx context.Context, m proto.Message, reqI
 	log.ZDebug(ctx, "send message to send channel success", "msg", m, "reqIdentifier", reqIdentifier)
 	select {
 	case <-ctx.Done():
-		return sdkerrs.ErrCtxDeadline
+		return sdkerrs.ErrCtxDeadlineExceeded
 	case v, ok := <-msg.Resp:
 		if !ok {
 			return errors.New("response channel closed")
@@ -369,7 +369,7 @@ func (l *LongConnMgr) sendAndWaitResp(msg *GeneralWsReq) (*GeneralWsResp, error)
 		case resp := <-tempChan:
 			return resp, nil
 		case <-time.After(sendAndWaitTime):
-			return nil, sdkerrs.ErrNetworkTimeOut
+			return nil, sdkerrs.ErrNetworkTimeout
 		}
 
 	}

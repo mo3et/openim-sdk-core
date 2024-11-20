@@ -147,7 +147,7 @@ func FfiRequest(data []byte) uint64 {
 			setListener(ffiRequest.FuncName)
 			activeSuccessResp(handleID, ffiRequest.FuncName, res)
 		} else {
-			activeErrResp(handleID, ffiRequest.FuncName, sdkerrs.ErrSdkFuncNotFound.WrapMsg("func not found",
+			activeErrResp(handleID, ffiRequest.FuncName, sdkerrs.ErrFuncNotFound.WrapMsg("func not found",
 				"funcName", ffiRequest.FuncName.String()))
 		}
 	}()
@@ -160,13 +160,13 @@ func checkResourceLoad(funcName pb.FuncRequestEventName) error {
 		return nil
 	}
 	if open_im_sdk.UserForSDK.Info().IMConfig == nil {
-		return sdkerrs.ErrSdkNotInit.WrapMsg("SDK not initialized", "funcName", funcName.String())
+		return sdkerrs.ErrNotInit.WrapMsg("SDK not initialized", "funcName", funcName.String())
 	}
 	if funcName == pb.FuncRequestEventName_Login {
 		return nil
 	}
 	if open_im_sdk.UserForSDK.GetLoginStatus(context.Background()) != open_im_sdk.Logged {
-		return sdkerrs.ErrSdkNotLogin.WrapMsg("SDK not login", "funcName", funcName.String())
+		return sdkerrs.ErrNotLogin.WrapMsg("SDK not login", "funcName", funcName.String())
 	}
 	return nil
 }
