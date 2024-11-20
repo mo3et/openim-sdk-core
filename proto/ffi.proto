@@ -7,6 +7,7 @@ import "event.proto";
 // import "error.proto";
 
 message FfiRequest {
+  //note: This field is optional and is only used for interaction between Go and JS.
   string operationID  = 1;
   event.FuncRequestEventName funcName = 2;
   bytes data = 3;

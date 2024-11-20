@@ -25,6 +25,7 @@ type FfiRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// note: This field is optional and is only used for interaction between Go and JS.
 	OperationID string               `protobuf:"bytes,1,opt,name=operationID,proto3" json:"operationID,omitempty"`
 	FuncName    FuncRequestEventName `protobuf:"varint,2,opt,name=funcName,proto3,enum=openim.event.FuncRequestEventName" json:"funcName,omitempty"`
 	Data        []byte               `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
