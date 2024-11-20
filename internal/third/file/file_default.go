@@ -24,7 +24,7 @@ import (
 
 const readBufferSize = 1024 * 1024 * 5 // 5mb
 
-func Open(req *UploadFileReq) (ReadFile, error) {
+func Open(ctx context.Context, req *UploadFileReq) (ReadFile, error) {
 	file, err := os.Open(req.Filepath)
 	if err != nil {
 		return nil, err

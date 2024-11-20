@@ -172,9 +172,9 @@ enum FuncRequestEventName{
   GetUsersInfoFromServer = 2107;
 
   // The following functions are only used for Go and JS interaction and can be ignored by other platforms.
-  JsOpenFile = 2110;
-  JsReadFile = 2111;
-  JsCloseFile = 2112;
+  JsFileOpen = 2110;
+  JsFileRead = 2111;
+  JsFileClose = 2112;
   JsSqliteOpen = 2113;
   JsSqliteExec = 2114;
   JsSqliteQuery = 2115;

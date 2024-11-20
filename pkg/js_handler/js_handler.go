@@ -16,6 +16,9 @@ import (
 )
 
 var (
+	FileOpen    = jsfn[sdkpb.JsFileOpenReq, sdkpb.JsFileOpenResp](sdkpb.FuncRequestEventName_JsFileOpen)
+	FileRead    = jsfn[sdkpb.JsFileReadReq, sdkpb.JsFileReadResp](sdkpb.FuncRequestEventName_JsFileRead)
+	FileClose   = jsfn[sdkpb.JsFileCloseReq, sdkpb.JsFileCloseResp](sdkpb.FuncRequestEventName_JsFileClose)
 	SqliteOpen  = jsfn[sdkpb.JsSqliteOpenReq, sdkpb.JsSqliteOpenResp](sdkpb.FuncRequestEventName_JsSqliteOpen)
 	SqliteExec  = jsfn[sdkpb.JsSqliteExecReq, sdkpb.JsSqliteExecResp](sdkpb.FuncRequestEventName_JsSqliteExec)
 	SqliteQuery = jsfn[sdkpb.JsSqliteQueryReq, sdkpb.JsSqliteQueryResp](sdkpb.FuncRequestEventName_JsSqliteQuery)

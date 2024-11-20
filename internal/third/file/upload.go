@@ -125,7 +125,7 @@ func (f *File) UploadFile(ctx context.Context, req *UploadFileReq, cb UploadFile
 	if prefix := f.loginUserID + "/"; !strings.HasPrefix(req.Name, prefix) {
 		req.Name = prefix + req.Name
 	}
-	file, err := Open(req)
+	file, err := Open(ctx, req)
 	if err != nil {
 		return nil, err
 	}

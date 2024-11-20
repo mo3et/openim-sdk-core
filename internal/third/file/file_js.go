@@ -19,17 +19,17 @@ package file
 
 import (
 	"bufio"
+	"context"
 	"errors"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/js_handler"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"io"
-	"syscall/js"
-
-	"github.com/openimsdk/openim-sdk-core/v3/wasm/exec"
 )
 
 const readBufferSize = 1024 * 1024 * 5 // 5mb
 
-func Open(req *UploadFileReq) (ReadFile, error) {
-	file := newJsCallFile(req.Uuid)
+func Open(ctx context.Context, req *UploadFileReq) (ReadFile, error) {
+	file := &jsCallFile{ctx: ctx, uuid: req.Uuid}
 	size, err := file.Open()
 	if err != nil {
 		return nil, err
@@ -106,52 +106,27 @@ func (r *reader) Read(p []byte) (n int, err error) {
 }
 
 type jsCallFile struct {
+	ctx  context.Context
 	uuid string
 }
 
-func newJsCallFile(uuid string) *jsCallFile {
-	return &jsCallFile{uuid: uuid}
-}
-
 func (j *jsCallFile) Open() (int64, error) {
-	return WasmOpen(j.uuid)
-}
-
-func (j *jsCallFile) Read(offset int64, length int64) ([]byte, error) {
-	return WasmRead(j.uuid, offset, length)
-}
-
-func (j *jsCallFile) Close() error {
-	return WasmClose(j.uuid)
-}
-
-func WasmOpen(uuid string) (int64, error) {
-	result, err := exec.Exec(uuid)
+	resp, err := js_handler.FileOpen(j.ctx, &sdkpb.JsFileOpenReq{Uuid: j.uuid})
 	if err != nil {
 		return 0, err
 	}
-	if v, ok := result.(float64); ok {
-		size := int64(v)
-		if size < 0 {
-			return 0, errors.New("file size < 0")
-		}
-		return size, nil
-	}
-	return 0, exec.ErrType
+	return resp.Size, nil
 }
-func WasmRead(uuid string, offset int64, length int64) ([]byte, error) {
-	result, err := exec.Exec(uuid, offset, length)
+
+func (j *jsCallFile) Read(offset int64, length int64) ([]byte, error) {
+	resp, err := js_handler.FileRead(j.ctx, &sdkpb.JsFileReadReq{Uuid: j.uuid, Offset: offset, Length: length})
 	if err != nil {
 		return nil, err
-	} else {
-		if v, ok := result.(js.Value); ok {
-			return exec.GoBytesFromJSUint8Array(v), nil
-		} else {
-			return nil, exec.ErrType
-		}
 	}
+	return resp.Data, nil
 }
-func WasmClose(uuid string) error {
-	_, err := exec.Exec(uuid)
+
+func (j *jsCallFile) Close() error {
+	_, err := js_handler.FileClose(j.ctx, &sdkpb.JsFileCloseReq{Uuid: j.uuid})
 	return err
 }
