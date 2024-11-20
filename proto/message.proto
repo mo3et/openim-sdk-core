@@ -1,12 +1,11 @@
 syntax = "proto3";
 package openim.sdk.message;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
-option csharp_namespace = "OpenIM";
 
 import "common.proto";
 import "shared.proto";
 
-
+option csharp_namespace = "OpenIM";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
 
 message GetAdvancedHistoryMessageListParams {
   string conversationID = 1;
@@ -32,7 +31,6 @@ message SendMessageReq {
 message SendMessageResp {
   shared.IMMessage message = 1;
 }
-
 
 message GetAdvancedHistoryMessageListReq {
   string conversationID = 1;
@@ -221,4 +219,3 @@ message CreateForwardMessageReq {
 message CreateForwardMessageResp {
   shared.IMMessage message = 1;
 }
-

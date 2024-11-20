@@ -1,14 +1,15 @@
 syntax = "proto3";
 package openim.ffi;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 
 import "event.proto";
+
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi";
 
 // import "error.proto";
 
 message FfiRequest {
   //note: This field is optional and is only used for interaction between Go and JS.
-  string operationID  = 1;
+  string operationID = 1;
   event.FuncRequestEventName funcName = 2;
   bytes data = 3;
 }

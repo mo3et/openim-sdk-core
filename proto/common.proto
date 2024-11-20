@@ -1,8 +1,7 @@
 syntax = "proto3";
 package openim.sdk.common;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 
-
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/common";
 
 enum SessionType {
   SessionType_ = 0;
@@ -72,16 +71,15 @@ enum AppFramework {
   Cordova = 11;
   UniApp = 12;
 }
-enum MsgStatus{
+enum MsgStatus {
   MsgStatus_ = 0;
   Sending = 1;
   SendSuccess = 2;
   SendFailed = 3;
   HasDeleted = 4;
   Filtered = 5;
-
 }
-enum ContentType{
+enum ContentType {
   ContentType_ = 0;
   Text = 101;
   Picture = 102;
@@ -101,9 +99,8 @@ enum ContentType{
   CustomMsgNotTriggerConversation = 119;
   CustomMsgOnlineOnly = 120;
 
-//  NotificationBegin = 1000;
-//  FriendNotificationBegin = 1200;
-
+  //  NotificationBegin = 1000;
+  //  FriendNotificationBegin = 1200;
 
   FriendApplicationApprovedNotification = 1201;
   FriendApplicationRejectedNotification = 1202;
@@ -115,18 +112,17 @@ enum ContentType{
   BlackDeletedNotification = 1208;
   FriendInfoUpdatedNotification = 1209;
   FriendsInfoUpdateNotification = 1210;
-//  FriendNotificationEnd = 1299;
+  //  FriendNotificationEnd = 1299;
   ConversationChangeNotification = 1300;
-//  UserNotificationBegin = 1301;
+  //  UserNotificationBegin = 1301;
   UserInfoUpdatedNotification = 1303;
   UserStatusChangeNotification = 1304;
   UserCommandAddNotification = 1305;
   UserCommandDeleteNotification = 1306;
   UserCommandUpdateNotification = 1307;
-//  UserNotificationEnd = 1399;
+  //  UserNotificationEnd = 1399;
 
-
-//  GroupNotificationBegin = 1500;
+  //  GroupNotificationBegin = 1500;
   GroupCreatedNotification = 1501;
   GroupInfoSetNotification = 1502;
   JoinGroupApplicationNotification = 1503;
@@ -145,12 +141,12 @@ enum ContentType{
   GroupMemberInfoSetNotification = 1516;
   GroupMemberSetToAdminNotification = 1517;
   GroupMemberSetToOrdinaryUserNotification = 1518;
-  GroupInfoSetAnnouncementNotification     = 1519;
-  GroupInfoSetNameNotification             = 1520;
-//  GroupNotificationEnd                     = 1599;
+  GroupInfoSetAnnouncementNotification = 1519;
+  GroupInfoSetNameNotification = 1520;
+  //  GroupNotificationEnd                     = 1599;
 
   ConversationPrivateChatNotification = 1701;
-  ClearConversationNotification       = 1703;
+  ClearConversationNotification = 1703;
 
   BusinessNotification = 2001;
 
@@ -160,7 +156,7 @@ enum ContentType{
 
   HasReadReceipt = 2200;
 
-//  NotificationEnd = 5000
+  //  NotificationEnd = 5000
 }
 
 message OfflinePushInfo {
@@ -189,9 +185,9 @@ enum ConvRecvMsgOpt {
   ReceiveNotNotifyMessage = 2;
 }
 
-enum ConvGroupAtType{
-  AtNormal    = 0;
-  AtMe        = 1;
-  AtAll       = 2;
-  AtAllAtMe   = 3;
+enum ConvGroupAtType {
+  AtNormal = 0;
+  AtMe = 1;
+  AtAll = 2;
+  AtAllAtMe = 3;
 }

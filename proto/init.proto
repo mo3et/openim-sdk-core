@@ -1,6 +1,6 @@
 syntax = "proto3";
 package openim.init;
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/init";
 import "common.proto";
 
 
@@ -23,4 +23,3 @@ message LoginReq {
   string token = 2;
 }
 message LoginResp {}
-

@@ -4,8 +4,8 @@ package openim.sdk.group;
 import "common.proto";
 import "shared.proto";
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
 option csharp_namespace = "OpenIM";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/group";
 
 message CreateGroupReq {
   repeated string memberUserIDs = 1;
@@ -67,9 +67,9 @@ message SetGroupInfoReq {
   optional string introduction = 4;
   optional string faceURL = 5;
   optional string ex = 6;
-  optional int32  needVerification = 7;
-  optional int32  lookMemberInfo = 8;
-  optional int32  applyMemberFriend = 9;
+  optional int32 needVerification = 7;
+  optional int32 lookMemberInfo = 8;
+  optional int32 applyMemberFriend = 9;
 }
 message SetGroupInfoResp {}
 
@@ -78,7 +78,7 @@ message SetGroupMemberInfoReq {
   string userID = 2;
   optional string nickname = 3;
   optional string faceURL = 4;
-  optional int32  roleLevel = 5;
+  optional int32 roleLevel = 5;
   optional string ex = 6;
 }
 message SetGroupMemberInfoResp {}
@@ -193,4 +193,3 @@ message HandlerGroupRequestReq {
   openim.sdk.common.ApprovalStatus status = 4;
 }
 message HandlerGroupRequestResp {}
-
