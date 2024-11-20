@@ -4,21 +4,43 @@
 package handlers
 
 import (
+	"fmt"
 	"syscall/js"
 
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 )
 
 var eventCallBack js.Value
+var reqCallBack js.Value
 
 func init() {
-	base.SetDispatchFfiResult(dispatchFfiResultForWasm)
+	base.SetDispatchFfiResultFunc(dispatchFfiResultForWasm)
+	base.SetSendFfiRequestFunc(sendRequestToJs)
 }
 
 func dispatchFfiResultForWasm(_ uint64, data []byte) {
 	if eventCallBack.Type() == js.TypeFunction {
 		eventCallBack.Invoke(JSUint8ArrayFromGoBytes(data))
 	}
+}
+
+func sendRequestToJs(_ uint64, data []byte) ([]byte, error) {
+	if reqCallBack.Type() == js.TypeFunction {
+		resp := reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data))
+		if resp.InstanceOf(js.Global().Get("Uint8Array")) {
+			length := resp.Get("length").Int()
+			if length == 0 {
+				fmt.Println("The Uint8Array is empty.")
+				return nil, sdkerrs.ErrInternal.WrapMsg("The Uint8Array is empty.")
+			} else {
+				return GoBytesFromJSUint8Array(resp), nil
+			}
+		} else {
+			return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
+		}
+	}
+	return nil, sdkerrs.ErrInternal.WrapMsg("eventCallBack set error from javascript")
 }
 
 func FfiRequest(_ js.Value, args []js.Value) any {
@@ -31,18 +53,23 @@ func FfiRequest(_ js.Value, args []js.Value) any {
 	}
 }
 func FfiInit(_ js.Value, args []js.Value) any {
-	if len(args) > 0 {
-		if args[0].Type() == js.TypeFunction {
-			handleID := base.GenerateHandleID()
-			eventCallBack = args[0]
-			return js.ValueOf(handleID)
-
-		} else {
-			return js.ValueOf(-1)
-		}
+	if len(args) != 2 {
+		return js.ValueOf(-1)
 	}
 
-	return js.ValueOf(-1)
+	assignCallback := func(arg js.Value, target *js.Value) bool {
+		if arg.Type() == js.TypeFunction {
+			*target = arg
+			return true
+		}
+		return false
+	}
+
+	var handleID uint64 = 0
+	if assignCallback(args[0], &eventCallBack) && assignCallback(args[1], &reqCallBack) {
+		handleID = base.GenerateHandleID()
+	}
+	return js.ValueOf(handleID)
 }
 
 // GoBytesFromJSUint8Array extracts a Go byte slice from a JavaScript Uint8Array.

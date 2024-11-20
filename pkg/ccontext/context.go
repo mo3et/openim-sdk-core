@@ -17,19 +17,8 @@ package ccontext
 import (
 	"context"
 
-	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/tools/mcontext"
-)
-
-type ctxKey string
-
-const (
-	CtxCallback ctxKey = "callback"
-)
-
-const (
-	CtxApiToken ctxKey = "api-token"
 )
 
 type GlobalConfig struct {
@@ -65,8 +54,9 @@ func WithInfo(ctx context.Context, conf *GlobalConfig) context.Context {
 func WithOperationID(ctx context.Context, operationID string) context.Context {
 	return mcontext.SetOperationID(ctx, operationID)
 }
-func WithSendMessageCallback(ctx context.Context, callback open_im_sdk_callback.SendMsgCallBack) context.Context {
-	return context.WithValue(ctx, CtxCallback, callback)
+
+func GetOperationID(ctx context.Context) string {
+	return mcontext.GetOperationID(ctx)
 }
 
 func WithApiErrCode(ctx context.Context, cb ApiErrCodeCallback) context.Context {

@@ -3,7 +3,8 @@ package wasm_sqlite
 import (
 	"context"
 	"database/sql/driver"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/js_handler"
+
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 )
 
@@ -14,7 +15,7 @@ type DriverContext struct {
 }
 
 func (d DriverContext) open(name string) (int64, error) {
-	resp, err := js_handler.SqliteOpen(d.ctx, &sdkpb.JsSqliteOpenReq{Name: name})
+	resp, err := ffi_bridge.SqliteOpen(d.ctx, &sdkpb.JsSqliteOpenReq{Name: name})
 	if err != nil {
 		return 0, err
 	}
@@ -55,12 +56,12 @@ func (c Conn) Prepare(query string) (driver.Stmt, error) {
 }
 
 func (c Conn) Close() error {
-	_, err := js_handler.SqliteClose(c.ctx, &sdkpb.JsSqliteCloseReq{Id: c.id})
+	_, err := ffi_bridge.SqliteClose(c.ctx, &sdkpb.JsSqliteCloseReq{Id: c.id})
 	return err
 }
 
 func (c Conn) Begin() (driver.Tx, error) {
-	_, err := js_handler.SqliteExec(c.ctx, &sdkpb.JsSqliteExecReq{Id: c.id, Sql: "BEGIN", Args: emptyArgs})
+	_, err := ffi_bridge.SqliteExec(c.ctx, &sdkpb.JsSqliteExecReq{Id: c.id, Sql: "BEGIN", Args: emptyArgs})
 	if err != nil {
 		return nil, err
 	}

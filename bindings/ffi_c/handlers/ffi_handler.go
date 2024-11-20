@@ -19,6 +19,7 @@ import (
 	"unsafe"
 
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
+	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
 
@@ -37,21 +38,18 @@ const (
 )
 
 func init() {
-	base.SetDispatchFfiResult(dispatchResultForC)
+	base.SetDispatchFfiResultFunc(dispatchResultForC)
 	go monitorResultMapSize()
 }
 
 func dispatchResultForC(handleID uint64, data []byte) {
 	cData := (*C.uint8_t)(C.malloc(C.size_t(len(data))))
 	if cData == nil {
-		fmt.Println("Failed to allocate memory")
-		return
+		log.ZWarn(context.Background(), "callback data", errs.New("Failed to allocate memory"))
 	}
 	cDataPtr := (*[1 << 30]byte)(unsafe.Pointer(cData))[:len(data):len(data)]
 	copy(cDataPtr, data)
-
 	mu.Lock()
-	fmt.Println("resp c data put into resultMap", handleID)
 	resultMap[handleID] = &ResultData{
 		cData:  cData,
 		length: len(data),
@@ -61,6 +59,8 @@ func dispatchResultForC(handleID uint64, data []byte) {
 		len := C.int(len(data))
 		C.CallCallBack(C.eventCallBack, (*C.char)(unsafe.Pointer(cData)), len)
 	}
+	// Currently, the SDK uses asynchronous calls for Go to C interface
+	//exports to other languages, so no return value is needed here.
 }
 func monitorResultMapSize() {
 	ticker := time.NewTicker(checkTimePeriod)

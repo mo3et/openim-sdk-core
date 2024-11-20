@@ -59,7 +59,7 @@ func ApiPost(ctx context.Context, api string, req, resp any) (err error) {
 	// Extract operationID from context and validate.
 
 	//If ctx is empty, it may be because the ctx from the cmd's context is not passed in.
-	operationID, _ := ctx.Value("operationID").(string)
+	operationID := ccontext.GetOperationID(ctx)
 	if operationID == "" {
 		err := sdkerrs.ErrArgs.WrapMsg("call api operationID is empty")
 		log.ZError(ctx, "ApiRequest", err, "type", "ctx not set operationID")
