@@ -10,11 +10,12 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
 
-func Call[A, B any](ctx context.Context, req *A) (resp *B, err error) {
+func Call[A, B any](ctx context.Context, funName *sdkpb.FuncRequestEventName, req *A) (resp *B, err error) {
 
 	pbReq, ok := any(req).(proto.Message)
 	if !ok {
