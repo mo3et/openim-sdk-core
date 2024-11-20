@@ -141,6 +141,7 @@ func (d *DataBase) initDB(ctx context.Context, logLevel int) error {
 	if err = d.versionDataMigrate(ctx); err != nil {
 		return err
 	}
+	log.ZDebug(ctx, "version data migrate success")
 
 	return nil
 }
@@ -189,9 +190,11 @@ func (d *DataBase) versionDataMigrate(ctx context.Context) error {
 	if verModel.Version != version.Version {
 		switch version.Version {
 		case "3.8.0":
+			log.ZDebug(ctx, "3.8.0 update")
 			d.conn.AutoMigrate(&model_struct.LocalAppSDKVersion{})
 			fallthrough
-		case "3.8.2":
+		case "3.8.1":
+			log.ZDebug(ctx, "3.8.1 update")
 			if err = d.ChangeConversationLatestMsgToPB(ctx); err != nil {
 				return err
 			}
