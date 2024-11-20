@@ -15,7 +15,7 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-func Call[A, B any](ctx context.Context, funName *sdkpb.FuncRequestEventName, req *A) (resp *B, err error) {
+func Call[A, B any](ctx context.Context, funName sdkpb.FuncRequestEventName, req *A) (resp *B, err error) {
 
 	pbReq, ok := any(req).(proto.Message)
 	if !ok {
