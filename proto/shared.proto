@@ -665,13 +665,13 @@ message SubUserOnlineStatus {
   repeated string unsubscribeUserID = 2;
 }
 
-message StreamMsgTips {
-  string conversationID = 1;
-  string clientMsgID = 2;
-  int64 startIndex = 3;
-  repeated string packets = 4;
-  bool end = 5;
-}
+//message StreamMsgTips {
+//  string conversationID = 1;
+//  string clientMsgID = 2;
+//  int64 startIndex = 3;
+//  repeated string packets = 4;
+//  bool end = 5;
+//}
 
 message IMMessage {
   string clientMsgID = 1;
@@ -751,7 +751,7 @@ message IMMessage {
     MarkAsReadTips markAsReadTips = 76;
     FriendsInfoUpdateTips friendsInfoUpdateTips = 77;
     SubUserOnlineStatusTips subUserOnlineStatusTips = 78;
-    StreamMsgTips streamMsgTips = 79;
+//    StreamMsgTips streamMsgTips = 79;
   }
 }
 
