@@ -3,7 +3,6 @@ module github.com/openimsdk/openim-sdk-core/v3
 go 1.21
 
 require (
-	github.com/golang/protobuf v1.5.4
 	github.com/gorilla/websocket v1.4.2
 	github.com/jinzhu/copier v0.4.0 // indirect
 	github.com/pkg/errors v0.9.1

@@ -1,9 +1,9 @@
 syntax = "proto3";
 package openim.sdk.shared;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared";
-
 import "common.proto";
+
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared";
 
 // ############## user ################
 
@@ -173,7 +173,6 @@ message Conversation {
   int64 msgDestructTime = 18;
   bool isMsgDestruct = 19;
 }
-
 
 message AtInfo {
   string atUserID = 1;
@@ -364,7 +363,6 @@ message AttachedInfoElem {
   int64 hasReadTime = 4;
   UploadProgress progress = 5;
 }
-
 
 // ############## notification ##############
 

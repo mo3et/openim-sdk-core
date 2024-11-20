@@ -25,6 +25,7 @@ Protocol Buffer Compiler (protoc):
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 ```
+- view the 
 
 #### Java:
 - view the [Java Usage](https://github.com/protocolbuffers/protobuf/tree/main/java).
@@ -48,6 +49,7 @@ You need to focus to `protoDir`, `protoModules` variables.
 
 You can also modify the `OutDir` to change the output directory. 
 
+Tips: You can
 
 ## Modify:
 Now, we use Rust as an example. Reference to  [grpc-rs](https://github.com/tikv/grpc-rs).
@@ -65,12 +67,68 @@ cargo install grpcio-compiler
 For example:
 ```go
 func GenRust() error {
-    return genCode("rust", "protos", "protos", "protos")
-}
+    // Specify log output
+	log.SetOutput(os.Stdout)
+	log.Println("Generating Rust code from proto files")
 
+    // Define the rust_out directory
+	rsOutDir := filepath.Join(protoDir, RS)
+
+    // get tool path for protoc
+	protoc, err := getToolPath("protoc")
+	if err != nil {
+		return err
+	}
+
+    // get rust tool path for grpc_rust_plugin
+	rustgRPC, err := getRustToolPath("grpc_rust_plugin")
+	if err != nil {
+		return err
+	}
+
+    // loop execute protoc genereate for each module
+	for _, module := range protoModules {
+        // create module directory
+		if err := os.MkdirAll(filepath.Join(rsOutDir, module), 0755); err != nil {
+			return err
+		}
+
+        // define protoc args
+		args := []string{
+			"--proto_path=" + protoDir,
+			"--rust_out=kernel=upb:" + filepath.Join(rsOutDir, module),
+			"--grpc_out=" + filepath.Join(rsOutDir, module),
+			"--plugin=protoc-gen-grpc=" + rustgRPC,
+			"--rust_opt=experimental-codegen=enabled",
+			filepath.Join("proto", module) + ".proto",
+		}
+    
+        // save execute command
+		cmd := exec.Command(protoc, args...)
+        
+        // connect std IO
+		connectStd(cmd)
+
+        // run command
+		if err := cmd.Run(); err != nil {
+			log.Printf("Error generating Rust code for module %s: %v\n", module, err)
+			continue
+		}
+	}
+
+	return nil
+}
 ```
 
+Fianlly, you just use `mage genrust` to generate Rust code.
 
+## Other:
+If you need to generate specific language gRPC code, you can refer to the specific language usage docs. Such as [grpc docs in Go](https://grpc.io/docs/languages/go/quickstart/#regenerate-grpc-code). Mostly, you just add args like 
+```go
+"--go-grpc_out=" + <path>, 
+"--go-grpc_opt=module=" + <package-path>,
+``` 
+in Go.
 
 ## More:
 - [Protobuf docs](https://protobuf.dev/)

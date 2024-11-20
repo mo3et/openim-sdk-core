@@ -2418,104 +2418,6 @@ func (*HandlerGroupRequestResp) Descriptor() ([]byte, []int) {
 	return file_group_proto_rawDescGZIP(), []int{47}
 }
 
-type GetGroupMemberInfoReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	GroupID string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
-	UserIDs []string `protobuf:"bytes,2,rep,name=userIDs,proto3" json:"userIDs"`
-}
-
-func (x *GetGroupMemberInfoReq) Reset() {
-	*x = GetGroupMemberInfoReq{}
-	mi := &file_group_proto_msgTypes[48]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetGroupMemberInfoReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetGroupMemberInfoReq) ProtoMessage() {}
-
-func (x *GetGroupMemberInfoReq) ProtoReflect() protoreflect.Message {
-	mi := &file_group_proto_msgTypes[48]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetGroupMemberInfoReq.ProtoReflect.Descriptor instead.
-func (*GetGroupMemberInfoReq) Descriptor() ([]byte, []int) {
-	return file_group_proto_rawDescGZIP(), []int{48}
-}
-
-func (x *GetGroupMemberInfoReq) GetGroupID() string {
-	if x != nil {
-		return x.GroupID
-	}
-	return ""
-}
-
-func (x *GetGroupMemberInfoReq) GetUserIDs() []string {
-	if x != nil {
-		return x.UserIDs
-	}
-	return nil
-}
-
-type GetGroupMemberInfoResp struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Members map[string]*shared.GroupMemberInfo `protobuf:"bytes,1,rep,name=members,proto3" json:"members" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-}
-
-func (x *GetGroupMemberInfoResp) Reset() {
-	*x = GetGroupMemberInfoResp{}
-	mi := &file_group_proto_msgTypes[49]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetGroupMemberInfoResp) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetGroupMemberInfoResp) ProtoMessage() {}
-
-func (x *GetGroupMemberInfoResp) ProtoReflect() protoreflect.Message {
-	mi := &file_group_proto_msgTypes[49]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetGroupMemberInfoResp.ProtoReflect.Descriptor instead.
-func (*GetGroupMemberInfoResp) Descriptor() ([]byte, []int) {
-	return file_group_proto_rawDescGZIP(), []int{49}
-}
-
-func (x *GetGroupMemberInfoResp) GetMembers() map[string]*shared.GroupMemberInfo {
-	if x != nil {
-		return x.Members
-	}
-	return nil
-}
-
 var File_group_proto protoreflect.FileDescriptor
 
 var file_group_proto_rawDesc = []byte{
@@ -2790,30 +2692,12 @@ var file_group_proto_rawDesc = []byte{
 	0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x41, 0x70,
 	0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74,
 	0x61, 0x74, 0x75, 0x73, 0x22, 0x19, 0x0a, 0x17, 0x48, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x72, 0x47,
-	0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x22,
-	0x4b, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x6d, 0x62, 0x65,
-	0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x12, 0x18, 0x0a, 0x07, 0x67, 0x72, 0x6f, 0x75,
-	0x70, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70,
-	0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x73, 0x18, 0x02, 0x20,
-	0x03, 0x28, 0x09, 0x52, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x73, 0x22, 0xc9, 0x01, 0x0a,
-	0x16, 0x47, 0x65, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x49,
-	0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x12, 0x4f, 0x0a, 0x07, 0x6d, 0x65, 0x6d, 0x62, 0x65,
-	0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x35, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69,
-	0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x2e, 0x47, 0x65, 0x74, 0x47,
-	0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
-	0x73, 0x70, 0x2e, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52,
-	0x07, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x73, 0x1a, 0x5e, 0x0a, 0x0c, 0x4d, 0x65, 0x6d, 0x62,
-	0x65, 0x72, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x38, 0x0a, 0x05, 0x76, 0x61,
-	0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x22, 0x2e, 0x6f, 0x70, 0x65, 0x6e,
-	0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x47, 0x72,
-	0x6f, 0x75, 0x70, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x05, 0x76,
-	0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x42, 0x41, 0x5a, 0x36, 0x67, 0x69, 0x74, 0x68,
-	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b,
-	0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65,
-	0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f, 0x67, 0x72, 0x6f,
-	0x75, 0x70, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x42,
+	0x41, 0x5a, 0x36, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70,
+	0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73,
+	0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2f, 0x67, 0x6f, 0x2f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e,
+	0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2828,7 +2712,7 @@ func file_group_proto_rawDescGZIP() []byte {
 	return file_group_proto_rawDescData
 }
 
-var file_group_proto_msgTypes = make([]protoimpl.MessageInfo, 51)
+var file_group_proto_msgTypes = make([]protoimpl.MessageInfo, 48)
 var file_group_proto_goTypes = []any{
 	(*CreateGroupReq)(nil),                      // 0: openim.sdk.group.CreateGroupReq
 	(*CreateGroupResp)(nil),                     // 1: openim.sdk.group.CreateGroupResp
@@ -2878,42 +2762,37 @@ var file_group_proto_goTypes = []any{
 	(*InviteUserToGroupResp)(nil),               // 45: openim.sdk.group.InviteUserToGroupResp
 	(*HandlerGroupRequestReq)(nil),              // 46: openim.sdk.group.HandlerGroupRequestReq
 	(*HandlerGroupRequestResp)(nil),             // 47: openim.sdk.group.HandlerGroupRequestResp
-	(*GetGroupMemberInfoReq)(nil),               // 48: openim.sdk.group.GetGroupMemberInfoReq
-	(*GetGroupMemberInfoResp)(nil),              // 49: openim.sdk.group.GetGroupMemberInfoResp
-	nil,                                         // 50: openim.sdk.group.GetGroupMemberInfoResp.MembersEntry
-	(*shared.GroupInfo)(nil),                    // 51: openim.sdk.shared.GroupInfo
-	(*common.RequestPagination)(nil),            // 52: openim.sdk.common.RequestPagination
-	(*shared.GroupMemberInfo)(nil),              // 53: openim.sdk.shared.GroupMemberInfo
-	(shared.GroupFilter)(0),                     // 54: openim.sdk.shared.GroupFilter
-	(*shared.GroupRequestInfo)(nil),             // 55: openim.sdk.shared.GroupRequestInfo
-	(common.ApprovalStatus)(0),                  // 56: openim.sdk.common.ApprovalStatus
+	(*shared.GroupInfo)(nil),                    // 48: openim.sdk.shared.GroupInfo
+	(*common.RequestPagination)(nil),            // 49: openim.sdk.common.RequestPagination
+	(*shared.GroupMemberInfo)(nil),              // 50: openim.sdk.shared.GroupMemberInfo
+	(shared.GroupFilter)(0),                     // 51: openim.sdk.shared.GroupFilter
+	(*shared.GroupRequestInfo)(nil),             // 52: openim.sdk.shared.GroupRequestInfo
+	(common.ApprovalStatus)(0),                  // 53: openim.sdk.common.ApprovalStatus
 }
 var file_group_proto_depIdxs = []int32{
-	51, // 0: openim.sdk.group.CreateGroupReq.groupInfo:type_name -> openim.sdk.shared.GroupInfo
-	51, // 1: openim.sdk.group.CreateGroupResp.groupInfo:type_name -> openim.sdk.shared.GroupInfo
-	51, // 2: openim.sdk.group.GetJoinedGroupsResp.groups:type_name -> openim.sdk.shared.GroupInfo
-	52, // 3: openim.sdk.group.GetJoinedGroupsPageReq.pagination:type_name -> openim.sdk.common.RequestPagination
-	51, // 4: openim.sdk.group.GetJoinedGroupsPageResp.groups:type_name -> openim.sdk.shared.GroupInfo
-	51, // 5: openim.sdk.group.GetSpecifiedGroupsInfoResp.groups:type_name -> openim.sdk.shared.GroupInfo
-	51, // 6: openim.sdk.group.SearchGroupsResp.groups:type_name -> openim.sdk.shared.GroupInfo
-	53, // 7: openim.sdk.group.GetGroupMemberOwnerAndAdminResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
-	52, // 8: openim.sdk.group.GetGroupMembersByJoinTimeFilterReq.pagination:type_name -> openim.sdk.common.RequestPagination
-	53, // 9: openim.sdk.group.GetGroupMembersByJoinTimeFilterResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
-	53, // 10: openim.sdk.group.GetSpecifiedGroupMembersInfoResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
-	54, // 11: openim.sdk.group.GetGroupMembersReq.filter:type_name -> openim.sdk.shared.GroupFilter
-	52, // 12: openim.sdk.group.GetGroupMembersReq.pagination:type_name -> openim.sdk.common.RequestPagination
-	53, // 13: openim.sdk.group.GetGroupMembersResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
-	55, // 14: openim.sdk.group.GetGroupRequestResp.requests:type_name -> openim.sdk.shared.GroupRequestInfo
-	52, // 15: openim.sdk.group.SearchGroupMembersReq.pagination:type_name -> openim.sdk.common.RequestPagination
-	53, // 16: openim.sdk.group.SearchGroupMembersResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
-	56, // 17: openim.sdk.group.HandlerGroupRequestReq.status:type_name -> openim.sdk.common.ApprovalStatus
-	50, // 18: openim.sdk.group.GetGroupMemberInfoResp.members:type_name -> openim.sdk.group.GetGroupMemberInfoResp.MembersEntry
-	53, // 19: openim.sdk.group.GetGroupMemberInfoResp.MembersEntry.value:type_name -> openim.sdk.shared.GroupMemberInfo
-	20, // [20:20] is the sub-list for method output_type
-	20, // [20:20] is the sub-list for method input_type
-	20, // [20:20] is the sub-list for extension type_name
-	20, // [20:20] is the sub-list for extension extendee
-	0,  // [0:20] is the sub-list for field type_name
+	48, // 0: openim.sdk.group.CreateGroupReq.groupInfo:type_name -> openim.sdk.shared.GroupInfo
+	48, // 1: openim.sdk.group.CreateGroupResp.groupInfo:type_name -> openim.sdk.shared.GroupInfo
+	48, // 2: openim.sdk.group.GetJoinedGroupsResp.groups:type_name -> openim.sdk.shared.GroupInfo
+	49, // 3: openim.sdk.group.GetJoinedGroupsPageReq.pagination:type_name -> openim.sdk.common.RequestPagination
+	48, // 4: openim.sdk.group.GetJoinedGroupsPageResp.groups:type_name -> openim.sdk.shared.GroupInfo
+	48, // 5: openim.sdk.group.GetSpecifiedGroupsInfoResp.groups:type_name -> openim.sdk.shared.GroupInfo
+	48, // 6: openim.sdk.group.SearchGroupsResp.groups:type_name -> openim.sdk.shared.GroupInfo
+	50, // 7: openim.sdk.group.GetGroupMemberOwnerAndAdminResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
+	49, // 8: openim.sdk.group.GetGroupMembersByJoinTimeFilterReq.pagination:type_name -> openim.sdk.common.RequestPagination
+	50, // 9: openim.sdk.group.GetGroupMembersByJoinTimeFilterResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
+	50, // 10: openim.sdk.group.GetSpecifiedGroupMembersInfoResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
+	51, // 11: openim.sdk.group.GetGroupMembersReq.filter:type_name -> openim.sdk.shared.GroupFilter
+	49, // 12: openim.sdk.group.GetGroupMembersReq.pagination:type_name -> openim.sdk.common.RequestPagination
+	50, // 13: openim.sdk.group.GetGroupMembersResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
+	52, // 14: openim.sdk.group.GetGroupRequestResp.requests:type_name -> openim.sdk.shared.GroupRequestInfo
+	49, // 15: openim.sdk.group.SearchGroupMembersReq.pagination:type_name -> openim.sdk.common.RequestPagination
+	50, // 16: openim.sdk.group.SearchGroupMembersResp.members:type_name -> openim.sdk.shared.GroupMemberInfo
+	53, // 17: openim.sdk.group.HandlerGroupRequestReq.status:type_name -> openim.sdk.common.ApprovalStatus
+	18, // [18:18] is the sub-list for method output_type
+	18, // [18:18] is the sub-list for method input_type
+	18, // [18:18] is the sub-list for extension type_name
+	18, // [18:18] is the sub-list for extension extendee
+	0,  // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_group_proto_init() }
@@ -2929,7 +2808,7 @@ func file_group_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_group_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   51,
+			NumMessages:   48,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
