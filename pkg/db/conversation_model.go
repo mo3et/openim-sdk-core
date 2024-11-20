@@ -1,27 +1,13 @@
-// Copyright © 2023 OpenIM SDK. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package db
 
 import (
 	"context"
 	"errors"
 	"fmt"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 
 	"gorm.io/gorm"
 
@@ -368,4 +354,41 @@ func (d *DataBase) SearchConversations(ctx context.Context, searchParam string) 
 	condition := fmt.Sprintf("show_name like %q ", "%"+searchParam+"%")
 	var conversationList []*model_struct.LocalConversation
 	return conversationList, errs.WrapMsg(d.conn.WithContext(ctx).Where(condition).Order("latest_msg_send_time DESC").Find(&conversationList).Error, "SearchConversation failed ")
+}
+
+func (d *DataBase) ChangeConversationLatestMsgToPB(ctx context.Context) error {
+	return d.conn.Transaction(func(tx *gorm.DB) error {
+		var (
+			offset = 0
+			limit  = 100
+		)
+
+		for {
+			var conversationList []*model_struct.LocalConversation
+			if err := tx.WithContext(ctx).Where("latest_msg_send_time > ?", 0).
+				Order("case when is_pinned=1 then 0 else 1 end,max(latest_msg_send_time,draft_text_time) DESC").
+				Offset(offset).Limit(limit).Find(&conversationList).Error; err != nil {
+				return errs.WrapMsg(err, "get conversation list failed")
+			}
+			for _, conv := range conversationList {
+				var (
+					oldMsg = sdk_struct.MsgStruct{}
+				)
+
+				if err := utils.JsonStringToStruct(conv.LatestMsg, &oldMsg); err != nil {
+					return errs.WrapMsg(err, "json unmarshal failed")
+				}
+				newMsg := utils.SDKStructMsgToDB(&oldMsg)
+				conv.LatestMsg = utils.StructToJsonString(newMsg)
+
+				if err := tx.WithContext(ctx).Updates(conv).Error; err != nil {
+					return errs.WrapMsg(err, "update latest_msg_send_time failed")
+				}
+			}
+			if len(conversationList) != limit {
+				break
+			}
+		}
+		return nil
+	})
 }

@@ -150,7 +150,7 @@ func (d *DataBase) versionDataMigrate(ctx context.Context) error {
 		return err
 	}
 	verModel, err := d.GetAppSDKVersion(ctx)
-	if errs.Unwrap(err) == errs.ErrRecordNotFound {
+	if errors.Is(err, errs.ErrRecordNotFound) {
 		err = d.conn.AutoMigrate(
 			&model_struct.LocalFriend{},
 			&model_struct.LocalFriendRequest{},
@@ -190,6 +190,11 @@ func (d *DataBase) versionDataMigrate(ctx context.Context) error {
 		switch version.Version {
 		case "3.8.0":
 			d.conn.AutoMigrate(&model_struct.LocalAppSDKVersion{})
+			fallthrough
+		case "3.8.2":
+			if err = d.ChangeConversationLatestMsgToPB(ctx); err != nil {
+				return err
+			}
 		}
 		err = d.SetAppSDKVersion(ctx, &model_struct.LocalAppSDKVersion{Version: version.Version})
 		if err != nil {
