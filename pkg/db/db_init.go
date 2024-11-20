@@ -212,7 +212,9 @@ func (d *DataBase) versionDataMigrate(ctx context.Context) error {
 			d.conn.AutoMigrate(&model_struct.LocalAppSDKVersion{})
 			fallthrough
 		case "3.8.2":
-
+			if err = d.ChangeConversationLatestMsgToPB(ctx); err != nil {
+				return err
+			}
 		}
 		err = d.SetAppSDKVersion(ctx, &model_struct.LocalAppSDKVersion{Version: version.Version})
 		if err != nil {
