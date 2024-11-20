@@ -4,11 +4,15 @@ import (
 	"context"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
+	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/datautil"
 )
 
 func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
+	if m == nil {
+		return nil
+	}
 	pm := &sdkpb.IMMessage{
 		ClientMsgID:      m.ClientMsgID,
 		ServerMsgID:      m.ServerMsgID,
@@ -26,33 +30,11 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 		Seq:              m.Seq,
 		IsRead:           m.IsRead,
 		Status:           sdkpb.MsgStatus(m.Status),
-		OfflinePush: &sdkpb.OfflinePushInfo{
-			Title:         m.OfflinePush.Title,
-			Desc:          m.OfflinePush.Desc,
-			Ex:            m.OfflinePush.Ex,
-			IOSPushSound:  m.OfflinePush.IOSPushSound,
-			IOSBadgeCount: m.OfflinePush.IOSBadgeCount,
-			SignalInfo:    m.OfflinePush.SignalInfo,
-		},
-		Ex:      m.Ex,
-		LocalEx: m.LocalEx,
-		AttachedInfoElem: &sdkpb.AttachedInfoElem{
-			GroupHasReadInfo: &sdkpb.GroupHasReadInfo{
-				HasReadUserIDList: m.AttachedInfoElem.GroupHasReadInfo.HasReadUserIDList,
-				HasReadCount:      m.AttachedInfoElem.GroupHasReadInfo.HasReadCount,
-				GroupMemberCount:  m.AttachedInfoElem.GroupHasReadInfo.GroupMemberCount,
-			},
-			IsPrivateChat: m.AttachedInfoElem.IsPrivateChat,
-			BurnDuration:  m.AttachedInfoElem.BurnDuration,
-			HasReadTime:   m.AttachedInfoElem.HasReadTime,
-			Progress: &sdkpb.UploadProgress{
-				Total:    m.AttachedInfoElem.Progress.Total,
-				Save:     m.AttachedInfoElem.Progress.Save,
-				Current:  m.AttachedInfoElem.Progress.Current,
-				UploadID: m.AttachedInfoElem.Progress.UploadID,
-			},
-		},
-		Content: nil,
+		OfflinePush:      offlinePushToPB(m.OfflinePush),
+		Ex:               m.Ex,
+		LocalEx:          m.LocalEx,
+		AttachedInfoElem: attachedInfoElemToPB(m.AttachedInfoElem),
+		Content:          nil,
 	}
 
 	switch m.ContentType {
@@ -516,6 +498,9 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 }
 
 func sdkPictureBaseInfoToPB(a *sdk_struct.PictureBaseInfo) *sdkpb.PictureBaseInfo {
+	if a == nil {
+		return nil
+	}
 	return &sdkpb.PictureBaseInfo{
 		Uuid:   a.UUID,
 		Type:   a.Type,
@@ -527,6 +512,9 @@ func sdkPictureBaseInfoToPB(a *sdk_struct.PictureBaseInfo) *sdkpb.PictureBaseInf
 }
 
 func sdkMessageEntityToPB(a *sdk_struct.MessageEntity) *sdkpb.MessageEntity {
+	if a == nil {
+		return nil
+	}
 	return &sdkpb.MessageEntity{
 		Type:   a.Type,
 		Offset: a.Offset,
@@ -537,8 +525,61 @@ func sdkMessageEntityToPB(a *sdk_struct.MessageEntity) *sdkpb.MessageEntity {
 }
 
 func sdkAtInfoToPB(a *sdk_struct.AtInfo) *sdkpb.AtInfo {
+	if a == nil {
+		return nil
+	}
 	return &sdkpb.AtInfo{
 		AtUserID:      a.AtUserID,
 		GroupNickname: a.GroupNickname,
+	}
+}
+
+func offlinePushToPB(a *sdkws.OfflinePushInfo) *sdkpb.OfflinePushInfo {
+	if a == nil {
+		return nil
+	}
+	return &sdkpb.OfflinePushInfo{
+		Title:         a.Title,
+		Desc:          a.Desc,
+		Ex:            a.Title,
+		IOSPushSound:  a.IOSPushSound,
+		IOSBadgeCount: a.IOSBadgeCount,
+		SignalInfo:    a.SignalInfo,
+	}
+}
+
+func attachedInfoElemToPB(a *sdk_struct.AttachedInfoElem) *sdkpb.AttachedInfoElem {
+	if a == nil {
+		return nil
+	}
+	return &sdkpb.AttachedInfoElem{
+		GroupHasReadInfo: groupHasReadInfoToPB(&a.GroupHasReadInfo),
+		IsPrivateChat:    a.IsPrivateChat,
+		BurnDuration:     a.BurnDuration,
+		HasReadTime:      a.HasReadTime,
+		Progress:         uploadProgressToPB(a.Progress),
+	}
+}
+
+func groupHasReadInfoToPB(a *sdk_struct.GroupHasReadInfo) *sdkpb.GroupHasReadInfo {
+	if a == nil {
+		return nil
+	}
+	return &sdkpb.GroupHasReadInfo{
+		HasReadUserIDList: a.HasReadUserIDList,
+		HasReadCount:      a.HasReadCount,
+		GroupMemberCount:  a.GroupMemberCount,
+	}
+}
+
+func uploadProgressToPB(a *sdk_struct.UploadProgress) *sdkpb.UploadProgress {
+	if a == nil {
+		return nil
+	}
+	return &sdkpb.UploadProgress{
+		Total:    a.Total,
+		Save:     a.Save,
+		Current:  a.Current,
+		UploadID: a.UploadID,
 	}
 }
