@@ -3,8 +3,10 @@ package wasm_sqlite
 import (
 	"context"
 	"database/sql/driver"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/js_handler"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 )
 
 const emptyArgs = "[]"

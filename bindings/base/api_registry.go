@@ -7,7 +7,7 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/tools/errs"
 )
 

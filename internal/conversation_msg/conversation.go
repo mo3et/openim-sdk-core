@@ -21,7 +21,9 @@ import (
 	"sync"
 	"time"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	conversationpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/tools/utils/datautil"
 
 	"golang.org/x/sync/errgroup"
@@ -149,8 +151,8 @@ func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversati
 	return list, nil
 }
 
-func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sdkpb.IMMessage) {
-	messageList := make([]*sdkpb.IMMessage, 0, len(list))
+func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sharedpb.IMMessage) {
+	messageList := make([]*sharedpb.IMMessage, 0, len(list))
 	var thisMinSeq int64
 	for _, v := range list {
 		if v.Seq != 0 && thisMinSeq == 0 {
@@ -177,16 +179,16 @@ func (c *Conversation) typingStatusUpdate(ctx context.Context, recvID, msgTip st
 	if recvID == "" {
 		return sdkerrs.ErrArgs
 	}
-	s := &sdkpb.IMMessage{}
+	s := &sharedpb.IMMessage{}
 	err := c.initBasicInfo(ctx, s, constant.UserMsgType, constant.Typing)
 	if err != nil {
 		return err
 	}
 	s.RecvID = recvID
 	s.SessionType = constant.SingleChatType
-	typingElem := sdkpb.TypingElem{}
+	typingElem := sharedpb.TypingElem{}
 	typingElem.MsgTips = msgTip
-	s.Content = &sdkpb.IMMessage_TypingElem{TypingElem: &typingElem}
+	s.Content = &sharedpb.IMMessage_TypingElem{TypingElem: &typingElem}
 	options := make(map[string]bool, 6)
 	utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 	utils.SetSwitchFromOptions(options, constant.IsPersistent, false)
@@ -234,13 +236,13 @@ func (c *Conversation) judgeMultipleSubString(keywordList []string, main string,
 }
 
 // searchLocalMessages searches for local messages based on the given search parameters.
-func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdkpb.SearchLocalMessagesParams) (*sdkpb.SearchLocalMessagesCallback, error) {
-	var r sdkpb.SearchLocalMessagesCallback                                   // Initialize the result structure
-	var startTime, endTime int64                                              // Variables to hold start and end times for the search
-	var list []*model_struct.LocalChatLog                                     // Slice to store the search results
-	conversationMap := make(map[string]*sdkpb.SearchByConversationResult, 10) // Map to store results grouped by conversation, with initial capacity of 10
-	var err error                                                             // Variable to store any errors encountered
-	var conversationID string                                                 // Variable to store the current conversation ID
+func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *conversationpb.SearchLocalMessagesParams) (*conversationpb.SearchLocalMessagesCallback, error) {
+	var r conversationpb.SearchLocalMessagesCallback                                   // Initialize the result structure
+	var startTime, endTime int64                                                       // Variables to hold start and end times for the search
+	var list []*model_struct.LocalChatLog                                              // Slice to store the search results
+	conversationMap := make(map[string]*conversationpb.SearchByConversationResult, 10) // Map to store results grouped by conversation, with initial capacity of 10
+	var err error                                                                      // Variable to store any errors encountered
+	var conversationID string                                                          // Variable to store the current conversation ID
 	int32ToInt := func(t int32) int { return int(t) }
 	intToInt32 := func(t int) int32 { return int32(t) }
 	// Set the end time for the search; if SearchTimePosition is 0, use the current timestamp
@@ -347,7 +349,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk
 		}
 		// Populate the conversationMap with search results
 		if oldItem, ok := conversationMap[conversationID]; !ok {
-			searchResultItem := sdkpb.SearchByConversationResult{}
+			searchResultItem := conversationpb.SearchByConversationResult{}
 			localConversation, err := c.db.GetConversation(ctx, conversationID)
 			if err != nil {
 				// log.Error("", "get conversation err ", err.Error(), conversationID)
@@ -420,22 +422,22 @@ func (c *Conversation) searchMessageByContentTypeAndKeyword(ctx context.Context,
 }
 
 // true is filter, false is not filter
-func (c *Conversation) filterMsg(temp *sdkpb.IMMessage, searchParam *sdkpb.SearchLocalMessagesParams) bool {
+func (c *Conversation) filterMsg(temp *sharedpb.IMMessage, searchParam *conversationpb.SearchLocalMessagesParams) bool {
 	switch temp.ContentType {
 	case constant.Text:
-		elem, _ := temp.Content.(*sdkpb.IMMessage_TextElem)
+		elem, _ := temp.Content.(*sharedpb.IMMessage_TextElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.TextElem.Content,
 			int(searchParam.KeywordListMatchType))
 	case constant.AtText:
-		elem, _ := temp.Content.(*sdkpb.IMMessage_AtTextElem)
+		elem, _ := temp.Content.(*sharedpb.IMMessage_AtTextElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.AtTextElem.Text,
 			int(searchParam.KeywordListMatchType))
 	case constant.File:
-		elem, _ := temp.Content.(*sdkpb.IMMessage_FileElem)
+		elem, _ := temp.Content.(*sharedpb.IMMessage_FileElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.FileElem.FileName,
 			int(searchParam.KeywordListMatchType))
 	case constant.Merger:
-		elem, _ := temp.Content.(*sdkpb.IMMessage_MergeElem)
+		elem, _ := temp.Content.(*sharedpb.IMMessage_MergeElem)
 		if !c.judgeMultipleSubString(searchParam.KeywordList, elem.MergeElem.Title, int(searchParam.KeywordListMatchType)) {
 			for _, msgStruct := range elem.MergeElem.MultiMessage {
 				if c.filterMsg(msgStruct, searchParam) {
@@ -446,19 +448,19 @@ func (c *Conversation) filterMsg(temp *sdkpb.IMMessage, searchParam *sdkpb.Searc
 			}
 		}
 	case constant.Card:
-		elem, _ := temp.Content.(*sdkpb.IMMessage_CardElem)
+		elem, _ := temp.Content.(*sharedpb.IMMessage_CardElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.CardElem.Nickname,
 			int(searchParam.KeywordListMatchType))
 	case constant.Location:
-		elem, _ := temp.Content.(*sdkpb.IMMessage_LocationElem)
+		elem, _ := temp.Content.(*sharedpb.IMMessage_LocationElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.LocationElem.Description,
 			int(searchParam.KeywordListMatchType))
 	case constant.Custom:
-		elem, _ := temp.Content.(*sdkpb.IMMessage_CustomElem)
+		elem, _ := temp.Content.(*sharedpb.IMMessage_CustomElem)
 		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.CustomElem.Description,
 			int(searchParam.KeywordListMatchType))
 	case constant.Quote:
-		elem, _ := temp.Content.(*sdkpb.IMMessage_QuoteElem)
+		elem, _ := temp.Content.(*sharedpb.IMMessage_QuoteElem)
 		if !c.judgeMultipleSubString(searchParam.KeywordList, elem.QuoteElem.Text, int(searchParam.KeywordListMatchType)) {
 			return c.filterMsg(elem.QuoteElem.QuoteMessage, searchParam)
 		}

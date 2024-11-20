@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/user"
 	"github.com/openimsdk/protocol/wrapperspb"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"

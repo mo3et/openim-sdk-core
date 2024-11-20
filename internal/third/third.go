@@ -18,7 +18,7 @@ import (
 	"sync"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 )
 
 type Third struct {

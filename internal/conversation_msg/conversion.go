@@ -2,7 +2,8 @@ package conversation_msg
 
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	pbConversation "github.com/openimsdk/protocol/conversation"
 	"github.com/openimsdk/protocol/sdkws"
 )
@@ -64,8 +65,8 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 		AttachedInfo:     serverMessage.AttachedInfo,
 		Ex:               serverMessage.Ex,
 	}
-	switch sdkpb.SessionType(serverMessage.SessionType) {
-	case sdkpb.SessionType_WriteGroupChatType, sdkpb.SessionType_ReadGroupChatType:
+	switch commonpb.SessionType(serverMessage.SessionType) {
+	case commonpb.SessionType_WriteGroupChatType, commonpb.SessionType_ReadGroupChatType:
 		localMessage.RecvID = serverMessage.GroupID
 	}
 	return localMessage
@@ -74,14 +75,14 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.IMConversation {
 	return &sdkpb.IMConversation{
 		ConversationID:   conversation.ConversationID,
-		ConversationType: sdkpb.SessionType(conversation.ConversationType),
+		ConversationType: commonpb.SessionType(conversation.ConversationType),
 		UserID:           conversation.UserID,
 		GroupID:          conversation.GroupID,
 		ShowName:         conversation.ShowName,
 		FaceURL:          conversation.FaceURL,
-		RecvMsgOpt:       sdkpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
+		RecvMsgOpt:       commonpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
 		UnreadCount:      conversation.UnreadCount,
-		GroupAtType:      sdkpb.ConvGroupAtType(conversation.GroupAtType),
+		GroupAtType:      commonpb.ConvGroupAtType(conversation.GroupAtType),
 		//todo
 		//LatestMsg:         conversation.LatestMsg,
 		LatestMsgSendTime: conversation.LatestMsgSendTime,
@@ -96,7 +97,7 @@ func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdk
 	}
 }
 
-func sdkOfflinePushInfoToServerOfflinePushInfo(offlinePushInfo *sdkpb.OfflinePushInfo) *sdkws.OfflinePushInfo {
+func sdkOfflinePushInfoToServerOfflinePushInfo(offlinePushInfo *commonpb.OfflinePushInfo) *sdkws.OfflinePushInfo {
 	return &sdkws.OfflinePushInfo{
 		Title:         offlinePushInfo.Title,
 		Desc:          offlinePushInfo.Desc,

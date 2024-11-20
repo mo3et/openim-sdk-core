@@ -15,7 +15,7 @@
 package sdk_struct
 
 import (
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/sdkws"
 )
 

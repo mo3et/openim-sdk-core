@@ -30,7 +30,10 @@ import (
 
 	"github.com/openimsdk/tools/log"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
+
+	// sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/protocol/sdkws"
 )
 
@@ -189,7 +192,7 @@ func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) 
 
 }
 
-func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status sdkpb.MsgStatus, s *sdkpb.IMMessage,
+func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status sharedpb.MsgStatus, s *sharedpb.IMMessage,
 	lc *model_struct.LocalConversation, isOnlineOnly bool) {
 	log.ZDebug(ctx, "this is test send message ", "sendTime", sendTime, "status", status, "clientMsgID", clientMsgID, "serverMsgID", serverMsgID)
 	if isOnlineOnly {
@@ -216,7 +219,7 @@ func (c *Conversation) fileName(ftype string, id string) string {
 	return fmt.Sprintf("msg_%s_%s", ftype, id)
 }
 
-func (c *Conversation) checkID(ctx context.Context, s *sdkpb.IMMessage,
+func (c *Conversation) checkID(ctx context.Context, s *sharedpb.IMMessage,
 	recvID, groupID string, options map[string]bool) (*model_struct.LocalConversation, error) {
 	if recvID == "" && groupID == "" {
 		return nil, sdkerrs.ErrArgs

@@ -2,8 +2,10 @@ package test
 
 import (
 	"context"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"testing"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	// sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 )

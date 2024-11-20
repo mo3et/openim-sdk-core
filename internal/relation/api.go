@@ -2,7 +2,10 @@ package relation
 
 import (
 	"context"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/relation"
+
 	"github.com/openimsdk/protocol/wrapperspb"
 
 	"github.com/openimsdk/protocol/relation"
@@ -101,7 +104,7 @@ func (r *Relation) HandlerFriendRequest(ctx context.Context, req *sdkpb.HandlerF
 	r.relationSyncMutex.Lock()
 	defer r.relationSyncMutex.Unlock()
 
-	if req.Status == sdkpb.ApprovalStatus_Approved {
+	if req.Status == commonpb.ApprovalStatus_Approved {
 		_ = r.IncrSyncFriends(ctx)
 	}
 	_ = r.SyncAllFriendApplication(ctx)
