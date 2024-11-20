@@ -553,22 +553,10 @@ func attachedInfoElemToPB(a *sdk_struct.AttachedInfoElem) *sdkpb.AttachedInfoEle
 		return nil
 	}
 	return &sdkpb.AttachedInfoElem{
-		GroupHasReadInfo: groupHasReadInfoToPB(&a.GroupHasReadInfo),
-		IsPrivateChat:    a.IsPrivateChat,
-		BurnDuration:     a.BurnDuration,
-		HasReadTime:      a.HasReadTime,
-		Progress:         uploadProgressToPB(a.Progress),
-	}
-}
-
-func groupHasReadInfoToPB(a *sdk_struct.GroupHasReadInfo) *sdkpb.GroupHasReadInfo {
-	if a == nil {
-		return nil
-	}
-	return &sdkpb.GroupHasReadInfo{
-		HasReadUserIDList: a.HasReadUserIDList,
-		HasReadCount:      a.HasReadCount,
-		GroupMemberCount:  a.GroupMemberCount,
+		IsPrivateChat: a.IsPrivateChat,
+		BurnDuration:  a.BurnDuration,
+		HasReadTime:   a.HasReadTime,
+		Progress:      uploadProgressToPB(a.Progress),
 	}
 }
 
