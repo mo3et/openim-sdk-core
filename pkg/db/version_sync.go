@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:build !js
-// +build !js
-
 package db
 
 import (
@@ -34,7 +31,7 @@ func (d *DataBase) GetVersionSync(ctx context.Context, tableName, entityID strin
 	err := d.conn.WithContext(ctx).Where("`table_name` = ? and `entity_id` = ?", tableName, entityID).Take(&res).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return &model_struct.LocalVersionSync{}, errs.ErrRecordNotFound.Wrap()
+			return &model_struct.LocalVersionSync{}, errs.ErrRecordNotFound.WrapMsg("GetVersionSync not found", "tableName", tableName, "entityID", entityID)
 		}
 		return nil, errs.Wrap(err)
 	}

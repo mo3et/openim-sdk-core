@@ -97,8 +97,8 @@ func ServerGroupRequestToLocalAdminGroupRequest(info *sdkws.GroupRequest) *model
 	}
 }
 
-func ServerGroupToSdk(info *sdkws.GroupInfo) *sdkpb.GroupInfo {
-	return &sdkpb.GroupInfo{
+func ServerGroupToSdk(info *sdkws.GroupInfo) *sdkpb.IMGroup {
+	return &sdkpb.IMGroup{
 		GroupID:                info.GroupID,
 		GroupName:              info.GroupName,
 		Notification:           info.Notification,
@@ -118,8 +118,8 @@ func ServerGroupToSdk(info *sdkws.GroupInfo) *sdkpb.GroupInfo {
 	}
 }
 
-func DBGroupToSdk(info *model_struct.LocalGroup) *sdkpb.GroupInfo {
-	return &sdkpb.GroupInfo{
+func DBGroupToSdk(info *model_struct.LocalGroup) *sdkpb.IMGroup {
+	return &sdkpb.IMGroup{
 		GroupID:                info.GroupID,
 		GroupName:              info.GroupName,
 		Notification:           info.Notification,
@@ -140,8 +140,8 @@ func DBGroupToSdk(info *model_struct.LocalGroup) *sdkpb.GroupInfo {
 	}
 }
 
-func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *sdkpb.GroupMemberInfo {
-	return &sdkpb.GroupMemberInfo{
+func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *sdkpb.IMGroupMember {
+	return &sdkpb.IMGroupMember{
 		GroupID:        info.GroupID,
 		UserID:         info.UserID,
 		Nickname:       info.Nickname,
@@ -157,8 +157,8 @@ func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *sdkpb.GroupMemberI
 	}
 }
 
-func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.GroupRequestInfo {
-	return &sdkpb.GroupRequestInfo{
+func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.IMGroupRequest {
+	return &sdkpb.IMGroupRequest{
 		GroupID:       info.GroupID,
 		GroupName:     info.GroupName,
 		Notification:  info.Notification,
@@ -186,6 +186,6 @@ func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.GroupReque
 	}
 }
 
-func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *sdkpb.GroupRequestInfo {
+func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *sdkpb.IMGroupRequest {
 	return DBGroupRequestToSdk(&info.LocalGroupRequest)
 }

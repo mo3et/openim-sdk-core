@@ -39,8 +39,8 @@ func LocalUserToPublicUser(user *model_struct.LocalUser) *sdk_struct.PublicUser 
 	}
 }
 
-func ServerUserToSdk(info *sdkws.UserInfo) *sdkpb.UserInfo {
-	return &sdkpb.UserInfo{
+func ServerUserToSdk(info *sdkws.UserInfo) *sdkpb.IMUser {
+	return &sdkpb.IMUser{
 		UserID:           info.UserID,
 		Nickname:         info.Nickname,
 		FaceURL:          info.FaceURL,
@@ -51,8 +51,8 @@ func ServerUserToSdk(info *sdkws.UserInfo) *sdkpb.UserInfo {
 	}
 }
 
-func DBUserToSdk(info *model_struct.LocalUser) *sdkpb.UserInfo {
-	return &sdkpb.UserInfo{
+func DBUserToSdk(info *model_struct.LocalUser) *sdkpb.IMUser {
+	return &sdkpb.IMUser{
 		UserID:           info.UserID,
 		Nickname:         info.Nickname,
 		FaceURL:          info.FaceURL,

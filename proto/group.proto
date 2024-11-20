@@ -10,10 +10,10 @@ option csharp_namespace = "OpenIM";
 message CreateGroupReq {
   repeated string memberUserIDs = 1;
   repeated string adminUserIDs = 2;
-  shared.GroupInfo groupInfo = 3;
+  shared.IMGroup groupInfo = 3;
 }
 message CreateGroupResp {
-  shared.GroupInfo groupInfo = 1;
+  shared.IMGroup groupInfo = 1;
 }
 
 message JoinGroupReq {
@@ -85,21 +85,21 @@ message SetGroupMemberInfoResp {}
 
 message GetJoinedGroupsReq {}
 message GetJoinedGroupsResp {
-  repeated shared.GroupInfo groups = 1;
+  repeated shared.IMGroup groups = 1;
 }
 
 message GetJoinedGroupsPageReq {
   openim.sdk.common.RequestPagination pagination = 2;
 }
 message GetJoinedGroupsPageResp {
-  repeated shared.GroupInfo groups = 1;
+  repeated shared.IMGroup groups = 1;
 }
 
 message GetSpecifiedGroupsInfoReq {
   repeated string groupIDs = 1;
 }
 message GetSpecifiedGroupsInfoResp {
-  repeated shared.GroupInfo groups = 1;
+  repeated shared.IMGroup groups = 1;
 }
 
 message SearchGroupsReq {
@@ -108,14 +108,14 @@ message SearchGroupsReq {
   bool searchGroupName = 3;
 }
 message SearchGroupsResp {
-  repeated shared.GroupInfo groups = 1;
+  repeated shared.IMGroup groups = 1;
 }
 
 message GetGroupMemberOwnerAndAdminReq {
   string groupID = 1;
 }
 message GetGroupMemberOwnerAndAdminResp {
-  repeated shared.GroupMemberInfo members = 1;
+  repeated shared.IMGroupMember members = 1;
 }
 
 message GetGroupMembersByJoinTimeFilterReq {
@@ -125,7 +125,7 @@ message GetGroupMembersByJoinTimeFilterReq {
   openim.sdk.common.RequestPagination pagination = 4;
 }
 message GetGroupMembersByJoinTimeFilterResp {
-  repeated shared.GroupMemberInfo members = 1;
+  repeated shared.IMGroupMember members = 1;
 }
 
 message GetSpecifiedGroupMembersInfoReq {
@@ -133,7 +133,7 @@ message GetSpecifiedGroupMembersInfoReq {
   repeated string userIDs = 2;
 }
 message GetSpecifiedGroupMembersInfoResp {
-  repeated shared.GroupMemberInfo members = 1;
+  repeated shared.IMGroupMember members = 1;
 }
 
 message GetGroupMembersReq {
@@ -142,14 +142,14 @@ message GetGroupMembersReq {
   openim.sdk.common.RequestPagination pagination = 4;
 }
 message GetGroupMembersResp {
-  repeated shared.GroupMemberInfo members = 1;
+  repeated shared.IMGroupMember members = 1;
 }
 
 message GetGroupRequestReq {
   bool send = 1;
 }
 message GetGroupRequestResp {
-  repeated shared.GroupRequestInfo requests = 1;
+  repeated shared.IMGroupRequest requests = 1;
 }
 
 message SearchGroupMembersReq {
@@ -160,7 +160,7 @@ message SearchGroupMembersReq {
   openim.sdk.common.RequestPagination pagination = 5;
 }
 message SearchGroupMembersResp {
-  repeated shared.GroupMemberInfo members = 1;
+  repeated shared.IMGroupMember members = 1;
 }
 
 message IsJoinGroupReq {

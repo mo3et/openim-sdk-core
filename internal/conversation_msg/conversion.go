@@ -1,7 +1,6 @@
 package conversation_msg
 
 import (
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	pbConversation "github.com/openimsdk/protocol/conversation"
@@ -65,24 +64,26 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 		AttachedInfo:     serverMessage.AttachedInfo,
 		Ex:               serverMessage.Ex,
 	}
-	if serverMessage.SessionType == constant.WriteGroupChatType || serverMessage.SessionType == constant.ReadGroupChatType {
+	switch sdkpb.SessionType(serverMessage.SessionType) {
+	case sdkpb.SessionType_WriteGroupChatType, sdkpb.SessionType_ReadGroupChatType:
 		localMessage.RecvID = serverMessage.GroupID
 	}
 	return localMessage
 }
 
-func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.Conversation {
-	return &sdkpb.Conversation{
-		ConversationID:    conversation.ConversationID,
-		ConversationType:  sdkpb.SessionType(conversation.ConversationType),
-		UserID:            conversation.UserID,
-		GroupID:           conversation.GroupID,
-		ShowName:          conversation.ShowName,
-		FaceURL:           conversation.FaceURL,
-		RecvMsgOpt:        sdkpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
-		UnreadCount:       conversation.UnreadCount,
-		GroupAtType:       sdkpb.ConvGroupAtType(conversation.GroupAtType),
-		LatestMsg:         conversation.LatestMsg,
+func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.IMConversation {
+	return &sdkpb.IMConversation{
+		ConversationID:   conversation.ConversationID,
+		ConversationType: sdkpb.SessionType(conversation.ConversationType),
+		UserID:           conversation.UserID,
+		GroupID:          conversation.GroupID,
+		ShowName:         conversation.ShowName,
+		FaceURL:          conversation.FaceURL,
+		RecvMsgOpt:       sdkpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
+		UnreadCount:      conversation.UnreadCount,
+		GroupAtType:      sdkpb.ConvGroupAtType(conversation.GroupAtType),
+		//todo
+		//LatestMsg:         conversation.LatestMsg,
 		LatestMsgSendTime: conversation.LatestMsgSendTime,
 		DraftText:         conversation.DraftText,
 		DraftTextTime:     conversation.DraftTextTime,
