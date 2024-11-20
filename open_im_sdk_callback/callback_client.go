@@ -15,7 +15,7 @@
 package open_im_sdk_callback
 
 import (
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 )
 
 type OnConnListener interface {

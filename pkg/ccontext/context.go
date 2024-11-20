@@ -17,7 +17,8 @@ package ccontext
 import (
 	"context"
 
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/mcontext"
 )
 

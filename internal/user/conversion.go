@@ -2,7 +2,7 @@ package user
 
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/protocol/user"
 

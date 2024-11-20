@@ -22,7 +22,8 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
@@ -156,7 +157,7 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 		return err
 	}
 
-	var latestMsg sdkpb.IMMessage
+	var latestMsg sharedpb.IMMessage
 	// Convert the latest message in the conversation table.
 	utils.JsonStringToStruct(conversation.LatestMsg, &latestMsg)
 

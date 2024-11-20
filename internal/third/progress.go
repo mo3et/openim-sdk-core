@@ -2,8 +2,9 @@ package third
 
 import (
 	"context"
+
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 )
 
 type Progress interface {

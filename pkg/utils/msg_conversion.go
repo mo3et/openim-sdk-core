@@ -2,23 +2,26 @@ package utils
 
 import (
 	"context"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/datautil"
 )
 
-func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
+func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sharedpb.IMMessage {
 	if m == nil {
 		return nil
 	}
-	pm := &sdkpb.IMMessage{
+	pm := &sharedpb.IMMessage{
 		ClientMsgID:      m.ClientMsgID,
 		ServerMsgID:      m.ServerMsgID,
 		CreateTime:       m.CreateTime,
 		SendTime:         m.SendTime,
-		SessionType:      sdkpb.SessionType(m.SessionType),
+		SessionType:      commonpb.SessionType(m.SessionType),
 		SendID:           m.SendID,
 		RecvID:           m.RecvID,
 		MsgFrom:          sdkpb.MsgFrom(m.MsgFrom),
@@ -39,16 +42,16 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 
 	switch m.ContentType {
 	case int32(sdkpb.ContentType_Text):
-		pm.Content = &sdkpb.IMMessage_TextElem{TextElem: &sdkpb.TextElem{Content: m.TextElem.Content}}
+		pm.Content = &sharedpb.IMMessage_TextElem{TextElem: &sharedpb.TextElem{Content: m.TextElem.Content}}
 	case int32(sdkpb.ContentType_Picture):
-		pm.Content = &sdkpb.IMMessage_PictureElem{PictureElem: &sdkpb.PictureElem{
+		pm.Content = &sharedpb.IMMessage_PictureElem{PictureElem: &sharedpb.PictureElem{
 			SourcePath:      m.PictureElem.SourcePath,
 			SourcePicture:   sdkPictureBaseInfoToPB(m.PictureElem.SourcePicture),
 			BigPicture:      sdkPictureBaseInfoToPB(m.PictureElem.BigPicture),
 			SnapshotPicture: sdkPictureBaseInfoToPB(m.PictureElem.SnapshotPicture),
 		}}
 	case int32(sdkpb.ContentType_Sound):
-		pm.Content = &sdkpb.IMMessage_SoundElem{SoundElem: &sdkpb.SoundElem{
+		pm.Content = &sharedpb.IMMessage_SoundElem{SoundElem: &sharedpb.SoundElem{
 			Uuid:      m.SoundElem.UUID,
 			SoundPath: m.SoundElem.SoundPath,
 			SourceURL: m.SoundElem.SourceURL,
@@ -57,7 +60,7 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 			SoundType: m.SoundElem.SoundType,
 		}}
 	case int32(sdkpb.ContentType_Video):
-		pm.Content = &sdkpb.IMMessage_VideoElem{VideoElem: &sdkpb.VideoElem{
+		pm.Content = &sharedpb.IMMessage_VideoElem{VideoElem: &sharedpb.VideoElem{
 			VideoPath:      m.VideoElem.VideoPath,
 			VideoUUID:      m.VideoElem.VideoUUID,
 			VideoURL:       m.VideoElem.VideoURL,
@@ -73,7 +76,7 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 			SnapshotType:   m.VideoElem.SnapshotType,
 		}}
 	case int32(sdkpb.ContentType_File):
-		pm.Content = &sdkpb.IMMessage_FileElem{FileElem: &sdkpb.FileElem{
+		pm.Content = &sharedpb.IMMessage_FileElem{FileElem: &sharedpb.FileElem{
 			FilePath:  m.FileElem.FilePath,
 			Uuid:      m.FileElem.UUID,
 			SourceURL: m.FileElem.SourceURL,
@@ -82,13 +85,13 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 			FileType:  m.FileElem.FileType,
 		}}
 	case int32(sdkpb.ContentType_AdvancedText):
-		pm.Content = &sdkpb.IMMessage_AdvancedTextElem{AdvancedTextElem: &sdkpb.AdvancedTextElem{
+		pm.Content = &sharedpb.IMMessage_AdvancedTextElem{AdvancedTextElem: &sharedpb.AdvancedTextElem{
 			Text:              m.AdvancedTextElem.Text,
 			MessageEntityList: datautil.Batch(sdkMessageEntityToPB, m.AdvancedTextElem.MessageEntityList),
 		}}
 	case int32(sdkpb.ContentType_AtText):
 		a := m.AtTextElem
-		pm.Content = &sdkpb.IMMessage_AtTextElem{AtTextElem: &sdkpb.AtTextElem{
+		pm.Content = &sharedpb.IMMessage_AtTextElem{AtTextElem: &sharedpb.AtTextElem{
 			Text:         a.Text,
 			AtUserList:   a.AtUserList,
 			AtUsersInfo:  datautil.Batch(sdkAtInfoToPB, a.AtUsersInfo),
@@ -97,7 +100,7 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 		}}
 	case int32(sdkpb.ContentType_Location):
 		a := m.LocationElem
-		pm.Content = &sdkpb.IMMessage_LocationElem{LocationElem: &sdkpb.LocationElem{
+		pm.Content = &sharedpb.IMMessage_LocationElem{LocationElem: &sharedpb.LocationElem{
 			Description: a.Description,
 			Longitude:   a.Longitude,
 			Latitude:    a.Latitude,
@@ -108,23 +111,23 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 		fallthrough
 	case int32(sdkpb.ContentType_CustomMsgOnlineOnly):
 		a := m.CustomElem
-		pm.Content = &sdkpb.IMMessage_CustomElem{CustomElem: &sdkpb.CustomElem{
+		pm.Content = &sharedpb.IMMessage_CustomElem{CustomElem: &sharedpb.CustomElem{
 			Data:        a.Data,
 			Description: a.Description,
 			Extension:   a.Extension,
 		}}
 	case int32(sdkpb.ContentType_Typing):
-		pm.Content = &sdkpb.IMMessage_TypingElem{TypingElem: &sdkpb.TypingElem{MsgTips: m.TypingElem.MsgTips}}
+		pm.Content = &sharedpb.IMMessage_TypingElem{TypingElem: &sharedpb.TypingElem{MsgTips: m.TypingElem.MsgTips}}
 	case int32(sdkpb.ContentType_Quote):
 		a := m.QuoteElem
-		pm.Content = &sdkpb.IMMessage_QuoteElem{QuoteElem: &sdkpb.QuoteElem{
+		pm.Content = &sharedpb.IMMessage_QuoteElem{QuoteElem: &sharedpb.QuoteElem{
 			Text:              a.Text,
 			QuoteMessage:      SDKStructMsgToDB(a.QuoteMessage),
 			MessageEntityList: datautil.Batch(sdkMessageEntityToPB, a.MessageEntityList),
 		}}
 	case int32(sdkpb.ContentType_Merge):
 		a := m.MergeElem
-		pm.Content = &sdkpb.IMMessage_MergeElem{MergeElem: &sdkpb.MergeElem{
+		pm.Content = &sharedpb.IMMessage_MergeElem{MergeElem: &sharedpb.MergeElem{
 			Title:             a.Title,
 			AbstractList:      a.AbstractList,
 			MultiMessage:      datautil.Batch(SDKStructMsgToDB, a.MultiMessage),
@@ -132,13 +135,13 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 		}}
 	case int32(sdkpb.ContentType_Face):
 		a := m.FaceElem
-		pm.Content = &sdkpb.IMMessage_FaceElem{FaceElem: &sdkpb.FaceElem{
+		pm.Content = &sharedpb.IMMessage_FaceElem{FaceElem: &sharedpb.FaceElem{
 			Index: int32(a.Index),
 			Data:  a.Data,
 		}}
 	case int32(sdkpb.ContentType_Card):
 		a := m.CardElem
-		pm.Content = &sdkpb.IMMessage_CardElem{CardElem: &sdkpb.CardElem{
+		pm.Content = &sharedpb.IMMessage_CardElem{CardElem: &sharedpb.CardElem{
 			UserID:   a.UserID,
 			Nickname: a.Nickname,
 			FaceURL:  a.FaceURL,
@@ -146,362 +149,362 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 		}}
 	case int32(sdkpb.ContentType_Stream):
 		a := m.StreamElem
-		pm.Content = &sdkpb.IMMessage_StreamElem{StreamElem: &sdkpb.StreamElem{
+		pm.Content = &sharedpb.IMMessage_StreamElem{StreamElem: &sharedpb.StreamElem{
 			Type:    a.Type,
 			Content: a.Content,
 			Packets: a.Packets,
 			End:     a.End,
 		}}
 	case int32(sdkpb.ContentType_GroupCreatedNotification):
-		t := sdkpb.GroupCreatedTips{}
+		t := sharedpb.GroupCreatedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupCreatedTips{GroupCreatedTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupCreatedTips{GroupCreatedTips: &t}
 
 	case int32(sdkpb.ContentType_GroupInfoSetNotification):
-		t := sdkpb.GroupInfoSetTips{}
+		t := sharedpb.GroupInfoSetTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupInfoSetTips{GroupInfoSetTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupInfoSetTips{GroupInfoSetTips: &t}
 
 	case int32(sdkpb.ContentType_GroupInfoSetNameNotification):
-		t := sdkpb.GroupInfoSetNameTips{}
+		t := sharedpb.GroupInfoSetNameTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupInfoSetNameTips{GroupInfoSetNameTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupInfoSetNameTips{GroupInfoSetNameTips: &t}
 
 	case int32(sdkpb.ContentType_GroupInfoSetAnnouncementNotification):
-		t := sdkpb.GroupInfoSetAnnouncementTips{}
+		t := sharedpb.GroupInfoSetAnnouncementTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupInfoSetAnnouncementTips{GroupInfoSetAnnouncementTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupInfoSetAnnouncementTips{GroupInfoSetAnnouncementTips: &t}
 
 	case int32(sdkpb.ContentType_JoinGroupApplicationNotification):
-		t := sdkpb.JoinGroupApplicationTips{}
+		t := sharedpb.JoinGroupApplicationTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_JoinGroupApplicationTips{JoinGroupApplicationTips: &t}
+		pm.Content = &sharedpb.IMMessage_JoinGroupApplicationTips{JoinGroupApplicationTips: &t}
 
 	case int32(sdkpb.ContentType_MemberQuitNotification):
-		t := sdkpb.MemberQuitTips{}
+		t := sharedpb.MemberQuitTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_MemberQuitTips{MemberQuitTips: &t}
+		pm.Content = &sharedpb.IMMessage_MemberQuitTips{MemberQuitTips: &t}
 
 	case int32(sdkpb.ContentType_GroupApplicationAcceptedNotification):
-		t := sdkpb.GroupApplicationAcceptedTips{}
+		t := sharedpb.GroupApplicationAcceptedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupApplicationAcceptedTips{GroupApplicationAcceptedTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupApplicationAcceptedTips{GroupApplicationAcceptedTips: &t}
 
 	case int32(sdkpb.ContentType_GroupApplicationRejectedNotification):
-		t := sdkpb.GroupApplicationRejectedTips{}
+		t := sharedpb.GroupApplicationRejectedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupApplicationRejectedTips{GroupApplicationRejectedTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupApplicationRejectedTips{GroupApplicationRejectedTips: &t}
 
 	case int32(sdkpb.ContentType_GroupOwnerTransferredNotification):
-		t := sdkpb.GroupOwnerTransferredTips{}
+		t := sharedpb.GroupOwnerTransferredTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupOwnerTransferredTips{GroupOwnerTransferredTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupOwnerTransferredTips{GroupOwnerTransferredTips: &t}
 
 	case int32(sdkpb.ContentType_MemberKickedNotification):
-		t := sdkpb.MemberKickedTips{}
+		t := sharedpb.MemberKickedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_MemberKickedTips{MemberKickedTips: &t}
+		pm.Content = &sharedpb.IMMessage_MemberKickedTips{MemberKickedTips: &t}
 
 	case int32(sdkpb.ContentType_MemberInvitedNotification):
-		t := sdkpb.MemberInvitedTips{}
+		t := sharedpb.MemberInvitedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_MemberInvitedTips{MemberInvitedTips: &t}
+		pm.Content = &sharedpb.IMMessage_MemberInvitedTips{MemberInvitedTips: &t}
 
 	case int32(sdkpb.ContentType_MemberEnterNotification):
-		t := sdkpb.MemberEnterTips{}
+		t := sharedpb.MemberEnterTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_MemberEnterTips{MemberEnterTips: &t}
+		pm.Content = &sharedpb.IMMessage_MemberEnterTips{MemberEnterTips: &t}
 
 	case int32(sdkpb.ContentType_GroupDismissedNotification):
-		t := sdkpb.GroupDismissedTips{}
+		t := sharedpb.GroupDismissedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupDismissedTips{GroupDismissedTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupDismissedTips{GroupDismissedTips: &t}
 
 	case int32(sdkpb.ContentType_GroupMemberMutedNotification):
-		t := sdkpb.GroupMemberMutedTips{}
+		t := sharedpb.GroupMemberMutedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupMemberMutedTips{GroupMemberMutedTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupMemberMutedTips{GroupMemberMutedTips: &t}
 
 	case int32(sdkpb.ContentType_GroupMemberCancelMutedNotification):
-		t := sdkpb.GroupMemberCancelMutedTips{}
+		t := sharedpb.GroupMemberCancelMutedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupMemberCancelMutedTips{GroupMemberCancelMutedTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupMemberCancelMutedTips{GroupMemberCancelMutedTips: &t}
 
 	case int32(sdkpb.ContentType_GroupMutedNotification):
-		t := sdkpb.GroupMutedTips{}
+		t := sharedpb.GroupMutedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupMutedTips{GroupMutedTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupMutedTips{GroupMutedTips: &t}
 
 	case int32(sdkpb.ContentType_GroupCancelMutedNotification):
-		t := sdkpb.GroupCancelMutedTips{}
+		t := sharedpb.GroupCancelMutedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupCancelMutedTips{GroupCancelMutedTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupCancelMutedTips{GroupCancelMutedTips: &t}
 
 	case int32(sdkpb.ContentType_GroupMemberInfoSetNotification):
-		t := sdkpb.GroupMemberInfoSetTips{}
+		t := sharedpb.GroupMemberInfoSetTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_GroupMemberInfoSetTips{GroupMemberInfoSetTips: &t}
+		pm.Content = &sharedpb.IMMessage_GroupMemberInfoSetTips{GroupMemberInfoSetTips: &t}
 
 	case int32(sdkpb.ContentType_FriendApplicationNotification):
-		t := sdkpb.FriendApplicationTips{}
+		t := sharedpb.FriendApplicationTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_FriendApplicationTips{FriendApplicationTips: &t}
+		pm.Content = &sharedpb.IMMessage_FriendApplicationTips{FriendApplicationTips: &t}
 
 	case int32(sdkpb.ContentType_FriendApplicationApprovedNotification):
-		t := sdkpb.FriendApplicationApprovedTips{}
+		t := sharedpb.FriendApplicationApprovedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_FriendApplicationApprovedTips{FriendApplicationApprovedTips: &t}
+		pm.Content = &sharedpb.IMMessage_FriendApplicationApprovedTips{FriendApplicationApprovedTips: &t}
 
 	case int32(sdkpb.ContentType_FriendApplicationRejectedNotification):
-		t := sdkpb.FriendApplicationRejectedTips{}
+		t := sharedpb.FriendApplicationRejectedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: &t}
+		pm.Content = &sharedpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: &t}
 
 	case int32(sdkpb.ContentType_FriendAddedNotification):
-		t := sdkpb.FriendAddedTips{}
+		t := sharedpb.FriendAddedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_FriendAddedTips{FriendAddedTips: &t}
+		pm.Content = &sharedpb.IMMessage_FriendAddedTips{FriendAddedTips: &t}
 
 	case int32(sdkpb.ContentType_FriendDeletedNotification):
-		t := sdkpb.FriendDeletedTips{}
+		t := sharedpb.FriendDeletedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_FriendDeletedTips{FriendDeletedTips: &t}
+		pm.Content = &sharedpb.IMMessage_FriendDeletedTips{FriendDeletedTips: &t}
 
 	case int32(sdkpb.ContentType_BlackAddedNotification):
-		t := sdkpb.BlackAddedTips{}
+		t := sharedpb.BlackAddedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_BlackAddedTips{BlackAddedTips: &t}
+		pm.Content = &sharedpb.IMMessage_BlackAddedTips{BlackAddedTips: &t}
 
 	case int32(sdkpb.ContentType_BlackDeletedNotification):
-		t := sdkpb.BlackDeletedTips{}
+		t := sharedpb.BlackDeletedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_BlackDeletedTips{BlackDeletedTips: &t}
+		pm.Content = &sharedpb.IMMessage_BlackDeletedTips{BlackDeletedTips: &t}
 
 	case int32(sdkpb.ContentType_FriendInfoUpdatedNotification):
-		t := sdkpb.FriendInfoChangedTips{}
+		t := sharedpb.FriendInfoChangedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_FriendInfoChangedTips{FriendInfoChangedTips: &t}
+		pm.Content = &sharedpb.IMMessage_FriendInfoChangedTips{FriendInfoChangedTips: &t}
 
 	case int32(sdkpb.ContentType_UserInfoUpdatedNotification):
-		t := sdkpb.UserInfoUpdatedTips{}
+		t := sharedpb.UserInfoUpdatedTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_UserInfoUpdatedTips{UserInfoUpdatedTips: &t}
+		pm.Content = &sharedpb.IMMessage_UserInfoUpdatedTips{UserInfoUpdatedTips: &t}
 
 	case int32(sdkpb.ContentType_UserStatusChangeNotification):
-		t := sdkpb.UserStatusChangeTips{}
+		t := sharedpb.UserStatusChangeTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_UserStatusChangeTips{UserStatusChangeTips: &t}
+		pm.Content = &sharedpb.IMMessage_UserStatusChangeTips{UserStatusChangeTips: &t}
 
 	case int32(sdkpb.ContentType_UserCommandAddNotification):
-		t := sdkpb.UserCommandAddTips{}
+		t := sharedpb.UserCommandAddTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_UserCommandAddTips{UserCommandAddTips: &t}
+		pm.Content = &sharedpb.IMMessage_UserCommandAddTips{UserCommandAddTips: &t}
 
 	case int32(sdkpb.ContentType_UserCommandUpdateNotification):
-		t := sdkpb.UserCommandUpdateTips{}
+		t := sharedpb.UserCommandUpdateTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_UserCommandUpdateTips{UserCommandUpdateTips: &t}
+		pm.Content = &sharedpb.IMMessage_UserCommandUpdateTips{UserCommandUpdateTips: &t}
 
 	case int32(sdkpb.ContentType_UserCommandDeleteNotification):
-		t := sdkpb.UserCommandDeleteTips{}
+		t := sharedpb.UserCommandDeleteTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_UserCommandDeleteTips{UserCommandDeleteTips: &t}
+		pm.Content = &sharedpb.IMMessage_UserCommandDeleteTips{UserCommandDeleteTips: &t}
 
 	case int32(sdkpb.ContentType_ConversationChangeNotification):
-		t := sdkpb.ConversationUpdateTips{}
+		t := sharedpb.ConversationUpdateTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_ConversationUpdateTips{ConversationUpdateTips: &t}
+		pm.Content = &sharedpb.IMMessage_ConversationUpdateTips{ConversationUpdateTips: &t}
 
 	case int32(sdkpb.ContentType_ConversationPrivateChatNotification):
-		t := sdkpb.ConversationSetPrivateTips{}
+		t := sharedpb.ConversationSetPrivateTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_ConversationSetPrivateTips{ConversationSetPrivateTips: &t}
+		pm.Content = &sharedpb.IMMessage_ConversationSetPrivateTips{ConversationSetPrivateTips: &t}
 
 	//case int32(sdkpb.ContentType_DeleteMsgsNotification):
-	//	t := sdkpb.DeleteMessageTips{}
+	//	t := sharedpb.DeleteMessageTips{}
 	//	a := m.NotificationElem
 	//	err := JsonStringToStruct(a.Detail, &t)
 	//	if err != nil {
 	//		log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 	//	}
-	//	pm.Content = &sdkpb.IMMessage_DeleteMessageTips{DeleteMessageTips: &t}
+	//	pm.Content = &sharedpb.IMMessage_DeleteMessageTips{DeleteMessageTips: &t}
 
 	case int32(sdkpb.ContentType_RevokeNotification):
-		t := sdkpb.RevokeMsgTips{}
+		t := sharedpb.RevokeMsgTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_RevokeMsgTips{RevokeMsgTips: &t}
+		pm.Content = &sharedpb.IMMessage_RevokeMsgTips{RevokeMsgTips: &t}
 
 	case int32(sdkpb.ContentType_ClearConversationNotification):
-		t := sdkpb.ClearConversationTips{}
+		t := sharedpb.ClearConversationTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_ClearConversationTips{ClearConversationTips: &t}
+		pm.Content = &sharedpb.IMMessage_ClearConversationTips{ClearConversationTips: &t}
 
 	case int32(sdkpb.ContentType_DeleteMsgsNotification):
-		t := sdkpb.DeleteMsgsTips{}
+		t := sharedpb.DeleteMsgsTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_DeleteMsgsTips{DeleteMsgsTips: &t}
+		pm.Content = &sharedpb.IMMessage_DeleteMsgsTips{DeleteMsgsTips: &t}
 
 	case int32(sdkpb.ContentType_FriendsInfoUpdateNotification):
-		t := sdkpb.FriendsInfoUpdateTips{}
+		t := sharedpb.FriendsInfoUpdateTips{}
 		a := m.NotificationElem
 		err := JsonStringToStruct(a.Detail, &t)
 		if err != nil {
 			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
 		}
-		pm.Content = &sdkpb.IMMessage_FriendsInfoUpdateTips{FriendsInfoUpdateTips: &t}
+		pm.Content = &sharedpb.IMMessage_FriendsInfoUpdateTips{FriendsInfoUpdateTips: &t}
 	}
 	return pm
 }
 
-func sdkPictureBaseInfoToPB(a *sdk_struct.PictureBaseInfo) *sdkpb.PictureBaseInfo {
+func sdkPictureBaseInfoToPB(a *sdk_struct.PictureBaseInfo) *sharedpb.PictureBaseInfo {
 	if a == nil {
 		return nil
 	}
-	return &sdkpb.PictureBaseInfo{
+	return &sharedpb.PictureBaseInfo{
 		Uuid:   a.UUID,
 		Type:   a.Type,
 		Size:   a.Size,
@@ -511,11 +514,11 @@ func sdkPictureBaseInfoToPB(a *sdk_struct.PictureBaseInfo) *sdkpb.PictureBaseInf
 	}
 }
 
-func sdkMessageEntityToPB(a *sdk_struct.MessageEntity) *sdkpb.MessageEntity {
+func sdkMessageEntityToPB(a *sdk_struct.MessageEntity) *sharedpb.MessageEntity {
 	if a == nil {
 		return nil
 	}
-	return &sdkpb.MessageEntity{
+	return &sharedpb.MessageEntity{
 		Type:   a.Type,
 		Offset: a.Offset,
 		Length: a.Length,
@@ -524,11 +527,11 @@ func sdkMessageEntityToPB(a *sdk_struct.MessageEntity) *sdkpb.MessageEntity {
 	}
 }
 
-func sdkAtInfoToPB(a *sdk_struct.AtInfo) *sdkpb.AtInfo {
+func sdkAtInfoToPB(a *sdk_struct.AtInfo) *sharedpb.AtInfo {
 	if a == nil {
 		return nil
 	}
-	return &sdkpb.AtInfo{
+	return &sharedpb.AtInfo{
 		AtUserID:      a.AtUserID,
 		GroupNickname: a.GroupNickname,
 	}
@@ -548,11 +551,11 @@ func offlinePushToPB(a *sdkws.OfflinePushInfo) *sdkpb.OfflinePushInfo {
 	}
 }
 
-func attachedInfoElemToPB(a *sdk_struct.AttachedInfoElem) *sdkpb.AttachedInfoElem {
+func attachedInfoElemToPB(a *sdk_struct.AttachedInfoElem) *sharedpb.AttachedInfoElem {
 	if a == nil {
 		return nil
 	}
-	return &sdkpb.AttachedInfoElem{
+	return &sharedpb.AttachedInfoElem{
 		IsPrivateChat: a.IsPrivateChat,
 		BurnDuration:  a.BurnDuration,
 		HasReadTime:   a.HasReadTime,
@@ -560,11 +563,11 @@ func attachedInfoElemToPB(a *sdk_struct.AttachedInfoElem) *sdkpb.AttachedInfoEle
 	}
 }
 
-func uploadProgressToPB(a *sdk_struct.UploadProgress) *sdkpb.UploadProgress {
+func uploadProgressToPB(a *sdk_struct.UploadProgress) *sharedpb.UploadProgress {
 	if a == nil {
 		return nil
 	}
-	return &sdkpb.UploadProgress{
+	return &sharedpb.UploadProgress{
 		Total:    a.Total,
 		Save:     a.Save,
 		Current:  a.Current,

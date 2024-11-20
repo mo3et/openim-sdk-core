@@ -15,7 +15,7 @@
 package sdkerrs
 
 import (
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/error"
 	"github.com/openimsdk/tools/errs"
 )
 

@@ -3,10 +3,11 @@ package test
 import (
 	"context"
 	"fmt"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"math/rand"
 	"strconv"
 	"time"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/protocol/auth"

@@ -17,7 +17,8 @@ package user
 import (
 	"context"
 	"fmt"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/cache"

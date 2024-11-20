@@ -18,7 +18,9 @@ import (
 	"context"
 	"sync"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
@@ -107,8 +109,8 @@ func (g *Group) initSyncer() {
 				local.MemberCount = 0
 				g.listener().OnJoinedGroupDeleted(&sdkpb.EventOnJoinedGroupDeletedData{Group: DBGroupToSdk(local)})
 			case syncer.Update:
-				log.ZInfo(ctx, "groupSyncer trigger update", "groupID", server.GroupID, "data", server, "isDismissed", sdkpb.GroupStatus(server.Status) == sdkpb.GroupStatus_Dismissed)
-				if sdkpb.GroupStatus(server.Status) == sdkpb.GroupStatus_Dismissed {
+				log.ZInfo(ctx, "groupSyncer trigger update", "groupID", server.GroupID, "data", server, "isDismissed", sharedpb.GroupStatus(server.Status) == sharedpb.GroupStatus_Dismissed)
+				if sharedpb.GroupStatus(server.Status) == sharedpb.GroupStatus_Dismissed {
 					if err := g.db.DeleteGroupAllMembers(ctx, server.GroupID); err != nil {
 						log.ZError(ctx, "delete group all members failed", err)
 					}
@@ -222,10 +224,10 @@ func (g *Group) initSyncer() {
 		case syncer.Insert:
 			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToSdk(server)})
 		case syncer.Update:
-			switch sdkpb.ApprovalStatus(server.HandleResult) {
-			case sdkpb.ApprovalStatus_Approved:
+			switch commonpb.ApprovalStatus(server.HandleResult) {
+			case commonpb.ApprovalStatus_Approved:
 				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Request: DBGroupRequestToSdk(server)})
-			case sdkpb.ApprovalStatus_Rejected:
+			case commonpb.ApprovalStatus_Rejected:
 				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Request: DBGroupRequestToSdk(server)})
 			default:
 				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToSdk(server)})
@@ -247,10 +249,10 @@ func (g *Group) initSyncer() {
 		case syncer.Insert:
 			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBAdminGroupRequestToSdk(server)})
 		case syncer.Update:
-			switch sdkpb.ApprovalStatus(server.HandleResult) {
-			case sdkpb.ApprovalStatus_Approved:
+			switch commonpb.ApprovalStatus(server.HandleResult) {
+			case commonpb.ApprovalStatus_Approved:
 				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Request: DBAdminGroupRequestToSdk(server)})
-			case sdkpb.ApprovalStatus_Rejected:
+			case commonpb.ApprovalStatus_Rejected:
 				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Request: DBAdminGroupRequestToSdk(server)})
 			default:
 				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBAdminGroupRequestToSdk(server)})

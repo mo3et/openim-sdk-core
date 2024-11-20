@@ -16,7 +16,9 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	ffi "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
+	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/errs"
 )
 
@@ -58,8 +60,8 @@ func GenerateHandleID() uint64 {
 	return handleCounter.Add(1)
 }
 
-func activeErrResp(handleID uint64, funcName sdkpb.FuncRequestEventName, err error) {
-	var ffiResult sdkpb.FfiResult
+func activeErrResp(handleID uint64, funcName pb.FuncRequestEventName, err error) {
+	var ffiResult ffi.FfiResult
 	ffiResult.HandleID = handleID
 	ffiResult.FuncName = funcName
 	if code, ok := err.(errs.CodeError); ok {
@@ -72,17 +74,17 @@ func activeErrResp(handleID uint64, funcName sdkpb.FuncRequestEventName, err err
 	DispatchFfiResult(handleID, &ffiResult)
 
 }
-func activeSuccessResp(handleID uint64, funcName sdkpb.FuncRequestEventName, res []byte) {
+func activeSuccessResp(handleID uint64, funcName pb.FuncRequestEventName, res []byte) {
 
-	var ffiResponse sdkpb.FfiResult
+	var ffiResponse ffi.FfiResult
 	ffiResponse.Data = res
 	ffiResponse.FuncName = funcName
 	ffiResponse.HandleID = handleID
 	DispatchFfiResult(handleID, &ffiResponse)
 }
 
-func passiveEventResp(eventName sdkpb.FuncRequestEventName, data any) {
-	var ffiResponse sdkpb.FfiResult
+func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
+	var ffiResponse ffi.FfiResult
 	var err error
 	if v, ok := data.(proto.Message); ok {
 		ffiResponse.Data, err = proto.Marshal(v)
@@ -99,8 +101,8 @@ func passiveEventResp(eventName sdkpb.FuncRequestEventName, data any) {
 	DispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
 }
 
-func activeEventResp(eventName sdkpb.FuncRequestEventName, handleID uint64, data any) {
-	var ffiResponse sdkpb.FfiResult
+func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data any) {
+	var ffiResponse ffi.FfiResult
 	var err error
 	if v, ok := data.(proto.Message); ok {
 		ffiResponse.Data, err = proto.Marshal(v)
@@ -117,7 +119,7 @@ func activeEventResp(eventName sdkpb.FuncRequestEventName, handleID uint64, data
 	DispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
 }
 
-func DispatchFfiResult(handleID uint64, ffiResponse *sdkpb.FfiResult) {
+func dispatchFfiResultPb(handleID uint64, ffiResponse *ffi.FfiResult) {
 	data, err := proto.Marshal(ffiResponse)
 	if err != nil {
 	}
@@ -145,7 +147,7 @@ func FfiRequest(data []byte) uint64 {
 		//
 		//	}
 		//}(t)
-		var ffiRequest sdkpb.FfiRequest
+		var ffiRequest ffi.FfiRequest
 		err := proto.Unmarshal(data, &ffiRequest)
 		if err != nil {
 			activeErrResp(handleID, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
@@ -174,15 +176,15 @@ func FfiRequest(data []byte) uint64 {
 	return handleID
 }
 
-func checkResourceLoad(funcName sdkpb.FuncRequestEventName) error {
-	if funcName == sdkpb.FuncRequestEventName_InitSDK {
-		open_im_sdk.UserForSDK.Info().IMConfig = &sdkpb.IMConfig{}
+func checkResourceLoad(funcName pb.FuncRequestEventName) error {
+	if funcName == pb.FuncRequestEventName_InitSDK {
+		open_im_sdk.UserForSDK.Info().IMConfig = &initpb.IMConfig{}
 		return nil
 	}
 	if open_im_sdk.UserForSDK.Info().IMConfig == nil {
 		return sdkerrs.ErrNotInit.WrapMsg("SDK not initialized", "funcName", funcName.String())
 	}
-	if funcName == sdkpb.FuncRequestEventName_Login {
+	if funcName == pb.FuncRequestEventName_Login {
 		return nil
 	}
 	if open_im_sdk.UserForSDK.GetLoginStatus(context.Background()) != open_im_sdk.Logged {

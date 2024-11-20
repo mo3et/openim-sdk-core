@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	"io"
 	"math/rand"
 	"os"
@@ -12,8 +11,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
+
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 
