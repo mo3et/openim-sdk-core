@@ -467,14 +467,14 @@ func SDKStructMsgToDB(m *sdk_struct.MsgStruct) *sdkpb.IMMessage {
 		}
 		pm.Content = &sdkpb.IMMessage_ConversationSetPrivateTips{ConversationSetPrivateTips: &t}
 
-	case int32(sdkpb.ContentType_DeleteMsgsNotification):
-		t := sdkpb.DeleteMessageTips{}
-		a := m.NotificationElem
-		err := JsonStringToStruct(a.Detail, &t)
-		if err != nil {
-			log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
-		}
-		pm.Content = &sdkpb.IMMessage_DeleteMessageTips{DeleteMessageTips: &t}
+	//case int32(sdkpb.ContentType_DeleteMsgsNotification):
+	//	t := sdkpb.DeleteMessageTips{}
+	//	a := m.NotificationElem
+	//	err := JsonStringToStruct(a.Detail, &t)
+	//	if err != nil {
+	//		log.ZError(context.TODO(), "SDKStructMsgToDB err", err, "detail", a.Detail)
+	//	}
+	//	pm.Content = &sdkpb.IMMessage_DeleteMessageTips{DeleteMessageTips: &t}
 
 	case int32(sdkpb.ContentType_RevokeNotification):
 		t := sdkpb.RevokeMsgTips{}
