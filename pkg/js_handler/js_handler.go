@@ -16,17 +16,15 @@ import (
 
 func Call[A, B any](ctx context.Context, req *A) (resp *B, err error) {
 
-
 	pbReq, ok := any(req).(proto.Message)
 	if !ok {
 		return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
 	}
 
-	err := proto.Marshal(req);
+	err := proto.Marshal(req)
 	if err != nil {
 		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
 	}
-
 
 	pbResp, err := fn(ctx, &pbReq)
 	if err != nil {
@@ -43,29 +41,6 @@ func Call[A, B any](ctx context.Context, req *A) (resp *B, err error) {
 	return &respMsg, nil
 
 }
-
-var pbReq A
-
-msg, ok := any(&pbReq).(proto.Message)
-if !ok {
-return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
-}
-
-if err := proto.Unmarshal(req, msg); err != nil {
-return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
-}
-
-pbResp, err := fn(ctx, &pbReq)
-if err != nil {
-return nil, err
-}
-
-respMsg, ok := any(pbResp).(proto.Message)
-if !ok {
-return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
-}
-
-return proto.Marshal(respMsg)
 
 func waitAsyncFunc(ctx context.Context, data any) (js.Value, error) {
 	if !(result.Type() == js.TypeObject && result.InstanceOf(js.Global().Get("Promise"))) {
