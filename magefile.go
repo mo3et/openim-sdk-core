@@ -22,16 +22,19 @@ var Aliases = map[string]interface{}{
 	"java": GenJava,
 	"js":   GenJS,
 	"ts":   GenTS,
+	"rs":   GenRust,
 	"a":    All,
 }
 
+// Langeuage target
 // Define output directories for each target language
-var (
+const (
 	GO     = "go"
 	JAVA   = "java"
 	CSharp = "csharp"
 	JS     = "js"
 	TS     = "ts"
+	RS     = "rust"
 )
 
 // protoModules lists all the protobuf modules to be processed for code generation.
@@ -88,7 +91,6 @@ func GenGo() error {
 	// log.SetFlags(log.Lshortfile)
 	log.Println("Generating Go code from proto files")
 
-	// pb generated output directory
 	goOutDir := filepath.Join(protoDir, GO)
 
 	protoc, err := getToolPath("protoc")
@@ -107,15 +109,15 @@ func GenGo() error {
 			"--go_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto/" + strings.Join([]string{GO, module}, "/"),
 			filepath.Join("proto", module) + ".proto",
 		}
-		// log.Println("args : ", args)
+
 		cmd := exec.Command(protoc, args...)
 		connectStd(cmd)
 		if err := cmd.Run(); err != nil {
-			return err
+			log.Printf("Error generating Go code for module %s: %v\n", module, err)
+			continue
 		}
 	}
 
-	// log.Println("genrating proto to path : ", goOutDir)
 	if err := removeOmitemptyTags(); err != nil {
 		log.Println("Remove Omitempty is Error", err)
 		return err
@@ -151,9 +153,9 @@ func GenJava() error {
 
 		cmd := exec.Command(protoc, args...)
 		connectStd(cmd)
-
 		if err := cmd.Run(); err != nil {
-			return err
+			log.Printf("Error generating Java code for module %s: %v\n", module, err)
+			continue
 		}
 	}
 
@@ -187,7 +189,8 @@ func GenCSharp() error {
 		connectStd(cmd)
 
 		if err := cmd.Run(); err != nil {
-			return err
+			log.Printf("Error generating C# code for module %s: %v\n", module, err)
+			continue
 		}
 	}
 
@@ -219,9 +222,9 @@ func GenJS() error {
 
 		cmd := exec.Command(protoc, args...)
 		connectStd(cmd)
-
 		if err := cmd.Run(); err != nil {
-			return err
+			log.Printf("Error generating JavaScript code for module %s: %v\n", module, err)
+			continue
 		}
 	}
 
@@ -266,16 +269,57 @@ func GenTS() error {
 
 		cmd := exec.Command(protoc, args...)
 		connectStd(cmd)
-
 		if err := cmd.Run(); err != nil {
-			return err
+			log.Printf("Error generating TypeScript code for module %s: %v\n", module, err)
+			continue
 		}
 	}
 
 	return nil
 }
 
-// Tools
+func GenRust() error {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+	log.Println("Generating Rust code from proto files")
+
+	rsOutDir := filepath.Join(protoDir, RS)
+
+	protoc, err := getToolPath("protoc")
+	if err != nil {
+		return err
+	}
+
+	rustgRPC, err := getRustToolPath("grpc_rust_plugin")
+	if err != nil {
+		return err
+	}
+
+	for _, module := range protoModules {
+		if err := os.MkdirAll(filepath.Join(rsOutDir, module), 0755); err != nil {
+			return err
+		}
+
+		args := []string{
+			"--proto_path=" + protoDir,
+			"--rust_out=" + filepath.Join(rsOutDir, module),
+			"--grpc_out=" + filepath.Join(rsOutDir, module),
+			"--plugin=protoc-gen-grpc=" + rustgRPC,
+			filepath.Join("proto", module) + ".proto",
+		}
+
+		cmd := exec.Command(protoc, args...)
+		connectStd(cmd)
+		if err := cmd.Run(); err != nil {
+			log.Printf("Error generating Rust code for module %s: %v\n", module, err)
+			continue
+		}
+	}
+
+	return nil
+}
+
+/*  Tools */
 
 func getWorkDirToolPath(name string) string {
 	toolPath := ""
@@ -311,6 +355,28 @@ func getToolPath(name string) (string, error) {
 		gopath = build.Default.GOPATH
 	}
 	p := filepath.Join(gopath, "bin", name)
+
+	if _, err := os.Stat(p); err != nil {
+		return "", err
+	}
+	return p, nil
+}
+
+func getRustToolPath(name string) (string, error) {
+	toolPath := getWorkDirToolPath(name)
+	if toolPath != "" {
+		return toolPath, nil
+	}
+
+	if p, err := exec.LookPath(name); err == nil {
+		return p, nil
+	}
+
+	cargoHome := os.Getenv("CARGO_HOME")
+	if cargoHome == "" {
+		cargoHome = filepath.Join(os.Getenv("HOME"), ".cargo")
+	}
+	p := filepath.Join(cargoHome, "bin", name)
 
 	if _, err := os.Stat(p); err != nil {
 		return "", err

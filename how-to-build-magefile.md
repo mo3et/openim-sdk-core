@@ -50,7 +50,25 @@ You can also modify the `OutDir` to change the output directory.
 
 
 ## Modify:
-Now we use Python as an example.
+Now, we use Rust as an example. Reference to  [grpc-rs](https://github.com/tikv/grpc-rs).
+### Dependencies:
+install the protobuf compiler and gRPC compiler:
+```shell
+cargo install protobuf-codegen
+cargo install grpcio-compiler
+```
+
+### Implementing Rust code generation:
+1. Add new language to _Language Target_ const. Like `RS = "rust"`. This operation defines the destination folder for code generation.
+2. Check 'protoModules' is include you need to generate module.
+3. Create a new function in `magefile.go` to generate Rust code.
+For example:
+```go
+func GenRust() error {
+    return genCode("rust", "protos", "protos", "protos")
+}
+
+```
 
 
 
