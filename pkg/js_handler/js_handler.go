@@ -15,6 +15,21 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
+var (
+	SqliteOpen  = jsfn[sdkpb.JsSqliteOpenReq, sdkpb.JsSqliteOpenResp](sdkpb.FuncRequestEventName_JsSqliteOpen)
+	SqliteExec  = jsfn[sdkpb.JsSqliteExecReq, sdkpb.JsSqliteExecResp](sdkpb.FuncRequestEventName_JsSqliteExec)
+	SqliteQuery = jsfn[sdkpb.JsSqliteQueryReq, sdkpb.JsSqliteQueryResp](sdkpb.FuncRequestEventName_JsSqliteQuery)
+	SqliteClose = jsfn[sdkpb.JsSqliteCloseReq, sdkpb.JsSqliteCloseResp](sdkpb.FuncRequestEventName_JsSqliteClose)
+)
+
+func jsfn[A, B any](funcName sdkpb.FuncRequestEventName) jsFunc[A, B] {
+	return func(ctx context.Context, req *A) (*B, error) {
+		return Call[A, B](ctx, funcName, req)
+	}
+}
+
+type jsFunc[A, B any] func(ctx context.Context, req *A) (*B, error)
+
 var dispatchFfiResult func(ctc context.Context, funcName sdkpb.FuncRequestEventName, data []byte) ([]byte, error)
 
 func Call[A, B any](ctx context.Context, funName sdkpb.FuncRequestEventName, req *A) (*B, error) {
