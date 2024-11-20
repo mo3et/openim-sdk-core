@@ -1,0 +1,54 @@
+syntax = "proto3";
+package openim.js;
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+
+
+
+message jsOpenFileReq{
+  string sqlString = 1;
+}
+message jsOpenFileResp{
+
+}
+message jsReadFileReq{
+  bool failed = 1;
+}
+message jsReadFileResp{
+
+}
+message jsCloseFileReq{
+
+}
+message jsCloseFileResp{
+
+}
+
+message jsSqliteOpenReq{
+  string name = 1;
+}
+message jsSqliteOpenResp{
+  int64 id = 1;
+}
+
+message jsSqliteCloseReq{
+  int64 id = 1;
+}
+message jsSqliteCloseResp{}
+
+message jsSqliteExecReq{
+  int64 id = 1;
+  string sql = 2;
+  string args = 3; // json array
+}
+message jsSqliteExecResp{
+  int64 affected = 1;
+}
+
+message jsSqliteQueryReq{
+  int64 id = 1;
+  string sql = 2;
+  string args = 3; // json array
+}
+message jsSqliteQueryResp{
+  string result = 1; // json array
+}

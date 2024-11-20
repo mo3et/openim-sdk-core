@@ -31,7 +31,7 @@ func must[V any](v V, err error) V {
 }
 
 func TestName2(t *testing.T) {
-	user := UserInfo{
+	user := IMUser{
 		UserID:   "123",
 		Nickname: "hello",
 		FaceURL:  "",
