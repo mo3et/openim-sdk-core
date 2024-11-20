@@ -17,7 +17,7 @@ package group
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	shared "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/sdkws"
 )
 
@@ -97,8 +97,8 @@ func ServerGroupRequestToLocalAdminGroupRequest(info *sdkws.GroupRequest) *model
 	}
 }
 
-func ServerGroupToSdk(info *sdkws.GroupInfo) *sdkpb.IMGroup {
-	return &sdkpb.IMGroup{
+func ServerGroupToSdk(info *sdkws.GroupInfo) *shared.IMGroup {
+	return &shared.IMGroup{
 		GroupID:                info.GroupID,
 		GroupName:              info.GroupName,
 		Notification:           info.Notification,
@@ -108,7 +108,7 @@ func ServerGroupToSdk(info *sdkws.GroupInfo) *sdkpb.IMGroup {
 		CreateTime:             info.CreateTime,
 		MemberCount:            int64(info.MemberCount),
 		Ex:                     info.Ex,
-		Status:                 sdkpb.GroupStatus(info.Status),
+		Status:                 shared.GroupStatus(info.Status),
 		CreatorUserID:          info.CreatorUserID,
 		NeedVerification:       info.NeedVerification,
 		LookMemberInfo:         info.LookMemberInfo,
@@ -118,15 +118,15 @@ func ServerGroupToSdk(info *sdkws.GroupInfo) *sdkpb.IMGroup {
 	}
 }
 
-func DBGroupToSdk(info *model_struct.LocalGroup) *sdkpb.IMGroup {
-	return &sdkpb.IMGroup{
+func DBGroupToSdk(info *model_struct.LocalGroup) *shared.IMGroup {
+	return &shared.IMGroup{
 		GroupID:                info.GroupID,
 		GroupName:              info.GroupName,
 		Notification:           info.Notification,
 		Introduction:           info.Introduction,
 		FaceURL:                info.FaceURL,
 		CreateTime:             info.CreateTime,
-		Status:                 sdkpb.GroupStatus(info.Status),
+		Status:                 shared.GroupStatus(info.Status),
 		CreatorUserID:          info.CreatorUserID,
 		OwnerUserID:            info.OwnerUserID,
 		MemberCount:            int64(info.MemberCount),
@@ -140,8 +140,8 @@ func DBGroupToSdk(info *model_struct.LocalGroup) *sdkpb.IMGroup {
 	}
 }
 
-func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *sdkpb.IMGroupMember {
-	return &sdkpb.IMGroupMember{
+func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *shared.IMGroupMember {
+	return &shared.IMGroupMember{
 		GroupID:        info.GroupID,
 		UserID:         info.UserID,
 		Nickname:       info.Nickname,
@@ -157,8 +157,8 @@ func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *sdkpb.IMGroupMembe
 	}
 }
 
-func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.IMGroupRequest {
-	return &sdkpb.IMGroupRequest{
+func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *shared.IMGroupRequest {
+	return &shared.IMGroupRequest{
 		GroupID:       info.GroupID,
 		GroupName:     info.GroupName,
 		Notification:  info.Notification,
@@ -186,6 +186,6 @@ func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *sdkpb.IMGroupReq
 	}
 }
 
-func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *sdkpb.IMGroupRequest {
+func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *shared.IMGroupRequest {
 	return DBGroupRequestToSdk(&info.LocalGroupRequest)
 }

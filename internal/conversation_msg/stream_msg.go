@@ -6,7 +6,7 @@ import (
 	"errors"
 	"time"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/tools/utils/datautil"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
