@@ -1,0 +1,24 @@
+syntax = "proto3";
+package openim.js;
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto";
+
+
+
+message wasmOpenFileReq{
+  string sqlString = 1;
+}
+message wasmOpenFileResp{
+
+}
+message wasmReadFileReq{
+  bool failed = 1;
+}
+message wasmReadFileResp{
+
+}
+message wasmCloseFileReq{
+
+}
+message wasmCloseFileResp{
+
+}

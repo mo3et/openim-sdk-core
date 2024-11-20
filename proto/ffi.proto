@@ -7,8 +7,9 @@ import "event.proto";
 // import "error.proto";
 
 message FfiRequest {
-  event.FuncRequestEventName funcName = 1;
-  bytes data = 2;
+  string operationID  = 1;
+  event.FuncRequestEventName funcName = 2;
+  bytes data = 3;
 }
 
 message FfiResult {
