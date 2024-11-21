@@ -16,7 +16,6 @@ package model_struct
 
 import (
 	"database/sql/driver"
-	"encoding/base64"
 	"encoding/json"
 	"github.com/openimsdk/tools/errs"
 )
@@ -373,8 +372,13 @@ func (LocalUserCommand) TableName() string {
 
 type StringArray []string
 
-func (a StringArray) Value() (driver.Value, error) {
-	return json.Marshal(a)
+func (a *StringArray) Value() (driver.Value, error) {
+	data, err := json.Marshal(a)
+	if err != nil {
+		return nil, err
+	}
+	return string(data), nil
+	//return json.Marshal(a)
 }
 
 func (a *StringArray) Scan(value interface{}) error {
@@ -383,15 +387,16 @@ func (a *StringArray) Scan(value interface{}) error {
 	case []byte:
 		b = v
 	case string:
-		var err error
-		b, err = base64.StdEncoding.DecodeString(v)
-		if err != nil {
-			return err
-		}
+		b = []byte(v)
+		//var err error
+		//b, err = base64.StdEncoding.DecodeString(v)
+		//if err != nil {
+		//	return err
+		//}
 	default:
 		return errs.New("type assertion to []byte failed").Wrap()
 	}
-	return json.Unmarshal(b, &a)
+	return json.Unmarshal(b, a)
 }
 
 type LocalVersionSync struct {
