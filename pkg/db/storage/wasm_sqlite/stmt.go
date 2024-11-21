@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 	"github.com/openimsdk/tools/errs"
 )
 
