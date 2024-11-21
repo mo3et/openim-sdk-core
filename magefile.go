@@ -344,7 +344,7 @@ func Wasm() error {
 
 	wasmDir := filepath.Join(bindlingDir, "wasm")
 
-	cmd := exec.Command("go", "build", "-trimpath", "-ldflags", "-s -w", "-o", "openIM.wasm", filepath.Join(wasmDir, "main.go"))
+	cmd := exec.Command("go", "build", "-trimpath", "-ldflags", "-s -w", "-o", filepath.Join(wasmDir, "output", "openIM.wasm"), filepath.Join(wasmDir, "main.go"))
 	cmd.Env = append(os.Environ(), "GOOS=js", "GOARCH=wasm")
 
 	connectStd(cmd)
