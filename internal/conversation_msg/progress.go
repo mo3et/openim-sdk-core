@@ -18,14 +18,15 @@ import (
 	"context"
 	"encoding/json"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/db_interface"
 	"github.com/openimsdk/tools/log"
 )
 
-func NewUploadFileCallback(ctx context.Context, progress func(progress *sdkpb.EventOnSendMsgProgressData), msg *sdkpb.IMMessage, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
+func NewUploadFileCallback(ctx context.Context, progress func(progress *eventpb.EventOnSendMsgProgressData), msg *sdkpb.IMMessage, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
 	if msg.AttachedInfoElem == nil {
 		msg.AttachedInfoElem = &sdkpb.AttachedInfoElem{}
 	}
@@ -41,7 +42,7 @@ type msgUploadFileCallback struct {
 	msg            *sdkpb.IMMessage
 	conversationID string
 	value          int
-	progress       func(progress *sdkpb.EventOnSendMsgProgressData)
+	progress       func(progress *eventpb.EventOnSendMsgProgressData)
 }
 
 func (c *msgUploadFileCallback) Open(size int64) {
@@ -84,13 +85,13 @@ func (c *msgUploadFileCallback) UploadComplete(fileSize int64, streamSize int64,
 	value := int(float64(streamSize) / float64(fileSize) * 100)
 	if c.value < value {
 		c.value = value
-		c.progress(&sdkpb.EventOnSendMsgProgressData{Progress: int32(value)})
+		c.progress(&eventpb.EventOnSendMsgProgressData{Progress: int32(value)})
 	}
 }
 
 func (c *msgUploadFileCallback) Complete(size int64, url string, typ int) {
 	if c.value != 100 {
-		c.progress(&sdkpb.EventOnSendMsgProgressData{Progress: 100})
+		c.progress(&eventpb.EventOnSendMsgProgressData{Progress: 100})
 	}
 	c.msg.AttachedInfoElem.Progress = nil
 	data, err := json.Marshal(c.msg.AttachedInfoElem)

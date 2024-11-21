@@ -1,7 +1,8 @@
 package conversation_msg
 
 import (
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 )
 
 type mateType struct {
@@ -11,9 +12,9 @@ type mateType struct {
 	Notification bool
 }
 
-var MateTypeMap = map[sdkpb.ContentType]mateType{
+var MateTypeMap = map[commonpb.ContentType]mateType{
 	// message
-	sdkpb.ContentType_Text: {
+	commonpb.ContentType_Text: {
 		New: func() any {
 			return &sdkpb.TextElem{}
 		},
@@ -24,7 +25,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_TextElem{TextElem: elem.(*sdkpb.TextElem)}
 		},
 	},
-	sdkpb.ContentType_Picture: {
+	commonpb.ContentType_Picture: {
 		New: func() any {
 			return &sdkpb.PictureElem{}
 		},
@@ -35,7 +36,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_PictureElem{PictureElem: elem.(*sdkpb.PictureElem)}
 		},
 	},
-	sdkpb.ContentType_Sound: {
+	commonpb.ContentType_Sound: {
 		New: func() any {
 			return &sdkpb.SoundElem{}
 		},
@@ -46,7 +47,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_SoundElem{SoundElem: elem.(*sdkpb.SoundElem)}
 		},
 	},
-	sdkpb.ContentType_Video: {
+	commonpb.ContentType_Video: {
 		New: func() any {
 			return &sdkpb.VideoElem{}
 		},
@@ -57,7 +58,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_VideoElem{VideoElem: elem.(*sdkpb.VideoElem)}
 		},
 	},
-	sdkpb.ContentType_File: {
+	commonpb.ContentType_File: {
 		New: func() any {
 			return &sdkpb.FileElem{}
 		},
@@ -68,7 +69,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FileElem{FileElem: elem.(*sdkpb.FileElem)}
 		},
 	},
-	sdkpb.ContentType_AtText: {
+	commonpb.ContentType_AtText: {
 		New: func() any {
 			return &sdkpb.AtTextElem{}
 		},
@@ -79,7 +80,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_AtTextElem{AtTextElem: elem.(*sdkpb.AtTextElem)}
 		},
 	},
-	sdkpb.ContentType_Merge: {
+	commonpb.ContentType_Merge: {
 		New: func() any {
 			return &sdkpb.MergeElem{}
 		},
@@ -90,7 +91,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_MergeElem{MergeElem: elem.(*sdkpb.MergeElem)}
 		},
 	},
-	sdkpb.ContentType_Card: {
+	commonpb.ContentType_Card: {
 		New: func() any {
 			return &sdkpb.CardElem{}
 		},
@@ -101,7 +102,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_CardElem{CardElem: elem.(*sdkpb.CardElem)}
 		},
 	},
-	sdkpb.ContentType_Location: {
+	commonpb.ContentType_Location: {
 		New: func() any {
 			return &sdkpb.LocationElem{}
 		},
@@ -112,7 +113,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_LocationElem{LocationElem: elem.(*sdkpb.LocationElem)}
 		},
 	},
-	sdkpb.ContentType_Custom: {
+	commonpb.ContentType_Custom: {
 		New: func() any {
 			return &sdkpb.CustomElem{}
 		},
@@ -123,7 +124,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_CustomElem{CustomElem: elem.(*sdkpb.CustomElem)}
 		},
 	},
-	sdkpb.ContentType_Typing: {
+	commonpb.ContentType_Typing: {
 		New: func() any {
 			return &sdkpb.TypingElem{}
 		},
@@ -134,7 +135,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_TypingElem{TypingElem: elem.(*sdkpb.TypingElem)}
 		},
 	},
-	sdkpb.ContentType_Quote: {
+	commonpb.ContentType_Quote: {
 		New: func() any {
 			return &sdkpb.QuoteElem{}
 		},
@@ -145,7 +146,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_QuoteElem{QuoteElem: elem.(*sdkpb.QuoteElem)}
 		},
 	},
-	sdkpb.ContentType_Face: {
+	commonpb.ContentType_Face: {
 		New: func() any {
 			return &sdkpb.FaceElem{}
 		},
@@ -156,7 +157,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FaceElem{FaceElem: elem.(*sdkpb.FaceElem)}
 		},
 	},
-	sdkpb.ContentType_AdvancedText: {
+	commonpb.ContentType_AdvancedText: {
 		New: func() any {
 			return &sdkpb.AdvancedTextElem{}
 		},
@@ -168,7 +169,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 		},
 	},
 	// notification
-	sdkpb.ContentType_FriendApplicationApprovedNotification: {
+	commonpb.ContentType_FriendApplicationApprovedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationApprovedTips{}
@@ -180,7 +181,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_AdvancedTextElem{AdvancedTextElem: elem.(*sdkpb.AdvancedTextElem)}
 		},
 	},
-	sdkpb.ContentType_FriendApplicationRejectedNotification: {
+	commonpb.ContentType_FriendApplicationRejectedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -192,7 +193,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_FriendApplicationNotification: {
+	commonpb.ContentType_FriendApplicationNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -204,7 +205,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_FriendAddedNotification: {
+	commonpb.ContentType_FriendAddedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -216,7 +217,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_FriendDeletedNotification: {
+	commonpb.ContentType_FriendDeletedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -228,7 +229,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_FriendRemarkSetNotification: {
+	commonpb.ContentType_FriendRemarkSetNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -240,7 +241,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_BlackAddedNotification: {
+	commonpb.ContentType_BlackAddedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -252,7 +253,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_BlackDeletedNotification: {
+	commonpb.ContentType_BlackDeletedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -264,7 +265,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_FriendInfoUpdatedNotification: {
+	commonpb.ContentType_FriendInfoUpdatedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -276,7 +277,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_FriendsInfoUpdateNotification: {
+	commonpb.ContentType_FriendsInfoUpdateNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -288,7 +289,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_ConversationChangeNotification: {
+	commonpb.ContentType_ConversationChangeNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -300,7 +301,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_UserInfoUpdatedNotification: {
+	commonpb.ContentType_UserInfoUpdatedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -312,7 +313,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_UserStatusChangeNotification: {
+	commonpb.ContentType_UserStatusChangeNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -324,7 +325,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_UserCommandAddNotification: {
+	commonpb.ContentType_UserCommandAddNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -336,7 +337,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_UserCommandDeleteNotification: {
+	commonpb.ContentType_UserCommandDeleteNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -348,7 +349,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_UserCommandUpdateNotification: {
+	commonpb.ContentType_UserCommandUpdateNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -360,7 +361,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupCreatedNotification: {
+	commonpb.ContentType_GroupCreatedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -372,7 +373,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupInfoSetNotification: {
+	commonpb.ContentType_GroupInfoSetNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -384,7 +385,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_JoinGroupApplicationNotification: {
+	commonpb.ContentType_JoinGroupApplicationNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -396,7 +397,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_MemberQuitNotification: {
+	commonpb.ContentType_MemberQuitNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -408,7 +409,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupApplicationAcceptedNotification: {
+	commonpb.ContentType_GroupApplicationAcceptedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -420,7 +421,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupApplicationRejectedNotification: {
+	commonpb.ContentType_GroupApplicationRejectedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -432,7 +433,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupOwnerTransferredNotification: {
+	commonpb.ContentType_GroupOwnerTransferredNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -444,7 +445,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_MemberKickedNotification: {
+	commonpb.ContentType_MemberKickedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -456,7 +457,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_MemberInvitedNotification: {
+	commonpb.ContentType_MemberInvitedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -468,7 +469,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_MemberEnterNotification: {
+	commonpb.ContentType_MemberEnterNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -480,7 +481,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupDismissedNotification: {
+	commonpb.ContentType_GroupDismissedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -492,7 +493,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupMemberMutedNotification: {
+	commonpb.ContentType_GroupMemberMutedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -504,7 +505,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupMemberCancelMutedNotification: {
+	commonpb.ContentType_GroupMemberCancelMutedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -516,7 +517,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupMutedNotification: {
+	commonpb.ContentType_GroupMutedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -528,7 +529,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupCancelMutedNotification: {
+	commonpb.ContentType_GroupCancelMutedNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -540,7 +541,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupMemberInfoSetNotification: {
+	commonpb.ContentType_GroupMemberInfoSetNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -552,7 +553,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupMemberSetToAdminNotification: {
+	commonpb.ContentType_GroupMemberSetToAdminNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -564,7 +565,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupMemberSetToOrdinaryUserNotification: {
+	commonpb.ContentType_GroupMemberSetToOrdinaryUserNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -576,7 +577,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupInfoSetAnnouncementNotification: {
+	commonpb.ContentType_GroupInfoSetAnnouncementNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -588,7 +589,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_GroupInfoSetNameNotification: {
+	commonpb.ContentType_GroupInfoSetNameNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -600,7 +601,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_ConversationPrivateChatNotification: {
+	commonpb.ContentType_ConversationPrivateChatNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -612,7 +613,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_ClearConversationNotification: {
+	commonpb.ContentType_ClearConversationNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -624,7 +625,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_BusinessNotification: {
+	commonpb.ContentType_BusinessNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -636,7 +637,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_RevokeNotification: {
+	commonpb.ContentType_RevokeNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -648,7 +649,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_DeleteMsgsNotification: {
+	commonpb.ContentType_DeleteMsgsNotification: {
 		Notification: true,
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
@@ -660,7 +661,7 @@ var MateTypeMap = map[sdkpb.ContentType]mateType{
 			msg.Content = &sdkpb.IMMessage_FriendApplicationRejectedTips{FriendApplicationRejectedTips: elem.(*sdkpb.FriendApplicationRejectedTips)}
 		},
 	},
-	sdkpb.ContentType_HasReadReceipt: {
+	commonpb.ContentType_HasReadReceipt: {
 		New: func() any {
 			return &sdkpb.FriendApplicationRejectedTips{}
 		},

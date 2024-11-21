@@ -2,8 +2,9 @@ package wasm_sqlite
 
 import (
 	"context"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/js_handler"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 )
 
 type Tx struct {

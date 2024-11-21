@@ -31,11 +31,12 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/group"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/group"
 )
 
-func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sdkpb.IMGroup, error) {
+func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sharedpb.IMGroup, error) {
 	req.GroupInfo.CreatorUserID = g.loginUserID
 	resp, err := g.createGroup(ctx, &group.CreateGroupReq{
 		MemberUserIDs: req.MemberUserIDs,
@@ -494,7 +495,7 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 }
 
 func (g *Group) GetGroupRequest(ctx context.Context, req *sdkpb.GetGroupRequestReq) (*sdkpb.GetGroupRequestResp, error) {
-	var requests []*sdkpb.IMGroupRequest
+	var requests []*sharedpb.IMGroupRequest
 	if req.Send {
 		res, err := g.db.GetSendGroupApplication(ctx)
 		if err != nil {
@@ -519,18 +520,18 @@ func (g *Group) SearchGroupMembers(ctx context.Context, req *sdkpb.SearchGroupMe
 	return &sdkpb.SearchGroupMembersResp{Members: datautil.Batch(DBGroupMemberToSdk, res)}, nil
 }
 
-func (g *Group) IsJoinGroup(ctx context.Context, req *sdkpb.IsJoinGroupReq) (*sdkpb.IsJoinGroupResp, error) {
+func (g *Group) IsJoinGroup(ctx context.Context, req *sharedpb.IsJoinGroupReq) (*sharedpb.IsJoinGroupResp, error) {
 	g.groupSyncMutex.Lock()
 	defer g.groupSyncMutex.Unlock()
 
 	lvs, err := g.db.GetVersionSync(ctx, g.groupTableName(), g.loginUserID)
 	if err != nil {
-		return &sdkpb.IsJoinGroupResp{Joined: false}, err
+		return &sharedpb.IsJoinGroupResp{Joined: false}, err
 	}
 	if datautil.Contain(req.GroupID, lvs.UIDList...) {
-		return &sdkpb.IsJoinGroupResp{Joined: true}, err
+		return &sharedpb.IsJoinGroupResp{Joined: true}, err
 	}
-	return &sdkpb.IsJoinGroupResp{Joined: false}, err
+	return &sharedpb.IsJoinGroupResp{Joined: false}, err
 }
 
 func (g *Group) GetUsersInGroup(ctx context.Context, req *sdkpb.GetUsersInGroupReq) (*sdkpb.GetUsersInGroupResp, error) {
@@ -563,7 +564,7 @@ func (g *Group) GetUsersInGroup(ctx context.Context, req *sdkpb.GetUsersInGroupR
 	return &sdkpb.GetUsersInGroupResp{UserIDs: usersInGroup}, nil
 }
 
-func (g *Group) InviteUserToGroup(ctx context.Context, req *sdkpb.InviteUserToGroupReq) (*sdkpb.InviteUserToGroupResp, error) {
+func (g *Group) InviteUserToGroup(ctx context.Context, req *sharedpb.InviteUserToGroupReq) (*sharedpb.InviteUserToGroupResp, error) {
 	if err := g.inviteUserToGroup(ctx, &group.InviteUserToGroupReq{GroupID: req.GroupID, Reason: req.Reason, InvitedUserIDs: req.UserIDs}); err != nil {
 		return nil, err
 	}
@@ -574,7 +575,7 @@ func (g *Group) InviteUserToGroup(ctx context.Context, req *sdkpb.InviteUserToGr
 	if err := g.IncrSyncGroupAndMember(ctx, req.GroupID); err != nil {
 		return nil, err
 	}
-	return &sdkpb.InviteUserToGroupResp{}, nil
+	return &sharedpb.InviteUserToGroupResp{}, nil
 }
 
 func (g *Group) HandlerGroupRequest(ctx context.Context, req *sdkpb.HandlerGroupRequestReq) (*sdkpb.HandlerGroupRequestResp, error) {

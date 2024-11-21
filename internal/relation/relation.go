@@ -4,7 +4,8 @@ import (
 	"context"
 	"sync"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 
 	"github.com/openimsdk/openim-sdk-core/v3/internal/user"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
@@ -166,10 +167,10 @@ func (r *Relation) initSyncer() {
 		case syncer.Delete:
 			r.friendshipListener().OnFriendApplicationDeleted(&sdkpb.EventOnFriendApplicationDeletedData{Request: DbFriendRequestToSdk(local)})
 		case syncer.Update:
-			switch sdkpb.ApprovalStatus(server.HandleResult) {
-			case sdkpb.ApprovalStatus_Approved:
+			switch commonpb.ApprovalStatus(server.HandleResult) {
+			case commonpb.ApprovalStatus_Approved:
 				r.friendshipListener().OnFriendApplicationAccepted(&sdkpb.EventOnFriendApplicationAcceptedData{Request: DbFriendRequestToSdk(server)})
-			case sdkpb.ApprovalStatus_Rejected:
+			case commonpb.ApprovalStatus_Rejected:
 				r.friendshipListener().OnFriendApplicationRejected(&sdkpb.EventOnFriendApplicationRejectedData{Request: DbFriendRequestToSdk(server)})
 			default:
 				r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Request: DbFriendRequestToSdk(server)})
@@ -192,10 +193,10 @@ func (r *Relation) initSyncer() {
 		case syncer.Delete:
 			r.friendshipListener().OnFriendApplicationDeleted(&sdkpb.EventOnFriendApplicationDeletedData{Request: DbFriendRequestToSdk(local)})
 		case syncer.Update:
-			switch sdkpb.ApprovalStatus(server.HandleResult) {
-			case sdkpb.ApprovalStatus_Approved:
+			switch commonpb.ApprovalStatus(server.HandleResult) {
+			case commonpb.ApprovalStatus_Approved:
 				r.friendshipListener().OnFriendApplicationAccepted(&sdkpb.EventOnFriendApplicationAcceptedData{Request: DbFriendRequestToSdk(server)})
-			case sdkpb.ApprovalStatus_Rejected:
+			case commonpb.ApprovalStatus_Rejected:
 				r.friendshipListener().OnFriendApplicationRejected(&sdkpb.EventOnFriendApplicationRejectedData{Request: DbFriendRequestToSdk(server)})
 			}
 		}

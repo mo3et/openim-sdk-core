@@ -10,7 +10,9 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
@@ -110,7 +112,7 @@ func (e *typing) sendMsg(ctx context.Context, conversation *model_struct.LocalCo
 	}
 	s.RecvID = conversation.UserID
 	s.GroupID = conversation.GroupID
-	s.SessionType = sdkpb.SessionType(conversation.ConversationType)
+	s.SessionType = commonpb.SessionType(conversation.ConversationType)
 	var typingElem sdkpb.TypingElem
 	if focus {
 		typingElem.MsgTips = "yes"
@@ -199,7 +201,7 @@ type InputStatesChangedData struct {
 
 func (e *typing) changes(conversationID string, userID string) {
 	e.conv.ConversationListener().OnConversationUserInputStatusChanged(
-		&sdkpb.EventOnConversationUserInputStatusChangedData{ConversationID: conversationID, UserID: userID, PlatformIDs: e.GetInputStates(conversationID, userID)})
+		&eventpb.EventOnConversationUserInputStatusChangedData{ConversationID: conversationID, UserID: userID, PlatformIDs: e.GetInputStates(conversationID, userID)})
 }
 
 func (e *typing) GetInputStates(conversationID string, userID string) []int32 {

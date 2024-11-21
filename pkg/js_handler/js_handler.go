@@ -2,6 +2,7 @@ package js_handler
 
 import (
 	"context"
+	"errors"
 	"runtime"
 	"syscall/js"
 	"time"
@@ -10,22 +11,23 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
 
 var (
-	FileOpen    = jsfn[sdkpb.JsFileOpenReq, sdkpb.JsFileOpenResp](sdkpb.FuncRequestEventName_JsFileOpen)
-	FileRead    = jsfn[sdkpb.JsFileReadReq, sdkpb.JsFileReadResp](sdkpb.FuncRequestEventName_JsFileRead)
-	FileClose   = jsfn[sdkpb.JsFileCloseReq, sdkpb.JsFileCloseResp](sdkpb.FuncRequestEventName_JsFileClose)
-	SqliteOpen  = jsfn[sdkpb.JsSqliteOpenReq, sdkpb.JsSqliteOpenResp](sdkpb.FuncRequestEventName_JsSqliteOpen)
-	SqliteExec  = jsfn[sdkpb.JsSqliteExecReq, sdkpb.JsSqliteExecResp](sdkpb.FuncRequestEventName_JsSqliteExec)
-	SqliteQuery = jsfn[sdkpb.JsSqliteQueryReq, sdkpb.JsSqliteQueryResp](sdkpb.FuncRequestEventName_JsSqliteQuery)
-	SqliteClose = jsfn[sdkpb.JsSqliteCloseReq, sdkpb.JsSqliteCloseResp](sdkpb.FuncRequestEventName_JsSqliteClose)
+	FileOpen    = jsfn[sdkpb.JsFileOpenReq, sdkpb.JsFileOpenResp](eventpb.FuncRequestEventName_JsFileOpen)
+	FileRead    = jsfn[sdkpb.JsFileReadReq, sdkpb.JsFileReadResp](eventpb.FuncRequestEventName_JsFileRead)
+	FileClose   = jsfn[sdkpb.JsFileCloseReq, sdkpb.JsFileCloseResp](eventpb.FuncRequestEventName_JsFileClose)
+	SqliteOpen  = jsfn[sdkpb.JsSqliteOpenReq, sdkpb.JsSqliteOpenResp](eventpb.FuncRequestEventName_JsSqliteOpen)
+	SqliteExec  = jsfn[sdkpb.JsSqliteExecReq, sdkpb.JsSqliteExecResp](eventpb.FuncRequestEventName_JsSqliteExec)
+	SqliteQuery = jsfn[sdkpb.JsSqliteQueryReq, sdkpb.JsSqliteQueryResp](eventpb.FuncRequestEventName_JsSqliteQuery)
+	SqliteClose = jsfn[sdkpb.JsSqliteCloseReq, sdkpb.JsSqliteCloseResp](eventpb.FuncRequestEventName_JsSqliteClose)
 )
 
-func jsfn[A, B any](funcName sdkpb.FuncRequestEventName) jsFunc[A, B] {
+func jsfn[A, B any](funcName eventpb.FuncRequestEventName) jsFunc[A, B] {
 	return func(ctx context.Context, req *A) (*B, error) {
 		return Call[A, B](ctx, funcName, req)
 	}
@@ -33,9 +35,9 @@ func jsfn[A, B any](funcName sdkpb.FuncRequestEventName) jsFunc[A, B] {
 
 type jsFunc[A, B any] func(ctx context.Context, req *A) (*B, error)
 
-var dispatchFfiResult func(ctc context.Context, funcName sdkpb.FuncRequestEventName, data []byte) ([]byte, error)
+var dispatchFfiResult func(ctc context.Context, funcName eventpb.FuncRequestEventName, data []byte) ([]byte, error)
 
-func Call[A, B any](ctx context.Context, funName sdkpb.FuncRequestEventName, req *A) (*B, error) {
+func Call[A, B any](ctx context.Context, funName eventpb.FuncRequestEventName, req *A) (*B, error) {
 
 	pbReq, ok := any(req).(proto.Message)
 	if !ok {
@@ -64,7 +66,7 @@ func Call[A, B any](ctx context.Context, funName sdkpb.FuncRequestEventName, req
 
 }
 
-func SetDispatchFfiResult(f func(ctc context.Context, funcName sdkpb.FuncRequestEventName, data []byte) ([]byte, error)) {
+func SetDispatchFfiResult(f func(ctc context.Context, funcName eventpb.FuncRequestEventName, data []byte) ([]byte, error)) {
 	dispatchFfiResult = f
 }
 

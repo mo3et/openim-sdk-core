@@ -19,6 +19,10 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	converationpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	ffipb "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
+	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 )
 
 //export callback
@@ -27,15 +31,15 @@ func callback(dataPtr unsafe.Pointer, len C.int) {
 	goData := C.GoBytes(dataPtr, len)
 
 	// Unmarshal the Protobuf data
-	var response pb.FfiResult
+	var response ffipb.FfiResult
 	err := proto.Unmarshal(goData, &response)
 	if err != nil {
 		fmt.Println("Failed to unmarshal received data:", err)
 		return
 	}
 	switch response.FuncName {
-	case pb.FuncRequestEventName_InitSDK:
-		var res pb.InitSDKResp
+	case eventpb.FuncRequestEventName_InitSDK:
+		var res initpb.InitSDKResp
 		err := proto.Unmarshal(response.Data, &res)
 		if err != nil {
 			fmt.Println("Failed to unmarshal InitSDKResp:", err)
@@ -45,7 +49,7 @@ func callback(dataPtr unsafe.Pointer, len C.int) {
 		C.ffi_drop_handle(C.ulonglong(response.HandleID))
 		fmt.Println("Handle dropped successfully request", response.HandleID)
 
-	case pb.FuncRequestEventName_Login:
+	case eventpb.FuncRequestEventName_Login:
 		var res pb.LoginResp
 		err := proto.Unmarshal(response.Data, &res)
 		if err != nil {
@@ -55,8 +59,8 @@ func callback(dataPtr unsafe.Pointer, len C.int) {
 		fmt.Printf("Received LoginResp: %+v\n", res.String())
 		C.ffi_drop_handle(C.ulonglong(response.HandleID))
 		fmt.Println("Handle dropped successfully request", response.HandleID)
-	case pb.FuncRequestEventName_GetAllConversationList:
-		var res pb.GetAllConversationListResp
+	case eventpb.FuncRequestEventName_GetAllConversationList:
+		var res converationpb.GetAllConversationListResp
 		err := proto.Unmarshal(response.Data, &res)
 		if err != nil {
 			fmt.Println("Failed to unmarshal GetAllConversationListResp:", err)
@@ -81,8 +85,8 @@ func main() {
 	fmt.Printf("Initialized handle ID: %d\n", handleID)
 
 	// Marshal the request data
-	data, err := proto.Marshal(&pb.InitSDKReq{
-		Config: &pb.IMConfig{
+	data, err := proto.Marshal(&initpb.InitSDKReq{
+		Config: &initpb.IMConfig{
 			SystemType:           "flutter",
 			PlatformID:           2,
 			ApiAddr:              "https://web.rentsoft.cn/api",
@@ -100,8 +104,8 @@ func main() {
 	}
 
 	// Create and marshal the FfiRequest
-	req := pb.FfiRequest{
-		FuncName: pb.FuncRequestEventName_InitSDK,
+	req := ffipb.FfiRequest{
+		FuncName: eventpb.FuncRequestEventName_InitSDK,
 		Data:     data,
 	}
 	ffiReq, err := proto.Marshal(&req)
@@ -116,8 +120,8 @@ func main() {
 	fmt.Printf("ffi_request returned: %d\n", ret)
 
 	data, err = proto.Marshal(&pb.SetConnListenerReq{})
-	req = pb.FfiRequest{
-		FuncName: pb.FuncRequestEventName_SetConnListener,
+	req = ffipb.FfiRequest{
+		FuncName: eventpb.FuncRequestEventName_SetConnListener,
 		Data:     data,
 	}
 	ffiReq, err = proto.Marshal(&req)
@@ -142,8 +146,8 @@ func main() {
 	}
 
 	// Create and marshal the FfiRequest
-	req = pb.FfiRequest{
-		FuncName: pb.FuncRequestEventName_Login,
+	req = ffipb.FfiRequest{
+		FuncName: eventpb.FuncRequestEventName_Login,
 		Data:     data,
 	}
 	ffiReq, err = proto.Marshal(&req)

@@ -21,9 +21,10 @@ import (
 	"bufio"
 	"context"
 	"errors"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/js_handler"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"io"
+
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/js_handler"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 )
 
 const readBufferSize = 1024 * 1024 * 5 // 5mb

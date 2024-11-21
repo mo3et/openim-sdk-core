@@ -30,7 +30,12 @@ import (
 
 	"github.com/openimsdk/tools/log"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	grouppb "github.com/openimsdk/openim-sdk-core/v3/proto/go/group"
+	msgpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
+
 	"github.com/openimsdk/protocol/sdkws"
 )
 
@@ -189,7 +194,7 @@ func (c *Conversation) msgDataToLocalErrChatLog(src *model_struct.LocalChatLog) 
 
 }
 
-func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status sdkpb.MsgStatus, s *sdkpb.IMMessage,
+func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context, clientMsgID, serverMsgID string, sendTime int64, status commonpb.MsgStatus, s *sharedpb.IMMessage,
 	lc *model_struct.LocalConversation, isOnlineOnly bool) {
 	log.ZDebug(ctx, "this is test send message ", "sendTime", sendTime, "status", status, "clientMsgID", clientMsgID, "serverMsgID", serverMsgID)
 	if isOnlineOnly {
@@ -216,7 +221,7 @@ func (c *Conversation) fileName(ftype string, id string) string {
 	return fmt.Sprintf("msg_%s_%s", ftype, id)
 }
 
-func (c *Conversation) checkID(ctx context.Context, s *sdkpb.IMMessage,
+func (c *Conversation) checkID(ctx context.Context, s *sharedpb.IMMessage,
 	recvID, groupID string, options map[string]bool) (*model_struct.LocalConversation, error) {
 	if recvID == "" && groupID == "" {
 		return nil, sdkerrs.ErrArgs
@@ -250,7 +255,7 @@ func (c *Conversation) checkID(ctx context.Context, s *sdkpb.IMMessage,
 				s.SenderNickname = gm.Nickname
 			}
 		} else { //Maybe the group member information hasn't been pulled locally yet.
-			gm, err := c.group.GetSpecifiedGroupMembersInfo(ctx, &sdkpb.GetSpecifiedGroupMembersInfoReq{
+			gm, err := c.group.GetSpecifiedGroupMembersInfo(ctx, &grouppb.GetSpecifiedGroupMembersInfoReq{
 				GroupID: groupID,
 				UserIDs: []string{c.loginUserID},
 			})
@@ -260,7 +265,7 @@ func (c *Conversation) checkID(ctx context.Context, s *sdkpb.IMMessage,
 				}
 			}
 		}
-		var attachedInfo sdkpb.AttachedInfoElem
+		var attachedInfo sharedpb.AttachedInfoElem
 		attachedInfo.GroupHasReadInfo.GroupMemberCount = g.MemberCount
 		s.AttachedInfoElem = &attachedInfo
 	} else {
@@ -272,7 +277,7 @@ func (c *Conversation) checkID(ctx context.Context, s *sdkpb.IMMessage,
 		oldLc, err := c.db.GetConversation(ctx, lc.ConversationID)
 		if err == nil && oldLc.IsPrivateChat {
 			options[constant.IsNotPrivate] = false
-			var attachedInfo sdkpb.AttachedInfoElem
+			var attachedInfo sharedpb.AttachedInfoElem
 			attachedInfo.IsPrivateChat = true
 			attachedInfo.BurnDuration = oldLc.BurnDuration
 			s.AttachedInfoElem = &attachedInfo
@@ -312,22 +317,22 @@ func (c *Conversation) GetConversationIDBySessionType(ctx context.Context, req *
 	return &sdkpb.GetConversationIDBySessionTypeResp{ConversationID: conversationID}, nil
 }
 
-func getMsgUrl(msg *sdkpb.IMMessage) string {
+func getMsgUrl(msg *sharedpb.IMMessage) string {
 	switch msg.ContentType {
-	case sdkpb.ContentType_File:
-		if c, ok := msg.Content.(*sdkpb.IMMessage_FileElem); ok {
+	case commonpb.ContentType_File:
+		if c, ok := msg.Content.(*sharedpb.IMMessage_FileElem); ok {
 			return c.FileElem.SourceURL
 		}
-	case sdkpb.ContentType_Sound:
-		if c, ok := msg.Content.(*sdkpb.IMMessage_SoundElem); ok {
+	case commonpb.ContentType_Sound:
+		if c, ok := msg.Content.(*sharedpb.IMMessage_SoundElem); ok {
 			return c.SoundElem.SourceURL
 		}
-	case sdkpb.ContentType_Video:
-		if c, ok := msg.Content.(*sdkpb.IMMessage_VideoElem); ok {
+	case commonpb.ContentType_Video:
+		if c, ok := msg.Content.(*sharedpb.IMMessage_VideoElem); ok {
 			return c.VideoElem.VideoURL
 		}
-	case sdkpb.ContentType_Picture:
-		if c, ok := msg.Content.(*sdkpb.IMMessage_PictureElem); ok {
+	case commonpb.ContentType_Picture:
+		if c, ok := msg.Content.(*sharedpb.IMMessage_PictureElem); ok {
 			firstNotNil := func(strs ...string) string {
 				for _, str := range strs {
 					if str != "" {
@@ -342,14 +347,14 @@ func getMsgUrl(msg *sdkpb.IMMessage) string {
 	return ""
 }
 
-func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageReq, callback open_im_sdk_callback.SendMsgCallBack) (*sdkpb.SendMessageResp, error) {
+func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageReq, callback open_im_sdk_callback.SendMsgCallBack) (*msgpb.SendMessageResp, error) {
 	// Message is created by URL
 	if getMsgUrl(req.Message) != "" {
 		msg, err := c.sendMessageNotOss(ctx, req.Message, req.RecvID, req.GroupID, req.OfflinePushInfo, req.IsOnlineOnly)
 		if err != nil {
 			return nil, err
 		}
-		return &sdkpb.SendMessageResp{Message: msg}, nil
+		return &msgpb.SendMessageResp{Message: msg}, nil
 	}
 
 	filepathExt := func(name ...string) string {
@@ -407,7 +412,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		if req.Message.Status == constant.MsgStatusSendSuccess {
 			break
 		}
-		msgElem, ok := req.Message.Content.(*sdkpb.IMMessage_PictureElem)
+		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_PictureElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -429,7 +434,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			Cause:       "msg-picture",
 		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
+			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
 		}
 		msgElem.PictureElem.SourcePicture.Url = res.URL
@@ -441,7 +446,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			snapshot.Set("width", "640")
 			snapshot.Set("height", "640")
 			u.RawQuery = snapshot.Encode()
-			msgElem.PictureElem.SnapshotPicture = &sdkpb.PictureBaseInfo{
+			msgElem.PictureElem.SnapshotPicture = &sharedpb.PictureBaseInfo{
 				Width:  640,
 				Height: 640,
 				Url:    u.String(),
@@ -455,7 +460,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		if req.Message.Status == constant.MsgStatusSendSuccess {
 			break
 		}
-		msgElem, ok := req.Message.Content.(*sdkpb.IMMessage_SoundElem)
+		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_SoundElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -477,7 +482,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 			Cause:       "msg-voice",
 		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
+			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 			return nil, err
 		}
 		msgElem.SoundElem.SourceURL = res.URL
@@ -485,7 +490,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		if req.Message.Status == constant.MsgStatusSendSuccess {
 			break
 		}
-		msgElem, ok := req.Message.Content.(*sdkpb.IMMessage_VideoElem)
+		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_VideoElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -533,7 +538,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 				Cause:       "msg-video",
 			}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
 			if err != nil {
-				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, sdkpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
+				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
 				putErrs = err
 				return
 			}
@@ -549,7 +554,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 		if req.Message.Status == constant.MsgStatusSendSuccess {
 			break
 		}
-		msgElem, ok := req.Message.Content.(*sdkpb.IMMessage_FileElem)
+		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_FileElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -604,11 +609,11 @@ func (c *Conversation) SendMessage(ctx context.Context, req *sdkpb.SendMessageRe
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.SendMessageResp{Message: msg}, nil
+	return &msgpb.SendMessageResp{Message: msg}, nil
 }
 
-func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.IMMessage, recvID, groupID string,
-	p *sdkpb.OfflinePushInfo, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
+func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sharedpb.IMMessage, recvID, groupID string,
+	p *commonpb.OfflinePushInfo, isOnlineOnly bool) (*sharedpb.IMMessage, error) {
 	options := make(map[string]bool, 2)
 	lc, err := c.checkID(ctx, s, recvID, groupID, options)
 	if err != nil {
@@ -658,8 +663,8 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sdkpb.IMMessage
 	return c.sendMessageToServer(ctx, s, lc, delFile, p, options, isOnlineOnly)
 }
 
-func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessage, lc *model_struct.LocalConversation,
-	delFiles []string, offlinePushInfo *sdkpb.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sdkpb.IMMessage, error) {
+func (c *Conversation) sendMessageToServer(ctx context.Context, s *sharedpb.IMMessage, lc *model_struct.LocalConversation,
+	delFiles []string, offlinePushInfo *commonpb.OfflinePushInfo, options map[string]bool, isOnlineOnly bool) (*sharedpb.IMMessage, error) {
 	if isOnlineOnly {
 		utils.SetSwitchFromOptions(options, constant.IsHistory, false)
 		utils.SetSwitchFromOptions(options, constant.IsPersistent, false)
@@ -674,7 +679,7 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessa
 	wsMsgData.SendTime = 0
 	wsMsgData.Options = options
 	if wsMsgData.ContentType == constant.AtText {
-		atElem, ok := s.Content.(*sdkpb.IMMessage_AtTextElem)
+		atElem, ok := s.Content.(*sharedpb.IMMessage_AtTextElem)
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
@@ -728,7 +733,7 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sdkpb.IMMessa
 func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessageListReq) (*sdkpb.FindMessageListResp, error) {
 	var r sdkpb.FindMessageListResp
 	type tempConversationAndMessageList struct {
-		conversation *sdkpb.IMConversation
+		conversation *sharedpb.IMConversation
 		msgIDList    []string
 	}
 	var s []*tempConversationAndMessageList
@@ -746,7 +751,7 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 	for _, v := range s {
 		messages, err := c.db.GetMessagesByClientMsgIDs(ctx, v.conversation.ConversationID, v.msgIDList)
 		if err == nil {
-			var tempMessageList []*sdkpb.IMMessage
+			var tempMessageList []*sharedpb.IMMessage
 			for _, message := range messages {
 				temp := LocalChatLogToIMMessage(message)
 				tempMessageList = append(tempMessageList, temp)
@@ -767,46 +772,46 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 	return &r, nil
 }
 
-func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListReq) (*sdkpb.GetAdvancedHistoryMessageListResp, error) {
+func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *msgpb.GetAdvancedHistoryMessageListReq) (*msgpb.GetAdvancedHistoryMessageListResp, error) {
 	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, false)
 	if err != nil {
 		return nil, err
 	}
 	if len(result.MessageList) == 0 {
-		s := make([]*sdkpb.IMMessage, 0)
+		s := make([]*sharedpb.IMMessage, 0)
 		result.MessageList = s
 	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return &sdkpb.GetAdvancedHistoryMessageListResp{GetAdvancedHistoryMessageListCallback: result}, nil
+	return &msgpb.GetAdvancedHistoryMessageListResp{GetAdvancedHistoryMessageListCallback: result}, nil
 }
 
-func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListReverseReq) (*sdkpb.GetAdvancedHistoryMessageListReverseResp, error) {
+func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req *msgpb.GetAdvancedHistoryMessageListReverseReq) (*msgpb.GetAdvancedHistoryMessageListReverseResp, error) {
 	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, true)
 	if err != nil {
 		return nil, err
 	}
 	if len(result.MessageList) == 0 {
-		s := make([]*sdkpb.IMMessage, 0)
+		s := make([]*sharedpb.IMMessage, 0)
 		result.MessageList = s
 	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return &sdkpb.GetAdvancedHistoryMessageListReverseResp{GetAdvancedHistoryMessageListCallback: result}, nil
+	return &msgpb.GetAdvancedHistoryMessageListReverseResp{GetAdvancedHistoryMessageListCallback: result}, nil
 }
 
-func (c *Conversation) RevokeMessage(ctx context.Context, req *sdkpb.RevokeMessageReq) (*sdkpb.RevokeMessageResp, error) {
+func (c *Conversation) RevokeMessage(ctx context.Context, req *msgpb.RevokeMessageReq) (*msgpb.RevokeMessageResp, error) {
 	err := c.revokeOneMessage(ctx, req.ConversationID, req.ClientMsgID)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.RevokeMessageResp{}, nil
+	return &msgpb.RevokeMessageResp{}, nil
 }
 
-func (c *Conversation) TypingStatusUpdate(ctx context.Context, req *sdkpb.TypingStatusUpdateReq) (*sdkpb.TypingStatusUpdateResp, error) {
+func (c *Conversation) TypingStatusUpdate(ctx context.Context, req *msgpb.TypingStatusUpdateReq) (*msgpb.TypingStatusUpdateResp, error) {
 	err := c.typingStatusUpdate(ctx, req.RecvID, req.MsgTip)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.TypingStatusUpdateResp{}, nil
+	return &msgpb.TypingStatusUpdateResp{}, nil
 }
 
 func (c *Conversation) MarkConversationMessageAsRead(ctx context.Context, req *sdkpb.MarkConversationMessageAsReadReq) (*sdkpb.MarkConversationMessageAsReadResp, error) {
@@ -838,28 +843,28 @@ func (c *Conversation) DeleteMessageFromLocalStorage(ctx context.Context, req *s
 	return &sdkpb.DeleteMessageFromLocalStorageResp{}, nil
 }
 
-func (c *Conversation) DeleteMessage(ctx context.Context, req *sdkpb.DeleteMessageReq) (*sdkpb.DeleteMessageResp, error) {
+func (c *Conversation) DeleteMessage(ctx context.Context, req *msgpb.DeleteMessageReq) (*msgpb.DeleteMessageResp, error) {
 	err := c.deleteMessage(ctx, req.ConversationID, req.ClientMsgID)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.DeleteMessageResp{}, nil
+	return &msgpb.DeleteMessageResp{}, nil
 }
 
-func (c *Conversation) DeleteAllMsgFromLocalAndServer(ctx context.Context, req *sdkpb.DeleteAllMsgFromLocalAndServerReq) (*sdkpb.DeleteAllMsgFromLocalAndServerResp, error) {
+func (c *Conversation) DeleteAllMsgFromLocalAndServer(ctx context.Context, req *msgpb.DeleteAllMsgFromLocalAndServerReq) (*msgpb.DeleteAllMsgFromLocalAndServerResp, error) {
 	err := c.deleteAllMsgFromLocalAndServer(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.DeleteAllMsgFromLocalAndServerResp{}, nil
+	return &msgpb.DeleteAllMsgFromLocalAndServerResp{}, nil
 }
 
-func (c *Conversation) DeleteAllMessageFromLocalStorage(ctx context.Context, req *sdkpb.DeleteAllMessageFromLocalStorageReq) (*sdkpb.DeleteAllMessageFromLocalStorageResp, error) {
+func (c *Conversation) DeleteAllMessageFromLocalStorage(ctx context.Context, req *msgpb.DeleteAllMessageFromLocalStorageReq) (*msgpb.DeleteAllMessageFromLocalStorageResp, error) {
 	err := c.deleteAllMsgFromLocal(ctx, true)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.DeleteAllMessageFromLocalStorageResp{}, nil
+	return &msgpb.DeleteAllMessageFromLocalStorageResp{}, nil
 }
 
 func (c *Conversation) ClearConversationAndDeleteAllMsg(ctx context.Context, req *sdkpb.ClearConversationAndDeleteAllMsgReq) (*sdkpb.ClearConversationAndDeleteAllMsgResp, error) {
@@ -878,7 +883,7 @@ func (c *Conversation) DeleteConversationAndDeleteAllMsg(ctx context.Context, re
 	return &sdkpb.DeleteConversationAndDeleteAllMsgResp{}, nil
 }
 
-func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, req *sdkpb.InsertSingleMessageToLocalStorageReq) (*sdkpb.InsertSingleMessageToLocalStorageResp, error) {
+func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, req *msgpb.InsertSingleMessageToLocalStorageReq) (*msgpb.InsertSingleMessageToLocalStorageResp, error) {
 	if req.RecvID == "" || req.SendID == "" {
 		return nil, sdkerrs.ErrArgs
 	}
@@ -924,10 +929,10 @@ func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, re
 		return nil, err
 	}
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: conversation}, c.GetCh())
-	return &sdkpb.InsertSingleMessageToLocalStorageResp{Msg: req.Msg}, nil
+	return &msgpb.InsertSingleMessageToLocalStorageResp{Msg: req.Msg}, nil
 }
 
-func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req *sdkpb.InsertGroupMessageToLocalStorageReq) (*sdkpb.InsertGroupMessageToLocalStorageResp, error) {
+func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req *msgpb.InsertGroupMessageToLocalStorageReq) (*msgpb.InsertGroupMessageToLocalStorageResp, error) {
 	if req.GroupID == "" || req.SendID == "" {
 		return nil, sdkerrs.ErrArgs
 	}
@@ -952,7 +957,7 @@ func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req
 	req.Msg.GroupID = req.GroupID
 	req.Msg.ClientMsgID = utils.GetMsgID(req.Msg.SendID)
 	req.Msg.SendTime = utils.GetCurrentTimestampByMill()
-	req.Msg.SessionType = sdkpb.SessionType(conversation.ConversationType)
+	req.Msg.SessionType = commonpb.SessionType(conversation.ConversationType)
 	req.Msg.Status = constant.MsgStatusSendSuccess
 	localMessage := IMMessageToLocalChatLog(req.Msg)
 	conversation.LatestMsg = utils.StructToJsonString(req.Msg)
@@ -964,7 +969,7 @@ func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req
 		return nil, err
 	}
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: conversation}, c.GetCh())
-	return &sdkpb.InsertGroupMessageToLocalStorageResp{Msg: req.Msg}, nil
+	return &msgpb.InsertGroupMessageToLocalStorageResp{Msg: req.Msg}, nil
 }
 
 func (c *Conversation) SearchLocalMessages(ctx context.Context, req *sdkpb.SearchLocalMessagesReq) (*sdkpb.SearchLocalMessagesResp, error) {
@@ -999,7 +1004,7 @@ func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMess
 	return &sdkpb.SetMessageLocalExResp{Success: true}, nil
 }
 
-func (c *Conversation) initBasicInfo(ctx context.Context, message *sdkpb.IMMessage, msgFrom sdkpb.MsgFrom, contentType sdkpb.ContentType) error {
+func (c *Conversation) initBasicInfo(ctx context.Context, message *sharedpb.IMMessage, msgFrom commonpb.MsgFrom, contentType commonpb.ContentType) error {
 	message.CreateTime = utils.GetCurrentTimestampByMill()
 	message.SendTime = message.CreateTime
 	message.IsRead = false

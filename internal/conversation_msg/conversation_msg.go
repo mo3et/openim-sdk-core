@@ -8,7 +8,11 @@ import (
 	"math"
 	"sync"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	grouppb "github.com/openimsdk/openim-sdk-core/v3/proto/go/group"
+	msgpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/cache"
@@ -55,7 +59,7 @@ type Conversation struct {
 	businessListener      func() open_im_sdk_callback.OnCustomBusinessListener
 	recvCH                chan common.Cmd2Value
 	loginUserID           string
-	platform              sdkpb.Platform
+	platform              commonpb.Platform
 	DataDir               string
 	relation              *relation.Relation
 	group                 *group.Group
@@ -103,7 +107,7 @@ func (c *Conversation) SetLoginUserID(loginUserID string) {
 	c.loginUserID = loginUserID
 }
 
-func (c *Conversation) SetPlatform(platform sdkpb.Platform) {
+func (c *Conversation) SetPlatform(platform commonpb.Platform) {
 	c.platform = platform
 }
 
@@ -463,7 +467,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 		log.ZDebug(ctx, "parse message in one conversation", "conversationID",
 			conversationID, "message length", len(msgs.Msgs))
 		var insertMessage, selfInsertMessage, othersInsertMessage []*model_struct.LocalChatLog
-		var latestMsg *sdkpb.IMMessage
+		var latestMsg *sharedpb.IMMessage
 		if len(msgs.Msgs) == 0 {
 			log.ZWarn(ctx, "msg.Msgs is empty", errs.New("msg.Msgs is empty"), "conversationID", conversationID)
 			continue
@@ -708,14 +712,14 @@ func (c *Conversation) batchAddFaceURLAndName(ctx context.Context, conversations
 		return err
 	}
 
-	groupInfoList, err := c.group.GetSpecifiedGroupsInfo(ctx, &sdkpb.GetSpecifiedGroupsInfoReq{
+	groupInfoList, err := c.group.GetSpecifiedGroupsInfo(ctx, &grouppb.GetSpecifiedGroupsInfoReq{
 		GroupIDs: groupIDs,
 	})
 	if err != nil {
 		return err
 	}
 
-	groups := datautil.SliceToMap(groupInfoList.Groups, func(groupInfo *sdkpb.IMGroup) string {
+	groups := datautil.SliceToMap(groupInfoList.Groups, func(groupInfo *sharedpb.IMGroup) string {
 		return groupInfo.GroupID
 	})
 
@@ -818,16 +822,16 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 		return nil, err
 	}
 	if len(res) == 0 {
-		return []*sdkpb.IMMessage{}, nil
+		return []*sharedpb.IMMessage{}, nil
 	}
 	_, msgList := c.LocalChatLog2MsgStruct(ctx, []*model_struct.LocalChatLog{res[0]})
 	if len(msgList) == 0 {
-		return []*sdkpb.IMMessage{}, nil
+		return []*sharedpb.IMMessage{}, nil
 	}
 	msg := msgList[0]
-	result := make([]*sdkpb.IMMessage, 0, before+after+1)
+	result := make([]*sharedpb.IMMessage, 0, before+after+1)
 	if before > 0 {
-		req := &sdkpb.GetAdvancedHistoryMessageListParams{
+		req := &msgpb.GetAdvancedHistoryMessageListParams{
 			ConversationID:   conversationID,
 			Count:            int32(before),
 			StartClientMsgID: msg.ClientMsgID,
@@ -840,7 +844,7 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 	}
 	result = append(result, msg)
 	if after > 0 {
-		req := &sdkpb.GetAdvancedHistoryMessageListParams{
+		req := &msgpb.GetAdvancedHistoryMessageListParams{
 			ConversationID:   conversationID,
 			Count:            int32(after),
 			StartClientMsgID: msg.ClientMsgID,
