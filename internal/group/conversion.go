@@ -17,7 +17,7 @@ package group
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 
-	shared "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/sdkws"
 )
 
@@ -40,7 +40,6 @@ func ServerGroupToLocalGroup(info *sdkws.GroupInfo) *model_struct.LocalGroup {
 		ApplyMemberFriend:      info.ApplyMemberFriend,
 		NotificationUpdateTime: info.NotificationUpdateTime,
 		NotificationUserID:     info.NotificationUserID,
-		//AttachedInfo:           info.AttachedInfo, // TODO
 	}
 }
 
@@ -57,7 +56,6 @@ func ServerGroupMemberToLocalGroupMember(info *sdkws.GroupMemberFullInfo) *model
 		MuteEndTime:    info.MuteEndTime,
 		OperatorUserID: info.OperatorUserID,
 		Ex:             info.Ex,
-		//AttachedInfo:   info.AttachedInfo, // todo
 	}
 }
 
@@ -77,15 +75,13 @@ func ServerGroupRequestToLocalGroupRequest(info *sdkws.GroupRequest) *model_stru
 		UserID:        info.UserInfo.UserID,
 		Nickname:      info.UserInfo.Nickname,
 		UserFaceURL:   info.UserInfo.FaceURL,
-		//Gender:        info.UserInfo.Gender,
-		HandleResult: info.HandleResult,
-		ReqMsg:       info.ReqMsg,
-		HandledMsg:   info.HandleMsg,
-		ReqTime:      info.ReqTime,
-		HandleUserID: info.HandleUserID,
-		HandledTime:  info.HandleTime,
-		Ex:           info.Ex,
-		//AttachedInfo:  info.AttachedInfo,
+		HandleResult:  info.HandleResult,
+		ReqMsg:        info.ReqMsg,
+		HandledMsg:    info.HandleMsg,
+		ReqTime:       info.ReqTime,
+		HandleUserID:  info.HandleUserID,
+		HandledTime:   info.HandleTime,
+		Ex:            info.Ex,
 		JoinSource:    info.JoinSource,
 		InviterUserID: info.InviterUserID,
 	}
@@ -148,7 +144,7 @@ func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *shared.IMGroupMemb
 		FaceURL:        info.FaceURL,
 		RoleLevel:      info.RoleLevel,
 		JoinTime:       info.JoinTime,
-		JoinSource:     info.JoinSource,
+		JoinSource:     shared.GroupJoinSource(info.JoinSource),
 		InviterUserID:  info.InviterUserID,
 		MuteEndTime:    info.MuteEndTime,
 		OperatorUserID: info.OperatorUserID,
@@ -181,7 +177,7 @@ func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *shared.IMGroupRe
 		HandledTime:   info.HandledTime,
 		Ex:            info.Ex,
 		AttachedInfo:  info.AttachedInfo,
-		JoinSource:    info.JoinSource,
+		JoinSource:    shared.GroupJoinSource(info.JoinSource),
 		InviterUserID: info.InviterUserID,
 	}
 }
