@@ -6,13 +6,10 @@ import (
 	"fmt"
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/config"
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/vars"
-	"github.com/openimsdk/openim-sdk-core/v3/internal/flagconst"
 	"github.com/openimsdk/tools/log"
 )
 
 func InitFlag() {
-	flag.BoolVar(&flagconst.TestMode, vars.FlagMap["TestMode"], false, "mark is test mode")
-
 	flag.IntVar(&vars.UserNum, vars.FlagMap["UserNum"], 100, "user num")
 	flag.IntVar(&vars.SuperUserNum, vars.FlagMap["SuperUserNum"], 10, "number of users with all friends")
 	flag.IntVar(&vars.LargeGroupNum, vars.FlagMap["LargeGroupNum"], 5, "number of big group")
@@ -55,7 +52,6 @@ func SetFlagLimit() {
 func PrintFlag() {
 	result := fmt.Sprintf(
 		"TestMode-%s:%t, UserNum-%s:%d, SuperUserNum-%s:%d, LargeGroupNum-%s:%d, LargeGroupMemberNum-%s:%d, CommonGroupNum-%s:%d, CommonGroupMemberNum-%s:%d, SingleMessageNum-%s:%d, GroupMessageNum-%s:%d, ShouldRegister-%s:%t, ShouldImportFriends-%s:%t, ShouldCreateGroup-%s:%t, ShouldSendMsg-%s:%t, ShouldCheckGroupNum-%s:%t, ShouldCheckConversationNum-%s:%t, ShouldCheckMessageNum-%s:%t, ShouldCheckUninsAndReins-%s:%t, LoginRate-%s:%.2f",
-		vars.FlagMap["TestMode"], flagconst.TestMode,
 		vars.FlagMap["UserNum"], vars.UserNum,
 		vars.FlagMap["SuperUserNum"], vars.SuperUserNum,
 		vars.FlagMap["LargeGroupNum"], vars.LargeGroupNum,
