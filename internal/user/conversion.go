@@ -45,7 +45,6 @@ func ServerUserToSdk(info *sdkws.UserInfo) *sdkpb.IMUser {
 		Nickname:         info.Nickname,
 		FaceURL:          info.FaceURL,
 		CreateTime:       info.CreateTime,
-		AppMangerLevel:   info.AppMangerLevel,
 		Ex:               info.Ex,
 		GlobalRecvMsgOpt: info.GlobalRecvMsgOpt,
 	}
@@ -57,7 +56,6 @@ func DBUserToSdk(info *model_struct.LocalUser) *sdkpb.IMUser {
 		Nickname:         info.Nickname,
 		FaceURL:          info.FaceURL,
 		CreateTime:       info.CreateTime,
-		AppMangerLevel:   info.AppMangerLevel,
 		Ex:               info.Ex,
 		Attached:         info.AttachedInfo,
 		GlobalRecvMsgOpt: info.GlobalRecvMsgOpt,

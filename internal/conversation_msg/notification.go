@@ -215,7 +215,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 					oc.LatestMsgSendTime = lc.LatestMsgSendTime
 					oc.LatestMsg = lc.LatestMsg
 					log.ZInfo(ctx, "OnConversationChanged", "conversation", oc)
-					c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, []*model_struct.LocalConversation{oc})})
+					c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{oc})})
 				}
 			}
 		} else {
@@ -224,7 +224,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 			if err4 != nil {
 				log.ZWarn(ctx, "insert new conversation err", err4)
 			} else {
-				c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToSdkPB, []*model_struct.LocalConversation{&lc})})
+				c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{&lc})})
 			}
 		}
 
@@ -315,7 +315,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 					if err != nil {
 						log.ZError(ctx, "updateConversationLatestMsgModel err", err)
 					} else {
-						c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, []*model_struct.LocalConversation{lc})})
+						c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{lc})})
 					}
 
 				}
@@ -335,7 +335,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 				}
 			}
 			log.ZInfo(ctx, "OnConversationChanged", "conversations", newCList)
-			c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, newCList)})
+			c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, newCList)})
 		}
 	case constant.NewCon:
 		cidList := node.Args.([]string)
@@ -345,18 +345,18 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		} else {
 			if cLists != nil {
 				log.ZDebug(ctx, "getMultipleConversationModel success", "cLists", cLists)
-				c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToSdkPB, cLists)})
+				c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToIMConversation, cLists)})
 			}
 		}
 	case constant.ConChangeDirect:
 		cidList := node.Args.([]*model_struct.LocalConversation)
 		log.ZInfo(ctx, "ConversationChanged", "cidList", cidList)
-		c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, cidList)})
+		c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, cidList)})
 
 	case constant.NewConDirect:
 		cidList := node.Args.([]*model_struct.LocalConversation)
 		log.ZDebug(ctx, "NewConversation", "cidList", cidList)
-		c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToSdkPB, cidList)})
+		c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToIMConversation, cidList)})
 
 	}
 }
