@@ -39,18 +39,13 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/db_interface"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/protocol/push"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/jsonutil"
-)
-
-const (
-	LogoutStatus = iota + 1
-	Logging
-	Logged
 )
 
 const (
@@ -76,7 +71,7 @@ func init() {
 		UserForSDK.userOnlineStatusChange, UserForSDK.pushMsgAndMaxSeqCh, UserForSDK.loginMgrCh)
 	UserForSDK.ctx = ccontext.WithApiErrCode(UserForSDK.ctx, &apiErrCallback{loginMgrCh: UserForSDK.loginMgrCh,
 		listener: UserForSDK.ConnListener})
-	UserForSDK.setLoginStatus(LogoutStatus)
+	UserForSDK.setLoginStatus(pb.LoginStatus_Default)
 	UserForSDK.user = user.NewUser(UserForSDK.conversationCh)
 	UserForSDK.file = file.NewFile()
 	UserForSDK.relation = relation.NewRelation(UserForSDK.conversationCh, UserForSDK.user)
@@ -101,7 +96,7 @@ func CheckResourceLoad(uSDK *LoginMgr, funcName string) error {
 	if parts[len(parts)-1] == "Login-fm" {
 		return nil
 	}
-	if uSDK.getLoginStatus(context.Background()) != Logged {
+	if uSDK.getLoginStatus() != pb.LoginStatus_Logged {
 		return errs.New("SDK not logged in", "funcName", funcName).Wrap()
 	}
 	return nil
@@ -120,7 +115,7 @@ type LoginMgr struct {
 	third       *third.Third
 
 	w           sync.Mutex
-	loginStatus int
+	loginStatus pb.LoginStatus
 
 	connListener         open_im_sdk_callback.OnConnListener
 	groupListener        open_im_sdk_callback.OnGroupListener
@@ -263,12 +258,12 @@ func NewLoginMgr() *LoginMgr {
 	})
 	return UserForSDK
 }
-func (u *LoginMgr) getLoginStatus(_ context.Context) int {
+func (u *LoginMgr) getLoginStatus() pb.LoginStatus {
 	u.w.Lock()
 	defer u.w.Unlock()
 	return u.loginStatus
 }
-func (u *LoginMgr) setLoginStatus(status int) {
+func (u *LoginMgr) setLoginStatus(status pb.LoginStatus) {
 	u.w.Lock()
 	defer u.w.Unlock()
 	u.loginStatus = status
@@ -367,7 +362,7 @@ func (u *LoginMgr) initResources() {
 	u.loginMgrCh = make(chan common.Cmd2Value, 1)
 	u.longConnMgr = interaction.NewLongConnMgr(u.ctx, u.userOnlineStatusChange, u.pushMsgAndMaxSeqCh, u.loginMgrCh)
 	u.ctx = ccontext.WithApiErrCode(u.ctx, &apiErrCallback{loginMgrCh: u.loginMgrCh, listener: u.ConnListener})
-	u.setLoginStatus(LogoutStatus)
+	u.setLoginStatus(pb.LoginStatus_Default)
 }
 
 func (u *LoginMgr) userOnlineStatusChange(users map[string][]int32) {
@@ -375,7 +370,7 @@ func (u *LoginMgr) userOnlineStatusChange(users map[string][]int32) {
 }
 
 func (u *LoginMgr) UnInitSDK() {
-	if u.getLoginStatus(context.Background()) == Logged {
+	if u.getLoginStatus() == pb.LoginStatus_Logged {
 		fmt.Println("sdk not logout, please logout first")
 		return
 	}
