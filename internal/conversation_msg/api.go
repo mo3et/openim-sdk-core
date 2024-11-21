@@ -48,7 +48,7 @@ func (c *Conversation) GetAllConversationList(ctx context.Context, req *sdkpb.Ge
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.GetAllConversationListResp{ConversationList: datautil.Batch(LocalConversationToSdkPB, conversationList)}, nil
+	return &sdkpb.GetAllConversationListResp{ConversationList: datautil.Batch(LocalConversationToIMConversation, conversationList)}, nil
 }
 
 func (c *Conversation) GetConversationListSplit(ctx context.Context, req *sdkpb.GetConversationListSplitReq) (*sdkpb.GetConversationListSplitResp, error) {
@@ -58,7 +58,7 @@ func (c *Conversation) GetConversationListSplit(ctx context.Context, req *sdkpb.
 	}
 
 	return &sdkpb.GetConversationListSplitResp{
-		ConversationList: datautil.Batch(LocalConversationToSdkPB, conversations),
+		ConversationList: datautil.Batch(LocalConversationToIMConversation, conversations),
 	}, nil
 }
 
@@ -78,7 +78,7 @@ func (c *Conversation) GetOneConversation(ctx context.Context, req *sdkpb.GetOne
 	conversationID := c.getConversationIDBySessionType(req.SourceID, int(req.SessionType))
 	lc, err := c.db.GetConversation(ctx, conversationID)
 	if err == nil {
-		return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToSdkPB(lc)}, nil
+		return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToIMConversation(lc)}, nil
 	} else {
 		var newConversation model_struct.LocalConversation
 		newConversation.ConversationID = conversationID
@@ -104,13 +104,13 @@ func (c *Conversation) GetOneConversation(ctx context.Context, req *sdkpb.GetOne
 		time.Sleep(time.Millisecond * 500)
 		lc, errTemp := c.db.GetConversation(ctx, conversationID)
 		if errTemp == nil {
-			return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToSdkPB(lc)}, nil
+			return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToIMConversation(lc)}, nil
 		}
 		err := c.db.InsertConversation(ctx, &newConversation)
 		if err != nil {
 			return nil, err
 		}
-		return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToSdkPB(&newConversation)}, nil
+		return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToIMConversation(&newConversation)}, nil
 	}
 }
 
@@ -119,7 +119,7 @@ func (c *Conversation) GetMultipleConversation(ctx context.Context, req *sdkpb.G
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.GetMultipleConversationResp{ConversationList: datautil.Batch(LocalConversationToSdkPB, conversations)}, nil
+	return &sdkpb.GetMultipleConversationResp{ConversationList: datautil.Batch(LocalConversationToIMConversation, conversations)}, nil
 }
 
 func (c *Conversation) HideAllConversations(ctx context.Context, req *sdkpb.HideAllConversationsReq) (*sdkpb.HideAllConversationsResp, error) {
@@ -743,7 +743,7 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 			log.ZError(ctx, "GetConversation err", err, "conversationsArgs", conversationsArgs)
 		} else {
 			t := new(tempConversationAndMessageList)
-			t.conversation = LocalConversationToSdkPB(localConversation)
+			t.conversation = LocalConversationToIMConversation(localConversation)
 			t.msgIDList = conversationsArgs.ClientMsgIDList
 			s = append(s, t)
 		}
@@ -1049,6 +1049,6 @@ func (c *Conversation) SearchConversation(ctx context.Context, req *sdkpb.Search
 		return nil, err
 	}
 	return &sdkpb.SearchConversationResp{
-		ConversationList: datautil.Batch(LocalConversationToSdkPB, conversations),
+		ConversationList: datautil.Batch(LocalConversationToIMConversation, conversations),
 	}, nil
 }

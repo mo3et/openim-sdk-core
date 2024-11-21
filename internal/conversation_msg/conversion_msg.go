@@ -2,6 +2,8 @@ package conversation_msg
 
 import (
 	"context"
+	"encoding/json"
+
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -40,6 +42,27 @@ func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 		localMessage.RecvID = msg.GroupID
 	}
 	return localMessage
+}
+
+func LatestMsgToIMMessage(latestMsg string) *sdkpb.IMMessage {
+	localMessage := &model_struct.LocalChatLog{}
+	err := json.Unmarshal([]byte(latestMsg), localMessage)
+	if err != nil {
+		log.ZWarn(context.Background(), "json.Unmarshal error", err, "latestMsg", latestMsg)
+		return nil
+	}
+	return LocalChatLogToIMMessage(localMessage)
+
+}
+
+func IMMessageToLatestMsg(message *sdkpb.IMMessage) string {
+	localMessage := IMMessageToLocalChatLog(message)
+	data, err := json.Marshal(localMessage)
+	if err != nil {
+		log.ZWarn(context.Background(), "json.Marshal error", err, "localMessage", localMessage)
+		return ""
+	}
+	return string(data)
 }
 
 func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
@@ -129,6 +152,34 @@ func MsgDataToIMMessage(msgData *sdkws.MsgData) *sdkpb.IMMessage {
 	}
 	stringToMsgContent(message, string(msgData.Content))
 	return message
+}
+
+func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChatLog {
+	localMessage := &model_struct.LocalChatLog{
+		ClientMsgID:      serverMessage.ClientMsgID,
+		ServerMsgID:      serverMessage.ServerMsgID,
+		SendID:           serverMessage.SendID,
+		RecvID:           serverMessage.RecvID,
+		SenderPlatformID: serverMessage.SenderPlatformID,
+		SenderNickname:   serverMessage.SenderNickname,
+		SenderFaceURL:    serverMessage.SenderFaceURL,
+		SessionType:      serverMessage.SessionType,
+		MsgFrom:          serverMessage.MsgFrom,
+		ContentType:      serverMessage.ContentType,
+		Content:          string(serverMessage.Content),
+		IsRead:           serverMessage.IsRead,
+		Status:           serverMessage.Status,
+		Seq:              serverMessage.Seq,
+		SendTime:         serverMessage.SendTime,
+		CreateTime:       serverMessage.CreateTime,
+		AttachedInfo:     serverMessage.AttachedInfo,
+		Ex:               serverMessage.Ex,
+	}
+	switch common.SessionType(serverMessage.SessionType) {
+	case common.SessionType_WriteGroupChatType, common.SessionType_ReadGroupChatType:
+		localMessage.RecvID = serverMessage.GroupID
+	}
+	return localMessage
 }
 
 func stringToMsgContent(msg *sdkpb.IMMessage, content string) {

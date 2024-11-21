@@ -4,8 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"time"
+
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -107,7 +108,7 @@ func (c *Conversation) updateConversationLastMsg(ctx context.Context, conversati
 		return err
 	}
 	log.ZDebug(ctx, "setStreamMsg conversation changed", "oc", oc)
-	c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToSdkPB, []*model_struct.LocalConversation{oc})})
+	c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{oc})})
 	return nil
 }
 
