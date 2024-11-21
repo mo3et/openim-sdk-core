@@ -13,9 +13,8 @@ message IMUser {
   string faceURL = 3;
   string ex = 4;
   int64 createTime = 5;
-  int32 appMangerLevel = 6;
-  int32 globalRecvMsgOpt = 7;
-  string attached = 8;
+  int32 globalRecvMsgOpt = 6;
+  string attached = 7;
 }
 
 message CommandInfo {
