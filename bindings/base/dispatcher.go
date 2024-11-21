@@ -28,7 +28,7 @@ var (
 	sendFfiRequestFun    func(handleID uint64, data []byte) ([]byte, error)
 )
 
-type callFunc func(ctx context.Context, handlerID uint64, name sdkpb.FuncRequestEventName, req []byte) ([]byte, error)
+type callFunc func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) ([]byte, error)
 
 func SetDispatchFfiResultFunc(f func(handleID uint64, data []byte)) {
 	dispatchFfiResultFun = f
@@ -42,9 +42,9 @@ func init() {
 	ffi_bridge.SetSendFfiRequestFunc(GoFfiRequestHandler)
 }
 
-func GoFfiRequestHandler(ctx context.Context, funcName sdkpb.FuncRequestEventName, data []byte) ([]byte, error) {
+func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, data []byte) ([]byte, error) {
 	handleID := GenerateHandleID()
-	ffiRequest := &sdkpb.FfiRequest{
+	ffiRequest := &ffi.FfiRequest{
 		OperationID: ccontext.GetOperationID(ctx),
 		FuncName:    funcName,
 		Data:        data,
@@ -71,7 +71,7 @@ func activeErrResp(handleID uint64, funcName pb.FuncRequestEventName, err error)
 		ffiResult.ErrCode = sdkerrs.UnknownCode
 		ffiResult.ErrMsg = fmt.Sprintf("error %T not implement CodeError: %s", err, err)
 	}
-	DispatchFfiResult(handleID, &ffiResult)
+	dispatchFfiResult(handleID, &ffiResult)
 
 }
 func activeSuccessResp(handleID uint64, funcName pb.FuncRequestEventName, res []byte) {
@@ -80,7 +80,7 @@ func activeSuccessResp(handleID uint64, funcName pb.FuncRequestEventName, res []
 	ffiResponse.Data = res
 	ffiResponse.FuncName = funcName
 	ffiResponse.HandleID = handleID
-	DispatchFfiResult(handleID, &ffiResponse)
+	dispatchFfiResult(handleID, &ffiResponse)
 }
 
 func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
@@ -98,7 +98,7 @@ func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
 	}
 	ffiResponse.FuncName = eventName
 	ffiResponse.HandleID = GenerateHandleID()
-	DispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
+	dispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
 }
 
 func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data any) {
@@ -116,10 +116,10 @@ func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data an
 	}
 	ffiResponse.FuncName = eventName
 	ffiResponse.HandleID = handleID
-	DispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
+	dispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
 }
 
-func dispatchFfiResultPb(handleID uint64, ffiResponse *ffi.FfiResult) {
+func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
 	data, err := proto.Marshal(ffiResponse)
 	if err != nil {
 	}

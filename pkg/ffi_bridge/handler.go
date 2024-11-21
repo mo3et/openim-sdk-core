@@ -6,21 +6,22 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	third "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 	"github.com/openimsdk/tools/errs"
 )
 
 var (
-	FileOpen    = makeFunc[sdkpb.JsFileOpenReq, sdkpb.JsFileOpenResp](sdkpb.FuncRequestEventName_JsFileOpen)
-	FileRead    = makeFunc[sdkpb.JsFileReadReq, sdkpb.JsFileReadResp](sdkpb.FuncRequestEventName_JsFileRead)
-	FileClose   = makeFunc[sdkpb.JsFileCloseReq, sdkpb.JsFileCloseResp](sdkpb.FuncRequestEventName_JsFileClose)
-	SqliteOpen  = makeFunc[sdkpb.JsSqliteOpenReq, sdkpb.JsSqliteOpenResp](sdkpb.FuncRequestEventName_JsSqliteOpen)
-	SqliteExec  = makeFunc[sdkpb.JsSqliteExecReq, sdkpb.JsSqliteExecResp](sdkpb.FuncRequestEventName_JsSqliteExec)
-	SqliteQuery = makeFunc[sdkpb.JsSqliteQueryReq, sdkpb.JsSqliteQueryResp](sdkpb.FuncRequestEventName_JsSqliteQuery)
-	SqliteClose = makeFunc[sdkpb.JsSqliteCloseReq, sdkpb.JsSqliteCloseResp](sdkpb.FuncRequestEventName_JsSqliteClose)
+	FileOpen    = makeFunc[third.JsFileOpenReq, third.JsFileOpenResp](pb.FuncRequestEventName_JsFileOpen)
+	FileRead    = makeFunc[third.JsFileReadReq, third.JsFileReadResp](pb.FuncRequestEventName_JsFileRead)
+	FileClose   = makeFunc[third.JsFileCloseReq, third.JsFileCloseResp](pb.FuncRequestEventName_JsFileClose)
+	SqliteOpen  = makeFunc[third.JsSqliteOpenReq, third.JsSqliteOpenResp](pb.FuncRequestEventName_JsSqliteOpen)
+	SqliteExec  = makeFunc[third.JsSqliteExecReq, third.JsSqliteExecResp](pb.FuncRequestEventName_JsSqliteExec)
+	SqliteQuery = makeFunc[third.JsSqliteQueryReq, third.JsSqliteQueryResp](pb.FuncRequestEventName_JsSqliteQuery)
+	SqliteClose = makeFunc[third.JsSqliteCloseReq, third.JsSqliteCloseResp](pb.FuncRequestEventName_JsSqliteClose)
 )
 
-func makeFunc[A, B any](funcName sdkpb.FuncRequestEventName) crossLangFunc[A, B] {
+func makeFunc[A, B any](funcName pb.FuncRequestEventName) crossLangFunc[A, B] {
 	return func(ctx context.Context, req *A) (*B, error) {
 		return invokeFunc[A, B](ctx, funcName, req)
 	}
@@ -28,9 +29,9 @@ func makeFunc[A, B any](funcName sdkpb.FuncRequestEventName) crossLangFunc[A, B]
 
 type crossLangFunc[A, B any] func(ctx context.Context, req *A) (*B, error)
 
-var sendFfiRequest func(ctc context.Context, funcName sdkpb.FuncRequestEventName, data []byte) ([]byte, error)
+var sendFfiRequest func(ctc context.Context, funcName pb.FuncRequestEventName, data []byte) ([]byte, error)
 
-func invokeFunc[A, B any](ctx context.Context, funName sdkpb.FuncRequestEventName, req *A) (*B, error) {
+func invokeFunc[A, B any](ctx context.Context, funName pb.FuncRequestEventName, req *A) (*B, error) {
 
 	pbReq, ok := any(req).(proto.Message)
 	if !ok {
@@ -59,6 +60,6 @@ func invokeFunc[A, B any](ctx context.Context, funName sdkpb.FuncRequestEventNam
 
 }
 
-func SetSendFfiRequestFunc(f func(ctc context.Context, funcName sdkpb.FuncRequestEventName, data []byte) ([]byte, error)) {
+func SetSendFfiRequestFunc(f func(ctc context.Context, funcName pb.FuncRequestEventName, data []byte) ([]byte, error)) {
 	sendFfiRequest = f
 }
