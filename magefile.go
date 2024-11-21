@@ -381,23 +381,23 @@ func CPPBuild() {
 // BuildAndroid compiles the project for Android.
 func BuildAndroid() error {
 	architectures := []struct {
-		Arch, API string
+		GoArch, API, ArchName string
 	}{
-		{"arm", "16"},
-		{"arm64", "21"},
-		{"386", "16"},
-		{"amd64", "21"},
+		{"arm", "16", "armeabi-v7a"},
+		{"arm64", "21", "arm64-v8a"},
+		{"386", "16", "x86"},
+		{"amd64", "21", "x86_64"},
 	}
 
 	androidOut := filepath.Join(outPath, "android")
 
 	for _, arch := range architectures {
-		if err := os.MkdirAll(filepath.Join(goSrc, androidOut, arch.Arch), 0755); err != nil {
+		if err := os.MkdirAll(filepath.Join(goSrc, androidOut, arch.ArchName), 0755); err != nil {
 			return err
 		}
 
-		if err := buildAndroid(androidOut, arch.Arch, arch.API); err != nil {
-			fmt.Printf("Failed to build for Android %s: %v\n", arch.Arch, err)
+		if err := buildAndroid(androidOut, arch.GoArch, arch.API, arch.ArchName); err != nil {
+			fmt.Printf("Failed to build for Android %s: %v\n", arch.ArchName, err)
 		}
 	}
 	return nil
@@ -535,10 +535,10 @@ func BuildWindows() error {
 }
 
 // buildAndroid builds the Android library for the specified architecture.
-func buildAndroid(aOutPath, arch, apiLevel string) error {
+func buildAndroid(aOutPath, goArch, apiLevel, archName string) error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
-	log.Printf("Building for Android %s...\n", arch)
+	log.Printf("Building for Android %s...\n", archName)
 
 	ndkPath := os.Getenv("ANDROID_NDK_HOME")
 	osSuffix := ""
@@ -549,7 +549,7 @@ func buildAndroid(aOutPath, arch, apiLevel string) error {
 	ccBasePath := ndkPath + "/toolchains/llvm/prebuilt/" + runtime.GOOS + "-x86_64/bin/"
 
 	var cc string
-	switch arch {
+	switch goArch {
 	case "arm":
 		cc = ccBasePath + "armv7a-linux-androideabi" + apiLevel + "-clang" + osSuffix
 	case "arm64":
@@ -563,10 +563,10 @@ func buildAndroid(aOutPath, arch, apiLevel string) error {
 	env := []string{
 		"CGO_ENABLED=1",
 		"GOOS=android",
-		"GOARCH=" + arch,
+		"GOARCH=" + goArch,
 		"CC=" + cc,
 	}
-	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(aOutPath, arch, strings.Join([]string{soName, "so"}, ".")), ".")
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(aOutPath, archName, strings.Join([]string{soName, "so"}, ".")), ".")
 
 	cmd.Dir = goSrc
 	cmd.Env = append(os.Environ(), env...)
