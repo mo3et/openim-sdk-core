@@ -17,6 +17,7 @@ package model_struct
 import (
 	"database/sql/driver"
 	"encoding/json"
+
 	"github.com/openimsdk/tools/errs"
 )
 
@@ -169,28 +170,46 @@ type LocalSeq struct {
 }
 
 type LocalChatLog struct {
-	ClientMsgID          string `gorm:"column:client_msg_id;primary_key;type:varchar(64)" json:"clientMsgID"`
-	ServerMsgID          string `gorm:"column:server_msg_id;type:varchar(64)" json:"serverMsgID"`
-	SendID               string `gorm:"column:send_id;type:varchar(64)" json:"sendID"`
-	RecvID               string `gorm:"column:recv_id;index;type:varchar(64)" json:"recvID"`
-	SenderPlatformID     int32  `gorm:"column:sender_platform_id" json:"senderPlatformID"`
-	SenderNickname       string `gorm:"column:sender_nick_name;type:varchar(255)" json:"senderNickname"`
-	SenderFaceURL        string `gorm:"column:sender_face_url;type:varchar(255)" json:"senderFaceURL"`
-	SessionType          int32  `gorm:"column:session_type" json:"sessionType"`
-	MsgFrom              int32  `gorm:"column:msg_from" json:"msgFrom"`
-	ContentType          int32  `gorm:"column:content_type;index" json:"contentType"`
-	Content              string `gorm:"column:content;type:text" json:"content"`
-	IsRead               bool   `gorm:"column:is_read" json:"isRead"`
-	Status               int32  `gorm:"column:status" json:"status"`
-	Seq                  int64  `gorm:"column:seq;index;default:0" json:"seq"`
-	SendTime             int64  `gorm:"column:send_time;index;" json:"sendTime"`
-	CreateTime           int64  `gorm:"column:create_time" json:"createTime"`
-	AttachedInfo         string `gorm:"column:attached_info;type:text" json:"attachedInfo"`
-	Ex                   string `gorm:"column:ex;type:text" json:"ex"`
-	LocalEx              string `gorm:"column:local_ex;type:text" json:"localEx"`
-	IsReact              bool   `gorm:"column:is_react" json:"isReact"`
-	IsExternalExtensions bool   `gorm:"column:is_external_extensions" json:"isExternalExtensions"`
-	MsgFirstModifyTime   int64  `gorm:"column:msg_first_modify_time" json:"msgFirstModifyTime"`
+	ClientMsgID      string `gorm:"column:client_msg_id;primary_key;type:varchar(64)" json:"clientMsgID"`
+	ServerMsgID      string `gorm:"column:server_msg_id;type:varchar(64)" json:"serverMsgID"`
+	SendID           string `gorm:"column:send_id;type:varchar(64)" json:"sendID"`
+	RecvID           string `gorm:"column:recv_id;index;type:varchar(64)" json:"recvID"`
+	SenderPlatformID int32  `gorm:"column:sender_platform_id" json:"senderPlatformID"`
+	SenderNickname   string `gorm:"column:sender_nick_name;type:varchar(255)" json:"senderNickname"`
+	SenderFaceURL    string `gorm:"column:sender_face_url;type:varchar(255)" json:"senderFaceURL"`
+	SessionType      int32  `gorm:"column:session_type" json:"sessionType"`
+	MsgFrom          int32  `gorm:"column:msg_from" json:"msgFrom"`
+	ContentType      int32  `gorm:"column:content_type;index" json:"contentType"`
+	Content          string `gorm:"column:content;type:text" json:"content"`
+	IsRead           bool   `gorm:"column:is_read" json:"isRead"`
+	Status           int32  `gorm:"column:status" json:"status"`
+	Seq              int64  `gorm:"column:seq;index;default:0" json:"seq"`
+	SendTime         int64  `gorm:"column:send_time;index;" json:"sendTime"`
+	CreateTime       int64  `gorm:"column:create_time" json:"createTime"`
+	AttachedInfo     string `gorm:"column:attached_info;type:text" json:"attachedInfo"`
+	Ex               string `gorm:"column:ex;type:text" json:"ex"`
+	LocalEx          string `gorm:"column:local_ex;type:text" json:"localEx"`
+}
+
+func (l LocalChatLog) Value() (driver.Value, error) {
+	return json.Marshal(l)
+}
+
+func (l *LocalChatLog) Scan(value interface{}) error {
+	var b []byte
+	switch v := value.(type) {
+	case []byte:
+		b = v
+	case string:
+		var err error
+		b, err = base64.StdEncoding.DecodeString(v)
+		if err != nil {
+			return err
+		}
+	default:
+		return errs.New("type assertion to []byte failed").Wrap()
+	}
+	return json.Unmarshal(b, &l)
 }
 
 type LocalErrChatLog struct {
@@ -274,41 +293,6 @@ type LocalConversationUnreadMessage struct {
 
 type LocalAdminGroupRequest struct {
 	LocalGroupRequest
-}
-
-type LocalChatLogReactionExtensions struct {
-	ClientMsgID             string `gorm:"column:client_msg_id;primary_key;type:varchar(64)" json:"clientMsgID"`
-	LocalReactionExtensions []byte `gorm:"column:local_reaction_extensions" json:"localReactionExtensions"`
-}
-type LocalWorkMomentsNotification struct {
-	JsonDetail string `gorm:"column:json_detail"`
-	CreateTime int64  `gorm:"create_time"`
-}
-
-type WorkMomentNotificationMsg struct {
-	NotificationMsgType int32  `json:"notificationMsgType"`
-	ReplyUserName       string `json:"replyUserName"`
-	ReplyUserID         string `json:"replyUserID"`
-	Content             string `json:"content"`
-	ContentID           string `json:"contentID"`
-	WorkMomentID        string `json:"workMomentID"`
-	UserID              string `json:"userID"`
-	UserName            string `json:"userName"`
-	FaceURL             string `json:"faceURL"`
-	WorkMomentContent   string `json:"workMomentContent"`
-	CreateTime          int32  `json:"createTime"`
-}
-
-func (LocalWorkMomentsNotification) TableName() string {
-	return "local_work_moments_notification"
-}
-
-type LocalWorkMomentsNotificationUnreadCount struct {
-	UnreadCount int `gorm:"unread_count" json:"unreadCount"`
-}
-
-func (LocalWorkMomentsNotificationUnreadCount) TableName() string {
-	return "local_work_moments_notification_unread_count"
 }
 
 type NotificationSeqs struct {
