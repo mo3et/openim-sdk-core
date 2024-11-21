@@ -6,8 +6,9 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
+	js_bridge "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 	"github.com/openimsdk/tools/errs"
 )
 
@@ -42,7 +43,7 @@ func (s *Stmt) Exec(args []driver.Value) (driver.Result, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := ffi_bridge.SqliteExec(s.ctx, &sdkpb.JsSqliteExecReq{Id: s.id, Sql: s.query, Args: str})
+	resp, err := ffi_bridge.SqliteExec(s.ctx, &js_bridge.JsSqliteExecReq{Id: s.id, Sql: s.query, Args: str})
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +55,7 @@ func (s *Stmt) Query(args []driver.Value) (driver.Rows, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := ffi_bridge.SqliteQuery(s.ctx, &sdkpb.JsSqliteQueryReq{Id: s.id, Sql: s.query, Args: str})
+	resp, err := ffi_bridge.SqliteQuery(s.ctx, &js_bridge.JsSqliteQueryReq{Id: s.id, Sql: s.query, Args: str})
 	if err != nil {
 		return nil, err
 	}

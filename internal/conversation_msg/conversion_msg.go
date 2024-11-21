@@ -2,6 +2,7 @@ package conversation_msg
 
 import (
 	"context"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
@@ -47,17 +48,17 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 		ServerMsgID:      localMessage.ServerMsgID,
 		CreateTime:       localMessage.CreateTime,
 		SendTime:         localMessage.SendTime,
-		SessionType:      sdkpb.SessionType(localMessage.SessionType),
+		SessionType:      common.SessionType(localMessage.SessionType),
 		SendID:           localMessage.SendID,
 		RecvID:           localMessage.RecvID,
-		MsgFrom:          sdkpb.MsgFrom(localMessage.MsgFrom),
-		ContentType:      sdkpb.ContentType(localMessage.ContentType),
-		SenderPlatformID: sdkpb.Platform(localMessage.SenderPlatformID),
+		MsgFrom:          common.MsgFrom(localMessage.MsgFrom),
+		ContentType:      common.ContentType(localMessage.ContentType),
+		SenderPlatformID: common.Platform(localMessage.SenderPlatformID),
 		SenderNickname:   localMessage.SenderNickname,
 		SenderFaceURL:    localMessage.SenderFaceURL,
 		Seq:              localMessage.Seq,
 		IsRead:           localMessage.IsRead,
-		Status:           sdkpb.MsgStatus(localMessage.Status),
+		Status:           common.MsgStatus(localMessage.Status),
 		Ex:               localMessage.Ex,
 		LocalEx:          localMessage.LocalEx,
 		AttachedInfoElem: &sdkpb.AttachedInfoElem{},
@@ -108,18 +109,18 @@ func MsgDataToIMMessage(msgData *sdkws.MsgData) *sdkpb.IMMessage {
 		ServerMsgID:      msgData.ServerMsgID,
 		CreateTime:       msgData.CreateTime,
 		SendTime:         msgData.SendTime,
-		SessionType:      sdkpb.SessionType(msgData.SessionType),
+		SessionType:      common.SessionType(msgData.SessionType),
 		SendID:           msgData.SendID,
 		RecvID:           msgData.RecvID,
 		GroupID:          msgData.GroupID,
-		MsgFrom:          sdkpb.MsgFrom(msgData.MsgFrom),
-		ContentType:      sdkpb.ContentType(msgData.ContentType),
-		SenderPlatformID: sdkpb.Platform(msgData.SenderPlatformID),
+		MsgFrom:          common.MsgFrom(msgData.MsgFrom),
+		ContentType:      common.ContentType(msgData.ContentType),
+		SenderPlatformID: common.Platform(msgData.SenderPlatformID),
 		SenderNickname:   msgData.SenderNickname,
 		SenderFaceURL:    msgData.SenderFaceURL,
 		Seq:              msgData.Seq,
 		IsRead:           msgData.IsRead,
-		Status:           sdkpb.MsgStatus(msgData.Status),
+		Status:           common.MsgStatus(msgData.Status),
 		Ex:               msgData.Ex,
 		AttachedInfoElem: &sdkpb.AttachedInfoElem{},
 	}

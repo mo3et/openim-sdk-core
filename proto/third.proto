@@ -1,7 +1,7 @@
 syntax = "proto3";
 package openim.sdk.third;
 
-import "temp/any.proto";
+import "google/any.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/third";
 

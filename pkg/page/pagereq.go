@@ -5,3 +5,7 @@ import "github.com/openimsdk/protocol/sdkws"
 type PageReq interface {
 	GetPagination() *sdkws.RequestPagination
 }
+
+func GetOffice() {
+
+}

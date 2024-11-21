@@ -5,7 +5,6 @@ import (
 	"database/sql/driver"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 )
 
 const emptyArgs = "[]"
@@ -15,7 +14,7 @@ type DriverContext struct {
 }
 
 func (d DriverContext) open(name string) (int64, error) {
-	resp, err := ffi_bridge.SqliteOpen(d.ctx, &sdkpb.JsSqliteOpenReq{Name: name})
+	resp, err := ffi_bridge.SqliteOpen(d.ctx, &js_bridge.JsSqliteOpenReq{Name: name})
 	if err != nil {
 		return 0, err
 	}
@@ -56,12 +55,12 @@ func (c Conn) Prepare(query string) (driver.Stmt, error) {
 }
 
 func (c Conn) Close() error {
-	_, err := ffi_bridge.SqliteClose(c.ctx, &sdkpb.JsSqliteCloseReq{Id: c.id})
+	_, err := ffi_bridge.SqliteClose(c.ctx, &js_bridge.JsSqliteCloseReq{Id: c.id})
 	return err
 }
 
 func (c Conn) Begin() (driver.Tx, error) {
-	_, err := ffi_bridge.SqliteExec(c.ctx, &sdkpb.JsSqliteExecReq{Id: c.id, Sql: "BEGIN", Args: emptyArgs})
+	_, err := ffi_bridge.SqliteExec(c.ctx, &js_bridge.JsSqliteExecReq{Id: c.id, Sql: "BEGIN", Args: emptyArgs})
 	if err != nil {
 		return nil, err
 	}
