@@ -44,47 +44,18 @@ func LocalConversationToServer(conversation *model_struct.LocalConversation) *pb
 	}
 }
 
-func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChatLog {
-	localMessage := &model_struct.LocalChatLog{
-		ClientMsgID:      serverMessage.ClientMsgID,
-		ServerMsgID:      serverMessage.ServerMsgID,
-		SendID:           serverMessage.SendID,
-		RecvID:           serverMessage.RecvID,
-		SenderPlatformID: serverMessage.SenderPlatformID,
-		SenderNickname:   serverMessage.SenderNickname,
-		SenderFaceURL:    serverMessage.SenderFaceURL,
-		SessionType:      serverMessage.SessionType,
-		MsgFrom:          serverMessage.MsgFrom,
-		ContentType:      serverMessage.ContentType,
-		Content:          string(serverMessage.Content),
-		IsRead:           serverMessage.IsRead,
-		Status:           serverMessage.Status,
-		Seq:              serverMessage.Seq,
-		SendTime:         serverMessage.SendTime,
-		CreateTime:       serverMessage.CreateTime,
-		AttachedInfo:     serverMessage.AttachedInfo,
-		Ex:               serverMessage.Ex,
-	}
-	switch commonpb.SessionType(serverMessage.SessionType) {
-	case commonpb.SessionType_WriteGroupChatType, commonpb.SessionType_ReadGroupChatType:
-		localMessage.RecvID = serverMessage.GroupID
-	}
-	return localMessage
-}
-
-func LocalConversationToSdkPB(conversation *model_struct.LocalConversation) *sdkpb.IMConversation {
+func LocalConversationToIMConversation(conversation *model_struct.LocalConversation) *sdkpb.IMConversation {
 	return &sdkpb.IMConversation{
-		ConversationID:   conversation.ConversationID,
-		ConversationType: commonpb.SessionType(conversation.ConversationType),
-		UserID:           conversation.UserID,
-		GroupID:          conversation.GroupID,
-		ShowName:         conversation.ShowName,
-		FaceURL:          conversation.FaceURL,
-		RecvMsgOpt:       commonpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
-		UnreadCount:      conversation.UnreadCount,
-		GroupAtType:      commonpb.ConvGroupAtType(conversation.GroupAtType),
-		//todo
-		//LatestMsg:         conversation.LatestMsg,
+		ConversationID:    conversation.ConversationID,
+		ConversationType:  commonpb.SessionType(conversation.ConversationType),
+		UserID:            conversation.UserID,
+		GroupID:           conversation.GroupID,
+		ShowName:          conversation.ShowName,
+		FaceURL:           conversation.FaceURL,
+		RecvMsgOpt:        commonpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
+		UnreadCount:       conversation.UnreadCount,
+		GroupAtType:       commonpb.ConvGroupAtType(conversation.GroupAtType),
+		LatestMsg:         LatestMsgToIMMessage(conversation.LatestMsg),
 		LatestMsgSendTime: conversation.LatestMsgSendTime,
 		DraftText:         conversation.DraftText,
 		DraftTextTime:     conversation.DraftTextTime,
