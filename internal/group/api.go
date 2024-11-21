@@ -250,7 +250,7 @@ func (g *Group) GetJoinedGroupsPage(ctx context.Context, req *sdkpb.GetJoinedGro
 			return datautil.Batch(ServerGroupToLocalGroup, serverGroupInfo), nil
 		},
 	)
-	res, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.Offset()), int(req.Pagination.ShowNumber))
+	res, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.PageNumber), int(req.Pagination.ShowNumber))
 	if err != nil {
 		return nil, err
 	}
@@ -327,7 +327,7 @@ func (g *Group) GetGroupMembersByJoinTimeFilter(ctx context.Context, req *sdkpb.
 			return g.db.BatchInsertGroupMember(ctx, values)
 		},
 		func(ctx context.Context, userIDs []string) ([]*model_struct.LocalGroupMember, bool, error) {
-			localGroupMembers, err := g.db.GetGroupMemberListSplitByJoinTimeFilter(ctx, req.GroupID, int(req.Pagination.Offset()), int(req.Pagination.ShowNumber), req.JoinTimeBegin, req.JoinTimeEnd, userIDs)
+			localGroupMembers, err := g.db.GetGroupMemberListSplitByJoinTimeFilter(ctx, req.GroupID, int(req.Pagination.PageNumber), int(req.Pagination.ShowNumber), req.JoinTimeBegin, req.JoinTimeEnd, userIDs)
 			return localGroupMembers, true, err
 		},
 		func(ctx context.Context, userIDs []string) ([]*model_struct.LocalGroupMember, error) {
@@ -338,7 +338,7 @@ func (g *Group) GetGroupMembersByJoinTimeFilter(ctx context.Context, req *sdkpb.
 			return datautil.Batch(ServerGroupMemberToLocalGroupMember, serverGroupMember), nil
 		},
 	)
-	res, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.Offset()), int(req.Pagination.ShowNumber))
+	res, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.PageNumber), int(req.Pagination.ShowNumber))
 	if err != nil {
 		return nil, err
 	}
@@ -449,17 +449,17 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 				return nil, false, err
 			}
 			switch req.Filter {
-			case sdkpb.GroupFilter_Owner:
+			case sharedpb.GroupFilter_Owner:
 				fallthrough
-			case sdkpb.GroupFilter_Admin:
+			case sharedpb.GroupFilter_Admin:
 				fallthrough
-			case sdkpb.GroupFilter_OwnerAndAdmin:
+			case sharedpb.GroupFilter_OwnerAndAdmin:
 				return localGroupMembers, false, nil
-			case sdkpb.GroupFilter_All:
+			case sharedpb.GroupFilter_All:
 				fallthrough
-			case sdkpb.GroupFilter_OrdinaryUsers:
+			case sharedpb.GroupFilter_OrdinaryUsers:
 				fallthrough
-			case sdkpb.GroupFilter_AdminAndOrdinaryUsers:
+			case sharedpb.GroupFilter_AdminAndOrdinaryUsers:
 				return localGroupMembers, true, nil
 			}
 			return nil, false, sdkerrs.ErrArgs
@@ -474,18 +474,18 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 	)
 	var offset int32
 	switch req.Filter {
-	case sdkpb.GroupFilter_OrdinaryUsers:
+	case sharedpb.GroupFilter_OrdinaryUsers:
 		groupOwnerAndGroupMember, err := g.db.GetGroupMemberListSplit(ctx, req.GroupID, constant.GroupFilterOwnerAndAdmin, 0, 100)
 		if err != nil {
 			return nil, err
 		}
-		offset = req.Pagination.Offset() + int32(len(groupOwnerAndGroupMember))
-	case sdkpb.GroupFilter_AdminAndOrdinaryUsers:
+		offset = req.Pagination.PageNumber + int32(len(groupOwnerAndGroupMember))
+	case sharedpb.GroupFilter_AdminAndOrdinaryUsers:
 		groupOwnerAndGroupMember, err := g.db.GetGroupMemberListSplit(ctx, req.GroupID, constant.GroupFilterOwner, 0, 100)
 		if err != nil {
 			return nil, err
 		}
-		offset = req.Pagination.Offset() + int32(len(groupOwnerAndGroupMember))
+		offset = req.Pagination.PageNumber + int32(len(groupOwnerAndGroupMember))
 	}
 	res, err := dataFetcher.FetchWithPagination(ctx, int(offset), int(req.Pagination.ShowNumber))
 	if err != nil {
@@ -520,18 +520,18 @@ func (g *Group) SearchGroupMembers(ctx context.Context, req *sdkpb.SearchGroupMe
 	return &sdkpb.SearchGroupMembersResp{Members: datautil.Batch(DBGroupMemberToSdk, res)}, nil
 }
 
-func (g *Group) IsJoinGroup(ctx context.Context, req *sharedpb.IsJoinGroupReq) (*sharedpb.IsJoinGroupResp, error) {
+func (g *Group) IsJoinGroup(ctx context.Context, req *sdkpb.IsJoinGroupReq) (*sdkpb.IsJoinGroupResp, error) {
 	g.groupSyncMutex.Lock()
 	defer g.groupSyncMutex.Unlock()
 
 	lvs, err := g.db.GetVersionSync(ctx, g.groupTableName(), g.loginUserID)
 	if err != nil {
-		return &sharedpb.IsJoinGroupResp{Joined: false}, err
+		return &sdkpb.IsJoinGroupResp{Joined: false}, err
 	}
 	if datautil.Contain(req.GroupID, lvs.UIDList...) {
-		return &sharedpb.IsJoinGroupResp{Joined: true}, err
+		return &sdkpb.IsJoinGroupResp{Joined: true}, err
 	}
-	return &sharedpb.IsJoinGroupResp{Joined: false}, err
+	return &sdkpb.IsJoinGroupResp{Joined: false}, err
 }
 
 func (g *Group) GetUsersInGroup(ctx context.Context, req *sdkpb.GetUsersInGroupReq) (*sdkpb.GetUsersInGroupResp, error) {
@@ -564,7 +564,7 @@ func (g *Group) GetUsersInGroup(ctx context.Context, req *sdkpb.GetUsersInGroupR
 	return &sdkpb.GetUsersInGroupResp{UserIDs: usersInGroup}, nil
 }
 
-func (g *Group) InviteUserToGroup(ctx context.Context, req *sharedpb.InviteUserToGroupReq) (*sharedpb.InviteUserToGroupResp, error) {
+func (g *Group) InviteUserToGroup(ctx context.Context, req *sdkpb.InviteUserToGroupReq) (*sdkpb.InviteUserToGroupResp, error) {
 	if err := g.inviteUserToGroup(ctx, &group.InviteUserToGroupReq{GroupID: req.GroupID, Reason: req.Reason, InvitedUserIDs: req.UserIDs}); err != nil {
 		return nil, err
 	}
@@ -575,7 +575,7 @@ func (g *Group) InviteUserToGroup(ctx context.Context, req *sharedpb.InviteUserT
 	if err := g.IncrSyncGroupAndMember(ctx, req.GroupID); err != nil {
 		return nil, err
 	}
-	return &sharedpb.InviteUserToGroupResp{}, nil
+	return &sdkpb.InviteUserToGroupResp{}, nil
 }
 
 func (g *Group) HandlerGroupRequest(ctx context.Context, req *sdkpb.HandlerGroupRequestReq) (*sdkpb.HandlerGroupRequestResp, error) {

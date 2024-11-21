@@ -18,6 +18,7 @@ package file
 
 import (
 	"bufio"
+	"context"
 	"io"
 	"os"
 )
