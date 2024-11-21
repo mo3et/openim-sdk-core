@@ -513,7 +513,7 @@ func (g *Group) GetGroupRequest(ctx context.Context, req *sdkpb.GetGroupRequestR
 }
 
 func (g *Group) SearchGroupMembers(ctx context.Context, req *sdkpb.SearchGroupMembersReq) (*sdkpb.SearchGroupMembersResp, error) {
-	res, err := g.db.SearchGroupMembersDB(ctx, req.Keyword, req.GroupID, req.SearchMemberNickname, req.SearchUserID, int(req.Pagination.Offset()), int(req.Pagination.ShowNumber))
+	res, err := g.db.SearchGroupMembersDB(ctx, req.Keyword, req.GroupID, req.SearchMemberNickname, req.SearchUserID, int(req.Pagination.PageNumber), int(req.Pagination.ShowNumber))
 	if err != nil {
 		return nil, err
 	}
