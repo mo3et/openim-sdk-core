@@ -172,4 +172,6 @@ fabric.properties
 .idea/codestream.xml
 
 # Mac Desktop Services Store
-.DS_Store
+**/.DS_Store
+
+**/output/**
