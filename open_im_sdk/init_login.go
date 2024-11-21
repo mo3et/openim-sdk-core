@@ -99,12 +99,15 @@ func (u *LoginMgr) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, 
 func (u *LoginMgr) Logout(ctx context.Context) error {
 	return u.logout(ctx, false)
 }
+
 func (u *LoginMgr) SetAppBackgroundStatus(ctx context.Context, isBackground bool) error {
 	return u.setAppBackgroundStatus(ctx, isBackground)
 }
+
 func (u *LoginMgr) NetworkStatusChanged(ctx context.Context) {
 	u.longConnMgr.Close(ctx)
 }
+
 func (u *LoginMgr) GetLoginStatus(ctx context.Context) int {
 	return u.getLoginStatus(ctx)
 }
