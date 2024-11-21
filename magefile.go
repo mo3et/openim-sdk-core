@@ -24,7 +24,15 @@ var Aliases = map[string]interface{}{
 	"ts":   GenTS,
 	"rs":   GenRust,
 	"a":    All,
+
+	"android": BuildAndroid,
+	"ios":     BuildIOS,
+	"linux":   BuildLinux,
+	"windows": BuildWindows,
+	"cpp":     CPPBuild,
 }
+
+/* Protocol Generate */
 
 // Langeuage target
 // Define output directories for each target language
@@ -324,7 +332,250 @@ func GenRust() error {
 	return nil
 }
 
-/*  Tools */
+/* Tools */
+
+var bindlingDir = filepath.Join(".", "bindings")
+
+// generate wasm file
+func Wasm() error {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+	log.Println("Generating WebAssembly file")
+
+	wasmDir := filepath.Join(bindlingDir, "wasm")
+
+	cmd := exec.Command("go", "build", "-trimpath", "-ldflags", "-s -w", "-o", "openIM.wasm", filepath.Join(wasmDir, "main.go"))
+	cmd.Env = append(os.Environ(), "GOOS=js", "GOARCH=wasm")
+
+	connectStd(cmd)
+	if err := cmd.Run(); err != nil {
+		log.Printf("Error generating WebAssembly file: %v\n", err)
+	}
+
+	return nil
+}
+
+// ffi_c
+
+var soName = "libopenimsdk"
+
+var outPath = filepath.Join(".", "output")
+var goSrc = filepath.Join(".", bindlingDir, "ffi_c")
+
+// BuildAll compiles the project for all platforms.
+func CPPBuild() {
+	if err := BuildAndroid(); err != nil {
+		fmt.Println("Error building for Android:", err)
+	}
+	if err := BuildIOS(); err != nil {
+		fmt.Println("Error building for iOS:", err)
+	}
+	if err := BuildLinux(); err != nil {
+		fmt.Println("Error building for Linux:", err)
+	}
+	if err := BuildWindows(); err != nil {
+		fmt.Println("Error building for Windows:", err)
+	}
+}
+
+// BuildAndroid compiles the project for Android.
+func BuildAndroid() error {
+	architectures := []struct {
+		Arch, API string
+	}{
+		{"arm", "16"},
+		{"arm64", "21"},
+		{"386", "16"},
+		{"amd64", "21"},
+	}
+
+	androidOut := filepath.Join(outPath, "android")
+
+	for _, arch := range architectures {
+		if err := os.MkdirAll(filepath.Join(goSrc, androidOut, arch.Arch), 0755); err != nil {
+			return err
+		}
+
+		if err := buildAndroid(androidOut, arch.Arch, arch.API); err != nil {
+			fmt.Printf("Failed to build for Android %s: %v\n", arch.Arch, err)
+		}
+	}
+	return nil
+}
+
+// BuildIOS compiles the project for iOS.
+func BuildIOS() error {
+	log.SetOutput(os.Stdout)
+	// log.SetFlags(log.Lshortfile)
+	log.Println("Building for iOS...")
+
+	arch := os.Getenv("GOARCH")
+
+	if len(arch) == 0 {
+		arch = runtime.GOARCH
+	}
+
+	os.Setenv("GOOS", "darwin")
+	os.Setenv("GOARCH", arch)
+	os.Setenv("CGO_ENABLED", "1")
+	os.Setenv("CC", "clang")
+
+	iosOut := filepath.Join(outPath, "ios")
+
+	if err := os.MkdirAll(filepath.Join(goSrc, iosOut), 0755); err != nil {
+		return err
+	}
+
+	log.Println(filepath.Join(goSrc, iosOut))
+
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-o", filepath.Join(iosOut, strings.Join([]string{soName, "dylib"}, ".")), ".")
+	cmd.Dir = goSrc
+	cmd.Env = os.Environ()
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+
+	if err := cmd.Run(); err != nil {
+		return err
+	}
+	log.Println("Build for iOS completed successfully.")
+	return nil
+}
+
+// BuildLinux compiles the project for Linux.
+func BuildLinux() error {
+	log.SetOutput(os.Stdout)
+	// log.SetFlags(log.Lshortfile)
+	log.Println("Building for Linux...")
+
+	arch := os.Getenv("GOARCH")
+	cc := os.Getenv("CC")
+	cxx := os.Getenv("CXX")
+
+	if len(arch) == 0 {
+		arch = runtime.GOARCH
+	}
+
+	if len(cc) == 0 {
+		cc = "gcc"
+	}
+
+	if len(cxx) != 0 {
+		os.Setenv("CXX", cxx)
+	}
+
+	linuxOut := filepath.Join(outPath, "linux")
+
+	os.Setenv("GOOS", "linux")
+	os.Setenv("GOARCH", arch)
+	os.Setenv("CGO_ENABLED", "1")
+	os.Setenv("CC", cc) //
+
+	if err := os.MkdirAll(filepath.Join(goSrc, linuxOut), 0755); err != nil {
+		return err
+	}
+
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(linuxOut, strings.Join([]string{soName, "so"}, ".")), ".")
+	cmd.Dir = goSrc
+	cmd.Env = os.Environ()
+
+	connectStd(cmd)
+	if err := cmd.Run(); err != nil {
+		log.Printf("Failed to build for Linux: %v\n", err)
+		return err
+	}
+	log.Println("Build for Linux completed successfully.")
+	return nil
+}
+
+// BuildWindows compiles the project for Windows.
+func BuildWindows() error {
+	log.SetOutput(os.Stdout)
+	// log.SetFlags(log.Lshortfile)
+	log.Println("Building for Windows...")
+
+	arch := os.Getenv("GOARCH")
+	cc := os.Getenv("CC")
+	cxx := os.Getenv("CXX")
+
+	if len(arch) == 0 {
+		arch = runtime.GOARCH
+	}
+
+	if len(cc) == 0 {
+		cc = "gcc"
+	}
+
+	if len(cxx) != 0 {
+		os.Setenv("CXX", cxx)
+	}
+
+	windowsOut := filepath.Join(outPath, "windows")
+
+	os.Setenv("GOOS", "windows")
+	os.Setenv("GOARCH", arch)
+	os.Setenv("CGO_ENABLED", "1")
+	os.Setenv("CC", cc)
+
+	if err := os.MkdirAll(filepath.Join(goSrc, windowsOut), 0755); err != nil {
+		return err
+	}
+
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(windowsOut, strings.Join([]string{soName, "dll"}, ".")), ".")
+	cmd.Dir = goSrc
+	cmd.Env = os.Environ()
+
+	connectStd(cmd)
+
+	if err := cmd.Run(); err != nil {
+		log.Printf("Failed to build for Windows: %v\n", err)
+		return err
+	}
+	log.Println("Build for Windows completed successfully.")
+	return nil
+}
+
+// buildAndroid builds the Android library for the specified architecture.
+func buildAndroid(aOutPath, arch, apiLevel string) error {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+	log.Printf("Building for Android %s...\n", arch)
+
+	ndkPath := os.Getenv("ANDROID_NDK_HOME")
+	osSuffix := ""
+	if runtime.GOOS == "windows" {
+		osSuffix = ".cmd" //
+	}
+
+	ccBasePath := ndkPath + "/toolchains/llvm/prebuilt/" + runtime.GOOS + "-x86_64/bin/"
+
+	var cc string
+	switch arch {
+	case "arm":
+		cc = ccBasePath + "armv7a-linux-androideabi" + apiLevel + "-clang" + osSuffix
+	case "arm64":
+		cc = ccBasePath + "aarch64-linux-android" + apiLevel + "-clang" + osSuffix
+	case "386":
+		cc = ccBasePath + "i686-linux-android" + apiLevel + "-clang" + osSuffix
+	case "amd64":
+		cc = ccBasePath + "x86_64-linux-android" + apiLevel + "-clang" + osSuffix
+	}
+
+	env := []string{
+		"CGO_ENABLED=1",
+		"GOOS=android",
+		"GOARCH=" + arch,
+		"CC=" + cc,
+	}
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(aOutPath, arch, strings.Join([]string{soName, "so"}, ".")), ".")
+
+	cmd.Dir = goSrc
+	cmd.Env = append(os.Environ(), env...)
+
+	connectStd(cmd)
+	return cmd.Run()
+}
+
+/*  Dependencies func */
 
 func getWorkDirToolPath(name string) string {
 	toolPath := ""
