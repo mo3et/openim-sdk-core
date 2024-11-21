@@ -54,7 +54,7 @@ var protoModules = []string{
 	"ffi",
 	"group",
 	"init",
-	"js-bridge",
+	"interop",
 	"message",
 	"relation",
 	"shared",
