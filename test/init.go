@@ -43,11 +43,11 @@ func init() {
 		panic(err)
 	}
 	ch := make(chan error)
-	//open_im_sdk.UserForSDK.SetConversationListener(&onConversationListener{ctx: ctx, ch: ch})
-	//open_im_sdk.UserForSDK.SetGroupListener(&onGroupListener{ctx: ctx})
-	//open_im_sdk.UserForSDK.SetAdvancedMsgListener(&onAdvancedMsgListener{ctx: ctx})
-	//open_im_sdk.UserForSDK.SetFriendshipListener(&onFriendshipListener{ctx: ctx})
-	//open_im_sdk.UserForSDK.SetUserListener(&onUserListener{ctx: ctx})
+	open_im_sdk.UserForSDK.SetConversationListener(&onConversationListener{ctx: ctx, ch: ch})
+	open_im_sdk.UserForSDK.SetGroupListener(&onGroupListener{ctx: ctx})
+	open_im_sdk.UserForSDK.SetAdvancedMsgListener(&onAdvancedMsgListener{ctx: ctx})
+	open_im_sdk.UserForSDK.SetFriendshipListener(&onFriendshipListener{ctx: ctx})
+	open_im_sdk.UserForSDK.SetUserListener(&onUserListener{ctx: ctx})
 	if err := <-ch; err != nil {
 		panic(err)
 	}

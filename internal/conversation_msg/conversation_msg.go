@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"math"
 	"sync"
 
 	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	grouppb "github.com/openimsdk/openim-sdk-core/v3/proto/go/group"
 	msgpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
 	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
@@ -526,7 +526,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 	log.ZDebug(ctx, "before trigger msg", "cost time", time.Since(b).Seconds(), "len", len(allMsg))
 
 	// log.ZDebug(ctx, "progress is", "msgLen", msgLen, "msgOffset", c.msgOffset, "total", total, "now progress is", (c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)
-	c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: int32((c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)})
+	c.ConversationListener().OnSyncServerProgress(&eventpb.EventOnSyncServerProgressData{Progress: int32((c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)})
 }
 
 func (c *Conversation) addInitProgress(progress int) {
@@ -656,10 +656,10 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struc
 		for _, w := range newMessagesList {
 			conversationID := utils.GetConversationIDByMsg(w)
 			if v, ok := cc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.msgListener().OnRecvOfflineNewMessage(&sdkpb.EventOnRecvOfflineNewMessageData{Message: w})
+				c.msgListener().OnRecvOfflineNewMessage(&eventpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 			if v, ok := nc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.msgListener().OnRecvOfflineNewMessage(&sdkpb.EventOnRecvOfflineNewMessageData{Message: w})
+				c.msgListener().OnRecvOfflineNewMessage(&eventpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 		}
 	} else {
@@ -668,9 +668,9 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struc
 				continue
 			}
 			if _, ok := onlineMsg[onlineMsgKey{ClientMsgID: w.ClientMsgID, ServerMsgID: w.ServerMsgID}]; ok {
-				c.msgListener().OnRecvOnlineOnlyMessage(&sdkpb.EventOnRecvOnlineOnlyMessageData{Message: w})
+				c.msgListener().OnRecvOnlineOnlyMessage(&eventpb.EventOnRecvOnlineOnlyMessageData{Message: w})
 			} else {
-				c.msgListener().OnRecvNewMessage(&sdkpb.EventOnRecvNewMessageData{Message: w})
+				c.msgListener().OnRecvNewMessage(&eventpb.EventOnRecvNewMessageData{Message: w})
 			}
 		}
 	}
@@ -815,8 +815,8 @@ func (c *Conversation) ChangeInputStates(ctx context.Context, conversationID str
 	return c.typing.ChangeInputStates(ctx, conversationID, focus)
 }
 
-func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversationID string, seq int64, before int64, after int64) ([]*sdkpb.IMMessage, error) {
-	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &sdkpb.GetAdvancedHistoryMessageListCallback{})
+func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversationID string, seq int64, before int64, after int64) ([]*sharedpb.IMMessage, error) {
+	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &msgpb.GetAdvancedHistoryMessageListCallback{})
 	res, err := c.db.GetMessagesBySeqs(ctx, conversationID, []int64{seq})
 	if err != nil {
 		return nil, err

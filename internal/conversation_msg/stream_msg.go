@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"time"
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
@@ -153,7 +154,7 @@ func (c *Conversation) asyncStreamMsg(ctx context.Context, conversationID string
 	}()
 }
 
-func (c *Conversation) streamMsgReplace(ctx context.Context, conversationID string, msgs []*sdkpb.IMMessage) {
+func (c *Conversation) streamMsgReplace(ctx context.Context, conversationID string, msgs []*sharedpb.IMMessage) {
 	//for _, msg := range msgs {
 	//	if msg.ContentType != constant.Stream {
 	//		continue
