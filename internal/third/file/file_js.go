@@ -21,7 +21,7 @@ import (
 	"bufio"
 	"context"
 	"errors"
-	"github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
 	"io"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
@@ -112,7 +112,7 @@ type jsCallFile struct {
 }
 
 func (j *jsCallFile) Open() (int64, error) {
-	resp, err := ffi_bridge.FileOpen(j.ctx, &js_bridge.JsFileOpenReq{Uuid: j.uuid})
+	resp, err := ffi_bridge.FileOpen(j.ctx, &interop.JsFileOpenReq{Uuid: j.uuid})
 	if err != nil {
 		return 0, err
 	}
@@ -120,7 +120,7 @@ func (j *jsCallFile) Open() (int64, error) {
 }
 
 func (j *jsCallFile) Read(offset int64, length int64) ([]byte, error) {
-	resp, err := ffi_bridge.FileRead(j.ctx, &js_bridge.JsFileReadReq{Uuid: j.uuid, Offset: offset, Length: length})
+	resp, err := ffi_bridge.FileRead(j.ctx, &interop.JsFileReadReq{Uuid: j.uuid, Offset: offset, Length: length})
 	if err != nil {
 		return nil, err
 	}
@@ -128,6 +128,6 @@ func (j *jsCallFile) Read(offset int64, length int64) ([]byte, error) {
 }
 
 func (j *jsCallFile) Close() error {
-	_, err := ffi_bridge.FileClose(j.ctx, &js_bridge.JsFileCloseReq{Uuid: j.uuid})
+	_, err := ffi_bridge.FileClose(j.ctx, &interop.JsFileCloseReq{Uuid: j.uuid})
 	return err
 }

@@ -7,18 +7,18 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
-	"github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
 	"github.com/openimsdk/tools/errs"
 )
 
 var (
-	FileOpen    = makeFunc[js_bridge.JsFileOpenReq, js_bridge.JsFileOpenResp](pb.FuncRequestEventName_JsFileOpen)
-	FileRead    = makeFunc[js_bridge.JsFileReadReq, js_bridge.JsFileReadResp](pb.FuncRequestEventName_JsFileRead)
-	FileClose   = makeFunc[js_bridge.JsFileCloseReq, js_bridge.JsFileCloseResp](pb.FuncRequestEventName_JsFileClose)
-	SqliteOpen  = makeFunc[js_bridge.JsSqliteOpenReq, js_bridge.JsSqliteOpenResp](pb.FuncRequestEventName_JsSqliteOpen)
-	SqliteExec  = makeFunc[js_bridge.JsSqliteExecReq, js_bridge.JsSqliteExecResp](pb.FuncRequestEventName_JsSqliteExec)
-	SqliteQuery = makeFunc[js_bridge.JsSqliteQueryReq, js_bridge.JsSqliteQueryResp](pb.FuncRequestEventName_JsSqliteQuery)
-	SqliteClose = makeFunc[js_bridge.JsSqliteCloseReq, js_bridge.JsSqliteCloseResp](pb.FuncRequestEventName_JsSqliteClose)
+	FileOpen    = makeFunc[interop.JsFileOpenReq, interop.JsFileOpenResp](pb.FuncRequestEventName_JsFileOpen)
+	FileRead    = makeFunc[interop.JsFileReadReq, interop.JsFileReadResp](pb.FuncRequestEventName_JsFileRead)
+	FileClose   = makeFunc[interop.JsFileCloseReq, interop.JsFileCloseResp](pb.FuncRequestEventName_JsFileClose)
+	SqliteOpen  = makeFunc[interop.JsSqliteOpenReq, interop.JsSqliteOpenResp](pb.FuncRequestEventName_JsSqliteOpen)
+	SqliteExec  = makeFunc[interop.JsSqliteExecReq, interop.JsSqliteExecResp](pb.FuncRequestEventName_JsSqliteExec)
+	SqliteQuery = makeFunc[interop.JsSqliteQueryReq, interop.JsSqliteQueryResp](pb.FuncRequestEventName_JsSqliteQuery)
+	SqliteClose = makeFunc[interop.JsSqliteCloseReq, interop.JsSqliteCloseResp](pb.FuncRequestEventName_JsSqliteClose)
 )
 
 func makeFunc[A, B any](funcName pb.FuncRequestEventName) crossLangFunc[A, B] {
