@@ -13,6 +13,7 @@ We use `mage` to replace `makefile` and `shell script`. **Mage** requires a Go e
 
 ### Install Mage:
 - View the [Mage install documentation](https://magefile.org/).
+- You also use `bootstrap_install_mage.bat` or `bootstrap_install_mage.sh` to install mage.
 
 ### Install language dependencies:
 #### Basic:
