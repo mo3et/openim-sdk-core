@@ -50,7 +50,7 @@ func callback(dataPtr unsafe.Pointer, len C.int) {
 		fmt.Println("Handle dropped successfully request", response.HandleID)
 
 	case eventpb.FuncRequestEventName_Login:
-		var res pb.LoginResp
+		var res initpb.LoginResp
 		err := proto.Unmarshal(response.Data, &res)
 		if err != nil {
 			fmt.Println("Failed to unmarshal LoginResp:", err)
@@ -136,7 +136,7 @@ func main() {
 
 	time.Sleep(time.Second * 1)
 
-	data, err = proto.Marshal(&pb.LoginReq{
+	data, err = proto.Marshal(&initpb.LoginReq{
 		UserID: "3325086438",
 		Token:  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzMzI1MDg2NDM4IiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzM3NDQ5Nzg2LCJuYmYiOjE3Mjk2NzM0ODYsImlhdCI6MTcyOTY3Mzc4Nn0.obyGZDP3yFiTT7tYkkdEkhAjDtSJI-z9-17FUXXJcxY",
 	})
