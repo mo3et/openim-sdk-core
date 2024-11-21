@@ -1,86 +1,74 @@
 package test
 
-//func Test_GetSelfUserInfo(t *testing.T) {
-//	userInfo, err := open_im_sdk.UserForSDK.User().GetSelfUserInfo(ctx)
-//	if err != nil {
-//		t.Error(err)
-//	}
-//
-//	t.Log(userInfo)
-//}
-//
-//func Test_SetSelfInfoEx(t *testing.T) {
-//	newNickName := "test"
-//	//newFaceURL := "http://test.com"
-//	err := open_im_sdk.UserForSDK.User().SetSelfInfo(ctx, &sdkws.UserInfoWithEx{
-//		Nickname: &wrapperspb.StringValue{
-//			Value: newNickName,
-//		},
-//		//FaceURL:  newFaceURL,
-//		Ex: &wrapperspb.StringValue{
-//			Value: "ASD",
-//		},
-//	})
-//	newFaceURL := "http://test.com"
-//
-//	if err != nil {
-//		t.Error(err)
-//	}
-//	userInfo, err := open_im_sdk.UserForSDK.User().GetSelfUserInfo(ctx)
-//	if err != nil {
-//		t.Error(err)
-//	}
-//	if userInfo.UserID != UserID && userInfo.Nickname != newNickName && userInfo.FaceURL != newFaceURL {
-//		t.Error("user id not match")
-//	}
-//	t.Log(userInfo)
-//	time.Sleep(time.Second * 10)
-//}
-//
-//func Test_UserCommandAdd(t *testing.T) {
-//	// Creating a request with a pointer
-//	req := &user.ProcessUserCommandAddReq{
-//		UserID: "3",
-//		Type:   8,
-//		Uuid:   "1",
-//		Value: &wrapperspb.StringValue{
-//			Value: "ASD",
-//		},
-//		Ex: &wrapperspb.StringValue{
-//			Value: "ASD",
-//		},
-//	}
-//
-//	// Passing the pointer to the function
-//	err := open_im_sdk.UserForSDK.User().ProcessUserCommandAdd(ctx, req)
-//	if err != nil {
-//		// Handle the error
-//		t.Errorf("Failed to add favorite: %v", err)
-//	}
-//}
-//func Test_UserCommandGet(t *testing.T) {
-//	// Creating a request with a pointer
-//
-//	// Passing the pointer to the function
-//	result, err := open_im_sdk.UserForSDK.User().ProcessUserCommandGetAll(ctx)
-//	if err != nil {
-//		// Handle the error
-//		t.Errorf("Failed to add favorite: %v", err)
-//	}
-//	fmt.Printf("%v\n", result)
-//}
-//func Test_UserCommandDelete(t *testing.T) {
-//	// Creating a request with a pointer
-//	req := &user.ProcessUserCommandDeleteReq{
-//		UserID: "3",
-//		Type:   8,
-//		Uuid:   "1",
-//	}
-//
-//	// Passing the pointer to the function
-//	err := open_im_sdk.UserForSDK.User().ProcessUserCommandDelete(ctx, req)
-//	if err != nil {
-//		// Handle the error
-//		t.Errorf("Failed to add favorite: %v", err)
-//	}
-//}
+import (
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
+	"github.com/openimsdk/tools/utils/datautil"
+	"testing"
+	"time"
+)
+
+func Test_GetSelfUserInfo(t *testing.T) {
+	userInfo, err := open_im_sdk.UserForSDK.User().GetSelfUserInfo(ctx, &sdkpb.GetSelfUserInfoReq{})
+	if err != nil {
+		t.Error(err)
+	}
+	t.Log(userInfo)
+}
+
+func Test_SetSelfInfoEx(t *testing.T) {
+	newNickName := "test"
+	newFaceURL := "http://test.com"
+	_, err := open_im_sdk.UserForSDK.User().SetSelfInfo(ctx, &sdkpb.SetSelfInfoReq{
+		Nickname: datautil.ToPtr(newNickName),
+		FaceURL:  datautil.ToPtr(newFaceURL),
+		Ex:       datautil.ToPtr("ASD"),
+	})
+	if err != nil {
+		t.Error(err)
+	}
+
+	userInfo, err := open_im_sdk.UserForSDK.User().GetSelfUserInfo(ctx, &sdkpb.GetSelfUserInfoReq{})
+	if err != nil {
+		t.Error(err)
+	}
+	if userInfo.User.UserID != UserID || userInfo.User.Nickname != newNickName || userInfo.User.FaceURL != newFaceURL {
+		t.Error("user info does not match")
+	}
+	t.Log(userInfo)
+	time.Sleep(time.Second * 10)
+}
+
+func Test_ProcessUserCommandAdd(t *testing.T) {
+	req := &sdkpb.ProcessUserCommandAddReq{
+		UserID: "3",
+		Type:   8,
+		Uuid:   "1",
+		Value:  datautil.ToPtr("ASD"),
+		Ex:     datautil.ToPtr("ASD"),
+	}
+	_, err := open_im_sdk.UserForSDK.User().ProcessUserCommandAdd(ctx, req)
+	if err != nil {
+		t.Errorf("Failed to add user command: %v", err)
+	}
+}
+
+func Test_UserCommandGet(t *testing.T) {
+	result, err := open_im_sdk.UserForSDK.User().ProcessUserCommandGetAll(ctx, &sdkpb.ProcessUserCommandGetAllReq{})
+	if err != nil {
+		t.Errorf("Failed to get user commands: %v", err)
+	}
+	t.Logf("User commands: %v", result.Commands)
+}
+
+func Test_UserCommandDelete(t *testing.T) {
+	req := &sdkpb.ProcessUserCommandDeleteReq{
+		UserID: "3",
+		Type:   8,
+		Uuid:   "1",
+	}
+	_, err := open_im_sdk.UserForSDK.User().ProcessUserCommandDelete(ctx, req)
+	if err != nil {
+		t.Errorf("Failed to delete user command: %v", err)
+	}
+}
