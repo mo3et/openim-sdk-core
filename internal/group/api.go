@@ -449,17 +449,17 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 				return nil, false, err
 			}
 			switch req.Filter {
-			case sharedpb.GroupFilter_Owner:
+			case sdkpb.GroupFilter_Owner:
 				fallthrough
-			case sharedpb.GroupFilter_Admin:
+			case sdkpb.GroupFilter_Admin:
 				fallthrough
-			case sharedpb.GroupFilter_OwnerAndAdmin:
+			case sdkpb.GroupFilter_OwnerAndAdmin:
 				return localGroupMembers, false, nil
-			case sharedpb.GroupFilter_All:
+			case sdkpb.GroupFilter_All:
 				fallthrough
-			case sharedpb.GroupFilter_OrdinaryUsers:
+			case sdkpb.GroupFilter_OrdinaryUsers:
 				fallthrough
-			case sharedpb.GroupFilter_AdminAndOrdinaryUsers:
+			case sdkpb.GroupFilter_AdminAndOrdinaryUsers:
 				return localGroupMembers, true, nil
 			}
 			return nil, false, sdkerrs.ErrArgs
@@ -474,13 +474,13 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 	)
 	var offset int32
 	switch req.Filter {
-	case sharedpb.GroupFilter_OrdinaryUsers:
+	case sdkpb.GroupFilter_OrdinaryUsers:
 		groupOwnerAndGroupMember, err := g.db.GetGroupMemberListSplit(ctx, req.GroupID, constant.GroupFilterOwnerAndAdmin, 0, 100)
 		if err != nil {
 			return nil, err
 		}
 		offset = req.Pagination.PageNumber + int32(len(groupOwnerAndGroupMember))
-	case sharedpb.GroupFilter_AdminAndOrdinaryUsers:
+	case sdkpb.GroupFilter_AdminAndOrdinaryUsers:
 		groupOwnerAndGroupMember, err := g.db.GetGroupMemberListSplit(ctx, req.GroupID, constant.GroupFilterOwner, 0, 100)
 		if err != nil {
 			return nil, err

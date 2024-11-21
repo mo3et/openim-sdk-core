@@ -136,9 +136,17 @@ message GetSpecifiedGroupMembersInfoResp {
   repeated shared.IMGroupMember members = 1;
 }
 
+enum GroupFilter {
+  All = 0;
+  Owner = 1;
+  Admin = 2;
+  OrdinaryUsers = 3;
+  AdminAndOrdinaryUsers = 4;
+  OwnerAndAdmin = 5;
+}
 message GetGroupMembersReq {
   string groupID = 1;
-  shared.GroupFilter filter = 2;
+  GroupFilter filter = 2;
   openim.sdk.common.RequestPagination pagination = 4;
 }
 message GetGroupMembersResp {
