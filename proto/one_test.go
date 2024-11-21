@@ -2,15 +2,18 @@ package proto
 
 import (
 	"encoding/json"
+	"testing"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
+	thirdpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 	"google.golang.org/protobuf/proto"
 	anypb "google.golang.org/protobuf/types/known/anypb"
-	"testing"
 )
 
 func TestName(t *testing.T) {
-	val := IMMessage{
-		Content: &IMMessage_TextElem{
-			TextElem: &TextElem{
+	val := sdkpb.IMMessage{
+		Content: &sdkpb.IMMessage_TextElem{
+			TextElem: &sdkpb.TextElem{
 				Content: "hello",
 			},
 		},
@@ -31,13 +34,13 @@ func must[V any](v V, err error) V {
 }
 
 func TestName2(t *testing.T) {
-	user := IMUser{
+	user := sdkpb.IMUser{
 		UserID:   "123",
 		Nickname: "hello",
 		FaceURL:  "",
 	}
-	req := LogReq{
-		Kvs: []*LogKv{
+	req := thirdpb.LogReq{
+		Kvs: []*thirdpb.LogKv{
 			{
 				Key: "key",
 				Value: &anypb.Any{
@@ -50,7 +53,7 @@ func TestName2(t *testing.T) {
 	data := must(proto.Marshal(&req))
 	t.Log(string(data))
 
-	var req2 LogReq
+	var req2 thirdpb.LogReq
 	must(1, proto.Unmarshal(data, &req2))
 	t.Log(req2.Kvs)
 }
