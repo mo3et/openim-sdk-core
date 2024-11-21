@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
@@ -365,9 +366,7 @@ func (d *DataBase) ChangeConversationLatestMsgToPB(ctx context.Context) error {
 
 		for {
 			var conversationList []*model_struct.LocalConversation
-			if err := tx.WithContext(ctx).Where("latest_msg_send_time > ?", 0).
-				Order("case when is_pinned=1 then 0 else 1 end,max(latest_msg_send_time,draft_text_time) DESC").
-				Offset(offset).Limit(limit).Find(&conversationList).Error; err != nil {
+			if err := tx.WithContext(ctx).Offset(offset).Limit(limit).Find(&conversationList).Error; err != nil {
 				return errs.WrapMsg(err, "get conversation list failed")
 			}
 			for _, conv := range conversationList {
@@ -376,7 +375,8 @@ func (d *DataBase) ChangeConversationLatestMsgToPB(ctx context.Context) error {
 				)
 
 				if err := utils.JsonStringToStruct(conv.LatestMsg, &oldMsg); err != nil {
-					return errs.WrapMsg(err, "json unmarshal failed")
+					log.ZWarn(ctx, "JsonStringToStruct failed", err, "latestMsg", conv.LatestMsg)
+					continue
 				}
 				newMsg := utils.SDKStructMsgToDB(&oldMsg)
 				conv.LatestMsg = utils.StructToJsonString(newMsg)
