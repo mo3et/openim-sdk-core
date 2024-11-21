@@ -12,6 +12,12 @@ enum FuncRequestEventName {
   GetConversation = 3;
   InitSDK = 4;
   Login = 5;
+  Logout = 106;
+  SetAppBackgroundStatus = 107;
+  NetworkStatusChanged = 108;
+  GetLoginStatus = 109;
+  Version = 110;
+
   SendMessage = 6;
   UploadLogs = 7;
   UploadFile = 8;

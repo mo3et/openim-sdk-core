@@ -19,8 +19,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
@@ -28,38 +26,10 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-func GetSdkVersion() string {
-	return version.Version
-}
-
 const (
 	rotateCount  uint = 1
 	rotationTime uint = 24
 )
-
-func UnInitSDK(operationID string) {
-	if UserForSDK == nil {
-		fmt.Println(operationID, "UserForSDK is nil,")
-		return
-	}
-	UserForSDK.UnInitSDK()
-	UserForSDK = nil
-
-}
-
-func GetLoginStatus(operationID string) int {
-	if UserForSDK == nil {
-		return constant.Uninitialized
-	}
-	return UserForSDK.GetLoginStatus(ccontext.WithOperationID(context.Background(), operationID))
-}
-
-func GetLoginUserID() string {
-	if UserForSDK == nil {
-		return ""
-	}
-	return UserForSDK.GetLoginUserID()
-}
 
 func (u *LoginMgr) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.InitSDKResp, error) {
 	u.info.IMConfig = req.GetConfig()
@@ -75,11 +45,11 @@ func (u *LoginMgr) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.InitSDK
 }
 
 func (u *LoginMgr) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, error) {
-	if u.getLoginStatus(ctx) == Logged {
+	if u.getLoginStatus() == pb.LoginStatus_Logged {
 		return nil, sdkerrs.ErrLoginRepeat
 	}
 	fmt.Println("login comm here")
-	u.setLoginStatus(Logging)
+	u.setLoginStatus(pb.LoginStatus_Logging)
 	log.ZDebug(ctx, "login start... ", "userID", req.UserID, "token", req.Token)
 	t1 := time.Now()
 
@@ -91,23 +61,34 @@ func (u *LoginMgr) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, 
 	}
 
 	u.run(ctx)
-	u.setLoginStatus(Logged)
+	u.setLoginStatus(pb.LoginStatus_Logged)
 	log.ZDebug(ctx, "login success...", "login cost time: ", time.Since(t1))
 	return &pb.LoginResp{}, nil
 }
 
-func (u *LoginMgr) Logout(ctx context.Context) error {
-	return u.logout(ctx, false)
+func (u *LoginMgr) Logout(ctx context.Context, req *pb.LogoutReq) (*pb.LogoutResp, error) {
+	if err := u.logout(ctx, false); err != nil {
+		return nil, err
+	}
+	return &pb.LogoutResp{}, nil
 }
 
-func (u *LoginMgr) SetAppBackgroundStatus(ctx context.Context, isBackground bool) error {
-	return u.setAppBackgroundStatus(ctx, isBackground)
+func (u *LoginMgr) SetAppBackgroundStatus(ctx context.Context, req *pb.SetAppBackgroundStatusReq) (*pb.SetAppBackgroundStatusResp, error) {
+	if err := u.setAppBackgroundStatus(ctx, req.IsBackground); err != nil {
+		return nil, err
+	}
+	return &pb.SetAppBackgroundStatusResp{}, nil
 }
 
-func (u *LoginMgr) NetworkStatusChanged(ctx context.Context) {
+func (u *LoginMgr) NetworkStatusChanged(ctx context.Context, req *pb.NetworkStatusChangedReq) (*pb.NetworkStatusChangedResp, error) {
 	u.longConnMgr.Close(ctx)
+	return &pb.NetworkStatusChangedResp{}, nil
 }
 
-func (u *LoginMgr) GetLoginStatus(ctx context.Context) int {
-	return u.getLoginStatus(ctx)
+func (u *LoginMgr) GetLoginStatus(ctx context.Context, req *pb.GetLoginStatusReq) (*pb.GetLoginStatusResp, error) {
+	return &pb.GetLoginStatusResp{Status: u.getLoginStatus()}, nil
+}
+
+func (u *LoginMgr) Version(ctx context.Context, req *pb.VersionReq) (*pb.VersionResp, error) {
+	return &pb.VersionResp{Version: version.Version}, nil
 }

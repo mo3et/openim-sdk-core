@@ -81,8 +81,13 @@ var callbackRegistry = map[pb.FuncRequestEventName]callbackFunc{
 }
 
 var FuncMap = map[pb.FuncRequestEventName]callFunc{
-	pb.FuncRequestEventName_InitSDK: wrapFunc(open_im_sdk.UserForSDK.InitSDK),
-	pb.FuncRequestEventName_Login:   wrapFunc(open_im_sdk.UserForSDK.Login),
+	pb.FuncRequestEventName_InitSDK:                wrapFunc(open_im_sdk.UserForSDK.InitSDK),
+	pb.FuncRequestEventName_Login:                  wrapFunc(open_im_sdk.UserForSDK.Login),
+	pb.FuncRequestEventName_Logout:                 wrapFunc(open_im_sdk.UserForSDK.Logout),
+	pb.FuncRequestEventName_SetAppBackgroundStatus: wrapFunc(open_im_sdk.UserForSDK.SetAppBackgroundStatus),
+	pb.FuncRequestEventName_NetworkStatusChanged:   wrapFunc(open_im_sdk.UserForSDK.NetworkStatusChanged),
+	pb.FuncRequestEventName_GetLoginStatus:         wrapFunc(open_im_sdk.UserForSDK.GetLoginStatus),
+	pb.FuncRequestEventName_Version:                wrapFunc(open_im_sdk.UserForSDK.Version),
 
 	pb.FuncRequestEventName_SendMessage: wrapFuncWithCallback(open_im_sdk.UserForSDK.Conversation().SendMessage),
 	pb.FuncRequestEventName_UploadLogs:  wrapFuncWithCallback(open_im_sdk.UserForSDK.Third().UploadLogs),

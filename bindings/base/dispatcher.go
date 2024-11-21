@@ -188,7 +188,11 @@ func checkResourceLoad(funcName pb.FuncRequestEventName) error {
 	if funcName == pb.FuncRequestEventName_Login {
 		return nil
 	}
-	if open_im_sdk.UserForSDK.GetLoginStatus(context.Background()) != open_im_sdk.Logged {
+	resp, err := open_im_sdk.UserForSDK.GetLoginStatus(context.Background(), &initpb.GetLoginStatusReq{})
+	if err != nil {
+		return err
+	}
+	if resp.Status == initpb.LoginStatus_Logged {
 		return sdkerrs.ErrNotLogin.WrapMsg("SDK not login", "funcName", funcName.String())
 	}
 	return nil
