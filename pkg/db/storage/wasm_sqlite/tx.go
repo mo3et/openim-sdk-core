@@ -2,6 +2,7 @@ package wasm_sqlite
 
 import (
 	"context"
+
 	js_bridge "github.com/openimsdk/openim-sdk-core/v3/proto/go/js-bridge"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
