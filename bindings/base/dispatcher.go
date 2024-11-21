@@ -46,6 +46,7 @@ func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, 
 	handleID := GenerateHandleID()
 	ffiRequest := &ffi.FfiRequest{
 		OperationID: ccontext.GetOperationID(ctx),
+		HandleID:    handleID,
 		FuncName:    funcName,
 		Data:        data,
 	}
