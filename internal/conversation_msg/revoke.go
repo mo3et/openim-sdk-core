@@ -78,7 +78,7 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 			revokerNickname = groupMember.Nickname
 		}
 	}
-	m := sdkpb.MessageRevoked{
+	m := sharedpb.RevokedTips{
 		RevokerID:                   tips.RevokerUserID,
 		RevokerRole:                 revokerRole,
 		ClientMsgID:                 revokedMsg.ClientMsgID,
@@ -90,7 +90,6 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 		SessionType:                 tips.SesstionType,
 		Seq:                         tips.Seq,
 		Ex:                          revokedMsg.Ex,
-		IsAdminRevoke:               tips.IsAdminRevoke,
 	}
 	// log.ZDebug(ctx, "callback revokeMessage", "m", m)
 	var n sdk_struct.NotificationElem
@@ -124,24 +123,24 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 		}
 
 	}
-	c.msgListener().OnNewRecvMessageRevoked(&sdkpb.EventOnNewRecvMessageRevokedData{MessageRevoked: &m})
+	c.msgListener().OnNewRecvMessageRevoked(&sdkpb.EventOnNewRecvMessageRevokedData{Revoked: &m})
 	msgList, err := c.db.SearchAllMessageByContentType(ctx, conversation.ConversationID, constant.Quote)
 	if err != nil {
 		log.ZError(ctx, "SearchAllMessageByContentType failed", err, "tips", &tips)
 		return errs.Wrap(err)
 	}
 
-	for _, v := range msgList {
-		err = c.quoteMsgRevokeHandle(ctx, tips.ConversationID, v, m)
+	for i := range msgList {
+		err = c.quoteMsgRevokeHandle(ctx, tips.ConversationID, msgList[i], &m)
 		if err != nil {
-			log.ZError(ctx, "quote Msg Revoke Handle failed.", err, "chat Log content", v)
+			log.ZError(ctx, "quote Msg Revoke Handle failed.", err, "chat Log content", msgList[i])
 		}
 	}
 	return errs.Wrap(err)
 }
 
-func (c *Conversation) quoteMsgRevokeHandle(ctx context.Context, conversationID string, v *model_struct.LocalChatLog, revokedMsg sdkpb.MessageRevoked) error {
-	s := sdk_struct.QuoteElem{}
+func (c *Conversation) quoteMsgRevokeHandle(ctx context.Context, conversationID string, v *model_struct.LocalChatLog, revokedMsg *sharedpb.RevokedTips) error {
+	s := sharedpb.QuoteElem{}
 	if v.Content == "" {
 		return errs.New("Chat Log Content not found")
 	}
@@ -157,9 +156,9 @@ func (c *Conversation) quoteMsgRevokeHandle(ctx context.Context, conversationID 
 		return nil
 	}
 
-	s.QuoteMessage.Content = utils.StructToJsonString(revokedMsg)
+	s.QuoteMessage.Content = &sharedpb.IMMessage_RevokedTips{RevokedTips: revokedMsg}
 	s.QuoteMessage.ContentType = constant.RevokeNotification
-	v.Content = utils.StructToJsonString(s)
+	v.Content = utils.StructToJsonString(MateTypeMap[s.QuoteMessage.ContentType].Get(s.QuoteMessage))
 	if err := c.db.UpdateMessageBySeq(ctx, conversationID, v); err != nil {
 		log.ZError(ctx, "UpdateMessage failed", err, "v", v)
 		return errs.Wrap(err)

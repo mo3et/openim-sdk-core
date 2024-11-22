@@ -249,10 +249,6 @@ func DifferenceSubset(mainSlice, subSlice []int64) []int64 {
 	return n
 }
 
-func TimeToString(t time.Time) string {
-	return t.Format("2006-01-02")
-}
-
 func UnmarshalNotificationElem(bytes []byte, t any) error {
 	var n sdk_struct.NotificationElem
 	err := JsonStringToStruct(string(bytes), &n)

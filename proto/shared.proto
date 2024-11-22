@@ -600,17 +600,7 @@ message DeleteMessageTips {
   repeated int64 seqs = 3;
 }
 
-message RevokeMsgTips {
-  string revokerUserID = 1;
-  string clientMsgID = 2;
-  int64 revokeTime = 3;
-  int32 sesstionType = 5;
-  int64 seq = 6;
-  string conversationID = 7;
-  bool isAdminRevoke = 8;
-}
-
-message MessageRevokedContent {
+message RevokedTips {
   string revokerID = 1;
   int32 revokerRole = 2;
   string clientMsgID = 3;
@@ -741,7 +731,7 @@ message IMMessage {
     ConversationSetPrivateTips conversationSetPrivateTips = 70;
     ConversationHasReadTips conversationHasReadTips = 71;
     DeleteMessageTips deleteMessageTips = 72;
-    RevokeMsgTips revokeMsgTips = 73;
+    RevokedTips revokedTips = 73;
     ClearConversationTips clearConversationTips = 74;
     DeleteMsgsTips deleteMsgsTips = 75;
     MarkAsReadTips markAsReadTips = 76;
