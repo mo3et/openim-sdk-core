@@ -2,7 +2,6 @@ package conversation_msg
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
@@ -295,7 +294,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 					log.ZInfo(ctx, "sync message", "msg", imMessage)
 					lc := model_struct.LocalConversation{
 						ConversationType:  v.SessionType,
-						LatestMsg:         utils.StructToJsonString(imMessage),
+						LatestMsg:         IMMessageToLocalChatLog(imMessage),
 						LatestMsgSendTime: imMessage.SendTime,
 						ConversationID:    conversationID,
 					}
@@ -320,7 +319,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 				if _, err := c.db.GetMessage(ctx, conversationID, imMessage.ClientMsgID); err != nil { //Deduplication operation
 					lc := model_struct.LocalConversation{
 						ConversationType:  v.SessionType,
-						LatestMsg:         utils.StructToJsonString(imMessage),
+						LatestMsg:         IMMessageToLocalChatLog(imMessage),
 						LatestMsgSendTime: imMessage.SendTime,
 						ConversationID:    conversationID,
 					}
@@ -505,7 +504,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 
 		if latestMsg != nil {
 			conversationList = append(conversationList, &model_struct.LocalConversation{
-				LatestMsg:         utils.StructToJsonString(latestMsg),
+				LatestMsg:         IMMessageToLocalChatLog(latestMsg),
 				LatestMsgSendTime: latestMsg.SendTime,
 				ConversationID:    conversationID,
 			})
@@ -580,10 +579,7 @@ func (c *Conversation) batchUpdateMessageList(ctx context.Context, updateMsg map
 			log.ZError(ctx, "GetConversation err", err, "conversationID", conversationID)
 			continue
 		}
-		latestMsg := &sdk_struct.MsgStruct{}
-		if err := json.Unmarshal([]byte(conversation.LatestMsg), latestMsg); err != nil {
-			log.ZError(ctx, "Unmarshal err", err, "conversationID",
-				conversationID, "latestMsg", conversation.LatestMsg, "messages", messages)
+		if conversation.LatestMsg == nil {
 			continue
 		}
 		for _, v := range messages {
@@ -599,12 +595,11 @@ func (c *Conversation) batchUpdateMessageList(ctx context.Context, updateMsg map
 			if err != nil {
 				return errs.WrapMsg(err, "BatchUpdateMessageList failed")
 			}
-			if latestMsg.ClientMsgID == v.ClientMsgID {
-				latestMsg.ServerMsgID = v.ServerMsgID
-				latestMsg.Seq = v.Seq
-				latestMsg.SendTime = v.SendTime
-				latestMsg.Status = v.Status
-				conversation.LatestMsg = utils.StructToJsonString(latestMsg)
+			if conversation.LatestMsg.ClientMsgID == v.ClientMsgID {
+				conversation.LatestMsg.ServerMsgID = v.ServerMsgID
+				conversation.LatestMsg.Seq = v.Seq
+				conversation.LatestMsg.SendTime = v.SendTime
+				conversation.LatestMsg.Status = v.Status
 
 				c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{ConID: conversation.ConversationID,
 					Action: constant.AddConOrUpLatMsg, Args: *conversation}})
