@@ -60,28 +60,6 @@ func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 	}
 	return localMessage
 }
-
-func LatestMsgToIMMessage(latestMsg string) *sdkpb.IMMessage {
-	localMessage := &model_struct.LocalChatLog{}
-	err := json.Unmarshal([]byte(latestMsg), localMessage)
-	if err != nil {
-		log.ZWarn(context.Background(), "json.Unmarshal error", err, "latestMsg", latestMsg)
-		return nil
-	}
-	return LocalChatLogToIMMessage(localMessage)
-
-}
-
-func IMMessageToLatestMsg(message *sdkpb.IMMessage) string {
-	localMessage := IMMessageToLocalChatLog(message)
-	data, err := json.Marshal(localMessage)
-	if err != nil {
-		log.ZWarn(context.Background(), "json.Marshal error", err, "localMessage", localMessage)
-		return ""
-	}
-	return string(data)
-}
-
 func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
 	message := &sdkpb.IMMessage{
 		ClientMsgID:      localMessage.ClientMsgID,
