@@ -149,7 +149,7 @@ enum ContentType {
 
   BusinessNotification = 2001;
 
-  RevokeNotification = 2101;
+  RevokedNotification = 2101;
 
   DeleteMsgsNotification = 2102;
 

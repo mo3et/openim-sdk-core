@@ -529,13 +529,10 @@ func (c *Conversation) DoConversationIsPrivateChangedNotification(ctx context.Co
 }
 
 func (c *Conversation) doBusinessNotification(ctx context.Context, msg *sdkws.MsgData) error {
-	var n sdk_struct.NotificationElem
-	err := utils.JsonStringToStruct(string(msg.Content), &n)
-	if err != nil {
-		log.ZError(ctx, "unmarshal failed", err, "msg", msg)
+	var detail string
+	if err := utils.UnmarshalNotificationElem(msg.Content, &detail); err != nil {
 		return err
-
 	}
-	c.businessListener().OnRecvCustomBusinessMessage(&sdkpb.EventOnRecvCustomBusinessMessageData{BusinessMessage: n.Detail})
+	c.businessListener().OnRecvCustomBusinessMessage(&sdkpb.EventOnRecvCustomBusinessMessageData{BusinessMessage: detail})
 	return nil
 }

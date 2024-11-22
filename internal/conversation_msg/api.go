@@ -11,7 +11,6 @@ import (
 	"sync"
 	"time"
 
-	pconstant "github.com/openimsdk/protocol/constant"
 	pbConversation "github.com/openimsdk/protocol/conversation"
 	"github.com/openimsdk/protocol/wrapperspb"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -385,10 +384,10 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 				return nil, err
 			}
 		} else {
-			if oldMessage.Status != constant.MsgStatusSendFailed {
+			if commonpb.MsgStatus(oldMessage.Status) != commonpb.MsgStatus_SendFailed {
 				return nil, sdkerrs.ErrMsgRepeat
 			} else {
-				req.Message.Status = constant.MsgStatusSending
+				req.Message.Status = commonpb.MsgStatus_Sending
 				err = c.db.InsertSendingMessage(ctx, &model_struct.LocalSendingMessages{
 					ConversationID: lc.ConversationID,
 					ClientMsgID:    req.Message.ClientMsgID,
@@ -406,8 +405,8 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 	var delFile []string
 	//media file handle
 	switch req.Message.ContentType {
-	case constant.Picture:
-		if req.Message.Status == constant.MsgStatusSendSuccess {
+	case commonpb.ContentType_Picture:
+		if req.Message.Status == commonpb.MsgStatus_SendSuccess {
 			break
 		}
 		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_PictureElem)
@@ -454,8 +453,8 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 			msgElem.PictureElem.SnapshotPicture = msgElem.PictureElem.SourcePicture
 		}
 
-	case constant.Sound:
-		if req.Message.Status == constant.MsgStatusSendSuccess {
+	case commonpb.ContentType_Sound:
+		if req.Message.Status == commonpb.MsgStatus_SendSuccess {
 			break
 		}
 		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_SoundElem)
@@ -484,8 +483,8 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 			return nil, err
 		}
 		msgElem.SoundElem.SourceURL = res.URL
-	case constant.Video:
-		if req.Message.Status == constant.MsgStatusSendSuccess {
+	case commonpb.ContentType_Video:
+		if req.Message.Status == commonpb.MsgStatus_SendSuccess {
 			break
 		}
 		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_VideoElem)
@@ -548,8 +547,8 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 		if err := putErrs; err != nil {
 			return nil, err
 		}
-	case constant.File:
-		if req.Message.Status == constant.MsgStatusSendSuccess {
+	case commonpb.ContentType_File:
+		if req.Message.Status == commonpb.MsgStatus_SendSuccess {
 			break
 		}
 		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_FileElem)
@@ -579,20 +578,20 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 			return nil, err
 		}
 		msgElem.FileElem.SourceURL = res.URL
-	case constant.Text:
-	case constant.AtText:
-	case constant.Location:
-	case constant.Custom:
-	case constant.Merger:
-	case constant.Quote:
-	case constant.Card:
-	case constant.Face:
-	case constant.AdvancedText:
-	case pconstant.Stream:
+	case commonpb.ContentType_Text:
+	case commonpb.ContentType_AtText:
+	case commonpb.ContentType_Location:
+	case commonpb.ContentType_Custom:
+	case commonpb.ContentType_Merge:
+	case commonpb.ContentType_Quote:
+	case commonpb.ContentType_Card:
+	case commonpb.ContentType_Face:
+	case commonpb.ContentType_AdvancedText:
+	case commonpb.ContentType_Stream:
 	default:
 		return nil, sdkerrs.ErrMsgContentTypeNotSupport
 	}
-	if utils.IsContainInt(int(req.Message.ContentType), []int{constant.Picture, constant.Sound, constant.Video, constant.File}) {
+	if datautil.Contain(req.Message.ContentType, commonpb.ContentType_Picture, commonpb.ContentType_Sound, commonpb.ContentType_Video, commonpb.ContentType_File) {
 		if !req.IsOnlineOnly {
 			localMessage := IMMessageToLocalChatLog(req.Message)
 			log.ZDebug(ctx, "update message is ", "localMessage", localMessage)

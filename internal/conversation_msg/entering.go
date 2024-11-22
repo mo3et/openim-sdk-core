@@ -13,7 +13,6 @@ import (
 	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
@@ -154,7 +153,9 @@ func (e *typing) getStateKey(conversationID string, userID string, platformID in
 }
 
 func (e *typing) onNewMsg(ctx context.Context, msg *sdkws.MsgData) {
-	var enteringElem sdk_struct.TypingElem
+	var enteringElem struct {
+		MsgTips string `json:"msgTips,omitempty"`
+	}
 	if err := json.Unmarshal(msg.Content, &enteringElem); err != nil {
 		log.ZError(ctx, "typing onNewMsg Unmarshal failed", err, "message", msg)
 		return

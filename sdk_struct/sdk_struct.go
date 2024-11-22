@@ -18,21 +18,6 @@ import (
 	"github.com/openimsdk/protocol/sdkws"
 )
 
-type TypingElem struct {
-	MsgTips string `json:"msgTips,omitempty"`
-}
-
-type NotificationElem struct {
-	Detail string `json:"detail,omitempty"`
-}
-
-type StreamElem struct {
-	Type    string   `json:"type,omitempty"`
-	Content string   `json:"content,omitempty"`
-	Packets []string `json:"packets,omitempty"`
-	End     bool     `json:"end"`
-}
-
 type CmdNewMsgComeToConversation struct {
 	Msgs     map[string]*sdkws.PullMsgs
 	SyncFlag int
