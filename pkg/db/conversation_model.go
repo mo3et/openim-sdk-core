@@ -8,8 +8,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
 	"gorm.io/gorm"
 
 	"github.com/openimsdk/tools/errs"
@@ -184,7 +182,7 @@ func (d *DataBase) ConversationIfExists(ctx context.Context, conversationID stri
 func (d *DataBase) ResetConversation(ctx context.Context, conversationID string) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
-	c := model_struct.LocalConversation{ConversationID: conversationID, UnreadCount: 0, LatestMsg: "", LatestMsgSendTime: 0, DraftText: "", DraftTextTime: 0}
+	c := model_struct.LocalConversation{ConversationID: conversationID, UnreadCount: 0, LatestMsg: nil, LatestMsgSendTime: 0, DraftText: "", DraftTextTime: 0}
 	t := d.conn.WithContext(ctx).Select("unread_count", "latest_msg", "latest_msg_send_time", "draft_text", "draft_text_time").Updates(c)
 	if t.RowsAffected == 0 {
 		return errs.WrapMsg(errors.New("RowsAffected == 0"), "no update")
@@ -197,7 +195,7 @@ func (d *DataBase) ResetConversation(ctx context.Context, conversationID string)
 func (d *DataBase) ResetAllConversation(ctx context.Context) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
-	c := model_struct.LocalConversation{UnreadCount: 0, LatestMsg: "", LatestMsgSendTime: 0, DraftText: "", DraftTextTime: 0}
+	c := model_struct.LocalConversation{UnreadCount: 0, LatestMsg: nil, LatestMsgSendTime: 0, DraftText: "", DraftTextTime: 0}
 	t := d.conn.WithContext(ctx).Session(&gorm.Session{AllowGlobalUpdate: true}).Select("unread_count", "latest_msg", "latest_msg_send_time", "draft_text", "draft_text_time").Updates(c)
 	if t.RowsAffected == 0 {
 		return errs.WrapMsg(errors.New("RowsAffected == 0"), "no update")
@@ -211,7 +209,7 @@ func (d *DataBase) ResetAllConversation(ctx context.Context) error {
 func (d *DataBase) ClearConversation(ctx context.Context, conversationID string) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
-	c := model_struct.LocalConversation{ConversationID: conversationID, UnreadCount: 0, LatestMsg: "", DraftText: "", DraftTextTime: 0}
+	c := model_struct.LocalConversation{ConversationID: conversationID, UnreadCount: 0, LatestMsg: nil, DraftText: "", DraftTextTime: 0}
 	t := d.conn.WithContext(ctx).Select("unread_count", "latest_msg", "draft_text", "draft_text_time").Updates(c)
 	if t.RowsAffected == 0 {
 		return errs.WrapMsg(errors.New("RowsAffected == 0"), "no update")
@@ -355,40 +353,4 @@ func (d *DataBase) SearchConversations(ctx context.Context, searchParam string) 
 	condition := fmt.Sprintf("show_name like %q ", "%"+searchParam+"%")
 	var conversationList []*model_struct.LocalConversation
 	return conversationList, errs.WrapMsg(d.conn.WithContext(ctx).Where(condition).Order("latest_msg_send_time DESC").Find(&conversationList).Error, "SearchConversation failed ")
-}
-
-func (d *DataBase) ChangeConversationLatestMsgToPB(ctx context.Context) error {
-	return d.conn.Transaction(func(tx *gorm.DB) error {
-		var (
-			offset = 0
-			limit  = 100
-		)
-
-		for {
-			var conversationList []*model_struct.LocalConversation
-			if err := tx.WithContext(ctx).Offset(offset).Limit(limit).Find(&conversationList).Error; err != nil {
-				return errs.WrapMsg(err, "get conversation list failed")
-			}
-			for _, conv := range conversationList {
-				var (
-					oldMsg = sdk_struct.MsgStruct{}
-				)
-
-				if err := utils.JsonStringToStruct(conv.LatestMsg, &oldMsg); err != nil {
-					log.ZWarn(ctx, "JsonStringToStruct failed", err, "latestMsg", conv.LatestMsg)
-					continue
-				}
-				newMsg := utils.SDKStructMsgToDB(&oldMsg)
-				conv.LatestMsg = utils.StructToJsonString(newMsg)
-
-				if err := tx.WithContext(ctx).Updates(conv).Error; err != nil {
-					return errs.WrapMsg(err, "update latest_msg_send_time failed")
-				}
-			}
-			if len(conversationList) != limit {
-				break
-			}
-		}
-		return nil
-	})
 }

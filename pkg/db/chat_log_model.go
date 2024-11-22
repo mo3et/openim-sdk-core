@@ -23,8 +23,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
@@ -357,12 +355,13 @@ func (d *DataBase) MarkConversationMessageAsReadDB(ctx context.Context, conversa
 	if err := d.conn.WithContext(ctx).Table(utils.GetConversationTableName(conversationID)).Where("client_msg_id in ? AND send_id != ?", msgIDs, d.loginUserID).Find(&msgs).Error; err != nil {
 		return 0, errs.WrapMsg(err, "MarkConversationMessageAsReadDB failed")
 	}
-	for _, msg := range msgs {
-		var attachedInfo sdk_struct.AttachedInfoElem
-		utils.JsonStringToStruct(msg.AttachedInfo, &attachedInfo)
-		attachedInfo.HasReadTime = utils.GetCurrentTimestampByMill()
+	for i := range msgs {
+		msg := msgs[i]
 		msg.IsRead = true
-		msg.AttachedInfo = utils.StructToJsonString(attachedInfo)
+		if msg.AttachedInfo == nil {
+			msg.AttachedInfo = &model_struct.AttachedInfoElem{}
+		}
+		msg.AttachedInfo.HasReadTime = utils.GetCurrentTimestampByMill()
 		if err := d.conn.WithContext(ctx).Table(utils.GetConversationTableName(conversationID)).Where("client_msg_id = ?", msg.ClientMsgID).Updates(msg).Error; err != nil {
 			log.ZError(ctx, "MarkConversationMessageAsReadDB failed", err, "msg", msg)
 		} else {

@@ -175,14 +175,6 @@ type FriendModel interface {
 	DeleteBlack(ctx context.Context, blockUserID string) error
 }
 
-type ReactionModel interface {
-	GetMessageReactionExtension(ctx context.Context, msgID string) (result *model_struct.LocalChatLogReactionExtensions, err error)
-	InsertMessageReactionExtension(ctx context.Context, messageReactionExtension *model_struct.LocalChatLogReactionExtensions) error
-	UpdateMessageReactionExtension(ctx context.Context, c *model_struct.LocalChatLogReactionExtensions) error
-	GetMultipleMessageReactionExtension(ctx context.Context, msgIDList []string) (result []*model_struct.LocalChatLogReactionExtensions, err error)
-	DeleteMessageReactionExtension(ctx context.Context, msgID string) error
-}
-
 type S3Model interface {
 	GetUpload(ctx context.Context, partHash string) (*model_struct.LocalUpload, error)
 	InsertUpload(ctx context.Context, upload *model_struct.LocalUpload) error
@@ -217,7 +209,6 @@ type DataBase interface {
 	ConversationModel
 	UserModel
 	FriendModel
-	ReactionModel
 	S3Model
 	SendingMessagesModel
 	VersionSyncModel

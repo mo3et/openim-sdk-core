@@ -57,27 +57,6 @@ type DataBase struct {
 	mRWMutex     sync.RWMutex
 }
 
-func (d *DataBase) GetMultipleMessageReactionExtension(ctx context.Context, msgIDList []string) (result []*model_struct.LocalChatLogReactionExtensions, err error) {
-	// TODO implement me
-	panic("implement me")
-}
-
-func (d *DataBase) InitSuperLocalErrChatLog(ctx context.Context, groupID string) {
-	panic("implement me")
-}
-
-func (d *DataBase) InitSuperLocalChatLog(ctx context.Context, groupID string) {
-	panic("implement me")
-}
-
-func (d *DataBase) SetChatLogFailedStatus(ctx context.Context) {
-	panic("implement me")
-}
-
-func (d *DataBase) InitDB(ctx context.Context, userID string, dataDir string) error {
-	panic("implement me")
-}
-
 func (d *DataBase) Close(ctx context.Context) error {
 	dbConn, err := d.conn.WithContext(ctx).DB()
 	if err != nil {
@@ -165,10 +144,7 @@ func (d *DataBase) versionDataMigrate(ctx context.Context) error {
 			&model_struct.NotificationSeqs{},
 			&model_struct.LocalChatLog{},
 			&model_struct.LocalAdminGroupRequest{},
-			&model_struct.LocalWorkMomentsNotification{},
-			&model_struct.LocalWorkMomentsNotificationUnreadCount{},
 			&model_struct.TempCacheLocalChatLog{},
-			&model_struct.LocalChatLogReactionExtensions{},
 			&model_struct.LocalUpload{},
 			&model_struct.LocalStranger{},
 			&model_struct.LocalSendingMessages{},
@@ -194,10 +170,6 @@ func (d *DataBase) versionDataMigrate(ctx context.Context) error {
 			d.conn.AutoMigrate(&model_struct.LocalAppSDKVersion{})
 			fallthrough
 		case "3.8.1":
-			log.ZDebug(ctx, "3.8.1 update")
-			if err = d.ChangeConversationLatestMsgToPB(ctx); err != nil {
-				return err
-			}
 		}
 		err = d.SetAppSDKVersion(ctx, &model_struct.LocalAppSDKVersion{Version: version.Version})
 		if err != nil {
