@@ -2,6 +2,7 @@ syntax = "proto3";
 package openim.sdk.conversation;
 
 import "shared.proto";
+import "common.proto";
 
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation";
@@ -93,8 +94,8 @@ message SetConversationDraftResp {}
 
 message SetConversationReq {
   string conversationID = 1;
-  optional int32 recvMsgOpt = 2;
-  optional int32 groupAtType = 3;
+  optional common.ConvRecvMsgOpt  recvMsgOpt = 2;
+  optional common.ConvGroupAtType groupAtType = 3;
   optional bool isPinned = 4;
   optional bool isPrivateChat = 5;
   optional int32 burnDuration = 6;
