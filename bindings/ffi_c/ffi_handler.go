@@ -1,4 +1,4 @@
-package handlers
+package main
 
 /*
 #include <stdio.h>
@@ -7,7 +7,7 @@ package handlers
 
 typedef void (*CallBack)(void* dataPtr,int len);
 extern CallBack eventCallBack;
-extern void CallCallBack(CallBack cb,char* dataPtr,int dataLength);
+extern void InvokeCallBack(CallBack cb,char* dataPtr,int dataLength);
 */
 import "C"
 
@@ -37,7 +37,7 @@ const (
 	checkTimePeriod = time.Minute * 1
 )
 
-func init() {
+func Initialize() {
 	base.SetDispatchFfiResultFunc(dispatchResultForC)
 	go monitorResultMapSize()
 }
@@ -57,7 +57,7 @@ func dispatchResultForC(handleID uint64, data []byte) {
 	mu.Unlock()
 	if C.eventCallBack != nil {
 		len := C.int(len(data))
-		C.CallCallBack(C.eventCallBack, (*C.char)(unsafe.Pointer(cData)), len)
+		C.InvokeCallBack(C.eventCallBack, (*C.char)(unsafe.Pointer(cData)), len)
 	}
 	// Currently, the SDK uses asynchronous calls for Go to C interface
 	//exports to other languages, so no return value is needed here.
