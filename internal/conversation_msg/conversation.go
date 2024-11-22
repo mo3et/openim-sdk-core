@@ -77,7 +77,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 	t = time.Now()
 
 	var thisMinSeq int64
-	thisMinSeq, messageList = c.LocalChatLog2MsgStruct(ctx, list)
+	thisMinSeq, messageList = c.LocalChatLog2IMMessage(ctx, list)
 	log.ZDebug(ctx, "message convert and unmarshal", "unmarshal cost time", time.Since(t))
 	t = time.Now()
 	if !isReverse {
@@ -149,7 +149,7 @@ func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversati
 	return list, nil
 }
 
-func (c *Conversation) LocalChatLog2MsgStruct(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sharedpb.IMMessage) {
+func (c *Conversation) LocalChatLog2IMMessage(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sharedpb.IMMessage) {
 	messageList := make([]*sharedpb.IMMessage, 0, len(list))
 	var thisMinSeq int64
 	for _, v := range list {

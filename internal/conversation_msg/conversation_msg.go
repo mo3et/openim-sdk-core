@@ -4,9 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"math"
 	"sync"
+
+	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 
 	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	grouppb "github.com/openimsdk/openim-sdk-core/v3/proto/go/group"
@@ -814,7 +815,7 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 	if len(res) == 0 {
 		return []*sharedpb.IMMessage{}, nil
 	}
-	_, msgList := c.LocalChatLog2MsgStruct(ctx, []*model_struct.LocalChatLog{res[0]})
+	_, msgList := c.LocalChatLog2IMMessage(ctx, []*model_struct.LocalChatLog{res[0]})
 	if len(msgList) == 0 {
 		return []*sharedpb.IMMessage{}, nil
 	}

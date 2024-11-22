@@ -92,9 +92,9 @@ func (c *Conversation) updateConversationLastMsg(ctx context.Context, conversati
 			return nil
 		}
 	}
-	_, res := c.LocalChatLog2MsgStruct(ctx, []*model_struct.LocalChatLog{msg})
+	_, res := c.LocalChatLog2IMMessage(ctx, []*model_struct.LocalChatLog{msg})
 	if len(res) == 0 {
-		log.ZWarn(ctx, "LocalChatLog2MsgStruct failed", nil, "msg", msg)
+		log.ZWarn(ctx, "LocalChatLog2IMMessage failed", nil, "msg", msg)
 		return nil
 	}
 	oc.LatestMsgSendTime = msg.SendTime
