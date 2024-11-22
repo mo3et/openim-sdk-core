@@ -14,11 +14,7 @@
 
 package model_struct
 
-import (
-	"database/sql/driver"
-	"encoding/json"
-	"github.com/openimsdk/tools/errs"
-)
+type StringArray []string
 
 type LocalFriend struct {
 	OwnerUserID    string `gorm:"column:owner_user_id;primary_key;type:varchar(64)" json:"ownerUserID"`
@@ -235,33 +231,33 @@ type TempCacheLocalChatLog struct {
 }
 
 type LocalConversation struct {
-	ConversationID        string `gorm:"column:conversation_id;primary_key;type:varchar(128)" json:"conversationID"`
-	ConversationType      int32  `gorm:"column:conversation_type" json:"conversationType"`
-	UserID                string `gorm:"column:user_id;type:varchar(64)" json:"userID"`
-	GroupID               string `gorm:"column:group_id;type:varchar(128)" json:"groupID"`
-	ShowName              string `gorm:"column:show_name;type:varchar(255)" json:"showName"`
-	FaceURL               string `gorm:"column:face_url;type:varchar(255)" json:"faceURL"`
-	RecvMsgOpt            int32  `gorm:"column:recv_msg_opt" json:"recvMsgOpt"`
-	UnreadCount           int32  `gorm:"column:unread_count" json:"unreadCount"`
-	GroupAtType           int32  `gorm:"column:group_at_type" json:"groupAtType"`
-	LatestMsg             string `gorm:"column:latest_msg;type:text" json:"latestMsg"`
-	LatestMsgSendTime     int64  `gorm:"column:latest_msg_send_time;index:index_latest_msg_send_time" json:"latestMsgSendTime"`
-	DraftText             string `gorm:"column:draft_text" json:"draftText"`
-	DraftTextTime         int64  `gorm:"column:draft_text_time" json:"draftTextTime"`
-	IsPinned              bool   `gorm:"column:is_pinned" json:"isPinned"`
-	IsPrivateChat         bool   `gorm:"column:is_private_chat" json:"isPrivateChat"`
-	BurnDuration          int32  `gorm:"column:burn_duration;default:30" json:"burnDuration"`
-	IsNotInGroup          bool   `gorm:"column:is_not_in_group" json:"isNotInGroup"`
-	UpdateUnreadCountTime int64  `gorm:"column:update_unread_count_time" json:"updateUnreadCountTime"`
-	AttachedInfo          string `gorm:"column:attached_info;type:text" json:"attachedInfo"`
-	Ex                    string `gorm:"column:ex;type:text" json:"ex"`
-	MaxSeq                int64  `gorm:"column:max_seq" json:"maxSeq"`
-	MinSeq                int64  `gorm:"column:min_seq" json:"minSeq"`
-	MsgDestructTime       int64  `gorm:"column:msg_destruct_time;default:604800" json:"msgDestructTime"`
-	IsMsgDestruct         bool   `gorm:"column:is_msg_destruct;default:false" json:"isMsgDestruct"`
+	ConversationID        string        `gorm:"column:conversation_id;primary_key;type:varchar(128)" json:"conversationID"`
+	ConversationType      int32         `gorm:"column:conversation_type" json:"conversationType"`
+	UserID                string        `gorm:"column:user_id;type:varchar(64)" json:"userID"`
+	GroupID               string        `gorm:"column:group_id;type:varchar(128)" json:"groupID"`
+	ShowName              string        `gorm:"column:show_name;type:varchar(255)" json:"showName"`
+	FaceURL               string        `gorm:"column:face_url;type:varchar(255)" json:"faceURL"`
+	RecvMsgOpt            int32         `gorm:"column:recv_msg_opt" json:"recvMsgOpt"`
+	UnreadCount           int32         `gorm:"column:unread_count" json:"unreadCount"`
+	GroupAtType           int32         `gorm:"column:group_at_type" json:"groupAtType"`
+	LatestMsg             *LocalChatLog `gorm:"column:latest_msg;type:text" json:"latestMsg"`
+	LatestMsgSendTime     int64         `gorm:"column:latest_msg_send_time;index:index_latest_msg_send_time" json:"latestMsgSendTime"`
+	DraftText             string        `gorm:"column:draft_text" json:"draftText"`
+	DraftTextTime         int64         `gorm:"column:draft_text_time" json:"draftTextTime"`
+	IsPinned              bool          `gorm:"column:is_pinned" json:"isPinned"`
+	IsPrivateChat         bool          `gorm:"column:is_private_chat" json:"isPrivateChat"`
+	BurnDuration          int32         `gorm:"column:burn_duration;default:30" json:"burnDuration"`
+	IsNotInGroup          bool          `gorm:"column:is_not_in_group" json:"isNotInGroup"`
+	UpdateUnreadCountTime int64         `gorm:"column:update_unread_count_time" json:"updateUnreadCountTime"`
+	AttachedInfo          string        `gorm:"column:attached_info;type:text" json:"attachedInfo"`
+	Ex                    string        `gorm:"column:ex;type:text" json:"ex"`
+	MaxSeq                int64         `gorm:"column:max_seq" json:"maxSeq"`
+	MinSeq                int64         `gorm:"column:min_seq" json:"minSeq"`
+	MsgDestructTime       int64         `gorm:"column:msg_destruct_time;default:604800" json:"msgDestructTime"`
+	IsMsgDestruct         bool          `gorm:"column:is_msg_destruct;default:false" json:"isMsgDestruct"`
 }
 
-func (LocalConversation) TableName() string {
+func (*LocalConversation) TableName() string {
 	return "local_conversations"
 }
 
@@ -368,35 +364,6 @@ type LocalUserCommand struct {
 
 func (LocalUserCommand) TableName() string {
 	return "local_user_command"
-}
-
-type StringArray []string
-
-func (a *StringArray) Value() (driver.Value, error) {
-	data, err := json.Marshal(a)
-	if err != nil {
-		return nil, err
-	}
-	return string(data), nil
-	//return json.Marshal(a)
-}
-
-func (a *StringArray) Scan(value interface{}) error {
-	var b []byte
-	switch v := value.(type) {
-	case []byte:
-		b = v
-	case string:
-		b = []byte(v)
-		//var err error
-		//b, err = base64.StdEncoding.DecodeString(v)
-		//if err != nil {
-		//	return err
-		//}
-	default:
-		return errs.New("type assertion to []byte failed").Wrap()
-	}
-	return json.Unmarshal(b, a)
 }
 
 type LocalVersionSync struct {
