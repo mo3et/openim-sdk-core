@@ -12,6 +12,7 @@ type mateType struct {
 	Notification bool
 }
 
+// TODO: 通知
 var MateTypeMap = map[commonpb.ContentType]mateType{
 	// message
 	commonpb.ContentType_Text: {

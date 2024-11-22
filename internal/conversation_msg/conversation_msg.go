@@ -217,8 +217,8 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 	updateMsg := make(map[string][]*model_struct.LocalChatLog, 10)
 	//var exceptionMsg []*model_struct.LocalErrChatLog
 	//var unreadMessages []*model_struct.LocalConversationUnreadMessage
-	var newMessages sdk_struct.NewMsgList
-	// var reactionMsgModifierList, reactionMsgDeleterList sdk_struct.NewMsgList
+	var newMessages MsgList
+	// var reactionMsgModifierList, reactionMsgDeleterList MsgList
 
 	var isUnreadCount, isConversationUpdate, isHistory, isNotPrivate, isSenderConversationUpdate bool
 
@@ -633,10 +633,7 @@ func (c *Conversation) batchInsertMessageList(ctx context.Context, insertMsg map
 	return nil
 }
 
-func (c *Conversation) DoMsgReaction(msgReactionList []*sdk_struct.MsgStruct) {
-}
-
-func (c *Conversation) newMessage(ctx context.Context, newMessagesList sdk_struct.NewMsgList, cc, nc map[string]*model_struct.LocalConversation, onlineMsg map[onlineMsgKey]struct{}) {
+func (c *Conversation) newMessage(ctx context.Context, newMessagesList MsgList, cc, nc map[string]*model_struct.LocalConversation, onlineMsg map[onlineMsgKey]struct{}) {
 	sort.Sort(newMessagesList)
 	if c.GetBackground() {
 		resp, err := c.user.GetSelfUserInfo(ctx, nil)
@@ -849,6 +846,6 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 		}
 		result = append(result, val.MessageList...)
 	}
-	sort.Sort(sdk_struct.NewMsgList(result))
+	sort.Sort(MsgList(result))
 	return result, nil
 }

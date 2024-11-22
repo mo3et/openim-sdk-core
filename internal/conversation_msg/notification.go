@@ -16,7 +16,6 @@ package conversation_msg
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"reflect"
 	"runtime"
@@ -185,14 +184,6 @@ func (c *Conversation) doNotification(ctx context.Context, msg *sdkws.MsgData) e
 		return c.doStreamMsgNotification(ctx, msg)
 	}
 	return errs.New("unknown tips type", "contentType", msg.ContentType).Wrap()
-}
-
-func (c *Conversation) getConversationLatestMsgClientID(latestMsg string) string {
-	msg := &sdk_struct.MsgStruct{}
-	if err := json.Unmarshal([]byte(latestMsg), msg); err != nil {
-		log.ZError(context.Background(), "getConversationLatestMsgClientID", err, "latestMsg", latestMsg)
-	}
-	return msg.ClientMsgID
 }
 
 func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {

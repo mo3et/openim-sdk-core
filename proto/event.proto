@@ -251,23 +251,9 @@ message MessageReceipt {
 message EventOnRecvC2CReadReceiptData {
   repeated MessageReceipt msgReceiptList = 1;
 }
-message MessageRevoked {
-  string revokerID = 1;
-  int32 revokerRole = 2;
-  string clientMsgID = 3;
-  string revokerNickname = 4;
-  int64 revokeTime = 5;
-  int64 sourceMessageSendTime = 6;
-  string sourceMessageSendID = 7;
-  string sourceMessageSenderNickname = 8;
-  int32 sessionType = 9;
-  int64 seq = 10;
-  string ex = 11;
-  bool isAdminRevoke = 12;
-}
 
 message EventOnNewRecvMessageRevokedData {
-  MessageRevoked messageRevoked = 1;
+  openim.sdk.shared.RevokedTips revoked = 1;
 }
 message EventOnRecvOfflineNewMessageData {
   openim.sdk.shared.IMMessage message = 1;

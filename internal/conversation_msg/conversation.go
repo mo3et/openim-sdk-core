@@ -33,8 +33,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
 	"github.com/openimsdk/tools/log"
 
 	"github.com/openimsdk/protocol/sdkws"
@@ -58,7 +56,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 	var conversationID string
 	var startTime int64
 	var err error
-	var messageList sdk_struct.NewMsgList
+	var messageList MsgList
 	conversationID = req.ConversationID
 	if len(req.StartClientMsgID) > 0 {
 		m, err := c.db.GetMessage(ctx, conversationID, req.StartClientMsgID)
