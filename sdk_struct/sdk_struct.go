@@ -255,15 +255,10 @@ type AtInfo struct {
 	GroupNickname string `json:"groupNickname,omitempty"`
 }
 type AttachedInfoElem struct {
-	GroupHasReadInfo  GroupHasReadInfo `json:"groupHasReadInfo,omitempty"`
-	IsPrivateChat     bool             `json:"isPrivateChat"`
-	BurnDuration      int32            `json:"burnDuration"`
-	HasReadTime       int64            `json:"hasReadTime"`
-	MessageEntityList []*MessageEntity `json:"messageEntityList,omitempty"`
-	IsEncryption      bool             `json:"isEncryption"`
-	InEncryptStatus   bool             `json:"inEncryptStatus"`
-	//MessageReactionElem       []*ReactionElem  `json:"messageReactionElem,omitempty"`
-	Progress *UploadProgress `json:"uploadProgress,omitempty"`
+	IsPrivateChat bool            `json:"isPrivateChat"`
+	BurnDuration  int32           `json:"burnDuration"`
+	HasReadTime   int64           `json:"hasReadTime"`
+	Progress      *UploadProgress `json:"uploadProgress,omitempty"`
 }
 
 type UploadProgress struct {

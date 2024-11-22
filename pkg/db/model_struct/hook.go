@@ -4,8 +4,9 @@ import (
 	"context"
 	"database/sql/driver"
 	"encoding/json"
+	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 	"gorm.io/gorm"
 )
@@ -33,7 +34,7 @@ func (a *LocalChatLog) Scan(value any) error {
 	case string:
 		b = []byte(v)
 	default:
-		return errs.New("type assertion to []byte failed").Wrap()
+		return newUnsupportedScanTypeError(value)
 	}
 	if len(b) > 0 {
 		var msgID latestMsgID
@@ -63,7 +64,6 @@ func (a *StringArray) Value() (driver.Value, error) {
 		return nil, err
 	}
 	return string(data), nil
-	//return json.Marshal(a)
 }
 
 func (a *StringArray) Scan(value any) error {
@@ -73,13 +73,33 @@ func (a *StringArray) Scan(value any) error {
 		b = v
 	case string:
 		b = []byte(v)
-		//var err error
-		//b, err = base64.StdEncoding.DecodeString(v)
-		//if err != nil {
-		//	return err
-		//}
 	default:
-		return errs.New("type assertion to []byte failed").Wrap()
+		return newUnsupportedScanTypeError(value)
 	}
 	return json.Unmarshal(b, a)
+}
+
+func (a *AttachedInfoElem) Value() (driver.Value, error) {
+	data, err := json.Marshal(a)
+	if err != nil {
+		return nil, err
+	}
+	return string(data), nil
+}
+
+func (a *AttachedInfoElem) Scan(value any) error {
+	var b []byte
+	switch v := value.(type) {
+	case []byte:
+		b = v
+	case string:
+		b = []byte(v)
+	default:
+		return newUnsupportedScanTypeError(value)
+	}
+	return json.Unmarshal(b, a)
+}
+
+func newUnsupportedScanTypeError(value any) error {
+	return sdkerrs.ErrInternal.WrapMsg("gorm unsupported scan type", "type", fmt.Sprintf("%T", value), "value", value)
 }

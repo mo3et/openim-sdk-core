@@ -40,8 +40,16 @@ func TestName(t *testing.T) {
 	if err := db.Create(&cs).Error; err != nil {
 		panic(err)
 	}
+	if err := db.Model(&LocalConversation{}).Where("conversation_id", "2").Updates(map[string]any{"latest_msg": &LocalChatLog{ClientMsgID: "2", Content: "hello_2"}}).Error; err != nil {
+		panic(err)
+	}
+	if err := db.Session(&gorm.Session{}).Table(utils.GetTableName("2")).Migrator().AutoMigrate(&LocalChatLog{}); err != nil {
+		panic(err)
+	}
+	if err := db.Table(utils.GetTableName("2")).Create(&LocalChatLog{ClientMsgID: "2", Content: "hello_2"}).Error; err != nil {
+		panic(err)
+	}
 	var cs1 []*LocalConversation
-
 	if err := db.Find(&cs1).Error; err != nil {
 		panic(err)
 	}
