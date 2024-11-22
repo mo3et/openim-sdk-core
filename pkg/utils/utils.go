@@ -9,10 +9,6 @@ import (
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
-	"reflect"
-
 	"github.com/pkg/errors"
 
 	"math/rand"
@@ -55,25 +51,10 @@ func StructToJsonString(param any) string {
 	return dataString
 }
 
-func StructToJsonStringDefault(param any) string {
-	if reflect.TypeOf(param).Kind() == reflect.Slice && reflect.ValueOf(param).Len() == 0 {
-		return "[]"
-	}
-	return StructToJsonString(param)
-}
-
 // The incoming parameter must be a pointer
 func JsonStringToStruct(s string, args any) error {
 	return Wrap(json.Unmarshal([]byte(s), args), "json Unmarshal failed")
 }
-func FirstLower(s string) string {
-	if s == "" {
-		return ""
-	}
-	return strings.ToLower(s[:1]) + s[1:]
-}
-
-//Convert timestamp to time.Time type
 
 func UnixSecondToTime(second int64) time.Time {
 	return time.Unix(second, 0)
@@ -85,7 +66,6 @@ func Int64ToString(i int64) string {
 	return strconv.FormatInt(i, 10)
 }
 
-// judge a string whether in the  string list
 func IsContain(target string, List []string) bool {
 
 	for _, element := range List {
@@ -166,9 +146,6 @@ func GetConversationTableName(conversationID string) string {
 func GetTableName(conversationID string) string {
 	return constant.ChatLogsTableNamePre + conversationID
 }
-func GetErrTableName(conversationID string) string {
-	return constant.SuperGroupErrChatLogsTableNamePre + conversationID
-}
 
 func KMP(rMainString string, rSubString string) (isInMainString bool) {
 	mainString := strings.ToLower(rMainString)
@@ -234,29 +211,15 @@ func TrimStringList(list []string) (result []string) {
 
 }
 
-// Get the diff of two slices
-func DifferenceSubset(mainSlice, subSlice []int64) []int64 {
-	m := make(map[int64]bool)
-	n := make([]int64, 0)
-	for _, v := range subSlice {
-		m[v] = true
-	}
-	for _, v := range mainSlice {
-		if !m[v] {
-			n = append(n, v)
-		}
-	}
-	return n
-}
-
 func UnmarshalNotificationElem(bytes []byte, t any) error {
-	var n sdk_struct.NotificationElem
-	err := JsonStringToStruct(string(bytes), &n)
-	if err != nil {
+	var elem struct {
+		Detail string `json:"detail,omitempty"`
+	}
+	if err := JsonStringToStruct(string(bytes), &elem); err != nil {
 		return err
 	}
-	err = JsonStringToStruct(n.Detail, t)
-	if err != nil {
+
+	if err := JsonStringToStruct(elem.Detail, t); err != nil {
 		return err
 	}
 	return nil

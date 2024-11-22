@@ -24,7 +24,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/utils/timeutil"
 
@@ -92,10 +91,8 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 		Ex:                          revokedMsg.Ex,
 	}
 	// log.ZDebug(ctx, "callback revokeMessage", "m", m)
-	var n sdk_struct.NotificationElem
-	n.Detail = utils.StructToJsonString(m)
 	if err := c.db.UpdateMessageBySeq(ctx, tips.ConversationID, &model_struct.LocalChatLog{Seq: tips.Seq,
-		Content: utils.StructToJsonString(n), ContentType: constant.RevokeNotification}); err != nil {
+		Content: utils.StructToJsonString(MateTypeMap[constant.RevokeNotification].Get(&m)), ContentType: constant.RevokeNotification}); err != nil {
 		log.ZError(ctx, "UpdateMessageBySeq failed", err, "tips", &tips)
 		return errs.Wrap(err)
 	}

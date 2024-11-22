@@ -13,7 +13,6 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
@@ -45,7 +44,7 @@ func (c *Conversation) doStreamMsgNotification(ctx context.Context, msg *sdkws.M
 	if dbMsg.ContentType != constant.Stream {
 		return errors.New("content type is not stream")
 	}
-	var streamElem sdk_struct.StreamElem
+	var streamElem sharedpb.StreamElem
 	if err := json.Unmarshal([]byte(dbMsg.Content), &streamElem); err != nil {
 		return err
 	}
@@ -54,7 +53,7 @@ func (c *Conversation) doStreamMsgNotification(ctx context.Context, msg *sdkws.M
 		return nil
 	}
 	if len(streamElem.Packets) < int(tips.StartIndex) {
-		log.ZWarn(ctx, "db stream msg packets is not enough", nil, "streamElem", streamElem, "tips", tips)
+		log.ZWarn(ctx, "db stream msg packets is not enough", nil, "streamElem", &streamElem, "tips", tips)
 		c.asyncStreamMsg(ctx, tips.ConversationID, tips.ClientMsgID)
 		return nil
 	}
@@ -63,7 +62,7 @@ func (c *Conversation) doStreamMsgNotification(ctx context.Context, msg *sdkws.M
 		streamElem.Packets = append(streamElem.Packets, packet)
 	}
 	streamElem.End = tips.End
-	data := utils.StructToJsonString(streamElem)
+	data := utils.StructToJsonString(&streamElem)
 	if data == dbMsg.Content {
 		log.ZDebug(ctx, "stream msg unchanged")
 		return nil
@@ -120,7 +119,7 @@ func (c *Conversation) syncStreamMsg(ctx context.Context, conversationID string,
 	if dbMsg.ContentType != constant.Stream {
 		return errors.New("content type is not stream")
 	}
-	var streamElem sdk_struct.StreamElem
+	var streamElem sharedpb.StreamElem
 	if err := json.Unmarshal([]byte(dbMsg.Content), &streamElem); err != nil {
 		return errs.WrapMsg(err, "unmarshal stream msg failed")
 	}

@@ -196,7 +196,7 @@ func stringToMsgContent(msg *sdkpb.IMMessage, content string) {
 	elem := m.New()
 	var err error
 	if m.Notification {
-		err = unmarshalNotificationElem(content, elem)
+		err = utils.UnmarshalNotificationElem([]byte(content), elem)
 	} else {
 		err = utils.JsonStringToStruct(content, elem)
 	}
@@ -204,16 +204,4 @@ func stringToMsgContent(msg *sdkpb.IMMessage, content string) {
 		log.ZError(context.Background(), "stringToMsgContent unmarshal", err, "msg", msg, "notification", m.Notification, "content", content)
 	}
 	m.Set(msg, elem)
-}
-
-func unmarshalNotificationElem(content string, tips any) error {
-	var elem notificationElem
-	if err := utils.JsonStringToStruct(content, &elem); err != nil {
-		return err
-	}
-	return utils.JsonStringToStruct(elem.Detail, tips)
-}
-
-type notificationElem struct {
-	Detail string `json:"detail,omitempty"`
 }
