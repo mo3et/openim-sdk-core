@@ -283,14 +283,13 @@ func (c *Conversation) pullMessageIntoTable(ctx context.Context, pullMsgData map
 		localMessagesMap := datautil.SliceToMap(localMessages, func(msg *model_struct.LocalChatLog) string { return msg.ClientMsgID })
 		for _, v := range msgs.Msgs {
 			log.ZDebug(ctx, "msg detail", "msg", v, "conversationID", conversationID)
-			chatLog := MsgDataToLocalChatLog(v)
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally
 			//without any conversation and message update.
-			if chatLog.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, chatLog)
+			if v.Status == constant.MsgStatusHasDeleted {
+				insertMessage = append(insertMessage, MsgDataToLocalChatLog(v))
 				continue
 			}
-			chatLog.Status = constant.MsgStatusSendSuccess
+			chatLog := MsgDataToLocalChatLog(v)
 			// The message might be a filler provided by the server due to a gap in the sequence.
 			if chatLog.ClientMsgID == "" {
 				chatLog.ClientMsgID = utils.GetMsgID(c.loginUserID) + utils.Int64ToString(chatLog.Seq)

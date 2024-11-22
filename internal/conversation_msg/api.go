@@ -563,15 +563,22 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 		if name == "" {
 			name = fmt.Sprintf("msg_file_%req.Message.unknown", req.Message.ClientMsgID)
 		}
-
-		delFile = append(delFile, msgElem.FileElem.FilePath)
+		var sourcePath string
+		if utils.FileExist(msgElem.FileElem.FilePath) {
+			sourcePath = msgElem.FileElem.FilePath
+			delFile = append(delFile, utils.FileTmpPath(msgElem.FileElem.FilePath, c.DataDir))
+		} else {
+			sourcePath = utils.FileTmpPath(msgElem.FileElem.FilePath, c.DataDir)
+			delFile = append(delFile, sourcePath)
+		}
 
 		res, err := c.file.UploadFile(ctx, &file.UploadFileReq{
-			ContentType: content_type.GetType(msgElem.FileElem.FileType, filepath.Ext(msgElem.FileElem.FilePath), filepath.Ext(msgElem.FileElem.FileName)),
-			Filepath:    msgElem.FileElem.FilePath,
-			Uuid:        msgElem.FileElem.Uuid,
-			Name:        c.fileName("file", req.Message.ClientMsgID) + "/" + filepath.Base(name),
-			Cause:       "msg-file",
+			ContentType: content_type.GetType(msgElem.FileElem.FileType, filepath.Ext(msgElem.FileElem.FilePath),
+				filepath.Ext(msgElem.FileElem.FileName)),
+			Filepath: sourcePath,
+			Uuid:     msgElem.FileElem.Uuid,
+			Name:     c.fileName("file", req.Message.ClientMsgID) + "/" + filepath.Base(name),
+			Cause:    "msg-file",
 		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
 		if err != nil {
 			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
