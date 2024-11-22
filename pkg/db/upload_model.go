@@ -16,8 +16,6 @@ package db
 
 import (
 	"context"
-	"time"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 
 	"github.com/openimsdk/tools/errs"
@@ -54,20 +52,4 @@ func (d *DataBase) DeleteUpload(ctx context.Context, partHash string) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
 	return d.deleteUpload(ctx, partHash)
-}
-
-func (d *DataBase) DeleteExpireUpload(ctx context.Context) error {
-	d.mRWMutex.Lock()
-	defer d.mRWMutex.Unlock()
-	var uploads []*model_struct.LocalUpload
-	err := d.conn.WithContext(ctx).Where("expire_time <= ?", time.Now().UnixMilli()).Find(&uploads).Error
-	if err != nil {
-		return errs.Wrap(err)
-	}
-	for _, upload := range uploads {
-		if err := d.deleteUpload(ctx, upload.PartHash); err != nil {
-			return err
-		}
-	}
-	return nil
 }

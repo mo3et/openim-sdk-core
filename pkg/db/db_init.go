@@ -78,13 +78,23 @@ func NewDataBase(ctx context.Context, loginUserID string, dbDir string, logLevel
 	if err != nil {
 		return dataBase, errs.WrapMsg(err, "initDB failed "+dbDir)
 	}
-	tables, err := dataBase.GetExistTables(ctx)
+	tables, err := dataBase.getExistTables(ctx)
 	if err != nil {
 		return dataBase, errs.Wrap(err)
 	}
 	dataBase.tableChecker = NewTableChecker(tables)
 
 	return dataBase, nil
+}
+
+func (d *DataBase) getExistTables(ctx context.Context) ([]string, error) {
+	d.mRWMutex.RLock()
+	defer d.mRWMutex.RUnlock()
+	tables, err := d.conn.WithContext(ctx).Migrator().GetTables()
+	if err != nil {
+		return nil, errs.WrapMsg(err, "GetTables failed")
+	}
+	return tables, nil
 }
 
 func (d *DataBase) initDB(ctx context.Context, logLevel int) error {

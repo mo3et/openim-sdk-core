@@ -47,15 +47,7 @@ func (d *DataBase) UpdateLoginUser(ctx context.Context, user *model_struct.Local
 	}
 	return errs.WrapMsg(t.Error, "UpdateLoginUser failed")
 }
-func (d *DataBase) UpdateLoginUserByMap(ctx context.Context, user *model_struct.LocalUser, args map[string]interface{}) error {
-	d.mRWMutex.Lock()
-	defer d.mRWMutex.Unlock()
-	t := d.conn.WithContext(ctx).Model(&user).Updates(args)
-	if t.RowsAffected == 0 {
-		return errs.WrapMsg(errors.New("RowsAffected == 0"), "no update")
-	}
-	return errs.WrapMsg(t.Error, "UpdateColumnsConversation failed")
-}
+
 func (d *DataBase) InsertLoginUser(ctx context.Context, user *model_struct.LocalUser) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
