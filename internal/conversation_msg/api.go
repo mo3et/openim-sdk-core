@@ -26,8 +26,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
 	"github.com/openimsdk/tools/log"
 
 	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
@@ -212,7 +210,7 @@ func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context
 	if err != nil {
 		log.ZWarn(ctx, "send message delete sending message error", err)
 	}
-	lc.LatestMsg = utils.StructToJsonString(s)
+	lc.LatestMsg = IMMessageToLocalChatLog(s)
 	lc.LatestMsgSendTime = sendTime
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: lc.ConversationID, Action: constant.AddConOrUpLatMsg, Args: *lc}, c.GetCh())
 }
@@ -400,7 +398,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 				}
 			}
 		}
-		lc.LatestMsg = utils.StructToJsonString(req.Message)
+		lc.LatestMsg = IMMessageToLocalChatLog(req.Message)
 		log.ZDebug(ctx, "send message come here", "conversion", *lc)
 		_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: lc.ConversationID, Action: constant.AddConOrUpLatMsg, Args: *lc}, c.GetCh())
 	}
@@ -649,7 +647,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sharedpb.IMMess
 			}
 		}
 	}
-	lc.LatestMsg = utils.StructToJsonString(s)
+	lc.LatestMsg = IMMessageToLocalChatLog(s)
 	var delFile []string
 	if utils.IsContainInt(int(s.ContentType), []int{constant.Picture, constant.Sound, constant.Video, constant.File}) {
 		if isOnlineOnly {
@@ -921,7 +919,7 @@ func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, re
 	req.Msg.SessionType = constant.SingleChatType
 	req.Msg.Status = constant.MsgStatusSendSuccess
 	localMessage := IMMessageToLocalChatLog(req.Msg)
-	conversation.LatestMsg = utils.StructToJsonString(req.Msg)
+	conversation.LatestMsg = IMMessageToLocalChatLog(req.Msg)
 	conversation.ConversationType = constant.SingleChatType
 	conversation.LatestMsgSendTime = req.Msg.SendTime
 	err := c.insertMessageToLocalStorage(ctx, conversation.ConversationID, localMessage)
@@ -960,7 +958,7 @@ func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req
 	req.Msg.SessionType = commonpb.SessionType(conversation.ConversationType)
 	req.Msg.Status = constant.MsgStatusSendSuccess
 	localMessage := IMMessageToLocalChatLog(req.Msg)
-	conversation.LatestMsg = utils.StructToJsonString(req.Msg)
+	conversation.LatestMsg = IMMessageToLocalChatLog(req.Msg)
 	conversation.LatestMsgSendTime = req.Msg.SendTime
 	conversation.FaceURL = req.Msg.SenderFaceURL
 	conversation.ShowName = req.Msg.SenderNickname
@@ -990,13 +988,10 @@ func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMess
 	if err != nil {
 		return nil, err
 	}
-	var latestMsg sdk_struct.MsgStruct
-	utils.JsonStringToStruct(conversation.LatestMsg, &latestMsg)
-	if latestMsg.ClientMsgID == req.ClientMsgID {
-		log.ZDebug(ctx, "latestMsg local ex changed", "seq", latestMsg.Seq, "clientMsgID", latestMsg.ClientMsgID)
-		latestMsg.LocalEx = req.LocalEx
-		latestMsgStr := utils.StructToJsonString(latestMsg)
-		if err = c.db.UpdateColumnsConversation(ctx, req.ConversationID, map[string]any{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsg.SendTime}); err != nil {
+	if conversation.LatestMsg != nil && conversation.LatestMsg.ClientMsgID == req.ClientMsgID {
+		log.ZDebug(ctx, "latestMsg local ex changed", "seq", conversation.LatestMsg.Seq, "clientMsgID", conversation.LatestMsg.ClientMsgID)
+		conversation.LatestMsg.LocalEx = req.LocalEx
+		if err = c.db.UpdateColumnsConversation(ctx, req.ConversationID, map[string]any{"latest_msg": conversation.LatestMsg, "latest_msg_send_time": conversation.LatestMsg.SendTime}); err != nil {
 			return nil, err
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{req.ConversationID}}})

@@ -16,6 +16,7 @@ package conversation_msg
 
 import (
 	"context"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -23,8 +24,6 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
-	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
-
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
 )
@@ -157,26 +156,24 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 		return err
 	}
 
-	var latestMsg sharedpb.IMMessage
-	// Convert the latest message in the conversation table.
-	utils.JsonStringToStruct(conversation.LatestMsg, &latestMsg)
+	//var latestMsg sharedpb.IMMessage
+	//// Convert the latest message in the conversation table.
+	//utils.JsonStringToStruct(conversation.LatestMsg, &latestMsg)
 
-	if latestMsg.ClientMsgID == clientMsgID {
-		log.ZDebug(ctx, "latestMsg deleted", "seq", latestMsg.Seq, "clientMsgID", latestMsg.ClientMsgID)
+	if conversation.LatestMsg != nil && conversation.LatestMsg.ClientMsgID == clientMsgID {
+		log.ZDebug(ctx, "latestMsg deleted", "seq", conversation.LatestMsg.Seq, "clientMsgID", conversation.LatestMsg.ClientMsgID)
 		msg, err := c.db.GetLatestActiveMessage(ctx, conversationID, false)
 		if err != nil {
 			return err
 		}
 
-		latestMsgSendTime := latestMsg.SendTime
-		latestMsgStr := ""
+		latestMsgSendTime := conversation.LatestMsg.SendTime
+		var latestMsg *model_struct.LocalChatLog
 		if len(msg) > 0 {
-			latestMsg = *LocalChatLogToIMMessage(msg[0])
-
-			latestMsgStr = utils.StructToJsonString(latestMsg)
-			latestMsgSendTime = latestMsg.SendTime
+			conversation.LatestMsg = msg[0]
+			latestMsgSendTime = conversation.LatestMsg.SendTime
 		}
-		if err := c.db.UpdateColumnsConversation(ctx, conversationID, map[string]any{"latest_msg": latestMsgStr, "latest_msg_send_time": latestMsgSendTime}); err != nil {
+		if err := c.db.UpdateColumnsConversation(ctx, conversationID, map[string]any{"latest_msg": latestMsg, "latest_msg_send_time": latestMsgSendTime}); err != nil {
 			return err
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{conversationID}}})

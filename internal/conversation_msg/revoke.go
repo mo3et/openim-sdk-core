@@ -105,10 +105,8 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 		log.ZError(ctx, "GetConversation failed", err, "tips", &tips)
 		return errs.Wrap(err)
 	}
-	var latestMsg sdk_struct.MsgStruct
-	utils.JsonStringToStruct(conversation.LatestMsg, &latestMsg)
-	log.ZDebug(ctx, "latestMsg", "latestMsg", &latestMsg, "seq", tips.Seq)
-	if latestMsg.Seq <= tips.Seq {
+	log.ZDebug(ctx, "latestMsg", "latestMsg", conversation.LatestMsg, "seq", tips.Seq)
+	if conversation.LatestMsg != nil && conversation.LatestMsg.Seq <= tips.Seq {
 		var newLatestMsg sharedpb.IMMessage
 		msgs, err := c.db.GetMessageList(ctx, tips.ConversationID, 1, 0, false)
 		if err != nil || len(msgs) == 0 {

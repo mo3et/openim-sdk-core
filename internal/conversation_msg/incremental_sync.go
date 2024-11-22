@@ -89,5 +89,5 @@ func (c *Conversation) IncrSyncConversations(ctx context.Context) error {
 }
 
 func (c *Conversation) conversationTableName() string {
-	return model_struct.LocalConversation{}.TableName()
+	return (&model_struct.LocalConversation{}).TableName()
 }

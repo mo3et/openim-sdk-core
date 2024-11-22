@@ -55,7 +55,7 @@ func LocalConversationToIMConversation(conversation *model_struct.LocalConversat
 		RecvMsgOpt:        commonpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
 		UnreadCount:       conversation.UnreadCount,
 		GroupAtType:       commonpb.ConvGroupAtType(conversation.GroupAtType),
-		LatestMsg:         LatestMsgToIMMessage(conversation.LatestMsg),
+		LatestMsg:         LocalChatLogToIMMessage(conversation.LatestMsg),
 		LatestMsgSendTime: conversation.LatestMsgSendTime,
 		DraftText:         conversation.DraftText,
 		DraftTextTime:     conversation.DraftTextTime,

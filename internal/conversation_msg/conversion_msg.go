@@ -15,6 +15,23 @@ import (
 	"github.com/openimsdk/tools/utils/stringutil"
 )
 
+func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfoElem {
+	elem := &model_struct.AttachedInfoElem{
+		IsPrivateChat: attached.IsPrivateChat,
+		BurnDuration:  attached.BurnDuration,
+		HasReadTime:   attached.HasReadTime,
+	}
+	if attached.Progress != nil {
+		elem.Progress = &model_struct.UploadProgress{
+			Total:    attached.Progress.Total,
+			Save:     attached.Progress.Save,
+			Current:  attached.Progress.Current,
+			UploadID: attached.Progress.UploadID,
+		}
+	}
+	return elem
+}
+
 func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 	m := MateTypeMap[msg.ContentType]
 	localMessage := &model_struct.LocalChatLog{
@@ -34,7 +51,7 @@ func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 		Seq:              msg.Seq,
 		SendTime:         msg.SendTime,
 		CreateTime:       msg.CreateTime,
-		AttachedInfo:     utils.StructToJsonString(msg.AttachedInfoElem),
+		AttachedInfo:     pbToDbAttached(msg.AttachedInfoElem),
 		Ex:               msg.Ex,
 		LocalEx:          msg.LocalEx,
 	}
@@ -84,14 +101,21 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 		Status:           common.MsgStatus(localMessage.Status),
 		Ex:               localMessage.Ex,
 		LocalEx:          localMessage.LocalEx,
-		AttachedInfoElem: &sdkpb.AttachedInfoElem{},
+		AttachedInfoElem: &sdkpb.AttachedInfoElem{
+			IsPrivateChat: localMessage.AttachedInfo.IsPrivateChat,
+			BurnDuration:  localMessage.AttachedInfo.BurnDuration,
+			HasReadTime:   localMessage.AttachedInfo.HasReadTime,
+		},
+	}
+	if localMessage.AttachedInfo.Progress != nil {
+		message.AttachedInfoElem.Progress = &sdkpb.UploadProgress{
+			Total:    localMessage.AttachedInfo.Progress.Total,
+			Save:     localMessage.AttachedInfo.Progress.Save,
+			Current:  localMessage.AttachedInfo.Progress.Current,
+			UploadID: localMessage.AttachedInfo.Progress.UploadID,
+		}
 	}
 	stringToMsgContent(message, localMessage.Content)
-	err := utils.JsonStringToStruct(localMessage.AttachedInfo, message.AttachedInfoElem)
-	if err != nil {
-		log.ZWarn(context.Background(), "JsonStringToStruct error", err, "localMessage.AttachedInfo", localMessage.AttachedInfo)
-	}
-
 	switch localMessage.SessionType {
 	case constant.WriteGroupChatType:
 		fallthrough
@@ -172,8 +196,11 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 		Seq:              serverMessage.Seq,
 		SendTime:         serverMessage.SendTime,
 		CreateTime:       serverMessage.CreateTime,
-		AttachedInfo:     serverMessage.AttachedInfo,
+		AttachedInfo:     &model_struct.AttachedInfoElem{},
 		Ex:               serverMessage.Ex,
+	}
+	if err := json.Unmarshal([]byte(serverMessage.AttachedInfo), localMessage.AttachedInfo); err != nil {
+		log.ZWarn(context.Background(), "json.Unmarshal error", err, "serverMessage.AttachedInfo", serverMessage.AttachedInfo)
 	}
 	switch common.SessionType(serverMessage.SessionType) {
 	case common.SessionType_WriteGroupChatType, common.SessionType_ReadGroupChatType:
