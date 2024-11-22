@@ -600,8 +600,8 @@ func (c *Conversation) batchUpdateMessageList(ctx context.Context, updateMsg map
 				conversation.LatestMsg.SendTime = v.SendTime
 				conversation.LatestMsg.Status = v.Status
 
-				c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{ConID: conversation.ConversationID,
-					Action: constant.AddConOrUpLatMsg, Args: *conversation}})
+				c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChangeDirect,
+					Args: []*model_struct.LocalConversation{conversation}}})
 
 			}
 		}

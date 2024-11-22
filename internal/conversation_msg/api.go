@@ -919,10 +919,11 @@ func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, re
 	req.Msg.SessionType = constant.SingleChatType
 	req.Msg.Status = constant.MsgStatusSendSuccess
 	localMessage := IMMessageToLocalChatLog(req.Msg)
-	conversation.LatestMsg = IMMessageToLocalChatLog(req.Msg)
+	conversation.LatestMsg = localMessage
 	conversation.ConversationType = constant.SingleChatType
 	conversation.LatestMsgSendTime = req.Msg.SendTime
-	err := c.insertMessageToLocalStorage(ctx, conversation.ConversationID, localMessage)
+	err := c.db.InsertMessage(ctx, conversation.ConversationID, localMessage)
+
 	if err != nil {
 		return nil, err
 	}
@@ -958,11 +959,11 @@ func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req
 	req.Msg.SessionType = commonpb.SessionType(conversation.ConversationType)
 	req.Msg.Status = constant.MsgStatusSendSuccess
 	localMessage := IMMessageToLocalChatLog(req.Msg)
-	conversation.LatestMsg = IMMessageToLocalChatLog(req.Msg)
+	conversation.LatestMsg = localMessage
 	conversation.LatestMsgSendTime = req.Msg.SendTime
 	conversation.FaceURL = req.Msg.SenderFaceURL
 	conversation.ShowName = req.Msg.SenderNickname
-	err = c.insertMessageToLocalStorage(ctx, conversation.ConversationID, localMessage)
+	err = c.db.InsertMessage(ctx, conversation.ConversationID, localMessage)
 	if err != nil {
 		return nil, err
 	}

@@ -208,10 +208,6 @@ func (c *Conversation) typingStatusUpdate(ctx context.Context, recvID, msgTip st
 
 }
 
-func (c *Conversation) insertMessageToLocalStorage(ctx context.Context, conversationID string, s *model_struct.LocalChatLog) error {
-	return c.db.InsertMessage(ctx, conversationID, s)
-}
-
 func (c *Conversation) judgeMultipleSubString(keywordList []string, main string, keywordListMatchType int) bool {
 	if len(keywordList) == 0 {
 		return true

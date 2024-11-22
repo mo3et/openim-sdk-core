@@ -197,26 +197,38 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 	case constant.AddConOrUpLatMsg:
 		lc := node.Args.(model_struct.LocalConversation)
 		oc, err := c.db.GetConversation(ctx, lc.ConversationID)
-		if err == nil {
-			if lc.LatestMsgSendTime >= oc.LatestMsgSendTime || lc.LatestMsg.ClientMsgID == oc.LatestMsg.ClientMsgID { // The session update of asynchronous messages is subject to the latest sending time
-				err := c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]any{"latest_msg_send_time": lc.LatestMsgSendTime, "latest_msg": lc.LatestMsg})
+
+		if err == nil && oc.LatestMsgSendTime > 0 {
+			updateConversation := func() {
+				err := c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]any{
+					"latest_msg_send_time": lc.LatestMsgSendTime,
+					"latest_msg":           lc.LatestMsg,
+				})
 				if err != nil {
 					log.ZError(ctx, "updateConversationLatestMsgModel", err, "conversationID", node.ConID)
-				} else {
-					oc.LatestMsgSendTime = lc.LatestMsgSendTime
-					oc.LatestMsg = lc.LatestMsg
-					log.ZInfo(ctx, "OnConversationChanged", "conversation", oc)
-					c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{oc})})
+					return
 				}
+
+				oc.LatestMsgSendTime = lc.LatestMsgSendTime
+				oc.LatestMsg = lc.LatestMsg
+				log.ZInfo(ctx, "OnConversationChanged", "conversation", oc)
+				c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{
+					ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{oc}),
+				})
+			}
+
+			if lc.LatestMsg == nil || lc.LatestMsgSendTime >= oc.LatestMsgSendTime || lc.LatestMsg.ClientMsgID == oc.LatestMsg.ClientMsgID {
+				updateConversation()
 			}
 		} else {
 			log.ZDebug(ctx, "new conversation", "lc", lc)
-			err4 := c.db.InsertConversation(ctx, &lc)
-			if err4 != nil {
-				log.ZWarn(ctx, "insert new conversation err", err4)
-			} else {
-				c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{&lc})})
+			if err := c.db.InsertConversation(ctx, &lc); err != nil {
+				log.ZWarn(ctx, "insert new conversation err", err)
+				return
 			}
+			c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{
+				ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{&lc}),
+			})
 		}
 
 	case constant.TotalUnreadMessageChanged:
