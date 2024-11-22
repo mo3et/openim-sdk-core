@@ -88,12 +88,8 @@ func (c *Conversation) updateConversationLastMsg(ctx context.Context, conversati
 	if err != nil {
 		return err
 	}
-	if oc.LatestMsg != "" {
-		var conversationMsg model_struct.LocalChatLog
-		if err := json.Unmarshal([]byte(oc.LatestMsg), &conversationMsg); err != nil {
-			return err
-		}
-		if conversationMsg.SendTime >= msg.SendTime && conversationMsg.ClientMsgID != msg.ClientMsgID {
+	if oc.LatestMsg != nil {
+		if oc.LatestMsg.SendTime >= msg.SendTime && oc.LatestMsg.ClientMsgID != msg.ClientMsgID {
 			return nil
 		}
 	}
@@ -103,7 +99,7 @@ func (c *Conversation) updateConversationLastMsg(ctx context.Context, conversati
 		return nil
 	}
 	oc.LatestMsgSendTime = msg.SendTime
-	oc.LatestMsg = utils.StructToJsonString(res[0])
+	oc.LatestMsg = IMMessageToLocalChatLog(res[0])
 	if err := c.db.UpdateConversation(ctx, oc); err != nil {
 		return err
 	}
