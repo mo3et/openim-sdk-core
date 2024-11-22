@@ -207,7 +207,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		lc := node.Args.(model_struct.LocalConversation)
 		oc, err := c.db.GetConversation(ctx, lc.ConversationID)
 		if err == nil {
-			if lc.LatestMsgSendTime >= oc.LatestMsgSendTime || c.getConversationLatestMsgClientID(lc.LatestMsg) == c.getConversationLatestMsgClientID(oc.LatestMsg) { // The session update of asynchronous messages is subject to the latest sending time
+			if lc.LatestMsgSendTime >= oc.LatestMsgSendTime || lc.LatestMsg.ClientMsgID == oc.LatestMsg.ClientMsgID { // The session update of asynchronous messages is subject to the latest sending time
 				err := c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]any{"latest_msg_send_time": lc.LatestMsgSendTime, "latest_msg": lc.LatestMsg})
 				if err != nil {
 					log.ZError(ctx, "updateConversationLatestMsgModel", err, "conversationID", node.ConID)
@@ -270,58 +270,64 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{ConID: lc.ConversationID, Action: constant.ConChange, Args: []string{lc.ConversationID}}})
 
 	case constant.UpdateLatestMessageReadState:
-		conversationID := node.ConID
-		var latestMsg sdk_struct.MsgStruct
-		l, err := c.db.GetConversation(ctx, conversationID)
-		if err != nil {
-			log.ZError(ctx, "getConversationLatestMsgModel err", err, "conversationID", conversationID)
-		} else {
-			err := json.Unmarshal([]byte(l.LatestMsg), &latestMsg)
-			if err != nil {
-				log.ZError(ctx, "latestMsg,Unmarshal err", err)
-			} else {
-				latestMsg.IsRead = true
-				newLatestMessage := utils.StructToJsonString(latestMsg)
-				err = c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]any{"latest_msg_send_time": latestMsg.SendTime, "latest_msg": newLatestMessage})
-				if err != nil {
-					log.ZError(ctx, "updateConversationLatestMsgModel err", err)
-				}
-			}
-		}
+		//conversationID := node.ConID
+		//var latestMsg sdk_struct.MsgStruct
+		//l, err := c.db.GetConversation(ctx, conversationID)
+		//if err != nil {
+		//	log.ZError(ctx, "getConversationLatestMsgModel err", err, "conversationID", conversationID)
+		//} else {
+		//	err := json.Unmarshal([]byte(l.LatestMsg), &latestMsg)
+		//	if err != nil {
+		//		log.ZError(ctx, "latestMsg,Unmarshal err", err)
+		//	} else {
+		//		latestMsg.IsRead = true
+		//		newLatestMessage := utils.StructToJsonString(latestMsg)
+		//		err = c.db.UpdateColumnsConversation(ctx, node.ConID, map[string]any{"latest_msg_send_time": latestMsg.SendTime, "latest_msg": newLatestMessage})
+		//		if err != nil {
+		//			log.ZError(ctx, "updateConversationLatestMsgModel err", err)
+		//		}
+		//	}
+		//}
+		fallthrough
 	case constant.UpdateLatestMessageFaceUrlAndNickName:
-		args := node.Args.(common.UpdateMessageInfo)
-		switch args.SessionType {
-		case constant.ReadGroupChatType:
-			conversationID := c.getConversationIDBySessionType(args.GroupID, constant.ReadGroupChatType)
-			lc, err := c.db.GetConversation(ctx, conversationID)
-			if err != nil {
-				log.ZWarn(ctx, "getConversation err", err)
-				return
-			}
-			var latestMsg sdk_struct.MsgStruct
-			err = json.Unmarshal([]byte(lc.LatestMsg), &latestMsg)
-			if err != nil {
-				log.ZError(ctx, "latestMsg,Unmarshal err", err)
-			} else {
-				//If the sender of the latest message in the conversation
-				//happens to be a member of the group whose status has changed,
-				//then update the sender's avatar and nickname for the latest message.
-				if latestMsg.SendID == args.UserID {
-					latestMsg.SenderFaceURL = args.FaceURL
-					latestMsg.SenderNickname = args.Nickname
-					newLatestMessage := utils.StructToJsonString(latestMsg)
-					lc.LatestMsg = newLatestMessage
-					err = c.db.UpdateColumnsConversation(ctx, conversationID, map[string]any{"latest_msg": newLatestMessage})
-					if err != nil {
-						log.ZError(ctx, "updateConversationLatestMsgModel err", err)
-					} else {
-						c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{lc})})
-					}
-
-				}
-			}
+		//args := node.Args.(common.UpdateMessageInfo)
+		//switch args.SessionType {
+		//case constant.ReadGroupChatType:
+		//	conversationID := c.getConversationIDBySessionType(args.GroupID, constant.ReadGroupChatType)
+		//	lc, err := c.db.GetConversation(ctx, conversationID)
+		//	if err != nil {
+		//		log.ZWarn(ctx, "getConversation err", err)
+		//		return
+		//	}
+		//	var latestMsg sdk_struct.MsgStruct
+		//	err = json.Unmarshal([]byte(lc.LatestMsg), &latestMsg)
+		//	if err != nil {
+		//		log.ZError(ctx, "latestMsg,Unmarshal err", err)
+		//	} else {
+		//		//If the sender of the latest message in the conversation
+		//		//happens to be a member of the group whose status has changed,
+		//		//then update the sender's avatar and nickname for the latest message.
+		//		if latestMsg.SendID == args.UserID {
+		//			latestMsg.SenderFaceURL = args.FaceURL
+		//			latestMsg.SenderNickname = args.Nickname
+		//			newLatestMessage := utils.StructToJsonString(latestMsg)
+		//			lc.LatestMsg = newLatestMessage
+		//			err = c.db.UpdateColumnsConversation(ctx, conversationID, map[string]any{"latest_msg": newLatestMessage})
+		//			if err != nil {
+		//				log.ZError(ctx, "updateConversationLatestMsgModel err", err)
+		//			} else {
+		//				c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{lc})})
+		//			}
+		//
+		//		}
+		//	}
+		//}
+		lc, err := c.db.GetConversation(ctx, node.ConID)
+		if err == nil {
+			c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{lc})})
+		} else {
+			log.ZError(ctx, "getConversation err", err, "conversationID", node.ConID)
 		}
-
 	case constant.ConChange:
 		conversationIDs := node.Args.([]string)
 		conversations, err := c.db.GetMultipleConversationDB(ctx, conversationIDs)

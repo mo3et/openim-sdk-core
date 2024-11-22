@@ -16,7 +16,6 @@ package open_im_sdk
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"runtime/debug"
 	"strings"
@@ -40,12 +39,10 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/protocol/push"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
-	"github.com/openimsdk/tools/utils/jsonutil"
 )
 
 const (
@@ -294,19 +291,6 @@ func (u *LoginMgr) handlerSendingMsg(ctx context.Context, sendingMsg *model_stru
 	err = u.db.UpdateMessage(ctx, sendingMsg.ConversationID, &model_struct.LocalChatLog{ClientMsgID: sendingMsg.ClientMsgID, Status: constant.MsgStatusSendFailed})
 	if err != nil {
 		return err
-	}
-	conversation, err := u.db.GetConversation(ctx, sendingMsg.ConversationID)
-	if err != nil {
-		return err
-	}
-	latestMsg := &sdk_struct.MsgStruct{}
-	if err := json.Unmarshal([]byte(conversation.LatestMsg), &latestMsg); err != nil {
-		return err
-	}
-	if latestMsg.ClientMsgID == sendingMsg.ClientMsgID {
-		latestMsg.Status = constant.MsgStatusSendFailed
-		conversation.LatestMsg = jsonutil.StructToJsonString(latestMsg)
-		return u.db.UpdateConversation(ctx, conversation)
 	}
 	return nil
 }

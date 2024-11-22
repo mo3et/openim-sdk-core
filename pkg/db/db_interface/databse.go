@@ -174,7 +174,6 @@ type AppSDKVersion interface {
 
 type DataBase interface {
 	Close(ctx context.Context) error
-	InitDB(ctx context.Context, userID string, dataDir string) error
 	GroupModel
 	MessageModel
 	ConversationModel

@@ -16,7 +16,6 @@ package conversation_msg
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
@@ -25,7 +24,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/utils/datautil"
 
@@ -204,12 +202,7 @@ func (c *Conversation) doUnreadCount(ctx context.Context, conversation *model_st
 				return err
 			}
 		}
-		latestMsg := &sdk_struct.MsgStruct{}
-		if err := json.Unmarshal([]byte(conversation.LatestMsg), latestMsg); err != nil {
-			log.ZError(ctx, "Unmarshal err", err, "conversationID", conversation.ConversationID, "latestMsg", conversation.LatestMsg)
-			return err
-		}
-		if (!latestMsg.IsRead) && datautil.Contain(latestMsg.Seq, seqs...) {
+		if conversation.LatestMsg != nil && (!conversation.LatestMsg.IsRead) && datautil.Contain(conversation.LatestMsg.Seq, seqs...) {
 			c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{ConID: conversation.ConversationID,
 				Action: constant.UpdateLatestMessageReadState, Args: []string{conversation.ConversationID}}, Ctx: ctx})
 		}
@@ -250,33 +243,29 @@ func (c *Conversation) doReadDrawing(ctx context.Context, msg *sdkws.MsgData) er
 
 		}
 		if conversation.ConversationType == constant.SingleChatType {
-			latestMsg := &sdk_struct.MsgStruct{}
-			if err := json.Unmarshal([]byte(conversation.LatestMsg), latestMsg); err != nil {
-				log.ZWarn(ctx, "Unmarshal err", err, "conversationID", tips.ConversationID, "latestMsg", conversation.LatestMsg)
-				return err
-			}
-			var successMsgIDs []string
-			for _, message := range messages {
-				attachInfo := sdk_struct.AttachedInfoElem{}
-				_ = utils.JsonStringToStruct(message.AttachedInfo, &attachInfo)
-				attachInfo.HasReadTime = msg.SendTime
-				message.AttachedInfo = utils.StructToJsonString(attachInfo)
-				message.IsRead = true
-				if err = c.db.UpdateMessage(ctx, tips.ConversationID, message); err != nil {
-					log.ZWarn(ctx, "UpdateMessage err", err, "conversationID", tips.ConversationID, "message", message)
-					return err
-				} else {
-					if latestMsg.ClientMsgID == message.ClientMsgID {
-						latestMsg.IsRead = message.IsRead
-						conversation.LatestMsg = utils.StructToJsonString(latestMsg)
-						_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: *conversation}, c.GetCh())
-
+			if conversation.LatestMsg != nil {
+				var successMsgIDs []string
+				for _, message := range messages {
+					message.IsRead = true
+					if message.AttachedInfo == nil {
+						message.AttachedInfo = &model_struct.AttachedInfoElem{}
 					}
-					successMsgIDs = append(successMsgIDs, message.ClientMsgID)
+					message.AttachedInfo.HasReadTime = msg.SendTime
+					if err = c.db.UpdateMessage(ctx, tips.ConversationID, message); err != nil {
+						log.ZWarn(ctx, "UpdateMessage err", err, "conversationID", tips.ConversationID, "message", message)
+						return err
+					} else {
+						if conversation.LatestMsg.ClientMsgID == message.ClientMsgID {
+							conversation.LatestMsg.IsRead = message.IsRead
+							_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: *conversation}, c.GetCh())
+
+						}
+						successMsgIDs = append(successMsgIDs, message.ClientMsgID)
+					}
 				}
+				c.msgListener().OnRecvC2CReadReceipt(&sdkpb.EventOnRecvC2CReadReceiptData{MsgReceiptList: []*sdkpb.MessageReceipt{{UserID: tips.MarkAsReadUserID, MsgIDList: successMsgIDs,
+					SessionType: conversation.ConversationType, ReadTime: msg.SendTime}}})
 			}
-			c.msgListener().OnRecvC2CReadReceipt(&sdkpb.EventOnRecvC2CReadReceiptData{MsgReceiptList: []*sdkpb.MessageReceipt{{UserID: tips.MarkAsReadUserID, MsgIDList: successMsgIDs,
-				SessionType: conversation.ConversationType, ReadTime: msg.SendTime}}})
 		}
 	} else {
 		return c.doUnreadCount(ctx, conversation, tips.HasReadSeq, tips.Seqs)

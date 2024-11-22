@@ -136,18 +136,17 @@ func (c *Conversation) initSyncer() {
 		syncer.WithUpdate[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string](func(ctx context.Context, serverConversation, localConversation *model_struct.LocalConversation) error {
 			return c.db.UpdateColumnsConversation(ctx, serverConversation.ConversationID,
 				map[string]any{
-					"recv_msg_opt":             serverConversation.RecvMsgOpt,
-					"is_pinned":                serverConversation.IsPinned,
-					"is_private_chat":          serverConversation.IsPrivateChat,
-					"burn_duration":            serverConversation.BurnDuration,
-					"group_at_type":            serverConversation.GroupAtType,
-					"update_unread_count_time": serverConversation.UpdateUnreadCountTime,
-					"attached_info":            serverConversation.AttachedInfo,
-					"ex":                       serverConversation.Ex,
-					"msg_destruct_time":        serverConversation.MsgDestructTime,
-					"is_msg_destruct":          serverConversation.IsMsgDestruct,
-					"max_seq":                  serverConversation.MaxSeq,
-					"min_seq":                  serverConversation.MinSeq})
+					"recv_msg_opt":      serverConversation.RecvMsgOpt,
+					"is_pinned":         serverConversation.IsPinned,
+					"is_private_chat":   serverConversation.IsPrivateChat,
+					"burn_duration":     serverConversation.BurnDuration,
+					"group_at_type":     serverConversation.GroupAtType,
+					"attached_info":     serverConversation.AttachedInfo,
+					"ex":                serverConversation.Ex,
+					"msg_destruct_time": serverConversation.MsgDestructTime,
+					"is_msg_destruct":   serverConversation.IsMsgDestruct,
+					"max_seq":           serverConversation.MaxSeq,
+					"min_seq":           serverConversation.MinSeq})
 		}),
 		syncer.WithUUID[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string](func(value *model_struct.LocalConversation) string {
 			return value.ConversationID
@@ -158,7 +157,6 @@ func (c *Conversation) initSyncer() {
 				server.IsPrivateChat != local.IsPrivateChat ||
 				server.BurnDuration != local.BurnDuration ||
 				server.GroupAtType != local.GroupAtType ||
-				server.UpdateUnreadCountTime != local.UpdateUnreadCountTime ||
 				server.AttachedInfo != local.AttachedInfo ||
 				server.Ex != local.Ex ||
 				server.MaxSeq != local.MaxSeq ||
