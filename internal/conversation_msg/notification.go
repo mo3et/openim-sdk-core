@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 	"reflect"
 	"runtime"
 	"sync"
@@ -27,7 +28,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	pconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/tools/utils/datautil"
 
@@ -69,7 +69,7 @@ func (c *Conversation) Work(c2v common.Cmd2Value) {
 
 func (c *Conversation) syncFlag(c2v common.Cmd2Value) {
 	ctx := c2v.Ctx
-	syncFlag := c2v.Value.(sdk_struct.CmdNewMsgComeToConversation).SyncFlag
+	syncFlag := c2v.Value.(types.CmdNewMsgComeToConversation).SyncFlag
 	switch syncFlag {
 	case constant.AppDataSyncStart:
 		log.ZDebug(ctx, "AppDataSyncStart")
@@ -123,7 +123,7 @@ func (c *Conversation) syncFlag(c2v common.Cmd2Value) {
 
 func (c *Conversation) doNotificationManager(c2v common.Cmd2Value) {
 	ctx := c2v.Ctx
-	allMsg := c2v.Value.(sdk_struct.CmdNewMsgComeToConversation).Msgs
+	allMsg := c2v.Value.(types.CmdNewMsgComeToConversation).Msgs
 
 	for conversationID, msgs := range allMsg {
 		log.ZDebug(ctx, "notification handling", "conversationID", conversationID, "msgs", msgs)

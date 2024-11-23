@@ -18,6 +18,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 	"runtime/debug"
 	"strings"
 	"sync"
@@ -31,7 +32,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/db_interface"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/tools/errs"
 
 	"github.com/openimsdk/protocol/sdkws"
@@ -570,7 +570,7 @@ func (m *MsgSyncer) syncMsgBySeqs(ctx context.Context, conversationID string, se
 // triggers a conversation with a new message.
 func (m *MsgSyncer) triggerConversation(ctx context.Context, msgs map[string]*sdkws.PullMsgs) error {
 	if len(msgs) > 0 {
-		err := common.TriggerCmdNewMsgCome(ctx, sdk_struct.CmdNewMsgComeToConversation{Msgs: msgs}, m.conversationCh)
+		err := common.TriggerCmdNewMsgCome(ctx, types.CmdNewMsgComeToConversation{Msgs: msgs}, m.conversationCh)
 		if err != nil {
 			log.ZError(ctx, "triggerCmdNewMsgCome err", err, "msgs", msgs)
 		}
@@ -585,7 +585,7 @@ func (m *MsgSyncer) triggerConversation(ctx context.Context, msgs map[string]*sd
 // triggers a conversation with a new message.
 func (m *MsgSyncer) triggerReinstallConversation(ctx context.Context, msgs map[string]*sdkws.PullMsgs, total int) (err error) {
 	if len(msgs) > 0 {
-		err = common.TriggerCmdMsgSyncInReinstall(ctx, sdk_struct.CmdMsgSyncInReinstall{
+		err = common.TriggerCmdMsgSyncInReinstall(ctx, types.CmdMsgSyncInReinstall{
 			Msgs:  msgs,
 			Total: total,
 		}, m.conversationCh)
@@ -602,7 +602,7 @@ func (m *MsgSyncer) triggerReinstallConversation(ctx context.Context, msgs map[s
 
 func (m *MsgSyncer) triggerNotification(ctx context.Context, msgs map[string]*sdkws.PullMsgs) error {
 	if len(msgs) > 0 {
-		common.TriggerCmdNotification(ctx, sdk_struct.CmdNewMsgComeToConversation{Msgs: msgs}, m.conversationCh)
+		common.TriggerCmdNotification(ctx, types.CmdNewMsgComeToConversation{Msgs: msgs}, m.conversationCh)
 	} else {
 		log.ZDebug(ctx, "triggerNotification is nil", "notifications", msgs)
 	}

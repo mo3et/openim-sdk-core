@@ -17,11 +17,10 @@ package common
 import (
 	"context"
 	"errors"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 
@@ -35,7 +34,7 @@ var (
 	ErrTimeout = errors.New("send cmd timeout")
 )
 
-func TriggerCmdNewMsgCome(ctx context.Context, msg sdk_struct.CmdNewMsgComeToConversation, conversationCh chan Cmd2Value) error {
+func TriggerCmdNewMsgCome(ctx context.Context, msg types.CmdNewMsgComeToConversation, conversationCh chan Cmd2Value) error {
 	if conversationCh == nil {
 		return errs.Wrap(ErrChanNil)
 	}
@@ -44,7 +43,7 @@ func TriggerCmdNewMsgCome(ctx context.Context, msg sdk_struct.CmdNewMsgComeToCon
 	return sendCmd(conversationCh, c2v, timeout)
 }
 
-func TriggerCmdMsgSyncInReinstall(ctx context.Context, msg sdk_struct.CmdMsgSyncInReinstall, conversationCh chan Cmd2Value) error {
+func TriggerCmdMsgSyncInReinstall(ctx context.Context, msg types.CmdMsgSyncInReinstall, conversationCh chan Cmd2Value) error {
 	if conversationCh == nil {
 		return errs.Wrap(ErrChanNil)
 	}
@@ -53,7 +52,7 @@ func TriggerCmdMsgSyncInReinstall(ctx context.Context, msg sdk_struct.CmdMsgSync
 	return sendCmd(conversationCh, c2v, timeout)
 }
 
-func TriggerCmdNotification(ctx context.Context, msg sdk_struct.CmdNewMsgComeToConversation, conversationCh chan Cmd2Value) {
+func TriggerCmdNotification(ctx context.Context, msg types.CmdNewMsgComeToConversation, conversationCh chan Cmd2Value) {
 	c2v := Cmd2Value{Cmd: constant.CmdNotification, Value: msg, Ctx: ctx}
 	err := sendCmd(conversationCh, c2v, timeout)
 	if err != nil {
@@ -62,7 +61,7 @@ func TriggerCmdNotification(ctx context.Context, msg sdk_struct.CmdNewMsgComeToC
 }
 
 func TriggerCmdSyncFlag(ctx context.Context, syncFlag int, conversationCh chan Cmd2Value) {
-	c2v := Cmd2Value{Cmd: constant.CmdSyncFlag, Value: sdk_struct.CmdNewMsgComeToConversation{SyncFlag: syncFlag}, Ctx: ctx}
+	c2v := Cmd2Value{Cmd: constant.CmdSyncFlag, Value: types.CmdNewMsgComeToConversation{SyncFlag: syncFlag}, Ctx: ctx}
 	err := sendCmd(conversationCh, c2v, timeout)
 	if err != nil {
 		log.ZWarn(ctx, "TriggerCmdNotification error", err, "syncFlag", syncFlag)

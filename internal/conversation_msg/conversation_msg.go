@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 	"math"
 	"sync"
 
@@ -40,7 +41,6 @@ import (
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 )
 
 const (
@@ -210,7 +210,7 @@ type onlineMsgKey struct {
 }
 
 func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
-	allMsg := c2v.Value.(sdk_struct.CmdNewMsgComeToConversation).Msgs
+	allMsg := c2v.Value.(types.CmdNewMsgComeToConversation).Msgs
 	ctx := c2v.Ctx
 	var isTriggerUnReadCount bool
 	insertMsg := make(map[string][]*model_struct.LocalChatLog, 10)
@@ -449,11 +449,11 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 }
 
 func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
-	allMsg := c2v.Value.(sdk_struct.CmdMsgSyncInReinstall).Msgs
+	allMsg := c2v.Value.(types.CmdMsgSyncInReinstall).Msgs
 	ctx := c2v.Ctx
 	msgLen := len(allMsg)
 	c.msgOffset += msgLen
-	total := c2v.Value.(sdk_struct.CmdMsgSyncInReinstall).Total
+	total := c2v.Value.(types.CmdMsgSyncInReinstall).Total
 
 	insertMsg := make(map[string][]*model_struct.LocalChatLog, 10)
 	conversationList := make([]*model_struct.LocalConversation, 0)
