@@ -561,7 +561,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 			name = msgElem.FileElem.FilePath
 		}
 		if name == "" {
-			name = fmt.Sprintf("msg_file_%req.Message.unknown", req.Message.ClientMsgID)
+			name = fmt.Sprintf("msg_file_%s.unknown", req.Message.ClientMsgID)
 		}
 		var sourcePath string
 		if utils.FileExist(msgElem.FileElem.FilePath) {
