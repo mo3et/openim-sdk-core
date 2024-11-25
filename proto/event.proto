@@ -175,6 +175,8 @@ enum FuncRequestEventName {
   GetUsersInfo = 2106;
   GetUsersInfoFromServer = 2107;
 
+
+
   // The following functions are only used for Go and JS interaction and can be ignored by other platforms.
   JsFileOpen = 2110;
   JsFileRead = 2111;

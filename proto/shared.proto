@@ -367,13 +367,13 @@ message AttachedInfoElem {
 //////////////////////group/////////////////////
 //
 //	OnGroupCreated()
-//message GroupCreatedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  repeated shared.IMGroupMember memberList = 3;
-//  int64 operationTime = 4;
-//  shared.IMGroupMember groupOwnerUser = 5;
-//}
+message GroupCreatedTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  repeated shared.IMGroupMember memberList = 3;
+  int64 operationTime = 4;
+  shared.IMGroupMember groupOwnerUser = 5;
+}
 //
 //	OnGroupInfoSet()
 //message GroupInfoSetTips {
@@ -401,11 +401,11 @@ message AttachedInfoElem {
 //
 //	OnQuitGroup()
 //Actively leave the group
-//message MemberQuitTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember quitUser = 2;
-//  int64 operationTime = 3;
-//}
+message MemberQuitTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember quitUser = 2;
+  int64 operationTime = 3;
+}
 //
 //	OnApplicationGroupAccepted()
 //message GroupApplicationAcceptedTips {
@@ -424,71 +424,71 @@ message AttachedInfoElem {
 //}
 //
 //	OnTransferGroupOwner()
-//message GroupOwnerTransferredTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  shared.IMGroupMember newGroupOwner = 3;
-//  string oldGroupOwner = 4;
-//  int64 operationTime = 5;
-//  shared.IMGroupMember oldGroupOwnerInfo = 6;
-//}
+message GroupOwnerTransferredTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  shared.IMGroupMember newGroupOwner = 3;
+  string oldGroupOwner = 4;
+  int64 operationTime = 5;
+  shared.IMGroupMember oldGroupOwnerInfo = 6;
+}
 //
 //	OnMemberKicked()
-//message MemberKickedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  repeated shared.IMGroupMember kickedUserList = 3;
-//  int64 operationTime = 4;
-//}
+message MemberKickedTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  repeated shared.IMGroupMember kickedUserList = 3;
+  int64 operationTime = 4;
+}
 //
 //	OnMemberInvited()
-//message MemberInvitedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  repeated shared.IMGroupMember invitedUserList = 3;
-//  int64 operationTime = 4;
-//  shared.IMGroupMember inviterUser = 7;
-//}
+message MemberInvitedTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  repeated shared.IMGroupMember invitedUserList = 3;
+  int64 operationTime = 4;
+  shared.IMGroupMember inviterUser = 7;
+}
 //
 //Actively join the group
-//message MemberEnterTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember entrantUser = 2;
-//  int64 operationTime = 3;
-//}
+message MemberEnterTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember entrantUser = 2;
+  int64 operationTime = 3;
+}
 //
-//message GroupDismissedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  int64 operationTime = 3;
-//}
+message GroupDismissedTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  int64 operationTime = 3;
+}
 //
-//message GroupMemberMutedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  int64 operationTime = 3;
-//  shared.IMGroupMember mutedUser = 4;
-//  uint32 mutedSeconds = 5;
-//}
+message GroupMemberMutedTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  int64 operationTime = 3;
+  shared.IMGroupMember mutedUser = 4;
+  uint32 mutedSeconds = 5;
+}
 //
-//message GroupMemberCancelMutedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  int64 operationTime = 3;
-//  shared.IMGroupMember mutedUser = 4;
-//}
-//
-//message GroupMutedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  int64 operationTime = 3;
-//}
-//
-//message GroupCancelMutedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  int64 operationTime = 3;
-//}
+message GroupMemberCancelMutedTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  int64 operationTime = 3;
+  shared.IMGroupMember mutedUser = 4;
+}
+
+message GroupMutedTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  int64 operationTime = 3;
+}
+
+message GroupCancelMutedTips {
+  shared.IMGroup group = 1;
+  shared.IMGroupMember opUser = 2;
+  int64 operationTime = 3;
+}
 //
 //message GroupMemberInfoSetTips {
 //  shared.IMGroup group = 1;
@@ -527,11 +527,11 @@ message AttachedInfoElem {
 //}
 //
 // FromUserID  Added a friend ToUserID
-//message FriendAddedTips {
-//  shared.IMFriend friend = 1;
-//  int64 operationTime = 2;
-//  shared.IMUser opUser = 3; //who do this
-//}
+message FriendAddedTips {
+  shared.IMFriend friend = 1;
+  int64 operationTime = 2;
+  shared.IMUser opUser = 3; //who do this
+}
 //
 //// FromUserID  deleted a friend ToUserID
 //message FriendDeletedTips {
@@ -666,6 +666,18 @@ message RevokedTips {
   string ex = 12;
 }
 
+message ConversationPrivateChatTips {
+  string recvID = 1;
+  string sendID = 2;
+  bool isPrivate = 3;
+  string conversationID = 4;
+}
+
+message BusinessTips {
+  string key = 1;
+  string data = 2;
+}
+
 message IMMessage {
   string clientMsgID = 1;
   string serverMsgID = 2;
@@ -706,28 +718,28 @@ message IMMessage {
 
     RevokedTips revokedTips = 38;
 
-//    GroupCreatedTips groupCreatedTips = 38;
+    GroupCreatedTips groupCreatedTips = 311;
 //    GroupInfoSetTips groupInfoSetTips = 39;
 //    GroupInfoSetNameTips groupInfoSetNameTips = 40;
 //    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;
 //    JoinGroupApplicationTips joinGroupApplicationTips = 42;
-//    MemberQuitTips memberQuitTips = 43;
+    MemberQuitTips memberQuitTips = 43;
 //    GroupApplicationAcceptedTips groupApplicationAcceptedTips = 44;
 //    GroupApplicationRejectedTips groupApplicationRejectedTips = 45;
-//    GroupOwnerTransferredTips groupOwnerTransferredTips = 46;
-//    MemberKickedTips memberKickedTips = 47;
-//    MemberInvitedTips memberInvitedTips = 48;
-//    MemberEnterTips memberEnterTips = 49;
-//    GroupDismissedTips groupDismissedTips = 50;
-//    GroupMemberMutedTips groupMemberMutedTips = 51;
-//    GroupMemberCancelMutedTips groupMemberCancelMutedTips = 52;
-//    GroupMutedTips groupMutedTips = 53;
-//    GroupCancelMutedTips groupCancelMutedTips = 54;
+    GroupOwnerTransferredTips groupOwnerTransferredTips = 46;
+    MemberKickedTips memberKickedTips = 47;
+    MemberInvitedTips memberInvitedTips = 48;
+    MemberEnterTips memberEnterTips = 49;
+    GroupDismissedTips groupDismissedTips = 50;
+    GroupMemberMutedTips groupMemberMutedTips = 51;
+    GroupMemberCancelMutedTips groupMemberCancelMutedTips = 52;
+    GroupMutedTips groupMutedTips = 53;
+    GroupCancelMutedTips groupCancelMutedTips = 54;
 //    GroupMemberInfoSetTips groupMemberInfoSetTips = 55;
 //    FriendApplicationTips friendApplicationTips = 56;
 //    FriendApplicationApprovedTips friendApplicationApprovedTips = 57;
 //    FriendApplicationRejectedTips friendApplicationRejectedTips = 58;
-//    FriendAddedTips friendAddedTips = 59;
+    FriendAddedTips friendAddedTips = 59;
 //    FriendDeletedTips friendDeletedTips = 60;
 //    BlackAddedTips blackAddedTips = 61;
 //    BlackDeletedTips blackDeletedTips = 62;
@@ -748,5 +760,7 @@ message IMMessage {
 //    FriendsInfoUpdateTips friendsInfoUpdateTips = 77;
 //    SubUserOnlineStatusTips subUserOnlineStatusTips = 78;
     //    StreamMsgTips streamMsgTips = 79;
+    ConversationPrivateChatTips conversationPrivateChatTips = 79;
+    BusinessTips businessTips = 80;
   }
 }

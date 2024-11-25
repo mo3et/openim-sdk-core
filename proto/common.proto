@@ -98,36 +98,32 @@ enum ContentType {
   AdvancedText = 117;
   CustomMsgNotTriggerConversation = 119;
   CustomMsgOnlineOnly = 120;
-  //  NotificationBegin = 1000;
-  //  FriendNotificationBegin = 1200;
 
-  FriendApplicationApprovedNotification = 1201;
-  FriendApplicationRejectedNotification = 1202;
-  FriendApplicationNotification = 1203;
+//  FriendApplicationApprovedNotification = 1201;
+//  FriendApplicationRejectedNotification = 1202;
+//  FriendApplicationNotification = 1203;
   FriendAddedNotification = 1204;
-  FriendDeletedNotification = 1205;
-  FriendRemarkSetNotification = 1206;
-  BlackAddedNotification = 1207;
-  BlackDeletedNotification = 1208;
-  FriendInfoUpdatedNotification = 1209;
-  FriendsInfoUpdateNotification = 1210;
-  //  FriendNotificationEnd = 1299;
-  ConversationChangeNotification = 1300;
-  //  UserNotificationBegin = 1301;
-  UserInfoUpdatedNotification = 1303;
-  UserStatusChangeNotification = 1304;
-  UserCommandAddNotification = 1305;
-  UserCommandDeleteNotification = 1306;
-  UserCommandUpdateNotification = 1307;
-  //  UserNotificationEnd = 1399;
+//  FriendDeletedNotification = 1205;
+//  FriendRemarkSetNotification = 1206;
 
-  //  GroupNotificationBegin = 1500;
+
+
+//  BlackAddedNotification = 1207;
+//  BlackDeletedNotification = 1208;
+//  FriendInfoUpdatedNotification = 1209;
+//  FriendsInfoUpdateNotification = 1210;
+//  ConversationChangeNotification = 1300;
+//  UserInfoUpdatedNotification = 1303;
+//  UserStatusChangeNotification = 1304;
+//  UserCommandAddNotification = 1305;
+//  UserCommandDeleteNotification = 1306;
+//  UserCommandUpdateNotification = 1307;
   GroupCreatedNotification = 1501;
-  GroupInfoSetNotification = 1502;
-  JoinGroupApplicationNotification = 1503;
+//  GroupInfoSetNotification = 1502;
+//  JoinGroupApplicationNotification = 1503;
   MemberQuitNotification = 1504;
-  GroupApplicationAcceptedNotification = 1505;
-  GroupApplicationRejectedNotification = 1506;
+//  GroupApplicationAcceptedNotification = 1505;
+//  GroupApplicationRejectedNotification = 1506;
   GroupOwnerTransferredNotification = 1507;
   MemberKickedNotification = 1508;
   MemberInvitedNotification = 1509;
@@ -137,23 +133,22 @@ enum ContentType {
   GroupMemberCancelMutedNotification = 1513;
   GroupMutedNotification = 1514;
   GroupCancelMutedNotification = 1515;
-  GroupMemberInfoSetNotification = 1516;
-  GroupMemberSetToAdminNotification = 1517;
-  GroupMemberSetToOrdinaryUserNotification = 1518;
-  GroupInfoSetAnnouncementNotification = 1519;
-  GroupInfoSetNameNotification = 1520;
+//  GroupMemberInfoSetNotification = 1516;
+//  GroupMemberSetToAdminNotification = 1517;
+//  GroupMemberSetToOrdinaryUserNotification = 1518;
+//  GroupInfoSetAnnouncementNotification = 1519;
+//  GroupInfoSetNameNotification = 1520;
   //  GroupNotificationEnd                     = 1599;
 
   ConversationPrivateChatNotification = 1701;
-  ClearConversationNotification = 1703;
+//  ClearConversationNotification = 1703;
 
   BusinessNotification = 2001;
 
   RevokedNotification = 2101;
 
-  DeleteMsgsNotification = 2102;
-
-  HasReadReceipt = 2200;
+//  DeleteMsgsNotification = 2102;
+//  HasReadReceipt = 2200;
 
   //  NotificationEnd = 5000
 }
