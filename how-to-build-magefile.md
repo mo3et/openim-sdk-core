@@ -1,7 +1,5 @@
 # how to use mage build in multi-language 
 
-
-
 We use `mage` to replace `makefile` and `shell script`. **Mage** requires a Go environment.
 
 ## Dependencies:
