@@ -5,9 +5,10 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"testing"
+	"time"
 )
 
-func TestName(t *testing.T) {
+func TestLocalConversation(t *testing.T) {
 	db, err := gorm.Open(sqlite.Open(":memory:"), &gorm.Config{})
 	if err != nil {
 		panic(err)
@@ -56,5 +57,31 @@ func TestName(t *testing.T) {
 	for _, c := range cs1 {
 		t.Logf("%+v", c)
 	}
+}
 
+func TestLocalVersionSync(t *testing.T) {
+	val := &LocalVersionSync{
+		Table:      "table",
+		EntityID:   "1234",
+		VersionID:  "5678",
+		Version:    1,
+		CreateTime: time.Now().Unix(),
+		UIDList:    []string{"1", "2", "3"},
+	}
+	db, err := gorm.Open(sqlite.Open(":memory:"), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+	if err := db.AutoMigrate(&LocalVersionSync{}); err != nil {
+		panic(err)
+	}
+	db = db.Debug()
+	if err := db.Create(val).Error; err != nil {
+		panic(err)
+	}
+	var val1 LocalVersionSync
+	if err := db.First(&val1).Error; err != nil {
+		panic(err)
+	}
+	t.Logf("%+v", val1)
 }

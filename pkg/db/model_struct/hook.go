@@ -76,7 +76,7 @@ func (a *StringArray) Scan(value any) error {
 	default:
 		return newUnsupportedScanTypeError(value)
 	}
-	return json.Unmarshal(b, &a)
+	return json.Unmarshal(b, a)
 }
 
 func (a *AttachedInfoElem) Value() (driver.Value, error) {
