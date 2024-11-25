@@ -178,7 +178,7 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{conversationID}}})
 	}
-	c.msgListener().OnMsgDeleted(&sdkpb.EventOnMsgDeletedData{Message: LocalChatLogToIMMessage(s)})
+	c.messageListener().OnMessageDeleted(&sdkpb.EventOnMessageDeletedData{Message: LocalChatLogToIMMessage(s)})
 	return nil
 }
 
