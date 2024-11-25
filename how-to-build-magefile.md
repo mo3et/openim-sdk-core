@@ -1,7 +1,5 @@
 # how to use mage build in multi-language 
 
-
-
 We use `mage` to replace `makefile` and `shell script`. **Mage** requires a Go environment.
 
 ## Dependencies:
@@ -10,8 +8,7 @@ We use `mage` to replace `makefile` and `shell script`. **Mage** requires a Go e
 - Add `go/bin` to the PATH environment variable.
 
 ### Install Mage:
-- View the [Mage install documentation](https://magefile.org/).
-- You also use `bootstrap_install_mage.bat` or `bootstrap_install_mage.sh` to install mage.
+- You can use `bootstrap_install_mage.bat` or `bootstrap_install_mage.sh` to install mage.
 
 ### Install language dependencies:
 #### Basic:
