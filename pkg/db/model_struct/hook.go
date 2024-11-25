@@ -58,7 +58,7 @@ func (a *LocalConversation) AfterFind(tx *gorm.DB) error {
 	return nil
 }
 
-func (a *StringArray) Value() (driver.Value, error) {
+func (a StringArray) Value() (driver.Value, error) {
 	data, err := json.Marshal(a)
 	if err != nil {
 		return nil, err

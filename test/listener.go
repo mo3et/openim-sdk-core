@@ -97,59 +97,59 @@ func (o *onGroupListener) OnGroupApplicationRejected(data *pb.EventOnGroupApplic
 	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationRejected", "groupApplication", data.Request)
 }
 
-type onAdvancedMsgListener struct {
+type onMessageListener struct {
 	ctx context.Context
 }
 
-func (o *onAdvancedMsgListener) OnRecvOnlineOnlyMessage(data *pb.EventOnRecvOnlineOnlyMessageData) {
+func (o *onMessageListener) OnRecvOnlineOnlyMessage(data *pb.EventOnRecvOnlineOnlyMessageData) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvOnlineOnlyMessage", "message", data.Message)
 }
 
-func (o *onAdvancedMsgListener) OnRecvOfflineNewMessage(data *pb.EventOnRecvOfflineNewMessageData) {
+func (o *onMessageListener) OnRecvOfflineNewMessage(data *pb.EventOnRecvOfflineNewMessageData) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvOfflineNewMessage", "message", data.Message)
 }
 
-func (o *onAdvancedMsgListener) OnMsgDeleted(data *pb.EventOnMsgDeletedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnMsgDeleted", "message", data.Message)
+func (o *onMessageListener) OnMessageDeleted(data *pb.EventOnMessageDeletedData) {
+	log.ZInfo(o.ctx, "###LISTENER### OnMessageDeleted", "message", data.Message)
 }
 
-func (o *onAdvancedMsgListener) OnMsgEdited(data *pb.EventOnMsgEditedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnMsgEdited", "######## message", data.Message)
+func (o *onMessageListener) OnMessageEdited(data *pb.EventOnMessageEditedData) {
+	log.ZInfo(o.ctx, "###LISTENER### EventOnMessageEditedData", "######## message", data.Message)
 }
 
-func (o *onAdvancedMsgListener) OnRecvOfflineNewMessages(messageList string) {
+func (o *onMessageListener) OnRecvOfflineNewMessages(messageList string) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvOfflineNewMessages", "messageList", messageList)
 }
 
-func (o *onAdvancedMsgListener) OnRecvNewMessage(data *pb.EventOnRecvNewMessageData) {
+func (o *onMessageListener) OnRecvNewMessage(data *pb.EventOnRecvNewMessageData) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvNewMessage", "message", data.Message)
 }
 
-func (o *onAdvancedMsgListener) OnRecvC2CReadReceipt(data *pb.EventOnRecvC2CReadReceiptData) {
+func (o *onMessageListener) OnRecvC2CReadReceipt(data *pb.EventOnRecvC2CReadReceiptData) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvC2CReadReceipt", "msgReceiptList", data.MsgReceiptList)
 }
 
-func (o *onAdvancedMsgListener) OnRecvGroupReadReceipt(groupMsgReceiptList string) {
+func (o *onMessageListener) OnRecvGroupReadReceipt(groupMsgReceiptList string) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvGroupReadReceipt", "groupMsgReceiptList", groupMsgReceiptList)
 }
 
-func (o *onAdvancedMsgListener) OnRecvMessageRevoked(msgID string) {
+func (o *onMessageListener) OnRecvMessageRevoked(msgID string) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvMessageRevoked", "msgID", msgID)
 }
 
-func (o *onAdvancedMsgListener) OnNewRecvMessageRevoked(data *pb.EventOnNewRecvMessageRevokedData) {
+func (o *onMessageListener) OnNewRecvMessageRevoked(data *pb.EventOnNewRecvMessageRevokedData) {
 	log.ZInfo(o.ctx, "###LISTENER### OnNewRecvMessageRevoked", "messageRevoked", data.Revoked)
 }
 
-func (o *onAdvancedMsgListener) OnRecvMessageExtensionsChanged(msgID string, reactionExtensionList string) {
+func (o *onMessageListener) OnRecvMessageExtensionsChanged(msgID string, reactionExtensionList string) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvMessageExtensionsChanged", "msgID", msgID, "reactionExtensionList", reactionExtensionList)
 }
 
-func (o *onAdvancedMsgListener) OnRecvMessageExtensionsDeleted(msgID string, reactionExtensionKeyList string) {
+func (o *onMessageListener) OnRecvMessageExtensionsDeleted(msgID string, reactionExtensionKeyList string) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvMessageExtensionsDeleted", "msgID", msgID, "reactionExtensionKeyList", reactionExtensionKeyList)
 }
 
-func (o *onAdvancedMsgListener) OnRecvMessageExtensionsAdded(msgID string, reactionExtensionList string) {
+func (o *onMessageListener) OnRecvMessageExtensionsAdded(msgID string, reactionExtensionList string) {
 	log.ZInfo(o.ctx, "###LISTENER### OnRecvMessageExtensionsAdded", "msgID", msgID, "reactionExtensionList", reactionExtensionList)
 }
 

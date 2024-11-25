@@ -40,7 +40,7 @@ func init() {
 	errCh := make(chan error)
 	open_im_sdk.IMUserContext.SetConnListener(&onConnListener{ctx: ctx})
 	open_im_sdk.IMUserContext.SetConversationListener(&onConversationListener{ctx: ctx, ch: errCh})
-	open_im_sdk.IMUserContext.SetAdvancedMsgListener(&onAdvancedMsgListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetMessageListener(&onMessageListener{ctx: ctx})
 	open_im_sdk.IMUserContext.SetFriendshipListener(&onFriendshipListener{ctx: ctx})
 	open_im_sdk.IMUserContext.SetGroupListener(&onGroupListener{ctx: ctx})
 	open_im_sdk.IMUserContext.SetUserListener(&onUserListener{ctx: ctx})

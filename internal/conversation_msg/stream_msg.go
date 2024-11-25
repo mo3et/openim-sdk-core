@@ -77,7 +77,7 @@ func (c *Conversation) setStreamMsg(ctx context.Context, conversationID string, 
 	}
 	imMessage := LocalChatLogToIMMessage(msg)
 	log.ZDebug(ctx, "setStreamMsg", "imMessage", imMessage)
-	c.msgListener().OnMsgEdited(&sdkpb.EventOnMsgEditedData{Message: imMessage})
+	c.messageListener().OnMessageEdited(&sdkpb.EventOnMessageEditedData{Message: imMessage})
 	return c.updateConversationLastMsg(ctx, conversationID, msg)
 }
 
