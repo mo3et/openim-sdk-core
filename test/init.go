@@ -3,6 +3,7 @@ package test
 import (
 	"context"
 	"fmt"
+	"github.com/openimsdk/tools/log"
 	"math/rand"
 	"strconv"
 	"time"
@@ -36,21 +37,29 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	errCh := make(chan error)
+	open_im_sdk.IMUserContext.SetConnListener(&onConnListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetConversationListener(&onConversationListener{ctx: ctx, ch: errCh})
+	open_im_sdk.IMUserContext.SetAdvancedMsgListener(&onAdvancedMsgListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetFriendshipListener(&onFriendshipListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetGroupListener(&onGroupListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetUserListener(&onUserListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetCustomBusinessListener(&onCustomBusinessListener{ctx: ctx})
 	if _, err := open_im_sdk.IMUserContext.Login(ctx, &sdkpb.LoginReq{
 		UserID: UserID,
 		Token:  token,
 	}); err != nil {
 		panic(err)
 	}
-	ch := make(chan error)
-	open_im_sdk.IMUserContext.SetConversationListener(&onConversationListener{ctx: ctx, ch: ch})
-	open_im_sdk.IMUserContext.SetGroupListener(&onGroupListener{ctx: ctx})
-	open_im_sdk.IMUserContext.SetAdvancedMsgListener(&onAdvancedMsgListener{ctx: ctx})
-	open_im_sdk.IMUserContext.SetFriendshipListener(&onFriendshipListener{ctx: ctx})
-	open_im_sdk.IMUserContext.SetUserListener(&onUserListener{ctx: ctx})
-	if err := <-ch; err != nil {
-		panic(err)
+	select {
+	case <-time.After(time.Second * 10):
+		panic("init timeout")
+	case err := <-errCh:
+		if err != nil {
+			panic(err)
+		}
 	}
+	log.ZInfo(ctx, "############ init success ############")
 }
 
 func getConf(APIADDR, WSADDR string) *sdkpb.IMConfig {

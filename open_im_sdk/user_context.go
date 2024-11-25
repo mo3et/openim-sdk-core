@@ -65,6 +65,7 @@ func init() {
 	IMUserContext.longConnMgr = interaction.NewLongConnMgr(IMUserContext.ctx,
 		IMUserContext.userOnlineStatusChange, IMUserContext.pushMsgAndMaxSeqCh, IMUserContext.loginMgrCh)
 	IMUserContext.ctx = ccontext.WithApiErrCode(IMUserContext.ctx, ccontext.NewApiErrCallback(IMUserContext.loginMgrCh, IMUserContext.ConnListener))
+	IMUserContext.LongConnMgr().SetListener(IMUserContext.ConnListener)
 	IMUserContext.setLoginStatus(pb.LoginStatus_Default)
 	IMUserContext.user = user.NewUser(IMUserContext.conversationCh)
 	IMUserContext.file = file.NewFile()

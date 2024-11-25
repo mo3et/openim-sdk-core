@@ -181,13 +181,13 @@ func (l *LongConnMgr) SendReqWaitResp(ctx context.Context, m proto.Message, reqI
 // reads from this goroutine.
 
 func (l *LongConnMgr) readPump(ctx context.Context) {
-	defer func() {
-		if r := recover(); r != nil {
-			err := fmt.Sprintf("panic: %+v\n%s", r, debug.Stack())
-
-			log.ZWarn(ctx, "readPump panic", nil, "panic info", err)
-		}
-	}()
+	//defer func() {
+	//	if r := recover(); r != nil {
+	//		err := fmt.Sprintf("panic: %+v\n%s", r, debug.Stack())
+	//
+	//		log.ZWarn(ctx, "readPump panic", nil, "panic info", err)
+	//	}
+	//}()
 
 	log.ZDebug(ctx, "readPump start", "goroutine ID:", getGoroutineID())
 	defer func() {
