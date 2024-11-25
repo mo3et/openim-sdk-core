@@ -48,38 +48,37 @@ const (
 )
 
 var (
-	// UserForSDK Client-independent user class
-	UserForSDK *LoginMgr
-	once       sync.Once
+	// IMUserContext is the global user context instance
+	IMUserContext *UserContext
+	once          sync.Once
 )
 
 func init() {
-	UserForSDK = NewLoginMgr()
-	ctx := ccontext.WithInfo(context.Background(), UserForSDK.info)
-	UserForSDK.ctx, UserForSDK.cancel = context.WithCancel(ctx)
+	IMUserContext = NewIMUserContext()
+	ctx := ccontext.WithInfo(context.Background(), IMUserContext.info)
+	IMUserContext.ctx, IMUserContext.cancel = context.WithCancel(ctx)
 	var convChanLen int
 	convChanLen = 1000
-	UserForSDK.conversationCh = make(chan common.Cmd2Value, convChanLen)
-	UserForSDK.pushMsgAndMaxSeqCh = make(chan common.Cmd2Value, 1000)
-	UserForSDK.loginMgrCh = make(chan common.Cmd2Value, 1)
-	UserForSDK.longConnMgr = interaction.NewLongConnMgr(UserForSDK.ctx,
-		UserForSDK.userOnlineStatusChange, UserForSDK.pushMsgAndMaxSeqCh, UserForSDK.loginMgrCh)
-	UserForSDK.ctx = ccontext.WithApiErrCode(UserForSDK.ctx, &apiErrCallback{loginMgrCh: UserForSDK.loginMgrCh,
-		listener: UserForSDK.ConnListener})
-	UserForSDK.setLoginStatus(pb.LoginStatus_Default)
-	UserForSDK.user = user.NewUser(UserForSDK.conversationCh)
-	UserForSDK.file = file.NewFile()
-	UserForSDK.relation = relation.NewRelation(UserForSDK.conversationCh, UserForSDK.user)
+	IMUserContext.conversationCh = make(chan common.Cmd2Value, convChanLen)
+	IMUserContext.pushMsgAndMaxSeqCh = make(chan common.Cmd2Value, 1000)
+	IMUserContext.loginMgrCh = make(chan common.Cmd2Value, 1)
+	IMUserContext.longConnMgr = interaction.NewLongConnMgr(IMUserContext.ctx,
+		IMUserContext.userOnlineStatusChange, IMUserContext.pushMsgAndMaxSeqCh, IMUserContext.loginMgrCh)
+	IMUserContext.ctx = ccontext.WithApiErrCode(IMUserContext.ctx, ccontext.NewApiErrCallback(IMUserContext.loginMgrCh, IMUserContext.ConnListener))
+	IMUserContext.setLoginStatus(pb.LoginStatus_Default)
+	IMUserContext.user = user.NewUser(IMUserContext.conversationCh)
+	IMUserContext.file = file.NewFile()
+	IMUserContext.relation = relation.NewRelation(IMUserContext.conversationCh, IMUserContext.user)
 
-	UserForSDK.group = group.NewGroup(UserForSDK.conversationCh)
-	UserForSDK.third = third.NewThird(UserForSDK.file)
+	IMUserContext.group = group.NewGroup(IMUserContext.conversationCh)
+	IMUserContext.third = third.NewThird(IMUserContext.file)
 
-	UserForSDK.msgSyncer = interaction.NewMsgSyncer(ccontext.WithOperationID(ctx, "test"), UserForSDK.conversationCh, UserForSDK.pushMsgAndMaxSeqCh, UserForSDK.longConnMgr)
-	UserForSDK.conversation = conv.NewConversation(UserForSDK.longConnMgr, UserForSDK.conversationCh,
-		UserForSDK.relation, UserForSDK.group, UserForSDK.user, UserForSDK.file)
+	IMUserContext.msgSyncer = interaction.NewMsgSyncer(ccontext.WithOperationID(ctx, "test"), IMUserContext.conversationCh, IMUserContext.pushMsgAndMaxSeqCh, IMUserContext.longConnMgr)
+	IMUserContext.conversation = conv.NewConversation(IMUserContext.longConnMgr, IMUserContext.conversationCh,
+		IMUserContext.relation, IMUserContext.group, IMUserContext.user, IMUserContext.file)
 }
 
-type LoginMgr struct {
+type UserContext struct {
 	relation     *relation.Relation
 	group        *group.Group
 	conversation *conv.Conversation
@@ -112,97 +111,97 @@ type LoginMgr struct {
 	info   *ccontext.GlobalConfig
 }
 
-func (u *LoginMgr) Info() *ccontext.GlobalConfig {
+func (u *UserContext) Info() *ccontext.GlobalConfig {
 	return u.info
 }
 
-func (u *LoginMgr) ConnListener() open_im_sdk_callback.OnConnListener {
+func (u *UserContext) ConnListener() open_im_sdk_callback.OnConnListener {
 	return u.connListener
 }
 
-func (u *LoginMgr) GroupListener() open_im_sdk_callback.OnGroupListener {
+func (u *UserContext) GroupListener() open_im_sdk_callback.OnGroupListener {
 	return u.groupListener
 }
 
-func (u *LoginMgr) FriendshipListener() open_im_sdk_callback.OnFriendshipListener {
+func (u *UserContext) FriendshipListener() open_im_sdk_callback.OnFriendshipListener {
 	return u.friendshipListener
 }
 
-func (u *LoginMgr) ConversationListener() open_im_sdk_callback.OnConversationListener {
+func (u *UserContext) ConversationListener() open_im_sdk_callback.OnConversationListener {
 	return u.conversationListener
 }
 
-func (u *LoginMgr) AdvancedMsgListener() open_im_sdk_callback.OnAdvancedMsgListener {
+func (u *UserContext) AdvancedMsgListener() open_im_sdk_callback.OnAdvancedMsgListener {
 	return u.advancedMsgListener
 }
 
-func (u *LoginMgr) UserListener() open_im_sdk_callback.OnUserListener {
+func (u *UserContext) UserListener() open_im_sdk_callback.OnUserListener {
 	return u.userListener
 }
 
-func (u *LoginMgr) BusinessListener() open_im_sdk_callback.OnCustomBusinessListener {
+func (u *UserContext) BusinessListener() open_im_sdk_callback.OnCustomBusinessListener {
 	return u.businessListener
 }
 
-func (u *LoginMgr) Exit() {
+func (u *UserContext) Exit() {
 	u.cancel()
 }
 
-func (u *LoginMgr) Third() *third.Third {
+func (u *UserContext) Third() *third.Third {
 	return u.third
 }
 
-func (u *LoginMgr) Conversation() *conv.Conversation {
+func (u *UserContext) Conversation() *conv.Conversation {
 	return u.conversation
 }
 
-func (u *LoginMgr) User() *user.User {
+func (u *UserContext) User() *user.User {
 	return u.user
 }
 
-func (u *LoginMgr) File() *file.File {
+func (u *UserContext) File() *file.File {
 	return u.file
 }
 
-func (u *LoginMgr) Group() *group.Group {
+func (u *UserContext) Group() *group.Group {
 	return u.group
 }
 
-func (u *LoginMgr) Relation() *relation.Relation {
+func (u *UserContext) Relation() *relation.Relation {
 	return u.relation
 }
 
-func (u *LoginMgr) SetConnListener(connListener open_im_sdk_callback.OnConnListener) {
+func (u *UserContext) SetConnListener(connListener open_im_sdk_callback.OnConnListener) {
 	u.connListener = connListener
 }
 
-func (u *LoginMgr) SetConversationListener(conversationListener open_im_sdk_callback.OnConversationListener) {
+func (u *UserContext) SetConversationListener(conversationListener open_im_sdk_callback.OnConversationListener) {
 	u.conversationListener = conversationListener
 }
 
-func (u *LoginMgr) SetAdvancedMsgListener(advancedMsgListener open_im_sdk_callback.OnAdvancedMsgListener) {
+func (u *UserContext) SetAdvancedMsgListener(advancedMsgListener open_im_sdk_callback.OnAdvancedMsgListener) {
 	u.advancedMsgListener = advancedMsgListener
 }
 
-func (u *LoginMgr) SetFriendshipListener(friendshipListener open_im_sdk_callback.OnFriendshipListener) {
+func (u *UserContext) SetFriendshipListener(friendshipListener open_im_sdk_callback.OnFriendshipListener) {
 	u.friendshipListener = friendshipListener
 }
 
-func (u *LoginMgr) SetGroupListener(groupListener open_im_sdk_callback.OnGroupListener) {
+func (u *UserContext) SetGroupListener(groupListener open_im_sdk_callback.OnGroupListener) {
 	u.groupListener = groupListener
 }
 
-func (u *LoginMgr) SetUserListener(userListener open_im_sdk_callback.OnUserListener) {
+func (u *UserContext) SetUserListener(userListener open_im_sdk_callback.OnUserListener) {
 	u.userListener = userListener
 }
 
-func (u *LoginMgr) SetCustomBusinessListener(listener open_im_sdk_callback.OnCustomBusinessListener) {
+func (u *UserContext) SetCustomBusinessListener(listener open_im_sdk_callback.OnCustomBusinessListener) {
 	u.businessListener = listener
 }
-func (u *LoginMgr) GetLoginUserID() string {
+func (u *UserContext) GetLoginUserID() string {
 	return u.info.UserID
 }
-func (u *LoginMgr) logoutListener(ctx context.Context) {
+func (u *UserContext) logoutListener(ctx context.Context) {
 	defer func() {
 		if r := recover(); r != nil {
 			err := fmt.Sprintf("panic: %+v\n%s", r, debug.Stack())
@@ -227,25 +226,25 @@ func (u *LoginMgr) logoutListener(ctx context.Context) {
 
 }
 
-func NewLoginMgr() *LoginMgr {
+func NewIMUserContext() *UserContext {
 	once.Do(func() {
-		UserForSDK = &LoginMgr{
+		IMUserContext = &UserContext{
 			info: &ccontext.GlobalConfig{},
 		}
 	})
-	return UserForSDK
+	return IMUserContext
 }
-func (u *LoginMgr) getLoginStatus() pb.LoginStatus {
+func (u *UserContext) getLoginStatus() pb.LoginStatus {
 	u.w.Lock()
 	defer u.w.Unlock()
 	return u.loginStatus
 }
-func (u *LoginMgr) setLoginStatus(status pb.LoginStatus) {
+func (u *UserContext) setLoginStatus(status pb.LoginStatus) {
 	u.w.Lock()
 	defer u.w.Unlock()
 	u.loginStatus = status
 }
-func (u *LoginMgr) checkSendingMessage(ctx context.Context) {
+func (u *UserContext) checkSendingMessage(ctx context.Context) {
 	sendingMessages, err := u.db.GetAllSendingMessages(ctx)
 	if err != nil {
 		log.ZError(ctx, "GetAllSendingMessages failed", err)
@@ -260,7 +259,7 @@ func (u *LoginMgr) checkSendingMessage(ctx context.Context) {
 	}
 }
 
-func (u *LoginMgr) handlerSendingMsg(ctx context.Context, sendingMsg *model_struct.LocalSendingMessages) error {
+func (u *UserContext) handlerSendingMsg(ctx context.Context, sendingMsg *model_struct.LocalSendingMessages) error {
 	tableMessage, err := u.db.GetMessage(ctx, sendingMsg.ConversationID, sendingMsg.ClientMsgID)
 	if err != nil {
 		return err
@@ -275,7 +274,7 @@ func (u *LoginMgr) handlerSendingMsg(ctx context.Context, sendingMsg *model_stru
 	return nil
 }
 
-func (u *LoginMgr) initialize(ctx context.Context, userID string) error {
+func (u *UserContext) initialize(ctx context.Context, userID string) error {
 	var err error
 	u.db, err = db.NewDataBase(ctx, userID, u.info.DataDir, int(u.info.LogLevel))
 	if err != nil {
@@ -307,33 +306,33 @@ func (u *LoginMgr) initialize(ctx context.Context, userID string) error {
 	return nil
 }
 
-func (u *LoginMgr) run(ctx context.Context) {
+func (u *UserContext) run(ctx context.Context) {
 	u.longConnMgr.Run(ctx)
 	go u.msgSyncer.DoListener(ctx)
 	go common.DoListener(u.ctx, u.conversation)
 	go u.logoutListener(ctx)
 }
 
-func (u *LoginMgr) Context() context.Context {
+func (u *UserContext) Context() context.Context {
 	return u.ctx
 }
 
-func (u *LoginMgr) initResources() {
+func (u *UserContext) initResources() {
 	ctx := ccontext.WithInfo(context.Background(), u.info)
 	u.ctx, u.cancel = context.WithCancel(ctx)
 	u.conversationCh = make(chan common.Cmd2Value, 1000)
 	u.pushMsgAndMaxSeqCh = make(chan common.Cmd2Value, 1000)
 	u.loginMgrCh = make(chan common.Cmd2Value, 1)
 	u.longConnMgr = interaction.NewLongConnMgr(u.ctx, u.userOnlineStatusChange, u.pushMsgAndMaxSeqCh, u.loginMgrCh)
-	u.ctx = ccontext.WithApiErrCode(u.ctx, &apiErrCallback{loginMgrCh: u.loginMgrCh, listener: u.ConnListener})
+	u.ctx = ccontext.WithApiErrCode(u.ctx, ccontext.NewApiErrCallback(u.loginMgrCh, u.ConnListener))
 	u.setLoginStatus(pb.LoginStatus_Default)
 }
 
-func (u *LoginMgr) userOnlineStatusChange(users map[string][]int32) {
+func (u *UserContext) userOnlineStatusChange(users map[string][]int32) {
 	u.User().UserOnlineStatusChange(users)
 }
 
-func (u *LoginMgr) UnInitSDK() {
+func (u *UserContext) UnInitSDK() {
 	if u.getLoginStatus() == pb.LoginStatus_Logged {
 		fmt.Println("sdk not logout, please logout first")
 		return
@@ -343,7 +342,7 @@ func (u *LoginMgr) UnInitSDK() {
 }
 
 // token error recycle recourse, kicked not recycle
-func (u *LoginMgr) logout(ctx context.Context, isTokenValid bool) error {
+func (u *UserContext) logout(ctx context.Context, isTokenValid bool) error {
 	if ccontext.Info(ctx).OperationID() == LogoutTips {
 		isTokenValid = true
 	}
@@ -369,7 +368,7 @@ func (u *LoginMgr) logout(ctx context.Context, isTokenValid bool) error {
 	return nil
 }
 
-func (u *LoginMgr) setAppBackgroundStatus(ctx context.Context, isBackground bool) error {
+func (u *UserContext) setAppBackgroundStatus(ctx context.Context, isBackground bool) error {
 	if u.longConnMgr.GetConnectionStatus() == interaction.DefaultNotConnect {
 		u.longConnMgr.SetBackground(isBackground)
 		return nil
@@ -388,6 +387,6 @@ func (u *LoginMgr) setAppBackgroundStatus(ctx context.Context, isBackground bool
 	}
 }
 
-func (u *LoginMgr) LongConnMgr() *interaction.LongConnMgr {
+func (u *UserContext) LongConnMgr() *interaction.LongConnMgr {
 	return u.longConnMgr
 }

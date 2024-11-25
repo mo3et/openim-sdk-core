@@ -35,7 +35,7 @@ func GetRelativeServerTime() int64 {
 }
 
 func InitSDKAndLogin(userID, token string) error {
-	userForSDK := open_im_sdk.NewLoginMgr()
+	userForSDK := open_im_sdk.NewIMUserContext()
 	var cf sdk_struct.IMConfig
 	cf.ApiAddr = APIADDR
 	cf.PlatformID = int32(PLATFORMID)
@@ -60,7 +60,7 @@ func InitSDKAndLogin(userID, token string) error {
 	return nil
 }
 
-func SetListener(userForSDK *open_im_sdk.LoginMgr, userID string) {
+func SetListener(userForSDK *open_im_sdk.UserContext, userID string) {
 	var testConversation conversationCallBack
 	userForSDK.SetConversationListener(&testConversation)
 

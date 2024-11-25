@@ -1,14 +1,15 @@
 package test
 
 import (
-	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"testing"
 	"time"
+
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 )
 
 func Test_GetSpecifiedFriends(t *testing.T) {
-	info, err := open_im_sdk.UserForSDK.Relation().GetSpecifiedFriends(ctx, &sdkpb.GetSpecifiedFriendsReq{
+	info, err := open_im_sdk.IMUserContext.Relation().GetSpecifiedFriends(ctx, &sdkpb.GetSpecifiedFriendsReq{
 		FriendUserIDs: []string{"userID1", "userID2"},
 		FilterBlack:   false,
 	})
@@ -22,7 +23,7 @@ func Test_GetSpecifiedFriends(t *testing.T) {
 }
 
 func Test_AddFriend(t *testing.T) {
-	_, err := open_im_sdk.UserForSDK.Relation().AddFriend(ctx, &sdkpb.AddFriendReq{
+	_, err := open_im_sdk.IMUserContext.Relation().AddFriend(ctx, &sdkpb.AddFriendReq{
 		UserID: "111",
 		ReqMsg: "hhh",
 		Ex:     "",
@@ -34,7 +35,7 @@ func Test_AddFriend(t *testing.T) {
 }
 
 func Test_HandlerFriendRequest(t *testing.T) {
-	_, err := open_im_sdk.UserForSDK.Relation().HandlerFriendRequest(ctx, &sdkpb.HandlerFriendRequestReq{
+	_, err := open_im_sdk.IMUserContext.Relation().HandlerFriendRequest(ctx, &sdkpb.HandlerFriendRequestReq{
 		UserID:    "request123",
 		HandleMsg: "accept",
 		Status:    sdkpb.ApprovalStatus_Approved,
@@ -47,7 +48,7 @@ func Test_HandlerFriendRequest(t *testing.T) {
 }
 
 func Test_CheckFriend(t *testing.T) {
-	res, err := open_im_sdk.UserForSDK.Relation().CheckFriend(ctx, &sdkpb.CheckFriendReq{
+	res, err := open_im_sdk.IMUserContext.Relation().CheckFriend(ctx, &sdkpb.CheckFriendReq{
 		FriendUserIDs: []string{"863454357", "45644221123"},
 	})
 	if err != nil {
@@ -60,7 +61,7 @@ func Test_CheckFriend(t *testing.T) {
 }
 
 func Test_DeleteFriend(t *testing.T) {
-	_, err := open_im_sdk.UserForSDK.Relation().DeleteFriend(ctx, &sdkpb.DeleteFriendReq{
+	_, err := open_im_sdk.IMUserContext.Relation().DeleteFriend(ctx, &sdkpb.DeleteFriendReq{
 		UserID: "863454357",
 	})
 	if err != nil {
@@ -70,7 +71,7 @@ func Test_DeleteFriend(t *testing.T) {
 }
 
 func Test_GetFriends(t *testing.T) {
-	info, err := open_im_sdk.UserForSDK.Relation().GetFriends(ctx, &sdkpb.GetFriendsReq{
+	info, err := open_im_sdk.IMUserContext.Relation().GetFriends(ctx, &sdkpb.GetFriendsReq{
 		FilterBlack: false,
 	})
 	if err != nil {
@@ -83,7 +84,7 @@ func Test_GetFriends(t *testing.T) {
 }
 
 func Test_SearchFriends(t *testing.T) {
-	info, err := open_im_sdk.UserForSDK.Relation().SearchFriends(ctx, &sdkpb.SearchFriendsReq{
+	info, err := open_im_sdk.IMUserContext.Relation().SearchFriends(ctx, &sdkpb.SearchFriendsReq{
 		Keyword:        "friendName",
 		SearchUserID:   true,
 		SearchNickname: true,
@@ -99,7 +100,7 @@ func Test_SearchFriends(t *testing.T) {
 }
 
 func Test_AddBlack(t *testing.T) {
-	_, err := open_im_sdk.UserForSDK.Relation().AddBlack(ctx, &sdkpb.AddBlackReq{
+	_, err := open_im_sdk.IMUserContext.Relation().AddBlack(ctx, &sdkpb.AddBlackReq{
 		UserID: "863454357",
 		Ex:     "ex",
 	})
@@ -110,7 +111,7 @@ func Test_AddBlack(t *testing.T) {
 }
 
 func Test_DeleteBlack(t *testing.T) {
-	_, err := open_im_sdk.UserForSDK.Relation().DeleteBlack(ctx, &sdkpb.DeleteBlackReq{
+	_, err := open_im_sdk.IMUserContext.Relation().DeleteBlack(ctx, &sdkpb.DeleteBlackReq{
 		UserID: "863454357",
 	})
 	if err != nil {
@@ -120,7 +121,7 @@ func Test_DeleteBlack(t *testing.T) {
 }
 
 func Test_GetBlacks(t *testing.T) {
-	info, err := open_im_sdk.UserForSDK.Relation().GetBlacks(ctx, &sdkpb.GetBlacksReq{})
+	info, err := open_im_sdk.IMUserContext.Relation().GetBlacks(ctx, &sdkpb.GetBlacksReq{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -134,7 +135,7 @@ func Test_UpdateFriends(t *testing.T) {
 	pinned := true
 	remark := "remark"
 	ex := "aaa"
-	_, err := open_im_sdk.UserForSDK.Relation().UpdateFriends(ctx, &sdkpb.UpdatesFriendsReq{
+	_, err := open_im_sdk.IMUserContext.Relation().UpdateFriends(ctx, &sdkpb.UpdatesFriendsReq{
 		UserID: "2",
 		Pinned: &pinned,
 		Remark: &remark,

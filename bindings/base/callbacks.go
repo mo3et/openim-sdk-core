@@ -10,13 +10,13 @@ func setListener(funcName pb.FuncRequestEventName) {
 	if funcName != pb.FuncRequestEventName_InitSDK {
 		return
 	}
-	open_im_sdk.UserForSDK.SetConnListener(NewConnCallback())
-	open_im_sdk.UserForSDK.SetConversationListener(NewConversationCallback())
-	open_im_sdk.UserForSDK.SetAdvancedMsgListener(NewAdvancedMsgCallback())
-	open_im_sdk.UserForSDK.SetFriendshipListener(NewFriendCallback())
-	open_im_sdk.UserForSDK.SetGroupListener(NewGroupCallback())
-	open_im_sdk.UserForSDK.SetUserListener(NewUserCallback())
-	open_im_sdk.UserForSDK.SetCustomBusinessListener(NewCustomBusinessCallback())
+	open_im_sdk.IMUserContext.SetConnListener(NewConnCallback())
+	open_im_sdk.IMUserContext.SetConversationListener(NewConversationCallback())
+	open_im_sdk.IMUserContext.SetAdvancedMsgListener(NewAdvancedMsgCallback())
+	open_im_sdk.IMUserContext.SetFriendshipListener(NewFriendCallback())
+	open_im_sdk.IMUserContext.SetGroupListener(NewGroupCallback())
+	open_im_sdk.IMUserContext.SetUserListener(NewUserCallback())
+	open_im_sdk.IMUserContext.SetCustomBusinessListener(NewCustomBusinessCallback())
 }
 
 type ConnCallback struct{}

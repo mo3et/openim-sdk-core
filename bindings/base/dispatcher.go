@@ -160,8 +160,8 @@ func FfiRequest(data []byte) uint64 {
 			return
 		}
 		if fn, ok := FuncMap[ffiRequest.FuncName]; ok {
-			ctx := ccontext.WithOperationID(open_im_sdk.UserForSDK.Context(),
-				generateUniqueID(open_im_sdk.UserForSDK.Info().UserID, int32(open_im_sdk.UserForSDK.Info().Platform)))
+			ctx := ccontext.WithOperationID(open_im_sdk.IMUserContext.Context(),
+				generateUniqueID(open_im_sdk.IMUserContext.Info().UserID, int32(open_im_sdk.IMUserContext.Info().Platform)))
 			res, err := fn(ctx, handleID, ffiRequest.FuncName, ffiRequest.Data)
 			if err != nil {
 				activeErrResp(handleID, ffiRequest.FuncName, err)
@@ -179,16 +179,16 @@ func FfiRequest(data []byte) uint64 {
 
 func checkResourceLoad(funcName pb.FuncRequestEventName) error {
 	if funcName == pb.FuncRequestEventName_InitSDK {
-		open_im_sdk.UserForSDK.Info().IMConfig = &initpb.IMConfig{}
+		open_im_sdk.IMUserContext.Info().IMConfig = &initpb.IMConfig{}
 		return nil
 	}
-	if open_im_sdk.UserForSDK.Info().IMConfig == nil {
+	if open_im_sdk.IMUserContext.Info().IMConfig == nil {
 		return sdkerrs.ErrNotInit.WrapMsg("SDK not initialized", "funcName", funcName.String())
 	}
 	if funcName == pb.FuncRequestEventName_Login {
 		return nil
 	}
-	resp, err := open_im_sdk.UserForSDK.GetLoginStatus(context.Background(), &initpb.GetLoginStatusReq{})
+	resp, err := open_im_sdk.IMUserContext.GetLoginStatus(context.Background(), &initpb.GetLoginStatusReq{})
 	if err != nil {
 		return err
 	}

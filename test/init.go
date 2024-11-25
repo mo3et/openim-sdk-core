@@ -23,31 +23,31 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 	config := getConf(APIADDR, WSADDR)
 	config.DataDir = "./"
-	isInit, err := open_im_sdk.UserForSDK.InitSDK(context.TODO(), &sdkpb.InitSDKReq{Config: config})
+	isInit, err := open_im_sdk.IMUserContext.InitSDK(context.TODO(), &sdkpb.InitSDKReq{Config: config})
 	if err != nil {
 		panic(err)
 	}
 	if !isInit.Suc {
 		panic("init sdk failed")
 	}
-	ctx = open_im_sdk.UserForSDK.Context()
+	ctx = open_im_sdk.IMUserContext.Context()
 	ctx = ccontext.WithOperationID(ctx, "initOperationID_"+strconv.Itoa(int(time.Now().UnixMilli())))
 	token, err := GetUserToken(ctx, UserID, PlatformID, Secret, config)
 	if err != nil {
 		panic(err)
 	}
-	if _, err := open_im_sdk.UserForSDK.Login(ctx, &sdkpb.LoginReq{
+	if _, err := open_im_sdk.IMUserContext.Login(ctx, &sdkpb.LoginReq{
 		UserID: UserID,
 		Token:  token,
 	}); err != nil {
 		panic(err)
 	}
 	ch := make(chan error)
-	open_im_sdk.UserForSDK.SetConversationListener(&onConversationListener{ctx: ctx, ch: ch})
-	open_im_sdk.UserForSDK.SetGroupListener(&onGroupListener{ctx: ctx})
-	open_im_sdk.UserForSDK.SetAdvancedMsgListener(&onAdvancedMsgListener{ctx: ctx})
-	open_im_sdk.UserForSDK.SetFriendshipListener(&onFriendshipListener{ctx: ctx})
-	open_im_sdk.UserForSDK.SetUserListener(&onUserListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetConversationListener(&onConversationListener{ctx: ctx, ch: ch})
+	open_im_sdk.IMUserContext.SetGroupListener(&onGroupListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetAdvancedMsgListener(&onAdvancedMsgListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetFriendshipListener(&onFriendshipListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetUserListener(&onUserListener{ctx: ctx})
 	if err := <-ch; err != nil {
 		panic(err)
 	}

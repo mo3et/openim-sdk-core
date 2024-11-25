@@ -19,8 +19,8 @@ func GetRelativeServerTime() int64 {
 	return utils.GetCurrentTimestampByMill() + timeOffset
 }
 
-func InitSDK(userID string, cf sdk_struct.IMConfig) (*open_im_sdk.LoginMgr, error) {
-	userForSDK := open_im_sdk.NewLoginMgr()
+func InitSDK(userID string, cf sdk_struct.IMConfig) (*open_im_sdk.UserContext, error) {
+	userForSDK := open_im_sdk.NewIMUserContext()
 	var testConnListener testConnListener
 	testConnListener.UserID = userID
 	isInit := userForSDK.InitSDK(cf, &testConnListener)
@@ -33,7 +33,7 @@ func InitSDK(userID string, cf sdk_struct.IMConfig) (*open_im_sdk.LoginMgr, erro
 	return userForSDK, nil
 }
 
-func SetListener(userForSDK *open_im_sdk.LoginMgr, userID string) {
+func SetListener(userForSDK *open_im_sdk.UserContext, userID string) {
 	var testConversation conversationCallBack
 	userForSDK.SetConversationListener(&testConversation)
 	var testUser userCallback

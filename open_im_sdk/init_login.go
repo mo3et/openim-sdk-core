@@ -31,11 +31,8 @@ const (
 	rotationTime uint = 24
 )
 
-func (u *LoginMgr) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.InitSDKResp, error) {
+func (u *UserContext) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.InitSDKResp, error) {
 	u.info.IMConfig = req.GetConfig()
-	if u.info.IMConfig != nil {
-		log.ZWarn(ctx, "哈哈哈哈和", nil)
-	}
 	if err := log.InitLoggerFromConfig("open-im-sdk-core", "",
 		commonpb.AppFramework_name[int32(req.Config.AppFramework)], commonpb.Platform_name[int32(req.Config.Platform)], int(req.Config.LogLevel),
 		req.Config.IsLogStandardOutput, false, req.Config.LogFilePath, rotateCount, rotationTime, version.Version, true); err != nil {
@@ -44,7 +41,7 @@ func (u *LoginMgr) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.InitSDK
 	return &pb.InitSDKResp{Suc: true}, nil
 }
 
-func (u *LoginMgr) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, error) {
+func (u *UserContext) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, error) {
 	if u.getLoginStatus() == pb.LoginStatus_Logged {
 		return nil, sdkerrs.ErrLoginRepeat
 	}
@@ -66,29 +63,29 @@ func (u *LoginMgr) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, 
 	return &pb.LoginResp{}, nil
 }
 
-func (u *LoginMgr) Logout(ctx context.Context, req *pb.LogoutReq) (*pb.LogoutResp, error) {
+func (u *UserContext) Logout(ctx context.Context, req *pb.LogoutReq) (*pb.LogoutResp, error) {
 	if err := u.logout(ctx, false); err != nil {
 		return nil, err
 	}
 	return &pb.LogoutResp{}, nil
 }
 
-func (u *LoginMgr) SetAppBackgroundStatus(ctx context.Context, req *pb.SetAppBackgroundStatusReq) (*pb.SetAppBackgroundStatusResp, error) {
+func (u *UserContext) SetAppBackgroundStatus(ctx context.Context, req *pb.SetAppBackgroundStatusReq) (*pb.SetAppBackgroundStatusResp, error) {
 	if err := u.setAppBackgroundStatus(ctx, req.IsBackground); err != nil {
 		return nil, err
 	}
 	return &pb.SetAppBackgroundStatusResp{}, nil
 }
 
-func (u *LoginMgr) NetworkStatusChanged(ctx context.Context, req *pb.NetworkStatusChangedReq) (*pb.NetworkStatusChangedResp, error) {
+func (u *UserContext) NetworkStatusChanged(ctx context.Context, req *pb.NetworkStatusChangedReq) (*pb.NetworkStatusChangedResp, error) {
 	u.longConnMgr.Close(ctx)
 	return &pb.NetworkStatusChangedResp{}, nil
 }
 
-func (u *LoginMgr) GetLoginStatus(ctx context.Context, req *pb.GetLoginStatusReq) (*pb.GetLoginStatusResp, error) {
+func (u *UserContext) GetLoginStatus(ctx context.Context, req *pb.GetLoginStatusReq) (*pb.GetLoginStatusResp, error) {
 	return &pb.GetLoginStatusResp{Status: u.getLoginStatus()}, nil
 }
 
-func (u *LoginMgr) Version(ctx context.Context, req *pb.VersionReq) (*pb.VersionResp, error) {
+func (u *UserContext) Version(ctx context.Context, req *pb.VersionReq) (*pb.VersionResp, error) {
 	return &pb.VersionResp{Version: version.Version}, nil
 }

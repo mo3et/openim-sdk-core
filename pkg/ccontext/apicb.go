@@ -1,4 +1,4 @@
-package open_im_sdk
+package ccontext
 
 import (
 	"context"
@@ -11,7 +11,7 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-type apiErrCallback struct {
+type ApiErrCallback struct {
 	loginMgrCh         chan common.Cmd2Value
 	listener           func() open_im_sdk_callback.OnConnListener
 	tokenExpiredState  int32
@@ -19,7 +19,11 @@ type apiErrCallback struct {
 	tokenInvalidState  int32
 }
 
-func (c *apiErrCallback) OnError(ctx context.Context, err error) {
+func NewApiErrCallback(loginMgrCh chan common.Cmd2Value, listener func() open_im_sdk_callback.OnConnListener) *ApiErrCallback {
+	return &ApiErrCallback{loginMgrCh: loginMgrCh, listener: listener}
+}
+
+func (c *ApiErrCallback) OnError(ctx context.Context, err error) {
 	if err == nil {
 		return
 	}

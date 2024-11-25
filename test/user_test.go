@@ -1,15 +1,16 @@
 package test
 
 import (
+	"testing"
+	"time"
+
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	"github.com/openimsdk/tools/utils/datautil"
-	"testing"
-	"time"
 )
 
 func Test_GetSelfUserInfo(t *testing.T) {
-	userInfo, err := open_im_sdk.UserForSDK.User().GetSelfUserInfo(ctx, &sdkpb.GetSelfUserInfoReq{})
+	userInfo, err := open_im_sdk.IMUserContext.User().GetSelfUserInfo(ctx, &sdkpb.GetSelfUserInfoReq{})
 	if err != nil {
 		t.Error(err)
 	}
@@ -19,7 +20,7 @@ func Test_GetSelfUserInfo(t *testing.T) {
 func Test_SetSelfInfoEx(t *testing.T) {
 	newNickName := "test"
 	newFaceURL := "http://test.com"
-	_, err := open_im_sdk.UserForSDK.User().SetSelfInfo(ctx, &sdkpb.SetSelfInfoReq{
+	_, err := open_im_sdk.IMUserContext.User().SetSelfInfo(ctx, &sdkpb.SetSelfInfoReq{
 		Nickname: datautil.ToPtr(newNickName),
 		FaceURL:  datautil.ToPtr(newFaceURL),
 		Ex:       datautil.ToPtr("ASD"),
@@ -28,7 +29,7 @@ func Test_SetSelfInfoEx(t *testing.T) {
 		t.Error(err)
 	}
 
-	userInfo, err := open_im_sdk.UserForSDK.User().GetSelfUserInfo(ctx, &sdkpb.GetSelfUserInfoReq{})
+	userInfo, err := open_im_sdk.IMUserContext.User().GetSelfUserInfo(ctx, &sdkpb.GetSelfUserInfoReq{})
 	if err != nil {
 		t.Error(err)
 	}
@@ -47,14 +48,14 @@ func Test_ProcessUserCommandAdd(t *testing.T) {
 		Value:  datautil.ToPtr("ASD"),
 		Ex:     datautil.ToPtr("ASD"),
 	}
-	_, err := open_im_sdk.UserForSDK.User().ProcessUserCommandAdd(ctx, req)
+	_, err := open_im_sdk.IMUserContext.User().ProcessUserCommandAdd(ctx, req)
 	if err != nil {
 		t.Errorf("Failed to add user command: %v", err)
 	}
 }
 
 func Test_UserCommandGet(t *testing.T) {
-	result, err := open_im_sdk.UserForSDK.User().ProcessUserCommandGetAll(ctx, &sdkpb.ProcessUserCommandGetAllReq{})
+	result, err := open_im_sdk.IMUserContext.User().ProcessUserCommandGetAll(ctx, &sdkpb.ProcessUserCommandGetAllReq{})
 	if err != nil {
 		t.Errorf("Failed to get user commands: %v", err)
 	}
@@ -67,7 +68,7 @@ func Test_UserCommandDelete(t *testing.T) {
 		Type:   8,
 		Uuid:   "1",
 	}
-	_, err := open_im_sdk.UserForSDK.User().ProcessUserCommandDelete(ctx, req)
+	_, err := open_im_sdk.IMUserContext.User().ProcessUserCommandDelete(ctx, req)
 	if err != nil {
 		t.Errorf("Failed to delete user command: %v", err)
 	}
