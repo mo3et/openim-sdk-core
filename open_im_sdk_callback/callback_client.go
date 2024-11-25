@@ -64,14 +64,14 @@ type OnConversationListener interface {
 	OnConversationUserInputStatusChanged(data *pb.EventOnConversationUserInputStatusChangedData)
 }
 
-type OnAdvancedMsgListener interface {
+type OnMessageListener interface {
 	OnRecvNewMessage(data *pb.EventOnRecvNewMessageData)
 	OnRecvC2CReadReceipt(data *pb.EventOnRecvC2CReadReceiptData)
 	OnNewRecvMessageRevoked(data *pb.EventOnNewRecvMessageRevokedData)
 	OnRecvOfflineNewMessage(data *pb.EventOnRecvOfflineNewMessageData)
-	OnMsgDeleted(data *pb.EventOnMsgDeletedData)
+	OnMessageDeleted(data *pb.EventOnMessageDeletedData)
 	OnRecvOnlineOnlyMessage(data *pb.EventOnRecvOnlineOnlyMessageData)
-	OnMsgEdited(data *pb.EventOnMsgEditedData)
+	OnMessageEdited(data *pb.EventOnMessageEditedData)
 }
 
 type OnUserListener interface {

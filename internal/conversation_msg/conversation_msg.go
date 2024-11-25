@@ -4,9 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 	"math"
 	"sync"
+
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 
 	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 
@@ -55,7 +56,7 @@ type Conversation struct {
 	conversationSyncer    *syncer.Syncer[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string]
 	db                    db_interface.DataBase
 	ConversationListener  func() open_im_sdk_callback.OnConversationListener
-	msgListener           func() open_im_sdk_callback.OnAdvancedMsgListener
+	messageListener       func() open_im_sdk_callback.OnMessageListener
 	businessListener      func() open_im_sdk_callback.OnCustomBusinessListener
 	recvCH                chan common.Cmd2Value
 	loginUserID           string
@@ -115,8 +116,8 @@ func (c *Conversation) SetDataDir(DataDir string) {
 	c.DataDir = DataDir
 }
 
-func (c *Conversation) SetMsgListener(msgListener func() open_im_sdk_callback.OnAdvancedMsgListener) {
-	c.msgListener = msgListener
+func (c *Conversation) SetMessageListener(messageListener func() open_im_sdk_callback.OnMessageListener) {
+	c.messageListener = messageListener
 }
 
 func (c *Conversation) SetBusinessListener(businessListener func() open_im_sdk_callback.OnCustomBusinessListener) {
@@ -647,10 +648,10 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList MsgList, 
 		for _, w := range newMessagesList {
 			conversationID := utils.GetConversationIDByMsg(w)
 			if v, ok := cc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.msgListener().OnRecvOfflineNewMessage(&eventpb.EventOnRecvOfflineNewMessageData{Message: w})
+				c.messageListener().OnRecvOfflineNewMessage(&eventpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 			if v, ok := nc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.msgListener().OnRecvOfflineNewMessage(&eventpb.EventOnRecvOfflineNewMessageData{Message: w})
+				c.messageListener().OnRecvOfflineNewMessage(&eventpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 		}
 	} else {
@@ -659,9 +660,9 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList MsgList, 
 				continue
 			}
 			if _, ok := onlineMsg[onlineMsgKey{ClientMsgID: w.ClientMsgID, ServerMsgID: w.ServerMsgID}]; ok {
-				c.msgListener().OnRecvOnlineOnlyMessage(&eventpb.EventOnRecvOnlineOnlyMessageData{Message: w})
+				c.messageListener().OnRecvOnlineOnlyMessage(&eventpb.EventOnRecvOnlineOnlyMessageData{Message: w})
 			} else {
-				c.msgListener().OnRecvNewMessage(&eventpb.EventOnRecvNewMessageData{Message: w})
+				c.messageListener().OnRecvNewMessage(&eventpb.EventOnRecvNewMessageData{Message: w})
 			}
 		}
 	}

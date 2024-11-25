@@ -12,7 +12,7 @@ func setListener(funcName pb.FuncRequestEventName) {
 	}
 	open_im_sdk.IMUserContext.SetConnListener(NewConnCallback())
 	open_im_sdk.IMUserContext.SetConversationListener(NewConversationCallback())
-	open_im_sdk.IMUserContext.SetAdvancedMsgListener(NewAdvancedMsgCallback())
+	open_im_sdk.IMUserContext.SetMessageListener(NewMessageCallback())
 	open_im_sdk.IMUserContext.SetFriendshipListener(NewFriendCallback())
 	open_im_sdk.IMUserContext.SetGroupListener(NewGroupCallback())
 	open_im_sdk.IMUserContext.SetUserListener(NewUserCallback())
@@ -87,38 +87,38 @@ func (c ConversationCallback) OnConversationUserInputStatusChanged(data *pb.Even
 	passiveEventResp(pb.FuncRequestEventName_EventOnConversationUserInputStatusChanged, data)
 }
 
-type AdvancedMsgCallback struct{}
+type MessageCallback struct{}
 
-func NewAdvancedMsgCallback() *AdvancedMsgCallback {
-	return &AdvancedMsgCallback{}
+func NewMessageCallback() *MessageCallback {
+	return &MessageCallback{}
 }
 
-func (a AdvancedMsgCallback) OnRecvNewMessage(data *pb.EventOnRecvNewMessageData) {
+func (a MessageCallback) OnRecvNewMessage(data *pb.EventOnRecvNewMessageData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvNewMessage, data)
 }
 
-func (a AdvancedMsgCallback) OnRecvC2CReadReceipt(data *pb.EventOnRecvC2CReadReceiptData) {
+func (a MessageCallback) OnRecvC2CReadReceipt(data *pb.EventOnRecvC2CReadReceiptData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvC2CReadReceipt, data)
 }
 
-func (a AdvancedMsgCallback) OnNewRecvMessageRevoked(data *pb.EventOnNewRecvMessageRevokedData) {
+func (a MessageCallback) OnNewRecvMessageRevoked(data *pb.EventOnNewRecvMessageRevokedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnNewRecvMessageRevoked, data)
 }
 
-func (a AdvancedMsgCallback) OnRecvOfflineNewMessage(data *pb.EventOnRecvOfflineNewMessageData) {
+func (a MessageCallback) OnRecvOfflineNewMessage(data *pb.EventOnRecvOfflineNewMessageData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvOfflineNewMessage, data)
 }
 
-func (a AdvancedMsgCallback) OnMsgDeleted(data *pb.EventOnMsgDeletedData) {
-	passiveEventResp(pb.FuncRequestEventName_EventOnMsgDeleted, data)
+func (a MessageCallback) OnMessageDeleted(data *pb.EventOnMessageDeletedData) {
+	passiveEventResp(pb.FuncRequestEventName_EventOnMessageDeleted, data)
 }
 
-func (a AdvancedMsgCallback) OnRecvOnlineOnlyMessage(data *pb.EventOnRecvOnlineOnlyMessageData) {
+func (a MessageCallback) OnRecvOnlineOnlyMessage(data *pb.EventOnRecvOnlineOnlyMessageData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvOnlineOnlyMessage, data)
 }
 
-func (a AdvancedMsgCallback) OnMsgEdited(data *pb.EventOnMsgEditedData) {
-	passiveEventResp(pb.FuncRequestEventName_EventOnMsgEdited, data)
+func (a MessageCallback) OnMessageEdited(data *pb.EventOnMessageEditedData) {
+	passiveEventResp(pb.FuncRequestEventName_EventOnMessageEdited, data)
 }
 
 type FriendCallback struct{}

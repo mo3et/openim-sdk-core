@@ -45,9 +45,9 @@ enum FuncRequestEventName {
   EventOnRecvC2CReadReceipt = 30;
   EventOnNewRecvMessageRevoked = 31;
   EventOnRecvOfflineNewMessage = 32;
-  EventOnMsgDeleted = 33;
+  EventOnMessageDeleted = 33;
   EventOnRecvOnlineOnlyMessage = 34;
-  EventOnMsgEdited = 35;
+  EventOnMessageEdited = 35;
   // FriendCallback Events
   EventOnFriendApplicationAdded = 36;
   EventOnFriendApplicationDeleted = 37;
@@ -260,13 +260,13 @@ message EventOnNewRecvMessageRevokedData {
 message EventOnRecvOfflineNewMessageData {
   openim.sdk.shared.IMMessage message = 1;
 }
-message EventOnMsgDeletedData {
+message EventOnMessageDeletedData {
   openim.sdk.shared.IMMessage message = 1;
 }
 message EventOnRecvOnlineOnlyMessageData {
   openim.sdk.shared.IMMessage message = 1;
 }
-message EventOnMsgEditedData {
+message EventOnMessageEditedData {
   openim.sdk.shared.IMMessage message = 1;
 }
 

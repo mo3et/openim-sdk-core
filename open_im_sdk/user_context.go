@@ -68,15 +68,22 @@ func init() {
 	IMUserContext.LongConnMgr().SetListener(IMUserContext.ConnListener)
 	IMUserContext.setLoginStatus(pb.LoginStatus_Default)
 	IMUserContext.user = user.NewUser(IMUserContext.conversationCh)
+	IMUserContext.User().SetListener(IMUserContext.UserListener)
 	IMUserContext.file = file.NewFile()
 	IMUserContext.relation = relation.NewRelation(IMUserContext.conversationCh, IMUserContext.user)
 
+	IMUserContext.Relation().SetListener(IMUserContext.FriendshipListener)
 	IMUserContext.group = group.NewGroup(IMUserContext.conversationCh)
+	IMUserContext.Group().SetListener(IMUserContext.GroupListener)
 	IMUserContext.third = third.NewThird(IMUserContext.file)
 
-	IMUserContext.msgSyncer = interaction.NewMsgSyncer(ccontext.WithOperationID(ctx, "test"), IMUserContext.conversationCh, IMUserContext.pushMsgAndMaxSeqCh, IMUserContext.longConnMgr)
+	IMUserContext.msgSyncer = interaction.NewMsgSyncer(ccontext.WithOperationID(ctx, "test"),
+		IMUserContext.conversationCh, IMUserContext.pushMsgAndMaxSeqCh, IMUserContext.longConnMgr)
 	IMUserContext.conversation = conv.NewConversation(IMUserContext.longConnMgr, IMUserContext.conversationCh,
 		IMUserContext.relation, IMUserContext.group, IMUserContext.user, IMUserContext.file)
+	IMUserContext.Conversation().SetConversationListener(IMUserContext.ConversationListener)
+	IMUserContext.Conversation().SetMessageListener(IMUserContext.MessageListener)
+	IMUserContext.Conversation().SetBusinessListener(IMUserContext.BusinessListener)
 }
 
 type UserContext struct {
@@ -98,7 +105,7 @@ type UserContext struct {
 	groupListener        open_im_sdk_callback.OnGroupListener
 	friendshipListener   open_im_sdk_callback.OnFriendshipListener
 	conversationListener open_im_sdk_callback.OnConversationListener
-	advancedMsgListener  open_im_sdk_callback.OnAdvancedMsgListener
+	messageListener      open_im_sdk_callback.OnMessageListener
 	userListener         open_im_sdk_callback.OnUserListener
 	businessListener     open_im_sdk_callback.OnCustomBusinessListener
 
@@ -132,8 +139,8 @@ func (u *UserContext) ConversationListener() open_im_sdk_callback.OnConversation
 	return u.conversationListener
 }
 
-func (u *UserContext) AdvancedMsgListener() open_im_sdk_callback.OnAdvancedMsgListener {
-	return u.advancedMsgListener
+func (u *UserContext) MessageListener() open_im_sdk_callback.OnMessageListener {
+	return u.messageListener
 }
 
 func (u *UserContext) UserListener() open_im_sdk_callback.OnUserListener {
@@ -180,8 +187,8 @@ func (u *UserContext) SetConversationListener(conversationListener open_im_sdk_c
 	u.conversationListener = conversationListener
 }
 
-func (u *UserContext) SetAdvancedMsgListener(advancedMsgListener open_im_sdk_callback.OnAdvancedMsgListener) {
-	u.advancedMsgListener = advancedMsgListener
+func (u *UserContext) SetMessageListener(messageListener open_im_sdk_callback.OnMessageListener) {
+	u.messageListener = messageListener
 }
 
 func (u *UserContext) SetFriendshipListener(friendshipListener open_im_sdk_callback.OnFriendshipListener) {

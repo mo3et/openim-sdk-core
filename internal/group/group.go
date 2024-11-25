@@ -263,7 +263,7 @@ func (g *Group) initSyncer() {
 
 }
 
-func (g *Group) SetGroupListener(listener func() open_im_sdk_callback.OnGroupListener) {
+func (g *Group) SetListener(listener func() open_im_sdk_callback.OnGroupListener) {
 	g.listener = listener
 }
 
