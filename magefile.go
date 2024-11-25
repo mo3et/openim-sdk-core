@@ -23,13 +23,13 @@ var Aliases = map[string]interface{}{
 	"js":   GenJS,
 	"ts":   GenTS,
 	"rs":   GenRust,
-	"a":    All,
+	"ap":   AllProtobuf,
 
 	"android": BuildAndroid,
-	"ios":     BuildIOS,
+	"ios":     BuildiOS,
 	"linux":   BuildLinux,
 	"windows": BuildWindows,
-	"cpp":     CPPBuild,
+	"al":      AllDynamicLib,
 }
 
 /* Protocol Generate */
@@ -77,7 +77,8 @@ JavaScript requires installing `protoc-gen-js` via a package manager
 TypeScript requires installing `ts-proto` via a package manager
 */
 
-func All() error {
+// Generate code for all languages (Go, Java, C#, JS, TS) from protobuf files.
+func AllProtobuf() error {
 	if err := GenGo(); err != nil {
 		return err
 	}
@@ -96,6 +97,7 @@ func All() error {
 	return nil
 }
 
+// Generate Go code from protobuf files.
 func GenGo() error {
 	log.SetOutput(os.Stdout)
 	// log.SetFlags(log.Lshortfile)
@@ -140,6 +142,7 @@ func GenGo() error {
 	return nil
 }
 
+// Generate Java code from protobuf files.
 func GenJava() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -174,6 +177,7 @@ func GenJava() error {
 	return nil
 }
 
+// Generate C# code from protobuf files.
 func GenCSharp() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -209,6 +213,7 @@ func GenCSharp() error {
 	return nil
 }
 
+// Generate JavaScript code from protobuf files.
 func GenJS() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -243,6 +248,7 @@ func GenJS() error {
 	return nil
 }
 
+// Generate TypeScript code from protobuf files.
 func GenTS() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -290,6 +296,7 @@ func GenTS() error {
 	return nil
 }
 
+// Generate Rust code from protobuf files.
 func GenRust() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -336,7 +343,7 @@ func GenRust() error {
 
 var bindlingDir = filepath.Join(".", "bindings")
 
-// generate wasm file
+// Generate WebAssembly (wasm) file from go code(./bindings/wasm)
 func Wasm() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -362,12 +369,13 @@ var soName = "libopenimsdk"
 var outPath = filepath.Join(".", "output")
 var goSrc = filepath.Join(".", bindlingDir, "ffi_c")
 
-// BuildAll compiles the project for all platforms.
-func CPPBuild() {
+// Builds the project for all platforms and generates Go dynamic libraries
+// (e.g., .so, .dylib, .dll) for each platform (Android, iOS, Linux, Windows).
+func AllDynamicLib() {
 	if err := BuildAndroid(); err != nil {
 		fmt.Println("Error building for Android:", err)
 	}
-	if err := BuildIOS(); err != nil {
+	if err := BuildiOS(); err != nil {
 		fmt.Println("Error building for iOS:", err)
 	}
 	if err := BuildLinux(); err != nil {
@@ -378,7 +386,7 @@ func CPPBuild() {
 	}
 }
 
-// BuildAndroid compiles the project for Android.
+// Compiles the project for Android and generates a Go dynamic library for Android.
 func BuildAndroid() error {
 	architectures := []struct {
 		GoArch, API, ArchName string
@@ -403,8 +411,8 @@ func BuildAndroid() error {
 	return nil
 }
 
-// BuildIOS compiles the project for iOS.
-func BuildIOS() error {
+// Compiles the project for iOS and generates a Go dynamic library for iOS/macOS.
+func BuildiOS() error {
 	log.SetOutput(os.Stdout)
 	// log.SetFlags(log.Lshortfile)
 	log.Println("Building for iOS...")
@@ -441,7 +449,7 @@ func BuildIOS() error {
 	return nil
 }
 
-// BuildLinux compiles the project for Linux.
+// Compiles the project for Linux and generates a Go dynamic library for Linux.
 func BuildLinux() error {
 	log.SetOutput(os.Stdout)
 	// log.SetFlags(log.Lshortfile)
@@ -487,7 +495,7 @@ func BuildLinux() error {
 	return nil
 }
 
-// BuildWindows compiles the project for Windows.
+// Compiles the project for Windows and generates a Go dynamic library for Windows.
 func BuildWindows() error {
 	log.SetOutput(os.Stdout)
 	// log.SetFlags(log.Lshortfile)
