@@ -18,7 +18,6 @@ import (
 	"context"
 	"fmt"
 	"runtime/debug"
-	"strings"
 	"sync"
 	"time"
 
@@ -41,7 +40,6 @@ import (
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/protocol/push"
 	"github.com/openimsdk/protocol/sdkws"
-	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
 
@@ -79,24 +77,6 @@ func init() {
 	UserForSDK.msgSyncer = interaction.NewMsgSyncer(ccontext.WithOperationID(ctx, "test"), UserForSDK.conversationCh, UserForSDK.pushMsgAndMaxSeqCh, UserForSDK.longConnMgr)
 	UserForSDK.conversation = conv.NewConversation(UserForSDK.longConnMgr, UserForSDK.conversationCh,
 		UserForSDK.relation, UserForSDK.group, UserForSDK.user, UserForSDK.file)
-}
-
-// CheckResourceLoad checks the SDK is resource load status.
-func CheckResourceLoad(uSDK *LoginMgr, funcName string) error {
-	if uSDK == nil {
-		return errs.New("SDK not initialized,userForSDK is nil", "funcName", funcName).Wrap()
-	}
-	if funcName == "" {
-		return nil
-	}
-	parts := strings.Split(funcName, ".")
-	if parts[len(parts)-1] == "Login-fm" {
-		return nil
-	}
-	if uSDK.getLoginStatus() != pb.LoginStatus_Logged {
-		return errs.New("SDK not logged in", "funcName", funcName).Wrap()
-	}
-	return nil
 }
 
 type LoginMgr struct {
