@@ -3,7 +3,6 @@ package conversation_msg
 import (
 	"context"
 	"encoding/json"
-
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -33,7 +32,6 @@ func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfo
 }
 
 func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
-	m := MateTypeMap[msg.ContentType]
 	localMessage := &model_struct.LocalChatLog{
 		ClientMsgID:      msg.ClientMsgID,
 		ServerMsgID:      msg.ServerMsgID,
@@ -45,7 +43,7 @@ func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 		SessionType:      int32(msg.SessionType),
 		MsgFrom:          int32(msg.MsgFrom),
 		ContentType:      int32(msg.ContentType),
-		Content:          utils.StructToJsonString(m.Get(msg.Content)),
+		Content:          utils.StructToJsonString(getContentType(msg.ContentType).Get(msg.Content)),
 		IsRead:           msg.IsRead,
 		Status:           int32(msg.Status),
 		Seq:              msg.Seq,
@@ -104,7 +102,6 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 }
 
 func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
-	m := MateTypeMap[message.ContentType]
 	return &sdkws.MsgData{
 		ClientMsgID:      message.ClientMsgID,
 		ServerMsgID:      message.ServerMsgID,
@@ -117,7 +114,7 @@ func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
 		SessionType:      int32(message.SessionType),
 		MsgFrom:          int32(message.MsgFrom),
 		ContentType:      int32(message.ContentType),
-		Content:          stringutil.StructToJsonBytes(m.Get(message.Content)),
+		Content:          stringutil.StructToJsonBytes(getContentType(message.ContentType).Get(message.Content)),
 		IsRead:           message.IsRead,
 		Status:           int32(message.Status),
 		Seq:              message.Seq,
@@ -188,7 +185,7 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 }
 
 func stringToMsgContent(msg *sdkpb.IMMessage, content string) {
-	m, ok := MateTypeMap[msg.ContentType]
+	m, ok := contentTypeMap[msg.ContentType]
 	if !ok {
 		log.ZError(context.Background(), "stringToMsgContent unknown content type", nil, "msg", msg, "contentType", msg.ContentType, "content", content)
 		return

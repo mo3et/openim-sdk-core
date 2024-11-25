@@ -505,10 +505,10 @@ message GroupCancelMutedTips {
 //  string addWording = 3;
 //}
 //
-//message FromToUserID {
-//  string fromUserID = 1;
-//  string toUserID = 2;
-//}
+message FromToUserID {
+  string fromUserID = 1;
+  string toUserID = 2;
+}
 //
 //FromUserID apply to add ToUserID
 //message FriendApplicationTips {
@@ -516,9 +516,9 @@ message GroupCancelMutedTips {
 //}
 //
 //FromUserID accept or reject ToUserID
-//message FriendApplicationApprovedTips {
-//  FromToUserID fromToUserID = 1;
-//}
+message FriendApplicationApprovedTips {
+  FromToUserID fromToUserID = 1;
+}
 //
 ////FromUserID accept or reject ToUserID
 //message FriendApplicationRejectedTips {
@@ -527,11 +527,11 @@ message GroupCancelMutedTips {
 //}
 //
 // FromUserID  Added a friend ToUserID
-message FriendAddedTips {
-  shared.IMFriend friend = 1;
-  int64 operationTime = 2;
-  shared.IMUser opUser = 3; //who do this
-}
+//message FriendAddedTips {
+//  shared.IMFriend friend = 1;
+//  int64 operationTime = 2;
+//  shared.IMUser opUser = 3; //who do this
+//}
 //
 //// FromUserID  deleted a friend ToUserID
 //message FriendDeletedTips {
@@ -737,9 +737,9 @@ message IMMessage {
     GroupCancelMutedTips groupCancelMutedTips = 54;
 //    GroupMemberInfoSetTips groupMemberInfoSetTips = 55;
 //    FriendApplicationTips friendApplicationTips = 56;
-//    FriendApplicationApprovedTips friendApplicationApprovedTips = 57;
+    FriendApplicationApprovedTips friendApplicationApprovedTips = 57;
 //    FriendApplicationRejectedTips friendApplicationRejectedTips = 58;
-    FriendAddedTips friendAddedTips = 59;
+//    FriendAddedTips friendAddedTips = 59;
 //    FriendDeletedTips friendDeletedTips = 60;
 //    BlackAddedTips blackAddedTips = 61;
 //    BlackDeletedTips blackDeletedTips = 62;

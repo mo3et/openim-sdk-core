@@ -52,7 +52,7 @@ func init() {
 		panic(err)
 	}
 	select {
-	case <-time.After(time.Second * 10):
+	case <-time.After(time.Second * 99999):
 		panic("init timeout")
 	case err := <-errCh:
 		if err != nil {

@@ -92,7 +92,7 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 	}
 	// log.ZDebug(ctx, "callback revokeMessage", "m", m)
 	if err := c.db.UpdateMessageBySeq(ctx, tips.ConversationID, &model_struct.LocalChatLog{Seq: tips.Seq,
-		Content: utils.StructToJsonString(MateTypeMap[constant.RevokeNotification].Get(&m)), ContentType: constant.RevokeNotification}); err != nil {
+		Content: utils.StructToJsonString(getContentType(constant.RevokeNotification).Get(&m)), ContentType: constant.RevokeNotification}); err != nil {
 		log.ZError(ctx, "UpdateMessageBySeq failed", err, "tips", &tips)
 		return errs.Wrap(err)
 	}
@@ -154,7 +154,7 @@ func (c *Conversation) quoteMsgRevokeHandle(ctx context.Context, conversationID 
 
 	s.QuoteMessage.Content = &sharedpb.IMMessage_RevokedTips{RevokedTips: revokedMsg}
 	s.QuoteMessage.ContentType = constant.RevokeNotification
-	v.Content = utils.StructToJsonString(MateTypeMap[s.QuoteMessage.ContentType].Get(s.QuoteMessage))
+	v.Content = utils.StructToJsonString(getContentType(s.QuoteMessage.ContentType).Get(s.QuoteMessage))
 	if err := c.db.UpdateMessageBySeq(ctx, conversationID, v); err != nil {
 		log.ZError(ctx, "UpdateMessage failed", err, "v", v)
 		return errs.Wrap(err)

@@ -69,12 +69,12 @@ type goroutine interface {
 }
 
 func DoListener(ctx context.Context, li goroutine) {
-	defer func() {
-		if r := recover(); r != nil {
-			err := fmt.Sprintf("panic: %+v\n%s", r, debug.Stack())
-			log.ZWarn(ctx, "DoListener panic", nil, "panic info", err)
-		}
-	}()
+	//defer func() {
+	//	if r := recover(); r != nil {
+	//		err := fmt.Sprintf("panic: %+v\n%s", r, debug.Stack())
+	//		log.ZWarn(ctx, "DoListener panic", nil, "panic info", err)
+	//	}
+	//}()
 
 	for {
 		select {
