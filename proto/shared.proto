@@ -7,13 +7,26 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared";
 
 // ############## user ################
 
+// GlobalRecvMsgOpt represents the global message receive option.
+//
+// In the globalRecvMsgOpt of UserInfo, globally control whether to receive offline push notifications.
+//
+// In the recvMsgOpt of a ConversationInfo, in addition to controlling whether to receive offline push notifications for that session,
+// it also controls whether the unread count of that session is included in the total unread count.
+enum GlobalRecvMsgOpt {
+  Normal = 0; // Normally receive messages
+  NotReceive = 1; // Reserved field
+  NotNotify = 2; // Receive messages, but no offline push. When in conversation, this conversation's unread count is not included in the total unread count
+}
+
+// IM User information
 message IMUser {
   string userID = 1;
   string nickname = 2;
   string faceURL = 3;
   string ex = 4;
   int64 createTime = 5;
-  int32 globalRecvMsgOpt = 6;
+  GlobalRecvMsgOpt globalRecvMsgOpt = 6; // Global message recv option
   string attached = 7;
 }
 
@@ -374,6 +387,7 @@ message GroupCreatedTips {
   int64 operationTime = 4;
   shared.IMGroupMember groupOwnerUser = 5;
 }
+
 //
 //	OnGroupInfoSet()
 //message GroupInfoSetTips {
@@ -406,6 +420,7 @@ message MemberQuitTips {
   shared.IMGroupMember quitUser = 2;
   int64 operationTime = 3;
 }
+
 //
 //	OnApplicationGroupAccepted()
 //message GroupApplicationAcceptedTips {
@@ -432,6 +447,7 @@ message GroupOwnerTransferredTips {
   int64 operationTime = 5;
   shared.IMGroupMember oldGroupOwnerInfo = 6;
 }
+
 //
 //	OnMemberKicked()
 message MemberKickedTips {
@@ -440,6 +456,7 @@ message MemberKickedTips {
   repeated shared.IMGroupMember kickedUserList = 3;
   int64 operationTime = 4;
 }
+
 //
 //	OnMemberInvited()
 message MemberInvitedTips {
@@ -449,6 +466,7 @@ message MemberInvitedTips {
   int64 operationTime = 4;
   shared.IMGroupMember inviterUser = 7;
 }
+
 //
 //Actively join the group
 message MemberEnterTips {
@@ -456,12 +474,14 @@ message MemberEnterTips {
   shared.IMGroupMember entrantUser = 2;
   int64 operationTime = 3;
 }
+
 //
 message GroupDismissedTips {
   shared.IMGroup group = 1;
   shared.IMGroupMember opUser = 2;
   int64 operationTime = 3;
 }
+
 //
 message GroupMemberMutedTips {
   shared.IMGroup group = 1;
@@ -470,6 +490,7 @@ message GroupMemberMutedTips {
   shared.IMGroupMember mutedUser = 4;
   uint32 mutedSeconds = 5;
 }
+
 //
 message GroupMemberCancelMutedTips {
   shared.IMGroup group = 1;
@@ -489,6 +510,7 @@ message GroupCancelMutedTips {
   shared.IMGroupMember opUser = 2;
   int64 operationTime = 3;
 }
+
 //
 //message GroupMemberInfoSetTips {
 //  shared.IMGroup group = 1;
@@ -509,6 +531,7 @@ message FromToUserID {
   string fromUserID = 1;
   string toUserID = 2;
 }
+
 //
 //FromUserID apply to add ToUserID
 //message FriendApplicationTips {
@@ -719,13 +742,13 @@ message IMMessage {
     RevokedTips revokedTips = 38;
 
     GroupCreatedTips groupCreatedTips = 311;
-//    GroupInfoSetTips groupInfoSetTips = 39;
-//    GroupInfoSetNameTips groupInfoSetNameTips = 40;
-//    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;
-//    JoinGroupApplicationTips joinGroupApplicationTips = 42;
+    //    GroupInfoSetTips groupInfoSetTips = 39;
+    //    GroupInfoSetNameTips groupInfoSetNameTips = 40;
+    //    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;
+    //    JoinGroupApplicationTips joinGroupApplicationTips = 42;
     MemberQuitTips memberQuitTips = 43;
-//    GroupApplicationAcceptedTips groupApplicationAcceptedTips = 44;
-//    GroupApplicationRejectedTips groupApplicationRejectedTips = 45;
+    //    GroupApplicationAcceptedTips groupApplicationAcceptedTips = 44;
+    //    GroupApplicationRejectedTips groupApplicationRejectedTips = 45;
     GroupOwnerTransferredTips groupOwnerTransferredTips = 46;
     MemberKickedTips memberKickedTips = 47;
     MemberInvitedTips memberInvitedTips = 48;
@@ -735,30 +758,30 @@ message IMMessage {
     GroupMemberCancelMutedTips groupMemberCancelMutedTips = 52;
     GroupMutedTips groupMutedTips = 53;
     GroupCancelMutedTips groupCancelMutedTips = 54;
-//    GroupMemberInfoSetTips groupMemberInfoSetTips = 55;
-//    FriendApplicationTips friendApplicationTips = 56;
+    //    GroupMemberInfoSetTips groupMemberInfoSetTips = 55;
+    //    FriendApplicationTips friendApplicationTips = 56;
     FriendApplicationApprovedTips friendApplicationApprovedTips = 57;
-//    FriendApplicationRejectedTips friendApplicationRejectedTips = 58;
-//    FriendAddedTips friendAddedTips = 59;
-//    FriendDeletedTips friendDeletedTips = 60;
-//    BlackAddedTips blackAddedTips = 61;
-//    BlackDeletedTips blackDeletedTips = 62;
-//    FriendInfoChangedTips friendInfoChangedTips = 63;
-//    UserInfoUpdatedTips userInfoUpdatedTips = 64;
-//    UserStatusChangeTips userStatusChangeTips = 65;
-//    UserCommandAddTips userCommandAddTips = 66;
-//    UserCommandUpdateTips userCommandUpdateTips = 67;
-//    UserCommandDeleteTips userCommandDeleteTips = 68;
-//    ConversationUpdateTips conversationUpdateTips = 69;
-//    ConversationSetPrivateTips conversationSetPrivateTips = 70;
-//    ConversationHasReadTips conversationHasReadTips = 71;
-//    DeleteMessageTips deleteMessageTips = 72;
-//    RevokedTips revokedTips = 73;
-//    ClearConversationTips clearConversationTips = 74;
-//    DeleteMsgsTips deleteMsgsTips = 75;
-//    MarkAsReadTips markAsReadTips = 76;
-//    FriendsInfoUpdateTips friendsInfoUpdateTips = 77;
-//    SubUserOnlineStatusTips subUserOnlineStatusTips = 78;
+    //    FriendApplicationRejectedTips friendApplicationRejectedTips = 58;
+    //    FriendAddedTips friendAddedTips = 59;
+    //    FriendDeletedTips friendDeletedTips = 60;
+    //    BlackAddedTips blackAddedTips = 61;
+    //    BlackDeletedTips blackDeletedTips = 62;
+    //    FriendInfoChangedTips friendInfoChangedTips = 63;
+    //    UserInfoUpdatedTips userInfoUpdatedTips = 64;
+    //    UserStatusChangeTips userStatusChangeTips = 65;
+    //    UserCommandAddTips userCommandAddTips = 66;
+    //    UserCommandUpdateTips userCommandUpdateTips = 67;
+    //    UserCommandDeleteTips userCommandDeleteTips = 68;
+    //    ConversationUpdateTips conversationUpdateTips = 69;
+    //    ConversationSetPrivateTips conversationSetPrivateTips = 70;
+    //    ConversationHasReadTips conversationHasReadTips = 71;
+    //    DeleteMessageTips deleteMessageTips = 72;
+    //    RevokedTips revokedTips = 73;
+    //    ClearConversationTips clearConversationTips = 74;
+    //    DeleteMsgsTips deleteMsgsTips = 75;
+    //    MarkAsReadTips markAsReadTips = 76;
+    //    FriendsInfoUpdateTips friendsInfoUpdateTips = 77;
+    //    SubUserOnlineStatusTips subUserOnlineStatusTips = 78;
     //    StreamMsgTips streamMsgTips = 79;
     ConversationPrivateChatTips conversationPrivateChatTips = 79;
     BusinessTips businessTips = 80;
