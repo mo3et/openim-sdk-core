@@ -36,7 +36,7 @@ func ServerUserToSdk(info *sdkws.UserInfo) *sdkpb.IMUser {
 		FaceURL:          info.FaceURL,
 		CreateTime:       info.CreateTime,
 		Ex:               info.Ex,
-		GlobalRecvMsgOpt: info.GlobalRecvMsgOpt,
+		GlobalRecvMsgOpt: sdkpb.GlobalRecvMsgOpt(info.GlobalRecvMsgOpt),
 	}
 }
 
@@ -48,7 +48,7 @@ func DBUserToSdk(info *model_struct.LocalUser) *sdkpb.IMUser {
 		CreateTime:       info.CreateTime,
 		Ex:               info.Ex,
 		Attached:         info.AttachedInfo,
-		GlobalRecvMsgOpt: info.GlobalRecvMsgOpt,
+		GlobalRecvMsgOpt: sdkpb.GlobalRecvMsgOpt(info.GlobalRecvMsgOpt),
 	}
 }
 
