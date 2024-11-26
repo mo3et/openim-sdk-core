@@ -12,6 +12,12 @@ enum FuncRequestEventName {
   GetConversation = 3;
   InitSDK = 4;
   Login = 5;
+  Logout = 106;
+  SetAppBackgroundStatus = 107;
+  NetworkStatusChanged = 108;
+  GetLoginStatus = 109;
+  Version = 110;
+
   SendMessage = 6;
   UploadLogs = 7;
   UploadFile = 8;
@@ -39,9 +45,9 @@ enum FuncRequestEventName {
   EventOnRecvC2CReadReceipt = 30;
   EventOnNewRecvMessageRevoked = 31;
   EventOnRecvOfflineNewMessage = 32;
-  EventOnMsgDeleted = 33;
+  EventOnMessageDeleted = 33;
   EventOnRecvOnlineOnlyMessage = 34;
-  EventOnMsgEdited = 35;
+  EventOnMessageEdited = 35;
   // FriendCallback Events
   EventOnFriendApplicationAdded = 36;
   EventOnFriendApplicationDeleted = 37;
@@ -168,6 +174,17 @@ enum FuncRequestEventName {
   ProcessUserCommandUpdate = 2105;
   GetUsersInfo = 2106;
   GetUsersInfoFromServer = 2107;
+
+
+
+  // The following functions are only used for Go and JS interaction and can be ignored by other platforms.
+  JsFileOpen = 2110;
+  JsFileRead = 2111;
+  JsFileClose = 2112;
+  JsSqliteOpen = 2113;
+  JsSqliteExec = 2114;
+  JsSqliteQuery = 2115;
+  JsSqliteClose = 2116;
 }
 
 message EventOnSendMsgProgressData {
@@ -207,10 +224,10 @@ message EventOnSyncServerProgressData {
   int32 progress = 1;
 }
 message EventOnNewConversationData {
-  repeated openim.sdk.shared.Conversation conversationList = 1;
+  repeated openim.sdk.shared.IMConversation conversationList = 1;
 }
 message EventOnConversationChangedData {
-  repeated openim.sdk.shared.Conversation conversationList = 1;
+  repeated openim.sdk.shared.IMConversation conversationList = 1;
 }
 message EventOnTotalUnreadMessageCountChangedData {
   int32 totalUnreadCount = 1;
@@ -236,117 +253,103 @@ message MessageReceipt {
 message EventOnRecvC2CReadReceiptData {
   repeated MessageReceipt msgReceiptList = 1;
 }
-message MessageRevoked {
-  string revokerID = 1;
-  int32 revokerRole = 2;
-  string clientMsgID = 3;
-  string revokerNickname = 4;
-  int64 revokeTime = 5;
-  int64 sourceMessageSendTime = 6;
-  string sourceMessageSendID = 7;
-  string sourceMessageSenderNickname = 8;
-  int32 sessionType = 9;
-  int64 seq = 10;
-  string ex = 11;
-  bool isAdminRevoke = 12;
-}
 
 message EventOnNewRecvMessageRevokedData {
-  MessageRevoked messageRevoked = 1;
+  openim.sdk.shared.RevokedTips revoked = 1;
 }
 message EventOnRecvOfflineNewMessageData {
   openim.sdk.shared.IMMessage message = 1;
 }
-message EventOnMsgDeletedData {
+message EventOnMessageDeletedData {
   openim.sdk.shared.IMMessage message = 1;
 }
 message EventOnRecvOnlineOnlyMessageData {
   openim.sdk.shared.IMMessage message = 1;
 }
-message EventOnMsgEditedData {
+message EventOnMessageEditedData {
   openim.sdk.shared.IMMessage message = 1;
 }
 
 // FriendCallback Data Types
 message EventOnFriendApplicationAddedData {
-  openim.sdk.shared.FriendRequestInfo request = 1;
+  openim.sdk.shared.IMFriendRequest request = 1;
 }
 
 message EventOnFriendApplicationDeletedData {
-  openim.sdk.shared.FriendRequestInfo request = 1;
+  openim.sdk.shared.IMFriendRequest request = 1;
 }
 
 message EventOnFriendApplicationAcceptedData {
-  openim.sdk.shared.FriendRequestInfo request = 1;
+  openim.sdk.shared.IMFriendRequest request = 1;
 }
 
 message EventOnFriendApplicationRejectedData {
-  openim.sdk.shared.FriendRequestInfo request = 1;
+  openim.sdk.shared.IMFriendRequest request = 1;
 }
 
 message EventOnFriendAddedData {
-  openim.sdk.shared.FriendInfo friend = 1;
+  openim.sdk.shared.IMFriend friend = 1;
 }
 
 message EventOnFriendDeletedData {
-  openim.sdk.shared.FriendInfo friend = 1;
+  openim.sdk.shared.IMFriend friend = 1;
 }
 
 message EventOnFriendInfoChangedData {
-  openim.sdk.shared.FriendInfo friend = 1;
+  openim.sdk.shared.IMFriend friend = 1;
 }
 
 message EventOnBlackAddedData {
-  openim.sdk.shared.BlackInfo black = 1;
+  openim.sdk.shared.IMBlack black = 1;
 }
 
 message EventOnBlackDeletedData {
-  openim.sdk.shared.BlackInfo black = 1;
+  openim.sdk.shared.IMBlack black = 1;
 }
 
 // GroupCallback Data Types
 message EventOnJoinedGroupAddedData {
-  openim.sdk.shared.GroupInfo group = 1;
+  openim.sdk.shared.IMGroup group = 1;
 }
 
 message EventOnJoinedGroupDeletedData {
-  openim.sdk.shared.GroupInfo group = 1;
+  openim.sdk.shared.IMGroup group = 1;
 }
 
 message EventOnGroupMemberAddedData {
-  openim.sdk.shared.GroupMemberInfo member = 1;
+  openim.sdk.shared.IMGroupMember member = 1;
 }
 
 message EventOnGroupMemberDeletedData {
-  openim.sdk.shared.GroupMemberInfo member = 1;
+  openim.sdk.shared.IMGroupMember member = 1;
 }
 
 message EventOnGroupApplicationAddedData {
-  openim.sdk.shared.GroupRequestInfo request = 1;
+  openim.sdk.shared.IMGroupRequest request = 1;
 }
 
 message EventOnGroupApplicationDeletedData {
-  openim.sdk.shared.GroupRequestInfo request = 1;
+  openim.sdk.shared.IMGroupRequest request = 1;
 }
 
 message EventOnGroupInfoChangedData {
-  openim.sdk.shared.GroupInfo group = 1;
+  openim.sdk.shared.IMGroup group = 1;
 }
 
 message EventOnGroupDismissedData {
-  openim.sdk.shared.GroupInfo group = 1;
+  openim.sdk.shared.IMGroup group = 1;
 }
 
 message EventOnGroupMemberInfoChangedData {
-  openim.sdk.shared.GroupMemberInfo member = 1;
+  openim.sdk.shared.IMGroupMember member = 1;
 }
 
 message EventOnGroupApplicationAcceptedData {
-  openim.sdk.shared.GroupRequestInfo request = 1;
+  openim.sdk.shared.IMGroupRequest request = 1;
 }
 
 message EventOnGroupApplicationRejectedData {
-  openim.sdk.shared.GroupRequestInfo request = 1;
+  openim.sdk.shared.IMGroupRequest request = 1;
 }
 
 // CustomBusinessCallback Data Type
@@ -356,7 +359,7 @@ message EventOnRecvCustomBusinessMessageData {
 
 // UserCallback Data Types
 message EventOnSelfInfoUpdatedData {
-  openim.sdk.shared.UserInfo user = 1;
+  openim.sdk.shared.IMUser user = 1;
 }
 
 message EventOnUserStatusChangedData {

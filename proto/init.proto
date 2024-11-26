@@ -1,9 +1,14 @@
 syntax = "proto3";
 package openim.init;
-
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/init";
 import "common.proto";
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/init";
+enum LoginStatus {
+  _ = 0;
+  Default = 1;
+  Logging = 2;
+  Logged = 3;
+}
 
 message IMConfig {
   openim.sdk.common.AppFramework appFramework = 1;
@@ -16,15 +21,32 @@ message IMConfig {
   string logFilePath = 8;
 }
 
-message InitSDKReq {
-  IMConfig config = 1;
-}
-message InitSDKResp {
-  bool suc = 1;
-}
+message InitSDKReq { IMConfig config = 1; }
+message InitSDKResp { bool suc = 1; }
 
 message LoginReq {
   string userID = 1;
   string token = 2;
 }
 message LoginResp {}
+
+message LogoutReq {}
+message LogoutResp {}
+
+message SetAppBackgroundStatusReq {
+  bool isBackground = 1;
+}
+message SetAppBackgroundStatusResp {}
+
+message NetworkStatusChangedReq {}
+message NetworkStatusChangedResp {}
+
+message GetLoginStatusReq {}
+message GetLoginStatusResp {
+  LoginStatus status = 1;
+}
+
+message VersionReq {}
+message VersionResp {
+  string version = 1;
+}

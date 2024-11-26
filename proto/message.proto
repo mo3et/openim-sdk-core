@@ -219,4 +219,3 @@ message CreateForwardMessageReq {
 message CreateForwardMessageResp {
   shared.IMMessage message = 1;
 }
-

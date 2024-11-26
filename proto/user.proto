@@ -1,22 +1,22 @@
 syntax = "proto3";
 package openim.sdk.user;
 
+import "shared.proto";
+
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/user";
 
-import "shared.proto";
-
 message GetSelfUserInfoReq {}
 message GetSelfUserInfoResp {
-  shared.UserInfo user = 1;
+  shared.IMUser user = 1; // userinfo
 }
 
 message SetSelfInfoReq {
   string userID = 1;
   optional string nickname = 2;
   optional string faceURL = 3;
-  optional string ex = 4;
-  optional int32 globalRecvMsgOpt = 7;
+  optional string ex = 4; // user extension fields
+  optional shared.GlobalRecvMsgOpt globalRecvMsgOpt = 7; // control global offline push.
 }
 message SetSelfInfoResp {}
 
@@ -54,12 +54,12 @@ message GetUsersInfoReq {
   repeated string userIDs = 1;
 }
 message GetUsersInfoResp {
-  repeated shared.UserInfo users = 1;
+  repeated shared.IMUser users = 1;
 }
 
 message GetUsersInfoFromServerReq {
   repeated string userIDs = 1;
 }
 message GetUsersInfoFromServerResp {
-  repeated shared.UserInfo users = 1;
+  repeated shared.IMUser users = 1;
 }

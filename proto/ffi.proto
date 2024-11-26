@@ -8,8 +8,11 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi";
 // import "error.proto";
 
 message FfiRequest {
-  event.FuncRequestEventName funcName = 1;
-  bytes data = 2;
+  //note: This field is optional and is only used for interaction between Go and JS.
+  string operationID = 1;
+  uint64 handleID = 2;
+  event.FuncRequestEventName funcName = 3;
+  bytes data = 4;
 }
 
 message FfiResult {
