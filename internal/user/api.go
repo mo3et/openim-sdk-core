@@ -48,7 +48,11 @@ func (u *User) GetSelfUserInfo(ctx context.Context, _ *sdkpb.GetSelfUserInfoReq)
 
 func (u *User) SetSelfInfo(ctx context.Context, req *sdkpb.SetSelfInfoReq) (*sdkpb.SetSelfInfoResp, error) {
 	// updateSelfUserInfo updates the user's information with Ex field.
-	if err := u.updateUserInfo(ctx, &sdkws.UserInfoWithEx{Nickname: wrapperspb.StringPtr(req.Nickname), FaceURL: wrapperspb.StringPtr(req.FaceURL), Ex: wrapperspb.StringPtr(req.Ex), GlobalRecvMsgOpt: wrapperspb.Int32Ptr(req.GlobalRecvMsgOpt)}); err != nil {
+	if err := u.updateUserInfo(ctx, &sdkws.UserInfoWithEx{
+		Nickname:         wrapperspb.StringPtr(req.Nickname),
+		FaceURL:          wrapperspb.StringPtr(req.FaceURL),
+		Ex:               wrapperspb.StringPtr(req.Ex),
+		GlobalRecvMsgOpt: wrapperspb.Int32Ptr((*int32)(req.GlobalRecvMsgOpt))}); err != nil {
 		return nil, err
 	}
 	err := u.SyncLoginUserInfo(ctx)
