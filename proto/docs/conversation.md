@@ -733,8 +733,8 @@ Keyword list |
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetAllConversationList | [GetAllConversationListReq](#openim-sdk-conversation-GetAllConversationListReq) | [GetAllConversationListResp](#openim-sdk-conversation-GetAllConversationListResp) |  |
-| GetConversationListSplit | [GetConversationListSplitReq](#openim-sdk-conversation-GetConversationListSplitReq) | [GetConversationListSplitResp](#openim-sdk-conversation-GetConversationListSplitResp) |  |
+| GetAllConversationList | [GetAllConversationListReq](#openim-sdk-conversation-GetAllConversationListReq) | [GetAllConversationListResp](#openim-sdk-conversation-GetAllConversationListResp) | This GetConversationList API is used to get the conversation list. |
+| GetConversationListSplit | [GetConversationListSplitReq](#openim-sdk-conversation-GetConversationListSplitReq) | [GetConversationListSplitResp](#openim-sdk-conversation-GetConversationListSplitResp) | Using split mode to get the conversation list. |
 | HideConversation | [HideConversationReq](#openim-sdk-conversation-HideConversationReq) | [HideConversationResp](#openim-sdk-conversation-HideConversationResp) |  |
 
  
