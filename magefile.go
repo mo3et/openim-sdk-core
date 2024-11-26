@@ -31,6 +31,8 @@ var Aliases = map[string]interface{}{
 	"linux":   BuildLinux,
 	"windows": BuildWindows,
 	"al":      AllDynamicLib,
+
+	"docs": GenDocs,
 }
 
 /* Protocol Generate */
@@ -95,6 +97,42 @@ func AllProtobuf() error {
 	if err := GenTS(); err != nil {
 		return err
 	}
+	return nil
+}
+
+func GenDocs() error {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+	log.Println("Generating documentation from proto files")
+
+	protoc, err := getToolPath("protoc")
+	if err != nil {
+		return err
+	}
+
+	docsOutDir := filepath.Join(protoDir, "docs")
+
+	for _, module := range protoModules {
+		if err := os.MkdirAll(filepath.Join(docsOutDir, module), 0755); err != nil {
+			return err
+		}
+
+		args := []string{
+			"--proto_path=" + protoDir,
+			"--doc_out=" + filepath.Join(docsOutDir, module),
+			"--doc_opt=markdown," + strings.Join([]string{module, "md"}, "."),
+			filepath.Join("proto", module) + ".proto",
+			filepath.Join("proto", module+".docs") + ".proto",
+		}
+
+		cmd := exec.Command(protoc, args...)
+		connectStd(cmd)
+		if err := cmd.Run(); err != nil {
+			log.Printf("Error generating documentation for module %s: %v\n", module, err)
+			continue
+		}
+	}
+
 	return nil
 }
 
