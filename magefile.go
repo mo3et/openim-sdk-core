@@ -17,16 +17,25 @@ import (
 
 var Default = GenGo
 
+// Aliases is alias for mage, like `mage go` is `mage GenGo`
 var Aliases = map[string]interface{}{
 	"go":   GenGo,
 	"java": GenJava,
 	"js":   GenJS,
 	"ts":   GenTS,
 	"rs":   GenRust,
-	"a":    All,
+	"ap":   AllProtobuf,
+
+	"android": BuildAndroid,
+	"ios":     BuildiOS,
+	"linux":   BuildLinux,
+	"windows": BuildWindows,
+	"al":      AllDynamicLib,
 
 	"docs": GenDocs,
 }
+
+/* Protocol Generate */
 
 // Langeuage target
 // Define output directories for each target language
@@ -43,14 +52,16 @@ const (
 var protoModules = []string{
 	"common",
 	"conversation",
+	"error",
 	"event",
 	"ffi",
 	"group",
 	"init",
+	"interop",
 	"message",
-	"msggateway",
 	"relation",
 	"shared",
+	"third",
 	"user",
 }
 
@@ -69,7 +80,8 @@ JavaScript requires installing `protoc-gen-js` via a package manager
 TypeScript requires installing `ts-proto` via a package manager
 */
 
-func All() error {
+// Generate code for all languages (Go, Java, C#, JS, TS) from protobuf files.
+func AllProtobuf() error {
 	if err := GenGo(); err != nil {
 		return err
 	}
@@ -124,6 +136,7 @@ func GenDocs() error {
 	return nil
 }
 
+// Generate Go code from protobuf files.
 func GenGo() error {
 	log.SetOutput(os.Stdout)
 	// log.SetFlags(log.Lshortfile)
@@ -168,6 +181,7 @@ func GenGo() error {
 	return nil
 }
 
+// Generate Java code from protobuf files.
 func GenJava() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -202,6 +216,7 @@ func GenJava() error {
 	return nil
 }
 
+// Generate C# code from protobuf files.
 func GenCSharp() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -237,6 +252,7 @@ func GenCSharp() error {
 	return nil
 }
 
+// Generate JavaScript code from protobuf files.
 func GenJS() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -271,6 +287,7 @@ func GenJS() error {
 	return nil
 }
 
+// Generate TypeScript code from protobuf files.
 func GenTS() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -318,6 +335,7 @@ func GenTS() error {
 	return nil
 }
 
+// Generate Rust code from protobuf files.
 func GenRust() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
@@ -360,7 +378,251 @@ func GenRust() error {
 	return nil
 }
 
-/*  Tools */
+/* Tools */
+
+var bindlingDir = filepath.Join(".", "bindings")
+
+// Generate WebAssembly (wasm) file from go code(./bindings/wasm)
+func Wasm() error {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+	log.Println("Generating WebAssembly file")
+
+	wasmDir := filepath.Join(bindlingDir, "wasm")
+
+	cmd := exec.Command("go", "build", "-trimpath", "-ldflags", "-s -w", "-o", filepath.Join(wasmDir, "output", "openIM.wasm"), filepath.Join(wasmDir, "main.go"))
+	cmd.Env = append(os.Environ(), "GOOS=js", "GOARCH=wasm")
+
+	connectStd(cmd)
+	if err := cmd.Run(); err != nil {
+		log.Printf("Error generating WebAssembly file: %v\n", err)
+	}
+
+	return nil
+}
+
+// ffi_c
+
+var soName = "libopenimsdk"
+
+var outPath = filepath.Join(".", "output")
+var goSrc = filepath.Join(".", bindlingDir, "ffi_c")
+
+// Builds the project for all platforms and generates Go dynamic libraries
+// (e.g., .so, .dylib, .dll) for each platform (Android, iOS, Linux, Windows).
+func AllDynamicLib() {
+	if err := BuildAndroid(); err != nil {
+		fmt.Println("Error building for Android:", err)
+	}
+	if err := BuildiOS(); err != nil {
+		fmt.Println("Error building for iOS:", err)
+	}
+	if err := BuildLinux(); err != nil {
+		fmt.Println("Error building for Linux:", err)
+	}
+	if err := BuildWindows(); err != nil {
+		fmt.Println("Error building for Windows:", err)
+	}
+}
+
+// Compiles the project for Android and generates a Go dynamic library for Android.
+func BuildAndroid() error {
+	architectures := []struct {
+		GoArch, API, ArchName string
+	}{
+		{"arm", "16", "armeabi-v7a"},
+		{"arm64", "21", "arm64-v8a"},
+		{"386", "16", "x86"},
+		{"amd64", "21", "x86_64"},
+	}
+
+	androidOut := filepath.Join(outPath, "android")
+
+	for _, arch := range architectures {
+		if err := os.MkdirAll(filepath.Join(goSrc, androidOut, arch.ArchName), 0755); err != nil {
+			return err
+		}
+
+		if err := buildAndroid(androidOut, arch.GoArch, arch.API, arch.ArchName); err != nil {
+			fmt.Printf("Failed to build for Android %s: %v\n", arch.ArchName, err)
+		}
+	}
+	return nil
+}
+
+// Compiles the project for iOS and generates a Go dynamic library for iOS/macOS.
+func BuildiOS() error {
+	log.SetOutput(os.Stdout)
+	// log.SetFlags(log.Lshortfile)
+	log.Println("Building for iOS...")
+
+	arch := os.Getenv("GOARCH")
+
+	if len(arch) == 0 {
+		arch = runtime.GOARCH
+	}
+
+	os.Setenv("GOOS", "darwin")
+	os.Setenv("GOARCH", arch)
+	os.Setenv("CGO_ENABLED", "1")
+	os.Setenv("CC", "clang")
+
+	iosOut := filepath.Join(outPath, "ios")
+
+	if err := os.MkdirAll(filepath.Join(goSrc, iosOut), 0755); err != nil {
+		return err
+	}
+
+	log.Println(filepath.Join(goSrc, iosOut))
+
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-o", filepath.Join(iosOut, strings.Join([]string{soName, "dylib"}, ".")), ".")
+	cmd.Dir = goSrc
+	cmd.Env = os.Environ()
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+
+	if err := cmd.Run(); err != nil {
+		return err
+	}
+	log.Println("Build for iOS completed successfully.")
+	return nil
+}
+
+// Compiles the project for Linux and generates a Go dynamic library for Linux.
+func BuildLinux() error {
+	log.SetOutput(os.Stdout)
+	// log.SetFlags(log.Lshortfile)
+	log.Println("Building for Linux...")
+
+	arch := os.Getenv("GOARCH")
+	cc := os.Getenv("CC")
+	cxx := os.Getenv("CXX")
+
+	if len(arch) == 0 {
+		arch = runtime.GOARCH
+	}
+
+	if len(cc) == 0 {
+		cc = "gcc"
+	}
+
+	if len(cxx) != 0 {
+		os.Setenv("CXX", cxx)
+	}
+
+	linuxOut := filepath.Join(outPath, "linux")
+
+	os.Setenv("GOOS", "linux")
+	os.Setenv("GOARCH", arch)
+	os.Setenv("CGO_ENABLED", "1")
+	os.Setenv("CC", cc) //
+
+	if err := os.MkdirAll(filepath.Join(goSrc, linuxOut), 0755); err != nil {
+		return err
+	}
+
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(linuxOut, strings.Join([]string{soName, "so"}, ".")), ".")
+	cmd.Dir = goSrc
+	cmd.Env = os.Environ()
+
+	connectStd(cmd)
+	if err := cmd.Run(); err != nil {
+		log.Printf("Failed to build for Linux: %v\n", err)
+		return err
+	}
+	log.Println("Build for Linux completed successfully.")
+	return nil
+}
+
+// Compiles the project for Windows and generates a Go dynamic library for Windows.
+func BuildWindows() error {
+	log.SetOutput(os.Stdout)
+	// log.SetFlags(log.Lshortfile)
+	log.Println("Building for Windows...")
+
+	arch := os.Getenv("GOARCH")
+	cc := os.Getenv("CC")
+	cxx := os.Getenv("CXX")
+
+	if len(arch) == 0 {
+		arch = runtime.GOARCH
+	}
+
+	if len(cc) == 0 {
+		cc = "gcc"
+	}
+
+	if len(cxx) != 0 {
+		os.Setenv("CXX", cxx)
+	}
+
+	windowsOut := filepath.Join(outPath, "windows")
+
+	os.Setenv("GOOS", "windows")
+	os.Setenv("GOARCH", arch)
+	os.Setenv("CGO_ENABLED", "1")
+	os.Setenv("CC", cc)
+
+	if err := os.MkdirAll(filepath.Join(goSrc, windowsOut), 0755); err != nil {
+		return err
+	}
+
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(windowsOut, strings.Join([]string{soName, "dll"}, ".")), ".")
+	cmd.Dir = goSrc
+	cmd.Env = os.Environ()
+
+	connectStd(cmd)
+
+	if err := cmd.Run(); err != nil {
+		log.Printf("Failed to build for Windows: %v\n", err)
+		return err
+	}
+	log.Println("Build for Windows completed successfully.")
+	return nil
+}
+
+// buildAndroid builds the Android library for the specified architecture.
+func buildAndroid(aOutPath, goArch, apiLevel, archName string) error {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+	log.Printf("Building for Android %s...\n", archName)
+
+	ndkPath := os.Getenv("ANDROID_NDK_HOME")
+	osSuffix := ""
+	if runtime.GOOS == "windows" {
+		osSuffix = ".cmd" //
+	}
+
+	ccBasePath := ndkPath + "/toolchains/llvm/prebuilt/" + runtime.GOOS + "-x86_64/bin/"
+
+	var cc string
+	switch goArch {
+	case "arm":
+		cc = ccBasePath + "armv7a-linux-androideabi" + apiLevel + "-clang" + osSuffix
+	case "arm64":
+		cc = ccBasePath + "aarch64-linux-android" + apiLevel + "-clang" + osSuffix
+	case "386":
+		cc = ccBasePath + "i686-linux-android" + apiLevel + "-clang" + osSuffix
+	case "amd64":
+		cc = ccBasePath + "x86_64-linux-android" + apiLevel + "-clang" + osSuffix
+	}
+
+	env := []string{
+		"CGO_ENABLED=1",
+		"GOOS=android",
+		"GOARCH=" + goArch,
+		"CC=" + cc,
+	}
+	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(aOutPath, archName, strings.Join([]string{soName, "so"}, ".")), ".")
+
+	cmd.Dir = goSrc
+	cmd.Env = append(os.Environ(), env...)
+
+	connectStd(cmd)
+	return cmd.Run()
+}
+
+/*  Dependencies func */
 
 func getWorkDirToolPath(name string) string {
 	toolPath := ""

@@ -21,6 +21,58 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type LoginStatus int32
+
+const (
+	LoginStatus__       LoginStatus = 0
+	LoginStatus_Default LoginStatus = 1
+	LoginStatus_Logging LoginStatus = 2
+	LoginStatus_Logged  LoginStatus = 3
+)
+
+// Enum value maps for LoginStatus.
+var (
+	LoginStatus_name = map[int32]string{
+		0: "_",
+		1: "Default",
+		2: "Logging",
+		3: "Logged",
+	}
+	LoginStatus_value = map[string]int32{
+		"_":       0,
+		"Default": 1,
+		"Logging": 2,
+		"Logged":  3,
+	}
+)
+
+func (x LoginStatus) Enum() *LoginStatus {
+	p := new(LoginStatus)
+	*p = x
+	return p
+}
+
+func (x LoginStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (LoginStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_init_proto_enumTypes[0].Descriptor()
+}
+
+func (LoginStatus) Type() protoreflect.EnumType {
+	return &file_init_proto_enumTypes[0]
+}
+
+func (x LoginStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use LoginStatus.Descriptor instead.
+func (LoginStatus) EnumDescriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{0}
+}
+
 type IMConfig struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -301,6 +353,393 @@ func (*LoginResp) Descriptor() ([]byte, []int) {
 	return file_init_proto_rawDescGZIP(), []int{4}
 }
 
+type LogoutReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *LogoutReq) Reset() {
+	*x = LogoutReq{}
+	mi := &file_init_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutReq) ProtoMessage() {}
+
+func (x *LogoutReq) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutReq.ProtoReflect.Descriptor instead.
+func (*LogoutReq) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{5}
+}
+
+type LogoutResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *LogoutResp) Reset() {
+	*x = LogoutResp{}
+	mi := &file_init_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutResp) ProtoMessage() {}
+
+func (x *LogoutResp) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutResp.ProtoReflect.Descriptor instead.
+func (*LogoutResp) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{6}
+}
+
+type SetAppBackgroundStatusReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	IsBackground bool `protobuf:"varint,1,opt,name=isBackground,proto3" json:"isBackground"`
+}
+
+func (x *SetAppBackgroundStatusReq) Reset() {
+	*x = SetAppBackgroundStatusReq{}
+	mi := &file_init_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetAppBackgroundStatusReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetAppBackgroundStatusReq) ProtoMessage() {}
+
+func (x *SetAppBackgroundStatusReq) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetAppBackgroundStatusReq.ProtoReflect.Descriptor instead.
+func (*SetAppBackgroundStatusReq) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *SetAppBackgroundStatusReq) GetIsBackground() bool {
+	if x != nil {
+		return x.IsBackground
+	}
+	return false
+}
+
+type SetAppBackgroundStatusResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SetAppBackgroundStatusResp) Reset() {
+	*x = SetAppBackgroundStatusResp{}
+	mi := &file_init_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetAppBackgroundStatusResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetAppBackgroundStatusResp) ProtoMessage() {}
+
+func (x *SetAppBackgroundStatusResp) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetAppBackgroundStatusResp.ProtoReflect.Descriptor instead.
+func (*SetAppBackgroundStatusResp) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{8}
+}
+
+type NetworkStatusChangedReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *NetworkStatusChangedReq) Reset() {
+	*x = NetworkStatusChangedReq{}
+	mi := &file_init_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NetworkStatusChangedReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NetworkStatusChangedReq) ProtoMessage() {}
+
+func (x *NetworkStatusChangedReq) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NetworkStatusChangedReq.ProtoReflect.Descriptor instead.
+func (*NetworkStatusChangedReq) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{9}
+}
+
+type NetworkStatusChangedResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *NetworkStatusChangedResp) Reset() {
+	*x = NetworkStatusChangedResp{}
+	mi := &file_init_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NetworkStatusChangedResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NetworkStatusChangedResp) ProtoMessage() {}
+
+func (x *NetworkStatusChangedResp) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NetworkStatusChangedResp.ProtoReflect.Descriptor instead.
+func (*NetworkStatusChangedResp) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{10}
+}
+
+type GetLoginStatusReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *GetLoginStatusReq) Reset() {
+	*x = GetLoginStatusReq{}
+	mi := &file_init_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLoginStatusReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLoginStatusReq) ProtoMessage() {}
+
+func (x *GetLoginStatusReq) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLoginStatusReq.ProtoReflect.Descriptor instead.
+func (*GetLoginStatusReq) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{11}
+}
+
+type GetLoginStatusResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status LoginStatus `protobuf:"varint,1,opt,name=status,proto3,enum=openim.init.LoginStatus" json:"status"`
+}
+
+func (x *GetLoginStatusResp) Reset() {
+	*x = GetLoginStatusResp{}
+	mi := &file_init_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLoginStatusResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLoginStatusResp) ProtoMessage() {}
+
+func (x *GetLoginStatusResp) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLoginStatusResp.ProtoReflect.Descriptor instead.
+func (*GetLoginStatusResp) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetLoginStatusResp) GetStatus() LoginStatus {
+	if x != nil {
+		return x.Status
+	}
+	return LoginStatus__
+}
+
+type VersionReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *VersionReq) Reset() {
+	*x = VersionReq{}
+	mi := &file_init_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VersionReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VersionReq) ProtoMessage() {}
+
+func (x *VersionReq) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VersionReq.ProtoReflect.Descriptor instead.
+func (*VersionReq) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{13}
+}
+
+type VersionResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Version string `protobuf:"bytes,1,opt,name=version,proto3" json:"version"`
+}
+
+func (x *VersionResp) Reset() {
+	*x = VersionResp{}
+	mi := &file_init_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VersionResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VersionResp) ProtoMessage() {}
+
+func (x *VersionResp) ProtoReflect() protoreflect.Message {
+	mi := &file_init_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VersionResp.ProtoReflect.Descriptor instead.
+func (*VersionResp) Descriptor() ([]byte, []int) {
+	return file_init_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *VersionResp) GetVersion() string {
+	if x != nil {
+		return x.Version
+	}
+	return ""
+}
+
 var File_init_proto protoreflect.FileDescriptor
 
 var file_init_proto_rawDesc = []byte{
@@ -337,11 +776,35 @@ var file_init_proto_rawDesc = []byte{
 	0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44,
 	0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
 	0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x0b, 0x0a, 0x09, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52,
-	0x65, 0x73, 0x70, 0x42, 0x37, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e,
-	0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f, 0x69, 0x6e, 0x69, 0x74, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x73, 0x70, 0x22, 0x0b, 0x0a, 0x09, 0x4c, 0x6f, 0x67, 0x6f, 0x75, 0x74, 0x52, 0x65, 0x71,
+	0x22, 0x0c, 0x0a, 0x0a, 0x4c, 0x6f, 0x67, 0x6f, 0x75, 0x74, 0x52, 0x65, 0x73, 0x70, 0x22, 0x3f,
+	0x0a, 0x19, 0x53, 0x65, 0x74, 0x41, 0x70, 0x70, 0x42, 0x61, 0x63, 0x6b, 0x67, 0x72, 0x6f, 0x75,
+	0x6e, 0x64, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x12, 0x22, 0x0a, 0x0c, 0x69,
+	0x73, 0x42, 0x61, 0x63, 0x6b, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x08, 0x52, 0x0c, 0x69, 0x73, 0x42, 0x61, 0x63, 0x6b, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x22,
+	0x1c, 0x0a, 0x1a, 0x53, 0x65, 0x74, 0x41, 0x70, 0x70, 0x42, 0x61, 0x63, 0x6b, 0x67, 0x72, 0x6f,
+	0x75, 0x6e, 0x64, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x22, 0x19, 0x0a,
+	0x17, 0x4e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x68,
+	0x61, 0x6e, 0x67, 0x65, 0x64, 0x52, 0x65, 0x71, 0x22, 0x1a, 0x0a, 0x18, 0x4e, 0x65, 0x74, 0x77,
+	0x6f, 0x72, 0x6b, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64,
+	0x52, 0x65, 0x73, 0x70, 0x22, 0x13, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x4c, 0x6f, 0x67, 0x69, 0x6e,
+	0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x22, 0x46, 0x0a, 0x12, 0x47, 0x65, 0x74,
+	0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12,
+	0x30, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32,
+	0x18, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x69, 0x6e, 0x69, 0x74, 0x2e, 0x4c, 0x6f,
+	0x67, 0x69, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x22, 0x0c, 0x0a, 0x0a, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x22,
+	0x27, 0x0a, 0x0b, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x12, 0x18,
+	0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x2a, 0x3a, 0x0a, 0x0b, 0x4c, 0x6f, 0x67, 0x69,
+	0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x05, 0x0a, 0x01, 0x5f, 0x10, 0x00, 0x12, 0x0b,
+	0x0a, 0x07, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x4c,
+	0x6f, 0x67, 0x67, 0x69, 0x6e, 0x67, 0x10, 0x02, 0x12, 0x0a, 0x0a, 0x06, 0x4c, 0x6f, 0x67, 0x67,
+	0x65, 0x64, 0x10, 0x03, 0x42, 0x37, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65,
+	0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f, 0x69, 0x6e, 0x69, 0x74, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -356,25 +819,38 @@ func file_init_proto_rawDescGZIP() []byte {
 	return file_init_proto_rawDescData
 }
 
-var file_init_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_init_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_init_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_init_proto_goTypes = []any{
-	(*IMConfig)(nil),         // 0: openim.init.IMConfig
-	(*InitSDKReq)(nil),       // 1: openim.init.InitSDKReq
-	(*InitSDKResp)(nil),      // 2: openim.init.InitSDKResp
-	(*LoginReq)(nil),         // 3: openim.init.LoginReq
-	(*LoginResp)(nil),        // 4: openim.init.LoginResp
-	(common.AppFramework)(0), // 5: openim.sdk.common.AppFramework
-	(common.Platform)(0),     // 6: openim.sdk.common.Platform
+	(LoginStatus)(0),                   // 0: openim.init.LoginStatus
+	(*IMConfig)(nil),                   // 1: openim.init.IMConfig
+	(*InitSDKReq)(nil),                 // 2: openim.init.InitSDKReq
+	(*InitSDKResp)(nil),                // 3: openim.init.InitSDKResp
+	(*LoginReq)(nil),                   // 4: openim.init.LoginReq
+	(*LoginResp)(nil),                  // 5: openim.init.LoginResp
+	(*LogoutReq)(nil),                  // 6: openim.init.LogoutReq
+	(*LogoutResp)(nil),                 // 7: openim.init.LogoutResp
+	(*SetAppBackgroundStatusReq)(nil),  // 8: openim.init.SetAppBackgroundStatusReq
+	(*SetAppBackgroundStatusResp)(nil), // 9: openim.init.SetAppBackgroundStatusResp
+	(*NetworkStatusChangedReq)(nil),    // 10: openim.init.NetworkStatusChangedReq
+	(*NetworkStatusChangedResp)(nil),   // 11: openim.init.NetworkStatusChangedResp
+	(*GetLoginStatusReq)(nil),          // 12: openim.init.GetLoginStatusReq
+	(*GetLoginStatusResp)(nil),         // 13: openim.init.GetLoginStatusResp
+	(*VersionReq)(nil),                 // 14: openim.init.VersionReq
+	(*VersionResp)(nil),                // 15: openim.init.VersionResp
+	(common.AppFramework)(0),           // 16: openim.sdk.common.AppFramework
+	(common.Platform)(0),               // 17: openim.sdk.common.Platform
 }
 var file_init_proto_depIdxs = []int32{
-	5, // 0: openim.init.IMConfig.appFramework:type_name -> openim.sdk.common.AppFramework
-	6, // 1: openim.init.IMConfig.platform:type_name -> openim.sdk.common.Platform
-	0, // 2: openim.init.InitSDKReq.config:type_name -> openim.init.IMConfig
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	16, // 0: openim.init.IMConfig.appFramework:type_name -> openim.sdk.common.AppFramework
+	17, // 1: openim.init.IMConfig.platform:type_name -> openim.sdk.common.Platform
+	1,  // 2: openim.init.InitSDKReq.config:type_name -> openim.init.IMConfig
+	0,  // 3: openim.init.GetLoginStatusResp.status:type_name -> openim.init.LoginStatus
+	4,  // [4:4] is the sub-list for method output_type
+	4,  // [4:4] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_init_proto_init() }
@@ -387,13 +863,14 @@ func file_init_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_init_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   5,
+			NumEnums:      1,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_init_proto_goTypes,
 		DependencyIndexes: file_init_proto_depIdxs,
+		EnumInfos:         file_init_proto_enumTypes,
 		MessageInfos:      file_init_proto_msgTypes,
 	}.Build()
 	File_init_proto = out.File
