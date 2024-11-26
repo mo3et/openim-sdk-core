@@ -1,3 +1,6 @@
+/**
+ * This is a leading comment for a message
+ */
 syntax = "proto3";
 package openim.sdk.conversation;
 
@@ -7,9 +10,12 @@ import "shared.proto";
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation";
 
+/**
+ * ConversationArgs.
+ */
 message ConversationArgs {
-  string conversationID = 1;
-  repeated string clientMsgIDList = 2;
+  string conversationID = 1; // Unique conversation ID
+  repeated string clientMsgIDList = 2; ///  Client message ID list
 }
 
 message FindMessageListCallback {

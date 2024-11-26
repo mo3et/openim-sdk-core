@@ -61,7 +61,7 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## conversation.proto
-
+This is a leading comment for a message
 
 
 <a name="openim-sdk-conversation-ClearConversationAndDeleteAllMsgReq"></a>
@@ -92,13 +92,13 @@
 <a name="openim-sdk-conversation-ConversationArgs"></a>
 
 ### ConversationArgs
-
+ConversationArgs.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| conversationID | [string](#string) |  |  |
-| clientMsgIDList | [string](#string) | repeated |  |
+| conversationID | [string](#string) |  | Unique conversation ID |
+| clientMsgIDList | [string](#string) | repeated | Client message ID list |
 
 
 
