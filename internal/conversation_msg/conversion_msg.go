@@ -3,6 +3,7 @@ package conversation_msg
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -178,7 +179,7 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 		log.ZWarn(context.Background(), "json.Unmarshal error", err, "serverMessage.AttachedInfo", serverMessage.AttachedInfo)
 	}
 	switch common.SessionType(serverMessage.SessionType) {
-	case common.SessionType_WriteGroupChatType, common.SessionType_ReadGroupChatType:
+	case common.SessionType_WriteGroup, common.SessionType_ReadGroup:
 		localMessage.RecvID = serverMessage.GroupID
 	}
 	return localMessage
