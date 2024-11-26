@@ -2,6 +2,7 @@ package user
 
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/user"
 
@@ -16,7 +17,7 @@ func ServerUserToLocalUser(user *sdkws.UserInfo) *model_struct.LocalUser {
 		CreateTime: user.CreateTime,
 		Ex:         user.Ex,
 		//AppMangerLevel:   user.AppMangerLevel,
-		GlobalRecvMsgOpt: user.GlobalRecvMsgOpt,
+		GlobalRecvMsgOpt: common.GlobalRecvMsgOpt(user.GlobalRecvMsgOpt),
 		//AttachedInfo: user.AttachedInfo,
 	}
 }
@@ -36,7 +37,7 @@ func ServerUserToSdk(info *sdkws.UserInfo) *sdkpb.IMUser {
 		FaceURL:          info.FaceURL,
 		CreateTime:       info.CreateTime,
 		Ex:               info.Ex,
-		GlobalRecvMsgOpt: sdkpb.GlobalRecvMsgOpt(info.GlobalRecvMsgOpt),
+		GlobalRecvMsgOpt: common.GlobalRecvMsgOpt(info.GlobalRecvMsgOpt),
 	}
 }
 
@@ -48,7 +49,7 @@ func DBUserToSdk(info *model_struct.LocalUser) *sdkpb.IMUser {
 		CreateTime:       info.CreateTime,
 		Ex:               info.Ex,
 		Attached:         info.AttachedInfo,
-		GlobalRecvMsgOpt: sdkpb.GlobalRecvMsgOpt(info.GlobalRecvMsgOpt),
+		GlobalRecvMsgOpt: common.GlobalRecvMsgOpt(info.GlobalRecvMsgOpt),
 	}
 }
 

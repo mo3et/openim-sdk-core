@@ -658,6 +658,61 @@ func (ConvGroupAtType) EnumDescriptor() ([]byte, []int) {
 	return file_common_proto_rawDescGZIP(), []int{8}
 }
 
+// GlobalRecvMsgOpt represents the global message receive option.
+//
+// In the globalRecvMsgOpt of UserInfo, globally control whether to receive offline push notifications.
+//
+// In the recvMsgOpt of a ConversationInfo, in addition to controlling whether to receive offline push notifications for that session,
+// it also controls whether the unread count of that session is included in the total unread count.
+type GlobalRecvMsgOpt int32
+
+const (
+	GlobalRecvMsgOpt_Normal     GlobalRecvMsgOpt = 0 // Normally receive messages
+	GlobalRecvMsgOpt_NotReceive GlobalRecvMsgOpt = 1 // Reserved field
+	GlobalRecvMsgOpt_NotNotify  GlobalRecvMsgOpt = 2 // Receive messages, but no offline push. When in conversation, this conversation's unread count is not included in the total unread count
+)
+
+// Enum value maps for GlobalRecvMsgOpt.
+var (
+	GlobalRecvMsgOpt_name = map[int32]string{
+		0: "Normal",
+		1: "NotReceive",
+		2: "NotNotify",
+	}
+	GlobalRecvMsgOpt_value = map[string]int32{
+		"Normal":     0,
+		"NotReceive": 1,
+		"NotNotify":  2,
+	}
+)
+
+func (x GlobalRecvMsgOpt) Enum() *GlobalRecvMsgOpt {
+	p := new(GlobalRecvMsgOpt)
+	*p = x
+	return p
+}
+
+func (x GlobalRecvMsgOpt) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GlobalRecvMsgOpt) Descriptor() protoreflect.EnumDescriptor {
+	return file_common_proto_enumTypes[9].Descriptor()
+}
+
+func (GlobalRecvMsgOpt) Type() protoreflect.EnumType {
+	return &file_common_proto_enumTypes[9]
+}
+
+func (x GlobalRecvMsgOpt) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GlobalRecvMsgOpt.Descriptor instead.
+func (GlobalRecvMsgOpt) EnumDescriptor() ([]byte, []int) {
+	return file_common_proto_rawDescGZIP(), []int{9}
+}
+
 type OfflinePushInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -918,11 +973,15 @@ var file_common_proto_rawDesc = []byte{
 	0x79, 0x70, 0x65, 0x12, 0x0c, 0x0a, 0x08, 0x41, 0x74, 0x4e, 0x6f, 0x72, 0x6d, 0x61, 0x6c, 0x10,
 	0x00, 0x12, 0x08, 0x0a, 0x04, 0x41, 0x74, 0x4d, 0x65, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x41,
 	0x74, 0x41, 0x6c, 0x6c, 0x10, 0x02, 0x12, 0x0d, 0x0a, 0x09, 0x41, 0x74, 0x41, 0x6c, 0x6c, 0x41,
-	0x74, 0x4d, 0x65, 0x10, 0x03, 0x42, 0x39, 0x5a, 0x37, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70,
-	0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33,
-	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x4d, 0x65, 0x10, 0x03, 0x2a, 0x3d, 0x0a, 0x10, 0x47, 0x6c, 0x6f, 0x62, 0x61, 0x6c, 0x52,
+	0x65, 0x63, 0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x12, 0x0a, 0x0a, 0x06, 0x4e, 0x6f, 0x72,
+	0x6d, 0x61, 0x6c, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x4e, 0x6f, 0x74, 0x52, 0x65, 0x63, 0x65,
+	0x69, 0x76, 0x65, 0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09, 0x4e, 0x6f, 0x74, 0x4e, 0x6f, 0x74, 0x69,
+	0x66, 0x79, 0x10, 0x02, 0x42, 0x39, 0x5a, 0x37, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65,
+	0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -937,7 +996,7 @@ func file_common_proto_rawDescGZIP() []byte {
 	return file_common_proto_rawDescData
 }
 
-var file_common_proto_enumTypes = make([]protoimpl.EnumInfo, 9)
+var file_common_proto_enumTypes = make([]protoimpl.EnumInfo, 10)
 var file_common_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_common_proto_goTypes = []any{
 	(SessionType)(0),          // 0: openim.sdk.common.SessionType
@@ -949,8 +1008,9 @@ var file_common_proto_goTypes = []any{
 	(ApprovalStatus)(0),       // 6: openim.sdk.common.ApprovalStatus
 	(ConvRecvMsgOpt)(0),       // 7: openim.sdk.common.ConvRecvMsgOpt
 	(ConvGroupAtType)(0),      // 8: openim.sdk.common.ConvGroupAtType
-	(*OfflinePushInfo)(nil),   // 9: openim.sdk.common.OfflinePushInfo
-	(*RequestPagination)(nil), // 10: openim.sdk.common.RequestPagination
+	(GlobalRecvMsgOpt)(0),     // 9: openim.sdk.common.GlobalRecvMsgOpt
+	(*OfflinePushInfo)(nil),   // 10: openim.sdk.common.OfflinePushInfo
+	(*RequestPagination)(nil), // 11: openim.sdk.common.RequestPagination
 }
 var file_common_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -970,7 +1030,7 @@ func file_common_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_common_proto_rawDesc,
-			NumEnums:      9,
+			NumEnums:      10,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,

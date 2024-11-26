@@ -1,8 +1,8 @@
 syntax = "proto3";
 package openim.sdk.conversation;
 
-import "shared.proto";
 import "common.proto";
+import "shared.proto";
 
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation";
@@ -94,7 +94,7 @@ message SetConversationDraftResp {}
 
 message SetConversationReq {
   string conversationID = 1;
-  optional common.ConvRecvMsgOpt  recvMsgOpt = 2;
+  optional common.ConvRecvMsgOpt recvMsgOpt = 2;
   optional common.ConvGroupAtType groupAtType = 3;
   optional bool isPinned = 4;
   optional bool isPrivateChat = 5;
@@ -172,3 +172,26 @@ message SearchConversationReq {
 message SearchConversationResp {
   repeated shared.IMConversation conversationList = 1;
 }
+
+// service ConversationService {
+//   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
+//   rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp) {}
+//   rpc HideConversation(HideConversationReq) returns (HideConversationResp) {}
+//   rpc GetAtAllTag(GetAtAllTagReq) returns (GetAtAllTagResp) {}
+//   rpc GetOneConversation(GetOneConversationReq) returns (GetOneConversationResp) {}
+//   rpc GetMultipleConversation(GetMultipleConversationReq) returns (GetMultipleConversationResp) {}
+//   rpc HideAllConversations(HideAllConversationsReq) returns (HideAllConversationsResp) {}
+//   rpc SetConversationDraft(SetConversationDraftReq) returns (SetConversationDraftResp) {}
+//   rpc SetConversation(SetConversationReq) returns (SetConversationResp) {}
+//   rpc GetTotalUnreadMsgCount(GetTotalUnreadMsgCountReq) returns (GetTotalUnreadMsgCountResp) {}
+//   rpc GetConversationIDBySessionType(GetConversationIDBySessionTypeReq) returns (GetConversationIDBySessionTypeResp) {}
+//   rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp) {}
+//   rpc MarkConversationMessageAsRead(MarkConversationMessageAsReadReq) returns (MarkConversationMessageAsReadResp) {}
+//   rpc MarkAllConversationMessageAsRead(MarkAllConversationMessageAsReadReq) returns (MarkAllConversationMessageAsReadResp) {}
+//   rpc DeleteMessageFromLocalStorage(DeleteMessageFromLocalStorageReq) returns (DeleteMessageFromLocalStorageResp) {}
+//   rpc ClearConversationAndDeleteAllMsg(ClearConversationAndDeleteAllMsgReq) returns (ClearConversationAndDeleteAllMsgResp) {}
+//   rpc DeleteConversationAndDeleteAllMsg(DeleteConversationAndDeleteAllMsgReq) returns (DeleteConversationAndDeleteAllMsgResp) {}
+//   rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp) {}
+//   rpc SetMessageLocalEx(SetMessageLocalExReq) returns (SetMessageLocalExResp) {}
+//   rpc SearchConversation(SearchConversationReq) returns (SearchConversationResp) {}
+// }
