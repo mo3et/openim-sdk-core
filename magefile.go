@@ -466,7 +466,15 @@ func BuildiOS() error {
 	os.Setenv("GOARCH", arch)
 	os.Setenv("CGO_ENABLED", "1")
 	os.Setenv("CC", "clang")
-	os.Setenv("CGO_LDFLAGS", "lresolv")
+
+	sdkPathCmd := exec.Command("xcrun", "--sdk", "iphoneos", "--show-sdk-path")
+	sdkPathOutput, err := sdkPathCmd.Output()
+	if err != nil {
+		return fmt.Errorf("failed to get SDK path: %v", err)
+	}
+
+	sdkPath := strings.TrimSpace(string(sdkPathOutput))
+	os.Setenv("CGO_LDFLAGS", fmt.Sprintf("-L%s/usr/lib -lresolv", sdkPath))
 
 	iosOut := filepath.Join(outPath, "ios")
 
