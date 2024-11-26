@@ -275,6 +275,7 @@ func (r *Relation) SearchFriends(ctx context.Context, req *sdkpb.SearchFriendsRe
 	return &sdkpb.SearchFriendsResp{Friends: res}, nil
 }
 
+// add user to black list, have extra information.
 func (r *Relation) AddBlack(ctx context.Context, req *sdkpb.AddBlackReq) (*sdkpb.AddBlackResp, error) {
 	if err := r.addBlack(ctx, &relation.AddBlackReq{BlackUserID: req.UserID, Ex: req.Ex}); err != nil {
 		return nil, err
@@ -285,6 +286,7 @@ func (r *Relation) AddBlack(ctx context.Context, req *sdkpb.AddBlackReq) (*sdkpb
 	return &sdkpb.AddBlackResp{}, nil
 }
 
+// remove user from black list.
 func (r *Relation) DeleteBlack(ctx context.Context, req *sdkpb.DeleteBlackReq) (*sdkpb.DeleteBlackResp, error) {
 	if err := r.removeBlack(ctx, req.UserID); err != nil {
 		return nil, err
@@ -298,6 +300,7 @@ func (r *Relation) DeleteBlack(ctx context.Context, req *sdkpb.DeleteBlackReq) (
 	return &sdkpb.DeleteBlackResp{}, nil
 }
 
+// Get black list.
 func (r *Relation) GetBlacks(ctx context.Context, req *sdkpb.GetBlacksReq) (*sdkpb.GetBlacksResp, error) {
 	res, err := r.db.GetBlackListDB(ctx)
 	if err != nil {
