@@ -474,7 +474,10 @@ func BuildiOS() error {
 	}
 
 	sdkPath := strings.TrimSpace(string(sdkPathOutput))
-	os.Setenv("CGO_LDFLAGS", fmt.Sprintf("-L%s/usr/lib -lresolv", sdkPath))
+	cFlags := fmt.Sprintf("-isysroot %s -arch arm64", sdkPath)
+	ldFlags := fmt.Sprintf("-isysroot %s -arch arm64 -lresolv -lSystem", sdkPath)
+	os.Setenv("CGO_CFLAGS", cFlags)
+	os.Setenv("CGO_LDFLAGS", ldFlags)
 
 	iosOut := filepath.Join(outPath, "ios")
 
