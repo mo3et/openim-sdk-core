@@ -17,6 +17,7 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
+// Get specifiedFriends info, including FilterBlack.
 func (r *Relation) GetSpecifiedFriends(ctx context.Context, req *sdkpb.GetSpecifiedFriendsReq) (*sdkpb.GetSpecifiedFriendsResp, error) {
 	dataFetcher := datafetcher.NewDataFetcher(
 		r.db,
@@ -69,6 +70,7 @@ func (r *Relation) GetSpecifiedFriends(ctx context.Context, req *sdkpb.GetSpecif
 	return &sdkpb.GetSpecifiedFriendsResp{Friends: datautil.Batch(DbFriendToSdk, res)}, nil
 }
 
+// Add user to friend, have request message and extra information.
 func (r *Relation) AddFriend(ctx context.Context, req *sdkpb.AddFriendReq) (*sdkpb.AddFriendResp, error) {
 	if err := r.addFriend(ctx, &relation.ApplyToAddFriendReq{ToUserID: req.UserID, ReqMsg: req.ReqMsg, Ex: req.Ex}); err != nil {
 		return nil, err
@@ -97,7 +99,7 @@ func (r *Relation) GetFriendRequests(ctx context.Context, req *sdkpb.GetFriendRe
 	return &sdkpb.GetFriendRequestsResp{Requests: datautil.Batch(DbFriendRequestToSdk, request)}, nil
 }
 
-func (r *Relation) HandlerFriendRequest(ctx context.Context, req *sdkpb.HandlerFriendRequestReq) (*sdkpb.HandlerFriendRequestResp, error) {
+func (r *Relation) HandleFriendRequest(ctx context.Context, req *sdkpb.HandleFriendRequestReq) (*sdkpb.HandleFriendRequestResp, error) {
 	if err := r.addFriendResponse(ctx, &relation.RespondFriendApplyReq{FromUserID: req.UserID, HandleResult: int32(req.Status), HandleMsg: req.HandleMsg}); err != nil {
 		return nil, err
 	}
@@ -108,7 +110,7 @@ func (r *Relation) HandlerFriendRequest(ctx context.Context, req *sdkpb.HandlerF
 		_ = r.IncrSyncFriends(ctx)
 	}
 	_ = r.SyncAllFriendApplication(ctx)
-	return &sdkpb.HandlerFriendRequestResp{}, nil
+	return &sdkpb.HandleFriendRequestResp{}, nil
 }
 
 func (r *Relation) CheckFriend(ctx context.Context, req *sdkpb.CheckFriendReq) (*sdkpb.CheckFriendResp, error) {

@@ -29,19 +29,25 @@ message GetFriendRequestsResp {
   repeated shared.IMFriendRequest requests = 1;
 }
 
-message HandlerFriendRequestReq {
+message HandleFriendRequestReq {
   string userID = 1;
   string handleMsg = 2;
-  openim.sdk.common.ApprovalStatus status = 3;
+  common.ApprovalStatus status = 3;
 }
-message HandlerFriendRequestResp {}
+message HandleFriendRequestResp {}
 
 message CheckFriendReq {
   repeated string friendUserIDs = 1;
 }
+
+enum CheckFriendResult {
+  NotFriend = 0;
+  IsFriend = 1;
+}
+
 message CheckFriendInfo {
   string userID = 1;
-  int32 result = 2;
+  CheckFriendResult result = 2;
 }
 message CheckFriendResp {
   repeated CheckFriendInfo result = 1;
