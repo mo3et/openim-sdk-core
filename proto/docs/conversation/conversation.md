@@ -50,8 +50,8 @@
     - [SetMessageLocalExReq](#openim-sdk-conversation-SetMessageLocalExReq)
     - [SetMessageLocalExResp](#openim-sdk-conversation-SetMessageLocalExResp)
   
-- [conversation.docs.proto](#conversation-docs-proto)
-    - [ConversationService](#openim-sdk-conversation-ConversationService)
+- [conversation.sdkAPI.proto](#conversation-sdkAPI-proto)
+    - [ConversationSDKAPI](#openim-sdk-conversation-ConversationSDKAPI)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -713,10 +713,10 @@ Keyword list |
 
 
 
-<a name="conversation-docs-proto"></a>
+<a name="conversation-sdkAPI-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## conversation.docs.proto
+## conversation.sdkAPI.proto
 
 
  
@@ -726,9 +726,9 @@ Keyword list |
  
 
 
-<a name="openim-sdk-conversation-ConversationService"></a>
+<a name="openim-sdk-conversation-ConversationSDKAPI"></a>
 
-### ConversationService
+### ConversationSDKAPI
 
 
 | Method Name | Request Type | Response Type | Description |

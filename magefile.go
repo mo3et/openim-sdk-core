@@ -122,7 +122,8 @@ func GenDocs() error {
 			"--doc_out=" + filepath.Join(docsOutDir, module),
 			"--doc_opt=markdown," + strings.Join([]string{module, "md"}, "."),
 			filepath.Join("proto", module) + ".proto",
-			filepath.Join("proto", module+".docs") + ".proto",
+			filepath.Join("proto", module+".sdkAPI") + ".proto",
+			// filepath.Join("proto", module+".docs") + ".proto",
 		}
 
 		cmd := exec.Command(protoc, args...)
