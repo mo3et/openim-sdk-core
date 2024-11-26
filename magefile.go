@@ -112,14 +112,21 @@ func GenDocs() error {
 
 	docsOutDir := filepath.Join(protoDir, "docs")
 
-	for _, module := range protoModules {
+	testModule := []string{
+		"common",
+		"conversation",
+		"shared",
+	}
+
+	for _, module := range testModule {
 		if err := os.MkdirAll(filepath.Join(docsOutDir, module), 0755); err != nil {
 			return err
 		}
 
 		args := []string{
 			"--proto_path=" + protoDir,
-			"--doc_out=" + filepath.Join(docsOutDir, module),
+			// "--doc_out=" + filepath.Join(docsOutDir, module),
+			"--doc_out=" + filepath.Join(docsOutDir),
 			"--doc_opt=markdown," + strings.Join([]string{module, "md"}, "."),
 			filepath.Join("proto", module) + ".proto",
 			filepath.Join("proto", module+".sdkAPI") + ".proto",

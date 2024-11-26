@@ -9,7 +9,9 @@ option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation";
 
 service ConversationSDKAPI {
+  // This GetConversationList API is used to get the conversation list.
   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
+  // Using split mode to get the conversation list.
   rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp) {}
   rpc HideConversation(HideConversationReq) returns (HideConversationResp) {}
 }
