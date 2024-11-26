@@ -7,18 +7,6 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared";
 
 // ############## user ################
 
-// GlobalRecvMsgOpt represents the global message receive option.
-//
-// In the globalRecvMsgOpt of UserInfo, globally control whether to receive offline push notifications.
-//
-// In the recvMsgOpt of a ConversationInfo, in addition to controlling whether to receive offline push notifications for that session,
-// it also controls whether the unread count of that session is included in the total unread count.
-enum GlobalRecvMsgOpt {
-  Normal = 0; // Normally receive messages
-  NotReceive = 1; // Reserved field
-  NotNotify = 2; // Receive messages, but no offline push. When in conversation, this conversation's unread count is not included in the total unread count
-}
-
 // IM User information
 message IMUser {
   string userID = 1;
@@ -26,7 +14,7 @@ message IMUser {
   string faceURL = 3;
   string ex = 4;
   int64 createTime = 5;
-  GlobalRecvMsgOpt globalRecvMsgOpt = 6; // Global message recv option
+  common.GlobalRecvMsgOpt globalRecvMsgOpt = 6; // Global message recv option
   string attached = 7;
 }
 

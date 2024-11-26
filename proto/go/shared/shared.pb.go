@@ -21,61 +21,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// GlobalRecvMsgOpt represents the global message receive option.
-//
-// In the globalRecvMsgOpt of UserInfo, globally control whether to receive offline push notifications.
-//
-// In the recvMsgOpt of a ConversationInfo, in addition to controlling whether to receive offline push notifications for that session,
-// it also controls whether the unread count of that session is included in the total unread count.
-type GlobalRecvMsgOpt int32
-
-const (
-	GlobalRecvMsgOpt_Normal     GlobalRecvMsgOpt = 0 // Normally receive messages
-	GlobalRecvMsgOpt_NotReceive GlobalRecvMsgOpt = 1 // Reserved field
-	GlobalRecvMsgOpt_NotNotify  GlobalRecvMsgOpt = 2 // Receive messages, but no offline push. When in conversation, this conversation's unread count is not included in the total unread count
-)
-
-// Enum value maps for GlobalRecvMsgOpt.
-var (
-	GlobalRecvMsgOpt_name = map[int32]string{
-		0: "Normal",
-		1: "NotReceive",
-		2: "NotNotify",
-	}
-	GlobalRecvMsgOpt_value = map[string]int32{
-		"Normal":     0,
-		"NotReceive": 1,
-		"NotNotify":  2,
-	}
-)
-
-func (x GlobalRecvMsgOpt) Enum() *GlobalRecvMsgOpt {
-	p := new(GlobalRecvMsgOpt)
-	*p = x
-	return p
-}
-
-func (x GlobalRecvMsgOpt) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (GlobalRecvMsgOpt) Descriptor() protoreflect.EnumDescriptor {
-	return file_shared_proto_enumTypes[0].Descriptor()
-}
-
-func (GlobalRecvMsgOpt) Type() protoreflect.EnumType {
-	return &file_shared_proto_enumTypes[0]
-}
-
-func (x GlobalRecvMsgOpt) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use GlobalRecvMsgOpt.Descriptor instead.
-func (GlobalRecvMsgOpt) EnumDescriptor() ([]byte, []int) {
-	return file_shared_proto_rawDescGZIP(), []int{0}
-}
-
 type GroupStatus int32
 
 const (
@@ -106,11 +51,11 @@ func (x GroupStatus) String() string {
 }
 
 func (GroupStatus) Descriptor() protoreflect.EnumDescriptor {
-	return file_shared_proto_enumTypes[1].Descriptor()
+	return file_shared_proto_enumTypes[0].Descriptor()
 }
 
 func (GroupStatus) Type() protoreflect.EnumType {
-	return &file_shared_proto_enumTypes[1]
+	return &file_shared_proto_enumTypes[0]
 }
 
 func (x GroupStatus) Number() protoreflect.EnumNumber {
@@ -119,7 +64,7 @@ func (x GroupStatus) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use GroupStatus.Descriptor instead.
 func (GroupStatus) EnumDescriptor() ([]byte, []int) {
-	return file_shared_proto_rawDescGZIP(), []int{1}
+	return file_shared_proto_rawDescGZIP(), []int{0}
 }
 
 type GroupJoinSource int32
@@ -161,11 +106,11 @@ func (x GroupJoinSource) String() string {
 }
 
 func (GroupJoinSource) Descriptor() protoreflect.EnumDescriptor {
-	return file_shared_proto_enumTypes[2].Descriptor()
+	return file_shared_proto_enumTypes[1].Descriptor()
 }
 
 func (GroupJoinSource) Type() protoreflect.EnumType {
-	return &file_shared_proto_enumTypes[2]
+	return &file_shared_proto_enumTypes[1]
 }
 
 func (x GroupJoinSource) Number() protoreflect.EnumNumber {
@@ -174,7 +119,7 @@ func (x GroupJoinSource) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use GroupJoinSource.Descriptor instead.
 func (GroupJoinSource) EnumDescriptor() ([]byte, []int) {
-	return file_shared_proto_rawDescGZIP(), []int{2}
+	return file_shared_proto_rawDescGZIP(), []int{1}
 }
 
 // IM User information
@@ -183,13 +128,13 @@ type IMUser struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID           string           `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
-	Nickname         string           `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname"`
-	FaceURL          string           `protobuf:"bytes,3,opt,name=faceURL,proto3" json:"faceURL"`
-	Ex               string           `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex"`
-	CreateTime       int64            `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime"`
-	GlobalRecvMsgOpt GlobalRecvMsgOpt `protobuf:"varint,6,opt,name=globalRecvMsgOpt,proto3,enum=openim.sdk.shared.GlobalRecvMsgOpt" json:"globalRecvMsgOpt"` // Global message recv option
-	Attached         string           `protobuf:"bytes,7,opt,name=attached,proto3" json:"attached"`
+	UserID           string                  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	Nickname         string                  `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname"`
+	FaceURL          string                  `protobuf:"bytes,3,opt,name=faceURL,proto3" json:"faceURL"`
+	Ex               string                  `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex"`
+	CreateTime       int64                   `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime"`
+	GlobalRecvMsgOpt common.GlobalRecvMsgOpt `protobuf:"varint,6,opt,name=globalRecvMsgOpt,proto3,enum=openim.sdk.common.GlobalRecvMsgOpt" json:"globalRecvMsgOpt"` // Global message recv option
+	Attached         string                  `protobuf:"bytes,7,opt,name=attached,proto3" json:"attached"`
 }
 
 func (x *IMUser) Reset() {
@@ -257,11 +202,11 @@ func (x *IMUser) GetCreateTime() int64 {
 	return 0
 }
 
-func (x *IMUser) GetGlobalRecvMsgOpt() GlobalRecvMsgOpt {
+func (x *IMUser) GetGlobalRecvMsgOpt() common.GlobalRecvMsgOpt {
 	if x != nil {
 		return x.GlobalRecvMsgOpt
 	}
-	return GlobalRecvMsgOpt_Normal
+	return common.GlobalRecvMsgOpt(0)
 }
 
 func (x *IMUser) GetAttached() string {
@@ -5165,7 +5110,7 @@ var file_shared_proto_rawDesc = []byte{
 	0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x4f, 0x0a, 0x10, 0x67, 0x6c, 0x6f, 0x62,
 	0x61, 0x6c, 0x52, 0x65, 0x63, 0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x18, 0x06, 0x20, 0x01,
 	0x28, 0x0e, 0x32, 0x23, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e,
-	0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x47, 0x6c, 0x6f, 0x62, 0x61, 0x6c, 0x52, 0x65, 0x63,
+	0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x47, 0x6c, 0x6f, 0x62, 0x61, 0x6c, 0x52, 0x65, 0x63,
 	0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x52, 0x10, 0x67, 0x6c, 0x6f, 0x62, 0x61, 0x6c, 0x52,
 	0x65, 0x63, 0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x61, 0x74, 0x74,
 	0x61, 0x63, 0x68, 0x65, 0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x61, 0x74, 0x74,
@@ -6081,22 +6026,18 @@ var file_shared_proto_rawDesc = []byte{
 	0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x42, 0x75, 0x73,
 	0x69, 0x6e, 0x65, 0x73, 0x73, 0x54, 0x69, 0x70, 0x73, 0x48, 0x00, 0x52, 0x0c, 0x62, 0x75, 0x73,
 	0x69, 0x6e, 0x65, 0x73, 0x73, 0x54, 0x69, 0x70, 0x73, 0x42, 0x09, 0x0a, 0x07, 0x63, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x2a, 0x3d, 0x0a, 0x10, 0x47, 0x6c, 0x6f, 0x62, 0x61, 0x6c, 0x52, 0x65,
-	0x63, 0x76, 0x4d, 0x73, 0x67, 0x4f, 0x70, 0x74, 0x12, 0x0a, 0x0a, 0x06, 0x4e, 0x6f, 0x72, 0x6d,
-	0x61, 0x6c, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x4e, 0x6f, 0x74, 0x52, 0x65, 0x63, 0x65, 0x69,
-	0x76, 0x65, 0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09, 0x4e, 0x6f, 0x74, 0x4e, 0x6f, 0x74, 0x69, 0x66,
-	0x79, 0x10, 0x02, 0x2a, 0x29, 0x0a, 0x0b, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x53, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x12, 0x0b, 0x0a, 0x07, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x10, 0x00, 0x12,
-	0x0d, 0x0a, 0x09, 0x44, 0x69, 0x73, 0x6d, 0x69, 0x73, 0x73, 0x65, 0x64, 0x10, 0x02, 0x2a, 0x4b,
-	0x0a, 0x0f, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4a, 0x6f, 0x69, 0x6e, 0x53, 0x6f, 0x75, 0x72, 0x63,
-	0x65, 0x12, 0x05, 0x0a, 0x01, 0x5f, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x41, 0x64, 0x6d, 0x69,
-	0x6e, 0x10, 0x01, 0x12, 0x0e, 0x0a, 0x0a, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x10, 0x02, 0x12, 0x0a, 0x0a, 0x06, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x10, 0x03, 0x12,
-	0x0a, 0x0a, 0x06, 0x51, 0x52, 0x43, 0x6f, 0x64, 0x65, 0x10, 0x04, 0x42, 0x39, 0x5a, 0x37, 0x67,
-	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d,
-	0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63,
-	0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f,
-	0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x65, 0x6e, 0x74, 0x2a, 0x29, 0x0a, 0x0b, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x53, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x12, 0x0b, 0x0a, 0x07, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x10, 0x00,
+	0x12, 0x0d, 0x0a, 0x09, 0x44, 0x69, 0x73, 0x6d, 0x69, 0x73, 0x73, 0x65, 0x64, 0x10, 0x02, 0x2a,
+	0x4b, 0x0a, 0x0f, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4a, 0x6f, 0x69, 0x6e, 0x53, 0x6f, 0x75, 0x72,
+	0x63, 0x65, 0x12, 0x05, 0x0a, 0x01, 0x5f, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x41, 0x64, 0x6d,
+	0x69, 0x6e, 0x10, 0x01, 0x12, 0x0e, 0x0a, 0x0a, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x10, 0x02, 0x12, 0x0a, 0x0a, 0x06, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x10, 0x03,
+	0x12, 0x0a, 0x0a, 0x06, 0x51, 0x52, 0x43, 0x6f, 0x64, 0x65, 0x10, 0x04, 0x42, 0x39, 0x5a, 0x37,
+	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69,
+	0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d,
+	0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f,
+	0x2f, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -6111,63 +6052,63 @@ func file_shared_proto_rawDescGZIP() []byte {
 	return file_shared_proto_rawDescData
 }
 
-var file_shared_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_shared_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_shared_proto_msgTypes = make([]protoimpl.MessageInfo, 51)
 var file_shared_proto_goTypes = []any{
-	(GlobalRecvMsgOpt)(0),                 // 0: openim.sdk.shared.GlobalRecvMsgOpt
-	(GroupStatus)(0),                      // 1: openim.sdk.shared.GroupStatus
-	(GroupJoinSource)(0),                  // 2: openim.sdk.shared.GroupJoinSource
-	(*IMUser)(nil),                        // 3: openim.sdk.shared.IMUser
-	(*CommandInfo)(nil),                   // 4: openim.sdk.shared.CommandInfo
-	(*IMFriend)(nil),                      // 5: openim.sdk.shared.IMFriend
-	(*IMBlack)(nil),                       // 6: openim.sdk.shared.IMBlack
-	(*IMFriendRequest)(nil),               // 7: openim.sdk.shared.IMFriendRequest
-	(*IMGroup)(nil),                       // 8: openim.sdk.shared.IMGroup
-	(*IMGroupMember)(nil),                 // 9: openim.sdk.shared.IMGroupMember
-	(*IMGroupRequest)(nil),                // 10: openim.sdk.shared.IMGroupRequest
-	(*IMConversation)(nil),                // 11: openim.sdk.shared.IMConversation
-	(*AtInfo)(nil),                        // 12: openim.sdk.shared.AtInfo
-	(*ImageInfo)(nil),                     // 13: openim.sdk.shared.ImageInfo
-	(*PictureBaseInfo)(nil),               // 14: openim.sdk.shared.PictureBaseInfo
-	(*SoundBaseInfo)(nil),                 // 15: openim.sdk.shared.SoundBaseInfo
-	(*VideoBaseInfo)(nil),                 // 16: openim.sdk.shared.VideoBaseInfo
-	(*FileBaseInfo)(nil),                  // 17: openim.sdk.shared.FileBaseInfo
-	(*TextElem)(nil),                      // 18: openim.sdk.shared.TextElem
-	(*CardElem)(nil),                      // 19: openim.sdk.shared.CardElem
-	(*PictureElem)(nil),                   // 20: openim.sdk.shared.PictureElem
-	(*SoundElem)(nil),                     // 21: openim.sdk.shared.SoundElem
-	(*VideoElem)(nil),                     // 22: openim.sdk.shared.VideoElem
-	(*FileElem)(nil),                      // 23: openim.sdk.shared.FileElem
-	(*MessageEntity)(nil),                 // 24: openim.sdk.shared.MessageEntity
-	(*MergeElem)(nil),                     // 25: openim.sdk.shared.MergeElem
-	(*AtTextElem)(nil),                    // 26: openim.sdk.shared.AtTextElem
-	(*FaceElem)(nil),                      // 27: openim.sdk.shared.FaceElem
-	(*LocationElem)(nil),                  // 28: openim.sdk.shared.LocationElem
-	(*CustomElem)(nil),                    // 29: openim.sdk.shared.CustomElem
-	(*QuoteElem)(nil),                     // 30: openim.sdk.shared.QuoteElem
-	(*AdvancedTextElem)(nil),              // 31: openim.sdk.shared.AdvancedTextElem
-	(*TypingElem)(nil),                    // 32: openim.sdk.shared.TypingElem
-	(*StreamElem)(nil),                    // 33: openim.sdk.shared.StreamElem
-	(*GroupHasReadInfo)(nil),              // 34: openim.sdk.shared.GroupHasReadInfo
-	(*UploadProgress)(nil),                // 35: openim.sdk.shared.UploadProgress
-	(*AttachedInfoElem)(nil),              // 36: openim.sdk.shared.AttachedInfoElem
-	(*GroupCreatedTips)(nil),              // 37: openim.sdk.shared.GroupCreatedTips
-	(*MemberQuitTips)(nil),                // 38: openim.sdk.shared.MemberQuitTips
-	(*GroupOwnerTransferredTips)(nil),     // 39: openim.sdk.shared.GroupOwnerTransferredTips
-	(*MemberKickedTips)(nil),              // 40: openim.sdk.shared.MemberKickedTips
-	(*MemberInvitedTips)(nil),             // 41: openim.sdk.shared.MemberInvitedTips
-	(*MemberEnterTips)(nil),               // 42: openim.sdk.shared.MemberEnterTips
-	(*GroupDismissedTips)(nil),            // 43: openim.sdk.shared.GroupDismissedTips
-	(*GroupMemberMutedTips)(nil),          // 44: openim.sdk.shared.GroupMemberMutedTips
-	(*GroupMemberCancelMutedTips)(nil),    // 45: openim.sdk.shared.GroupMemberCancelMutedTips
-	(*GroupMutedTips)(nil),                // 46: openim.sdk.shared.GroupMutedTips
-	(*GroupCancelMutedTips)(nil),          // 47: openim.sdk.shared.GroupCancelMutedTips
-	(*FromToUserID)(nil),                  // 48: openim.sdk.shared.FromToUserID
-	(*FriendApplicationApprovedTips)(nil), // 49: openim.sdk.shared.FriendApplicationApprovedTips
-	(*RevokedTips)(nil),                   // 50: openim.sdk.shared.RevokedTips
-	(*ConversationPrivateChatTips)(nil),   // 51: openim.sdk.shared.ConversationPrivateChatTips
-	(*BusinessTips)(nil),                  // 52: openim.sdk.shared.BusinessTips
-	(*IMMessage)(nil),                     // 53: openim.sdk.shared.IMMessage
+	(GroupStatus)(0),                      // 0: openim.sdk.shared.GroupStatus
+	(GroupJoinSource)(0),                  // 1: openim.sdk.shared.GroupJoinSource
+	(*IMUser)(nil),                        // 2: openim.sdk.shared.IMUser
+	(*CommandInfo)(nil),                   // 3: openim.sdk.shared.CommandInfo
+	(*IMFriend)(nil),                      // 4: openim.sdk.shared.IMFriend
+	(*IMBlack)(nil),                       // 5: openim.sdk.shared.IMBlack
+	(*IMFriendRequest)(nil),               // 6: openim.sdk.shared.IMFriendRequest
+	(*IMGroup)(nil),                       // 7: openim.sdk.shared.IMGroup
+	(*IMGroupMember)(nil),                 // 8: openim.sdk.shared.IMGroupMember
+	(*IMGroupRequest)(nil),                // 9: openim.sdk.shared.IMGroupRequest
+	(*IMConversation)(nil),                // 10: openim.sdk.shared.IMConversation
+	(*AtInfo)(nil),                        // 11: openim.sdk.shared.AtInfo
+	(*ImageInfo)(nil),                     // 12: openim.sdk.shared.ImageInfo
+	(*PictureBaseInfo)(nil),               // 13: openim.sdk.shared.PictureBaseInfo
+	(*SoundBaseInfo)(nil),                 // 14: openim.sdk.shared.SoundBaseInfo
+	(*VideoBaseInfo)(nil),                 // 15: openim.sdk.shared.VideoBaseInfo
+	(*FileBaseInfo)(nil),                  // 16: openim.sdk.shared.FileBaseInfo
+	(*TextElem)(nil),                      // 17: openim.sdk.shared.TextElem
+	(*CardElem)(nil),                      // 18: openim.sdk.shared.CardElem
+	(*PictureElem)(nil),                   // 19: openim.sdk.shared.PictureElem
+	(*SoundElem)(nil),                     // 20: openim.sdk.shared.SoundElem
+	(*VideoElem)(nil),                     // 21: openim.sdk.shared.VideoElem
+	(*FileElem)(nil),                      // 22: openim.sdk.shared.FileElem
+	(*MessageEntity)(nil),                 // 23: openim.sdk.shared.MessageEntity
+	(*MergeElem)(nil),                     // 24: openim.sdk.shared.MergeElem
+	(*AtTextElem)(nil),                    // 25: openim.sdk.shared.AtTextElem
+	(*FaceElem)(nil),                      // 26: openim.sdk.shared.FaceElem
+	(*LocationElem)(nil),                  // 27: openim.sdk.shared.LocationElem
+	(*CustomElem)(nil),                    // 28: openim.sdk.shared.CustomElem
+	(*QuoteElem)(nil),                     // 29: openim.sdk.shared.QuoteElem
+	(*AdvancedTextElem)(nil),              // 30: openim.sdk.shared.AdvancedTextElem
+	(*TypingElem)(nil),                    // 31: openim.sdk.shared.TypingElem
+	(*StreamElem)(nil),                    // 32: openim.sdk.shared.StreamElem
+	(*GroupHasReadInfo)(nil),              // 33: openim.sdk.shared.GroupHasReadInfo
+	(*UploadProgress)(nil),                // 34: openim.sdk.shared.UploadProgress
+	(*AttachedInfoElem)(nil),              // 35: openim.sdk.shared.AttachedInfoElem
+	(*GroupCreatedTips)(nil),              // 36: openim.sdk.shared.GroupCreatedTips
+	(*MemberQuitTips)(nil),                // 37: openim.sdk.shared.MemberQuitTips
+	(*GroupOwnerTransferredTips)(nil),     // 38: openim.sdk.shared.GroupOwnerTransferredTips
+	(*MemberKickedTips)(nil),              // 39: openim.sdk.shared.MemberKickedTips
+	(*MemberInvitedTips)(nil),             // 40: openim.sdk.shared.MemberInvitedTips
+	(*MemberEnterTips)(nil),               // 41: openim.sdk.shared.MemberEnterTips
+	(*GroupDismissedTips)(nil),            // 42: openim.sdk.shared.GroupDismissedTips
+	(*GroupMemberMutedTips)(nil),          // 43: openim.sdk.shared.GroupMemberMutedTips
+	(*GroupMemberCancelMutedTips)(nil),    // 44: openim.sdk.shared.GroupMemberCancelMutedTips
+	(*GroupMutedTips)(nil),                // 45: openim.sdk.shared.GroupMutedTips
+	(*GroupCancelMutedTips)(nil),          // 46: openim.sdk.shared.GroupCancelMutedTips
+	(*FromToUserID)(nil),                  // 47: openim.sdk.shared.FromToUserID
+	(*FriendApplicationApprovedTips)(nil), // 48: openim.sdk.shared.FriendApplicationApprovedTips
+	(*RevokedTips)(nil),                   // 49: openim.sdk.shared.RevokedTips
+	(*ConversationPrivateChatTips)(nil),   // 50: openim.sdk.shared.ConversationPrivateChatTips
+	(*BusinessTips)(nil),                  // 51: openim.sdk.shared.BusinessTips
+	(*IMMessage)(nil),                     // 52: openim.sdk.shared.IMMessage
+	(common.GlobalRecvMsgOpt)(0),          // 53: openim.sdk.common.GlobalRecvMsgOpt
 	(common.SessionType)(0),               // 54: openim.sdk.common.SessionType
 	(common.ConvRecvMsgOpt)(0),            // 55: openim.sdk.common.ConvRecvMsgOpt
 	(common.ConvGroupAtType)(0),           // 56: openim.sdk.common.ConvGroupAtType
@@ -6178,95 +6119,95 @@ var file_shared_proto_goTypes = []any{
 	(*common.OfflinePushInfo)(nil),        // 61: openim.sdk.common.OfflinePushInfo
 }
 var file_shared_proto_depIdxs = []int32{
-	0,  // 0: openim.sdk.shared.IMUser.globalRecvMsgOpt:type_name -> openim.sdk.shared.GlobalRecvMsgOpt
-	1,  // 1: openim.sdk.shared.IMGroup.status:type_name -> openim.sdk.shared.GroupStatus
-	2,  // 2: openim.sdk.shared.IMGroupMember.joinSource:type_name -> openim.sdk.shared.GroupJoinSource
-	2,  // 3: openim.sdk.shared.IMGroupRequest.joinSource:type_name -> openim.sdk.shared.GroupJoinSource
+	53, // 0: openim.sdk.shared.IMUser.globalRecvMsgOpt:type_name -> openim.sdk.common.GlobalRecvMsgOpt
+	0,  // 1: openim.sdk.shared.IMGroup.status:type_name -> openim.sdk.shared.GroupStatus
+	1,  // 2: openim.sdk.shared.IMGroupMember.joinSource:type_name -> openim.sdk.shared.GroupJoinSource
+	1,  // 3: openim.sdk.shared.IMGroupRequest.joinSource:type_name -> openim.sdk.shared.GroupJoinSource
 	54, // 4: openim.sdk.shared.IMConversation.conversationType:type_name -> openim.sdk.common.SessionType
 	55, // 5: openim.sdk.shared.IMConversation.recvMsgOpt:type_name -> openim.sdk.common.ConvRecvMsgOpt
 	56, // 6: openim.sdk.shared.IMConversation.groupAtType:type_name -> openim.sdk.common.ConvGroupAtType
-	53, // 7: openim.sdk.shared.IMConversation.latestMsg:type_name -> openim.sdk.shared.IMMessage
-	14, // 8: openim.sdk.shared.PictureElem.sourcePicture:type_name -> openim.sdk.shared.PictureBaseInfo
-	14, // 9: openim.sdk.shared.PictureElem.bigPicture:type_name -> openim.sdk.shared.PictureBaseInfo
-	14, // 10: openim.sdk.shared.PictureElem.snapshotPicture:type_name -> openim.sdk.shared.PictureBaseInfo
-	53, // 11: openim.sdk.shared.MergeElem.multiMessage:type_name -> openim.sdk.shared.IMMessage
-	24, // 12: openim.sdk.shared.MergeElem.messageEntityList:type_name -> openim.sdk.shared.MessageEntity
-	12, // 13: openim.sdk.shared.AtTextElem.atUsersInfo:type_name -> openim.sdk.shared.AtInfo
-	53, // 14: openim.sdk.shared.AtTextElem.quoteMessage:type_name -> openim.sdk.shared.IMMessage
-	53, // 15: openim.sdk.shared.QuoteElem.quoteMessage:type_name -> openim.sdk.shared.IMMessage
-	24, // 16: openim.sdk.shared.QuoteElem.messageEntityList:type_name -> openim.sdk.shared.MessageEntity
-	24, // 17: openim.sdk.shared.AdvancedTextElem.messageEntityList:type_name -> openim.sdk.shared.MessageEntity
-	34, // 18: openim.sdk.shared.AttachedInfoElem.groupHasReadInfo:type_name -> openim.sdk.shared.GroupHasReadInfo
-	35, // 19: openim.sdk.shared.AttachedInfoElem.progress:type_name -> openim.sdk.shared.UploadProgress
-	8,  // 20: openim.sdk.shared.GroupCreatedTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 21: openim.sdk.shared.GroupCreatedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 22: openim.sdk.shared.GroupCreatedTips.memberList:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 23: openim.sdk.shared.GroupCreatedTips.groupOwnerUser:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 24: openim.sdk.shared.MemberQuitTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 25: openim.sdk.shared.MemberQuitTips.quitUser:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 26: openim.sdk.shared.GroupOwnerTransferredTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 27: openim.sdk.shared.GroupOwnerTransferredTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 28: openim.sdk.shared.GroupOwnerTransferredTips.newGroupOwner:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 29: openim.sdk.shared.GroupOwnerTransferredTips.oldGroupOwnerInfo:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 30: openim.sdk.shared.MemberKickedTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 31: openim.sdk.shared.MemberKickedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 32: openim.sdk.shared.MemberKickedTips.kickedUserList:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 33: openim.sdk.shared.MemberInvitedTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 34: openim.sdk.shared.MemberInvitedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 35: openim.sdk.shared.MemberInvitedTips.invitedUserList:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 36: openim.sdk.shared.MemberInvitedTips.inviterUser:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 37: openim.sdk.shared.MemberEnterTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 38: openim.sdk.shared.MemberEnterTips.entrantUser:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 39: openim.sdk.shared.GroupDismissedTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 40: openim.sdk.shared.GroupDismissedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 41: openim.sdk.shared.GroupMemberMutedTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 42: openim.sdk.shared.GroupMemberMutedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 43: openim.sdk.shared.GroupMemberMutedTips.mutedUser:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 44: openim.sdk.shared.GroupMemberCancelMutedTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 45: openim.sdk.shared.GroupMemberCancelMutedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	9,  // 46: openim.sdk.shared.GroupMemberCancelMutedTips.mutedUser:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 47: openim.sdk.shared.GroupMutedTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 48: openim.sdk.shared.GroupMutedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	8,  // 49: openim.sdk.shared.GroupCancelMutedTips.group:type_name -> openim.sdk.shared.IMGroup
-	9,  // 50: openim.sdk.shared.GroupCancelMutedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
-	48, // 51: openim.sdk.shared.FriendApplicationApprovedTips.fromToUserID:type_name -> openim.sdk.shared.FromToUserID
+	52, // 7: openim.sdk.shared.IMConversation.latestMsg:type_name -> openim.sdk.shared.IMMessage
+	13, // 8: openim.sdk.shared.PictureElem.sourcePicture:type_name -> openim.sdk.shared.PictureBaseInfo
+	13, // 9: openim.sdk.shared.PictureElem.bigPicture:type_name -> openim.sdk.shared.PictureBaseInfo
+	13, // 10: openim.sdk.shared.PictureElem.snapshotPicture:type_name -> openim.sdk.shared.PictureBaseInfo
+	52, // 11: openim.sdk.shared.MergeElem.multiMessage:type_name -> openim.sdk.shared.IMMessage
+	23, // 12: openim.sdk.shared.MergeElem.messageEntityList:type_name -> openim.sdk.shared.MessageEntity
+	11, // 13: openim.sdk.shared.AtTextElem.atUsersInfo:type_name -> openim.sdk.shared.AtInfo
+	52, // 14: openim.sdk.shared.AtTextElem.quoteMessage:type_name -> openim.sdk.shared.IMMessage
+	52, // 15: openim.sdk.shared.QuoteElem.quoteMessage:type_name -> openim.sdk.shared.IMMessage
+	23, // 16: openim.sdk.shared.QuoteElem.messageEntityList:type_name -> openim.sdk.shared.MessageEntity
+	23, // 17: openim.sdk.shared.AdvancedTextElem.messageEntityList:type_name -> openim.sdk.shared.MessageEntity
+	33, // 18: openim.sdk.shared.AttachedInfoElem.groupHasReadInfo:type_name -> openim.sdk.shared.GroupHasReadInfo
+	34, // 19: openim.sdk.shared.AttachedInfoElem.progress:type_name -> openim.sdk.shared.UploadProgress
+	7,  // 20: openim.sdk.shared.GroupCreatedTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 21: openim.sdk.shared.GroupCreatedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 22: openim.sdk.shared.GroupCreatedTips.memberList:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 23: openim.sdk.shared.GroupCreatedTips.groupOwnerUser:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 24: openim.sdk.shared.MemberQuitTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 25: openim.sdk.shared.MemberQuitTips.quitUser:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 26: openim.sdk.shared.GroupOwnerTransferredTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 27: openim.sdk.shared.GroupOwnerTransferredTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 28: openim.sdk.shared.GroupOwnerTransferredTips.newGroupOwner:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 29: openim.sdk.shared.GroupOwnerTransferredTips.oldGroupOwnerInfo:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 30: openim.sdk.shared.MemberKickedTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 31: openim.sdk.shared.MemberKickedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 32: openim.sdk.shared.MemberKickedTips.kickedUserList:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 33: openim.sdk.shared.MemberInvitedTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 34: openim.sdk.shared.MemberInvitedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 35: openim.sdk.shared.MemberInvitedTips.invitedUserList:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 36: openim.sdk.shared.MemberInvitedTips.inviterUser:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 37: openim.sdk.shared.MemberEnterTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 38: openim.sdk.shared.MemberEnterTips.entrantUser:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 39: openim.sdk.shared.GroupDismissedTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 40: openim.sdk.shared.GroupDismissedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 41: openim.sdk.shared.GroupMemberMutedTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 42: openim.sdk.shared.GroupMemberMutedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 43: openim.sdk.shared.GroupMemberMutedTips.mutedUser:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 44: openim.sdk.shared.GroupMemberCancelMutedTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 45: openim.sdk.shared.GroupMemberCancelMutedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	8,  // 46: openim.sdk.shared.GroupMemberCancelMutedTips.mutedUser:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 47: openim.sdk.shared.GroupMutedTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 48: openim.sdk.shared.GroupMutedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	7,  // 49: openim.sdk.shared.GroupCancelMutedTips.group:type_name -> openim.sdk.shared.IMGroup
+	8,  // 50: openim.sdk.shared.GroupCancelMutedTips.opUser:type_name -> openim.sdk.shared.IMGroupMember
+	47, // 51: openim.sdk.shared.FriendApplicationApprovedTips.fromToUserID:type_name -> openim.sdk.shared.FromToUserID
 	54, // 52: openim.sdk.shared.IMMessage.sessionType:type_name -> openim.sdk.common.SessionType
 	57, // 53: openim.sdk.shared.IMMessage.msgFrom:type_name -> openim.sdk.common.MsgFrom
 	58, // 54: openim.sdk.shared.IMMessage.contentType:type_name -> openim.sdk.common.ContentType
 	59, // 55: openim.sdk.shared.IMMessage.senderPlatformID:type_name -> openim.sdk.common.Platform
 	60, // 56: openim.sdk.shared.IMMessage.status:type_name -> openim.sdk.common.MsgStatus
 	61, // 57: openim.sdk.shared.IMMessage.offlinePush:type_name -> openim.sdk.common.OfflinePushInfo
-	36, // 58: openim.sdk.shared.IMMessage.attachedInfoElem:type_name -> openim.sdk.shared.AttachedInfoElem
-	18, // 59: openim.sdk.shared.IMMessage.textElem:type_name -> openim.sdk.shared.TextElem
-	19, // 60: openim.sdk.shared.IMMessage.cardElem:type_name -> openim.sdk.shared.CardElem
-	20, // 61: openim.sdk.shared.IMMessage.pictureElem:type_name -> openim.sdk.shared.PictureElem
-	21, // 62: openim.sdk.shared.IMMessage.soundElem:type_name -> openim.sdk.shared.SoundElem
-	22, // 63: openim.sdk.shared.IMMessage.videoElem:type_name -> openim.sdk.shared.VideoElem
-	23, // 64: openim.sdk.shared.IMMessage.fileElem:type_name -> openim.sdk.shared.FileElem
-	25, // 65: openim.sdk.shared.IMMessage.mergeElem:type_name -> openim.sdk.shared.MergeElem
-	26, // 66: openim.sdk.shared.IMMessage.atTextElem:type_name -> openim.sdk.shared.AtTextElem
-	27, // 67: openim.sdk.shared.IMMessage.faceElem:type_name -> openim.sdk.shared.FaceElem
-	28, // 68: openim.sdk.shared.IMMessage.locationElem:type_name -> openim.sdk.shared.LocationElem
-	29, // 69: openim.sdk.shared.IMMessage.customElem:type_name -> openim.sdk.shared.CustomElem
-	30, // 70: openim.sdk.shared.IMMessage.quoteElem:type_name -> openim.sdk.shared.QuoteElem
-	31, // 71: openim.sdk.shared.IMMessage.advancedTextElem:type_name -> openim.sdk.shared.AdvancedTextElem
-	32, // 72: openim.sdk.shared.IMMessage.typingElem:type_name -> openim.sdk.shared.TypingElem
-	33, // 73: openim.sdk.shared.IMMessage.streamElem:type_name -> openim.sdk.shared.StreamElem
-	50, // 74: openim.sdk.shared.IMMessage.revokedTips:type_name -> openim.sdk.shared.RevokedTips
-	37, // 75: openim.sdk.shared.IMMessage.groupCreatedTips:type_name -> openim.sdk.shared.GroupCreatedTips
-	38, // 76: openim.sdk.shared.IMMessage.memberQuitTips:type_name -> openim.sdk.shared.MemberQuitTips
-	39, // 77: openim.sdk.shared.IMMessage.groupOwnerTransferredTips:type_name -> openim.sdk.shared.GroupOwnerTransferredTips
-	40, // 78: openim.sdk.shared.IMMessage.memberKickedTips:type_name -> openim.sdk.shared.MemberKickedTips
-	41, // 79: openim.sdk.shared.IMMessage.memberInvitedTips:type_name -> openim.sdk.shared.MemberInvitedTips
-	42, // 80: openim.sdk.shared.IMMessage.memberEnterTips:type_name -> openim.sdk.shared.MemberEnterTips
-	43, // 81: openim.sdk.shared.IMMessage.groupDismissedTips:type_name -> openim.sdk.shared.GroupDismissedTips
-	44, // 82: openim.sdk.shared.IMMessage.groupMemberMutedTips:type_name -> openim.sdk.shared.GroupMemberMutedTips
-	45, // 83: openim.sdk.shared.IMMessage.groupMemberCancelMutedTips:type_name -> openim.sdk.shared.GroupMemberCancelMutedTips
-	46, // 84: openim.sdk.shared.IMMessage.groupMutedTips:type_name -> openim.sdk.shared.GroupMutedTips
-	47, // 85: openim.sdk.shared.IMMessage.groupCancelMutedTips:type_name -> openim.sdk.shared.GroupCancelMutedTips
-	49, // 86: openim.sdk.shared.IMMessage.friendApplicationApprovedTips:type_name -> openim.sdk.shared.FriendApplicationApprovedTips
-	51, // 87: openim.sdk.shared.IMMessage.conversationPrivateChatTips:type_name -> openim.sdk.shared.ConversationPrivateChatTips
-	52, // 88: openim.sdk.shared.IMMessage.businessTips:type_name -> openim.sdk.shared.BusinessTips
+	35, // 58: openim.sdk.shared.IMMessage.attachedInfoElem:type_name -> openim.sdk.shared.AttachedInfoElem
+	17, // 59: openim.sdk.shared.IMMessage.textElem:type_name -> openim.sdk.shared.TextElem
+	18, // 60: openim.sdk.shared.IMMessage.cardElem:type_name -> openim.sdk.shared.CardElem
+	19, // 61: openim.sdk.shared.IMMessage.pictureElem:type_name -> openim.sdk.shared.PictureElem
+	20, // 62: openim.sdk.shared.IMMessage.soundElem:type_name -> openim.sdk.shared.SoundElem
+	21, // 63: openim.sdk.shared.IMMessage.videoElem:type_name -> openim.sdk.shared.VideoElem
+	22, // 64: openim.sdk.shared.IMMessage.fileElem:type_name -> openim.sdk.shared.FileElem
+	24, // 65: openim.sdk.shared.IMMessage.mergeElem:type_name -> openim.sdk.shared.MergeElem
+	25, // 66: openim.sdk.shared.IMMessage.atTextElem:type_name -> openim.sdk.shared.AtTextElem
+	26, // 67: openim.sdk.shared.IMMessage.faceElem:type_name -> openim.sdk.shared.FaceElem
+	27, // 68: openim.sdk.shared.IMMessage.locationElem:type_name -> openim.sdk.shared.LocationElem
+	28, // 69: openim.sdk.shared.IMMessage.customElem:type_name -> openim.sdk.shared.CustomElem
+	29, // 70: openim.sdk.shared.IMMessage.quoteElem:type_name -> openim.sdk.shared.QuoteElem
+	30, // 71: openim.sdk.shared.IMMessage.advancedTextElem:type_name -> openim.sdk.shared.AdvancedTextElem
+	31, // 72: openim.sdk.shared.IMMessage.typingElem:type_name -> openim.sdk.shared.TypingElem
+	32, // 73: openim.sdk.shared.IMMessage.streamElem:type_name -> openim.sdk.shared.StreamElem
+	49, // 74: openim.sdk.shared.IMMessage.revokedTips:type_name -> openim.sdk.shared.RevokedTips
+	36, // 75: openim.sdk.shared.IMMessage.groupCreatedTips:type_name -> openim.sdk.shared.GroupCreatedTips
+	37, // 76: openim.sdk.shared.IMMessage.memberQuitTips:type_name -> openim.sdk.shared.MemberQuitTips
+	38, // 77: openim.sdk.shared.IMMessage.groupOwnerTransferredTips:type_name -> openim.sdk.shared.GroupOwnerTransferredTips
+	39, // 78: openim.sdk.shared.IMMessage.memberKickedTips:type_name -> openim.sdk.shared.MemberKickedTips
+	40, // 79: openim.sdk.shared.IMMessage.memberInvitedTips:type_name -> openim.sdk.shared.MemberInvitedTips
+	41, // 80: openim.sdk.shared.IMMessage.memberEnterTips:type_name -> openim.sdk.shared.MemberEnterTips
+	42, // 81: openim.sdk.shared.IMMessage.groupDismissedTips:type_name -> openim.sdk.shared.GroupDismissedTips
+	43, // 82: openim.sdk.shared.IMMessage.groupMemberMutedTips:type_name -> openim.sdk.shared.GroupMemberMutedTips
+	44, // 83: openim.sdk.shared.IMMessage.groupMemberCancelMutedTips:type_name -> openim.sdk.shared.GroupMemberCancelMutedTips
+	45, // 84: openim.sdk.shared.IMMessage.groupMutedTips:type_name -> openim.sdk.shared.GroupMutedTips
+	46, // 85: openim.sdk.shared.IMMessage.groupCancelMutedTips:type_name -> openim.sdk.shared.GroupCancelMutedTips
+	48, // 86: openim.sdk.shared.IMMessage.friendApplicationApprovedTips:type_name -> openim.sdk.shared.FriendApplicationApprovedTips
+	50, // 87: openim.sdk.shared.IMMessage.conversationPrivateChatTips:type_name -> openim.sdk.shared.ConversationPrivateChatTips
+	51, // 88: openim.sdk.shared.IMMessage.businessTips:type_name -> openim.sdk.shared.BusinessTips
 	89, // [89:89] is the sub-list for method output_type
 	89, // [89:89] is the sub-list for method input_type
 	89, // [89:89] is the sub-list for extension type_name
@@ -6316,7 +6257,7 @@ func file_shared_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_shared_proto_rawDesc,
-			NumEnums:      3,
+			NumEnums:      2,
 			NumMessages:   51,
 			NumExtensions: 0,
 			NumServices:   0,
