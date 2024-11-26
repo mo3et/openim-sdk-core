@@ -14,6 +14,10 @@
 
 package model_struct
 
+import (
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+)
+
 type StringArray []string
 
 type LocalFriend struct {
@@ -131,14 +135,14 @@ type LocalGroupRequest struct {
 }
 
 type LocalUser struct {
-	UserID           string `gorm:"column:user_id;primary_key;type:varchar(64)" json:"userID"`
-	Nickname         string `gorm:"column:name;type:varchar(255)" json:"nickname"`
-	FaceURL          string `gorm:"column:face_url;type:varchar(255)" json:"faceURL"`
-	CreateTime       int64  `gorm:"column:create_time" json:"createTime"`
-	AppMangerLevel   int32  `gorm:"column:app_manger_level" json:"-"`
-	Ex               string `gorm:"column:ex;type:text" json:"ex"`
-	AttachedInfo     string `gorm:"column:attached_info;type:text" json:"attachedInfo"`
-	GlobalRecvMsgOpt int32  `gorm:"column:global_recv_msg_opt" json:"globalRecvMsgOpt"`
+	UserID           string                  `gorm:"column:user_id;primary_key;type:varchar(64)" json:"userID"`
+	Nickname         string                  `gorm:"column:name;type:varchar(255)" json:"nickname"`
+	FaceURL          string                  `gorm:"column:face_url;type:varchar(255)" json:"faceURL"`
+	CreateTime       int64                   `gorm:"column:create_time" json:"createTime"`
+	AppMangerLevel   int32                   `gorm:"column:app_manger_level" json:"-"`
+	Ex               string                  `gorm:"column:ex;type:text" json:"ex"`
+	AttachedInfo     string                  `gorm:"column:attached_info;type:text" json:"attachedInfo"`
+	GlobalRecvMsgOpt common.GlobalRecvMsgOpt `gorm:"column:global_recv_msg_opt" json:"globalRecvMsgOpt"`
 }
 
 type LocalBlack struct {
@@ -316,14 +320,14 @@ func (LocalUpload) TableName() string {
 }
 
 type LocalStranger struct {
-	UserID           string `gorm:"column:user_id;primary_key;type:varchar(64)" json:"userID"`
-	Nickname         string `gorm:"column:name;type:varchar(255)" json:"nickname"`
-	FaceURL          string `gorm:"column:face_url;type:varchar(255)" json:"faceURL"`
-	CreateTime       int64  `gorm:"column:create_time" json:"createTime"`
-	AppMangerLevel   int32  `gorm:"column:app_manger_level" json:"-"`
-	Ex               string `gorm:"column:ex;type:text" json:"ex"`
-	AttachedInfo     string `gorm:"column:attached_info;type:text" json:"attachedInfo"`
-	GlobalRecvMsgOpt int32  `gorm:"column:global_recv_msg_opt" json:"globalRecvMsgOpt"`
+	UserID           string                  `gorm:"column:user_id;primary_key;type:varchar(64)" json:"userID"`
+	Nickname         string                  `gorm:"column:name;type:varchar(255)" json:"nickname"`
+	FaceURL          string                  `gorm:"column:face_url;type:varchar(255)" json:"faceURL"`
+	CreateTime       int64                   `gorm:"column:create_time" json:"createTime"`
+	AppMangerLevel   int32                   `gorm:"column:app_manger_level" json:"-"`
+	Ex               string                  `gorm:"column:ex;type:text" json:"ex"`
+	AttachedInfo     string                  `gorm:"column:attached_info;type:text" json:"attachedInfo"`
+	GlobalRecvMsgOpt common.GlobalRecvMsgOpt `gorm:"column:global_recv_msg_opt" json:"globalRecvMsgOpt"`
 }
 
 func (LocalStranger) TableName() string {
