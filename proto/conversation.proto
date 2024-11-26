@@ -26,7 +26,7 @@ message FindMessageListCallback {
 message SearchLocalMessagesParams {
   string conversationID = 1;
   // this is keywordList
-  repeated string keywordList = 2; // Keyword list
+  repeated string keywordList = 2;
   int32 keywordListMatchType = 3;
   repeated string senderUserIDList = 4;
   repeated int32 messageTypeList = 5;

@@ -567,9 +567,7 @@ ConversationArgs.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | conversationID | [string](#string) |  |  |
-| keywordList | [string](#string) | repeated | this is keywordList
-
-Keyword list |
+| keywordList | [string](#string) | repeated | this is keywordList |
 | keywordListMatchType | [int32](#int32) |  |  |
 | senderUserIDList | [string](#string) | repeated |  |
 | messageTypeList | [int32](#int32) | repeated |  |
