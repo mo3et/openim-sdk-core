@@ -466,6 +466,7 @@ func BuildiOS() error {
 	os.Setenv("GOARCH", arch)
 	os.Setenv("CGO_ENABLED", "1")
 	os.Setenv("CC", "clang")
+	os.Setenv("CGO_LDFLAGS", "lresolv")
 
 	iosOut := filepath.Join(outPath, "ios")
 
