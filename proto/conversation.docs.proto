@@ -9,7 +9,7 @@ option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation";
 
 service ConversationService {
-  rpc GetAllConversationList(GetAllConversationListReq) returns (conversation.GetAllConversationListResp) {}
-  rpc GetConversationListSplit(conversation.GetConversationListSplitReq) returns (conversation.GetConversationListSplitResp) {}
-  rpc HideConversation(conversation.HideConversationReq) returns (conversation.HideConversationResp) {}
+  rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
+  rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp) {}
+  rpc HideConversation(HideConversationReq) returns (HideConversationResp) {}
 }

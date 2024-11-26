@@ -1,7 +1,6 @@
 syntax = "proto3";
 package openim.sdk.conversation;
 
-import "common.proto";
 import "shared.proto";
 
 option csharp_namespace = "OpenIM";
