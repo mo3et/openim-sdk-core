@@ -1,8 +1,8 @@
 syntax = "proto3";
 package openim.sdk.conversation;
 
-import "shared.proto";
 import "common.proto";
+import "shared.proto";
 
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation";
@@ -19,7 +19,8 @@ message FindMessageListCallback {
 
 message SearchLocalMessagesParams {
   string conversationID = 1;
-  repeated string keywordList = 2;
+  // this is keywordList
+  repeated string keywordList = 2; // Keyword list
   int32 keywordListMatchType = 3;
   repeated string senderUserIDList = 4;
   repeated int32 messageTypeList = 5;
@@ -47,7 +48,7 @@ message SearchByConversationResult {
 // -----------------------------------------------------------------------------------------------------------------
 message GetAllConversationListReq {}
 message GetAllConversationListResp {
-  repeated shared.IMConversation conversationList = 1;
+  repeated shared.IMConversation conversationList = 1; // Details Conversation List
 }
 
 message GetConversationListSplitReq {
@@ -94,7 +95,7 @@ message SetConversationDraftResp {}
 
 message SetConversationReq {
   string conversationID = 1;
-  optional common.ConvRecvMsgOpt  recvMsgOpt = 2;
+  optional common.ConvRecvMsgOpt recvMsgOpt = 2;
   optional common.ConvGroupAtType groupAtType = 3;
   optional bool isPinned = 4;
   optional bool isPrivateChat = 5;

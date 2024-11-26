@@ -221,7 +221,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| conversationList | [openim.sdk.shared.IMConversation](#openim-sdk-shared-IMConversation) | repeated |  |
+| conversationList | [openim.sdk.shared.IMConversation](#openim-sdk-shared-IMConversation) | repeated | Details Conversation List |
 
 
 
@@ -567,7 +567,9 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | conversationID | [string](#string) |  |  |
-| keywordList | [string](#string) | repeated |  |
+| keywordList | [string](#string) | repeated | this is keywordList
+
+Keyword list |
 | keywordListMatchType | [int32](#int32) |  |  |
 | senderUserIDList | [string](#string) | repeated |  |
 | messageTypeList | [int32](#int32) | repeated |  |
