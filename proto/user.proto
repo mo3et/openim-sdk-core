@@ -57,10 +57,3 @@ message GetUsersInfoReq {
 message GetUsersInfoResp {
   repeated shared.IMUser users = 1; // userinfo list
 }
-
-message GetUsersInfoFromServerReq {
-  repeated string userIDs = 1; // userid list
-}
-message GetUsersInfoFromServerResp {
-  repeated shared.IMUser users = 1; // userinfo list
-}

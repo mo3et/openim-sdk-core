@@ -133,12 +133,3 @@ func (u *User) GetUsersInfo(ctx context.Context, req *sdkpb.GetUsersInfoReq) (*s
 	}
 	return &sdkpb.GetUsersInfoResp{Users: res}, nil
 }
-
-// GetUsersInfoFromServer retrieves user information from the server.
-func (u *User) GetUsersInfoFromServer(ctx context.Context, req *sdkpb.GetUsersInfoFromServerReq) (*sdkpb.GetUsersInfoFromServerResp, error) {
-	users, err := u.getUsersInfo(ctx, req.UserIDs)
-	if err != nil {
-		return nil, sdkerrs.WrapMsg(err, "GetUsersInfoFromServer failed")
-	}
-	return &sdkpb.GetUsersInfoFromServerResp{Users: datautil.Batch(ServerUserToSdk, users)}, nil
-}

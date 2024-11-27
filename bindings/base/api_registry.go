@@ -125,7 +125,7 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_GetSpecifiedFriends:  wrapFunc(open_im_sdk.IMUserContext.Relation().GetSpecifiedFriends),
 	pb.FuncRequestEventName_AddFriend:            wrapFunc(open_im_sdk.IMUserContext.Relation().AddFriend),
 	pb.FuncRequestEventName_GetFriendRequests:    wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriendRequests),
-	pb.FuncRequestEventName_HandlerFriendRequest: wrapFunc(open_im_sdk.IMUserContext.Relation().HandlerFriendRequest),
+	pb.FuncRequestEventName_HandlerFriendRequest: wrapFunc(open_im_sdk.IMUserContext.Relation().HandleFriendRequest),
 	pb.FuncRequestEventName_CheckFriend:          wrapFunc(open_im_sdk.IMUserContext.Relation().CheckFriend),
 	pb.FuncRequestEventName_DeleteFriend:         wrapFunc(open_im_sdk.IMUserContext.Relation().DeleteFriend),
 	pb.FuncRequestEventName_GetFriends:           wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriends),
@@ -189,5 +189,4 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_ProcessUserCommandDelete: wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandDelete),
 	pb.FuncRequestEventName_ProcessUserCommandUpdate: wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandUpdate),
 	pb.FuncRequestEventName_GetUsersInfo:             wrapFunc(open_im_sdk.IMUserContext.User().GetUsersInfo),
-	pb.FuncRequestEventName_GetUsersInfoFromServer:   wrapFunc(open_im_sdk.IMUserContext.User().GetUsersInfoFromServer),
 }
