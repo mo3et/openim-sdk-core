@@ -4,7 +4,12 @@ package openim.sdk.group;
 import "group.proto";
 
 service group {
-  // create a group
+ /**
+ * This is a leading comment for a message
+ * This is a leading comment for a message
+ * This is a leading comment for a message
+ * This is a leading comment for a message
+ */
   rpc CreateGroup(CreateGroupReq) returns (CreateGroupResp);
   // join a group
   rpc JoinGroup(JoinGroupReq) returns (JoinGroupResp);

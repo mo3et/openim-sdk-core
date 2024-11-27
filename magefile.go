@@ -125,7 +125,6 @@ func GenDocs() error {
 			filepath.Join("proto", module) + ".proto",
 			// filepath.Join("proto", module+".sdkapi") + ".proto",
 		}
-
 		cmd := exec.Command(protoc, args...)
 		connectStd(cmd)
 		if err := cmd.Run(); err != nil {
