@@ -189,5 +189,4 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_ProcessUserCommandDelete: wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandDelete),
 	pb.FuncRequestEventName_ProcessUserCommandUpdate: wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandUpdate),
 	pb.FuncRequestEventName_GetUsersInfo:             wrapFunc(open_im_sdk.IMUserContext.User().GetUsersInfo),
-	pb.FuncRequestEventName_GetUsersInfoFromServer:   wrapFunc(open_im_sdk.IMUserContext.User().GetUsersInfoFromServer),
 }

@@ -173,7 +173,6 @@ enum FuncRequestEventName {
   ProcessUserCommandDelete = 2104;
   ProcessUserCommandUpdate = 2105;
   GetUsersInfo = 2106;
-  GetUsersInfoFromServer = 2107;
 
 
 
