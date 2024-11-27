@@ -9,13 +9,13 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared";
 
 // IM User information
 message IMUser {
-  string userID = 1;
-  string nickname = 2;
-  string faceURL = 3;
-  string ex = 4;
-  int64 createTime = 5;
+  string userID = 1; // User ID
+  string nickname = 2; // User nickname
+  string faceURL = 3; // User avatar URL
+  string ex = 4; // User extension field
+  int64 createTime = 5; // User register time
   common.GlobalRecvMsgOpt globalRecvMsgOpt = 6; // Global message recv option
-  string attached = 7;
+  string attached = 7; // SDK internal extension field
 }
 
 message CommandInfo {
