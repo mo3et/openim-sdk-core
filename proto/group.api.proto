@@ -1,0 +1,55 @@
+syntax = "proto3";
+package openim.sdk.group;
+
+import "group.proto";
+
+service group {
+  // create a group
+  rpc CreateGroup(CreateGroupReq) returns (CreateGroupResp);
+  // join a group
+  rpc JoinGroup(JoinGroupReq) returns (JoinGroupResp);
+  // quit a group
+  rpc QuitGroup(QuitGroupReq) returns (QuitGroupResp);
+  // dismiss a group
+  rpc DismissGroup(DismissGroupReq) returns (DismissGroupResp);
+  // mute or cancel mute a group
+  rpc ChangeGroupMute(ChangeGroupMuteReq) returns (ChangeGroupMuteResp);
+  // mute or cancel mute a group member
+  rpc ChangeGroupMemberMute(ChangeGroupMemberMuteReq) returns (ChangeGroupMemberMuteResp);
+  // transfer group owner
+  rpc TransferGroupOwner(TransferGroupOwnerReq) returns (TransferGroupOwnerResp);
+  // kick a group member
+  rpc KickGroupMember(KickGroupMemberReq) returns (KickGroupMemberResp);
+  // set group information
+  rpc SetGroupInfo(SetGroupInfoReq) returns (SetGroupInfoResp);
+  // set group member information
+  rpc SetGroupMemberInfo(SetGroupMemberInfoReq) returns (SetGroupMemberInfoResp);
+  // get joined groups
+  rpc GetJoinedGroups(GetJoinedGroupsReq) returns (GetJoinedGroupsResp);
+  // get joined groups by page
+  rpc GetJoinedGroupsPage(GetJoinedGroupsPageReq) returns (GetJoinedGroupsPageResp);
+  // get specified groups information
+  rpc GetSpecifiedGroupsInfo(GetSpecifiedGroupsInfoReq) returns (GetSpecifiedGroupsInfoResp);
+  // search groups
+  rpc SearchGroups(SearchGroupsReq) returns (SearchGroupsResp);
+  // get group member owner and admin
+  rpc GetGroupMemberOwnerAndAdmin(GetGroupMemberOwnerAndAdminReq) returns (GetGroupMemberOwnerAndAdminResp);
+  // get group members by join time filter
+  rpc GetGroupMembersByJoinTimeFilter(GetGroupMembersByJoinTimeFilterReq) returns (GetGroupMembersByJoinTimeFilterResp);
+  // get specified group members information
+  rpc GetSpecifiedGroupMembersInfo(GetSpecifiedGroupMembersInfoReq) returns (GetSpecifiedGroupMembersInfoResp);
+  // get group members
+  rpc GetGroupMembers(GetGroupMembersReq) returns (GetGroupMembersResp);
+  // get group request
+  rpc GetGroupRequest(GetGroupRequestReq) returns (GetGroupRequestResp);
+  // get group request
+  rpc SearchGroupMembers(SearchGroupMembersReq) returns (SearchGroupMembersResp);
+  // is join group
+  rpc IsJoinGroup(IsJoinGroupReq) returns (IsJoinGroupResp);
+  // get users in group
+  rpc GetUsersInGroup(GetUsersInGroupReq) returns (GetUsersInGroupResp);
+  // invite user to group
+  rpc InviteUserToGroup(InviteUserToGroupReq) returns (InviteUserToGroupResp);
+  // handler group request
+  rpc HandlerGroupRequest(HandlerGroupRequestReq) returns (HandlerGroupRequestResp);
+}
