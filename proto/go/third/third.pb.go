@@ -26,8 +26,8 @@ type UpdateFcmTokenReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FcmToken   string `protobuf:"bytes,1,opt,name=fcmToken,proto3" json:"fcmToken"`
-	ExpireTime int64  `protobuf:"varint,2,opt,name=expireTime,proto3" json:"expireTime"`
+	FcmToken   string `protobuf:"bytes,1,opt,name=fcmToken,proto3" json:"fcmToken"`      // fcm token
+	ExpireTime int64  `protobuf:"varint,2,opt,name=expireTime,proto3" json:"expireTime"` // expire time
 }
 
 func (x *UpdateFcmTokenReq) Reset() {
@@ -115,7 +115,7 @@ type SetAppBadgeReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AppUnreadCount int32 `protobuf:"varint,1,opt,name=appUnreadCount,proto3" json:"appUnreadCount"`
+	AppUnreadCount int32 `protobuf:"varint,1,opt,name=appUnreadCount,proto3" json:"appUnreadCount"` // app unread count
 }
 
 func (x *SetAppBadgeReq) Reset() {
@@ -196,8 +196,8 @@ type UploadLogsReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Line int32  `protobuf:"varint,1,opt,name=line,proto3" json:"line"`
-	Ex   string `protobuf:"bytes,2,opt,name=ex,proto3" json:"ex"`
+	Line int32  `protobuf:"varint,1,opt,name=line,proto3" json:"line"` // upload line
+	Ex   string `protobuf:"bytes,2,opt,name=ex,proto3" json:"ex"`      // upload extension fields
 }
 
 func (x *UploadLogsReq) Reset() {
@@ -285,8 +285,8 @@ type LogKv struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Key   string     `protobuf:"bytes,1,opt,name=key,proto3" json:"key"`
-	Value *anypb.Any `protobuf:"bytes,2,opt,name=value,proto3" json:"value"`
+	Key   string     `protobuf:"bytes,1,opt,name=key,proto3" json:"key"`     // key
+	Value *anypb.Any `protobuf:"bytes,2,opt,name=value,proto3" json:"value"` // value
 }
 
 func (x *LogKv) Reset() {
@@ -338,12 +338,12 @@ type LogReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	LogLevel int32    `protobuf:"varint,1,opt,name=logLevel,proto3" json:"logLevel"`
-	File     string   `protobuf:"bytes,2,opt,name=file,proto3" json:"file"`
-	Line     int32    `protobuf:"varint,3,opt,name=line,proto3" json:"line"`
-	Msg      string   `protobuf:"bytes,4,opt,name=msg,proto3" json:"msg"`
-	Err      string   `protobuf:"bytes,5,opt,name=err,proto3" json:"err"`
-	Kvs      []*LogKv `protobuf:"bytes,6,rep,name=kvs,proto3" json:"kvs"`
+	LogLevel int32    `protobuf:"varint,1,opt,name=logLevel,proto3" json:"logLevel"` // log level
+	File     string   `protobuf:"bytes,2,opt,name=file,proto3" json:"file"`          // log file path
+	Line     int32    `protobuf:"varint,3,opt,name=line,proto3" json:"line"`         // log line
+	Msg      string   `protobuf:"bytes,4,opt,name=msg,proto3" json:"msg"`            // log message
+	Err      string   `protobuf:"bytes,5,opt,name=err,proto3" json:"err"`            // log error message
+	Kvs      []*LogKv `protobuf:"bytes,6,rep,name=kvs,proto3" json:"kvs"`            // log key-value pairs
 }
 
 func (x *LogReq) Reset() {

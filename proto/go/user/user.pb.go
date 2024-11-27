@@ -108,9 +108,9 @@ type SetSelfInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID           string                   `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
-	Nickname         *string                  `protobuf:"bytes,2,opt,name=nickname,proto3,oneof" json:"nickname"`
-	FaceURL          *string                  `protobuf:"bytes,3,opt,name=faceURL,proto3,oneof" json:"faceURL"`
+	UserID           string                   `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`                                                                    // user id
+	Nickname         *string                  `protobuf:"bytes,2,opt,name=nickname,proto3,oneof" json:"nickname"`                                                          // user nickname
+	FaceURL          *string                  `protobuf:"bytes,3,opt,name=faceURL,proto3,oneof" json:"faceURL"`                                                            // user face url
 	Ex               *string                  `protobuf:"bytes,4,opt,name=ex,proto3,oneof" json:"ex"`                                                                      // user extension fields
 	GlobalRecvMsgOpt *common.GlobalRecvMsgOpt `protobuf:"varint,7,opt,name=globalRecvMsgOpt,proto3,enum=openim.sdk.common.GlobalRecvMsgOpt,oneof" json:"globalRecvMsgOpt"` // control global offline push.
 }
@@ -221,11 +221,11 @@ type ProcessUserCommandAddReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
-	Type   int32   `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
-	Uuid   string  `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`
-	Value  *string `protobuf:"bytes,4,opt,name=value,proto3,oneof" json:"value"`
-	Ex     *string `protobuf:"bytes,5,opt,name=ex,proto3,oneof" json:"ex"`
+	UserID string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`     // userid
+	Type   int32   `protobuf:"varint,2,opt,name=type,proto3" json:"type"`        // command type
+	Uuid   string  `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`         // command uuid
+	Value  *string `protobuf:"bytes,4,opt,name=value,proto3,oneof" json:"value"` // command value
+	Ex     *string `protobuf:"bytes,5,opt,name=ex,proto3,oneof" json:"ex"`       // command extension fields
 }
 
 func (x *ProcessUserCommandAddReq) Reset() {
@@ -334,9 +334,9 @@ type ProcessUserCommandDeleteReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
-	Type   int32  `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
-	Uuid   string `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`
+	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"` // userid
+	Type   int32  `protobuf:"varint,2,opt,name=type,proto3" json:"type"`    // command type
+	Uuid   string `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`     // command uuid
 }
 
 func (x *ProcessUserCommandDeleteReq) Reset() {
@@ -431,11 +431,11 @@ type ProcessUserCommandUpdateReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
-	Type   int32   `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
-	Uuid   string  `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`
-	Value  *string `protobuf:"bytes,4,opt,name=value,proto3,oneof" json:"value"`
-	Ex     *string `protobuf:"bytes,5,opt,name=ex,proto3,oneof" json:"ex"`
+	UserID string  `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`     // userid
+	Type   int32   `protobuf:"varint,2,opt,name=type,proto3" json:"type"`        // command type
+	Uuid   string  `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid"`         // command uuid
+	Value  *string `protobuf:"bytes,4,opt,name=value,proto3,oneof" json:"value"` // command value
+	Ex     *string `protobuf:"bytes,5,opt,name=ex,proto3,oneof" json:"ex"`       // command extension fields
 }
 
 func (x *ProcessUserCommandUpdateReq) Reset() {
@@ -580,7 +580,7 @@ type ProcessUserCommandGetAllResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Commands []*shared.CommandInfo `protobuf:"bytes,1,rep,name=commands,proto3" json:"commands"`
+	Commands []*shared.CommandInfo `protobuf:"bytes,1,rep,name=commands,proto3" json:"commands"` // command info list
 }
 
 func (x *ProcessUserCommandGetAllResp) Reset() {
@@ -625,7 +625,7 @@ type GetUsersInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"`
+	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"` // userid list
 }
 
 func (x *GetUsersInfoReq) Reset() {
@@ -670,7 +670,7 @@ type GetUsersInfoResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Users []*shared.IMUser `protobuf:"bytes,1,rep,name=users,proto3" json:"users"`
+	Users []*shared.IMUser `protobuf:"bytes,1,rep,name=users,proto3" json:"users"` // userinfo list
 }
 
 func (x *GetUsersInfoResp) Reset() {
@@ -715,7 +715,7 @@ type GetUsersInfoFromServerReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"`
+	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"` // userid list
 }
 
 func (x *GetUsersInfoFromServerReq) Reset() {
@@ -760,7 +760,7 @@ type GetUsersInfoFromServerResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Users []*shared.IMUser `protobuf:"bytes,1,rep,name=users,proto3" json:"users"`
+	Users []*shared.IMUser `protobuf:"bytes,1,rep,name=users,proto3" json:"users"` // userinfo list
 }
 
 func (x *GetUsersInfoFromServerResp) Reset() {
@@ -804,9 +804,9 @@ var File_user_proto protoreflect.FileDescriptor
 
 var file_user_proto_rawDesc = []byte{
 	0x0a, 0x0a, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0f, 0x6f, 0x70,
-	0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x1a, 0x0c, 0x73,
-	0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0c, 0x63, 0x6f, 0x6d,
-	0x6d, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x14, 0x0a, 0x12, 0x47, 0x65, 0x74,
+	0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x1a, 0x0c, 0x63,
+	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0c, 0x73, 0x68, 0x61,
+	0x72, 0x65, 0x64, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x14, 0x0a, 0x12, 0x47, 0x65, 0x74,
 	0x53, 0x65, 0x6c, 0x66, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x22,
 	0x44, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x53, 0x65, 0x6c, 0x66, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e,
 	0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x12, 0x2d, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01,

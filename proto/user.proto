@@ -1,8 +1,8 @@
 syntax = "proto3";
 package openim.sdk.user;
 
-import "shared.proto";
 import "common.proto";
+import "shared.proto";
 
 option csharp_namespace = "OpenIM";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/user";
@@ -13,54 +13,54 @@ message GetSelfUserInfoResp {
 }
 
 message SetSelfInfoReq {
-  string userID = 1;
-  optional string nickname = 2;
-  optional string faceURL = 3;
+  string userID = 1; // user id
+  optional string nickname = 2; // user nickname
+  optional string faceURL = 3; // user face url
   optional string ex = 4; // user extension fields
   optional common.GlobalRecvMsgOpt globalRecvMsgOpt = 7; // control global offline push.
 }
 message SetSelfInfoResp {}
 
 message ProcessUserCommandAddReq {
-  string userID = 1;
-  int32 type = 2;
-  string uuid = 3;
-  optional string value = 4;
-  optional string ex = 5;
+  string userID = 1; // userid
+  int32 type = 2; // command type
+  string uuid = 3; // command uuid
+  optional string value = 4; // command value
+  optional string ex = 5; // command extension fields
 }
 message ProcessUserCommandAddResp {}
 
 message ProcessUserCommandDeleteReq {
-  string userID = 1;
-  int32 type = 2;
-  string uuid = 3;
+  string userID = 1; // userid
+  int32 type = 2; // command type
+  string uuid = 3; // command uuid
 }
 message ProcessUserCommandDeleteResp {}
 
 message ProcessUserCommandUpdateReq {
-  string userID = 1;
-  int32 type = 2;
-  string uuid = 3;
-  optional string value = 4;
-  optional string ex = 5;
+  string userID = 1; // userid
+  int32 type = 2; // command type
+  string uuid = 3; // command uuid
+  optional string value = 4; // command value
+  optional string ex = 5; // command extension fields
 }
 message ProcessUserCommandUpdateResp {}
 
 message ProcessUserCommandGetAllReq {}
 message ProcessUserCommandGetAllResp {
-  repeated shared.CommandInfo commands = 1;
+  repeated shared.CommandInfo commands = 1; // command info list
 }
 
 message GetUsersInfoReq {
-  repeated string userIDs = 1;
+  repeated string userIDs = 1; // userid list
 }
 message GetUsersInfoResp {
-  repeated shared.IMUser users = 1;
+  repeated shared.IMUser users = 1; // userinfo list
 }
 
 message GetUsersInfoFromServerReq {
-  repeated string userIDs = 1;
+  repeated string userIDs = 1; // userid list
 }
 message GetUsersInfoFromServerResp {
-  repeated shared.IMUser users = 1;
+  repeated shared.IMUser users = 1; // userinfo list
 }

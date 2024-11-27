@@ -6,32 +6,32 @@ import "any.proto";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/third";
 
 message UpdateFcmTokenReq {
-  string fcmToken = 1;
-  int64 expireTime = 2;
+  string fcmToken = 1; // fcm token
+  int64 expireTime = 2; // expire time
 }
 message UpdateFcmTokenResp {}
 
 message SetAppBadgeReq {
-  int32 appUnreadCount = 1;
+  int32 appUnreadCount = 1; // app unread count
 }
 message SetAppBadgeResp {}
 
 message UploadLogsReq {
-  int32 line = 1;
-  string ex = 2;
+  int32 line = 1; // upload line
+  string ex = 2; // upload extension fields
 }
 message UploadLogsResp {}
 
 message LogKv {
-  string key = 1;
-  google.protobuf.Any value = 2;
+  string key = 1; // key
+  google.protobuf.Any value = 2; // value
 }
 message LogReq {
-  int32 logLevel = 1;
-  string file = 2;
-  int32 line = 3;
-  string msg = 4;
-  string err = 5;
-  repeated LogKv kvs = 6;
+  int32 logLevel = 1; // log level
+  string file = 2; // log file path
+  int32 line = 3; // log line
+  string msg = 4; // log message
+  string err = 5; // log error message
+  repeated LogKv kvs = 6; // log key-value pairs
 }
 message LogResp {}
