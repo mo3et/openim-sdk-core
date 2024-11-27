@@ -118,12 +118,19 @@ func (d *DataBase) GetMessageList(ctx context.Context, conversationID string, co
 		timeOrder = "send_time DESC"
 		timeSymbol = "<"
 	}
-	condition = "send_time " + timeSymbol + " ?"
-
-	err = errs.WrapMsg(d.conn.WithContext(ctx).Table(utils.GetTableName(conversationID)).Where(condition, startTime).
-		Order(timeOrder).Offset(0).Limit(count).Find(&result).Error, "GetMessageList failed")
-	if err != nil {
-		return nil, err
+	if startTime > 0 {
+		condition = "send_time " + timeSymbol + " ?"
+		err = errs.WrapMsg(d.conn.WithContext(ctx).Table(utils.GetTableName(conversationID)).Where(condition, startTime).
+			Order(timeOrder).Offset(0).Limit(count).Find(&result).Error, "GetMessageList failed")
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		err = errs.WrapMsg(d.conn.WithContext(ctx).Table(utils.GetTableName(conversationID)).Order(timeOrder).
+			Offset(0).Limit(count).Find(&result).Error, "GetMessageList failed")
+		if err != nil {
+			return nil, err
+		}
 	}
 	return result, err
 }
