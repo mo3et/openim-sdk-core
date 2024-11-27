@@ -75,35 +75,81 @@ message IMFriendRequest {
 // ############## group ################
 
 enum GroupStatus {
+  // normal group chat
   Default = 0;
+  // the group chat has been disbanded
   Dismissed = 2;
 }
 
 enum GroupJoinSource {
   _ = 0;
+  // administrator invitation to join
   Admin = 1;
+  // invite to join
   Invitation = 2;
+  // search to join
   Search = 3;
+  // scan code to join
   QRCode = 4;
 }
 
+enum GroupNeedVerification {
+  // application requires consent, and invitation is direct entry.
+  ApplyNeedVerificationInviteDirectly = 0;
+  // everyone entering the group needs to be verified, except for those invited by the group owner or administrator.
+  AllNeedVerification = 1;
+  // direct access to group chat.
+  DirectAccess = 2;
+}
+
+enum GroupLookMemberInfo {
+  // do not allow access to member information via the group
+  ProhibitGroupLookMemberInfo = 0;
+  // allow access to member information via the group
+  AllowGroupLookMemberInfo = 1;
+}
+
+enum GroupApplyMemberFriend {
+  // do not allow group members to add friends directly
+  ProhibitGroupApplyMemberFriend = 0;
+  // allow group members to add friends directly
+  AllowGroupApplyMemberFriend = 1;
+}
+
 message IMGroup {
+  // group id, no need to specify when creating
   string groupID = 1;
+  // group name
   string groupName = 2;
+  // group notification
   string notification = 3;
+  // group introduction
   string introduction = 4;
+  // group face url
   string faceURL = 5;
+  // group owner user id
   string ownerUserID = 6;
+  // group creation time
   int64 createTime = 7;
+  // group member count
   int64 memberCount = 8;
+  // extension field
   string ex = 9;
+  // group status
   GroupStatus status = 10;
+  // group creator user id
   string creatorUserID = 11;
-  int32 needVerification = 12;
-  int32 lookMemberInfo = 13;
-  int32 applyMemberFriend = 14;
+  // whether to verify the group
+  GroupNeedVerification needVerification = 12;
+  // whether to view the group member information
+  GroupLookMemberInfo lookMemberInfo = 13;
+  // whether to allow group members to add friends
+  GroupApplyMemberFriend applyMemberFriend = 14;
+  // notification update time
   int64 notificationUpdateTime = 15;
+  // notification update user id
   string notificationUserID = 16;
+  // group attached info
   string attachedInfo = 17;
 }
 
