@@ -2,6 +2,7 @@ syntax = "proto3";
 package openim.sdk.third;
 
 import "any.proto";
+import "common.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/third";
 
@@ -26,8 +27,9 @@ message LogKv {
   string key = 1; // key
   google.protobuf.Any value = 2; // value
 }
+
 message LogReq {
-  int32 logLevel = 1; // log level
+  common.LogLevel logLevel = 1; // log level
   string file = 2; // log file path
   int32 line = 3; // log line
   string msg = 4; // log message

@@ -17,6 +17,7 @@ package ccontext
 import (
 	"context"
 
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/mcontext"
 )
@@ -35,7 +36,7 @@ type ContextInfo interface {
 	ApiAddr() string
 	WsAddr() string
 	DataDir() string
-	LogLevel() uint32
+	LogLevel() commonpb.LogLevel
 	OperationID() string
 }
 
@@ -102,7 +103,7 @@ func (i *info) DataDir() string {
 	return i.conf.DataDir
 }
 
-func (i *info) LogLevel() uint32 {
+func (i *info) LogLevel() commonpb.LogLevel {
 	return i.conf.LogLevel
 }
 

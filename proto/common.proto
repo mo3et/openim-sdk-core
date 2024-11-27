@@ -195,3 +195,15 @@ enum GlobalRecvMsgOpt {
   NotReceive = 1; // Reserved field
   NotNotify = 2; // Receive messages, but no offline push. When in conversation, this conversation's unread count is not included in the total unread count
 }
+
+// LogLevel represents the log level. debug -> info -> warn -> error -> fatal.
+// Default log level is LevelWarn or LevelDebug.
+enum LogLevel {
+  LevelFatal = 0; // only print fatal log
+  LevelPanic = 1; // print panic and fatal log
+  LevelError = 2; // print error, panic and fatal log
+  LevelWarn = 3; // print warn, error, panic and fatal log
+  LevelInfo = 4; // print info, warn, error, panic and fatal log
+  LevelDebug = 5; // print all level log
+  LevelDebugWithSQL = 6; // print all level log and sql log
+}
