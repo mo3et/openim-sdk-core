@@ -455,22 +455,23 @@ func (x *CommandInfo) GetEx() string {
 	return ""
 }
 
+// IM Friend information
 type IMFriend struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerUserID    string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`
-	FriendUserID   string `protobuf:"bytes,2,opt,name=friendUserID,proto3" json:"friendUserID"`
-	Remark         string `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark"`
-	CreateTime     int64  `protobuf:"varint,4,opt,name=createTime,proto3" json:"createTime"`
-	AddSource      int32  `protobuf:"varint,5,opt,name=addSource,proto3" json:"addSource"`
-	OperatorUserID string `protobuf:"bytes,6,opt,name=operatorUserID,proto3" json:"operatorUserID"`
-	Nickname       string `protobuf:"bytes,7,opt,name=nickname,proto3" json:"nickname"`
-	FaceURL        string `protobuf:"bytes,8,opt,name=faceURL,proto3" json:"faceURL"`
-	Ex             string `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex"`
-	AttachedInfo   string `protobuf:"bytes,10,opt,name=attachedInfo,proto3" json:"attachedInfo"`
-	IsPinned       bool   `protobuf:"varint,11,opt,name=isPinned,proto3" json:"isPinned"`
+	OwnerUserID    string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`       // Currently logged-in user ID
+	FriendUserID   string `protobuf:"bytes,2,opt,name=friendUserID,proto3" json:"friendUserID"`     // Friend user ID
+	Remark         string `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark"`                 // Friend remark
+	CreateTime     int64  `protobuf:"varint,4,opt,name=createTime,proto3" json:"createTime"`        // Friend add time
+	AddSource      int32  `protobuf:"varint,5,opt,name=addSource,proto3" json:"addSource"`          // Friend add source
+	OperatorUserID string `protobuf:"bytes,6,opt,name=operatorUserID,proto3" json:"operatorUserID"` // Operator user ID
+	Nickname       string `protobuf:"bytes,7,opt,name=nickname,proto3" json:"nickname"`             // Friend nickname
+	FaceURL        string `protobuf:"bytes,8,opt,name=faceURL,proto3" json:"faceURL"`               // Friend avatar URL
+	Ex             string `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex"`                         // Friend extension field
+	AttachedInfo   string `protobuf:"bytes,10,opt,name=attachedInfo,proto3" json:"attachedInfo"`    // SDK internal extension field, not currently used
+	IsPinned       bool   `protobuf:"varint,11,opt,name=isPinned,proto3" json:"isPinned"`           // Whether the friend is pinned
 }
 
 func (x *IMFriend) Reset() {
@@ -585,15 +586,15 @@ type IMBlack struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerUserID    string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`
-	BlockUserID    string `protobuf:"bytes,2,opt,name=blockUserID,proto3" json:"blockUserID"`
-	Nickname       string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname"`
-	FaceURL        string `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL"`
-	CreateTime     int64  `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime"`
-	AddSource      int32  `protobuf:"varint,6,opt,name=addSource,proto3" json:"addSource"`
-	OperatorUserID string `protobuf:"bytes,7,opt,name=operatorUserID,proto3" json:"operatorUserID"`
-	Ex             string `protobuf:"bytes,8,opt,name=ex,proto3" json:"ex"`
-	Attached       string `protobuf:"bytes,9,opt,name=attached,proto3" json:"attached"`
+	OwnerUserID    string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`       // Currently logged-in user ID
+	BlockUserID    string `protobuf:"bytes,2,opt,name=blockUserID,proto3" json:"blockUserID"`       // Blocked user ID
+	Nickname       string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname"`             // Blocked user nickname
+	FaceURL        string `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL"`               // Blocked user avatar URL
+	CreateTime     int64  `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime"`        // Block time
+	AddSource      int32  `protobuf:"varint,6,opt,name=addSource,proto3" json:"addSource"`          // Block source
+	OperatorUserID string `protobuf:"bytes,7,opt,name=operatorUserID,proto3" json:"operatorUserID"` // Operator user ID
+	Ex             string `protobuf:"bytes,8,opt,name=ex,proto3" json:"ex"`                         // Block extension field
+	Attached       string `protobuf:"bytes,9,opt,name=attached,proto3" json:"attached"`             // SDK internal extension field, not currently used
 }
 
 func (x *IMBlack) Reset() {
@@ -694,20 +695,20 @@ type IMFriendRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FromUserID    string `protobuf:"bytes,1,opt,name=fromUserID,proto3" json:"fromUserID"`
-	FromNickname  string `protobuf:"bytes,2,opt,name=fromNickname,proto3" json:"fromNickname"`
-	FromFaceURL   string `protobuf:"bytes,3,opt,name=fromFaceURL,proto3" json:"fromFaceURL"`
-	ToUserID      string `protobuf:"bytes,4,opt,name=toUserID,proto3" json:"toUserID"`
-	ToNickname    string `protobuf:"bytes,5,opt,name=toNickname,proto3" json:"toNickname"`
-	ToFaceURL     string `protobuf:"bytes,6,opt,name=toFaceURL,proto3" json:"toFaceURL"`
-	HandleResult  int32  `protobuf:"varint,7,opt,name=handleResult,proto3" json:"handleResult"`
-	ReqMsg        string `protobuf:"bytes,8,opt,name=reqMsg,proto3" json:"reqMsg"`
-	CreateTime    int64  `protobuf:"varint,9,opt,name=createTime,proto3" json:"createTime"`
-	HandlerUserID string `protobuf:"bytes,10,opt,name=handlerUserID,proto3" json:"handlerUserID"`
-	HandleMsg     string `protobuf:"bytes,11,opt,name=handleMsg,proto3" json:"handleMsg"`
-	HandleTime    int64  `protobuf:"varint,12,opt,name=handleTime,proto3" json:"handleTime"`
-	Ex            string `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex"`
-	Attached      string `protobuf:"bytes,14,opt,name=attached,proto3" json:"attached"`
+	FromUserID    string `protobuf:"bytes,1,opt,name=fromUserID,proto3" json:"fromUserID"`        // Requester user ID
+	FromNickname  string `protobuf:"bytes,2,opt,name=fromNickname,proto3" json:"fromNickname"`    // Requester nickname
+	FromFaceURL   string `protobuf:"bytes,3,opt,name=fromFaceURL,proto3" json:"fromFaceURL"`      // Requester avatar URL
+	ToUserID      string `protobuf:"bytes,4,opt,name=toUserID,proto3" json:"toUserID"`            // Receiver user ID
+	ToNickname    string `protobuf:"bytes,5,opt,name=toNickname,proto3" json:"toNickname"`        // Receiver nickname
+	ToFaceURL     string `protobuf:"bytes,6,opt,name=toFaceURL,proto3" json:"toFaceURL"`          // Receiver avatar URL
+	HandleResult  int32  `protobuf:"varint,7,opt,name=handleResult,proto3" json:"handleResult"`   // Request handle result
+	ReqMsg        string `protobuf:"bytes,8,opt,name=reqMsg,proto3" json:"reqMsg"`                // Request message
+	CreateTime    int64  `protobuf:"varint,9,opt,name=createTime,proto3" json:"createTime"`       // Request create time
+	HandlerUserID string `protobuf:"bytes,10,opt,name=handlerUserID,proto3" json:"handlerUserID"` // Request handler user ID
+	HandleMsg     string `protobuf:"bytes,11,opt,name=handleMsg,proto3" json:"handleMsg"`         // Request handle message
+	HandleTime    int64  `protobuf:"varint,12,opt,name=handleTime,proto3" json:"handleTime"`      // Request handle time
+	Ex            string `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex"`                       // Request extension field
+	Attached      string `protobuf:"bytes,14,opt,name=attached,proto3" json:"attached"`           // SDK internal extension field, not currently used
 }
 
 func (x *IMFriendRequest) Reset() {

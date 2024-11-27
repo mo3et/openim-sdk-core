@@ -29,47 +29,48 @@ message CommandInfo {
 
 // ############## relation ################
 
+// IM Friend information
 message IMFriend {
-  string ownerUserID = 1;
-  string friendUserID = 2;
-  string remark = 3;
-  int64 createTime = 4;
-  int32 addSource = 5;
-  string operatorUserID = 6;
-  string nickname = 7;
-  string faceURL = 8;
-  string ex = 9;
-  string attachedInfo = 10;
-  bool isPinned = 11;
+  string ownerUserID = 1; // Currently logged-in user ID
+  string friendUserID = 2; // Friend user ID
+  string remark = 3; // Friend remark
+  int64 createTime = 4; // Friend add time
+  int32 addSource = 5; // Friend add source
+  string operatorUserID = 6; // Operator user ID
+  string nickname = 7; // Friend nickname
+  string faceURL = 8; // Friend avatar URL
+  string ex = 9; // Friend extension field
+  string attachedInfo = 10; // SDK internal extension field, not currently used
+  bool isPinned = 11; // Whether the friend is pinned
 }
 
 message IMBlack {
-  string ownerUserID = 1;
-  string blockUserID = 2;
-  string nickname = 3;
-  string faceURL = 4;
-  int64 createTime = 5;
-  int32 addSource = 6;
-  string operatorUserID = 7;
-  string ex = 8;
-  string attached = 9;
+  string ownerUserID = 1; // Currently logged-in user ID
+  string blockUserID = 2; // Blocked user ID
+  string nickname = 3; // Blocked user nickname
+  string faceURL = 4; // Blocked user avatar URL
+  int64 createTime = 5; // Block time
+  int32 addSource = 6; // Block source
+  string operatorUserID = 7; // Operator user ID
+  string ex = 8; // Block extension field
+  string attached = 9; // SDK internal extension field, not currently used
 }
 
 message IMFriendRequest {
-  string fromUserID = 1;
-  string fromNickname = 2;
-  string fromFaceURL = 3;
-  string toUserID = 4;
-  string toNickname = 5;
-  string toFaceURL = 6;
-  int32 handleResult = 7;
-  string reqMsg = 8;
-  int64 createTime = 9;
-  string handlerUserID = 10;
-  string handleMsg = 11;
-  int64 handleTime = 12;
-  string ex = 13;
-  string attached = 14;
+  string fromUserID = 1; // Requester user ID
+  string fromNickname = 2; // Requester nickname
+  string fromFaceURL = 3; // Requester avatar URL
+  string toUserID = 4; // Receiver user ID
+  string toNickname = 5; // Receiver nickname
+  string toFaceURL = 6; // Receiver avatar URL
+  int32 handleResult = 7; // Request handle result
+  string reqMsg = 8; // Request message
+  int64 createTime = 9; // Request create time
+  string handlerUserID = 10; // Request handler user ID
+  string handleMsg = 11; // Request handle message
+  int64 handleTime = 12; // Request handle time
+  string ex = 13; // Request extension field
+  string attached = 14; // SDK internal extension field, not currently used
 }
 
 // ############## group ################
