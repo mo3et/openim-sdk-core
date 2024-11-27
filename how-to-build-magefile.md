@@ -35,7 +35,7 @@ go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 - install `ts-proto` by `npm install ts-proto`.
 
 ## Usage:
-Normally, we use `mage Gen<Language>` to compile specifical language pb file.(like `mage gengo`, `mage genjava`, `mage gencs`, `mage gents`). You can check target use `mage -l`.
+Normally, we use the mage command `mage ...`to perform various operations, serving as a cross-platform script to replace makefile functionality. This includes tasks like compiling specific language .pb files, dynamic libraries for different platforms, or generating wasm files, etc. (like `mage gengo`, mage `genjava`, `mage gencs`, `mage gents`, `mage buildwindows`, `mage wasm`). You can check the available targets using `mage -l`.
 
 You also use Aliases to simplify the command. For example, `mage gengo` can be replaced by `mage go`.
 
