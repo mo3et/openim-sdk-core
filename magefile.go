@@ -100,6 +100,7 @@ func AllProtobuf() error {
 	return nil
 }
 
+// Generate documentation for sdk protobuf interfaces.
 func GenDocs() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
