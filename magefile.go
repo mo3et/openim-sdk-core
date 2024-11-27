@@ -28,6 +28,7 @@ var Aliases = map[string]interface{}{
 
 	"android": BuildAndroid,
 	"ios":     BuildiOS,
+	"mac":     BuildmacOS,
 	"linux":   BuildLinux,
 	"windows": BuildWindows,
 	"al":      AllDynamicLib,
@@ -451,8 +452,58 @@ func BuildAndroid() error {
 	return nil
 }
 
-// Compiles the project for iOS and generates a Go dynamic library for iOS/macOS.
+// Compiles the project for iOS and generates a Go static library for iOS.
 func BuildiOS() error {
+	log.SetOutput(os.Stdout)
+	// log.SetFlags(log.Lshortfile)
+	log.Println("Building for iOS...")
+
+	arch := os.Getenv("GOARCH")
+
+	if len(arch) == 0 {
+		arch = runtime.GOARCH
+	}
+
+	os.Setenv("GOOS", "ios")
+	os.Setenv("GOARCH", arch)
+	os.Setenv("CGO_ENABLED", "1")
+	os.Setenv("CC", "clang")
+
+	sdkPathCmd := exec.Command("xcrun", "--sdk", "iphoneos", "--show-sdk-path")
+	sdkPathOutput, err := sdkPathCmd.Output()
+	if err != nil {
+		return fmt.Errorf("failed to get SDK path: %v", err)
+	}
+
+	sdkPath := strings.TrimSpace(string(sdkPathOutput))
+	cFlags := fmt.Sprintf("-arch arm64 -miphoneos-version-min=9.0 -isysroot %s", sdkPath)
+	ldFlags := fmt.Sprintf("-arch arm64 -miphoneos-version-min=9.0 -isysroot %s", sdkPath)
+	os.Setenv("CGO_CFLAGS", cFlags)
+	os.Setenv("CGO_LDFLAGS", ldFlags)
+
+	iosOut := filepath.Join(outPath, "ios")
+
+	if err := os.MkdirAll(filepath.Join(goSrc, iosOut), 0755); err != nil {
+		return err
+	}
+
+	log.Println(filepath.Join(goSrc, iosOut))
+
+	cmd := exec.Command("go", "build", "-buildmode=c-archive", "-o", filepath.Join(iosOut, strings.Join([]string{soName, "a"}, ".")), ".")
+	cmd.Dir = goSrc
+	cmd.Env = os.Environ()
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+
+	if err := cmd.Run(); err != nil {
+		return err
+	}
+	log.Println("Build for iOS completed successfully.")
+	return nil
+}
+
+// Compiles the project for macOS and generates a Go dynamic library for macOS.
+func BuildmacOS() error {
 	log.SetOutput(os.Stdout)
 	// log.SetFlags(log.Lshortfile)
 	log.Println("Building for iOS...")
@@ -468,19 +519,7 @@ func BuildiOS() error {
 	os.Setenv("CGO_ENABLED", "1")
 	os.Setenv("CC", "clang")
 
-	sdkPathCmd := exec.Command("xcrun", "--sdk", "iphoneos", "--show-sdk-path")
-	sdkPathOutput, err := sdkPathCmd.Output()
-	if err != nil {
-		return fmt.Errorf("failed to get SDK path: %v", err)
-	}
-
-	sdkPath := strings.TrimSpace(string(sdkPathOutput))
-	cFlags := fmt.Sprintf("-isysroot %s -arch arm64", sdkPath)
-	ldFlags := fmt.Sprintf("-isysroot %s -arch arm64 -lresolv -lSystem", sdkPath)
-	os.Setenv("CGO_CFLAGS", cFlags)
-	os.Setenv("CGO_LDFLAGS", ldFlags)
-
-	iosOut := filepath.Join(outPath, "ios")
+	iosOut := filepath.Join(outPath, "macOS")
 
 	if err := os.MkdirAll(filepath.Join(goSrc, iosOut), 0755); err != nil {
 		return err
