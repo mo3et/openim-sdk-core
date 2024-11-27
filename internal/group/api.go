@@ -78,7 +78,7 @@ func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sh
 }
 
 func (g *Group) JoinGroup(ctx context.Context, req *sdkpb.JoinGroupReq) (*sdkpb.JoinGroupResp, error) {
-	if err := g.joinGroup(ctx, &group.JoinGroupReq{GroupID: req.GroupID, ReqMessage: req.ReqMessage, JoinSource: req.JoinSource, InviterUserID: g.loginUserID, Ex: req.Ex}); err != nil {
+	if err := g.joinGroup(ctx, &group.JoinGroupReq{GroupID: req.GroupID, ReqMessage: req.ReqMessage, JoinSource: int32(req.JoinSource), InviterUserID: g.loginUserID, Ex: req.Ex}); err != nil {
 		return nil, err
 	}
 	if err := g.SyncSelfGroupApplications(ctx, req.GroupID); err != nil {

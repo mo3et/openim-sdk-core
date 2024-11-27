@@ -163,7 +163,6 @@ func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *shared.IMGroupRe
 		CreateTime:    info.CreateTime,
 		Status:        info.Status,
 		CreatorUserID: info.CreatorUserID,
-		GroupType:     info.GroupType,
 		OwnerUserID:   info.OwnerUserID,
 		MemberCount:   info.MemberCount,
 		UserID:        info.UserID,

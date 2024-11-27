@@ -19,7 +19,7 @@ message CreateGroupResp {
 message JoinGroupReq {
   string groupID = 1;// group id you joined
   string reqMessage = 2;// request message
-  int32 joinSource = 3;// join source
+  shared.GroupJoinSource joinSource = 3;// join source
   string ex = 4;// extension field
 }
 message JoinGroupResp {}

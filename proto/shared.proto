@@ -177,22 +177,21 @@ message IMGroupRequest {
   int64 createTime = 6;
   int32 status = 7;
   string creatorUserID = 8;
-  int32 groupType = 9;
-  string ownerUserID = 10;
-  int32 memberCount = 11;
-  string userID = 12;
-  string nickname = 13;
-  string userFaceURL = 14;
-  int32 handleResult = 15;
-  string reqMsg = 16;
-  string handledMsg = 17;
-  int64 reqTime = 18;
-  string handleUserID = 19;
-  int64 handledTime = 20;
-  string ex = 21;
-  string attachedInfo = 22;
-  GroupJoinSource joinSource = 23;
-  string inviterUserID = 24;
+  string ownerUserID = 9;
+  int32 memberCount = 10;
+  string userID = 11;
+  string nickname = 12;
+  string userFaceURL = 13;
+  int32 handleResult = 14;
+  string reqMsg = 15;
+  string handledMsg = 16;
+  int64 reqTime = 17;
+  string handleUserID = 18;
+  int64 handledTime = 19;
+  string ex = 20;
+  string attachedInfo = 21;
+  GroupJoinSource joinSource = 22;
+  string inviterUserID = 23;
 }
 
 // ############## conversation ################
