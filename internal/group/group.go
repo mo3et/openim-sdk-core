@@ -222,15 +222,15 @@ func (g *Group) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalGroupRequest) error {
 		switch state {
 		case syncer.Insert:
-			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToSdk(server)})
+			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToIMGroupApplication(server)})
 		case syncer.Update:
 			switch commonpb.ApprovalStatus(server.HandleResult) {
 			case commonpb.ApprovalStatus_Approved:
-				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Request: DBGroupRequestToSdk(server)})
+				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Request: DBGroupRequestToIMGroupApplication(server)})
 			case commonpb.ApprovalStatus_Rejected:
-				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Request: DBGroupRequestToSdk(server)})
+				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Request: DBGroupRequestToIMGroupApplication(server)})
 			default:
-				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToSdk(server)})
+				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToIMGroupApplication(server)})
 			}
 		}
 		return nil

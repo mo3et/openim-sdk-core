@@ -495,13 +495,13 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 }
 
 func (g *Group) GetGroupRequest(ctx context.Context, req *sdkpb.GetGroupRequestReq) (*sdkpb.GetGroupRequestResp, error) {
-	var requests []*sharedpb.IMGroupRequest
+	var requests []*sharedpb.IMGroupApplication
 	if req.Send {
 		res, err := g.db.GetSendGroupApplication(ctx)
 		if err != nil {
 			return nil, err
 		}
-		requests = datautil.Batch(DBGroupRequestToSdk, res)
+		requests = datautil.Batch(DBGroupRequestToIMGroupApplication, res)
 	} else {
 		res, err := g.db.GetAdminGroupApplication(ctx)
 		if err != nil {

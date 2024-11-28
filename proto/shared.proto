@@ -56,7 +56,7 @@ message IMBlack {
   string attached = 9; // SDK internal extension field, not currently used
 }
 
-message IMFriendRequest {
+message IMFriendApplication {
   string fromUserID = 1; // Requester user ID
   string fromNickname = 2; // Requester nickname
   string fromFaceURL = 3; // Requester avatar URL
@@ -169,7 +169,7 @@ message IMGroupMember {
   string attachedInfo = 12;
 }
 
-message IMGroupRequest {
+message IMGroupApplication {
   string groupID = 1;
   string groupName = 2;
   string notification = 3;

@@ -96,7 +96,7 @@ func (r *Relation) GetFriendRequests(ctx context.Context, req *sdkpb.GetFriendRe
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.GetFriendRequestsResp{Requests: datautil.Batch(DbFriendRequestToSdk, request)}, nil
+	return &sdkpb.GetFriendRequestsResp{Requests: datautil.Batch(DbFriendRequestToIMFriendApplication, request)}, nil
 }
 
 func (r *Relation) HandleFriendRequest(ctx context.Context, req *sdkpb.HandleFriendRequestReq) (*sdkpb.HandleFriendRequestResp, error) {

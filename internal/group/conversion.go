@@ -153,8 +153,8 @@ func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *shared.IMGroupMemb
 	}
 }
 
-func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *shared.IMGroupRequest {
-	return &shared.IMGroupRequest{
+func DBGroupRequestToIMGroupApplication(info *model_struct.LocalGroupRequest) *shared.IMGroupApplication {
+	return &shared.IMGroupApplication{
 		GroupID:       info.GroupID,
 		GroupName:     info.GroupName,
 		Notification:  info.Notification,
@@ -181,6 +181,6 @@ func DBGroupRequestToSdk(info *model_struct.LocalGroupRequest) *shared.IMGroupRe
 	}
 }
 
-func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *shared.IMGroupRequest {
-	return DBGroupRequestToSdk(&info.LocalGroupRequest)
+func DBAdminGroupRequestToSdk(info *model_struct.LocalAdminGroupRequest) *shared.IMGroupApplication {
+	return DBGroupRequestToIMGroupApplication(&info.LocalGroupRequest)
 }

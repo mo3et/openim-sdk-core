@@ -73,8 +73,8 @@ func DbFriendToSdk(info *model_struct.LocalFriend) *sdkpb.IMFriend {
 	}
 }
 
-func DbFriendRequestToSdk(info *model_struct.LocalFriendRequest) *sdkpb.IMFriendRequest {
-	return &sdkpb.IMFriendRequest{
+func DbFriendRequestToIMFriendApplication(info *model_struct.LocalFriendRequest) *sdkpb.IMFriendApplication {
+	return &sdkpb.IMFriendApplication{
 		FromUserID:    info.FromUserID,
 		FromNickname:  info.FromNickname,
 		FromFaceURL:   info.FromFaceURL,
