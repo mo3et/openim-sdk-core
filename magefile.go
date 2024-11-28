@@ -458,14 +458,8 @@ func BuildiOS() error {
 	// log.SetFlags(log.Lshortfile)
 	log.Println("Building for iOS...")
 
-	arch := os.Getenv("GOARCH")
-
-	if len(arch) == 0 {
-		arch = runtime.GOARCH
-	}
-
 	os.Setenv("GOOS", "ios")
-	os.Setenv("GOARCH", arch)
+	os.Setenv("GOARCH", "arm64")
 	os.Setenv("CGO_ENABLED", "1")
 	os.Setenv("CC", "clang")
 
