@@ -3,7 +3,6 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
-	"github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -11,6 +10,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 
 	pbConversation "github.com/openimsdk/protocol/conversation"
 	"github.com/openimsdk/protocol/wrapperspb"
@@ -262,9 +263,6 @@ func (c *Conversation) checkID(ctx context.Context, s *sharedpb.IMMessage,
 				}
 			}
 		}
-		var attachedInfo sharedpb.AttachedInfoElem
-		attachedInfo.GroupHasReadInfo.GroupMemberCount = g.MemberCount
-		s.AttachedInfoElem = &attachedInfo
 	} else {
 		s.SessionType = constant.SingleChatType
 		s.RecvID = recvID
@@ -347,7 +345,7 @@ func getMsgUrl(msg *sharedpb.IMMessage) string {
 func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageReq, callback open_im_sdk_callback.SendMsgCallBack) (*msgpb.SendMessageResp, error) {
 	// Message is created by URL
 	if getMsgUrl(req.Message) != "" {
-		msg, err := c.sendMessageNotOss(ctx, req.Message, req.RecvID, req.GroupID, req.OfflinePushInfo, req.IsOnlineOnly)
+		msg, err := c.sendMessageNotOss(ctx, req.Message, req.RecvID, req.GroupID, req.Message.OfflinePush, req.IsOnlineOnly)
 		if err != nil {
 			return nil, err
 		}
@@ -604,7 +602,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 		}
 	}
 
-	msg, err := c.sendMessageToServer(ctx, req.Message, lc, delFile, req.OfflinePushInfo, options, req.IsOnlineOnly)
+	msg, err := c.sendMessageToServer(ctx, req.Message, lc, delFile, req.Message.OfflinePush, options, req.IsOnlineOnly)
 	if err != nil {
 		return nil, err
 	}

@@ -389,11 +389,6 @@ message StreamElem {
   bool end = 4;
 }
 
-message GroupHasReadInfo {
-  repeated string hasReadUserIDList = 1;
-  int32 hasReadCount = 2;
-  int32 groupMemberCount = 3;
-}
 
 message UploadProgress {
   int64 total = 1;
@@ -403,11 +398,10 @@ message UploadProgress {
 }
 
 message AttachedInfoElem {
-  GroupHasReadInfo groupHasReadInfo = 1;
-  bool isPrivateChat = 2;
-  int32 burnDuration = 3;
-  int64 hasReadTime = 4;
-  UploadProgress progress = 5;
+  bool isPrivateChat = 1;
+  int32 burnDuration = 2;
+  int64 hasReadTime = 3;
+  UploadProgress progress = 4;
 }
 
 // ############## notification ##############
