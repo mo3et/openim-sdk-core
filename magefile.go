@@ -19,12 +19,13 @@ var Default = GenGo
 
 // Aliases is alias for mage, like `mage go` is `mage GenGo`
 var Aliases = map[string]interface{}{
-	"go":   GenGo,
-	"java": GenJava,
-	"js":   GenJS,
-	"ts":   GenTS,
-	"rs":   GenRust,
-	"ap":   AllProtobuf,
+	"go":    GenGo,
+	"java":  GenJava,
+	"js":    GenJS,
+	"ts":    GenTS,
+	"rs":    GenRust,
+	"swift": GenSwift,
+	"ap":    AllProtobuf,
 
 	"android": BuildAndroid,
 	"ios":     BuildiOS,
@@ -47,6 +48,7 @@ const (
 	JS     = "js"
 	TS     = "ts"
 	RS     = "rust"
+	Swift  = "swift"
 )
 
 // protoModules lists all the protobuf modules to be processed for code generation.
@@ -376,6 +378,53 @@ func GenRust() error {
 			log.Printf("Error generating Rust code for module %s: %v\n", module, err)
 			continue
 		}
+	}
+
+	return nil
+}
+
+// Generate Swift code from protobuf files.
+func GenSwift() error {
+	// Configure logging
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+	log.Println("Generating Swift code from proto files")
+
+	swiftOutDir := filepath.Join(protoDir, Swift)
+
+	// Find protoc and Swift plugin paths
+	protoc, err := getToolPath("protoc")
+	if err != nil {
+		return err
+	}
+
+	// Iterate over proto modules to generate Swift code
+	for _, module := range protoModules {
+		modulePath := filepath.Join(protoDir, module+".proto")
+		outputPath := filepath.Join(swiftOutDir, module)
+
+		// Ensure the output directory for the module exists
+		if err := os.MkdirAll(outputPath, 0755); err != nil {
+			return err
+		}
+
+		// Prepare protoc command
+		args := []string{
+			"--proto_path=" + protoDir,
+			"--swift_out=" + outputPath,
+			"--swift_opt=Visibility=" + "Public",
+			modulePath,
+		}
+
+		cmd := exec.Command(protoc, args...)
+		connectStd(cmd) // Connect command's output to standard output for logging
+
+		// Run the command and handle errors
+		if err := cmd.Run(); err != nil {
+			log.Printf("Error generating Swift code for module %s: %v\n", module, err)
+			continue
+		}
+		log.Printf("Successfully generated Swift code for module %s\n", module)
 	}
 
 	return nil
