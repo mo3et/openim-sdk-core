@@ -162,12 +162,12 @@ func GenGo() error {
 		args := []string{
 			"--proto_path=" + protoDir,
 			"--go_out=" + filepath.Join(goOutDir, module),
-			"--go-grpc_out=" + filepath.Join(goOutDir, module),
+			//"--go-grpc_out=" + filepath.Join(goOutDir, module),
 			"--go_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto/" + strings.Join([]string{GO, module}, "/"),
-			"--go-grpc_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto/" + strings.Join([]string{GO, module}, "/"),
+			//"--go-grpc_opt=module=github.com/openimsdk/openim-sdk-core/v3/proto/" + strings.Join([]string{GO, module}, "/"),
 			filepath.Join("proto", module) + ".proto",
 		}
-
+		//log.Println(protoc, args)
 		cmd := exec.Command(protoc, args...)
 		connectStd(cmd)
 		if err := cmd.Run(); err != nil {

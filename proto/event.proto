@@ -151,6 +151,9 @@ enum FuncRequestEventName {
   SearchLocalMessages = 2025;
   SetMessageLocalEx = 2026;
   SearchConversation = 2027;
+  SubscribeUsersOnlineStatus = 2227;
+  UnsubscribeUsersOnlineStatus = 2228;
+
   CreateTextMessage = 2028;
   CreateAdvancedTextMessage = 2029;
   CreateTextAtMessage = 2030;

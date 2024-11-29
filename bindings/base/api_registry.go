@@ -165,6 +165,8 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_SearchLocalMessages:                  wrapFunc(open_im_sdk.IMUserContext.Conversation().SearchLocalMessages),
 	pb.FuncRequestEventName_SetMessageLocalEx:                    wrapFunc(open_im_sdk.IMUserContext.Conversation().SetMessageLocalEx),
 	pb.FuncRequestEventName_SearchConversation:                   wrapFunc(open_im_sdk.IMUserContext.Conversation().SearchConversation),
+	pb.FuncRequestEventName_SubscribeUsersOnlineStatus:           wrapFunc(open_im_sdk.IMUserContext.Conversation().SubscribeUsersOnlineStatus),
+	pb.FuncRequestEventName_UnsubscribeUsersOnlineStatus:         wrapFunc(open_im_sdk.IMUserContext.Conversation().UnsubscribeUsersOnlineStatus),
 
 	pb.FuncRequestEventName_CreateTextMessage:          wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateTextMessage),
 	pb.FuncRequestEventName_CreateAdvancedTextMessage:  wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateAdvancedTextMessage),

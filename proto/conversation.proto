@@ -175,6 +175,26 @@ message SearchConversationResp {
   repeated shared.IMConversation conversationList = 1;
 }
 
+message UserOnlinePlatformID {
+  string userID = 1; // userid
+  repeated common.Platform platformIDs = 2;
+}
+
+message SubscribeUsersOnlineStatusReq {
+  repeated string userIDs = 1;
+}
+
+message SubscribeUsersOnlineStatusResp {
+  repeated UserOnlinePlatformID status = 1;
+}
+
+message UnsubscribeUsersOnlineStatusReq {
+  repeated string userIDs = 1;
+}
+
+message UnsubscribeUsersOnlineStatusResp {}
+
+
 // service ConversationService {
 //   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
 //   rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp) {}
