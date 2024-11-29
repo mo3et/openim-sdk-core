@@ -1049,3 +1049,18 @@ func (c *Conversation) SearchConversation(ctx context.Context, req *sdkpb.Search
 		ConversationList: datautil.Batch(LocalConversationToIMConversation, conversations),
 	}, nil
 }
+
+func (c *Conversation) SubscribeUsersOnlineStatus(ctx context.Context, req *sdkpb.SubscribeUsersOnlineStatusReq) (*sdkpb.SubscribeUsersOnlineStatusResp, error) {
+	status, err := c.SubscribeUsersStatus(ctx, req.UserIDs)
+	if err != nil {
+		return nil, err
+	}
+	return &sdkpb.SubscribeUsersOnlineStatusResp{Status: status}, nil
+}
+
+func (c *Conversation) UnsubscribeUsersOnlineStatus(ctx context.Context, req *sdkpb.UnsubscribeUsersOnlineStatusReq) (*sdkpb.UnsubscribeUsersOnlineStatusResp, error) {
+	if err := c.UnsubscribeUsersStatus(ctx, req.UserIDs); err != nil {
+		return nil, err
+	}
+	return &sdkpb.UnsubscribeUsersOnlineStatusResp{}, nil
+}

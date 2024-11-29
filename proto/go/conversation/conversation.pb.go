@@ -2186,6 +2186,230 @@ func (x *SearchConversationResp) GetConversationList() []*shared.IMConversation 
 	return nil
 }
 
+type UserOnlinePlatformID struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserID      string            `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"` // userid
+	PlatformIDs []common.Platform `protobuf:"varint,2,rep,packed,name=platformIDs,proto3,enum=openim.sdk.common.Platform" json:"platformIDs"`
+}
+
+func (x *UserOnlinePlatformID) Reset() {
+	*x = UserOnlinePlatformID{}
+	mi := &file_conversation_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserOnlinePlatformID) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserOnlinePlatformID) ProtoMessage() {}
+
+func (x *UserOnlinePlatformID) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserOnlinePlatformID.ProtoReflect.Descriptor instead.
+func (*UserOnlinePlatformID) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *UserOnlinePlatformID) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+func (x *UserOnlinePlatformID) GetPlatformIDs() []common.Platform {
+	if x != nil {
+		return x.PlatformIDs
+	}
+	return nil
+}
+
+type SubscribeUsersOnlineStatusReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"`
+}
+
+func (x *SubscribeUsersOnlineStatusReq) Reset() {
+	*x = SubscribeUsersOnlineStatusReq{}
+	mi := &file_conversation_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeUsersOnlineStatusReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeUsersOnlineStatusReq) ProtoMessage() {}
+
+func (x *SubscribeUsersOnlineStatusReq) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeUsersOnlineStatusReq.ProtoReflect.Descriptor instead.
+func (*SubscribeUsersOnlineStatusReq) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *SubscribeUsersOnlineStatusReq) GetUserIDs() []string {
+	if x != nil {
+		return x.UserIDs
+	}
+	return nil
+}
+
+type SubscribeUsersOnlineStatusResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status []*UserOnlinePlatformID `protobuf:"bytes,1,rep,name=status,proto3" json:"status"`
+}
+
+func (x *SubscribeUsersOnlineStatusResp) Reset() {
+	*x = SubscribeUsersOnlineStatusResp{}
+	mi := &file_conversation_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeUsersOnlineStatusResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeUsersOnlineStatusResp) ProtoMessage() {}
+
+func (x *SubscribeUsersOnlineStatusResp) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeUsersOnlineStatusResp.ProtoReflect.Descriptor instead.
+func (*SubscribeUsersOnlineStatusResp) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{47}
+}
+
+func (x *SubscribeUsersOnlineStatusResp) GetStatus() []*UserOnlinePlatformID {
+	if x != nil {
+		return x.Status
+	}
+	return nil
+}
+
+type UnsubscribeUsersOnlineStatusReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs"`
+}
+
+func (x *UnsubscribeUsersOnlineStatusReq) Reset() {
+	*x = UnsubscribeUsersOnlineStatusReq{}
+	mi := &file_conversation_proto_msgTypes[48]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnsubscribeUsersOnlineStatusReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnsubscribeUsersOnlineStatusReq) ProtoMessage() {}
+
+func (x *UnsubscribeUsersOnlineStatusReq) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[48]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnsubscribeUsersOnlineStatusReq.ProtoReflect.Descriptor instead.
+func (*UnsubscribeUsersOnlineStatusReq) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{48}
+}
+
+func (x *UnsubscribeUsersOnlineStatusReq) GetUserIDs() []string {
+	if x != nil {
+		return x.UserIDs
+	}
+	return nil
+}
+
+type UnsubscribeUsersOnlineStatusResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *UnsubscribeUsersOnlineStatusResp) Reset() {
+	*x = UnsubscribeUsersOnlineStatusResp{}
+	mi := &file_conversation_proto_msgTypes[49]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnsubscribeUsersOnlineStatusResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnsubscribeUsersOnlineStatusResp) ProtoMessage() {}
+
+func (x *UnsubscribeUsersOnlineStatusResp) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[49]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnsubscribeUsersOnlineStatusResp.ProtoReflect.Descriptor instead.
+func (*UnsubscribeUsersOnlineStatusResp) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{49}
+}
+
 var File_conversation_proto protoreflect.FileDescriptor
 
 var file_conversation_proto_rawDesc = []byte{
@@ -2469,12 +2693,36 @@ var file_conversation_proto_rawDesc = []byte{
 	0x03, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b,
 	0x2e, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x49, 0x4d, 0x43, 0x6f, 0x6e, 0x76, 0x65, 0x72,
 	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x10, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x42, 0x48, 0x5a, 0x3d, 0x67, 0x69, 0x74, 0x68,
-	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b,
-	0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65,
-	0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f, 0x63, 0x6f, 0x6e,
-	0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0xaa, 0x02, 0x06, 0x4f, 0x70, 0x65, 0x6e,
-	0x49, 0x4d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x6d, 0x0a, 0x14, 0x55, 0x73, 0x65, 0x72,
+	0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x49, 0x44,
+	0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x3d, 0x0a, 0x0b, 0x70, 0x6c, 0x61, 0x74,
+	0x66, 0x6f, 0x72, 0x6d, 0x49, 0x44, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0e, 0x32, 0x1b, 0x2e,
+	0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f,
+	0x6e, 0x2e, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x52, 0x0b, 0x70, 0x6c, 0x61, 0x74,
+	0x66, 0x6f, 0x72, 0x6d, 0x49, 0x44, 0x73, 0x22, 0x39, 0x0a, 0x1d, 0x53, 0x75, 0x62, 0x73, 0x63,
+	0x72, 0x69, 0x62, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x53,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x12, 0x18, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72,
+	0x49, 0x44, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49,
+	0x44, 0x73, 0x22, 0x67, 0x0a, 0x1e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x55,
+	0x73, 0x65, 0x72, 0x73, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73,
+	0x52, 0x65, 0x73, 0x70, 0x12, 0x45, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x2d, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64,
+	0x6b, 0x2e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x55,
+	0x73, 0x65, 0x72, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72,
+	0x6d, 0x49, 0x44, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x3b, 0x0a, 0x1f, 0x55,
+	0x6e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x4f,
+	0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x12, 0x18,
+	0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52,
+	0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x73, 0x22, 0x22, 0x0a, 0x20, 0x55, 0x6e, 0x73, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x4f, 0x6e, 0x6c, 0x69,
+	0x6e, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x42, 0x4b, 0x5a, 0x3d,
+	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69,
+	0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d,
+	0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f,
+	0x2f, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0xaa, 0x02, 0x06,
+	0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d, 0xba, 0x02, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -2489,7 +2737,7 @@ func file_conversation_proto_rawDescGZIP() []byte {
 	return file_conversation_proto_rawDescData
 }
 
-var file_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
+var file_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 50)
 var file_conversation_proto_goTypes = []any{
 	(*ConversationArgs)(nil),                      // 0: openim.sdk.conversation.ConversationArgs
 	(*FindMessageListCallback)(nil),               // 1: openim.sdk.conversation.FindMessageListCallback
@@ -2536,31 +2784,39 @@ var file_conversation_proto_goTypes = []any{
 	(*SetMessageLocalExResp)(nil),                 // 42: openim.sdk.conversation.SetMessageLocalExResp
 	(*SearchConversationReq)(nil),                 // 43: openim.sdk.conversation.SearchConversationReq
 	(*SearchConversationResp)(nil),                // 44: openim.sdk.conversation.SearchConversationResp
-	(*shared.IMMessage)(nil),                      // 45: openim.sdk.shared.IMMessage
-	(*shared.IMConversation)(nil),                 // 46: openim.sdk.shared.IMConversation
-	(common.ConvRecvMsgOpt)(0),                    // 47: openim.sdk.common.ConvRecvMsgOpt
-	(common.ConvGroupAtType)(0),                   // 48: openim.sdk.common.ConvGroupAtType
+	(*UserOnlinePlatformID)(nil),                  // 45: openim.sdk.conversation.UserOnlinePlatformID
+	(*SubscribeUsersOnlineStatusReq)(nil),         // 46: openim.sdk.conversation.SubscribeUsersOnlineStatusReq
+	(*SubscribeUsersOnlineStatusResp)(nil),        // 47: openim.sdk.conversation.SubscribeUsersOnlineStatusResp
+	(*UnsubscribeUsersOnlineStatusReq)(nil),       // 48: openim.sdk.conversation.UnsubscribeUsersOnlineStatusReq
+	(*UnsubscribeUsersOnlineStatusResp)(nil),      // 49: openim.sdk.conversation.UnsubscribeUsersOnlineStatusResp
+	(*shared.IMMessage)(nil),                      // 50: openim.sdk.shared.IMMessage
+	(*shared.IMConversation)(nil),                 // 51: openim.sdk.shared.IMConversation
+	(common.ConvRecvMsgOpt)(0),                    // 52: openim.sdk.common.ConvRecvMsgOpt
+	(common.ConvGroupAtType)(0),                   // 53: openim.sdk.common.ConvGroupAtType
+	(common.Platform)(0),                          // 54: openim.sdk.common.Platform
 }
 var file_conversation_proto_depIdxs = []int32{
 	4,  // 0: openim.sdk.conversation.FindMessageListCallback.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
 	4,  // 1: openim.sdk.conversation.SearchLocalMessagesCallback.searchResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
-	45, // 2: openim.sdk.conversation.SearchByConversationResult.messageList:type_name -> openim.sdk.shared.IMMessage
-	46, // 3: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.shared.IMConversation
-	46, // 4: openim.sdk.conversation.GetConversationListSplitResp.conversationList:type_name -> openim.sdk.shared.IMConversation
-	46, // 5: openim.sdk.conversation.GetOneConversationResp.conversation:type_name -> openim.sdk.shared.IMConversation
-	46, // 6: openim.sdk.conversation.GetMultipleConversationResp.conversationList:type_name -> openim.sdk.shared.IMConversation
-	47, // 7: openim.sdk.conversation.SetConversationReq.recvMsgOpt:type_name -> openim.sdk.common.ConvRecvMsgOpt
-	48, // 8: openim.sdk.conversation.SetConversationReq.groupAtType:type_name -> openim.sdk.common.ConvGroupAtType
+	50, // 2: openim.sdk.conversation.SearchByConversationResult.messageList:type_name -> openim.sdk.shared.IMMessage
+	51, // 3: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.shared.IMConversation
+	51, // 4: openim.sdk.conversation.GetConversationListSplitResp.conversationList:type_name -> openim.sdk.shared.IMConversation
+	51, // 5: openim.sdk.conversation.GetOneConversationResp.conversation:type_name -> openim.sdk.shared.IMConversation
+	51, // 6: openim.sdk.conversation.GetMultipleConversationResp.conversationList:type_name -> openim.sdk.shared.IMConversation
+	52, // 7: openim.sdk.conversation.SetConversationReq.recvMsgOpt:type_name -> openim.sdk.common.ConvRecvMsgOpt
+	53, // 8: openim.sdk.conversation.SetConversationReq.groupAtType:type_name -> openim.sdk.common.ConvGroupAtType
 	0,  // 9: openim.sdk.conversation.FindMessageListReq.conversationsArgs:type_name -> openim.sdk.conversation.ConversationArgs
 	4,  // 10: openim.sdk.conversation.FindMessageListResp.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
 	2,  // 11: openim.sdk.conversation.SearchLocalMessagesReq.searchParam:type_name -> openim.sdk.conversation.SearchLocalMessagesParams
 	3,  // 12: openim.sdk.conversation.SearchLocalMessagesResp.searchResult:type_name -> openim.sdk.conversation.SearchLocalMessagesCallback
-	46, // 13: openim.sdk.conversation.SearchConversationResp.conversationList:type_name -> openim.sdk.shared.IMConversation
-	14, // [14:14] is the sub-list for method output_type
-	14, // [14:14] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	51, // 13: openim.sdk.conversation.SearchConversationResp.conversationList:type_name -> openim.sdk.shared.IMConversation
+	54, // 14: openim.sdk.conversation.UserOnlinePlatformID.platformIDs:type_name -> openim.sdk.common.Platform
+	45, // 15: openim.sdk.conversation.SubscribeUsersOnlineStatusResp.status:type_name -> openim.sdk.conversation.UserOnlinePlatformID
+	16, // [16:16] is the sub-list for method output_type
+	16, // [16:16] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_conversation_proto_init() }
@@ -2575,7 +2831,7 @@ func file_conversation_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_conversation_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   45,
+			NumMessages:   50,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

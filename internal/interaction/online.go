@@ -2,29 +2,26 @@ package interaction
 
 import (
 	"context"
-
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
-	userPb "github.com/openimsdk/protocol/user"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	"github.com/openimsdk/tools/utils/datautil"
 )
 
-func (l *LongConnMgr) subscribeUsersStatus(ctx context.Context, userIDs []string) ([]*userPb.OnlineStatus, error) {
+func (l *LongConnMgr) subscribeUsersStatus(ctx context.Context, userIDs []string) ([]*conversation.UserOnlinePlatformID, error) {
 	if len(userIDs) == 0 {
-		return []*userPb.OnlineStatus{}, nil
+		return []*conversation.UserOnlinePlatformID{}, nil
 	}
 	res, err := l.GetUserOnlinePlatformIDs(ctx, userIDs)
 	if err != nil {
 		return nil, err
 	}
-	status := make([]*userPb.OnlineStatus, 0, len(res))
+	status := make([]*conversation.UserOnlinePlatformID, 0, len(res))
 	for userID, platformIDs := range res {
-		value := &userPb.OnlineStatus{
-			UserID:      userID,
-			PlatformIDs: platformIDs,
-		}
-		if len(platformIDs) == 0 {
-			value.Status = constant.Offline
-		} else {
-			value.Status = constant.Online
+		value := &conversation.UserOnlinePlatformID{
+			UserID: userID,
+			PlatformIDs: datautil.Batch(func(platformID int32) common.Platform {
+				return common.Platform(platformID)
+			}, platformIDs),
 		}
 		status = append(status, value)
 	}
@@ -35,13 +32,10 @@ func (l *LongConnMgr) UnsubscribeUsersStatus(ctx context.Context, userIDs []stri
 	return l.UnsubscribeUserOnlinePlatformIDs(ctx, userIDs)
 }
 
-func (l *LongConnMgr) SubscribeUsersStatus(ctx context.Context, userIDs []string) ([]*userPb.OnlineStatus, error) {
-	if len(userIDs) == 0 {
-		return []*userPb.OnlineStatus{}, nil
-	}
+func (l *LongConnMgr) SubscribeUsersStatus(ctx context.Context, userIDs []string) ([]*conversation.UserOnlinePlatformID, error) {
 	return l.subscribeUsersStatus(ctx, userIDs)
 }
 
-func (l *LongConnMgr) GetSubscribeUsersStatus(ctx context.Context) ([]*userPb.OnlineStatus, error) {
-	return l.subscribeUsersStatus(ctx, nil)
-}
+//func (l *LongConnMgr) GetSubscribeUsersStatus(ctx context.Context) ([]*userPb.OnlineStatus, error) {
+//	return l.subscribeUsersStatus(ctx, nil)
+//}
