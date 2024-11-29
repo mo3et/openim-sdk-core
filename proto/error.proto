@@ -1,6 +1,7 @@
 syntax = "proto3";
 package openim.sdk.error;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/error";
+option swift_prefix="";
 
 enum ErrorCode {
   // NoError is the zero value of ErrorCode.

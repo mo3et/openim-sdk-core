@@ -5,6 +5,7 @@ import "any.proto";
 import "common.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/third";
+option swift_prefix="";
 
 message UpdateFcmTokenReq {
   string fcmToken = 1; // fcm token

@@ -4,6 +4,7 @@ package openim.init;
 import "common.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/init";
+option swift_prefix="";
 
 enum LoginStatus {
   _ = 0;

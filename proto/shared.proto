@@ -4,6 +4,7 @@ package openim.sdk.shared;
 import "common.proto";
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared";
+option swift_prefix="";
 
 // ############## user ################
 
