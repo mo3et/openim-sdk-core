@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 	"github.com/openimsdk/tools/errs"
@@ -55,6 +54,6 @@ func (t *Third) Log(ctx context.Context, req *sdkpb.LogReq) (*sdkpb.LogResp, err
 	return &sdkpb.LogResp{}, nil
 }
 
-func (t *Third) UploadFile(ctx context.Context, req *file.UploadFileReq, callback open_im_sdk_callback.UploadFileCallback) (*file.UploadFileResp, error) {
+func (t *Third) UploadFile(ctx context.Context, req *sdkpb.UploadFileReq, callback open_im_sdk_callback.UploadFileCallback) (*sdkpb.UploadFileResp, error) {
 	return t.fileUploader.UploadFileV2(ctx, req, callback)
 }

@@ -21,6 +21,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 	"io"
 	"net/http"
 	"net/url"
@@ -38,18 +39,6 @@ import (
 	"github.com/openimsdk/protocol/third"
 	"github.com/openimsdk/tools/log"
 )
-
-type UploadFileReq struct {
-	Filepath    string `json:"filepath"`
-	Name        string `json:"name"`
-	ContentType string `json:"contentType"`
-	Cause       string `json:"cause"`
-	Uuid        string `json:"uuid"`
-}
-
-type UploadFileResp struct {
-	URL string `json:"url"`
-}
 
 type partInfo struct {
 	ContentType string
@@ -115,7 +104,7 @@ func (f *File) unlockHash(hash string) {
 	locker.locker.Unlock()
 }
 
-func (f *File) UploadFile(ctx context.Context, req *UploadFileReq, cb UploadFileCallback) (*UploadFileResp, error) {
+func (f *File) UploadFile(ctx context.Context, req *sdkpb.UploadFileReq, cb UploadFileCallback) (*sdkpb.UploadFileResp, error) {
 	if req.Name == "" {
 		return nil, errors.New("name is empty")
 	}
@@ -136,8 +125,8 @@ func (f *File) UploadFile(ctx context.Context, req *UploadFileReq, cb UploadFile
 	if err != nil {
 		return nil, err
 	}
-	if req.ContentType == "" {
-		req.ContentType = info.ContentType
+	if req.MimeType == "" {
+		req.MimeType = info.ContentType
 	}
 	partSize := info.PartSize
 	partSizes := info.PartSizes
@@ -157,17 +146,17 @@ func (f *File) UploadFile(ctx context.Context, req *UploadFileReq, cb UploadFile
 		Size:        fileSize,
 		PartSize:    partSize,
 		MaxParts:    int32(maxParts), // retrieve the number of signatures in one go
-		Cause:       req.Cause,
+		Cause:       req.FileCategory,
 		Name:        req.Name,
-		ContentType: req.ContentType,
+		ContentType: req.MimeType,
 	})
 	if err != nil {
 		return nil, err
 	}
 	if uploadInfo.Resp.Upload == nil {
 		cb.Complete(fileSize, uploadInfo.Resp.Url, 0)
-		return &UploadFileResp{
-			URL: uploadInfo.Resp.Url,
+		return &sdkpb.UploadFileResp{
+			Url: uploadInfo.Resp.Url,
 		}, nil
 	}
 	if uploadInfo.Resp.Upload.PartSize != partSize {
@@ -222,8 +211,8 @@ func (f *File) UploadFile(ctx context.Context, req *UploadFileReq, cb UploadFile
 		UploadID:    uploadInfo.Resp.Upload.UploadID,
 		Parts:       partMd5s,
 		Name:        req.Name,
-		ContentType: req.ContentType,
-		Cause:       req.Cause,
+		ContentType: req.MimeType,
+		Cause:       req.FileCategory,
 	})
 	if err != nil {
 		return nil, err
@@ -238,8 +227,8 @@ func (f *File) UploadFile(ctx context.Context, req *UploadFileReq, cb UploadFile
 			log.ZError(ctx, "DeleteUpload", err, "partMd5Val", info.PartMd5, "name", req.Name)
 		}
 	}
-	return &UploadFileResp{
-		URL: resp.Url,
+	return &sdkpb.UploadFileResp{
+		Url: resp.Url,
 	}, nil
 }
 
@@ -593,6 +582,6 @@ func (f *File) getPartInfo(ctx context.Context, r io.Reader, fileSize int64, cb 
 	}, nil
 }
 
-func (f *File) UploadFileV2(ctx context.Context, req *UploadFileReq, cb open_im_sdk_callback.UploadFileCallback) (*UploadFileResp, error) {
+func (f *File) UploadFileV2(ctx context.Context, req *sdkpb.UploadFileReq, cb open_im_sdk_callback.UploadFileCallback) (*sdkpb.UploadFileResp, error) {
 	return f.UploadFile(ctx, req, &simpleUploadCallback{cb: cb})
 }

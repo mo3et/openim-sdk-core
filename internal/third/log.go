@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 	"io"
 	"math/rand"
 	"os"
@@ -13,7 +14,6 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 
-	"github.com/openimsdk/openim-sdk-core/v3/internal/third/file"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
@@ -108,9 +108,9 @@ func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress op
 	if err := zipFiles(zippath, files); err != nil {
 		return err
 	}
-	reqUpload := &file.UploadFileReq{Filepath: zippath, Name: fmt.Sprintf("sdk_log_%s_%s_%s_%s_%s",
+	reqUpload := &sdkpb.UploadFileReq{Filepath: zippath, Name: fmt.Sprintf("sdk_log_%s_%s_%s_%s_%s",
 		t.loginUserID, pb.AppFramework_name[int32(t.appFramework)], pb.Platform_name[int32(t.platform)],
-		version.Version, filepath.Base(zippath)), Cause: "sdklog", ContentType: "application/zip"}
+		version.Version, filepath.Base(zippath)), FileCategory: "sdklog", MimeType: "application/zip"}
 	resp, err := t.fileUploader.UploadFile(ctx, reqUpload, &progressConvert{ctx: ctx, p: progress})
 	if err != nil {
 		return err
@@ -122,7 +122,7 @@ func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress op
 		//AppFramework: pb.AppFramework_name[int32(t.appFramework)],
 		SystemType: pb.AppFramework_name[int32(t.appFramework)],
 		Version:    version.Version,
-		FileURLs:   []*third.FileURL{{Filename: zippath, URL: resp.URL}},
+		FileURLs:   []*third.FileURL{{Filename: zippath, URL: resp.Url}},
 		Ex:         ex,
 	}
 	return api.UploadLogs.Execute(ctx, reqLog)

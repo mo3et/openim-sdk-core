@@ -23,7 +23,9 @@ const (
 type ErrorCode int32
 
 const (
-	ErrorCode_NoError                     ErrorCode = 0
+	// NoError is the zero value of ErrorCode.
+	ErrorCode_NoError ErrorCode = 0
+	// Common error codes.
 	ErrorCode_ServerInternal              ErrorCode = 500
 	ErrorCode_Args                        ErrorCode = 1001
 	ErrorCode_NoPermission                ErrorCode = 1002

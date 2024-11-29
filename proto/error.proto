@@ -3,7 +3,9 @@ package openim.sdk.error;
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/error";
 
 enum ErrorCode {
+  // NoError is the zero value of ErrorCode.
   NoError                     = 0;
+  // Common error codes.
   ServerInternal              = 500;
   Args                        = 1001;
   NoPermission                = 1002;

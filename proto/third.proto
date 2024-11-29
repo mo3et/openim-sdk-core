@@ -17,6 +17,17 @@ message SetAppBadgeReq {
 }
 message SetAppBadgeResp {}
 
+message UploadFileReq {
+  string filepath = 1; // file path
+  string name = 2; // file name
+  string mimeType = 3; // http mime type
+  string fileCategory = 4; // file category
+}
+
+message UploadFileResp {
+  string url = 1; // file url
+}
+
 message UploadLogsReq {
   int32 line = 1; // upload line
   string ex = 2; // upload extension fields
@@ -37,3 +48,4 @@ message LogReq {
   repeated LogKv kvs = 6; // log key-value pairs
 }
 message LogResp {}
+
