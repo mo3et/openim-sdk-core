@@ -1,10 +1,8 @@
 package third
 
 import (
-	"context"
-
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 )
 
 type Progress interface {
@@ -12,38 +10,9 @@ type Progress interface {
 }
 
 type progressConvert struct {
-	ctx context.Context
-	p   open_im_sdk_callback.UploadLogsCallback
+	p open_im_sdk_callback.UploadLogsCallback
 }
 
-func (p *progressConvert) Open(size int64) {
-	p.p.OnUploadLogsProgress(&pb.EventOnUploadLogsProgressData{
-		Progress: 0,
-		Total:    size,
-	})
-}
-
-func (p *progressConvert) PartSize(partSize int64, num int) {}
-
-func (p *progressConvert) HashPartProgress(index int, size int64, partHash string) {}
-
-func (p *progressConvert) HashPartComplete(partsHash string, fileHash string) {}
-
-func (p *progressConvert) UploadID(uploadID string) {}
-
-func (p *progressConvert) UploadPartComplete(index int, partSize int64, partHash string) {}
-
-func (p *progressConvert) UploadComplete(fileSize int64, streamSize int64, storageSize int64) {
-	//log.ZDebug(p.ctx, "upload log progress", "fileSize", fileSize, "current", streamSize)
-	p.p.OnUploadLogsProgress(&pb.EventOnUploadLogsProgressData{
-		Progress: streamSize,
-		Total:    streamSize,
-	})
-}
-
-func (p *progressConvert) Complete(size int64, url string, typ int) {
-	p.p.OnUploadLogsProgress(&pb.EventOnUploadLogsProgressData{
-		Progress: size,
-		Total:    size,
-	})
+func (p progressConvert) OnUploadFileProgress(data *event.EventOnUploadFileProgressData) {
+	p.p.OnUploadLogsProgress(&event.EventOnUploadLogsProgressData{Progress: data.Progress})
 }

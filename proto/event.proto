@@ -195,8 +195,7 @@ message EventOnUploadFileProgressData {
 }
 
 message EventOnUploadLogsProgressData {
-  int64 progress = 1;
-  int64 total = 2;
+  int32 progress = 1;
 }
 
 message EventOnConnectingData {}
