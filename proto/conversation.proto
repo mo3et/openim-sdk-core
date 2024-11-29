@@ -175,9 +175,9 @@ message SearchConversationResp {
   repeated shared.IMConversation conversationList = 1;
 }
 
-message UserOnlinePlatformID {
+message UserOnlinePlatform {
   string userID = 1; // userid
-  repeated common.Platform platformIDs = 2;
+  repeated common.Platform platforms = 2;
 }
 
 message SubscribeUsersOnlineStatusReq {
@@ -185,7 +185,7 @@ message SubscribeUsersOnlineStatusReq {
 }
 
 message SubscribeUsersOnlineStatusResp {
-  repeated UserOnlinePlatformID status = 1;
+  repeated UserOnlinePlatform status = 1;
 }
 
 message UnsubscribeUsersOnlineStatusReq {
