@@ -10,13 +10,20 @@ option swift_prefix="";
 
 // IM User information
 message IMUser {
-  string userID = 1; // User ID
-  string nickname = 2; // User nickname
-  string faceURL = 3; // User avatar URL
-  string ex = 4; // User extension field
-  int64 createTime = 5; // User register time
-  common.GlobalRecvMsgOpt globalRecvMsgOpt = 6; // Global message recv option
-  string attached = 7; // SDK internal extension field
+  // @user_id
+  string userID = 1;
+  // @user_nickname
+  string nickname = 2;
+  // @user_face_url
+  string faceURL = 3;
+  // @user_ex
+  string ex = 4;
+  // @user_create_time
+  int64 createTime = 5;
+  // @user_global_recv_msg_opt
+  common.GlobalRecvMsgOpt globalRecvMsgOpt = 6;
+  // @user_attached
+  string attached = 7;
 }
 
 message CommandInfo {
@@ -119,80 +126,115 @@ enum GroupApplyMemberFriend {
 }
 
 message IMGroup {
-  // group id, no need to specify when creating
+  // @group_id
   string groupID = 1;
-  // group name
+  // @group_name
   string groupName = 2;
-  // group notification
+  // @group_notification
   string notification = 3;
-  // group introduction
+  // @group_introduction
   string introduction = 4;
-  // group face url
+  // @group_face_url
   string faceURL = 5;
-  // group owner user id
+  // @group_owner_user_id
   string ownerUserID = 6;
-  // group creation time
+  // @group_create_time
   int64 createTime = 7;
-  // group member count
+  // @group_member_count
   int64 memberCount = 8;
-  // extension field
+  // @group_ex
   string ex = 9;
-  // group status
+  // @group_status
   GroupStatus status = 10;
-  // group creator user id
+  // @group_creator_user_id
   string creatorUserID = 11;
-  // whether to verify the group
+  // @group_need_verification
   GroupNeedVerification needVerification = 12;
-  // whether to view the group member information
+  // @group_look_member_info
   GroupLookMemberInfo lookMemberInfo = 13;
-  // whether to allow group members to add friends
+  // @group_apply_member_friend
   GroupApplyMemberFriend applyMemberFriend = 14;
-  // notification update time
+  // @group_notification_update_time
   int64 notificationUpdateTime = 15;
-  // notification update user id
+  // @group_notification_user_id
   string notificationUserID = 16;
-  // group attached info
+  // @group_attached_info
   string attachedInfo = 17;
 }
 
 message IMGroupMember {
+  // @group_id
   string groupID = 1;
+  // @group_member_user_id
   string userID = 2;
+  // @group_member_nickname
   string nickname = 3;
+  // @group_member_face_url
   string faceURL = 4;
+  // @group_member_role
   int32 roleLevel = 5;
+  // @group_member_join_time
   int64 joinTime = 6;
+  // @group_member_join_source
   GroupJoinSource joinSource = 7;
+  // @group_member_inviter_user_id
   string inviterUserID = 8;
+  // @group_member_mute_end_time
   int64 muteEndTime = 9;
+  // @group_member_operator_user_id
   string operatorUserID = 10;
+  // @group_member_ex
   string ex = 11;
+  // @group_member_attached_info
   string attachedInfo = 12;
 }
 
 message IMGroupApplication {
+  // @group_id
   string groupID = 1;
+  // @group_name
   string groupName = 2;
+  // @group_notification
   string notification = 3;
+  // @group_introduction
   string introduction = 4;
+  // @group_face_url
   string groupFaceURL = 5;
+  // @group_create_time
   int64 createTime = 6;
+  // @group_status
   int32 status = 7;
+  // @group_creator_user_id
   string creatorUserID = 8;
+  // @group_owner_user_id
   string ownerUserID = 9;
+  // @group_member_count
   int32 memberCount = 10;
+  // @user_id
   string userID = 11;
+  // @user_nickname
   string nickname = 12;
+  // @user_face_url
   string userFaceURL = 13;
+  // group application handle result
   int32 handleResult = 14;
+  // group application request message
   string reqMsg = 15;
+  // group application handle message
   string handledMsg = 16;
+  // group application create time
   int64 reqTime = 17;
+  // group application handle user id
   string handleUserID = 18;
+  // group application handle time
   int64 handledTime = 19;
+  // group application extension field
   string ex = 20;
+  // @group_member_attached_info
   string attachedInfo = 21;
+  // @group_member_join_source
   GroupJoinSource joinSource = 22;
+  // @group_member_inviter_user_id
   string inviterUserID = 23;
 }
 

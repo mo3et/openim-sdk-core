@@ -9,19 +9,27 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/group";
 option swift_prefix="";
 
 message CreateGroupReq {
-  repeated string memberUserIDs = 1;// ordinary group member group member user id
-  repeated string adminUserIDs = 2;// administrator user id
-  shared.IMGroup groupInfo = 3;// group information
+  // List of invited group members
+  repeated string memberUserIDs = 1;
+  // List of users invited as administrators
+  repeated string adminUserIDs = 2;
+  // Basic group chat information
+  shared.IMGroup groupInfo = 3;
 }
 message CreateGroupResp {
-  shared.IMGroup groupInfo = 1;// group information
+  // Basic group chat information
+  shared.IMGroup groupInfo = 1;
 }
 
 message JoinGroupReq {
-  string groupID = 1;// group id you joined
-  string reqMessage = 2;// request message
-  shared.GroupJoinSource joinSource = 3;// join source
-  string ex = 4;// extension field
+  // group id you joined
+  string groupID = 1;
+  // request message
+  string reqMessage = 2;
+  // join source
+  shared.GroupJoinSource joinSource = 3;
+  // extension field
+  string ex = 4;
 }
 message JoinGroupResp {}
 
@@ -62,19 +70,29 @@ message KickGroupMemberReq {
 message KickGroupMemberResp {}
 
 message SetGroupInfoReq {
-  string groupID = 1;// group id you want to set
-  optional string groupName = 2;// group name
-  optional string notification = 3;// group notification
-  optional string introduction = 4;// group introduction
-  optional string faceURL = 5;// group face url
-  optional string ex = 6;// extension field
-  optional int32 needVerification = 7;// whether to verify the group
-  optional int32 lookMemberInfo = 8;// whether to view the group member information
-  optional int32 applyMemberFriend = 9;// whether to allow group members to add friends
+  // @group_id
+  string groupID = 1;
+  // @opt @group_name
+  optional string groupName = 2;
+  // @opt @group_notification
+  optional string notification = 3;
+  // @opt @group_introduction
+  optional string introduction = 4;
+  // @opt @group_face_url
+  optional string faceURL = 5;
+  // @opt @group_ex
+  optional string ex = 6;
+  // @opt @group_need_verification
+  optional int32 needVerification = 7;
+  // @opt @group_look_member_info
+  optional int32 lookMemberInfo = 8;
+  // @opt @group_apply_member_friend
+  optional int32 applyMemberFriend = 9;
 }
 message SetGroupInfoResp {}
 
 message SetGroupMemberInfoReq {
+
   string groupID = 1;// group id you want to set
   // @opt @group_user_id
   string userID = 2;
@@ -215,56 +233,137 @@ message HandlerGroupRequestResp {}
 
 service group {
   /**
-  * This is a leading comment for a message
-  * This is a leading comment for a message
-  * This is a leading comment for a message
-  * This is a leading comment for a message
+  * The group creator assigns roles and adds members
+  * 1. The creator establishes a group as the group owner, specifying group administrators and ordinary group members. Once successful, all roles immediately join the group.
+  * 2. It's recommended that the number of group members does not exceed 1000 at a time, as larger numbers may result in data packets being rejected by the backend due to their size.
+  * If a groupID is specified, it cannot be duplicated.
+  * If no groupID is specified, the server will generate a unique groupID.
   */
   rpc CreateGroup(CreateGroupReq) returns (CreateGroupResp);
-  // join a group
+  /**
+   * Apply to join a group
+   * Apply to join the group. If you are allowed to join directly, you can directly enter the group chat. Otherwise, send a request to join the group, which requires the approval of the group administrator or group owner.
+   */
   rpc JoinGroup(JoinGroupReq) returns (JoinGroupResp);
-  // quit a group
+  /**
+   * Leave the group
+   * Administrators and ordinary members can log out directly, but group owners cannot log out.
+   */
   rpc QuitGroup(QuitGroupReq) returns (QuitGroupResp);
-  // dismiss a group
+  /**
+   * Disband the group
+   * The group status field will be set to "disbanded" in the background. When group members fetch the list of groups they've joined, this group will no longer be returned.
+   */
   rpc DismissGroup(DismissGroupReq) returns (DismissGroupResp);
-  // mute or cancel mute a group
+  /**
+   * The group owner or group admin changes the mute status of the group.
+   * After being muted, regular members cannot send messages, but the group owner and admins can continue to send messages.
+   */
   rpc ChangeGroupMute(ChangeGroupMuteReq) returns (ChangeGroupMuteResp);
-  // mute or cancel mute a group member
+  /**
+   * The group owner or group administrators can change the mute status of group members.
+   * A group owner can mute both administrators and regular members, while an administrator can only mute regular members.
+   */
   rpc ChangeGroupMemberMute(ChangeGroupMemberMuteReq) returns (ChangeGroupMemberMuteResp);
-  // transfer group owner
+  /**
+   * Transfer the group owner status.
+   * Transfer group owner, can only be called by group owner.
+   */
   rpc TransferGroupOwner(TransferGroupOwnerReq) returns (TransferGroupOwnerResp);
-  // kick a group member
+  /**
+   * Remove a member from a group.
+   * The group owner and group administrators can remove group members.
+   */
   rpc KickGroupMember(KickGroupMemberReq) returns (KickGroupMemberResp);
-  // set group information
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc SetGroupInfo(SetGroupInfoReq) returns (SetGroupInfoResp);
-  // set group member information
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc SetGroupMemberInfo(SetGroupMemberInfoReq) returns (SetGroupMemberInfoResp);
-  // get joined groups
+  /**
+   * Fetch the list of groups you've joined.
+   * Get joined group chat information.
+   */
   rpc GetJoinedGroups(GetJoinedGroupsReq) returns (GetJoinedGroupsResp);
-  // get joined groups by page
+  /**
+   * Split fetch the list of groups you've joined.
+   * Get joined group chat information.
+   */
   rpc GetJoinedGroupsPage(GetJoinedGroupsPageReq) returns (GetJoinedGroupsPageResp);
-  // get specified groups information
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc GetSpecifiedGroupsInfo(GetSpecifiedGroupsInfoReq) returns (GetSpecifiedGroupsInfoResp);
-  // search groups
+  // todo
+  /**
+   * Search for joined groups using keyword
+   * The list of groups is recommended to have a maximum of 100 at a time.
+   */
   rpc SearchGroups(SearchGroupsReq) returns (SearchGroupsResp);
-  // get group member owner and admin
+  // todo
+  /**
+   * Search for joined groups using keyword
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc GetGroupMemberOwnerAndAdmin(GetGroupMemberOwnerAndAdminReq) returns (GetGroupMemberOwnerAndAdminResp);
-  // get group members by join time filter
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc GetGroupMembersByJoinTimeFilter(GetGroupMembersByJoinTimeFilterReq) returns (GetGroupMembersByJoinTimeFilterResp);
-  // get specified group members information
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc GetSpecifiedGroupMembersInfo(GetSpecifiedGroupMembersInfoReq) returns (GetSpecifiedGroupMembersInfoResp);
-  // get group members
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc GetGroupMembers(GetGroupMembersReq) returns (GetGroupMembersResp);
-  // get group request
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc GetGroupRequest(GetGroupRequestReq) returns (GetGroupRequestResp);
-  // get group request
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc SearchGroupMembers(SearchGroupMembersReq) returns (SearchGroupMembersResp);
-  // is join group
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc IsJoinGroup(IsJoinGroupReq) returns (IsJoinGroupResp);
-  // get users in group
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc GetUsersInGroup(GetUsersInGroupReq) returns (GetUsersInGroupResp);
-  // invite user to group
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc InviteUserToGroup(InviteUserToGroupReq) returns (InviteUserToGroupResp);
-  // handler group request
+  // todo
+  /**
+   * Set group information
+   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   */
   rpc HandlerGroupRequest(HandlerGroupRequestReq) returns (HandlerGroupRequestResp);
 }
