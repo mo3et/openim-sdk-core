@@ -456,7 +456,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| groupID | [string](#string) |  | group id you want to handle1<br><br>group id you want to handle2<br><br>group id you want to handle3<br><br>group id you want to handle4<br> |
+| groupID | [string](#string) |  | group id you want to handle1&lt;br&gt; group id you want to handle2&lt;br&gt; group id you want to handle3&lt;br&gt; group id you want to handle4&lt;br&gt; |
 | fromUserID | [string](#string) |  | user id you want to handle |
 | handledMsg | [string](#string) |  | request message |
 | status | [openim.sdk.common.ApprovalStatus](#openim-sdk-common-ApprovalStatus) |  | approval status |

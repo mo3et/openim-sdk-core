@@ -76,7 +76,8 @@ message SetGroupInfoResp {}
 
 message SetGroupMemberInfoReq {
   string groupID = 1;// group id you want to set
-  string userID = 2;// user id you want to set
+  // @opt @group_user_id
+  string userID = 2;
   optional string nickname = 3;// user nickname
   optional string faceURL = 4;// user face url
   optional int32 roleLevel = 5;// user role level

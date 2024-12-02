@@ -229,7 +229,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| send | [bool](#bool) |  | 1. user send friend request.<br>2. user receive friend request |
+| send | [bool](#bool) |  | 1. user send friend request. 2. user receive friend request |
 
 
 

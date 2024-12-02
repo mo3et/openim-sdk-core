@@ -291,7 +291,12 @@
 <a name="openim-sdk-shared-FriendApplicationApprovedTips"></a>
 
 ### FriendApplicationApprovedTips
-FromUserID apply to add ToUserID<br>message FriendApplicationTips {<br> FromToUserID fromToUserID = 1;<br>}<br><br>FromUserID accept or reject ToUserID
+FromUserID apply to add ToUserID
+message FriendApplicationTips {
+ FromToUserID fromToUserID = 1;
+}
+
+FromUserID accept or reject ToUserID
 
 
 | Field | Type | Label | Description |
@@ -306,7 +311,20 @@ FromUserID apply to add ToUserID<br>message FriendApplicationTips {<br> FromToUs
 <a name="openim-sdk-shared-FromToUserID"></a>
 
 ### FromToUserID
-message GroupMemberInfoSetTips {<br> shared.IMGroup group = 1;<br> shared.IMGroupMember opUser = 2;<br> int64 operationTime = 3;<br> shared.IMGroupMember changedUser = 4;<br>}<br><br>////////////////////friend/////////////////////<br><br>message FriendApplication {<br> int64 addTime = 1;<br> string addSource = 2;<br> string addWording = 3;<br>}
+message GroupMemberInfoSetTips {
+ shared.IMGroup group = 1;
+ shared.IMGroupMember opUser = 2;
+ int64 operationTime = 3;
+ shared.IMGroupMember changedUser = 4;
+}
+
+////////////////////friend/////////////////////
+
+message FriendApplication {
+ int64 addTime = 1;
+ string addSource = 2;
+ string addWording = 3;
+}
 
 
 | Field | Type | Label | Description |
@@ -339,7 +357,9 @@ message GroupMemberInfoSetTips {<br> shared.IMGroup group = 1;<br> shared.IMGrou
 <a name="openim-sdk-shared-GroupCreatedTips"></a>
 
 ### GroupCreatedTips
-group/////////////////////<br><br>	OnGroupCreated()
+group/////////////////////
+
+	OnGroupCreated()
 
 
 | Field | Type | Label | Description |
@@ -446,7 +466,23 @@ group/////////////////////<br><br>	OnGroupCreated()
 <a name="openim-sdk-shared-GroupOwnerTransferredTips"></a>
 
 ### GroupOwnerTransferredTips
-OnApplicationGroupAccepted()<br>message GroupApplicationAcceptedTips {<br> shared.IMGroup group = 1;<br> shared.IMGroupMember opUser = 2;<br> string handleMsg = 4;<br> int32 receiverAs = 5; // admin(==1) or applicant(==0)<br>}<br><br>	OnApplicationGroupRejected()<br>message GroupApplicationRejectedTips {<br> shared.IMGroup group = 1;<br> shared.IMGroupMember opUser = 2;<br> string handleMsg = 4;<br> int32 receiverAs = 5; // admin(==1) or applicant(==0)<br>}<br><br>	OnTransferGroupOwner()
+OnApplicationGroupAccepted()
+message GroupApplicationAcceptedTips {
+ shared.IMGroup group = 1;
+ shared.IMGroupMember opUser = 2;
+ string handleMsg = 4;
+ int32 receiverAs = 5; // admin(==1) or applicant(==0)
+}
+
+	OnApplicationGroupRejected()
+message GroupApplicationRejectedTips {
+ shared.IMGroup group = 1;
+ shared.IMGroupMember opUser = 2;
+ string handleMsg = 4;
+ int32 receiverAs = 5; // admin(==1) or applicant(==0)
+}
+
+	OnTransferGroupOwner()
 
 
 | Field | Type | Label | Description |
@@ -471,15 +507,15 @@ OnApplicationGroupAccepted()<br>message GroupApplicationAcceptedTips {<br> share
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| ownerUserID | [string](#string) |  |  |
-| blockUserID | [string](#string) |  |  |
-| nickname | [string](#string) |  |  |
-| faceURL | [string](#string) |  |  |
-| createTime | [int64](#int64) |  |  |
-| addSource | [int32](#int32) |  |  |
-| operatorUserID | [string](#string) |  |  |
-| ex | [string](#string) |  |  |
-| attached | [string](#string) |  |  |
+| ownerUserID | [string](#string) |  | Currently logged-in user ID |
+| blockUserID | [string](#string) |  | Blocked user ID |
+| nickname | [string](#string) |  | Blocked user nickname |
+| faceURL | [string](#string) |  | Blocked user avatar URL |
+| createTime | [int64](#int64) |  | Block time |
+| addSource | [int32](#int32) |  | Block source |
+| operatorUserID | [string](#string) |  | Operator user ID |
+| ex | [string](#string) |  | Block extension field |
+| attached | [string](#string) |  | SDK internal extension field, not currently used |
 
 
 
@@ -522,22 +558,22 @@ OnApplicationGroupAccepted()<br>message GroupApplicationAcceptedTips {<br> share
 <a name="openim-sdk-shared-IMFriend"></a>
 
 ### IMFriend
-
+IM Friend information
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| ownerUserID | [string](#string) |  |  |
-| friendUserID | [string](#string) |  |  |
-| remark | [string](#string) |  |  |
-| createTime | [int64](#int64) |  |  |
-| addSource | [int32](#int32) |  |  |
-| operatorUserID | [string](#string) |  |  |
-| nickname | [string](#string) |  |  |
-| faceURL | [string](#string) |  |  |
-| ex | [string](#string) |  |  |
-| attachedInfo | [string](#string) |  |  |
-| isPinned | [bool](#bool) |  |  |
+| ownerUserID | [string](#string) |  | Currently logged-in user ID |
+| friendUserID | [string](#string) |  | Friend user ID |
+| remark | [string](#string) |  | Friend remark |
+| createTime | [int64](#int64) |  | Friend add time |
+| addSource | [int32](#int32) |  | Friend add source |
+| operatorUserID | [string](#string) |  | Operator user ID |
+| nickname | [string](#string) |  | Friend nickname |
+| faceURL | [string](#string) |  | Friend avatar URL |
+| ex | [string](#string) |  | Friend extension field |
+| attachedInfo | [string](#string) |  | SDK internal extension field, not currently used |
+| isPinned | [bool](#bool) |  | Whether the friend is pinned |
 
 
 
@@ -552,20 +588,20 @@ OnApplicationGroupAccepted()<br>message GroupApplicationAcceptedTips {<br> share
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| fromUserID | [string](#string) |  |  |
-| fromNickname | [string](#string) |  |  |
-| fromFaceURL | [string](#string) |  |  |
-| toUserID | [string](#string) |  |  |
-| toNickname | [string](#string) |  |  |
-| toFaceURL | [string](#string) |  |  |
-| handleResult | [int32](#int32) |  |  |
-| reqMsg | [string](#string) |  |  |
-| createTime | [int64](#int64) |  |  |
-| handlerUserID | [string](#string) |  |  |
-| handleMsg | [string](#string) |  |  |
-| handleTime | [int64](#int64) |  |  |
-| ex | [string](#string) |  |  |
-| attached | [string](#string) |  |  |
+| fromUserID | [string](#string) |  | Requester user ID |
+| fromNickname | [string](#string) |  | Requester nickname |
+| fromFaceURL | [string](#string) |  | Requester avatar URL |
+| toUserID | [string](#string) |  | Receiver user ID |
+| toNickname | [string](#string) |  | Receiver nickname |
+| toFaceURL | [string](#string) |  | Receiver avatar URL |
+| handleResult | [int32](#int32) |  | Request handle result |
+| reqMsg | [string](#string) |  | Request message |
+| createTime | [int64](#int64) |  | Request create time |
+| handlerUserID | [string](#string) |  | Request handler user ID |
+| handleMsg | [string](#string) |  | Request handle message |
+| handleTime | [int64](#int64) |  | Request handle time |
+| ex | [string](#string) |  | Request extension field |
+| attached | [string](#string) |  | SDK internal extension field, not currently used |
 
 
 
@@ -711,8 +747,8 @@ OnApplicationGroupAccepted()<br>message GroupApplicationAcceptedTips {<br> share
 | streamElem | [StreamElem](#openim-sdk-shared-StreamElem) |  |  |
 | revokedTips | [RevokedTips](#openim-sdk-shared-RevokedTips) |  |  |
 | groupCreatedTips | [GroupCreatedTips](#openim-sdk-shared-GroupCreatedTips) |  |  |
-| memberQuitTips | [MemberQuitTips](#openim-sdk-shared-MemberQuitTips) |  | GroupInfoSetTips groupInfoSetTips = 39;<br>   GroupInfoSetNameTips groupInfoSetNameTips = 40;<br>   GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;<br>   JoinGroupApplicationTips joinGroupApplicationTips = 42; |
-| groupOwnerTransferredTips | [GroupOwnerTransferredTips](#openim-sdk-shared-GroupOwnerTransferredTips) |  | GroupApplicationAcceptedTips groupApplicationAcceptedTips = 44;<br>   GroupApplicationRejectedTips groupApplicationRejectedTips = 45; |
+| memberQuitTips | [MemberQuitTips](#openim-sdk-shared-MemberQuitTips) |  | GroupInfoSetTips groupInfoSetTips = 39; GroupInfoSetNameTips groupInfoSetNameTips = 40; GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41; JoinGroupApplicationTips joinGroupApplicationTips = 42; |
+| groupOwnerTransferredTips | [GroupOwnerTransferredTips](#openim-sdk-shared-GroupOwnerTransferredTips) |  | GroupApplicationAcceptedTips groupApplicationAcceptedTips = 44; GroupApplicationRejectedTips groupApplicationRejectedTips = 45; |
 | memberKickedTips | [MemberKickedTips](#openim-sdk-shared-MemberKickedTips) |  |  |
 | memberInvitedTips | [MemberInvitedTips](#openim-sdk-shared-MemberInvitedTips) |  |  |
 | memberEnterTips | [MemberEnterTips](#openim-sdk-shared-MemberEnterTips) |  |  |
@@ -721,8 +757,8 @@ OnApplicationGroupAccepted()<br>message GroupApplicationAcceptedTips {<br> share
 | groupMemberCancelMutedTips | [GroupMemberCancelMutedTips](#openim-sdk-shared-GroupMemberCancelMutedTips) |  |  |
 | groupMutedTips | [GroupMutedTips](#openim-sdk-shared-GroupMutedTips) |  |  |
 | groupCancelMutedTips | [GroupCancelMutedTips](#openim-sdk-shared-GroupCancelMutedTips) |  |  |
-| friendApplicationApprovedTips | [FriendApplicationApprovedTips](#openim-sdk-shared-FriendApplicationApprovedTips) |  | GroupMemberInfoSetTips groupMemberInfoSetTips = 55;<br>   FriendApplicationTips friendApplicationTips = 56; |
-| conversationPrivateChatTips | [ConversationPrivateChatTips](#openim-sdk-shared-ConversationPrivateChatTips) |  | FriendApplicationRejectedTips friendApplicationRejectedTips = 58;<br>   FriendAddedTips friendAddedTips = 59;<br>   FriendDeletedTips friendDeletedTips = 60;<br>   BlackAddedTips blackAddedTips = 61;<br>   BlackDeletedTips blackDeletedTips = 62;<br>   FriendInfoChangedTips friendInfoChangedTips = 63;<br>   UserInfoUpdatedTips userInfoUpdatedTips = 64;<br>   UserStatusChangeTips userStatusChangeTips = 65;<br>   UserCommandAddTips userCommandAddTips = 66;<br>   UserCommandUpdateTips userCommandUpdateTips = 67;<br>   UserCommandDeleteTips userCommandDeleteTips = 68;<br>   ConversationUpdateTips conversationUpdateTips = 69;<br>   ConversationSetPrivateTips conversationSetPrivateTips = 70;<br>   ConversationHasReadTips conversationHasReadTips = 71;<br>   DeleteMessageTips deleteMessageTips = 72;<br>   RevokedTips revokedTips = 73;<br>   ClearConversationTips clearConversationTips = 74;<br>   DeleteMsgsTips deleteMsgsTips = 75;<br>   MarkAsReadTips markAsReadTips = 76;<br>   FriendsInfoUpdateTips friendsInfoUpdateTips = 77;<br>   SubUserOnlineStatusTips subUserOnlineStatusTips = 78;<br>   StreamMsgTips streamMsgTips = 79; |
+| friendApplicationApprovedTips | [FriendApplicationApprovedTips](#openim-sdk-shared-FriendApplicationApprovedTips) |  | GroupMemberInfoSetTips groupMemberInfoSetTips = 55; FriendApplicationTips friendApplicationTips = 56; |
+| conversationPrivateChatTips | [ConversationPrivateChatTips](#openim-sdk-shared-ConversationPrivateChatTips) |  | FriendApplicationRejectedTips friendApplicationRejectedTips = 58; FriendAddedTips friendAddedTips = 59; FriendDeletedTips friendDeletedTips = 60; BlackAddedTips blackAddedTips = 61; BlackDeletedTips blackDeletedTips = 62; FriendInfoChangedTips friendInfoChangedTips = 63; UserInfoUpdatedTips userInfoUpdatedTips = 64; UserStatusChangeTips userStatusChangeTips = 65; UserCommandAddTips userCommandAddTips = 66; UserCommandUpdateTips userCommandUpdateTips = 67; UserCommandDeleteTips userCommandDeleteTips = 68; ConversationUpdateTips conversationUpdateTips = 69; ConversationSetPrivateTips conversationSetPrivateTips = 70; ConversationHasReadTips conversationHasReadTips = 71; DeleteMessageTips deleteMessageTips = 72; RevokedTips revokedTips = 73; ClearConversationTips clearConversationTips = 74; DeleteMsgsTips deleteMsgsTips = 75; MarkAsReadTips markAsReadTips = 76; FriendsInfoUpdateTips friendsInfoUpdateTips = 77; SubUserOnlineStatusTips subUserOnlineStatusTips = 78; StreamMsgTips streamMsgTips = 79; |
 | businessTips | [BusinessTips](#openim-sdk-shared-BusinessTips) |  |  |
 
 
@@ -738,13 +774,13 @@ IM User information
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| userID | [string](#string) |  |  |
-| nickname | [string](#string) |  |  |
-| faceURL | [string](#string) |  |  |
-| ex | [string](#string) |  |  |
-| createTime | [int64](#int64) |  |  |
+| userID | [string](#string) |  | User ID |
+| nickname | [string](#string) |  | User nickname |
+| faceURL | [string](#string) |  | User avatar URL |
+| ex | [string](#string) |  | User extension field |
+| createTime | [int64](#int64) |  | User register time |
 | globalRecvMsgOpt | [openim.sdk.common.GlobalRecvMsgOpt](#openim-sdk-common-GlobalRecvMsgOpt) |  | Global message recv option |
-| attached | [string](#string) |  |  |
+| attached | [string](#string) |  | SDK internal extension field |
 
 
 
@@ -843,7 +879,32 @@ OnMemberKicked()
 <a name="openim-sdk-shared-MemberQuitTips"></a>
 
 ### MemberQuitTips
-OnGroupInfoSet()<br>message GroupInfoSetTips {<br> shared.IMGroupMember opUser = 1; //who do this<br> int64 muteTime = 2;<br> shared.IMGroup group = 3;<br>}<br><br>message GroupInfoSetNameTips {<br> shared.IMGroupMember opUser = 1; //who do this<br> shared.IMGroup group = 2;<br>}<br><br>message GroupInfoSetAnnouncementTips {<br> shared.IMGroupMember opUser = 1; //who do this<br> shared.IMGroup group = 2;<br>}<br><br>	OnJoinGroupApplication()<br>message JoinGroupApplicationTips {<br> shared.IMGroup group = 1;<br> shared.IMUser applicant = 2;<br> string reqMsg = 3;<br>}<br><br>	OnQuitGroup()<br>Actively leave the group
+OnGroupInfoSet()
+message GroupInfoSetTips {
+ shared.IMGroupMember opUser = 1; //who do this
+ int64 muteTime = 2;
+ shared.IMGroup group = 3;
+}
+
+message GroupInfoSetNameTips {
+ shared.IMGroupMember opUser = 1; //who do this
+ shared.IMGroup group = 2;
+}
+
+message GroupInfoSetAnnouncementTips {
+ shared.IMGroupMember opUser = 1; //who do this
+ shared.IMGroup group = 2;
+}
+
+	OnJoinGroupApplication()
+message JoinGroupApplicationTips {
+ shared.IMGroup group = 1;
+ shared.IMUser applicant = 2;
+ string reqMsg = 3;
+}
+
+	OnQuitGroup()
+Actively leave the group
 
 
 | Field | Type | Label | Description |

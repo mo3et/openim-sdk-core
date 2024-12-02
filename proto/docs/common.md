@@ -129,10 +129,10 @@
 | AdvancedText | 117 |  |
 | CustomMsgNotTriggerConversation | 119 |  |
 | CustomMsgOnlineOnly | 120 |  |
-| FriendApplicationApprovedNotification | 1201 | FriendApplicationRejectedNotification = 1202;<br> FriendApplicationNotification = 1203;<br> FriendAddedNotification = 1204;<br> FriendDeletedNotification = 1205;<br> FriendRemarkSetNotification = 1206; |
-| GroupCreatedNotification | 1501 | BlackAddedNotification = 1207;<br> BlackDeletedNotification = 1208;<br> FriendInfoUpdatedNotification = 1209;<br> FriendsInfoUpdateNotification = 1210;<br> ConversationChangeNotification = 1300;<br> UserInfoUpdatedNotification = 1303;<br> UserStatusChangeNotification = 1304;<br> UserCommandAddNotification = 1305;<br> UserCommandDeleteNotification = 1306;<br> UserCommandUpdateNotification = 1307; |
-| MemberQuitNotification | 1504 | GroupInfoSetNotification = 1502;<br> JoinGroupApplicationNotification = 1503; |
-| GroupOwnerTransferredNotification | 1507 | GroupApplicationAcceptedNotification = 1505;<br> GroupApplicationRejectedNotification = 1506; |
+| FriendApplicationApprovedNotification | 1201 | FriendApplicationRejectedNotification = 1202; FriendApplicationNotification = 1203; FriendAddedNotification = 1204; FriendDeletedNotification = 1205; FriendRemarkSetNotification = 1206; |
+| GroupCreatedNotification | 1501 | BlackAddedNotification = 1207; BlackDeletedNotification = 1208; FriendInfoUpdatedNotification = 1209; FriendsInfoUpdateNotification = 1210; ConversationChangeNotification = 1300; UserInfoUpdatedNotification = 1303; UserStatusChangeNotification = 1304; UserCommandAddNotification = 1305; UserCommandDeleteNotification = 1306; UserCommandUpdateNotification = 1307; |
+| MemberQuitNotification | 1504 | GroupInfoSetNotification = 1502; JoinGroupApplicationNotification = 1503; |
+| GroupOwnerTransferredNotification | 1507 | GroupApplicationAcceptedNotification = 1505; GroupApplicationRejectedNotification = 1506; |
 | MemberKickedNotification | 1508 |  |
 | MemberInvitedNotification | 1509 |  |
 | MemberEnterNotification | 1510 |  |
@@ -140,7 +140,7 @@
 | GroupMemberMutedNotification | 1512 |  |
 | GroupMemberCancelMutedNotification | 1513 |  |
 | GroupMutedNotification | 1514 |  |
-| GroupCancelMutedNotification | 1515 | GroupMemberInfoSetNotification = 1516;<br> GroupMemberSetToAdminNotification = 1517;<br> GroupMemberSetToOrdinaryUserNotification = 1518;<br> GroupInfoSetAnnouncementNotification = 1519;<br> GroupInfoSetNameNotification = 1520;<br> GroupNotificationEnd                     = 1599; |
+| GroupCancelMutedNotification | 1515 | GroupMemberInfoSetNotification = 1516; GroupMemberSetToAdminNotification = 1517; GroupMemberSetToOrdinaryUserNotification = 1518; GroupInfoSetAnnouncementNotification = 1519; GroupInfoSetNameNotification = 1520; GroupNotificationEnd = 1599; |
 | ConversationPrivateChatNotification | 1701 | ClearConversationNotification = 1703; |
 | BusinessNotification | 2001 |  |
 | RevokedNotification | 2101 |  |
@@ -177,20 +177,26 @@
 <a name="openim-sdk-common-GlobalRecvMsgOpt"></a>
 
 ### GlobalRecvMsgOpt
-GlobalRecvMsgOpt represents the global message receive option.<br><br>In the globalRecvMsgOpt of UserInfo, globally control whether to receive offline push notifications.<br><br>In the recvMsgOpt of a ConversationInfo, in addition to controlling whether to receive offline push notifications for that session,<br>it also controls whether the unread count of that session is included in the total unread count.
+GlobalRecvMsgOpt represents the global message receive option.
+
+In the globalRecvMsgOpt of UserInfo, globally control whether to receive offline push notifications.
+
+In the recvMsgOpt of a ConversationInfo, in addition to controlling whether to receive offline push notifications for that session,
+it also controls whether the unread count of that session is included in the total unread count.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | Normal | 0 | Normally receive messages |
 | NotReceive | 1 | Reserved field |
-| NotNotify | 2 | Receive messages, but no offline push. When in conversation, this conversation's unread count is not included in the total unread count |
+| NotNotify | 2 | Receive messages, but no offline push. When in conversation, this conversation&#39;s unread count is not included in the total unread count |
 
 
 
 <a name="openim-sdk-common-LogLevel"></a>
 
 ### LogLevel
-LogLevel represents the log level. debug -> info -> warn -> error -> fatal.<br>Default log level is LevelWarn or LevelDebug.
+LogLevel represents the log level. debug -&gt; info -&gt; warn -&gt; error -&gt; fatal.
+Default log level is LevelWarn or LevelDebug.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
@@ -250,7 +256,7 @@ LogLevel represents the log level. debug -> info -> warn -> error -> fatal.<br>D
 | Linux | 7 | Linux represents the Linux platform. |
 | AndroidPad | 8 | AndroidPad represents the Android tablet platform. |
 | iPad | 9 | iPad represents the Apple iPad platform. |
-| Admin | 10 | Admin represents the admin panel or management platform, typically used for backend administrators.<br>This platform is specifically for administrative filling and can generally be ignored. |
+| Admin | 10 | Admin represents the admin panel or management platform, typically used for backend administrators. This platform is specifically for administrative filling and can generally be ignored. |
 | HarmonyOS | 11 | HarmonyOS represents the Huawei HarmonyOS platform. |
 
 
