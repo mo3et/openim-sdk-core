@@ -19,13 +19,14 @@ package file
 import (
 	"bufio"
 	"context"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 	"io"
 	"os"
 )
 
 const readBufferSize = 1024 * 1024 * 5 // 5mb
 
-func Open(ctx context.Context, req *UploadFileReq) (ReadFile, error) {
+func Open(ctx context.Context, req *sdkpb.UploadFileReq) (ReadFile, error) {
 	file, err := os.Open(req.Filepath)
 	if err != nil {
 		return nil, err
