@@ -1,11 +1,14 @@
 syntax = "proto3";
 package openim.sdk.third;
 
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/third";
+option csharp_namespace = "OpenIM.Proto";
+option swift_prefix="";
+
 import "any.proto";
 import "common.proto";
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/third";
-option swift_prefix="";
+
 
 message UpdateFcmTokenReq {
   string fcmToken = 1; // fcm token
