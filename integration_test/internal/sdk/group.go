@@ -7,8 +7,8 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/vars"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
 	sdkUtils "github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/protocol/constant"
-	"github.com/openimsdk/protocol/group"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/group"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -17,7 +17,7 @@ import (
 
 // CreateCommonGroup create a regular group. Group members are the users with IDs
 // starting from the current user's ID up to the next memberNum users.
-func (s *TestSDK) CreateCommonGroup(ctx context.Context, memberNum int) (*sdkws.GroupInfo, error) {
+func (s *TestSDK) CreateCommonGroup(ctx context.Context, memberNum int) (*sharedpb.IMGroup, error) {
 	memberUserIds := utils.NextOffsetUserIDs(s.Num, memberNum-1) // 1 is oneself
 	resp, err := s.createGroup(ctx, memberUserIds, vars.CommonGroup)
 	if err != nil {
@@ -27,7 +27,7 @@ func (s *TestSDK) CreateCommonGroup(ctx context.Context, memberNum int) (*sdkws.
 }
 
 // CreateLargeGroup create a large group. Group members are all users.
-func (s *TestSDK) CreateLargeGroup(ctx context.Context) (*sdkws.GroupInfo, error) {
+func (s *TestSDK) CreateLargeGroup(ctx context.Context) (*sharedpb.IMGroup, error) {
 	memberUserIDs := datautil.Delete(utils.GenUserIDs(vars.LargeGroupMemberNum), utils.MustGetUserNum(s.UserID))
 	resp, err := s.createGroup(ctx, memberUserIDs, vars.LargeGroup)
 	if err != nil {
@@ -36,7 +36,7 @@ func (s *TestSDK) CreateLargeGroup(ctx context.Context) (*sdkws.GroupInfo, error
 	return resp, nil
 }
 
-func (s *TestSDK) createGroup(ctx context.Context, memberUserIds []string, groupType string) (*sdkws.GroupInfo, error) {
+func (s *TestSDK) createGroup(ctx context.Context, memberUserIds []string, groupType string) (*sharedpb.IMGroup, error) {
 	initialMembers := memberUserIds
 	if len(memberUserIds) > 1000 {
 		initialMembers = memberUserIds[:1000]
@@ -44,12 +44,10 @@ func (s *TestSDK) createGroup(ctx context.Context, memberUserIds []string, group
 
 	g, err := s.SDK.Group().CreateGroup(ctx, &group.CreateGroupReq{
 		MemberUserIDs: initialMembers,
-		GroupInfo: &sdkws.GroupInfo{
+		GroupInfo: &sharedpb.IMGroup{
 			GroupName: utils.BuildGroupName(s.UserID, groupType),
-			GroupType: constant.WorkingGroup,
 		},
 		AdminUserIDs: nil,
-		OwnerUserID:  s.UserID,
 	})
 	if err != nil {
 		return nil, err
@@ -64,7 +62,11 @@ func (s *TestSDK) createGroup(ctx context.Context, memberUserIds []string, group
 			t := time.Now()
 			ctx = ccontext.WithOperationID(ctx, sdkUtils.OperationIDGenerator())
 			log.ZWarn(ctx, "InviteUserToGroup begin", nil, "begin", i, "end", end, "groupID", g.GroupID)
-			err := s.SDK.Group().InviteUserToGroup(ctx, g.GroupID, "", memberUserIds[i:end])
+			_, err := s.SDK.Group().InviteUserToGroup(ctx, &group.InviteUserToGroupReq{
+				GroupID: g.GroupID,
+				Reason:  "",
+				UserIDs: memberUserIds[i:end],
+			})
 			if err != nil {
 				return nil, err
 			}

@@ -2,13 +2,14 @@ package sdk_user_simulator
 
 import (
 	"context"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"math/rand"
 
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/config"
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/vars"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
 )
@@ -16,57 +17,46 @@ import (
 type conversationCallBack struct {
 }
 
-func (c *conversationCallBack) OnSyncServerFailed(reinstalled bool) {
+func (c *conversationCallBack) OnSyncServerFailed(data *pb.EventOnSyncServerFailedData) {
 }
 
-func (c *conversationCallBack) OnNewConversation(conversationList string) {
+func (c *conversationCallBack) OnNewConversation(data *pb.EventOnNewConversationData) {
 }
 
-func (c *conversationCallBack) OnConversationChanged(conversationList string) {
+func (c *conversationCallBack) OnConversationChanged(data *pb.EventOnConversationChangedData) {
 }
 
-func (c *conversationCallBack) OnTotalUnreadMessageCountChanged(totalUnreadCount int32) {
+func (c *conversationCallBack) OnTotalUnreadMessageCountChanged(data *pb.EventOnTotalUnreadMessageCountChangedData) {
 }
 
-func (c *conversationCallBack) OnRecvMessageExtensionsChanged(msgID string, reactionExtensionList string) {
+func (c *conversationCallBack) OnSyncServerProgress(data *pb.EventOnSyncServerProgressData) {
 }
 
-func (c *conversationCallBack) OnRecvMessageExtensionsDeleted(msgID string, reactionExtensionKeyList string) {
+func (c *conversationCallBack) OnSyncServerStart(data *pb.EventOnSyncServerStartData) {
 }
 
-func (c *conversationCallBack) OnSyncServerProgress(progress int) {
+func (c *conversationCallBack) OnSyncServerFinish(data *pb.EventOnSyncServerFinishData) {
 }
 
-func (c *conversationCallBack) OnSyncServerStart(reinstalled bool) {
-
-}
-
-func (c *conversationCallBack) OnSyncServerFinish(reinstalled bool) {
-
-}
-
-func (c *conversationCallBack) OnConversationUserInputStatusChanged(change string) {
-
+func (c *conversationCallBack) OnConversationUserInputStatusChanged(data *pb.EventOnConversationUserInputStatusChangedData) {
 }
 
 type userCallback struct {
 }
 
-func (c userCallback) OnUserStatusChanged(statusMap string) {
-
+func (c userCallback) OnUserStatusChanged(data *pb.EventOnUserStatusChangedData) {
 }
 
-func (userCallback) OnSelfInfoUpdated(callbackData string) {
-
+func (userCallback) OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData) {
 }
-func (userCallback) OnUserCommandAdd(callbackData string) {
 
+func (userCallback) OnUserCommandAdd(data *pb.EventOnUserCommandAddData) {
 }
-func (userCallback) OnUserCommandUpdate(callbackData string) {
 
+func (userCallback) OnUserCommandUpdate(data *pb.EventOnUserCommandUpdateData) {
 }
-func (userCallback) OnUserCommandDelete(callbackData string) {
 
+func (userCallback) OnUserCommandDelete(data *pb.EventOnUserCommandDeleteData) {
 }
 
 type SingleMessage struct {
@@ -87,7 +77,7 @@ func NewMsgListenerCallBak(userID string) *MsgListenerCallBak {
 }
 
 func (m *MsgListenerCallBak) OnRecvNewMessage(message string) {
-	var sm sdk_struct.MsgStruct
+	var sm sharedpb.IMMessage
 	_ = utils.JsonStringToStruct(message, &sm)
 
 	if rand.Float64() < config.CheckMsgRate && sm.ContentType == constant.Text {
@@ -148,87 +138,67 @@ func (m *MsgListenerCallBak) OnRecvOnlineOnlyMessage(message string) {
 type testFriendshipListener struct {
 }
 
-func (testFriendshipListener) OnFriendApplicationAdded(callbackInfo string) {
-
-}
-func (testFriendshipListener) OnFriendApplicationDeleted(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendApplicationAdded(data *pb.EventOnFriendApplicationAddedData) {
 }
 
-func (testFriendshipListener) OnFriendApplicationAccepted(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendApplicationDeleted(data *pb.EventOnFriendApplicationDeletedData) {
 }
 
-func (testFriendshipListener) OnFriendApplicationRejected(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendApplicationAccepted(data *pb.EventOnFriendApplicationAcceptedData) {
 }
 
-func (testFriendshipListener) OnFriendAdded(callbackInfo string) {
+func (testFriendshipListener) OnFriendApplicationRejected(data *pb.EventOnFriendApplicationRejectedData) {
 }
 
-func (testFriendshipListener) OnFriendDeleted(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendAdded(data *pb.EventOnFriendAddedData) {
 }
 
-func (testFriendshipListener) OnBlackAdded(callbackInfo string) {
-
-}
-func (testFriendshipListener) OnBlackDeleted(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendDeleted(data *pb.EventOnFriendDeletedData) {
 }
 
-func (testFriendshipListener) OnFriendInfoChanged(callbackInfo string) {
-
+func (testFriendshipListener) OnBlackAdded(data *pb.EventOnBlackAddedData) {
 }
 
-func (testFriendshipListener) OnSuccess() {
-
+func (testFriendshipListener) OnBlackDeleted(data *pb.EventOnBlackDeletedData) {
 }
 
-func (testFriendshipListener) OnError(code int32, msg string) {
-
+func (testFriendshipListener) OnFriendInfoChanged(data *pb.EventOnFriendInfoChangedData) {
 }
 
 type testGroupListener struct {
 }
 
-func (testGroupListener) OnJoinedGroupAdded(callbackInfo string) {
-
-}
-func (testGroupListener) OnJoinedGroupDeleted(callbackInfo string) {
-
+func (testGroupListener) OnJoinedGroupAdded(data *pb.EventOnJoinedGroupAddedData) {
 }
 
-func (testGroupListener) OnGroupMemberAdded(callbackInfo string) {
-
-}
-func (testGroupListener) OnGroupMemberDeleted(callbackInfo string) {
-
+func (testGroupListener) OnJoinedGroupDeleted(data *pb.EventOnJoinedGroupDeletedData) {
 }
 
-func (testGroupListener) OnGroupApplicationAdded(callbackInfo string) {
-
-}
-func (testGroupListener) OnGroupApplicationDeleted(callbackInfo string) {
-
+func (testGroupListener) OnGroupMemberAdded(data *pb.EventOnGroupMemberAddedData) {
 }
 
-func (testGroupListener) OnGroupInfoChanged(callbackInfo string) {
-
-}
-func (testGroupListener) OnGroupMemberInfoChanged(callbackInfo string) {
-
+func (testGroupListener) OnGroupMemberDeleted(data *pb.EventOnGroupMemberDeletedData) {
 }
 
-func (testGroupListener) OnGroupApplicationAccepted(callbackInfo string) {
-
-}
-func (testGroupListener) OnGroupApplicationRejected(callbackInfo string) {
-
+func (testGroupListener) OnGroupApplicationAdded(data *pb.EventOnGroupApplicationAddedData) {
 }
 
-func (testGroupListener) OnGroupDismissed(callbackInfo string) {
+func (testGroupListener) OnGroupApplicationDeleted(data *pb.EventOnGroupApplicationDeletedData) {
+}
 
+func (testGroupListener) OnGroupInfoChanged(data *pb.EventOnGroupInfoChangedData) {
+}
+
+func (testGroupListener) OnGroupMemberInfoChanged(data *pb.EventOnGroupMemberInfoChangedData) {
+}
+
+func (testGroupListener) OnGroupApplicationAccepted(data *pb.EventOnGroupApplicationAcceptedData) {
+}
+
+func (testGroupListener) OnGroupApplicationRejected(data *pb.EventOnGroupApplicationRejectedData) {
+}
+
+func (testGroupListener) OnGroupDismissed(data *pb.EventOnGroupDismissedData) {
 }
 
 type testConnListener struct {

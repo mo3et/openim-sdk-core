@@ -3,6 +3,8 @@ package module
 import (
 	"context"
 	"fmt"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/utils/datautil"
 	"math/rand"
 	"os"
@@ -11,8 +13,6 @@ import (
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-	"github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/tools/log"
 )
 
@@ -23,7 +23,7 @@ var (
 	SECRET        = "openIM123"
 	MANAGERUSERID = "imAdmin"
 
-	PLATFORMID = constant.AndroidPlatformID
+	PLATFORMID = commonpb.Platform_Android
 	LogLevel   = uint32(5)
 )
 
@@ -204,7 +204,7 @@ func (p *PressureTester) InitUserConns(userIDs []string) {
 			log.ZError(context.Background(), "get token failed", err, "userID", userID, "platformID", PLATFORMID)
 			continue
 		}
-		user := NewUser(userID, token, p.timeOffset, p, sdk_struct.IMConfig{WsAddr: WSADDR, ApiAddr: APIADDR, PlatformID: int32(PLATFORMID)})
+		user := NewUser(userID, token, p.timeOffset, p, &initpb.IMConfig{WsAddr: WSADDR, ApiAddr: APIADDR, Platform: PLATFORMID})
 		p.msgSender[userID] = user
 
 	}

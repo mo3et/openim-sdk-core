@@ -13,12 +13,12 @@ import "C"
 
 import (
 	"fmt"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	"time"
 	"unsafe"
 
 	"google.golang.org/protobuf/proto"
 
-	pb "github.com/openimsdk/openim-sdk-core/v3/proto"
 	converationpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
 	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	ffipb "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
@@ -87,15 +87,14 @@ func main() {
 	// Marshal the request data
 	data, err := proto.Marshal(&initpb.InitSDKReq{
 		Config: &initpb.IMConfig{
-			SystemType:           "flutter",
-			PlatformID:           2,
-			ApiAddr:              "https://web.rentsoft.cn/api",
-			WsAddr:               "wss://web.rentsoft.cn/msg_gateway",
-			DataDir:              "./",
-			LogLevel:             5,
-			IsLogStandardOutput:  true,
-			LogFilePath:          "./",
-			IsExternalExtensions: false,
+			AppFramework:        commonpb.AppFramework(commonpb.AppFramework_value["flutter"]),
+			Platform:            2,
+			ApiAddr:             "https://web.rentsoft.cn/api",
+			WsAddr:              "wss://web.rentsoft.cn/msg_gateway",
+			DataDir:             "./",
+			LogLevel:            5,
+			IsLogStandardOutput: true,
+			LogFilePath:         "./",
 		},
 	})
 	if err != nil {
@@ -119,10 +118,10 @@ func main() {
 	ret := C.ffi_request(unsafe.Pointer(&ffiReq[0]), length)
 	fmt.Printf("ffi_request returned: %d\n", ret)
 
-	data, err = proto.Marshal(&pb.SetConnListenerReq{})
+	//data, err = proto.Marshal(&pb.SetConnListenerReq{})
 	req = ffipb.FfiRequest{
-		FuncName: eventpb.FuncRequestEventName_SetConnListener,
-		Data:     data,
+		//FuncName: eventpb.FuncRequestEventName_SetConnListener,
+		Data: data,
 	}
 	ffiReq, err = proto.Marshal(&req)
 	if err != nil {

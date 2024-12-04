@@ -2,10 +2,10 @@ package module
 
 import (
 	"fmt"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/msg"
 	"github.com/openimsdk/protocol/sdkws"
@@ -36,7 +36,7 @@ type SendMsg struct {
 
 func (a *ApiMsgSender) SendMsg(sendID, recvID string, index int) error {
 	content := fmt.Sprintf("this is test msg user %s to user %s, index: %d", sendID, recvID, index)
-	text := sdk_struct.TextElem{Content: content}
+	text := sharedpb.TextElem{Content: content}
 	req := &SendMsgReq{
 		RecvID: recvID,
 		SendMsg: SendMsg{

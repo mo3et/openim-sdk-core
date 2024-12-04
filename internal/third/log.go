@@ -124,11 +124,10 @@ func (t *Third) uploadSDKData(ctx context.Context, req *sdkpb.UploadSDKDataReq, 
 	reqLog := &third.UploadLogsReq{
 		Platform: int32(t.platform),
 		//Todo systemType change to appFramework
-		//AppFramework: pb.AppFramework_name[int32(t.appFramework)],
-		SystemType: pb.AppFramework_name[int32(t.appFramework)],
-		Version:    version.Version,
-		FileURLs:   []*third.FileURL{{Filename: zippath, URL: resp.Url}},
-		Ex:         req.Ex,
+		AppFramework: pb.AppFramework_name[int32(t.appFramework)],
+		Version:      version.Version,
+		FileURLs:     []*third.FileURL{{Filename: zippath, URL: resp.Url}},
+		Ex:           req.Ex,
 	}
 	return api.UploadLogs.Execute(ctx, reqLog)
 }

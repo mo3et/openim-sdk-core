@@ -2,9 +2,8 @@ package msgtest
 
 import (
 	"fmt"
-
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
-	"github.com/openimsdk/protocol/constant"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 )
 
 // config here
@@ -17,18 +16,17 @@ var (
 	SECRET        = "openIM123"
 	MANAGERUSERID = "openIMAdmin"
 
-	PLATFORMID = constant.WindowsPlatformID
-	LogLevel   = uint32(5)
+	PLATFORMID = commonpb.Platform_Android
+	LogLevel   = commonpb.LogLevel_LevelDebug
 )
 
-func GetConfig() *sdk_struct.IMConfig {
-	var cf sdk_struct.IMConfig
+func GetConfig() *initpb.IMConfig {
+	var cf initpb.IMConfig
 	cf.ApiAddr = APIADDR
-	cf.PlatformID = int32(PLATFORMID)
+	cf.Platform = PLATFORMID
 	cf.WsAddr = WSADDR
 	cf.DataDir = "./"
 	cf.LogLevel = LogLevel
-	cf.IsExternalExtensions = true
 	cf.IsLogStandardOutput = true
 	cf.LogFilePath = ""
 	return &cf

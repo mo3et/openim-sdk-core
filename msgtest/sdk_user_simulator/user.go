@@ -3,13 +3,13 @@ package sdk_user_simulator
 import (
 	"context"
 	"fmt"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/version"
-	"github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/tools/log"
 )
 
@@ -23,8 +23,8 @@ var (
 	APIADDR    = fmt.Sprintf("http://%v:10002", TESTIP)
 	WSADDR     = fmt.Sprintf("ws://%v:10001", TESTIP)
 	SECRET     = "openIM123"
-	PLATFORMID = constant.WindowsPlatformID
-	LogLevel   = uint32(5)
+	PLATFORMID = commonpb.Platform_Windows
+	LogLevel   = commonpb.LogLevel_LevelDebug
 )
 
 func SetServerTimeOffset(offset int64) {
@@ -36,23 +36,24 @@ func GetRelativeServerTime() int64 {
 
 func InitSDKAndLogin(userID, token string) error {
 	userForSDK := open_im_sdk.NewIMUserContext()
-	var cf sdk_struct.IMConfig
+	var cf *initpb.IMConfig
 	cf.ApiAddr = APIADDR
-	cf.PlatformID = int32(PLATFORMID)
+	cf.Platform = PLATFORMID
 	cf.WsAddr = WSADDR
 	cf.DataDir = "./"
 	cf.LogLevel = LogLevel
-	cf.IsExternalExtensions = true
 	cf.IsLogStandardOutput = true
 	cf.LogFilePath = ""
-	var testConnListener testConnListener
-	userForSDK.InitSDK(cf, &testConnListener)
-	if err := log.InitLoggerFromConfig(userID+"_open-im-sdk-core", "", cf.SystemType, constant.PlatformID2Name[int(cf.PlatformID)], int(LogLevel), true, false, cf.DataDir, 0, 24, version.Version, false); err != nil {
+	_, _ = userForSDK.InitSDK(context.TODO(), &initpb.InitSDKReq{Config: cf})
+	if err := log.InitLoggerFromConfig(userID+"_open-im-sdk-core", "", commonpb.AppFramework_name[int32(cf.AppFramework)], commonpb.Platform_name[int32(cf.Platform)], int(LogLevel), true, false, cf.DataDir, 0, 24, version.Version, false); err != nil {
 		return err
 	}
 	ctx := ccontext.WithOperationID(userForSDK.Context(), utils.OperationIDGenerator())
 	SetListener(userForSDK, userID)
-	err := userForSDK.Login(ctx, userID, token)
+	_, err := userForSDK.Login(ctx, &initpb.LoginReq{
+		UserID: userID,
+		Token:  token,
+	})
 	if err != nil {
 		return err
 	}
@@ -69,9 +70,8 @@ func SetListener(userForSDK *open_im_sdk.UserContext, userID string) {
 
 	msgCallBack := NewMsgListenerCallBak(userID)
 	UserMessageMap[userID] = msgCallBack
-	userForSDK.SetAdvancedMsgListener(msgCallBack)
 
-	var friendListener testFriendListener
+	var friendListener testFriendshipListener
 	userForSDK.SetFriendshipListener(friendListener)
 
 	var groupListener testGroupListener

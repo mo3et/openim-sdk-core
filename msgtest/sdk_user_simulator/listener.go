@@ -1,65 +1,55 @@
 package sdk_user_simulator
 
 import (
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
+	"context"
+	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	"github.com/openimsdk/tools/errs"
+	"github.com/openimsdk/tools/log"
 )
 
 type conversationCallBack struct {
 }
 
-func (c *conversationCallBack) OnSyncServerFailed(reinstalled bool) {
+func (c *conversationCallBack) OnSyncServerFailed(data *pb.EventOnSyncServerFailedData) {
 }
 
-func (c *conversationCallBack) OnNewConversation(conversationList string) {
+func (c *conversationCallBack) OnNewConversation(data *pb.EventOnNewConversationData) {
 }
 
-func (c *conversationCallBack) OnConversationChanged(conversationList string) {
+func (c *conversationCallBack) OnConversationChanged(data *pb.EventOnConversationChangedData) {
 }
 
-func (c *conversationCallBack) OnTotalUnreadMessageCountChanged(totalUnreadCount int32) {
+func (c *conversationCallBack) OnTotalUnreadMessageCountChanged(data *pb.EventOnTotalUnreadMessageCountChangedData) {
 }
 
-func (c *conversationCallBack) OnRecvMessageExtensionsChanged(msgID string, reactionExtensionList string) {
+func (c *conversationCallBack) OnSyncServerProgress(data *pb.EventOnSyncServerProgressData) {
 }
 
-func (c *conversationCallBack) OnRecvMessageExtensionsDeleted(msgID string, reactionExtensionKeyList string) {
+func (c *conversationCallBack) OnSyncServerStart(data *pb.EventOnSyncServerStartData) {
 }
 
-func (c *conversationCallBack) OnSyncServerProgress(progress int) {
+func (c *conversationCallBack) OnSyncServerFinish(data *pb.EventOnSyncServerFinishData) {
 }
 
-func (c *conversationCallBack) OnSyncServerStart(reinstalled bool) {
-
-}
-
-func (c *conversationCallBack) OnSyncServerFinish(reinstalled bool) {
-
-}
-
-func (c *conversationCallBack) OnConversationUserInputStatusChanged(change string) {
-
+func (c *conversationCallBack) OnConversationUserInputStatusChanged(data *pb.EventOnConversationUserInputStatusChangedData) {
 }
 
 type userCallback struct {
 }
 
-func (c userCallback) OnUserStatusChanged(statusMap string) {
-
+func (c userCallback) OnUserStatusChanged(data *pb.EventOnUserStatusChangedData) {
 }
 
-func (userCallback) OnSelfInfoUpdated(callbackData string) {
-
+func (userCallback) OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData) {
 }
-func (userCallback) OnUserCommandAdd(callbackData string) {
 
+func (userCallback) OnUserCommandAdd(data *pb.EventOnUserCommandAddData) {
 }
-func (userCallback) OnUserCommandUpdate(callbackData string) {
 
+func (userCallback) OnUserCommandUpdate(data *pb.EventOnUserCommandUpdateData) {
 }
-func (userCallback) OnUserCommandDelete(callbackData string) {
 
+func (userCallback) OnUserCommandDelete(data *pb.EventOnUserCommandDeleteData) {
 }
 
 type SingleMessage struct {
@@ -80,17 +70,9 @@ func NewMsgListenerCallBak(userID string) *MsgListenerCallBak {
 }
 
 func (m *MsgListenerCallBak) OnRecvNewMessage(message string) {
-	var sm sdk_struct.MsgStruct
-	utils.JsonStringToStruct(message, &sm)
-	switch sm.SessionType {
-	case constant.SingleChatType:
-		m.SingleDelay[sm.SendID] =
-			append(m.SingleDelay[sm.SendID], &SingleMessage{SendID: sm.SendID, ClientMsgID: sm.ClientMsgID, Delay: GetRelativeServerTime() - sm.SendTime})
-	case constant.ReadGroupChatType:
-		m.GroupDelay[sm.GroupID] =
-			append(m.GroupDelay[sm.GroupID], &SingleMessage{SendID: sm.SendID, ClientMsgID: sm.ClientMsgID, Delay: GetRelativeServerTime() - sm.SendTime})
-	default:
-	}
+}
+
+func (m *MsgListenerCallBak) OnMsgEdited(message string) {
 
 }
 
@@ -98,7 +80,6 @@ func (m *MsgListenerCallBak) OnRecvC2CReadReceipt(msgReceiptList string) {
 }
 
 func (m *MsgListenerCallBak) OnMsgDeleted(s string) {}
-func (m *MsgListenerCallBak) OnMsgEdited(s string)  {}
 
 func (m *MsgListenerCallBak) OnRecvOfflineNewMessage(message string) {
 }
@@ -122,114 +103,96 @@ func (m *MsgListenerCallBak) OnRecvOnlineOnlyMessage(message string) {
 
 }
 
-type testFriendListener struct {
+type testFriendshipListener struct {
 }
 
-func (testFriendListener) OnFriendApplicationAdded(callbackInfo string) {
-
-}
-func (testFriendListener) OnFriendApplicationDeleted(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendApplicationAdded(data *pb.EventOnFriendApplicationAddedData) {
 }
 
-func (testFriendListener) OnFriendApplicationAccepted(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendApplicationDeleted(data *pb.EventOnFriendApplicationDeletedData) {
 }
 
-func (testFriendListener) OnFriendApplicationRejected(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendApplicationAccepted(data *pb.EventOnFriendApplicationAcceptedData) {
 }
 
-func (testFriendListener) OnFriendAdded(callbackInfo string) {
+func (testFriendshipListener) OnFriendApplicationRejected(data *pb.EventOnFriendApplicationRejectedData) {
 }
 
-func (testFriendListener) OnFriendDeleted(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendAdded(data *pb.EventOnFriendAddedData) {
 }
 
-func (testFriendListener) OnBlackAdded(callbackInfo string) {
-
-}
-func (testFriendListener) OnBlackDeleted(callbackInfo string) {
-
+func (testFriendshipListener) OnFriendDeleted(data *pb.EventOnFriendDeletedData) {
 }
 
-func (testFriendListener) OnFriendInfoChanged(callbackInfo string) {
-
+func (testFriendshipListener) OnBlackAdded(data *pb.EventOnBlackAddedData) {
 }
 
-func (testFriendListener) OnSuccess() {
-
+func (testFriendshipListener) OnBlackDeleted(data *pb.EventOnBlackDeletedData) {
 }
 
-func (testFriendListener) OnError(code int32, msg string) {
-
+func (testFriendshipListener) OnFriendInfoChanged(data *pb.EventOnFriendInfoChangedData) {
 }
 
 type testGroupListener struct {
 }
 
-func (testGroupListener) OnJoinedGroupAdded(callbackInfo string) {
-
-}
-func (testGroupListener) OnJoinedGroupDeleted(callbackInfo string) {
-
+func (testGroupListener) OnJoinedGroupAdded(data *pb.EventOnJoinedGroupAddedData) {
 }
 
-func (testGroupListener) OnGroupMemberAdded(callbackInfo string) {
-
-}
-func (testGroupListener) OnGroupMemberDeleted(callbackInfo string) {
-
+func (testGroupListener) OnJoinedGroupDeleted(data *pb.EventOnJoinedGroupDeletedData) {
 }
 
-func (testGroupListener) OnGroupApplicationAdded(callbackInfo string) {
-
-}
-func (testGroupListener) OnGroupApplicationDeleted(callbackInfo string) {
-
+func (testGroupListener) OnGroupMemberAdded(data *pb.EventOnGroupMemberAddedData) {
 }
 
-func (testGroupListener) OnGroupInfoChanged(callbackInfo string) {
-
-}
-func (testGroupListener) OnGroupMemberInfoChanged(callbackInfo string) {
-
+func (testGroupListener) OnGroupMemberDeleted(data *pb.EventOnGroupMemberDeletedData) {
 }
 
-func (testGroupListener) OnGroupApplicationAccepted(callbackInfo string) {
-
-}
-func (testGroupListener) OnGroupApplicationRejected(callbackInfo string) {
-
+func (testGroupListener) OnGroupApplicationAdded(data *pb.EventOnGroupApplicationAddedData) {
 }
 
-func (testGroupListener) OnGroupDismissed(callbackInfo string) {
+func (testGroupListener) OnGroupApplicationDeleted(data *pb.EventOnGroupApplicationDeletedData) {
+}
 
+func (testGroupListener) OnGroupInfoChanged(data *pb.EventOnGroupInfoChangedData) {
+}
+
+func (testGroupListener) OnGroupMemberInfoChanged(data *pb.EventOnGroupMemberInfoChangedData) {
+}
+
+func (testGroupListener) OnGroupApplicationAccepted(data *pb.EventOnGroupApplicationAcceptedData) {
+}
+
+func (testGroupListener) OnGroupApplicationRejected(data *pb.EventOnGroupApplicationRejectedData) {
+}
+
+func (testGroupListener) OnGroupDismissed(data *pb.EventOnGroupDismissedData) {
 }
 
 type testConnListener struct {
+	UserID string
 }
 
-func (t *testConnListener) OnUserTokenInvalid(errMsg string) {}
+func (t *testConnListener) OnUserTokenInvalid(errMsg string) {
+	log.ZError(context.TODO(), "user token invalid", errs.New("user token invalid").Wrap(), "userID", t.UserID)
+}
 
 func (t *testConnListener) OnUserTokenExpired() {
-
+	log.ZError(context.TODO(), "user token expired", errs.New("user token expired").Wrap(), "userID", t.UserID)
 }
 func (t *testConnListener) OnConnecting() {
 
 }
 
 func (t *testConnListener) OnConnectSuccess() {
-
 }
 
 func (t *testConnListener) OnConnectFailed(ErrCode int32, ErrMsg string) {
-
+	log.ZError(context.TODO(), "connect failed", errs.NewCodeError(int(ErrCode), ErrMsg), "userID", t.UserID)
 }
 
 func (t *testConnListener) OnKickedOffline() {
-
+	log.ZError(context.TODO(), "kicked offline", errs.New("kicked offline").Wrap(), "userID", t.UserID)
 }
 
 func (t *testConnListener) OnSelfInfoUpdated(info string) {

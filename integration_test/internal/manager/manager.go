@@ -2,19 +2,20 @@ package manager
 
 import (
 	"context"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/config"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/api"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/network"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	authPB "github.com/openimsdk/protocol/auth"
 	"github.com/openimsdk/tools/mcontext"
 )
 
 type MetaManager struct {
-	sdk_struct.IMConfig
+	*initpb.IMConfig
 	secret string
 	token  string
 }
@@ -56,7 +57,7 @@ func (m *MetaManager) GetSecret() string {
 	return m.secret
 }
 
-func (m *MetaManager) GetAdminToken(userID string, platformID int32) (string, error) {
+func (m *MetaManager) GetAdminToken(userID string, platformID commonpb.Platform) (string, error) {
 	req := authPB.GetAdminTokenReq{UserID: userID, Secret: m.secret}
 	resp := authPB.GetAdminTokenResp{}
 	err := m.PostWithCtx(api.GetAdminToken.Route(), &req, &resp)

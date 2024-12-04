@@ -3,6 +3,7 @@ package manager
 import (
 	"context"
 	"fmt"
+	msgpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/config"
@@ -66,15 +67,16 @@ func (m *TestMsgManager) sendSingleMessages(ctx context.Context, gr *reerrgroup.
 			for _, friend := range friends {
 				if friend != nil {
 					for i := 0; i < vars.SingleMessageNum; i++ {
-						msg, err := testSDK.SDK.Conversation().CreateTextMessage(ctx,
-							fmt.Sprintf("count %d:my userID is %s", i, testSDK.UserID))
+						msg, err := testSDK.SDK.Conversation().CreateTextMessage(ctx, &msgpb.CreateTextMessageReq{
+							Text: fmt.Sprintf("count %d:my userID is %s", i, testSDK.UserID),
+						})
 						if err != nil {
 							return err
 						}
 						ctx = ccontext.WithOperationID(ctx, sdkUtils.OperationIDGenerator())
 						t := time.Now()
 						log.ZWarn(ctx, "sendSingleMessages begin", nil)
-						_, err = testSDK.SendSingleMsg(ctx, msg, friend.FriendUserID)
+						_, err = testSDK.SendSingleMsg(ctx, msg.Message, friend.FriendUserID)
 						if err != nil {
 							return err
 						}
@@ -122,8 +124,9 @@ func (m *TestMsgManager) sendGroupMessages(ctx context.Context, gr *reerrgroup.G
 			for _, group := range sendGroups {
 				group := group
 				for i := 0; i < vars.GroupMessageNum; i++ {
-					msg, err := testSDK.SDK.Conversation().CreateTextMessage(ctx,
-						fmt.Sprintf("count %d:my userID is %s", i, testSDK.UserID))
+					msg, err := testSDK.SDK.Conversation().CreateTextMessage(ctx, &msgpb.CreateTextMessageReq{
+						Text: fmt.Sprintf("count %d:my userID is %s", i, testSDK.UserID),
+					})
 					if err != nil {
 						return err
 					}
@@ -131,7 +134,7 @@ func (m *TestMsgManager) sendGroupMessages(ctx context.Context, gr *reerrgroup.G
 					ctx = ccontext.WithOperationID(ctx, sdkUtils.OperationIDGenerator())
 					t := time.Now()
 					log.ZWarn(ctx, "sendGroupMessages begin", nil)
-					_, err = testSDK.SendGroupMsg(ctx, msg, group)
+					_, err = testSDK.SendGroupMsg(ctx, msg.Message, group)
 					if err != nil {
 						return err
 					}

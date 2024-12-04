@@ -3,6 +3,9 @@ package module
 import (
 	"context"
 	"fmt"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
+	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
 	"sync"
 
@@ -14,7 +17,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
-	"github.com/openimsdk/openim-sdk-core/v3/sdk_struct"
 	pbconstant "github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
@@ -111,25 +113,25 @@ func WithRecvPushMsgCallback(callback func(msg *sdkws.MsgData)) func(core *SendM
 	}
 }
 
-func newIMconfig(platformID int32, apiAddr, wsAddr string) sdk_struct.IMConfig {
-	return sdk_struct.IMConfig{
-		PlatformID: platformID,
-		ApiAddr:    apiAddr,
-		WsAddr:     wsAddr,
+func newIMconfig(platformID commonpb.Platform, apiAddr, wsAddr string) *initpb.IMConfig {
+	return &initpb.IMConfig{
+		Platform: platformID,
+		ApiAddr:  apiAddr,
+		WsAddr:   wsAddr,
 	}
 }
 
-func newUserCtx(userID, token string, imConfig sdk_struct.IMConfig) context.Context {
+func newUserCtx(userID, token string, imConfig *initpb.IMConfig) context.Context {
 	return ccontext.WithInfo(context.Background(), &ccontext.GlobalConfig{
 		UserID:   userID,
 		Token:    token,
 		IMConfig: imConfig})
 }
 
-func NewUser(userID, token string, timeOffset int64, p *PressureTester, imConfig sdk_struct.IMConfig, opts ...func(core *SendMsgUser)) *SendMsgUser {
+func NewUser(userID, token string, timeOffset int64, p *PressureTester, imConfig *initpb.IMConfig, opts ...func(core *SendMsgUser)) *SendMsgUser {
 	pushMsgAndMaxSeqCh := make(chan common.Cmd2Value, 1000)
 	ctx := newUserCtx(userID, token, imConfig)
-	longConnMgr := interaction.NewLongConnMgr(ctx, &ConnListener{}, func(m map[string][]int32) {}, pushMsgAndMaxSeqCh, nil)
+	longConnMgr := interaction.NewLongConnMgr(ctx, func(m map[string][]int32) {}, pushMsgAndMaxSeqCh, nil)
 	core := &SendMsgUser{
 		pushMsgAndMaxSeqCh:      pushMsgAndMaxSeqCh,
 		longConnMgr:             longConnMgr,
@@ -204,7 +206,7 @@ func (b *SendMsgUser) BatchSendGroupMsg(ctx context.Context, groupID string, ind
 
 func (b *SendMsgUser) sendMsg(ctx context.Context, userID, groupID string, index int, sessionType int32, content string) error {
 	var resp sdkws.UserSendMsgResp
-	text := sdk_struct.TextElem{Content: content}
+	text := sharedpb.TextElem{Content: content}
 	clientMsgID := utils.GetMsgID(b.userID)
 	msg := &sdkws.MsgData{
 		SendID:           b.userID,

@@ -2,6 +2,7 @@ package manager
 
 import (
 	"context"
+	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/config"
@@ -134,12 +135,15 @@ func (t *TestUserManager) login(ctx context.Context, userIDs ...string) error {
 	for _, userID := range userIDs {
 		userID := userID
 		gr.Go(func() error {
-			token, err := t.GetUserToken(userID, config.PlatformID)
+			token, err := t.GetUserToken(userID, int32(config.PlatformID))
 			if err != nil {
 				return err
 			}
 			userNum := utils.MustGetUserNum(userID)
-			err = sdk.TestSDKs[userNum].SDK.Login(vars.Contexts[userNum], userID, token)
+			_, err = sdk.TestSDKs[userNum].SDK.Login(vars.Contexts[userNum], &initpb.LoginReq{
+				UserID: userID,
+				Token:  token,
+			})
 			if err != nil {
 				return err
 			}

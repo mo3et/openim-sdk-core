@@ -2,16 +2,15 @@ package sdk
 
 import (
 	"context"
-
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/relation"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 )
 
-func (s *TestSDK) GetAllFriends(ctx context.Context) ([]*model_struct.LocalFriend, error) {
-	res, err := s.SDK.Relation().GetFriendList(ctx, false)
+func (s *TestSDK) GetAllFriends(ctx context.Context) ([]*shared.IMFriend, error) {
+	res, err := s.SDK.Relation().GetFriends(ctx, &relation.GetFriendsReq{FilterBlack: false})
 	if err != nil {
 		return nil, err
 	}
 
-	return res, nil
-
+	return res.Friends, nil
 }
