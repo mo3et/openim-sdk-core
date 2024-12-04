@@ -37,7 +37,7 @@ const (
 	checkTimePeriod = time.Minute * 1
 )
 
-func Initialize() {
+func init() {
 	base.SetDispatchFfiResultFunc(dispatchResultForC)
 	go monitorResultMapSize()
 }

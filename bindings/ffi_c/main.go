@@ -21,5 +21,4 @@ void InvokeCallBack(CallBack cb,char* dataPtr,int len){
 import "C"
 
 func main() {
-	Initialize()
 }
