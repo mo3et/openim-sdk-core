@@ -209,3 +209,10 @@ enum LogLevel {
   LevelDebug = 5; // print all level log
   LevelDebugWithSQL = 6; // print all level log and sql log
 }
+
+// UploadSDKDataMode represents the mode of upload sdk data.
+enum UploadSDKDataMode{
+  AllUpload = 0; // upload db and logs
+  UploadLogs = 1; // only upload logs
+  UploadDB = 2; // only upload db
+}

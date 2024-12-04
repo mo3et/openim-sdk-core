@@ -20,7 +20,7 @@ package test
 //
 //func Test_UploadLog(t *testing.T) {
 //	tm := time.Now()
-//	_, err := open_im_sdk.IMUserContext.Third().UploadLogs(ctx, &sdkpb.UploadLogsReq{
+//	_, err := open_im_sdk.IMUserContext.Third().UploadSDKData(ctx, &sdkpb.UploadLogsReq{
 //		Line: 2000,
 //		Ex:   "it is ex",
 //	}, nil)

@@ -90,7 +90,7 @@ var FuncMap = map[pb.FuncRequestEventName]callFunc{
 	pb.FuncRequestEventName_Version:                wrapFunc(open_im_sdk.IMUserContext.Version),
 
 	pb.FuncRequestEventName_SendMessage: wrapFuncWithCallback(open_im_sdk.IMUserContext.Conversation().SendMessage),
-	pb.FuncRequestEventName_UploadLogs:  wrapFuncWithCallback(open_im_sdk.IMUserContext.Third().UploadLogs),
+	pb.FuncRequestEventName_UploadLogs:  wrapFuncWithCallback(open_im_sdk.IMUserContext.Third().UploadSDKData),
 	pb.FuncRequestEventName_UploadFile:  wrapFuncWithCallback(open_im_sdk.IMUserContext.Third().UploadFile),
 
 	pb.FuncRequestEventName_Log:            wrapFunc(open_im_sdk.IMUserContext.Third().Log),

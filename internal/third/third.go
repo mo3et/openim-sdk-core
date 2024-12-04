@@ -26,6 +26,7 @@ type Third struct {
 	loginUserID   string
 	appFramework  pb.AppFramework
 	LogFilePath   string
+	DBPath        string
 	fileUploader  *file.File
 	logUploadLock sync.Mutex
 }
@@ -44,6 +45,10 @@ func (t *Third) SetAppFramework(appFramework pb.AppFramework) {
 
 func (t *Third) SetLogFilePath(LogFilePath string) {
 	t.LogFilePath = LogFilePath
+}
+
+func (t *Third) SetDBPath(dbPath string) {
+	t.DBPath = dbPath
 }
 
 func NewThird(fileUploader *file.File) *Third {

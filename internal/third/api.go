@@ -29,12 +29,12 @@ func (t *Third) SetAppBadge(ctx context.Context, req *sdkpb.SetAppBadgeReq) (*sd
 	return &sdkpb.SetAppBadgeResp{}, nil
 }
 
-func (t *Third) UploadLogs(ctx context.Context, req *sdkpb.UploadLogsReq, callback open_im_sdk_callback.UploadLogsCallback) (*sdkpb.UploadLogsResp, error) {
-	err := t.uploadLogs(ctx, int(req.Line), req.Ex, callback)
+func (t *Third) UploadSDKData(ctx context.Context, req *sdkpb.UploadSDKDataReq, callback open_im_sdk_callback.UploadLogsCallback) (*sdkpb.UploadSDKDataResp, error) {
+	err := t.uploadSDKData(ctx, req, callback)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.UploadLogsResp{}, nil
+	return &sdkpb.UploadSDKDataResp{}, nil
 }
 
 func (t *Third) Log(ctx context.Context, req *sdkpb.LogReq) (*sdkpb.LogResp, error) {

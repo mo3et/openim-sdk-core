@@ -22,6 +22,7 @@ message IMConfig {
   openim.sdk.common.LogLevel logLevel = 6;
   bool isLogStandardOutput = 7;
   string logFilePath = 8;
+  string dbPath = 9;
 }
 
 message InitSDKReq {

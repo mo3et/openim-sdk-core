@@ -29,13 +29,13 @@ const (
 	buffer = 10 * 1024 * 1024
 )
 
-func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress open_im_sdk_callback.UploadLogsCallback) (err error) {
+func (t *Third) uploadSDKData(ctx context.Context, req *sdkpb.UploadSDKDataReq, progress open_im_sdk_callback.UploadLogsCallback) (err error) {
 	if t.logUploadLock.TryLock() {
 		defer t.logUploadLock.Unlock()
 	} else {
 		return errs.New("log file is uploading").Wrap()
 	}
-	if line < 0 {
+	if req.Line < 0 {
 		return errs.New("line is illegal").Wrap()
 	}
 
@@ -45,7 +45,7 @@ func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress op
 		return err
 	}
 	files := make([]string, 0, len(entrys))
-	switch line {
+	switch req.Line {
 	case 0:
 		// all logs
 		for _, entry := range entrys {
@@ -83,7 +83,7 @@ func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress op
 		if len(files) == 0 {
 			return errs.New("not found log file").Wrap()
 		}
-		lines, err := readLastNLines(files[0], line)
+		lines, err := readLastNLines(files[0], int(req.Line))
 		if err != nil {
 			return err
 		}
@@ -123,7 +123,7 @@ func (t *Third) uploadLogs(ctx context.Context, line int, ex string, progress op
 		SystemType: pb.AppFramework_name[int32(t.appFramework)],
 		Version:    version.Version,
 		FileURLs:   []*third.FileURL{{Filename: zippath, URL: resp.Url}},
-		Ex:         ex,
+		Ex:         req.Ex,
 	}
 	return api.UploadLogs.Execute(ctx, reqLog)
 }

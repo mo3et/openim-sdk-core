@@ -301,6 +301,7 @@ func (u *UserContext) initialize(ctx context.Context, userID string) error {
 	u.third.SetLoginUserID(userID)
 	u.third.SetAppFramework(u.info.AppFramework)
 	u.third.SetLogFilePath(u.info.LogFilePath)
+	u.third.SetDBPath(u.info.LogFilePath)
 	u.msgSyncer.SetLoginUserID(userID)
 	u.msgSyncer.SetDataBase(u.db)
 	u.conversation.SetLoginUserID(userID)
