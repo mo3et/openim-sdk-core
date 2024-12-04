@@ -1,15 +1,26 @@
 package test
 
-//func Test_UploadLog(t *testing.T) {
-//	tm := time.Now()
-//	_, err := open_im_sdk.IMUserContext.Third().UploadSDKData(ctx, &third.UploadLogsReq{
-//		Line: 2000,
-//		Ex:   "it is ex",
-//	}, nil)
-//	if err != nil {
-//		t.Error(err)
-//	}
-//	fmt.Println(time.Since(tm).Microseconds())
+import (
+	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
+	"testing"
+	"time"
+)
+
+func Test_UploadLog(t *testing.T) {
+	tm := time.Now()
+	_, err := open_im_sdk.IMUserContext.Third().UploadSDKData(ctx, &third.UploadSDKDataReq{
+		Line: 2000,
+		Ex:   "ex",
+		Mode: commonpb.UploadSDKDataMode_UploadDB | commonpb.UploadSDKDataMode_UploadLogs,
+	}, nil)
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(time.Since(tm).Microseconds())
+}
 
 //}
 //func Test_SDKLogs(t *testing.T) {

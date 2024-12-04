@@ -215,7 +215,7 @@ enum LogLevel {
 // If multiple modes are needed, their values should be ModeA | ModeB
 // e.g. UploadLogsAndDB = UploadLogs | UploadDB
 enum UploadSDKDataMode{
-  InvalidUploadSDKDataMode = 0;  // invalid mode. Because the first enum value must be 0 in proto3, this field is required.
+  UploadSDKDataMode_ = 0;  // invalid mode. Because the first enum value must be 0 in proto3, this field is required.
   UploadLogs = 1; // only upload logs
   UploadDB = 2; // only upload db
   UploadLogsAndDB = 3; // upload db and logs
