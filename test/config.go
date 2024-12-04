@@ -1,6 +1,8 @@
 package test
 
-import "github.com/openimsdk/protocol/constant"
+import (
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+)
 
 const (
 	APIADDR = "http://127.0.0.1:10002"
@@ -17,7 +19,7 @@ const (
 //)
 
 const (
-	PlatformID  = constant.LinuxPlatformID
+	PlatformID  = commonpb.Platform_Linux
 	Secret      = "openIM123"
 	AdminUserID = "imAdmin"
 )

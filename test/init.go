@@ -3,6 +3,7 @@ package test
 import (
 	"context"
 	"fmt"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	"github.com/openimsdk/tools/log"
 	"math/rand"
 	"strconv"
@@ -75,7 +76,7 @@ func getConf(APIADDR, WSADDR string) *sdkpb.IMConfig {
 	return &cf
 }
 
-func GetUserToken(ctx context.Context, userID string, platformID int32, secret string, imConf *sdkpb.IMConfig) (string, error) {
+func GetUserToken(ctx context.Context, userID string, platformID commonpb.Platform, secret string, imConf *sdkpb.IMConfig) (string, error) {
 	adminReq := &auth.GetAdminTokenReq{
 		UserID: AdminUserID,
 		Secret: secret,
@@ -86,7 +87,7 @@ func GetUserToken(ctx context.Context, userID string, platformID int32, secret s
 	}
 	userReq := &auth.GetUserTokenReq{
 		UserID:     userID,
-		PlatformID: platformID,
+		PlatformID: int32(platformID),
 	}
 	ctx = ccontext.WithInfo(ctx, &ccontext.GlobalConfig{
 		UserID:   userID,
