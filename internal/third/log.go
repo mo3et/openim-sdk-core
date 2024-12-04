@@ -38,72 +38,77 @@ func (t *Third) uploadSDKData(ctx context.Context, req *sdkpb.UploadSDKDataReq, 
 	if req.Line < 0 {
 		return errs.New("line is illegal").Wrap()
 	}
-
-	logFilePath := t.LogFilePath
-	entrys, err := os.ReadDir(logFilePath)
-	if err != nil {
-		return err
-	}
-	files := make([]string, 0, len(entrys))
-	switch req.Line {
-	case 0:
-		// all logs
-		for _, entry := range entrys {
-			if (!entry.IsDir()) && (!strings.HasSuffix(entry.Name(), ".zip")) && checkLogPath(entry.Name()) {
-				files = append(files, filepath.Join(logFilePath, entry.Name()))
-			}
-		}
-		if len(files) == 0 {
-			return errs.New("not found log file").Wrap()
-		}
-		defer func() {
-			if err == nil {
-				// remove old file
-				for _, f := range files[:len(files)-1] {
-					if err := os.Remove(f); err != nil {
-						log.ZError(ctx, "remove file failed", err, "file name", f)
-					}
-				}
-				// truncate now log file
-				f, err := os.OpenFile(files[len(files)-1], os.O_WRONLY|os.O_TRUNC, 0644)
-				if err != nil {
-					log.ZError(ctx, "remove file failed", err, "file name", f)
-				}
-				_ = f.Close()
-			}
-		}()
-	default:
-		for i := len(entrys) - 1; i >= 0; i-- {
-			// get newest log file
-			if (!entrys[i].IsDir()) && (!strings.HasSuffix(entrys[i].Name(), ".zip")) && checkLogPath(entrys[i].Name()) {
-				files = append(files, filepath.Join(logFilePath, entrys[i].Name()))
-				break
-			}
-		}
-		if len(files) == 0 {
-			return errs.New("not found log file").Wrap()
-		}
-		lines, err := readLastNLines(files[0], int(req.Line))
+	files := make([]string, 0)
+	if req.Mode&pb.UploadSDKDataMode_UploadLogs == pb.UploadSDKDataMode_UploadLogs {
+		logFilePath := t.LogFilePath
+		entrys, err := os.ReadDir(logFilePath)
 		if err != nil {
 			return err
 		}
-		data := strings.Join(lines, "\n")
-
-		// create tmp file
-		filename := fmt.Sprintf("%s_temp%s", strings.TrimSuffix(filepath.Base(files[0]), filepath.Ext(files[0])), filepath.Ext(files[0]))
-		files[0] = filepath.Join(logFilePath, filename)
-		err = os.WriteFile(files[0], []byte(data), 0644)
-		if err != nil {
-			return errs.Wrap(err)
-		}
-		defer func() {
-			if err := os.Remove(files[0]); err != nil {
-				log.ZError(ctx, "remove file failed", err, "file name", files[0])
+		switch req.Line {
+		case 0:
+			// all logs
+			for _, entry := range entrys {
+				if (!entry.IsDir()) && (!strings.HasSuffix(entry.Name(), ".zip")) && checkLogPath(entry.Name()) {
+					files = append(files, filepath.Join(logFilePath, entry.Name()))
+				}
 			}
-		}()
+			if len(files) == 0 {
+				return errs.New("not found log file").Wrap()
+			}
+			defer func() {
+				if err == nil {
+					// remove old file
+					for _, f := range files[:len(files)-1] {
+						if err := os.Remove(f); err != nil {
+							log.ZError(ctx, "remove file failed", err, "file name", f)
+						}
+					}
+					// truncate now log file
+					f, err := os.OpenFile(files[len(files)-1], os.O_WRONLY|os.O_TRUNC, 0644)
+					if err != nil {
+						log.ZError(ctx, "remove file failed", err, "file name", f)
+					}
+					_ = f.Close()
+				}
+			}()
+		default:
+			for i := len(entrys) - 1; i >= 0; i-- {
+				// get newest log file
+				if (!entrys[i].IsDir()) && (!strings.HasSuffix(entrys[i].Name(), ".zip")) && checkLogPath(entrys[i].Name()) {
+					files = append(files, filepath.Join(logFilePath, entrys[i].Name()))
+					break
+				}
+			}
+			if len(files) == 0 {
+				return errs.New("not found log file").Wrap()
+			}
+			lines, err := readLastNLines(files[0], int(req.Line))
+			if err != nil {
+				return err
+			}
+			data := strings.Join(lines, "\n")
+
+			// create tmp file
+			filename := fmt.Sprintf("%s_temp%s", strings.TrimSuffix(filepath.Base(files[0]), filepath.Ext(files[0])), filepath.Ext(files[0]))
+			files[0] = filepath.Join(logFilePath, filename)
+			err = os.WriteFile(files[0], []byte(data), 0644)
+			if err != nil {
+				return errs.Wrap(err)
+			}
+			defer func() {
+				if err := os.Remove(files[0]); err != nil {
+					log.ZError(ctx, "remove file failed", err, "file name", files[0])
+				}
+			}()
+		}
+
+	}
+	if req.Mode&pb.UploadSDKDataMode_UploadDB == pb.UploadSDKDataMode_UploadDB {
+		files = append(files, t.DBPath)
 	}
 
-	zippath := filepath.Join(logFilePath, fmt.Sprintf("%d_%d.zip", time.Now().UnixMilli(), rand.Uint32()))
+	zippath := filepath.Join(t.LogFilePath, fmt.Sprintf("%d_%d.zip", time.Now().UnixMilli(), rand.Uint32()))
 	defer os.Remove(zippath)
 	if err := zipFiles(zippath, files); err != nil {
 		return err

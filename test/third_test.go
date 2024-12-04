@@ -1,26 +1,8 @@
 package test
 
-//
-//import (
-//	"fmt"
-//	"testing"
-//	"time"
-//
-//	"google.golang.org/protobuf/types/known/anypb"
-//
-//	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
-//	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto"
-//)
-//
-//type SProgress struct{}
-//
-//func (s SProgress) OnProgress(current int64, size int64) {
-//
-//}
-//
 //func Test_UploadLog(t *testing.T) {
 //	tm := time.Now()
-//	_, err := open_im_sdk.IMUserContext.Third().UploadSDKData(ctx, &sdkpb.UploadLogsReq{
+//	_, err := open_im_sdk.IMUserContext.Third().UploadSDKData(ctx, &third.UploadLogsReq{
 //		Line: 2000,
 //		Ex:   "it is ex",
 //	}, nil)
@@ -28,7 +10,7 @@ package test
 //		t.Error(err)
 //	}
 //	fmt.Println(time.Since(tm).Microseconds())
-//
+
 //}
 //func Test_SDKLogs(t *testing.T) {
 //	open_im_sdk.IMUserContext.Third().Log(ctx, &sdkpb.LogReq{

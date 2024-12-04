@@ -71,6 +71,7 @@ func getConf(APIADDR, WSADDR string) *sdkpb.IMConfig {
 	cf.Platform = PlatformID
 	cf.LogFilePath = "./"
 	cf.IsLogStandardOutput = true
+	cf.DbPath = fmt.Sprintf("./OpenIM_v3_%s.db", UserID)
 	return &cf
 }
 
