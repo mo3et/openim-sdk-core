@@ -32,7 +32,9 @@ const (
 
 func (u *UserContext) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.InitSDKResp, error) {
 	log.ZDebug(ctx, "init sdk", "req", req.String())
+
 	u.info.IMConfig = req.GetConfig()
+	log.ZDebug(ctx, "init sdk", "log", 111)
 	if err := log.InitLoggerFromConfig("open-im-sdk-core", "",
 		commonpb.AppFramework_name[int32(req.Config.AppFramework)], commonpb.Platform_name[int32(req.Config.Platform)], int(req.Config.LogLevel),
 		req.Config.IsLogStandardOutput, false, req.Config.LogFilePath, rotateCount, rotationTime, version.Version, true); err != nil {
