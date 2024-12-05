@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
+	"runtime/debug"
 	"sync/atomic"
 	"time"
 
@@ -20,6 +21,7 @@ import (
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
+	"github.com/openimsdk/tools/mw"
 )
 
 var (
@@ -133,21 +135,12 @@ func FfiRequest(data []byte) uint64 {
 	//t := time.Now()
 	handleID := GenerateHandleID()
 	go func() {
-		//defer func(start time.Time) {
-		//	if r := recover(); r != nil {
-		//		fmt.Sprintf("panic: %+v\n%s", r, debug.Stack())
-		//		err = fmt.Errorf("call panic: %+v", r)
-		//	} else {
-		//		elapsed := time.Since(start).Milliseconds()
-		//		if err == nil {
-		//			log.ZInfo(ctx, "fn call success", "function name", funcName, "cost time", fmt.Sprintf("%d ms", elapsed), "resp", res)
-		//		} else {
-		//			log.ZError(ctx, "fn call error", err, "function name", funcName, "cost time", fmt.Sprintf("%d ms", elapsed))
-		//
-		//		}
-		//
-		//	}
-		//}(t)
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Sprintf("panic: %+v\n%s", r, debug.Stack())
+				mw.PanicStackToLog(context.Background(), r)
+			}
+		}()
 		log.ZInfo(context.Background(), "fn call success1")
 		var ffiRequest ffi.FfiRequest
 		err := proto.Unmarshal(data, &ffiRequest)
