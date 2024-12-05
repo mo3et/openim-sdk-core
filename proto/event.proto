@@ -10,21 +10,19 @@ import "shared.proto";
 
 enum FuncRequestEventName {
   None = 0;
-  GetAllConversationList = 1;
-  GetConversationList = 2;
-  GetConversation = 3;
-  InitSDK = 4;
-  Login = 5;
-  Logout = 106;
+
+  InitSDK = 1;
+  Login = 2;
+  Logout = 3;
   SetAppBackgroundStatus = 107;
   NetworkStatusChanged = 108;
   GetLoginStatus = 109;
   Version = 110;
 
-  SendMessage = 6;
-  UploadLogs = 7;
-  UploadFile = 8;
-  Log = 9;
+  SendMessage = 4;
+  UploadLogs = 5;
+  UploadFile = 6;
+  Log = 7;
   UpdateFcmToken = 10;
   SetAppBadge = 11;
   EventOnSendMsgProgress = 12;
@@ -125,52 +123,51 @@ enum FuncRequestEventName {
   UpdateFriends = 1112;
 
   // conversation_msg
-  GetConversationListSplit = 2000;
-  HideConversation = 2001;
-  GetAtAllTag = 2002;
-  GetOneConversation = 2003;
-  GetMultipleConversation = 2004;
-  HideAllConversations = 2005;
-  SetConversationDraft = 2006;
-  SetConversation = 2007;
-  GetTotalUnreadMsgCount = 2008;
-  GetConversationIDBySessionType = 2009;
-  FindMessageList = 2010;
-  GetAdvancedHistoryMessageList = 2011;
-  GetAdvancedHistoryMessageListReverse = 2012;
-  RevokeMessage = 2013;
-  TypingStatusUpdate = 2014;
-  MarkConversationMessageAsRead = 2015;
-  MarkAllConversationMessageAsRead = 2016;
-  DeleteMessageFromLocalStorage = 2017;
-  DeleteMessage = 2018;
-  DeleteAllMsgFromLocalAndServer = 2019;
-  DeleteAllMessageFromLocalStorage = 2020;
-  ClearConversationAndDeleteAllMsg = 2021;
-  DeleteConversationAndDeleteAllMsg = 2022;
-  InsertSingleMessageToLocalStorage = 2023;
-  InsertGroupMessageToLocalStorage = 2024;
-  SearchLocalMessages = 2025;
-  SetMessageLocalEx = 2026;
-  SearchConversation = 2027;
-  SubscribeUsersOnlineStatus = 2227;
-  UnsubscribeUsersOnlineStatus = 2228;
+  GetAllConversationList = 2000;
+  GetConversationListSplit = 2001;
+  HideConversation = 2002;
+  GetAtAllTag = 2003;
+  GetOneConversation = 2004;
+  GetMultipleConversation = 2005;
+  HideAllConversations = 2006;
+  SetConversationDraft = 2007;
+  SetConversation = 2008;
+  GetTotalUnreadMsgCount = 2009;
+  GetConversationIDBySessionType = 2010;
+  FindMessageList = 2011;
+  GetAdvancedHistoryMessageList = 2012;
+  GetAdvancedHistoryMessageListReverse = 2013;
+  RevokeMessage = 2014;
+  TypingStatusUpdate = 2015;
+  MarkConversationMessageAsRead = 2016;
+  MarkAllConversationMessageAsRead = 2017;
+  DeleteMessageFromLocalStorage = 2018;
+  DeleteMessage = 2019;
+  DeleteAllMsgFromLocalAndServer = 2020;
+  DeleteAllMessageFromLocalStorage = 2021;
+  ClearConversationAndDeleteAllMsg = 2022;
+  DeleteConversationAndDeleteAllMsg = 2023;
+  InsertSingleMessageToLocalStorage = 2024;
+  InsertGroupMessageToLocalStorage = 2025;
+  SearchLocalMessages = 2026;
+  SetMessageLocalEx = 2027;
+  SearchConversation = 2028;
 
-  CreateTextMessage = 2028;
-  CreateAdvancedTextMessage = 2029;
-  CreateTextAtMessage = 2030;
-  CreateLocationMessage = 2031;
-  CreateCustomMessage = 2032;
-  CreateQuoteMessage = 2033;
-  CreateAdvancedQuoteMessage = 2034;
-  CreateCardMessage = 2035;
-  CreateImageMessage = 2036;
-  CreateSoundMessage = 2037;
-  CreateVideoMessage = 2038;
-  CreateFileMessage = 2039;
-  CreateMergerMessage = 2040;
-  CreateFaceMessage = 2041;
-  CreateForwardMessage = 2042;
+  CreateTextMessage = 2029;
+  CreateAdvancedTextMessage = 2030;
+  CreateTextAtMessage = 2031;
+  CreateLocationMessage = 2032;
+  CreateCustomMessage = 2033;
+  CreateQuoteMessage = 2034;
+  CreateAdvancedQuoteMessage = 2035;
+  CreateCardMessage = 2036;
+  CreateImageMessage = 2037;
+  CreateSoundMessage = 2038;
+  CreateVideoMessage = 2039;
+  CreateFileMessage = 2040;
+  CreateMergerMessage = 2041;
+  CreateFaceMessage = 2042;
+  CreateForwardMessage = 2043;
 
   ProcessUserCommandGetAll = 2100;
   GetSelfUserInfo = 2101;
@@ -179,6 +176,9 @@ enum FuncRequestEventName {
   ProcessUserCommandDelete = 2104;
   ProcessUserCommandUpdate = 2105;
   GetUsersInfo = 2106;
+
+  SubscribeUsersOnlineStatus = 2229;
+  UnsubscribeUsersOnlineStatus = 2230;
 
 
 
