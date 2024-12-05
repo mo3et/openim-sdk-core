@@ -125,6 +125,7 @@ func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data an
 func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
 	data, err := proto.Marshal(ffiResponse)
 	if err != nil {
+		log.ZError(context.Background(), "ffiResponse marshal error", err)
 	}
 	if dispatchFfiResultFun != nil {
 		dispatchFfiResultFun(handleID, data)

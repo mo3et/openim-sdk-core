@@ -38,6 +38,7 @@ func (u *UserContext) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.Init
 		req.Config.IsLogStandardOutput, false, req.Config.LogFilePath, rotateCount, rotationTime, version.Version, true); err != nil {
 		return nil, err
 	}
+	log.ZDebug(ctx, "init sdk", "true", true)
 	return &pb.InitSDKResp{Suc: true}, nil
 }
 
