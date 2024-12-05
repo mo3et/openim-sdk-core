@@ -6,7 +6,6 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"log"
 	"sync/atomic"
 	"time"
 
@@ -20,6 +19,7 @@ import (
 	ffi "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/errs"
+	"github.com/openimsdk/tools/log"
 )
 
 var (
@@ -148,6 +148,7 @@ func FfiRequest(data []byte) uint64 {
 		//
 		//	}
 		//}(t)
+		log.ZInfo(context.Background(), "fn call success1")
 		var ffiRequest ffi.FfiRequest
 		err := proto.Unmarshal(data, &ffiRequest)
 		if err != nil {
@@ -155,6 +156,8 @@ func FfiRequest(data []byte) uint64 {
 				"dataLength", len(data)))
 			return
 		}
+		log.ZInfo(context.Background(), "fn call success2")
+
 		if err := checkResourceLoad(ffiRequest.FuncName); err != nil {
 			activeErrResp(handleID, ffiRequest.FuncName, err)
 			return
@@ -163,6 +166,7 @@ func FfiRequest(data []byte) uint64 {
 			ctx := ccontext.WithOperationID(open_im_sdk.IMUserContext.Context(),
 				generateUniqueID(open_im_sdk.IMUserContext.Info().UserID, int32(open_im_sdk.IMUserContext.Info().Platform)))
 			res, err := fn(ctx, handleID, ffiRequest.FuncName, ffiRequest.Data)
+			log.ZInfo(context.Background(), "fn call success3")
 			if err != nil {
 				activeErrResp(handleID, ffiRequest.FuncName, err)
 				return
@@ -204,7 +208,7 @@ func generateUniqueID(userID string, platformID int32) string {
 	// Generate 16 bytes of random data
 	randomBytes := make([]byte, 16)
 	if _, err := rand.Read(randomBytes); err != nil {
-		log.Println("Error generating random bytes:", err)
+		log.ZWarn(context.Background(), "Error generating random bytes", err)
 		return ""
 	}
 
