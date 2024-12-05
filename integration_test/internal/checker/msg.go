@@ -54,11 +54,11 @@ func CheckMessageNum(ctx context.Context) error {
 		CheckerKeyName: "userID",
 		GoroutineLimit: config.ErrGroupCommonLimit,
 		GetTotalCount: func(ctx context.Context, t *sdk.TestSDK) (int, error) {
-			totalNum, err := t.SDK.Conversation().GetTotalUnreadMsgCount(ctx)
+			totalNum, err := t.SDK.Conversation().GetTotalUnreadMsgCount(ctx, nil)
 			if err != nil {
 				return 0, err
 			}
-			return int(totalNum), nil
+			return int(totalNum.TotalUnreadCount), nil
 		},
 		CalCorrectCount: func(userID string) int {
 			var res int
