@@ -718,6 +718,126 @@ func buildAndroid(aOutPath, goArch, apiLevel, archName string) error {
 	return cmd.Run()
 }
 
+func BuildHarmanyOS_API9() error {
+	buildFunc := func(outPath string, arch string, archName string) error {
+		log.SetOutput(os.Stdout)
+		log.SetFlags(log.Lshortfile)
+		log.Printf("Building for HarmanyOS API9 : %s...\n", archName)
+
+		ndkPath := os.Getenv("Harmany_NDK_API9")
+		if len(ndkPath) == 0 {
+			ndkPath = "D:/OpenHarmonySDK/9/native"
+			log.Println("not find env variable: Harmany_NDK_API9. Use Default:", ndkPath)
+		}
+		GOOS := "android"
+		baseFlag := fmt.Sprintf("--sysroot=%s/sysroot -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wformat -Werror=format-security  -D__MUSL__ -fPIC -MD -MT -MF", ndkPath)
+		var cc string
+		var cFlag string
+		switch arch {
+		case "arm64":
+			cFlag = fmt.Sprintf("--target=aarch64-linux-ohos %s", baseFlag)
+		case "amd64":
+			cFlag = fmt.Sprintf("--target=x86_64-linux-ohos %s", baseFlag)
+		}
+		cc = fmt.Sprintf("%s/llvm/bin/clang %s", ndkPath, cFlag)
+		env := []string{
+			"CGO_ENABLED=1",
+			fmt.Sprintf("GOOS=%s", GOOS),
+			fmt.Sprintf("GOARCH=%s", arch),
+			fmt.Sprintf("NM=%s/llvm/bin/llvm-nm", ndkPath),
+			fmt.Sprintf("AR=%s/llvm/bin/llvm-ar", ndkPath),
+			fmt.Sprintf("LD=%s/llvm/bin/ld.lld", ndkPath),
+			fmt.Sprintf("CC=%s", cc),
+		}
+		cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(outPath, archName, strings.Join([]string{soName, "so"}, ".")), ".")
+
+		cmd.Dir = goSrc
+		cmd.Env = append(os.Environ(), env...)
+
+		connectStd(cmd)
+		return cmd.Run()
+	}
+	architectures := []struct {
+		GoArch, OutArch string
+	}{
+		{"arm64", "arm64-v8a"},
+		{"amd64", "x86_64"},
+	}
+	output := filepath.Join(outPath, "HarmanyOS_API9")
+	for _, arch := range architectures {
+		if err := os.MkdirAll(filepath.Join(goSrc, output, arch.OutArch), 0755); err != nil {
+			return err
+		}
+
+		if err := buildFunc(output, arch.GoArch, arch.OutArch); err != nil {
+			log.Fatalln("Failed to build for  HarmanyOS API9 %s: %v\n", arch.OutArch, err)
+		}
+	}
+	return nil
+}
+
+func BuildHarmanyOS_API12() error {
+	buildFunc := func(outPath string, arch string, archName string) error {
+		log.SetOutput(os.Stdout)
+		log.SetFlags(log.Lshortfile)
+		log.Printf("Building for HarmanyOS API12 : %s...\n", archName)
+
+		ndkPath := os.Getenv("Harmany_NDK_API12")
+		if len(ndkPath) == 0 {
+			ndkPath = "D:/OpenHarmonySDK/12/native"
+			log.Println("not find env variable: Harmany_NDK_API12 ,Use Default:", ndkPath)
+		}
+		baseFlag := fmt.Sprintf("--sysroot=%s/sysroot -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wformat -Werror=format-security  -D__MUSL__ -fPIC -MD -MT -MF", ndkPath)
+		var GOOS string
+		var cc string
+		var cFlag string
+		var cmd *exec.Cmd
+		switch arch {
+		case "arm64":
+			GOOS = "linux"
+			cFlag = fmt.Sprintf("--target=aarch64-linux-ohos %s", baseFlag)
+			cmd = exec.Command("go", "build", "-buildmode=c-shared", "-tlsmodegd", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(outPath, archName, strings.Join([]string{soName, "so"}, ".")), ".")
+		case "amd64":
+			GOOS = "android"
+			cFlag = fmt.Sprintf("--target=x86_64-linux-ohos %s", baseFlag)
+			cmd = exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(outPath, archName, strings.Join([]string{soName, "so"}, ".")), ".")
+		}
+		cc = fmt.Sprintf("%s/llvm/bin/clang %s", ndkPath, cFlag)
+		env := []string{
+			"CGO_ENABLED=1",
+			fmt.Sprintf("GOOS=%s", GOOS),
+			fmt.Sprintf("GOARCH=%s", arch),
+			fmt.Sprintf("NM=%s/llvm/bin/llvm-nm", ndkPath),
+			fmt.Sprintf("AR=%s/llvm/bin/llvm-ar", ndkPath),
+			fmt.Sprintf("LD=%s/llvm/bin/ld.lld", ndkPath),
+			fmt.Sprintf("CC=%s", cc),
+		}
+
+		cmd.Dir = goSrc
+		cmd.Env = append(os.Environ(), env...)
+		connectStd(cmd)
+		return cmd.Run()
+	}
+	architectures := []struct {
+		GoArch, OutArch string
+	}{
+		{"arm64", "arm64-v8a"},
+		{"amd64", "x86_64"},
+	}
+	output := filepath.Join(outPath, "HarmanyOS_API12")
+	for _, arch := range architectures {
+		if err := os.MkdirAll(filepath.Join(goSrc, output, arch.OutArch), 0755); err != nil {
+			return err
+		}
+		if err := buildFunc(output, arch.GoArch, arch.OutArch); err != nil {
+			log.Fatalf("Failed to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
+		} else {
+			log.Println("Success to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
+		}
+	}
+	return nil
+}
+
 /*  Dependencies func */
 
 func getWorkDirToolPath(name string) string {
