@@ -128,6 +128,7 @@ func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
 		log.ZError(context.Background(), "ffiResponse marshal error", err)
 	}
 	if dispatchFfiResultFun != nil {
+		log.ZDebug(context.Background(), "ffiResponse success")
 		dispatchFfiResultFun(handleID, data)
 	}
 }
