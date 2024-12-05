@@ -16,7 +16,6 @@ package open_im_sdk
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
@@ -45,7 +44,6 @@ func (u *UserContext) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginRes
 	if u.getLoginStatus() == pb.LoginStatus_Logged {
 		return nil, sdkerrs.ErrLoginRepeat
 	}
-	fmt.Println("login comm here")
 	u.setLoginStatus(pb.LoginStatus_Logging)
 	log.ZDebug(ctx, "login start... ", "userID", req.UserID, "token", req.Token)
 	t1 := time.Now()
