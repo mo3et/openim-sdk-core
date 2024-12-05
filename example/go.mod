@@ -4,6 +4,10 @@ go 1.23.2
 
 require github.com/AllenDang/giu v0.9.0
 
+replace nhooyr.io/websocket => github.com/coder/websocket v1.8.10
+
+require github.com/openimsdk/openim-sdk-core/v3 v3.8.2
+
 require (
 	github.com/AllenDang/cimgui-go v1.0.1 // indirect
 	github.com/AllenDang/go-findfont v0.0.0-20200702051237-9f180485aeb8 // indirect
@@ -19,7 +23,7 @@ require (
 	github.com/mazznoer/csscolorparser v0.1.5 // indirect
 	github.com/napsy/go-css v0.0.0-20221107082635-4ed403047a64 // indirect
 	github.com/openimsdk/protocol v0.0.72-alpha.60 // indirect
-	github.com/openimsdk/tools v0.0.50-alpha.21 // indirect
+	github.com/openimsdk/tools v0.0.50-alpha.40 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -42,9 +46,5 @@ require (
 	gorm.io/gorm v1.25.10 // indirect
 	nhooyr.io/websocket v1.8.10 // indirect
 )
-
-replace nhooyr.io/websocket => github.com/coder/websocket v1.8.10
-
-require github.com/openimsdk/openim-sdk-core/v3 v3.8.2
 
 replace github.com/openimsdk/openim-sdk-core/v3 => ../
