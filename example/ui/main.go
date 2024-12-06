@@ -9,6 +9,18 @@ import (
 	pb_init "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 )
 
+var SetWindowTitle func(string) = func(s string) {}
+
+func init() {
+	open_im_sdk.IMUserContext.SetConnListener(newConnListener())
+	open_im_sdk.IMUserContext.SetConversationListener(newConversationListener())
+	open_im_sdk.IMUserContext.SetMessageListener(newMessageListener())
+	open_im_sdk.IMUserContext.SetFriendshipListener(newFriendshipListener())
+	open_im_sdk.IMUserContext.SetGroupListener(newGroupListener())
+	open_im_sdk.IMUserContext.SetUserListener(newUserListener())
+	open_im_sdk.IMUserContext.SetCustomBusinessListener(newCustomBusinessListener())
+}
+
 func Init(userId, token string) {
 	initRes, err := open_im_sdk.IMUserContext.InitSDK(common.NewCallContext(), &pb_init.InitSDKReq{
 		Config: &pb_init.IMConfig{
@@ -43,11 +55,14 @@ func Init(userId, token string) {
 	if err != nil {
 		log.Panicf("Login Error: %s", err.Error())
 		return
+	} else {
+		SetWindowTitle(open_im_sdk.IMUserContext.GetLoginUserID())
 	}
 }
 
 func Update() {
 	drawMainMenu()
+	drawAllWindow()
 }
 
 func Exit() {
