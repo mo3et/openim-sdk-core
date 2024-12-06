@@ -3,6 +3,7 @@ package serializer
 import (
 	"context"
 	"encoding/json"
+	"sync"
 
 	"github.com/golang/protobuf/proto"
 
@@ -19,6 +20,7 @@ const (
 
 var (
 	serializerInstance Serializer
+	once               sync.Once
 )
 
 // Serializer interface defines the basic methods for marshaling and unmarshaling
@@ -48,6 +50,11 @@ func SetProtocolType(protocolType int) {
 }
 
 func GetInstance() Serializer {
+	if serializerInstance == nil {
+		once.Do(func() {
+			serializerInstance = NewPbSerializer()
+		})
+	}
 	return serializerInstance
 }
 
