@@ -128,7 +128,6 @@ func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
 		log.ZError(context.Background(), "ffiResponse marshal error", err)
 	}
 	if dispatchFfiResultFun != nil {
-		log.ZDebug(context.Background(), "ffiResponse success")
 		dispatchFfiResultFun(handleID, data)
 	}
 }
@@ -151,22 +150,16 @@ func FfiRequest(data []byte) uint64 {
 				"dataLength", len(data)))
 			return
 		}
-		log.ZInfo(context.Background(), "fn call success2")
-
-		log.ZInfo(context.Background(), "fn call success3", "funcName", ffiRequest.FuncName)
 
 		if err := checkResourceLoad(ffiRequest.FuncName); err != nil {
 			activeErrResp(handleID, ffiRequest.FuncName, err)
 			return
 		}
-		log.ZInfo(context.Background(), "fn call success4")
 
 		if fn, ok := FuncMap[ffiRequest.FuncName]; ok {
-			log.ZInfo(context.Background(), "fn call success5")
 			ctx := ccontext.WithOperationID(open_im_sdk.IMUserContext.Context(),
 				generateUniqueID(open_im_sdk.IMUserContext.Info().UserID, int32(open_im_sdk.IMUserContext.Info().Platform)))
 			res, err := fn(ctx, handleID, ffiRequest.FuncName, ffiRequest.Data)
-			log.ZInfo(context.Background(), "fn call success3")
 			if err != nil {
 				activeErrResp(handleID, ffiRequest.FuncName, err)
 				return
