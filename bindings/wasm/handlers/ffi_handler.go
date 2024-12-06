@@ -47,13 +47,14 @@ func FfiRequest(_ js.Value, args []js.Value) any {
 	if len(args) > 0 {
 		//Ensure the first argument passed from JavaScript is a Uint8Array;
 		//otherwise, the process will crash.
-		return js.ValueOf(base.FfiRequest(GoBytesFromJSUint8Array(args[0])))
+		base.FfiRequest(GoBytesFromJSUint8Array(args[0]))
+		return js.ValueOf(1)
 	} else {
 		return js.ValueOf(-1)
 	}
 }
 func FfiInit(_ js.Value, args []js.Value) any {
-	if len(args) != 2 {
+	if len(args) != 3 {
 		return js.ValueOf(-1)
 	}
 
@@ -64,12 +65,11 @@ func FfiInit(_ js.Value, args []js.Value) any {
 		}
 		return false
 	}
-
-	var handleID uint64 = 0
+	base.SetProtocolType(args[2].Int())
 	if assignCallback(args[0], &eventCallBack) && assignCallback(args[1], &reqCallBack) {
-		handleID = base.GenerateHandleID()
+		return 1
 	}
-	return js.ValueOf(handleID)
+	return -1
 }
 
 // GoBytesFromJSUint8Array extracts a Go byte slice from a JavaScript Uint8Array.

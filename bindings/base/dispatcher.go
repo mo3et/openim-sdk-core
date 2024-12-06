@@ -10,12 +10,11 @@ import (
 	"sync/atomic"
 	"time"
 
-	"google.golang.org/protobuf/proto"
-
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/serializer"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	ffi "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
@@ -40,6 +39,10 @@ func SetSendFfiRequestFunc(f func(handleID uint64, data []byte) ([]byte, error))
 	sendFfiRequestFun = f
 }
 
+func SetProtocolType(protocolType int) {
+	serializer.SetProtocolType(protocolType)
+}
+
 func init() {
 	ffi_bridge.SetSendFfiRequestFunc(GoFfiRequestHandler)
 }
@@ -52,7 +55,7 @@ func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, 
 		FuncName:    funcName,
 		Data:        data,
 	}
-	ffiRequestData, err := proto.Marshal(ffiRequest)
+	ffiRequestData, err := serializer.GetInstance().Marshal(ffiRequest)
 	if err != nil {
 		return nil, sdkerrs.ErrArgs.Wrap()
 	}
@@ -89,16 +92,13 @@ func activeSuccessResp(handleID uint64, funcName pb.FuncRequestEventName, res []
 func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
 	var ffiResponse ffi.FfiResult
 	var err error
-	if v, ok := data.(proto.Message); ok {
-		ffiResponse.Data, err = proto.Marshal(v)
-		if err != nil {
-			ffiResponse.ErrCode = sdkerrs.ArgsError
-			ffiResponse.ErrMsg = "data marshal error"
-		}
-	} else {
+
+	ffiResponse.Data, err = serializer.GetInstance().Marshal(data)
+	if err != nil {
 		ffiResponse.ErrCode = sdkerrs.ArgsError
-		ffiResponse.ErrMsg = "data is not proto.Message"
+		ffiResponse.ErrMsg = "data marshal error"
 	}
+
 	ffiResponse.FuncName = eventName
 	ffiResponse.HandleID = GenerateHandleID()
 	dispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
@@ -107,15 +107,10 @@ func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
 func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data any) {
 	var ffiResponse ffi.FfiResult
 	var err error
-	if v, ok := data.(proto.Message); ok {
-		ffiResponse.Data, err = proto.Marshal(v)
-		if err != nil {
-			ffiResponse.ErrCode = sdkerrs.ArgsError
-			ffiResponse.ErrMsg = "data marshal error"
-		}
-	} else {
+	ffiResponse.Data, err = serializer.GetInstance().Marshal(data)
+	if err != nil {
 		ffiResponse.ErrCode = sdkerrs.ArgsError
-		ffiResponse.ErrMsg = "data is not proto.Message"
+		ffiResponse.ErrMsg = "data marshal error"
 	}
 	ffiResponse.FuncName = eventName
 	ffiResponse.HandleID = handleID
@@ -123,7 +118,7 @@ func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data an
 }
 
 func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
-	data, err := proto.Marshal(ffiResponse)
+	data, err := serializer.GetInstance().Marshal(ffiResponse)
 	if err != nil {
 		log.ZError(context.Background(), "ffiResponse marshal error", err)
 	}
@@ -132,9 +127,8 @@ func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
 	}
 }
 
-func FfiRequest(data []byte) uint64 {
+func FfiRequest(data []byte) {
 	//t := time.Now()
-	handleID := GenerateHandleID()
 	go func() {
 		defer func() {
 			if r := recover(); r != nil {
@@ -144,12 +138,13 @@ func FfiRequest(data []byte) uint64 {
 		}()
 		log.ZInfo(context.Background(), "fn call success1")
 		var ffiRequest ffi.FfiRequest
-		err := proto.Unmarshal(data, &ffiRequest)
+		err := serializer.GetInstance().Unmarshal(data, &ffiRequest)
 		if err != nil {
-			activeErrResp(handleID, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
+			activeErrResp(-1, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
 				"dataLength", len(data)))
 			return
 		}
+		handleID := ffiRequest.GetHandleID()
 
 		if err := checkResourceLoad(ffiRequest.FuncName); err != nil {
 			activeErrResp(handleID, ffiRequest.FuncName, err)
@@ -171,7 +166,6 @@ func FfiRequest(data []byte) uint64 {
 				"funcName", ffiRequest.FuncName.String()))
 		}
 	}()
-	return handleID
 }
 
 func checkResourceLoad(funcName pb.FuncRequestEventName) error {
@@ -189,7 +183,7 @@ func checkResourceLoad(funcName pb.FuncRequestEventName) error {
 	if err != nil {
 		return err
 	}
-	if resp.Status == initpb.LoginStatus_Logged {
+	if resp.Status != initpb.LoginStatus_Logged {
 		return sdkerrs.ErrNotLogin.WrapMsg("SDK not login", "funcName", funcName.String())
 	}
 	return nil

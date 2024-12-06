@@ -3,25 +3,18 @@ package base
 import (
 	"context"
 
-	"google.golang.org/protobuf/proto"
-
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/serializer"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
-	"github.com/openimsdk/tools/errs"
 )
 
 func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
 	return func(ctx context.Context, _ uint64, _ pb.FuncRequestEventName, req []byte) ([]byte, error) {
 		var pbReq A
 
-		msg, ok := any(&pbReq).(proto.Message)
-		if !ok {
-			return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
-		}
-
-		if err := proto.Unmarshal(req, msg); err != nil {
-			return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
+		if err := serializer.GetInstance().Unmarshal(req, any(&pbReq)); err != nil {
+			return nil, err
 		}
 
 		pbResp, err := fn(ctx, &pbReq)
@@ -29,24 +22,15 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 			return nil, err
 		}
 
-		respMsg, ok := any(pbResp).(proto.Message)
-		if !ok {
-			return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
-		}
-
-		return proto.Marshal(respMsg)
+		return serializer.GetInstance().Marshal(any(pbResp))
 	}
 }
 
 func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, callback C) (*B, error)) callFunc {
 	return func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) ([]byte, error) {
 		var pbReq A
-		msg, ok := any(&pbReq).(proto.Message)
-		if !ok {
-			return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
-		}
-		if err := proto.Unmarshal(req, msg); err != nil {
-			return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
+		if err := serializer.GetInstance().Unmarshal(req, any(&pbReq)); err != nil {
+			return nil, err
 		}
 		cb, ok := callbackRegistry[name]
 		if !ok {
@@ -56,11 +40,7 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 		if err != nil {
 			return nil, err
 		}
-		respMsg, ok := any(pbResp).(proto.Message)
-		if !ok {
-			return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
-		}
-		return proto.Marshal(respMsg)
+		return serializer.GetInstance().Marshal(any(pbResp))
 	}
 }
 

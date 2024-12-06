@@ -3,9 +3,8 @@ package ffi_bridge
 import (
 	"context"
 
-	"google.golang.org/protobuf/proto"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/serializer"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
 	"github.com/openimsdk/tools/errs"
@@ -32,13 +31,9 @@ type crossLangFunc[A, B any] func(ctx context.Context, req *A) (*B, error)
 var sendFfiRequest func(ctc context.Context, funcName pb.FuncRequestEventName, data []byte) ([]byte, error)
 
 func invokeFunc[A, B any](ctx context.Context, funName pb.FuncRequestEventName, req *A) (*B, error) {
-	pbReq, ok := any(req).(proto.Message)
-	if !ok {
-		return nil, sdkerrs.ErrArgs.WrapMsg("called function argument is not of type proto.Message")
-	}
-	reqData, err := proto.Marshal(pbReq)
+	reqData, err := serializer.GetInstance().Marshal(any(req))
 	if err != nil {
-		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal request")
+		return nil, err
 	}
 	if sendFfiRequest == nil {
 		return nil, sdkerrs.ErrArgs.WrapMsg("dispatchFfiResult is nil")
@@ -48,11 +43,7 @@ func invokeFunc[A, B any](ctx context.Context, funName pb.FuncRequestEventName, 
 		return nil, err
 	}
 	var resp B
-	pbResp, ok := any(&resp).(proto.Message)
-	if !ok {
-		return nil, sdkerrs.ErrArgs.WrapMsg("called function return value is not of type proto.Message")
-	}
-	if err := proto.Unmarshal(respData, pbResp); err != nil {
+	if err := serializer.GetInstance().Unmarshal(respData, any(&resp)); err != nil {
 		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal resp")
 	}
 	return &resp, nil
