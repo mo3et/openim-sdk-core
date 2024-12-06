@@ -27,10 +27,11 @@ func (w *WindowBase) Destroy() {
 }
 
 func showWindow(name string, win IWindow) {
+	win.Start()
 	windowMap[name] = win
 }
 
-func drawAllWindow() {
+func DrawAllWindow() {
 	for _, win := range windowMap {
 		win.Update()
 	}

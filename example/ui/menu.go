@@ -4,14 +4,44 @@ import (
 	g "github.com/AllenDang/giu"
 )
 
-func drawMainMenu() {
+func DrawMainMenu() {
 	g.MainMenuBar().Layout(
-		g.Menu("File").Layout(
+		g.Menu("User").Layout(
 			g.MenuItem("UserInfo").OnClick(func() {
 				showWindow("UserInfo--", newUserInfoWindow("test"))
 			}),
 			g.Separator(),
-			g.MenuItem("Exit").OnClick(func() {
+			g.MenuItem("Logout").OnClick(func() {
+
+			}),
+		),
+		g.Menu("Friend").Layout(
+
+			g.MenuItem("FriendList").OnClick(func() {
+
+			}),
+			g.MenuItem("SearchFriend").OnClick(func() {
+
+			}),
+			g.MenuItem("FriendApplication").OnClick(func() {
+
+			}),
+		),
+		g.Menu("Group").Layout(
+			g.MenuItem("GroupList").OnClick(func() {
+
+			}),
+			g.MenuItem("CreateGroup").OnClick(func() {
+
+			}),
+		),
+		g.Menu("Conversation").Layout(
+			g.MenuItem("ConversationList").OnClick(func() {
+
+			}),
+		),
+		g.Menu("About").Layout(
+			g.MenuItem("Version").OnClick(func() {
 
 			}),
 		),
