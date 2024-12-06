@@ -201,8 +201,11 @@ type InputStatesChangedData struct {
 }
 
 func (e *typing) changes(conversationID string, userID string) {
+	platforms := datautil.Batch(func(v int32) commonpb.Platform {
+		return commonpb.Platform(v)
+	}, e.GetInputStates(conversationID, userID))
 	e.conv.ConversationListener().OnConversationUserInputStatusChanged(
-		&eventpb.EventOnConversationUserInputStatusChangedData{ConversationID: conversationID, UserID: userID, PlatformIDs: e.GetInputStates(conversationID, userID)})
+		&eventpb.EventOnConversationUserInputStatusChangedData{ConversationID: conversationID, UserID: userID, Platforms: platforms})
 }
 
 func (e *typing) GetInputStates(conversationID string, userID string) []int32 {

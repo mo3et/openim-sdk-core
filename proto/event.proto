@@ -6,6 +6,7 @@ option csharp_namespace = "OpenIM.Proto";
 option swift_prefix="";
 
 import "shared.proto";
+import "common.proto";
 
 
 enum FuncRequestEventName {
@@ -239,7 +240,7 @@ message EventOnTotalUnreadMessageCountChangedData {
 message EventOnConversationUserInputStatusChangedData {
   string conversationID = 1;
   string userID = 2;
-  repeated int32 platformIDs = 3;
+  repeated openim.sdk.common.Platform platforms = 3;
 }
 message EventOnRecvNewMessageData {
   openim.sdk.shared.IMMessage message = 1;
@@ -368,7 +369,7 @@ message EventOnSelfInfoUpdatedData {
 
 message EventOnUserStatusChangedData {
   string userID = 1;
-  repeated int32 platformIDs = 2;
+  repeated openim.sdk.common.Platform platforms = 2;
 }
 
 message EventOnUserCommandAddData {

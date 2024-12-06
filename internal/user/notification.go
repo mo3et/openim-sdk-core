@@ -2,6 +2,8 @@ package user
 
 import (
 	"context"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	"github.com/openimsdk/tools/utils/datautil"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
@@ -98,6 +100,8 @@ func (u *User) userCommandUpdateNotification(ctx context.Context, msg *sdkws.Msg
 
 func (u *User) UserOnlineStatusChange(users map[string][]int32) {
 	for userID, onlinePlatformIDs := range users {
-		u.listener().OnUserStatusChanged(&sdkpb.EventOnUserStatusChangedData{UserID: userID, PlatformIDs: onlinePlatformIDs})
+		u.listener().OnUserStatusChanged(&sdkpb.EventOnUserStatusChangedData{UserID: userID, Platforms: datautil.Batch(func(v int32) common.Platform {
+			return common.Platform(v)
+		}, onlinePlatformIDs)})
 	}
 }
