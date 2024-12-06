@@ -140,7 +140,7 @@ func FfiRequest(data []byte) {
 		var ffiRequest ffi.FfiRequest
 		err := serializer.GetInstance().Unmarshal(data, &ffiRequest)
 		if err != nil {
-			activeErrResp(-1, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
+			activeErrResp(0, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
 				"dataLength", len(data)))
 			return
 		}

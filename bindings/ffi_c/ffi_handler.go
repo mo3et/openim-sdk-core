@@ -99,10 +99,9 @@ func ffi_request(data *C.void, length C.int) {
 }
 
 //export ffi_drop_handle
-func ffi_drop_handle(handleID C.uint64_t) {
+func ffi_drop_handle(handleID uint64) {
 	mu.Lock()
 	defer mu.Unlock()
-	handleID = uint64(handleID)
 	fmt.Println("ffi_drop_handle come here", handleID)
 	if result, ok := resultMap[handleID]; ok {
 		fmt.Println("free resource", handleID)
