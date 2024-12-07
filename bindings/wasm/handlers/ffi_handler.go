@@ -4,7 +4,6 @@ package handlers
 
 import (
 	"context"
-	"fmt"
 	"syscall/js"
 
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
@@ -51,47 +50,38 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 			case <-ctx.Done():
 				return nil, context.Cause(ctx)
 			case result := <-dataChannel:
-				if len(result) > 0 {
-					resp := result[0]
-					if !ok {
-						if resp.InstanceOf(jsBytes) {
-							return nil, js.Error{Value: resp}
-						} else {
-							return nil, sdkerrs.ErrInternal.WrapMsg("The Js returned err is not the Error.")
-						}
-					} else {
-
-						if resp.InstanceOf(jsBytes) {
-							length := resp.Get("length").Int()
-							if length == 0 {
-								fmt.Println("The Uint8Array is empty.")
-								return nil, sdkerrs.ErrInternal.WrapMsg("The Uint8Array is empty.")
-							} else {
-								return GoBytesFromJSUint8Array(resp), nil
-							}
-						} else {
-							return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
-						}
-
-					}
-				} else {
+				if len(result) == 0 {
 					return nil, sdkerrs.ErrInternal.WrapMsg("The Js returned value is empty.")
+				}
+				resp := result[0]
+				if !ok {
+					if !resp.InstanceOf(jsErr) {
+						return nil, sdkerrs.ErrInternal.WrapMsg("The Js returned err is not the Error.")
+					}
+					return nil, js.Error{Value: resp}
+				} else {
+					if !resp.InstanceOf(jsBytes) {
+						return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
+					}
+					length := resp.Get("length").Int()
+					if length == 0 {
+						return nil, sdkerrs.ErrInternal.WrapMsg("The Uint8Array is empty.")
+					}
+					return GoBytesFromJSUint8Array(resp), nil
 				}
 			}
 
 		} else {
 			resp := reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data))
-			if resp.InstanceOf(jsBytes) {
-				length := resp.Get("length").Int()
-				if length == 0 {
-					fmt.Println("The Uint8Array is empty.")
-					return nil, sdkerrs.ErrInternal.WrapMsg("The Uint8Array is empty.")
-				} else {
-					return GoBytesFromJSUint8Array(resp), nil
-				}
-			} else {
+			if !resp.InstanceOf(jsBytes) {
 				return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
 			}
+			length := resp.Get("length").Int()
+			if length == 0 {
+				return nil, sdkerrs.ErrInternal.WrapMsg("The Uint8Array is empty.")
+			}
+			return GoBytesFromJSUint8Array(resp), nil
+
 		}
 
 	}
