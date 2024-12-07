@@ -62,12 +62,12 @@ func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, 
 	if err != nil {
 		return nil, err
 	}
-	var ffiResult ffi.FfiRequest
-	err = serializer.GetInstance().Unmarshal(ffiResultData, &ffiRequest)
+	var ffiResult ffi.FfiResult
+	err = serializer.GetInstance().Unmarshal(ffiResultData, &ffiResult)
 	if err != nil {
 		return nil, sdkerrs.ErrArgs.Wrap()
 	}
-	log.ZDebug(ctx, "GoFfiRequestHandler", "ffiResult", ffiResult)
+	log.ZDebug(ctx, "GoFfiRequestHandler", "ffiResult", ffiResult.String())
 	return ffiResult.Data, nil
 }
 
