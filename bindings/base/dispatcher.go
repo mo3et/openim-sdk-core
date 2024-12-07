@@ -67,6 +67,7 @@ func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, 
 	if err != nil {
 		return nil, sdkerrs.ErrArgs.Wrap()
 	}
+	log.ZDebug(ctx, "GoFfiRequestHandler", "ffiResult", ffiResult)
 	return ffiResult.Data, nil
 }
 
