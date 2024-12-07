@@ -1,10 +1,13 @@
 package wasm_sqlite
 
 import (
+	"context"
 	"database/sql/driver"
 	"encoding/json"
 	"io"
 	"strings"
+
+	"github.com/openimsdk/tools/log"
 )
 
 type rawRows struct {
@@ -43,12 +46,14 @@ func (r *rawRows) Next(dest []driver.Value) error {
 		}
 		if num, ok := elem.(json.Number); ok {
 			var err error
+			log.ZDebug(context.Background(), "num.String() = %v", num.String())
 			if strings.IndexByte(num.String(), '.') >= 0 {
 				elem, err = num.Float64()
 			} else {
 				elem, err = num.Int64()
 			}
 			if err != nil {
+				log.ZError(context.Background(), "failed to convert json.Number to int64 or float64: %v", err)
 				return err
 			}
 		}
