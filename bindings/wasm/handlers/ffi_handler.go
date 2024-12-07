@@ -4,6 +4,7 @@ package handlers
 
 import (
 	"context"
+	"fmt"
 	"syscall/js"
 
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
@@ -31,7 +32,7 @@ func dispatchFfiResultForWasm(_ uint64, data []byte) {
 
 func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error) {
 	if reqCallBack.Type() == js.TypeFunction {
-		if reqCallBack.InstanceOf(jsPromise) {
+		if reqCallBack.InstanceOf(js.Global().Get("Promise")) {
 			var ok bool
 			dataChannel := make(chan []js.Value, 1)
 			thenFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
@@ -72,6 +73,7 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 			}
 
 		} else {
+			fmt.Print("come here 2")
 			resp := reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data))
 			if !resp.InstanceOf(jsBytes) {
 				return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
