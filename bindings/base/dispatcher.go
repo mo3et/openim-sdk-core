@@ -26,7 +26,7 @@ import (
 var (
 	handleCounter        atomic.Uint64
 	dispatchFfiResultFun func(handleID uint64, data []byte)
-	sendFfiRequestFun    func(handleID uint64, data []byte) ([]byte, error)
+	sendFfiRequestFun    func(ctx context.Context, handleID uint64, data []byte) ([]byte, error)
 )
 
 type callFunc func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) ([]byte, error)
@@ -35,7 +35,7 @@ func SetDispatchFfiResultFunc(f func(handleID uint64, data []byte)) {
 	dispatchFfiResultFun = f
 }
 
-func SetSendFfiRequestFunc(f func(handleID uint64, data []byte) ([]byte, error)) {
+func SetSendFfiRequestFunc(f func(ctx context.Context, handleID uint64, data []byte) ([]byte, error)) {
 	sendFfiRequestFun = f
 }
 
@@ -59,7 +59,7 @@ func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, 
 	if err != nil {
 		return nil, sdkerrs.ErrArgs.Wrap()
 	}
-	return sendFfiRequestFun(handleID, ffiRequestData)
+	return sendFfiRequestFun(ctx, handleID, ffiRequestData)
 }
 
 func GenerateHandleID() uint64 {
@@ -134,13 +134,13 @@ func FfiRequest(data []byte) {
 			if r := recover(); r != nil {
 				mw.PanicStackToLog(context.Background(), r)
 			} else {
-				//elapsed := time.Since(start).Milliseconds()
-				//if err == nil {
-				//	log.ZInfo(ctx, "fn call success", "function name", funcName, "cost time", fmt.Sprintf("%d ms", elapsed), "resp", res)
-				//} else {
-				//	log.ZError(ctx, "fn call error", mw.FormatError(err), "function name", funcName, "cost time", fmt.Sprintf("%d ms", elapsed))
+				//	elapsed := time.Since(start).Milliseconds()
+				//	if err == nil {
+				//		log.ZInfo(ctx, "fn call success", "function name", funcName, "cost time", fmt.Sprintf("%d ms", elapsed), "resp", res)
+				//	} else {
+				//		log.ZError(ctx, "fn call error", mw.FormatError(err), "function name", funcName, "cost time", fmt.Sprintf("%d ms", elapsed))
 				//
-				//}
+				//	}
 			}
 		}()
 		temp := make([]byte, len(data))
