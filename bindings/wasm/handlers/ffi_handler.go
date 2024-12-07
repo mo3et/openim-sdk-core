@@ -9,6 +9,7 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
+	"github.com/openimsdk/tools/log"
 )
 
 var (
@@ -68,6 +69,7 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 					if length == 0 {
 						return nil, sdkerrs.ErrInternal.WrapMsg("The Uint8Array is empty.")
 					}
+					log.ZDebug(ctx, "sendRequestToJs", "length", resp.Length())
 					return GoBytesFromJSUint8Array(resp), nil
 				}
 			}

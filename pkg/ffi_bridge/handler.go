@@ -8,6 +8,7 @@ import (
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
 	"github.com/openimsdk/tools/errs"
+	"github.com/openimsdk/tools/log"
 )
 
 var (
@@ -44,6 +45,7 @@ func invokeFunc[A, B any](ctx context.Context, funName pb.FuncRequestEventName, 
 	}
 	var resp B
 	if err := serializer.GetInstance().Unmarshal(respData, any(&resp)); err != nil {
+		log.ZError(ctx, "failed to unmarshal resp", err, "respData", respData)
 		return nil, errs.WrapMsg(err, "errInfo", "failed to unmarshal resp")
 	}
 	return &resp, nil

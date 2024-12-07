@@ -52,7 +52,7 @@ func SetProtocolType(protocolType int) {
 func GetInstance() Serializer {
 	if serializerInstance == nil {
 		once.Do(func() {
-			serializerInstance = NewJsonSerializer()
+			serializerInstance = NewPbSerializer()
 		})
 	}
 	return serializerInstance
