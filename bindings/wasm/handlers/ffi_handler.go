@@ -4,7 +4,6 @@ package handlers
 
 import (
 	"context"
-	"fmt"
 	"syscall/js"
 
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
@@ -29,51 +28,37 @@ func dispatchFfiResultForWasm(_ uint64, data []byte) {
 }
 
 func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error) {
-	if reqCallBack.Type() == js.TypeFunction {
-		if reqCallBack.InstanceOf(js.Global().Get("Promise")) {
-			var ok bool
-			dataChannel := make(chan []js.Value, 1)
-			thenFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-				ok = true
-				dataChannel <- args
-				return nil
-			})
-			defer thenFunc.Release()
-			catchFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-				dataChannel <- args
-				return nil
-			})
-			defer catchFunc.Release()
-			reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data)).Call("then", thenFunc).Call("catch", catchFunc)
-			select {
-			case <-ctx.Done():
-				return nil, context.Cause(ctx)
-			case result := <-dataChannel:
-				if len(result) == 0 {
-					return nil, sdkerrs.ErrInternal.WrapMsg("The Js returned value is empty.")
-				}
-				resp := result[0]
-				if !ok {
-					if !resp.InstanceOf(js.Global().Get("Error")) {
-						return nil, sdkerrs.ErrInternal.WrapMsg("The Js returned err is not the Error.")
-					}
-					return nil, js.Error{Value: resp}
-				} else {
-					if !resp.InstanceOf(js.Global().Get("Uint8Array")) {
-						return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
-					}
-					length := resp.Get("length").Int()
-					if length == 0 {
-						return nil, sdkerrs.ErrInternal.WrapMsg("The Uint8Array is empty.")
-					}
-					log.ZDebug(ctx, "sendRequestToJs", "length", resp.Length())
-					return GoBytesFromJSUint8Array(resp), nil
-				}
+	if reqCallBack.Type() != js.TypeFunction {
+		return nil, sdkerrs.ErrInternal.WrapMsg("eventCallBack set error from javascript")
+	}
+	var ok bool
+	dataChannel := make(chan []js.Value, 1)
+	thenFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		ok = true
+		dataChannel <- args
+		return nil
+	})
+	defer thenFunc.Release()
+	catchFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		dataChannel <- args
+		return nil
+	})
+	defer catchFunc.Release()
+	reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data)).Call("then", thenFunc).Call("catch", catchFunc)
+	select {
+	case <-ctx.Done():
+		return nil, context.Cause(ctx)
+	case result := <-dataChannel:
+		if len(result) == 0 {
+			return nil, sdkerrs.ErrInternal.WrapMsg("The Js returned value is empty.")
+		}
+		resp := result[0]
+		if !ok {
+			if !resp.InstanceOf(js.Global().Get("Error")) {
+				return nil, sdkerrs.ErrInternal.WrapMsg("The Js returned err is not the Error.")
 			}
-
+			return nil, js.Error{Value: resp}
 		} else {
-			fmt.Print("come here 2")
-			resp := reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data))
 			if !resp.InstanceOf(js.Global().Get("Uint8Array")) {
 				return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
 			}
@@ -81,12 +66,10 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 			if length == 0 {
 				return nil, sdkerrs.ErrInternal.WrapMsg("The Uint8Array is empty.")
 			}
+			log.ZDebug(ctx, "sendRequestToJs", "length", resp.Length())
 			return GoBytesFromJSUint8Array(resp), nil
-
 		}
-
 	}
-	return nil, sdkerrs.ErrInternal.WrapMsg("eventCallBack set error from javascript")
 }
 
 func FfiRequest(_ js.Value, args []js.Value) any {
