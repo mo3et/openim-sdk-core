@@ -60,13 +60,21 @@ func (s *Stmt) Query(args []driver.Value) (driver.Rows, error) {
 	if err != nil {
 		return nil, err
 	}
+	var jsonString string
 	decoder := json.NewDecoder(bytes.NewReader([]byte(resp.Result)))
 	decoder.UseNumber()
-	var res []rawRows
-	if err := decoder.Decode(&res); err != nil {
-		log.ZError(context.Background(), "result unmarshal failed", err, "result", resp.Result)
-		return nil, errs.WrapMsg(err, "result unmarshal failed", "result", resp.Result)
+
+	if err := decoder.Decode(&jsonString); err != nil {
+		log.ZError(context.Background(), "result unmarshal failed (step 1)", err, "result", resp.Result)
+		return nil, errs.WrapMsg(err, "result unmarshal failed (step 1)", "result", resp.Result)
 	}
+
+	var res []rawRows
+	if err := json.Unmarshal([]byte(jsonString), &res); err != nil {
+		log.ZError(context.Background(), "result unmarshal failed (step 2)", err, "result", jsonString)
+		return nil, errs.WrapMsg(err, "result unmarshal failed (step 2)", "result", jsonString)
+	}
+
 	if len(res) == 0 {
 		return &rawRows{}, nil
 	}
