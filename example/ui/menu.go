@@ -1,49 +1,67 @@
 package ui
 
 import (
-	g "github.com/AllenDang/giu"
+	"log"
+	"os"
+
+	"github.com/AllenDang/cimgui-go/imgui"
+	"github.com/openimsdk/openim-sdk-core/v3/example/common"
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
+	pb_init "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 )
 
 func DrawMainMenu() {
-	g.MainMenuBar().Layout(
-		g.Menu("User").Layout(
-			g.MenuItem("UserInfo").OnClick(func() {
-				showWindow("UserInfo--", newUserInfoWindow("test"))
-			}),
-			g.Separator(),
-			g.MenuItem("Logout").OnClick(func() {
+	if imgui.BeginMainMenuBar() {
+		if imgui.BeginMenu("User") {
+			if imgui.MenuItemBool("UserInfo") {
+				userId := open_im_sdk.IMUserContext.GetLoginUserID()
+				showWindow(newUserInfoWindow(userId))
+			}
+			imgui.Separator()
+			if imgui.MenuItemBool("Logout") {
+				_, err := open_im_sdk.IMUserContext.Logout(common.NewCallContext(), &pb_init.LogoutReq{})
+				if err != nil {
+					log.Panic(err)
+				} else {
+					os.Exit(0)
+				}
+			}
+			imgui.EndMenu()
+		}
+		if imgui.BeginMenu("Friend") {
+			if imgui.MenuItemBool("FriendList") {
+				showWindow(newFriendListWindow())
+			}
+			if imgui.MenuItemBool("SearchFriend") {
 
-			}),
-		),
-		g.Menu("Friend").Layout(
+			}
+			if imgui.MenuItemBool("FriendApplication") {
 
-			g.MenuItem("FriendList").OnClick(func() {
+			}
+			imgui.EndMenu()
+		}
+		if imgui.BeginMenu("Group") {
+			if imgui.MenuItemBool("GroupList") {
 
-			}),
-			g.MenuItem("SearchFriend").OnClick(func() {
+			}
+			if imgui.MenuItemBool("CreateGroup") {
 
-			}),
-			g.MenuItem("FriendApplication").OnClick(func() {
+			}
 
-			}),
-		),
-		g.Menu("Group").Layout(
-			g.MenuItem("GroupList").OnClick(func() {
+			imgui.EndMenu()
+		}
+		if imgui.BeginMenu("Conversation") {
+			if imgui.MenuItemBool("ConversationList") {
+				showWindow(newConversationListWindow())
+			}
+			imgui.EndMenu()
+		}
+		if imgui.BeginMenu("About") {
+			if imgui.MenuItemBool("Version") {
 
-			}),
-			g.MenuItem("CreateGroup").OnClick(func() {
-
-			}),
-		),
-		g.Menu("Conversation").Layout(
-			g.MenuItem("ConversationList").OnClick(func() {
-
-			}),
-		),
-		g.Menu("About").Layout(
-			g.MenuItem("Version").OnClick(func() {
-
-			}),
-		),
-	).Build()
+			}
+			imgui.EndMenu()
+		}
+		imgui.EndMainMenuBar()
+	}
 }
