@@ -89,14 +89,13 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 }
 
 func FfiRequest(_ js.Value, args []js.Value) any {
-	if len(args) > 0 {
-		//Ensure the first argument passed from JavaScript is a Uint8Array;
-		//otherwise, the process will crash.
-		base.FfiRequest(GoBytesFromJSUint8Array(args[0]))
-		return js.ValueOf(1)
-	} else {
+	if len(args) == 0 {
 		return js.ValueOf(-1)
 	}
+	//Ensure the first argument passed from JavaScript is a Uint8Array;
+	//otherwise, the process will crash.
+	base.FfiRequest(GoBytesFromJSUint8Array(args[0]))
+	return js.ValueOf(1)
 }
 func FfiInit(_ js.Value, args []js.Value) any {
 	if len(args) != 3 {
