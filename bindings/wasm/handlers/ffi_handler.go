@@ -45,7 +45,7 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 				return nil
 			})
 			defer catchFunc.Release()
-
+			reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data)).Call("then", thenFunc).Call("catch", catchFunc)
 			select {
 			case <-ctx.Done():
 				return nil, context.Cause(ctx)
