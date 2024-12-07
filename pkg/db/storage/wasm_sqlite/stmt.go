@@ -5,7 +5,9 @@ import (
 	"context"
 	"database/sql/driver"
 	"encoding/json"
+
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
+	"github.com/openimsdk/tools/log"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
 	"github.com/openimsdk/tools/errs"
@@ -62,6 +64,7 @@ func (s *Stmt) Query(args []driver.Value) (driver.Rows, error) {
 	decoder.UseNumber()
 	var res []rawRows
 	if err := decoder.Decode(&res); err != nil {
+		log.ZError(context.Background(), "result unmarshal failed", err, "result", resp.Result)
 		return nil, errs.WrapMsg(err, "result unmarshal failed", "result", resp.Result)
 	}
 	if len(res) == 0 {
