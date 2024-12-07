@@ -15,9 +15,6 @@ import (
 var (
 	eventCallBack js.Value
 	reqCallBack   js.Value
-	jsPromise     = js.Global().Get("Promise")
-	jsErr         = js.Global().Get("Error")
-	jsBytes       = js.Global().Get("Uint8Array")
 )
 
 func init() {
@@ -57,12 +54,12 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 				}
 				resp := result[0]
 				if !ok {
-					if !resp.InstanceOf(jsErr) {
+					if !resp.InstanceOf(js.Global().Get("Error")) {
 						return nil, sdkerrs.ErrInternal.WrapMsg("The Js returned err is not the Error.")
 					}
 					return nil, js.Error{Value: resp}
 				} else {
-					if !resp.InstanceOf(jsBytes) {
+					if !resp.InstanceOf(js.Global().Get("Uint8Array")) {
 						return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
 					}
 					length := resp.Get("length").Int()
@@ -77,7 +74,7 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 		} else {
 			fmt.Print("come here 2")
 			resp := reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data))
-			if !resp.InstanceOf(jsBytes) {
+			if !resp.InstanceOf(js.Global().Get("Uint8Array")) {
 				return nil, sdkerrs.ErrInternal.WrapMsg("The returned value is not a Uint8Array.")
 			}
 			length := resp.Get("length").Int()
@@ -134,7 +131,7 @@ func GoBytesFromJSUint8Array(jsUint8Array js.Value) []byte {
 // This function copies the data from Go to JavaScript.
 func JSUint8ArrayFromGoBytes(data []byte) js.Value {
 	// Create a new Uint8Array in JavaScript with the same length as the Go byte slice
-	uint8Array := jsBytes.New(len(data))
+	uint8Array := js.Global().Get("Uint8Array").New(len(data))
 	// Copy data from Go byte slice to JavaScript Uint8Array
 	js.CopyBytesToJS(uint8Array, data)
 	return uint8Array
