@@ -1,8 +1,10 @@
 package test
 
 import (
+	"fmt"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
 	"testing"
+	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 )
@@ -15,6 +17,28 @@ func Test_GetAllConversationList(t *testing.T) {
 	for _, c := range conversations.ConversationList {
 		t.Log(c)
 	}
+}
+
+func Test_SetConversation(t *testing.T) {
+	isPinned := true
+	ex := fmt.Sprintf("time_%s", time.Now().Format(time.DateTime))
+	//ex = ""
+	//isPinned = false
+	_, err := open_im_sdk.IMUserContext.Conversation().SetConversation(ctx, &sdkpb.SetConversationReq{
+		ConversationID: "si_4475057807_5143233203",
+		IsPinned:       &isPinned,
+		Ex:             &ex,
+	})
+	if err != nil {
+		panic(err)
+	}
+	//t.Log(err)
+
+	res, err := open_im_sdk.IMUserContext.Conversation().GetAllConversationList(ctx, &sdkpb.GetAllConversationListReq{})
+	if err != nil {
+		panic(err)
+	}
+	t.Log(res)
 }
 
 //

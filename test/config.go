@@ -8,7 +8,7 @@ const (
 	APIADDR = "http://127.0.0.1:10002"
 	WSADDR  = "ws://127.0.0.1:10001"
 
-	UserID = "1927082543"
+	UserID = "5143233203"
 )
 
 //const (
