@@ -1,7 +1,6 @@
 package base
 
 import (
-	"bytes"
 	"context"
 	"crypto/rand"
 	"crypto/sha256"
@@ -128,32 +127,16 @@ func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
 }
 
 func FfiRequest(data []byte) {
-	//t := time.Now()
+	t := time.Now()
 	go func() {
-		defer func() {
+		defer func(start time.Time) {
 			if r := recover(); r != nil {
 				mw.PanicStackToLog(context.Background(), r)
-			} else {
-				//	elapsed := time.Since(start).Milliseconds()
-				//	if err == nil {
-				//		log.ZInfo(ctx, "fn call success", "function name", funcName, "cost time", fmt.Sprintf("%d ms", elapsed), "resp", res)
-				//	} else {
-				//		log.ZError(ctx, "fn call error", mw.FormatError(err), "function name", funcName, "cost time", fmt.Sprintf("%d ms", elapsed))
-				//
-				//	}
 			}
-		}()
-		temp := make([]byte, len(data))
-		copy(temp, data)
-		log.ZInfo(context.Background(), "fn call success1", "data", temp)
-		log.ZInfo(context.Background(), "fn call success1", "data", string(temp))
-		log.ZInfo(context.Background(), "fn call success1", "data", fmt.Sprintf("%T", serializer.GetInstance()))
+		}(t)
 		var ffiRequest ffi.FfiRequest
-		err := serializer.GetInstance().Unmarshal(temp, &ffiRequest)
+		err := serializer.GetInstance().Unmarshal(data, &ffiRequest)
 		if err != nil {
-			log.ZInfo(context.Background(), "fn call success1", "data", temp)
-			log.ZInfo(context.Background(), "fn call success1", "data", string(temp))
-			log.ZInfo(context.Background(), "fn call success1", "data", bytes.Equal(temp, data))
 			log.ZError(context.Background(), "ffiRequest unmarshal error", err, "dataLength", len(data))
 			activeErrResp(0, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
 				"dataLength", len(data)))

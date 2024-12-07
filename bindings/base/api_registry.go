@@ -2,22 +2,51 @@ package base
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/serializer"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
+	"github.com/openimsdk/tools/log"
+	"github.com/openimsdk/tools/mw"
 )
 
-func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
-	return func(ctx context.Context, _ uint64, _ pb.FuncRequestEventName, req []byte) ([]byte, error) {
-		var pbReq A
+// Functions to ignore in the process logging
+var ignoredLogFuncMap = map[pb.FuncRequestEventName]struct{}{
+	pb.FuncRequestEventName_Log: {},
+}
 
+func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
+	return func(ctx context.Context, _ uint64, name pb.FuncRequestEventName, req []byte) (resp []byte, err error) {
+		start := time.Now()
+		var (
+			pbReq  A
+			pbResp *B
+		)
+		defer func(start time.Time) {
+			if _, ignored := ignoredLogFuncMap[name]; ignored {
+				return
+			}
+			elapsed := time.Since(start).Milliseconds()
+			if err == nil {
+				log.ZInfo(ctx, fmt.Sprintf("SDK Call Response Success - %s", pb.FuncRequestEventName_name[int32(name)]),
+					"duration", fmt.Sprintf("%d ms", elapsed), "resp", pbResp)
+			} else {
+				log.ZError(ctx, fmt.Sprintf("SDK Call Response Error - %s", pb.FuncRequestEventName_name[int32(name)]), mw.FormatError(err))
+
+			}
+		}(start)
+		if _, ignored := ignoredLogFuncMap[name]; !ignored {
+			log.ZInfo(ctx, fmt.Sprintf("SDK Call Request - %s", pb.FuncRequestEventName_name[int32(name)]),
+				"req", pbReq)
+		}
 		if err := serializer.GetInstance().Unmarshal(req, any(&pbReq)); err != nil {
 			return nil, err
 		}
 
-		pbResp, err := fn(ctx, &pbReq)
+		pbResp, err = fn(ctx, &pbReq)
 		if err != nil {
 			return nil, err
 		}
@@ -27,8 +56,22 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 }
 
 func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, callback C) (*B, error)) callFunc {
-	return func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) ([]byte, error) {
-		var pbReq A
+	return func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) (resp []byte, err error) {
+		start := time.Now()
+		var (
+			pbReq  A
+			pbResp *B
+		)
+		defer func(start time.Time) {
+			elapsed := time.Since(start).Milliseconds()
+			if err == nil {
+				log.ZInfo(ctx, fmt.Sprintf("SDK Call Response Success - %s", pb.FuncRequestEventName_name[int32(name)]),
+					"duration", fmt.Sprintf("%d ms", elapsed), "resp", pbResp)
+			} else {
+				log.ZError(ctx, fmt.Sprintf("SDK Call Response Error - %s", pb.FuncRequestEventName_name[int32(name)]), mw.FormatError(err))
+
+			}
+		}(start)
 		if err := serializer.GetInstance().Unmarshal(req, any(&pbReq)); err != nil {
 			return nil, err
 		}
@@ -36,7 +79,7 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 		if !ok {
 			return nil, sdkerrs.ErrInternal.WrapMsg("callback maybe not registered")
 		}
-		pbResp, err := fn(ctx, &pbReq, cb(handlerID).(C))
+		pbResp, err = fn(ctx, &pbReq, cb(handlerID).(C))
 		if err != nil {
 			return nil, err
 		}
