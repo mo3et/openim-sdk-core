@@ -58,7 +58,12 @@ func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, 
 	if err != nil {
 		return nil, sdkerrs.ErrArgs.Wrap()
 	}
-	return sendFfiRequestFun(ctx, handleID, ffiRequestData)
+	var ffiResult ffi.FfiRequest
+	err = serializer.GetInstance().Unmarshal(ffiRequestData, &ffiRequest)
+	if err != nil {
+		return nil, sdkerrs.ErrArgs.Wrap()
+	}
+	return sendFfiRequestFun(ctx, handleID, ffiResult.Data)
 }
 
 func GenerateHandleID() uint64 {
