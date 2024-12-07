@@ -6,7 +6,6 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"runtime/debug"
 	"sync/atomic"
 	"time"
 
@@ -132,7 +131,6 @@ func FfiRequest(data []byte) {
 	go func() {
 		defer func() {
 			if r := recover(); r != nil {
-				fmt.Sprintf("panic: %+v\n%s", r, debug.Stack())
 				mw.PanicStackToLog(context.Background(), r)
 			}
 		}()
