@@ -72,7 +72,7 @@ message IMFriendApplication {
   string toUserID = 4; // Receiver user ID
   string toNickname = 5; // Receiver nickname
   string toFaceURL = 6; // Receiver avatar URL
-  common.FriendHandleResult handleResult = 7; // Request handle result
+  common.HandleResult handleResult = 7; // Request handle result
   string reqMsg = 8; // Request message
   int64 createTime = 9; // Request create time
   string handlerUserID = 10; // Request handler user ID
@@ -218,7 +218,7 @@ message IMGroupApplication {
   // @user_face_url
   string userFaceURL = 13;
   // group application handle result
-  common.GroupHandleResult handleResult = 14;
+  common.HandleResult handleResult = 14;
   // group application request message
   string reqMsg = 15;
   // group application handle message

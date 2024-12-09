@@ -235,15 +235,8 @@ enum FriendSource {
   QRCode = 4;
 }
 
-enum GroupHandleResult {
-  GroupHandleResultDefault = 0;
-  GroupHandleResultDecline = -1;
-  GroupHandleResultAccept = 1;
-}
-
-
-enum FriendHandleResult {
-    FriendHandleResultDefault = 0;
-    FriendHandleResultDecline = -1;
-    FriendHandleResultAccept = 1;
+enum HandleResult {
+  ResultDefault = 0;
+  ResultDecline = -1;
+  ResultAccept = 1;
 }

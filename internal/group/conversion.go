@@ -169,7 +169,7 @@ func DBGroupRequestToIMGroupApplication(info *model_struct.LocalGroupRequest) *s
 		UserID:        info.UserID,
 		Nickname:      info.Nickname,
 		UserFaceURL:   info.UserFaceURL,
-		HandleResult:  common.GroupHandleResult(info.HandleResult),
+		HandleResult:  common.HandleResult(info.HandleResult),
 		ReqMsg:        info.ReqMsg,
 		HandledMsg:    info.HandledMsg,
 		ReqTime:       info.ReqTime,
