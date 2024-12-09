@@ -749,14 +749,14 @@ message FriendApplicationApprovedTips {
 
 message RevokedTips {
   string revokerID = 1;
-  int32 revokerRole = 2;
+  common.RevokerRole revokerRole = 2;
   string clientMsgID = 3;
   string revokerNickname = 4;
   int64 revokeTime = 5;
   int64 sourceMessageSendTime = 6;
   string sourceMessageSendID = 7;
   string sourceMessageSenderNickname = 8;
-  int32 sessionType = 10;
+  common.SessionType sessionType = 10;
   int64 seq = 11;
   string ex = 12;
 }
