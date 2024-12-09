@@ -769,30 +769,13 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 	return &r, nil
 }
 
-func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *msgpb.GetAdvancedHistoryMessageListReq) (*msgpb.GetAdvancedHistoryMessageListResp, error) {
-	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, false)
+func (c *Conversation) GetHistoryMessageList(ctx context.Context, req *msgpb.GetHistoryMessageListReq) (*msgpb.GetHistoryMessageListResp, error) {
+	result, err := c.getHistoryMessageList(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	if len(result.MessageList) == 0 {
-		s := make([]*sharedpb.IMMessage, 0)
-		result.MessageList = s
-	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return &msgpb.GetAdvancedHistoryMessageListResp{GetAdvancedHistoryMessageListCallback: result}, nil
-}
-
-func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req *msgpb.GetAdvancedHistoryMessageListReverseReq) (*msgpb.GetAdvancedHistoryMessageListReverseResp, error) {
-	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, true)
-	if err != nil {
-		return nil, err
-	}
-	if len(result.MessageList) == 0 {
-		s := make([]*sharedpb.IMMessage, 0)
-		result.MessageList = s
-	}
-	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return &msgpb.GetAdvancedHistoryMessageListReverseResp{GetAdvancedHistoryMessageListCallback: result}, nil
+	return result, nil
 }
 
 func (c *Conversation) RevokeMessage(ctx context.Context, req *msgpb.RevokeMessageReq) (*msgpb.RevokeMessageResp, error) {

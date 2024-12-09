@@ -21,7 +21,7 @@ import (
 // validateAndFillInternalGaps checks for continuity within a block of messages. If gaps are detected, it initiates a fill operation
 // to retrieve and merge missing messages. It returns the maximum `seq` of this batch, which helps in determining continuity with subsequent batches.
 func (c *Conversation) validateAndFillInternalGaps(ctx context.Context, conversationID string, isReverse bool, count int,
-	startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) int64 {
+	startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetHistoryMessageListResp) int64 {
 	var lostSeqListLength int
 	maxSeq, minSeq, haveSeqList := c.getMaxAndMinHaveSeqList(*list)
 	log.ZDebug(ctx, "getMaxAndMinHaveSeqList is:", "maxSeq", maxSeq, "minSeq", minSeq, "haveSeqList", haveSeqList)
@@ -41,7 +41,7 @@ func (c *Conversation) validateAndFillInternalGaps(ctx context.Context, conversa
 // validateAndFillInterBlockGaps checks for continuity between blocks of messages. If a gap is identified, it retrieves the missing messages
 // to bridge the gap. The function returns a boolean indicating whether the blocks are continuous.
 func (c *Conversation) validateAndFillInterBlockGaps(ctx context.Context, maxSeq int64, conversationID string,
-	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) bool {
+	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetHistoryMessageListResp) bool {
 	lastMinSeq, _ := c.messagePullMinSeqMap.Load(conversationID)
 	if lastMinSeq != 0 {
 		log.ZDebug(ctx, "get lost LastMinSeq is :", "lastMinSeq", lastMinSeq, "thisMaxSeq", maxSeq)
@@ -101,7 +101,7 @@ func (c *Conversation) validateAndFillInterBlockGaps(ctx context.Context, maxSeq
 // internal and inter-block continuity checks but contains fewer messages than `count`, this function verifies if the end
 // of the message history has been reached. If not, it attempts to retrieve any missing messages to ensure continuity.
 func (c *Conversation) validateAndFillEndBlockContinuity(ctx context.Context, conversationID string,
-	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) {
+	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog, messageListCallback *sdkpb.GetHistoryMessageListResp) {
 	// Perform an end-of-block check if the retrieved message count is less than requested
 	if len(*list) < count {
 		_, minSeq, _ := c.getMaxAndMinHaveSeqList(*list)
@@ -175,7 +175,7 @@ func getLostSeqListWithLimitLength(minSeq, maxSeq int64, haveSeqList []int64) []
 // 3. Check the continuity between blocks.
 func (c *Conversation) fetchAndMergeMissingMessages(ctx context.Context, conversationID string, seqList []int64,
 	isReverse bool, count int, startTime int64, list *[]*model_struct.LocalChatLog,
-	messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) {
+	messageListCallback *sdkpb.GetHistoryMessageListResp) {
 
 	var getSeqMessageResp msg.GetSeqMessageResp
 	var getSeqMessageReq msg.GetSeqMessageReq
@@ -210,7 +210,7 @@ func (c *Conversation) fetchAndMergeMissingMessages(ctx context.Context, convers
 
 	}
 }
-func errHandle(seqList []int64, list *[]*model_struct.LocalChatLog, err error, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) {
+func errHandle(seqList []int64, list *[]*model_struct.LocalChatLog, err error, messageListCallback *sdkpb.GetHistoryMessageListResp) {
 	messageListCallback.ErrCode = 100
 	messageListCallback.ErrMsg = err.Error()
 	var result []*model_struct.LocalChatLog

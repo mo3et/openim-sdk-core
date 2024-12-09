@@ -808,7 +808,7 @@ func (c *Conversation) ChangeInputStates(ctx context.Context, conversationID str
 }
 
 func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversationID string, seq int64, before int64, after int64) ([]*sharedpb.IMMessage, error) {
-	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &msgpb.GetAdvancedHistoryMessageListCallback{})
+	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &msgpb.GetHistoryMessageListResp{})
 	res, err := c.db.GetMessagesBySeqs(ctx, conversationID, []int64{seq})
 	if err != nil {
 		return nil, err
@@ -823,12 +823,12 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 	msg := msgList[0]
 	result := make([]*sharedpb.IMMessage, 0, before+after+1)
 	if before > 0 {
-		req := &msgpb.GetAdvancedHistoryMessageListParams{
+		req := &msgpb.GetHistoryMessageListReq{
 			ConversationID:   conversationID,
 			Count:            int32(before),
 			StartClientMsgID: msg.ClientMsgID,
 		}
-		val, err := c.getAdvancedHistoryMessageList(ctx, req, false)
+		val, err := c.getHistoryMessageList(ctx, req)
 		if err != nil {
 			return nil, err
 		}
@@ -836,12 +836,12 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 	}
 	result = append(result, msg)
 	if after > 0 {
-		req := &msgpb.GetAdvancedHistoryMessageListParams{
+		req := &msgpb.GetHistoryMessageListReq{
 			ConversationID:   conversationID,
 			Count:            int32(after),
 			StartClientMsgID: msg.ClientMsgID,
 		}
-		val, err := c.getAdvancedHistoryMessageList(ctx, req, true)
+		val, err := c.getHistoryMessageList(ctx, req)
 		if err != nil {
 			return nil, err
 		}

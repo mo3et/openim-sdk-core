@@ -9,19 +9,6 @@ import "shared.proto";
 
 
 
-message GetAdvancedHistoryMessageListParams {
-  string conversationID = 1;
-  string startClientMsgID = 2;
-  int32 count = 3;
-}
-
-message GetAdvancedHistoryMessageListCallback {
-  repeated shared.IMMessage messageList = 1;
-  bool isEnd = 2;
-  int32 errCode = 3;
-  string errMsg = 4;
-}
-
 // ------------------------------------------------------------------------------------------------------
 message SendMessageReq {
   shared.IMMessage message = 1;
@@ -33,21 +20,20 @@ message SendMessageResp {
   shared.IMMessage message = 1;
 }
 
-message GetAdvancedHistoryMessageListReq {
+message GetHistoryMessageListReq {
   string conversationID = 1;
-  GetAdvancedHistoryMessageListParams getAdvancedHistoryMessageListParams = 2;
+  string startClientMsgID = 2;
+  int32 count = 3;
+  bool  isReverse = 4;
 }
-message GetAdvancedHistoryMessageListResp {
-  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
+message GetHistoryMessageListResp {
+  repeated shared.IMMessage messageList = 1;
+  bool isEnd = 2;
+  int32 errCode = 3;
+  string errMsg = 4;
+
 }
 
-message GetAdvancedHistoryMessageListReverseReq {
-  string conversationID = 1;
-  GetAdvancedHistoryMessageListParams getAdvancedHistoryMessageListParams = 2;
-}
-message GetAdvancedHistoryMessageListReverseResp {
-  GetAdvancedHistoryMessageListCallback getAdvancedHistoryMessageListCallback = 1;
-}
 
 message RevokeMessageReq {
   string conversationID = 1;

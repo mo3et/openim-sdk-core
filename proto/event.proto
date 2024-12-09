@@ -136,8 +136,7 @@ enum FuncRequestEventName {
   GetTotalUnreadMsgCount = 2009;
   GetConversationIDBySessionType = 2010;
   FindMessageList = 2011;
-  GetAdvancedHistoryMessageList = 2012;
-  GetAdvancedHistoryMessageListReverse = 2013;
+  GetHistoryMessageList = 2012;
   RevokeMessage = 2014;
   TypingStatusUpdate = 2015;
   MarkConversationMessageAsRead = 2016;
