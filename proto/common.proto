@@ -228,3 +228,9 @@ enum RevokerRole {
     RevokerRoleAdmin = 60;
     RevokerRoleMember = 20;
 }
+
+enum FriendSource {
+  _ = 0;
+  Search = 3;
+  QRCode = 4;
+}

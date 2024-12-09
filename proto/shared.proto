@@ -44,7 +44,7 @@ message IMFriend {
   string friendUserID = 2; // Friend user ID
   string remark = 3; // Friend remark
   int64 createTime = 4; // Friend add time
-  int32 addSource = 5; // Friend add source
+  common.FriendSource addSource = 5; // Friend add source
   string operatorUserID = 6; // Operator user ID
   string nickname = 7; // Friend nickname
   string faceURL = 8; // Friend avatar URL
@@ -59,7 +59,7 @@ message IMBlack {
   string nickname = 3; // Blocked user nickname
   string faceURL = 4; // Blocked user avatar URL
   int64 createTime = 5; // Block time
-  int32 addSource = 6; // Block source
+  common.FriendSource addSource = 6; // Block source
   string operatorUserID = 7; // Operator user ID
   string ex = 8; // Block extension field
   string attached = 9; // SDK internal extension field, not currently used
@@ -595,7 +595,7 @@ message GroupCancelMutedTips {
 //
 //message FriendApplication {
 //  int64 addTime = 1;
-//  string addSource = 2;
+//  common.FriendSource addSource = 2;
 //  string addWording = 3;
 //}
 //
