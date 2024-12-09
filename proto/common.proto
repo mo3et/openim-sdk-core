@@ -138,7 +138,8 @@ enum ContentType {
   //  GroupMemberSetToAdminNotification = 1517;
   //  GroupMemberSetToOrdinaryUserNotification = 1518;
   //  GroupInfoSetAnnouncementNotification = 1519;
-  //  GroupInfoSetNameNotification = 1520;
+  GroupInfoSetAnnouncementNotification = 1519;
+  GroupInfoSetNameNotification = 1520;
   //  GroupNotificationEnd                     = 1599;
 
   ConversationPrivateChatNotification = 1701;

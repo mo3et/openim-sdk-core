@@ -225,6 +225,30 @@ var contentTypeMap = map[commonpb.ContentType]contentType{
 			msg.Content = &sdkpb.IMMessage_GroupCreatedTips{GroupCreatedTips: elem.(*sdkpb.GroupCreatedTips)}
 		},
 	},
+	commonpb.ContentType_GroupInfoSetNameNotification: {
+		N: true,
+		New: func() any {
+			return &sdkpb.GroupInfoSetNameTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_GroupInfoSetNameTips).GroupInfoSetNameTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_GroupInfoSetNameTips{GroupInfoSetNameTips: elem.(*sdkpb.GroupInfoSetNameTips)}
+		},
+	},
+	commonpb.ContentType_GroupInfoSetAnnouncementNotification: {
+		N: true,
+		New: func() any {
+			return &sdkpb.GroupInfoSetAnnouncementTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*sdkpb.IMMessage_GroupInfoSetAnnouncementTips).GroupInfoSetAnnouncementTips
+		},
+		Set: func(msg *sdkpb.IMMessage, elem any) {
+			msg.Content = &sdkpb.IMMessage_GroupInfoSetAnnouncementTips{GroupInfoSetAnnouncementTips: elem.(*sdkpb.GroupInfoSetAnnouncementTips)}
+		},
+	},
 	commonpb.ContentType_MemberQuitNotification: {
 		N: true,
 		New: func() any {

@@ -458,6 +458,18 @@ message GroupCreatedTips {
   shared.IMGroupMember groupOwnerUser = 5;
 }
 
+message GroupInfoSetNameTips  {
+  openim.sdk.shared.IMGroupMember opUser = 1; //who do this
+  openim.sdk.shared.IMGroup group = 2;
+}
+
+message GroupInfoSetAnnouncementTips {
+  openim.sdk.shared.IMGroupMember opUser = 1; //who do this
+  openim.sdk.shared.IMGroup group = 2;
+  uint64 groupMemberVersion = 3;
+  string groupMemberVersionID = 4;
+}
+
 //
 //	OnGroupInfoSet()
 //message GroupInfoSetTips {
@@ -812,6 +824,8 @@ message IMMessage {
     RevokedTips revokedTips = 38;
 
     GroupCreatedTips groupCreatedTips = 311;
+    GroupInfoSetNameTips groupInfoSetNameTips = 312;
+    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 313;
     //    GroupInfoSetTips groupInfoSetTips = 39;
     //    GroupInfoSetNameTips groupInfoSetNameTips = 40;
     //    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;
