@@ -259,8 +259,6 @@ message IMConversation {
   bool isPrivateChat = 15;
   int32 burnDuration = 16;
   string ex = 17;
-  int64 msgDestructTime = 18;
-  bool isMsgDestruct = 19;
 }
 
 message AtInfo {

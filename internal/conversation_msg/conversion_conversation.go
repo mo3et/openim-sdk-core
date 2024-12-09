@@ -21,8 +21,6 @@ func ServerConversationToLocal(conversation *pbConversation.Conversation) *model
 		IsPrivateChat:    conversation.IsPrivateChat,
 		AttachedInfo:     conversation.AttachedInfo,
 		Ex:               conversation.Ex,
-		MsgDestructTime:  conversation.MsgDestructTime,
-		IsMsgDestruct:    conversation.IsMsgDestruct,
 	}
 }
 
@@ -62,9 +60,7 @@ func LocalConversationToIMConversation(conversation *model_struct.LocalConversat
 		IsPinned:          conversation.IsPinned,
 		IsPrivateChat:     conversation.IsPrivateChat,
 		BurnDuration:      conversation.BurnDuration,
-		MsgDestructTime:   conversation.MsgDestructTime,
 		Ex:                conversation.Ex,
-		IsMsgDestruct:     conversation.IsMsgDestruct,
 	}
 }
 
