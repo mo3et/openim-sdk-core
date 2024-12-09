@@ -4,20 +4,22 @@ import (
 	"context"
 	"database/sql/driver"
 	"encoding/json"
+	"fmt"
+	"github.com/openimsdk/tools/log"
 	"io"
 	"strings"
-
-	"github.com/openimsdk/tools/log"
 )
 
 type rawRows struct {
+	ctx         context.Context
 	Columns_    []string         `json:"columns"`
 	Values      [][]driver.Value `json:"values"`
 	index       int
 	columnIndex map[string]int
 }
 
-func (r *rawRows) init() {
+func (r *rawRows) init(ctx context.Context) {
+	r.ctx = ctx
 	r.columnIndex = make(map[string]int)
 	for i, name := range r.Columns_ {
 		r.columnIndex[name] = i
@@ -41,19 +43,21 @@ func (r *rawRows) Next(dest []driver.Value) error {
 	row := r.Values[index]
 	for i := range dest {
 		elem := row[i]
+		log.ZInfo(r.ctx, "rawRows.Next", "dbType", fmt.Sprintf("%T", elem), "dbValue", elem, "recvType", fmt.Sprintf("%T", dest[i]), "recvValue", dest[i])
 		if elem == nil {
+			dest[i] = nil
 			continue
 		}
 		if num, ok := elem.(json.Number); ok {
 			var err error
-			log.ZDebug(context.Background(), "num.String() = %v", num.String())
+			//log.ZDebug(context.Background(), "num.String() = %v", num.String())
 			if strings.IndexByte(num.String(), '.') >= 0 {
 				elem, err = num.Float64()
 			} else {
 				elem, err = num.Int64()
 			}
 			if err != nil {
-				log.ZError(context.Background(), "failed to convert json.Number to int64 or float64: %v", err)
+				//log.ZError(context.Background(), "failed to convert json.Number to int64 or float64: %v", err)
 				return err
 			}
 		}

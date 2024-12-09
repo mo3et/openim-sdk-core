@@ -6,11 +6,8 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
-	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
-	"github.com/openimsdk/tools/log"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
-	"github.com/openimsdk/tools/errs"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
 )
 
 type Stmt struct {
@@ -60,25 +57,16 @@ func (s *Stmt) Query(args []driver.Value) (driver.Rows, error) {
 	if err != nil {
 		return nil, err
 	}
-	var jsonString string
 	decoder := json.NewDecoder(bytes.NewReader([]byte(resp.Result)))
 	decoder.UseNumber()
-
-	if err := decoder.Decode(&jsonString); err != nil {
-		log.ZError(context.Background(), "result unmarshal failed (step 1)", err, "result", resp.Result)
-		return nil, errs.WrapMsg(err, "result unmarshal failed (step 1)", "result", resp.Result)
-	}
-
 	var res []rawRows
-	if err := json.Unmarshal([]byte(jsonString), &res); err != nil {
-		log.ZError(context.Background(), "result unmarshal failed (step 2)", err, "result", jsonString)
-		return nil, errs.WrapMsg(err, "result unmarshal failed (step 2)", "result", jsonString)
+	if err := decoder.Decode(&res); err != nil {
+		return nil, err
 	}
-
 	if len(res) == 0 {
-		return &rawRows{}, nil
+		return &rawRows{ctx: s.ctx}, nil
 	}
 	val := res[0]
-	val.init()
+	val.init(s.ctx)
 	return &val, nil
 }
