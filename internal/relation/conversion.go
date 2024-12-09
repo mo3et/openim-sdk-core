@@ -82,7 +82,7 @@ func DbFriendRequestToIMFriendApplication(info *model_struct.LocalFriendRequest)
 		ToUserID:      info.ToUserID,
 		ToNickname:    info.ToNickname,
 		ToFaceURL:     info.ToFaceURL,
-		HandleResult:  info.HandleResult,
+		HandleResult:  common.FriendHandleResult(info.HandleResult),
 		ReqMsg:        info.ReqMsg,
 		CreateTime:    info.CreateTime,
 		HandlerUserID: info.HandlerUserID,

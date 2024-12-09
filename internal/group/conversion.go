@@ -16,6 +16,7 @@ package group
 
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/sdkws"
@@ -168,7 +169,7 @@ func DBGroupRequestToIMGroupApplication(info *model_struct.LocalGroupRequest) *s
 		UserID:        info.UserID,
 		Nickname:      info.Nickname,
 		UserFaceURL:   info.UserFaceURL,
-		HandleResult:  info.HandleResult,
+		HandleResult:  common.GroupHandleResult(info.HandleResult),
 		ReqMsg:        info.ReqMsg,
 		HandledMsg:    info.HandledMsg,
 		ReqTime:       info.ReqTime,
