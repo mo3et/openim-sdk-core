@@ -216,7 +216,7 @@ message InviteUserToGroupReq {
 }
 message InviteUserToGroupResp {}
 
-message HandlerGroupRequestReq {
+message HandleGroupRequestReq {
   /**
    * group id you want to handle1<br>
    * group id you want to handle2<br>
@@ -231,7 +231,7 @@ message HandlerGroupRequestReq {
   // approval status
   openim.sdk.common.ApprovalStatus status = 4;
 }
-message HandlerGroupRequestResp {}
+message HandleGroupRequestResp {}
 
 service group {
   /**
@@ -367,5 +367,5 @@ service group {
    * Set group information
    * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
    */
-  rpc HandlerGroupRequest(HandlerGroupRequestReq) returns (HandlerGroupRequestResp);
+  rpc HandleGroupRequest(HandleGroupRequestReq) returns (HandleGroupRequestResp);
 }
