@@ -5,6 +5,7 @@ import (
 	"context"
 	"database/sql/driver"
 	"encoding/json"
+	"github.com/openimsdk/tools/log"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
@@ -57,6 +58,7 @@ func (s *Stmt) Query(args []driver.Value) (driver.Rows, error) {
 	if err != nil {
 		return nil, err
 	}
+	log.ZDebug(s.ctx, "Stmt.Query", "result", resp.Result)
 	decoder := json.NewDecoder(bytes.NewReader([]byte(resp.Result)))
 	decoder.UseNumber()
 	var res []rawRows
