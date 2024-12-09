@@ -164,7 +164,7 @@ var FuncMap = map[sdkevent.FuncRequestEventName]callFunc{
 	sdkevent.FuncRequestEventName_AddBlack:            wrapFunc(open_im_sdk.IMUserContext.Relation().AddBlack),
 	sdkevent.FuncRequestEventName_DeleteBlack:         wrapFunc(open_im_sdk.IMUserContext.Relation().DeleteBlack),
 	sdkevent.FuncRequestEventName_GetBlacks:           wrapFunc(open_im_sdk.IMUserContext.Relation().GetBlacks),
-	sdkevent.FuncRequestEventName_UpdateFriends:       wrapFunc(open_im_sdk.IMUserContext.Relation().UpdateFriends),
+	sdkevent.FuncRequestEventName_UpdateFriend:        wrapFunc(open_im_sdk.IMUserContext.Relation().UpdateFriend),
 
 	sdkevent.FuncRequestEventName_GetAllConversationList:            wrapFunc(open_im_sdk.IMUserContext.Conversation().GetAllConversationList),
 	sdkevent.FuncRequestEventName_GetConversationListSplit:          wrapFunc(open_im_sdk.IMUserContext.Conversation().GetConversationListSplit),

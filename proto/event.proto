@@ -121,7 +121,7 @@ enum FuncRequestEventName {
   AddBlack = 1109;
   DeleteBlack = 1110;
   GetBlacks = 1111;
-  UpdateFriends = 1112;
+  UpdateFriend = 1112;
 
   // conversation_msg
   GetAllConversationList = 2000;

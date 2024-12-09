@@ -2,6 +2,7 @@ package relation
 
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/sdkws"
 )
@@ -63,7 +64,7 @@ func DbFriendToSdk(info *model_struct.LocalFriend) *sdkpb.IMFriend {
 		FriendUserID:   info.FriendUserID,
 		Remark:         info.Remark,
 		CreateTime:     info.CreateTime,
-		AddSource:      info.AddSource,
+		AddSource:      common.FriendSource(info.AddSource),
 		OperatorUserID: info.OperatorUserID,
 		Nickname:       info.Nickname,
 		FaceURL:        info.FaceURL,
@@ -81,7 +82,7 @@ func DbFriendRequestToIMFriendApplication(info *model_struct.LocalFriendRequest)
 		ToUserID:      info.ToUserID,
 		ToNickname:    info.ToNickname,
 		ToFaceURL:     info.ToFaceURL,
-		HandleResult:  info.HandleResult,
+		HandleResult:  common.HandleResult(info.HandleResult),
 		ReqMsg:        info.ReqMsg,
 		CreateTime:    info.CreateTime,
 		HandlerUserID: info.HandlerUserID,
@@ -99,7 +100,7 @@ func DbBlackToSdk(info *model_struct.LocalBlack) *sdkpb.IMBlack {
 		Nickname:       info.Nickname,
 		FaceURL:        info.FaceURL,
 		CreateTime:     info.CreateTime,
-		AddSource:      info.AddSource,
+		AddSource:      common.FriendSource(info.AddSource),
 		OperatorUserID: info.OperatorUserID,
 		Ex:             info.Ex,
 		Attached:       info.AttachedInfo,

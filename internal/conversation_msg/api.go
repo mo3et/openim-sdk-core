@@ -80,7 +80,7 @@ func (c *Conversation) GetOneConversation(ctx context.Context, req *sdkpb.GetOne
 	} else {
 		var newConversation model_struct.LocalConversation
 		newConversation.ConversationID = conversationID
-		newConversation.ConversationType = req.SessionType
+		newConversation.ConversationType = int32(req.SessionType)
 		switch req.SessionType {
 		case constant.SingleChatType:
 			newConversation.UserID = req.SourceID

@@ -73,7 +73,7 @@ message GetAtAllTagResp {
 }
 
 message GetOneConversationReq {
-  int32 sessionType = 1;
+  common.SessionType sessionType = 1;
   string sourceID = 2;
 }
 message GetOneConversationResp {
@@ -116,7 +116,7 @@ message GetTotalUnreadMsgCountResp {
 
 message GetConversationIDBySessionTypeReq {
   string sourceID = 1;
-  int32 sessionType = 2;
+  common.SessionType sessionType = 2;
 }
 message GetConversationIDBySessionTypeResp {
   string conversationID = 1;

@@ -44,7 +44,7 @@ message IMFriend {
   string friendUserID = 2; // Friend user ID
   string remark = 3; // Friend remark
   int64 createTime = 4; // Friend add time
-  int32 addSource = 5; // Friend add source
+  common.FriendSource addSource = 5; // Friend add source
   string operatorUserID = 6; // Operator user ID
   string nickname = 7; // Friend nickname
   string faceURL = 8; // Friend avatar URL
@@ -59,7 +59,7 @@ message IMBlack {
   string nickname = 3; // Blocked user nickname
   string faceURL = 4; // Blocked user avatar URL
   int64 createTime = 5; // Block time
-  int32 addSource = 6; // Block source
+  common.FriendSource addSource = 6; // Block source
   string operatorUserID = 7; // Operator user ID
   string ex = 8; // Block extension field
   string attached = 9; // SDK internal extension field, not currently used
@@ -72,7 +72,7 @@ message IMFriendApplication {
   string toUserID = 4; // Receiver user ID
   string toNickname = 5; // Receiver nickname
   string toFaceURL = 6; // Receiver avatar URL
-  int32 handleResult = 7; // Request handle result
+  common.HandleResult handleResult = 7; // Request handle result
   string reqMsg = 8; // Request message
   int64 createTime = 9; // Request create time
   string handlerUserID = 10; // Request handler user ID
@@ -218,7 +218,7 @@ message IMGroupApplication {
   // @user_face_url
   string userFaceURL = 13;
   // group application handle result
-  int32 handleResult = 14;
+  common.HandleResult handleResult = 14;
   // group application request message
   string reqMsg = 15;
   // group application handle message
@@ -259,8 +259,6 @@ message IMConversation {
   bool isPrivateChat = 15;
   int32 burnDuration = 16;
   string ex = 17;
-  int64 msgDestructTime = 18;
-  bool isMsgDestruct = 19;
 }
 
 message AtInfo {
@@ -460,6 +458,18 @@ message GroupCreatedTips {
   shared.IMGroupMember groupOwnerUser = 5;
 }
 
+message GroupInfoSetNameTips  {
+  openim.sdk.shared.IMGroupMember opUser = 1; //who do this
+  openim.sdk.shared.IMGroup group = 2;
+}
+
+message GroupInfoSetAnnouncementTips {
+  openim.sdk.shared.IMGroupMember opUser = 1; //who do this
+  openim.sdk.shared.IMGroup group = 2;
+  uint64 groupMemberVersion = 3;
+  string groupMemberVersionID = 4;
+}
+
 //
 //	OnGroupInfoSet()
 //message GroupInfoSetTips {
@@ -595,7 +605,7 @@ message GroupCancelMutedTips {
 //
 //message FriendApplication {
 //  int64 addTime = 1;
-//  string addSource = 2;
+//  common.FriendSource addSource = 2;
 //  string addWording = 3;
 //}
 //
@@ -749,14 +759,14 @@ message FriendApplicationApprovedTips {
 
 message RevokedTips {
   string revokerID = 1;
-  int32 revokerRole = 2;
+  common.RevokerRole revokerRole = 2;
   string clientMsgID = 3;
   string revokerNickname = 4;
   int64 revokeTime = 5;
   int64 sourceMessageSendTime = 6;
   string sourceMessageSendID = 7;
   string sourceMessageSenderNickname = 8;
-  int32 sessionType = 10;
+  common.SessionType sessionType = 10;
   int64 seq = 11;
   string ex = 12;
 }
@@ -814,6 +824,8 @@ message IMMessage {
     RevokedTips revokedTips = 38;
 
     GroupCreatedTips groupCreatedTips = 311;
+    GroupInfoSetNameTips groupInfoSetNameTips = 312;
+    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 313;
     //    GroupInfoSetTips groupInfoSetTips = 39;
     //    GroupInfoSetNameTips groupInfoSetNameTips = 40;
     //    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;

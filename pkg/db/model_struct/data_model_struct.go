@@ -265,8 +265,8 @@ type LocalConversation struct {
 	Ex                string        `gorm:"column:ex;type:text" json:"ex"`
 	MaxSeq            int64         `gorm:"column:max_seq" json:"maxSeq"`
 	MinSeq            int64         `gorm:"column:min_seq" json:"minSeq"`
-	MsgDestructTime   int64         `gorm:"column:msg_destruct_time;default:604800" json:"msgDestructTime"`
-	IsMsgDestruct     bool          `gorm:"column:is_msg_destruct;default:false" json:"isMsgDestruct"`
+	//MsgDestructTime   int64         `gorm:"column:msg_destruct_time;default:604800" json:"msgDestructTime"`
+	//IsMsgDestruct     bool          `gorm:"column:is_msg_destruct;default:false" json:"isMsgDestruct"`
 }
 
 func (*LocalConversation) TableName() string {

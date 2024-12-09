@@ -138,7 +138,8 @@ enum ContentType {
   //  GroupMemberSetToAdminNotification = 1517;
   //  GroupMemberSetToOrdinaryUserNotification = 1518;
   //  GroupInfoSetAnnouncementNotification = 1519;
-  //  GroupInfoSetNameNotification = 1520;
+  GroupInfoSetAnnouncementNotification = 1519;
+  GroupInfoSetNameNotification = 1520;
   //  GroupNotificationEnd                     = 1599;
 
   ConversationPrivateChatNotification = 1701;
@@ -220,4 +221,23 @@ enum UploadSDKDataMode{
   UploadDB = 2; // only upload db
   UploadLogsAndDB = 3; // upload db and logs
   // ModeC = 4; // if other modes are added, their enum values should be 4, followed by 8, and so on.
+}
+
+enum RevokerRole {
+    RevokerRoleDefault = 0;
+    RevokerRoleOwner= 100;
+    RevokerRoleAdmin = 60;
+    RevokerRoleMember = 20;
+}
+
+enum FriendSource {
+  _ = 0;
+  Search = 3;
+  QRCode = 4;
+}
+
+enum HandleResult {
+  ResultDefault = 0;
+  ResultDecline = -1;
+  ResultAccept = 1;
 }

@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"errors"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -79,14 +80,14 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 	}
 	m := sharedpb.RevokedTips{
 		RevokerID:                   tips.RevokerUserID,
-		RevokerRole:                 revokerRole,
+		RevokerRole:                 commonpb.RevokerRole(revokerRole),
 		ClientMsgID:                 revokedMsg.ClientMsgID,
 		RevokerNickname:             revokerNickname,
 		RevokeTime:                  tips.RevokeTime,
 		SourceMessageSendTime:       revokedMsg.SendTime,
 		SourceMessageSendID:         revokedMsg.SendID,
 		SourceMessageSenderNickname: revokedMsg.SenderNickname,
-		SessionType:                 tips.SesstionType,
+		SessionType:                 commonpb.SessionType(tips.SesstionType),
 		Seq:                         tips.Seq,
 		Ex:                          revokedMsg.Ex,
 	}
