@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/AllenDang/cimgui-go/imgui"
+
 	"github.com/openimsdk/openim-sdk-core/v3/example/common"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	pb_conversation "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
@@ -83,15 +84,13 @@ func (w *WindowConversationInfo) Update() {
 			imgui.PushIDStr("Btn_Update")
 			if imgui.Button("Update") {
 				_, err := open_im_sdk.IMUserContext.Conversation().SetConversation(common.NewCallContext(), &pb_conversation.SetConversationReq{
-					ConversationID:  conversation.ConversationID,
-					RecvMsgOpt:      &conversation.RecvMsgOpt,
-					GroupAtType:     &conversation.GroupAtType,
-					IsPinned:        &conversation.IsPinned,
-					IsPrivateChat:   &conversation.IsPrivateChat,
-					BurnDuration:    &conversation.BurnDuration,
-					Ex:              &conversation.Ex,
-					MsgDestructTime: &conversation.MsgDestructTime,
-					IsMsgDestruct:   &conversation.IsMsgDestruct,
+					ConversationID: conversation.ConversationID,
+					RecvMsgOpt:     &conversation.RecvMsgOpt,
+					GroupAtType:    &conversation.GroupAtType,
+					IsPinned:       &conversation.IsPinned,
+					IsPrivateChat:  &conversation.IsPrivateChat,
+					BurnDuration:   &conversation.BurnDuration,
+					Ex:             &conversation.Ex,
 				})
 				if err != nil {
 					log.Panic(err.Error())

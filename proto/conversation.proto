@@ -104,8 +104,6 @@ message SetConversationReq {
   optional bool isPrivateChat = 5;
   optional int32 burnDuration = 6;
   optional string ex = 7;
-  optional int64 msgDestructTime = 8;
-  optional bool isMsgDestruct = 9;
 }
 message SetConversationResp {}
 

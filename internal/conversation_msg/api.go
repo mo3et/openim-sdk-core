@@ -163,8 +163,6 @@ func (c *Conversation) SetConversation(ctx context.Context, req *sdkpb.SetConver
 		Ex:               wrapperspb.StringPtr(req.Ex),
 		BurnDuration:     wrapperspb.Int32Ptr(req.BurnDuration),
 		GroupAtType:      wrapperspb.Int32Ptr((*int32)(req.GroupAtType)),
-		MsgDestructTime:  wrapperspb.Int64Ptr(req.MsgDestructTime),
-		IsMsgDestruct:    wrapperspb.BoolPtr(req.IsMsgDestruct),
 	}}
 	err = c.setConversation(ctx, apiReq, lc)
 	if err != nil {
