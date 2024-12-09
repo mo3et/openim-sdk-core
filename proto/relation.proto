@@ -112,10 +112,10 @@ message GetBlacksResp {
   repeated shared.IMBlack blacks = 1; // black list info list
 }
 
-message UpdatesFriendsReq {
+message UpdateFriendReq {
   string userID = 1; // need update friend
   optional bool pinned = 2; // update friend pinned status
   optional string Remark = 3; // update friend remark
   optional string ex = 4; // upate friend extension fields
 }
-message UpdatesFriendsResp {}
+message UpdateFriendResp {}
