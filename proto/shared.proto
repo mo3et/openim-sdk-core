@@ -92,7 +92,7 @@ enum GroupStatus {
 }
 
 enum GroupJoinSource {
-  _ = 0;
+  GroupJoinSource_ = 0;
   // administrator invitation to join
   Admin = 1;
   // invite to join
