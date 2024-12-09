@@ -50,9 +50,9 @@ func (c *Conversation) setConversation(ctx context.Context, apiReq *pbConversati
 	return api.SetConversations.Execute(ctx, apiReq)
 }
 
-func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListParams, isReverse bool) (*sdkpb.GetAdvancedHistoryMessageListCallback, error) {
+func (c *Conversation) getHistoryMessageList(ctx context.Context, req *sdkpb.GetHistoryMessageListReq) (*sdkpb.GetHistoryMessageListResp, error) {
 	t := time.Now()
-	var messageListCallback sdkpb.GetAdvancedHistoryMessageListCallback
+	var messageListCallback sdkpb.GetHistoryMessageListResp
 	var conversationID string
 	var startTime int64
 	var err error
@@ -69,7 +69,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 	}
 	log.ZDebug(ctx, "Assembly conversation parameters", "cost time", time.Since(t), "conversationID",
 		conversationID, "startTime:", startTime, "count:", req.Count, "startTime", startTime)
-	list, err := c.fetchMessagesWithGapCheck(ctx, conversationID, int(req.Count), startTime, isReverse, &messageListCallback)
+	list, err := c.fetchMessagesWithGapCheck(ctx, conversationID, int(req.Count), startTime, req.IsReverse, &messageListCallback)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 	thisMinSeq, messageList = c.LocalChatLog2IMMessage(ctx, list)
 	log.ZDebug(ctx, "message convert and unmarshal", "unmarshal cost time", time.Since(t))
 	t = time.Now()
-	if !isReverse {
+	if !req.IsReverse {
 		sort.Sort(messageList)
 	}
 	log.ZDebug(ctx, "sort", "sort cost time", time.Since(t))
@@ -93,7 +93,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 }
 
 func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversationID string,
-	count int, startTime int64, isReverse bool, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) ([]*model_struct.LocalChatLog, error) {
+	count int, startTime int64, isReverse bool, messageListCallback *sdkpb.GetHistoryMessageListResp) ([]*model_struct.LocalChatLog, error) {
 
 	var list []*model_struct.LocalChatLog
 
