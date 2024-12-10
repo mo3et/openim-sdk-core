@@ -56,24 +56,24 @@ message DeleteMessageResp {}
 message DeleteAllMsgFromLocalAndServerReq {}
 message DeleteAllMsgFromLocalAndServerResp {}
 
-message DeleteAllMessageFromLocalStorageReq {}
-message DeleteAllMessageFromLocalStorageResp {}
+message DeleteAllMessageFromLocalReq {}
+message DeleteAllMessageFromLocalResp {}
 
-message InsertSingleMessageToLocalStorageReq {
+message InsertSingleMessageToLocalReq {
   shared.IMMessage msg = 1;
   string recvID = 2;
   string sendID = 3;
 }
-message InsertSingleMessageToLocalStorageResp {
+message InsertSingleMessageToLocalResp {
   shared.IMMessage msg = 1;
 }
 
-message InsertGroupMessageToLocalStorageReq {
+message InsertGroupMessageToLocalReq {
   shared.IMMessage msg = 1;
   string groupID = 2;
   string sendID = 3;
 }
-message InsertGroupMessageToLocalStorageResp {
+message InsertGroupMessageToLocalResp {
   shared.IMMessage msg = 1;
 }
 

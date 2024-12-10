@@ -813,12 +813,12 @@ func (c *Conversation) MarkAllConversationMessageAsRead(ctx context.Context, req
 	return &sdkpb.MarkAllConversationMessageAsReadResp{}, nil
 }
 
-func (c *Conversation) DeleteMessageFromLocalStorage(ctx context.Context, req *sdkpb.DeleteMessageFromLocalStorageReq) (*sdkpb.DeleteMessageFromLocalStorageResp, error) {
+func (c *Conversation) DeleteMessageFromLocal(ctx context.Context, req *sdkpb.DeleteMessageFromLocalReq) (*sdkpb.DeleteMessageFromLocalResp, error) {
 	err := c.deleteMessageFromLocal(ctx, req.ConversationID, req.ClientMsgID)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.DeleteMessageFromLocalStorageResp{}, nil
+	return &sdkpb.DeleteMessageFromLocalResp{}, nil
 }
 
 func (c *Conversation) DeleteMessage(ctx context.Context, req *msgpb.DeleteMessageReq) (*msgpb.DeleteMessageResp, error) {
@@ -837,12 +837,12 @@ func (c *Conversation) DeleteAllMsgFromLocalAndServer(ctx context.Context, req *
 	return &msgpb.DeleteAllMsgFromLocalAndServerResp{}, nil
 }
 
-func (c *Conversation) DeleteAllMessageFromLocalStorage(ctx context.Context, req *msgpb.DeleteAllMessageFromLocalStorageReq) (*msgpb.DeleteAllMessageFromLocalStorageResp, error) {
+func (c *Conversation) DeleteAllMessageFromLocal(ctx context.Context, req *msgpb.DeleteAllMessageFromLocalReq) (*msgpb.DeleteAllMessageFromLocalResp, error) {
 	err := c.deleteAllMsgFromLocal(ctx, true)
 	if err != nil {
 		return nil, err
 	}
-	return &msgpb.DeleteAllMessageFromLocalStorageResp{}, nil
+	return &msgpb.DeleteAllMessageFromLocalResp{}, nil
 }
 
 func (c *Conversation) ClearConversationAndDeleteAllMsg(ctx context.Context, req *sdkpb.ClearConversationAndDeleteAllMsgReq) (*sdkpb.ClearConversationAndDeleteAllMsgResp, error) {
@@ -861,7 +861,7 @@ func (c *Conversation) DeleteConversationAndDeleteAllMsg(ctx context.Context, re
 	return &sdkpb.DeleteConversationAndDeleteAllMsgResp{}, nil
 }
 
-func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, req *msgpb.InsertSingleMessageToLocalStorageReq) (*msgpb.InsertSingleMessageToLocalStorageResp, error) {
+func (c *Conversation) InsertSingleMessageToLocal(ctx context.Context, req *msgpb.InsertSingleMessageToLocalReq) (*msgpb.InsertSingleMessageToLocalResp, error) {
 	if req.RecvID == "" || req.SendID == "" {
 		return nil, sdkerrs.ErrArgs
 	}
@@ -908,10 +908,10 @@ func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, re
 		return nil, err
 	}
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: conversation}, c.GetCh())
-	return &msgpb.InsertSingleMessageToLocalStorageResp{Msg: req.Msg}, nil
+	return &msgpb.InsertSingleMessageToLocalResp{Msg: req.Msg}, nil
 }
 
-func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req *msgpb.InsertGroupMessageToLocalStorageReq) (*msgpb.InsertGroupMessageToLocalStorageResp, error) {
+func (c *Conversation) InsertGroupMessageToLocal(ctx context.Context, req *msgpb.InsertGroupMessageToLocalReq) (*msgpb.InsertGroupMessageToLocalResp, error) {
 	if req.GroupID == "" || req.SendID == "" {
 		return nil, sdkerrs.ErrArgs
 	}
@@ -948,7 +948,7 @@ func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req
 		return nil, err
 	}
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: conversation}, c.GetCh())
-	return &msgpb.InsertGroupMessageToLocalStorageResp{Msg: req.Msg}, nil
+	return &msgpb.InsertGroupMessageToLocalResp{Msg: req.Msg}, nil
 }
 
 func (c *Conversation) SearchLocalMessages(ctx context.Context, req *sdkpb.SearchLocalMessagesReq) (*sdkpb.SearchLocalMessagesResp, error) {

@@ -136,11 +136,11 @@ message MarkConversationMessageAsReadResp {}
 message MarkAllConversationMessageAsReadReq {}
 message MarkAllConversationMessageAsReadResp {}
 
-message DeleteMessageFromLocalStorageReq {
+message DeleteMessageFromLocalReq {
   string conversationID = 1;
   string clientMsgID = 2;
 }
-message DeleteMessageFromLocalStorageResp {}
+message DeleteMessageFromLocalResp {}
 
 message ClearConversationAndDeleteAllMsgReq {
   string conversationID = 1;
@@ -210,7 +210,7 @@ message UnsubscribeUsersOnlineStatusResp {}
 //   rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp) {}
 //   rpc MarkConversationMessageAsRead(MarkConversationMessageAsReadReq) returns (MarkConversationMessageAsReadResp) {}
 //   rpc MarkAllConversationMessageAsRead(MarkAllConversationMessageAsReadReq) returns (MarkAllConversationMessageAsReadResp) {}
-//   rpc DeleteMessageFromLocalStorage(DeleteMessageFromLocalStorageReq) returns (DeleteMessageFromLocalStorageResp) {}
+//   rpc DeleteMessageFromLocal(DeleteMessageFromLocalReq) returns (DeleteMessageFromLocalResp) {}
 //   rpc ClearConversationAndDeleteAllMsg(ClearConversationAndDeleteAllMsgReq) returns (ClearConversationAndDeleteAllMsgResp) {}
 //   rpc DeleteConversationAndDeleteAllMsg(DeleteConversationAndDeleteAllMsgReq) returns (DeleteConversationAndDeleteAllMsgResp) {}
 //   rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp) {}
