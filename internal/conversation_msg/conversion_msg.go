@@ -16,13 +16,11 @@ import (
 )
 
 func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfoElem {
-	if attached == nil {
-		return nil
-	}
+
 	elem := &model_struct.AttachedInfoElem{
-		IsPrivateChat: attached.IsPrivateChat,
-		BurnDuration:  attached.BurnDuration,
-		HasReadTime:   attached.HasReadTime,
+		IsPrivateChat: attached.GetIsPrivateChat(),
+		BurnDuration:  attached.GetBurnDuration(),
+		HasReadTime:   attached.GetHasReadTime(),
 	}
 
 	if attached.Progress != nil {
@@ -84,9 +82,9 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 		Ex:               localMessage.Ex,
 		LocalEx:          localMessage.LocalEx,
 		AttachedInfoElem: &sdkpb.AttachedInfoElem{
-			IsPrivateChat: localMessage.AttachedInfo.IsPrivateChat,
-			BurnDuration:  localMessage.AttachedInfo.BurnDuration,
-			HasReadTime:   localMessage.AttachedInfo.HasReadTime,
+			IsPrivateChat: localMessage.GetAttachedInfo().GetIsPrivateChat(),
+			BurnDuration:  localMessage.GetAttachedInfo().GetBurnDuration(),
+			HasReadTime:   localMessage.GetAttachedInfo().GetHasReadTime(),
 		},
 	}
 	if localMessage.AttachedInfo.Progress != nil {
