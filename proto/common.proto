@@ -241,3 +241,10 @@ enum HandleResult {
   ResultDecline = -1;
   ResultAccept = 1;
 }
+
+enum GroupRoleLevel {
+  GroupRoleLevel_ = 0;
+  GroupOwner         = 100;
+  GroupAdmin         = 60;
+  GroupOrdinaryUsers = 20;
+}
