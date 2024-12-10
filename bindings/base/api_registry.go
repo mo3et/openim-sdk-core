@@ -27,6 +27,10 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 			pbResp *B
 		)
 		defer func(start time.Time) {
+			if r := recover(); r != nil {
+				mw.PanicStackToLog(ctx, r)
+				return
+			}
 			if _, ignored := ignoredLogFuncMap[name]; ignored {
 				return
 			}
@@ -67,6 +71,10 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 			pbResp *B
 		)
 		defer func(start time.Time) {
+			if r := recover(); r != nil {
+				mw.PanicStackToLog(ctx, r)
+				return
+			}
 			elapsed := time.Since(start).Milliseconds()
 			if err == nil {
 				log.ZInfo(ctx, fmt.Sprintf("[%s -> Go SDK] Response Success - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
