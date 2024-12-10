@@ -21,23 +21,6 @@ message FindMessageListCallback {
   repeated SearchByConversationResult findResultItems = 2;
 }
 
-message SearchLocalMessagesParams {
-  string conversationID = 1;
-  repeated string keywordList = 2;
-  int32 keywordListMatchType = 3;
-  repeated string senderUserIDList = 4;
-  repeated int32 messageTypeList = 5;
-  int64 searchTimePosition = 6;
-  int64 searchTimePeriod = 7;
-  int32 pageIndex = 8;
-  int32 count = 9;
-}
-
-message SearchLocalMessagesCallback {
-  int32 totalCount = 1;
-  repeated SearchByConversationResult searchResultItems = 2;
-}
-
 message SearchByConversationResult {
   string conversationID = 1;
   int32 conversationType = 2;
@@ -152,11 +135,24 @@ message DeleteConversationAndDeleteAllMsgReq {
 }
 message DeleteConversationAndDeleteAllMsgResp {}
 
+enum KeywordListMatchType {
+  KeywordMatchOr = 0;
+  KeywordMatchAnd = 1;
+}
+
 message SearchLocalMessagesReq {
-  SearchLocalMessagesParams searchParam = 1;
+  string conversationID = 1;
+  repeated string keywords = 2;
+  KeywordListMatchType keywordMatchType = 3;
+  repeated string senderUserIDs = 4;
+  repeated common.ContentType messageTypes = 5;
+  int64 searchTimePosition = 6;
+  int64 searchTimePeriod = 7;
+  common.RequestPagination pagination = 8;
 }
 message SearchLocalMessagesResp {
-  SearchLocalMessagesCallback searchResult = 1;
+  int64 count = 1;
+  repeated SearchByConversationResult searchResultItems = 2;
 }
 
 message SetMessageLocalExReq {
