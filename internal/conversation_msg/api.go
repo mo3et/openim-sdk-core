@@ -952,12 +952,8 @@ func (c *Conversation) InsertGroupMessageToLocal(ctx context.Context, req *msgpb
 }
 
 func (c *Conversation) SearchLocalMessages(ctx context.Context, req *sdkpb.SearchLocalMessagesReq) (*sdkpb.SearchLocalMessagesResp, error) {
-	req.SearchParam.KeywordList = utils.TrimStringList(req.SearchParam.KeywordList)
-	searchResult, err := c.searchLocalMessages(ctx, req.SearchParam)
-	if err != nil {
-		return nil, err
-	}
-	return &sdkpb.SearchLocalMessagesResp{SearchResult: searchResult}, nil
+	req.Keywords = utils.TrimStringList(req.Keywords)
+	return c.searchLocalMessages(ctx, req)
 }
 
 func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMessageLocalExReq) (*sdkpb.SetMessageLocalExResp, error) {
