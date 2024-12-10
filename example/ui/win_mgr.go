@@ -1,5 +1,7 @@
 package ui
 
+import "github.com/AllenDang/cimgui-go/imgui"
+
 var windowMap = make(map[string]IWindow)
 
 type IWindow interface {
@@ -11,9 +13,9 @@ type IWindow interface {
 
 type WindowBase struct {
 	Id    string
-	X, Y  float32 // pos
-	W, H  float32 // width,height
-	Title string  // title name
+	Pos   imgui.Vec2 // pos
+	Size  imgui.Vec2 // width,height
+	Title string     // title name
 	Open  bool
 }
 

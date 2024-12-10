@@ -30,56 +30,58 @@ func (w *WindowConversationList) Update() {
 	if !w.Open {
 		return
 	}
+	imgui.SetNextWindowSizeV(w.Size, imgui.CondFirstUseEver)
+	imgui.SetNextWindowPosV(w.Pos, imgui.CondFirstUseEver, imgui.Vec2{X: 0, Y: 0})
+	imgui.BeginV(w.Title, &w.Open, imgui.WindowFlagsNoCollapse|imgui.WindowFlagsHorizontalScrollbar|imgui.WindowFlagsAlwaysVerticalScrollbar)
+	w.Size = imgui.WindowSize()
+	w.Pos = imgui.WindowPos()
 
-	if imgui.BeginV(w.Title, &w.Open, imgui.WindowFlagsHorizontalScrollbar|imgui.WindowFlagsAlwaysVerticalScrollbar) {
+	if imgui.BeginTableV("FriendListTable", 6, imgui.TableFlagsBorders|imgui.TableFlagsRowBg|imgui.TableFlagsScrollX, imgui.Vec2{X: 0, Y: 0}, 0) {
 
-		if imgui.BeginTableV("FriendListTable", 6, imgui.TableFlagsBorders|imgui.TableFlagsRowBg|imgui.TableFlagsScrollX, imgui.Vec2{X: 0, Y: 0}, 0) {
+		imgui.TableSetupColumn("ShowName")
+		imgui.TableSetupColumn("FaceURL")
+		imgui.TableSetupColumn("UnreadCount")
+		imgui.TableSetupColumn("Chat")
+		imgui.TableSetupColumn("Delete")
+		imgui.TableSetupColumn("Detail")
+		imgui.TableHeadersRow()
 
-			imgui.TableSetupColumn("ShowName")
-			imgui.TableSetupColumn("FaceURL")
-			imgui.TableSetupColumn("UnreadCount")
-			imgui.TableSetupColumn("Chat")
-			imgui.TableSetupColumn("Delete")
-			imgui.TableSetupColumn("Detail")
-			imgui.TableHeadersRow()
+		for i := 0; i < len(w.conversations); i++ {
+			conversation := w.conversations[i]
 
-			for i := 0; i < len(w.conversations); i++ {
-				conversation := w.conversations[i]
+			imgui.TableNextColumn()
+			imgui.TableSetColumnIndex(0)
+			imgui.Text(conversation.ShowName)
 
-				imgui.TableNextColumn()
-				imgui.TableSetColumnIndex(0)
-				imgui.Text(conversation.ShowName)
+			imgui.TableSetColumnIndex(1)
+			imgui.Text(conversation.FaceURL)
 
-				imgui.TableSetColumnIndex(1)
-				imgui.Text(conversation.FaceURL)
+			imgui.TableSetColumnIndex(2)
+			imgui.Text(fmt.Sprintf("%d", conversation.UnreadCount))
 
-				imgui.TableSetColumnIndex(2)
-				imgui.Text(fmt.Sprintf("%d", conversation.UnreadCount))
-
-				imgui.TableSetColumnIndex(3)
-				imgui.PushIDStr(fmt.Sprintf("Btn_Chat_%d", i))
-				if imgui.Button("Chat") {
-				}
-				imgui.PopID()
-
-				imgui.TableSetColumnIndex(4)
-				imgui.PushIDStr(fmt.Sprintf("Btn_Delete_%d", i))
-				if imgui.Button("Delete") {
-				}
-				imgui.PopID()
-
-				imgui.TableSetColumnIndex(5)
-				imgui.PushIDStr(fmt.Sprintf("Btn_Detail", i))
-				if imgui.Button("Detail") {
-					showWindow(newConversationInfoWindow(conversation.ConversationID))
-				}
-				imgui.PopID()
+			imgui.TableSetColumnIndex(3)
+			imgui.PushIDStr(fmt.Sprintf("Btn_Chat_%d", i))
+			if imgui.Button("Chat") {
 			}
+			imgui.PopID()
 
-			imgui.EndTable()
+			imgui.TableSetColumnIndex(4)
+			imgui.PushIDStr(fmt.Sprintf("Btn_Delete_%d", i))
+			if imgui.Button("Delete") {
+			}
+			imgui.PopID()
+
+			imgui.TableSetColumnIndex(5)
+			imgui.PushIDStr(fmt.Sprintf("Btn_Detail_%d", i))
+			if imgui.Button("Detail") {
+				showWindow(newConversationInfoWindow(conversation.ConversationID))
+			}
+			imgui.PopID()
 		}
-		imgui.End()
+
+		imgui.EndTable()
 	}
+	imgui.End()
 }
 
 func (w *WindowConversationList) Destroy() {
@@ -89,10 +91,8 @@ func (w *WindowConversationList) Destroy() {
 func newConversationListWindow() *WindowConversationList {
 	win := &WindowConversationList{
 		WindowBase: WindowBase{
-			X:     100,
-			Y:     100,
-			W:     500,
-			H:     300,
+			Pos:   imgui.Vec2{X: 100, Y: 100},
+			Size:  imgui.Vec2{X: 500, Y: 300},
 			Title: "Conversation List",
 			Id:    "Conversation List",
 		},
