@@ -4,9 +4,9 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
 )
 
-var currentMobileCallback mobileCallback
+var currentMobileCallback MobileCallback
 
-type mobileCallback interface {
+type MobileCallback interface {
 	onData([]byte)
 }
 
@@ -18,7 +18,7 @@ func dispatchResultForGoMobile(_ uint64, data []byte) {
 	currentMobileCallback.onData(data)
 }
 
-func FfiInit(cb mobileCallback, protocolType int) int {
+func FfiInit(cb MobileCallback, protocolType int) int {
 	base.SetProtocolType(protocolType)
 	currentMobileCallback = cb
 	return 1
