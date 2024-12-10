@@ -1,6 +1,5 @@
 package gomobile
 
-import "C"
 import (
 	"github.com/openimsdk/openim-sdk-core/v3/bindings/base"
 )
