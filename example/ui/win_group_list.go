@@ -7,28 +7,26 @@ import (
 	"github.com/AllenDang/cimgui-go/imgui"
 	"github.com/openimsdk/openim-sdk-core/v3/example/common"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
-	relation "github.com/openimsdk/openim-sdk-core/v3/proto/go/relation"
+	pb_group "github.com/openimsdk/openim-sdk-core/v3/proto/go/group"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 )
 
-type WindowFriendList struct {
+type WindowGroupList struct {
 	WindowBase
 
-	friends []*shared.IMFriend
+	groups []*shared.IMGroup
 }
 
-func (w *WindowFriendList) Start() {
-	res, err := open_im_sdk.IMUserContext.Relation().GetFriends(common.NewCallContext(), &relation.GetFriendsReq{
-		FilterBlack: true,
-	})
+func (w *WindowGroupList) Start() {
+	res, err := open_im_sdk.IMUserContext.Group().GetJoinedGroups(common.NewCallContext(), &pb_group.GetJoinedGroupsReq{})
 	if err != nil {
 		log.Panic(err.Error())
 	}
-	w.friends = res.Friends
+	w.groups = res.Groups
 	w.Open = true
 }
 
-func (w *WindowFriendList) Update() {
+func (w *WindowGroupList) Update() {
 	if !w.Open {
 		return
 	}
@@ -40,26 +38,26 @@ func (w *WindowFriendList) Update() {
 
 	if imgui.BeginTableV("FriendListTable", 6, imgui.TableFlagsBorders|imgui.TableFlagsRowBg|imgui.TableFlagsScrollX, imgui.Vec2{X: 0, Y: 0}, 0) {
 
-		imgui.TableSetupColumn("Nickname")
-		imgui.TableSetupColumn("FaceURL")
-		imgui.TableSetupColumn("Remark")
+		imgui.TableSetupColumn("Group Name")
+		imgui.TableSetupColumn("Face URL")
+		imgui.TableSetupColumn("Member Count")
 		imgui.TableSetupColumn("Chat")
 		imgui.TableSetupColumn("Delete")
 		imgui.TableSetupColumn("Detail")
 		imgui.TableHeadersRow()
 
-		for i := 0; i < len(w.friends); i++ {
-			friend := w.friends[i]
+		for i := 0; i < len(w.groups); i++ {
+			group := w.groups[i]
 
 			imgui.TableNextColumn()
 			imgui.TableSetColumnIndex(0)
-			imgui.Text(friend.Nickname)
+			imgui.Text(group.GroupName)
 
 			imgui.TableSetColumnIndex(1)
-			imgui.Text(friend.FaceURL)
+			imgui.Text(group.FaceURL)
 
 			imgui.TableSetColumnIndex(2)
-			imgui.Text(friend.Remark)
+			imgui.Text(fmt.Sprintf("%d", group.MemberCount))
 
 			imgui.TableSetColumnIndex(3)
 			imgui.PushIDStr(fmt.Sprintf("Btn_Chat_%d", i))
@@ -76,7 +74,7 @@ func (w *WindowFriendList) Update() {
 			imgui.TableSetColumnIndex(5)
 			imgui.PushIDStr(fmt.Sprintf("Btn_Detail_%d", i))
 			if imgui.Button("Detail") {
-				showWindow(newFriendInfoWindow(friend.FriendUserID))
+				showWindow(newGroupInfoWindow(group.GroupID))
 			}
 			imgui.PopID()
 		}
@@ -86,17 +84,17 @@ func (w *WindowFriendList) Update() {
 	imgui.End()
 }
 
-func (w *WindowFriendList) Destroy() {
+func (w *WindowGroupList) Destroy() {
 
 }
 
-func newFriendListWindow() *WindowFriendList {
-	win := &WindowFriendList{
+func newGroupListWindow() *WindowGroupList {
+	win := &WindowGroupList{
 		WindowBase: WindowBase{
 			Pos:   imgui.Vec2{X: 100, Y: 100},
 			Size:  imgui.Vec2{X: 500, Y: 300},
-			Title: "FriendList",
-			Id:    "FriendList",
+			Title: "Group List",
+			Id:    "Group List",
 		},
 	}
 	return win

@@ -114,7 +114,7 @@ func newConversationInfoWindow(conversationId string) *WindowConversationInfo {
 	win := &WindowConversationInfo{
 		WindowBase: WindowBase{
 			Pos:   imgui.Vec2{X: 100, Y: 100},
-			Size:  imgui.Vec2{X: 500, Y: 300},
+			Size:  imgui.Vec2{X: 500, Y: 800},
 			Title: "Conversation Info - " + conversationId,
 			Id:    "Conversation List_" + conversationId,
 		},

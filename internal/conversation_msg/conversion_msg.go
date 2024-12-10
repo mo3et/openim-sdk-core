@@ -16,11 +16,15 @@ import (
 )
 
 func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfoElem {
+	if attached == nil {
+		return nil
+	}
 	elem := &model_struct.AttachedInfoElem{
 		IsPrivateChat: attached.IsPrivateChat,
 		BurnDuration:  attached.BurnDuration,
 		HasReadTime:   attached.HasReadTime,
 	}
+
 	if attached.Progress != nil {
 		elem.Progress = &model_struct.UploadProgress{
 			Total:    attached.Progress.Total,
@@ -29,6 +33,7 @@ func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfo
 			UploadID: attached.Progress.UploadID,
 		}
 	}
+
 	return elem
 }
 
