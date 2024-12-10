@@ -447,6 +447,20 @@ message AttachedInfoElem {
 
 // ############## notification ##############
 
+message OaTips {
+  string notificationName = 1;
+  string notificationFaceURL = 2;
+  int32 notificationType = 3;
+  string text = 4;
+  string url = 5;
+  int32 mixType = 6;
+  PictureElem pictureElem = 7;
+  SoundElem soundElem = 8;
+  VideoElem videoElem = 9;
+  FileElem fileElem = 10;
+  string ex = 11;
+}
+
 //////////////////////group/////////////////////
 //
 //	OnGroupCreated()
@@ -869,5 +883,6 @@ message IMMessage {
     //    StreamMsgTips streamMsgTips = 79;
     ConversationPrivateChatTips conversationPrivateChatTips = 79;
     BusinessTips businessTips = 80;
+    OaTips oaTips = 81;
   }
 }

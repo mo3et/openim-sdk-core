@@ -392,4 +392,16 @@ var ContentTypeMap = map[common.ContentType]ContentTypeMate{
 			msg.Content = &IMMessage_BusinessTips{BusinessTips: elem.(*BusinessTips)}
 		},
 	},
+	common.ContentType_OANotification: {
+		N: true,
+		New: func() any {
+			return &OaTips{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*IMMessage_OaTips).OaTips
+		},
+		Set: func(msg *IMMessage, elem any) {
+			msg.Content = &IMMessage_OaTips{OaTips: elem.(*OaTips)}
+		},
+	},
 }

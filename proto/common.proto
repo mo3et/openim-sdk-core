@@ -103,6 +103,7 @@ enum ContentType {
   CustomMsgOnlineOnly = 120;
 
   FriendApplicationApprovedNotification = 1201;
+  OANotification      = 1400;
   //  FriendApplicationRejectedNotification = 1202;
   //  FriendApplicationNotification = 1203;
   //  FriendAddedNotification = 1204;
