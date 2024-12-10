@@ -187,6 +187,7 @@ enum ConvGroupAtType {
   AtMe = 1;
   AtAll = 2;
   AtAllAtMe = 3;
+  GroupNotification = 4;
 }
 
 // GlobalRecvMsgOpt represents the global message receive option.
