@@ -184,7 +184,7 @@ message GetGroupRequestResp {
 
 message SearchGroupMembersReq {
   string groupID = 1;// group id you want to search
-  string Keyword = 2;// search keyword
+  string keyword = 2;// search keyword
   bool searchUserID = 3;// search user id
   bool searchMemberNickname = 4;// search user nickname
   openim.sdk.common.RequestPagination pagination = 5;// pagination
