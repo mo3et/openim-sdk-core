@@ -163,17 +163,17 @@ func (r *Relation) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalFriendRequest) error {
 		switch state {
 		case syncer.Insert:
-			r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Request: DbFriendRequestToIMFriendApplication(server)})
+			r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Application: DbFriendRequestToIMFriendApplication(server)})
 		case syncer.Delete:
-			r.friendshipListener().OnFriendApplicationDeleted(&sdkpb.EventOnFriendApplicationDeletedData{Request: DbFriendRequestToIMFriendApplication(local)})
+			r.friendshipListener().OnFriendApplicationDeleted(&sdkpb.EventOnFriendApplicationDeletedData{Application: DbFriendRequestToIMFriendApplication(local)})
 		case syncer.Update:
 			switch commonpb.ApprovalStatus(server.HandleResult) {
 			case commonpb.ApprovalStatus_Approved:
-				r.friendshipListener().OnFriendApplicationAccepted(&sdkpb.EventOnFriendApplicationAcceptedData{Request: DbFriendRequestToIMFriendApplication(server)})
+				r.friendshipListener().OnFriendApplicationAccepted(&sdkpb.EventOnFriendApplicationAcceptedData{Application: DbFriendRequestToIMFriendApplication(server)})
 			case commonpb.ApprovalStatus_Rejected:
-				r.friendshipListener().OnFriendApplicationRejected(&sdkpb.EventOnFriendApplicationRejectedData{Request: DbFriendRequestToIMFriendApplication(server)})
+				r.friendshipListener().OnFriendApplicationRejected(&sdkpb.EventOnFriendApplicationRejectedData{Application: DbFriendRequestToIMFriendApplication(server)})
 			default:
-				r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Request: DbFriendRequestToIMFriendApplication(server)})
+				r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Application: DbFriendRequestToIMFriendApplication(server)})
 			}
 		}
 		return nil
@@ -189,15 +189,15 @@ func (r *Relation) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalFriendRequest) error {
 		switch state {
 		case syncer.Insert:
-			r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Request: DbFriendRequestToIMFriendApplication(server)})
+			r.friendshipListener().OnFriendApplicationAdded(&sdkpb.EventOnFriendApplicationAddedData{Application: DbFriendRequestToIMFriendApplication(server)})
 		case syncer.Delete:
-			r.friendshipListener().OnFriendApplicationDeleted(&sdkpb.EventOnFriendApplicationDeletedData{Request: DbFriendRequestToIMFriendApplication(local)})
+			r.friendshipListener().OnFriendApplicationDeleted(&sdkpb.EventOnFriendApplicationDeletedData{Application: DbFriendRequestToIMFriendApplication(local)})
 		case syncer.Update:
 			switch commonpb.ApprovalStatus(server.HandleResult) {
 			case commonpb.ApprovalStatus_Approved:
-				r.friendshipListener().OnFriendApplicationAccepted(&sdkpb.EventOnFriendApplicationAcceptedData{Request: DbFriendRequestToIMFriendApplication(server)})
+				r.friendshipListener().OnFriendApplicationAccepted(&sdkpb.EventOnFriendApplicationAcceptedData{Application: DbFriendRequestToIMFriendApplication(server)})
 			case commonpb.ApprovalStatus_Rejected:
-				r.friendshipListener().OnFriendApplicationRejected(&sdkpb.EventOnFriendApplicationRejectedData{Request: DbFriendRequestToIMFriendApplication(server)})
+				r.friendshipListener().OnFriendApplicationRejected(&sdkpb.EventOnFriendApplicationRejectedData{Application: DbFriendRequestToIMFriendApplication(server)})
 			}
 		}
 		return nil

@@ -276,19 +276,19 @@ message EventOnMessageEditedData {
 
 // FriendCallback Data Types
 message EventOnFriendApplicationAddedData {
-  openim.sdk.shared.IMFriendApplication request = 1;
+  openim.sdk.shared.IMFriendApplication application = 1;
 }
 
 message EventOnFriendApplicationDeletedData {
-  openim.sdk.shared.IMFriendApplication request = 1;
+  openim.sdk.shared.IMFriendApplication application = 1;
 }
 
 message EventOnFriendApplicationAcceptedData {
-  openim.sdk.shared.IMFriendApplication request = 1;
+  openim.sdk.shared.IMFriendApplication application = 1;
 }
 
 message EventOnFriendApplicationRejectedData {
-  openim.sdk.shared.IMFriendApplication request = 1;
+  openim.sdk.shared.IMFriendApplication application = 1;
 }
 
 message EventOnFriendAddedData {
@@ -329,11 +329,11 @@ message EventOnGroupMemberDeletedData {
 }
 
 message EventOnGroupApplicationAddedData {
-  openim.sdk.shared.IMGroupApplication request = 1;
+  openim.sdk.shared.IMGroupApplication application = 1;
 }
 
 message EventOnGroupApplicationDeletedData {
-  openim.sdk.shared.IMGroupApplication request = 1;
+  openim.sdk.shared.IMGroupApplication application = 1;
 }
 
 message EventOnGroupInfoChangedData {
@@ -349,11 +349,11 @@ message EventOnGroupMemberInfoChangedData {
 }
 
 message EventOnGroupApplicationAcceptedData {
-  openim.sdk.shared.IMGroupApplication request = 1;
+  openim.sdk.shared.IMGroupApplication application = 1;
 }
 
 message EventOnGroupApplicationRejectedData {
-  openim.sdk.shared.IMGroupApplication request = 1;
+  openim.sdk.shared.IMGroupApplication application = 1;
 }
 
 // CustomBusinessCallback Data Type

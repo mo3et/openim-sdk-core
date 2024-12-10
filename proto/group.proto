@@ -179,7 +179,7 @@ message GetGroupRequestReq {
   bool send = 1;// is it the request i sent
 }
 message GetGroupRequestResp {
-  repeated shared.IMGroupApplication requests = 1;// group request information
+  repeated shared.IMGroupApplication applications = 1;// group request information
 }
 
 message SearchGroupMembersReq {

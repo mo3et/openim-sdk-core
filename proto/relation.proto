@@ -31,7 +31,7 @@ message GetFriendRequestsReq {
   bool send = 1;
 }
 message GetFriendRequestsResp {
-  repeated shared.IMFriendApplication requests = 1; // corresponding friend request list
+  repeated shared.IMFriendApplication applications = 1; // corresponding friend request list
 }
 
 message HandleFriendRequestReq {

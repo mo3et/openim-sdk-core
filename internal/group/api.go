@@ -509,7 +509,7 @@ func (g *Group) GetGroupRequest(ctx context.Context, req *sdkpb.GetGroupRequestR
 		}
 		requests = datautil.Batch(DBAdminGroupRequestToSdk, res)
 	}
-	return &sdkpb.GetGroupRequestResp{Requests: requests}, nil
+	return &sdkpb.GetGroupRequestResp{Applications: requests}, nil
 }
 
 func (g *Group) SearchGroupMembers(ctx context.Context, req *sdkpb.SearchGroupMembersReq) (*sdkpb.SearchGroupMembersResp, error) {
