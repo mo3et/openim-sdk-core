@@ -7,7 +7,7 @@ import (
 var currentMobileCallback MobileCallback
 
 type MobileCallback interface {
-	onData([]byte)
+	OnData([]byte)
 }
 
 func init() {
@@ -15,7 +15,7 @@ func init() {
 }
 
 func dispatchResultForGoMobile(_ uint64, data []byte) {
-	currentMobileCallback.onData(data)
+	currentMobileCallback.OnData(data)
 }
 
 func FfiInit(cb MobileCallback, protocolType int) int {
