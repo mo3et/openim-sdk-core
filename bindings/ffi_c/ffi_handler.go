@@ -102,9 +102,7 @@ func ffi_request(data *C.void, length C.int) {
 func ffi_drop_handle(handleID uint64) {
 	mu.Lock()
 	defer mu.Unlock()
-	fmt.Println("ffi_drop_handle come here", handleID)
 	if result, ok := resultMap[handleID]; ok {
-		fmt.Println("free resource", handleID)
 		C.free(unsafe.Pointer(result.cData))
 		delete(resultMap, handleID)
 	} else {

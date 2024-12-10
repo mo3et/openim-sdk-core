@@ -58,7 +58,13 @@ func DrawMainMenu() {
 		}
 		if imgui.BeginMenu("About") {
 			if imgui.MenuItemBool("Version") {
-
+				showWindow(newVersionWindow())
+			}
+			if imgui.MenuItemBool("Official Website") {
+				common.OpenBrowser("https://www.openim.io/en")
+			}
+			if imgui.MenuItemBool("Doc Website") {
+				common.OpenBrowser("https://docs.openim.io/")
 			}
 			imgui.EndMenu()
 		}
