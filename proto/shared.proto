@@ -87,8 +87,12 @@ message IMFriendApplication {
 enum GroupStatus {
   // normal group chat
   Default = 0;
+
+  Banned = 1;
   // the group chat has been disbanded
   Dismissed = 2;
+
+  Muted = 3;
 }
 
 enum GroupJoinSource {
