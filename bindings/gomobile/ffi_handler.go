@@ -18,7 +18,7 @@ func dispatchResultForGoMobile(_ uint64, data []byte) {
 	currentMobileCallback.onData(data)
 }
 
-func FfiInit(cb mobileCallback, protocolType int) uint64 {
+func FfiInit(cb mobileCallback, protocolType int) int {
 	base.SetProtocolType(protocolType)
 	currentMobileCallback = cb
 	return 1
