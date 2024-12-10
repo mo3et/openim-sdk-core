@@ -16,7 +16,7 @@ import (
 )
 
 func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfoElem {
-	if attached != nil {
+	if attached == nil {
 		return nil
 	}
 	elem := &model_struct.AttachedInfoElem{
