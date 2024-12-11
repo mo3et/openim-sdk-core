@@ -37,29 +37,28 @@ import (
 )
 
 func (g *Group) CreateGroup(ctx context.Context, req *sdkpb.CreateGroupReq) (*sharedpb.IMGroup, error) {
-	req.GroupInfo.CreatorUserID = g.loginUserID
 	resp, err := g.createGroup(ctx, &group.CreateGroupReq{
 		MemberUserIDs: req.MemberUserIDs,
 		AdminUserIDs:  req.AdminUserIDs,
 		OwnerUserID:   g.loginUserID,
 		GroupInfo: &sdkws.GroupInfo{
-			GroupID:                req.GroupInfo.GroupID,
-			GroupName:              req.GroupInfo.GroupName,
-			Notification:           req.GroupInfo.Notification,
-			Introduction:           req.GroupInfo.Introduction,
-			FaceURL:                req.GroupInfo.FaceURL,
-			OwnerUserID:            req.GroupInfo.OwnerUserID,
-			CreateTime:             req.GroupInfo.CreateTime,
-			MemberCount:            uint32(req.GroupInfo.MemberCount),
-			Ex:                     req.GroupInfo.Ex,
-			Status:                 int32(req.GroupInfo.Status),
-			CreatorUserID:          req.GroupInfo.CreatorUserID,
+			GroupID:                req.GroupID,
+			GroupName:              req.GroupName,
+			Notification:           req.Notification,
+			Introduction:           req.Introduction,
+			FaceURL:                req.FaceURL,
+			OwnerUserID:            g.loginUserID,
+			CreateTime:             0,
+			MemberCount:            0,
+			Ex:                     req.Ex,
+			Status:                 int32(sharedpb.GroupStatus_Default),
+			CreatorUserID:          g.loginUserID,
 			GroupType:              constant.WorkingGroup,
-			NeedVerification:       int32(req.GroupInfo.NeedVerification),
-			LookMemberInfo:         int32(req.GroupInfo.LookMemberInfo),
-			ApplyMemberFriend:      int32(req.GroupInfo.ApplyMemberFriend),
-			NotificationUpdateTime: req.GroupInfo.NotificationUpdateTime,
-			NotificationUserID:     req.GroupInfo.NotificationUserID,
+			NeedVerification:       int32(req.NeedVerification),
+			LookMemberInfo:         int32(req.LookMemberInfo),
+			ApplyMemberFriend:      int32(req.ApplyMemberFriend),
+			NotificationUpdateTime: req.NotificationUpdateTime,
+			NotificationUserID:     req.NotificationUserID,
 		},
 	})
 	if err != nil {

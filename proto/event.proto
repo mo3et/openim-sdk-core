@@ -195,7 +195,8 @@ enum FuncRequestEventName {
 }
 
 message EventOnSendMsgProgressData {
-  int32 progress = 1;
+  string clientMsgID = 1;
+  int32 progress = 2;
 }
 
 message EventOnUploadFileProgressData {

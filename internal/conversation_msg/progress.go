@@ -85,13 +85,13 @@ func (c *msgUploadFileCallback) UploadComplete(fileSize int64, streamSize int64,
 	value := int(float64(streamSize) / float64(fileSize) * 100)
 	if c.value < value {
 		c.value = value
-		c.progress(&eventpb.EventOnSendMsgProgressData{Progress: int32(value)})
+		c.progress(&eventpb.EventOnSendMsgProgressData{ClientMsgID: c.msg.GetClientMsgID(), Progress: int32(value)})
 	}
 }
 
 func (c *msgUploadFileCallback) Complete(size int64, url string, typ int) {
 	if c.value != 100 {
-		c.progress(&eventpb.EventOnSendMsgProgressData{Progress: 100})
+		c.progress(&eventpb.EventOnSendMsgProgressData{ClientMsgID: c.msg.GetClientMsgID(), Progress: 100})
 	}
 	c.msg.AttachedInfoElem.Progress = nil
 	data, err := json.Marshal(c.msg.AttachedInfoElem)
