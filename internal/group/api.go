@@ -180,9 +180,9 @@ func (g *Group) SetGroupInfo(ctx context.Context, req *sdkpb.SetGroupInfoReq) (*
 		Introduction:      wrapperspb.StringPtr(req.Introduction),
 		FaceURL:           wrapperspb.StringPtr(req.FaceURL),
 		Ex:                wrapperspb.StringPtr(req.Ex),
-		NeedVerification:  wrapperspb.Int32Ptr(req.NeedVerification),
-		LookMemberInfo:    wrapperspb.Int32Ptr(req.LookMemberInfo),
-		ApplyMemberFriend: wrapperspb.Int32Ptr(req.ApplyMemberFriend),
+		NeedVerification:  wrapperspb.Int32Ptr((*int32)(req.NeedVerification)),
+		LookMemberInfo:    wrapperspb.Int32Ptr((*int32)(req.LookMemberInfo)),
+		ApplyMemberFriend: wrapperspb.Int32Ptr((*int32)(req.ApplyMemberFriend)),
 	}
 	if err := g.setGroupInfo(ctx, info); err != nil {
 		return nil, err
@@ -202,7 +202,7 @@ func (g *Group) SetGroupMemberInfo(ctx context.Context, req *sdkpb.SetGroupMembe
 		UserID:    req.UserID,
 		Nickname:  wrapperspb.StringPtr(req.Nickname),
 		FaceURL:   wrapperspb.StringPtr(req.FaceURL),
-		RoleLevel: wrapperspb.Int32Ptr(req.RoleLevel),
+		RoleLevel: wrapperspb.Int32Ptr((*int32)(req.RoleLevel)),
 		Ex:        wrapperspb.StringPtr(req.Ex),
 	}
 	if err := g.setGroupMemberInfo(ctx, member); err != nil {
@@ -449,17 +449,17 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 				return nil, false, err
 			}
 			switch req.Filter {
-			case sdkpb.GroupFilter_Owner:
+			case sdkpb.GroupMemberFilter_Owner:
 				fallthrough
-			case sdkpb.GroupFilter_Admin:
+			case sdkpb.GroupMemberFilter_Admin:
 				fallthrough
-			case sdkpb.GroupFilter_OwnerAndAdmin:
+			case sdkpb.GroupMemberFilter_OwnerAndAdmin:
 				return localGroupMembers, false, nil
-			case sdkpb.GroupFilter_All:
+			case sdkpb.GroupMemberFilter_All:
 				fallthrough
-			case sdkpb.GroupFilter_OrdinaryUsers:
+			case sdkpb.GroupMemberFilter_OrdinaryUsers:
 				fallthrough
-			case sdkpb.GroupFilter_AdminAndOrdinaryUsers:
+			case sdkpb.GroupMemberFilter_AdminAndOrdinaryUsers:
 				return localGroupMembers, true, nil
 			}
 			return nil, false, sdkerrs.ErrArgs
@@ -474,13 +474,13 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 	)
 	var offset int32
 	switch req.Filter {
-	case sdkpb.GroupFilter_OrdinaryUsers:
+	case sdkpb.GroupMemberFilter_OrdinaryUsers:
 		groupOwnerAndGroupMember, err := g.db.GetGroupMemberListSplit(ctx, req.GroupID, constant.GroupFilterOwnerAndAdmin, 0, 100)
 		if err != nil {
 			return nil, err
 		}
 		offset = req.Pagination.PageNumber + int32(len(groupOwnerAndGroupMember))
-	case sdkpb.GroupFilter_AdminAndOrdinaryUsers:
+	case sdkpb.GroupMemberFilter_AdminAndOrdinaryUsers:
 		groupOwnerAndGroupMember, err := g.db.GetGroupMemberListSplit(ctx, req.GroupID, constant.GroupFilterOwner, 0, 100)
 		if err != nil {
 			return nil, err

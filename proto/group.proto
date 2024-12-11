@@ -85,22 +85,21 @@ message SetGroupInfoReq {
   // @opt @group_ex
   optional string ex = 6;
   // @opt @group_need_verification
-  optional int32 needVerification = 7;
+  optional shared.GroupNeedVerification needVerification = 7;
   // @opt @group_look_member_info
-  optional int32 lookMemberInfo = 8;
+  optional shared.GroupLookMemberInfo lookMemberInfo = 8;
   // @opt @group_apply_member_friend
-  optional int32 applyMemberFriend = 9;
+  optional shared.GroupApplyMemberFriend applyMemberFriend = 9;
 }
 message SetGroupInfoResp {}
 
 message SetGroupMemberInfoReq {
-
   string groupID = 1;// group id you want to set
   // @opt @group_user_id
   string userID = 2;
   optional string nickname = 3;// user nickname
   optional string faceURL = 4;// user face url
-  optional int32 roleLevel = 5;// user role level
+  optional common.GroupMemberRoleLevel roleLevel = 5;// user role level
   optional string ex = 6;// extension field
 }
 message SetGroupMemberInfoResp {}
@@ -158,7 +157,7 @@ message GetSpecifiedGroupMembersInfoResp {
   repeated shared.IMGroupMember members = 1;// group member information
 }
 
-enum GroupFilter {
+enum GroupMemberFilter {
   All = 0;// all users
   Owner = 1;// owner users
   Admin = 2;// admin users
@@ -168,7 +167,7 @@ enum GroupFilter {
 }
 message GetGroupMembersReq {
   string groupID = 1;// group id you want to get
-  GroupFilter filter = 2;// filter
+  GroupMemberFilter filter = 2;// filter
   openim.sdk.common.RequestPagination pagination = 4;// pagination
 }
 message GetGroupMembersResp {
