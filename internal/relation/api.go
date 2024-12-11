@@ -83,7 +83,7 @@ func (r *Relation) AddFriend(ctx context.Context, req *sdkpb.AddFriendReq) (*sdk
 	return &sdkpb.AddFriendResp{}, nil
 }
 
-func (r *Relation) GetFriendApplications(ctx context.Context, req *sdkpb.GetFriendApplicationsReq) (*sdkpb.GetFriendApplicationsResp, error) {
+func (r *Relation) GetFriendApplication(ctx context.Context, req *sdkpb.GetFriendApplicationReq) (*sdkpb.GetFriendApplicationResp, error) {
 	var (
 		request []*model_struct.LocalFriendRequest
 		err     error
@@ -96,7 +96,7 @@ func (r *Relation) GetFriendApplications(ctx context.Context, req *sdkpb.GetFrie
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.GetFriendApplicationsResp{Applications: datautil.Batch(DbFriendRequestToIMFriendApplication, request)}, nil
+	return &sdkpb.GetFriendApplicationResp{Applications: datautil.Batch(DbFriendRequestToIMFriendApplication, request)}, nil
 }
 
 func (r *Relation) HandleFriendApplication(ctx context.Context, req *sdkpb.HandleFriendApplicationReq) (*sdkpb.HandleFriendApplicationResp, error) {

@@ -162,7 +162,7 @@ var FuncMap = map[sdkevent.FuncRequestEventName]callFunc{
 
 	sdkevent.FuncRequestEventName_GetSpecifiedFriends:     wrapFunc(open_im_sdk.IMUserContext.Relation().GetSpecifiedFriends),
 	sdkevent.FuncRequestEventName_AddFriend:               wrapFunc(open_im_sdk.IMUserContext.Relation().AddFriend),
-	sdkevent.FuncRequestEventName_GetFriendApplications:   wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriendApplications),
+	sdkevent.FuncRequestEventName_GetFriendApplication:    wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriendApplication),
 	sdkevent.FuncRequestEventName_HandleFriendApplication: wrapFunc(open_im_sdk.IMUserContext.Relation().HandleFriendApplication),
 	sdkevent.FuncRequestEventName_CheckFriend:             wrapFunc(open_im_sdk.IMUserContext.Relation().CheckFriend),
 	sdkevent.FuncRequestEventName_DeleteFriend:            wrapFunc(open_im_sdk.IMUserContext.Relation().DeleteFriend),

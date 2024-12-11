@@ -111,7 +111,7 @@ enum FuncRequestEventName {
 
   GetSpecifiedFriends = 1100;
   AddFriend = 1101;
-  GetFriendApplications = 1102;
+  GetFriendApplication = 1102;
   HandleFriendApplication = 1103;
   CheckFriend = 1104;
   DeleteFriend = 1105;

@@ -25,12 +25,12 @@ message AddFriendReq {
 }
 message AddFriendResp {}
 
-message GetFriendApplicationsReq {
+message GetFriendApplicationReq {
   // 1. user send friend request.
   // 2. user receive friend request
   bool send = 1;
 }
-message GetFriendApplicationsResp {
+message GetFriendApplicationResp {
   repeated shared.IMFriendApplication applications = 1; // corresponding friend request list
 }
 
