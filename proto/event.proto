@@ -368,7 +368,7 @@ message EventOnSelfInfoUpdatedData {
   openim.sdk.shared.IMUser user = 1;
 }
 
-message EventOnUserStatusChangedData {
+message EventOnUserOnlineStatusChangedData {
   string userID = 1;
   repeated openim.sdk.common.Platform platforms = 2;
 }
