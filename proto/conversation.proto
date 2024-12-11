@@ -190,6 +190,19 @@ message UnsubscribeUsersOnlineStatusReq {
 
 message UnsubscribeUsersOnlineStatusResp {}
 
+message ChangeInputStatesReq {
+  string conversationID = 1;
+  bool focus = 3;
+}
+message ChangeInputStatesResp {}
+
+message GetInputStatesReq {
+  string conversationID = 1;
+  string userID = 2;
+}
+message GetInputStatesResp {
+  repeated common.Platform platforms = 1;
+}
 
 // service ConversationService {
 //   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}

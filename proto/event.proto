@@ -179,6 +179,8 @@ enum FuncRequestEventName {
 
   SubscribeUsersOnlineStatus = 2229;
   UnsubscribeUsersOnlineStatus = 2230;
+  ChangeInputStates = 2231;
+  GetInputStates = 2232;
 
 
 

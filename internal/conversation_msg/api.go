@@ -1039,3 +1039,18 @@ func (c *Conversation) UnsubscribeUsersOnlineStatus(ctx context.Context, req *sd
 	}
 	return &sdkpb.UnsubscribeUsersOnlineStatusResp{}, nil
 }
+
+func (c *Conversation) ChangeInputStates(ctx context.Context, req *sdkpb.ChangeInputStatesReq) (*sdkpb.ChangeInputStatesResp, error) {
+	if err := c.typing.ChangeInputStates(ctx, req.ConversationID, req.Focus); err != nil {
+		return nil, err
+	}
+	return &sdkpb.ChangeInputStatesResp{}, nil
+}
+
+func (c *Conversation) GetInputStates(ctx context.Context, req *sdkpb.GetInputStatesReq) (*sdkpb.GetInputStatesResp, error) {
+	return &sdkpb.GetInputStatesResp{
+		Platforms: datautil.Batch(func(platformID int32) commonpb.Platform {
+			return commonpb.Platform(platformID)
+		}, c.typing.GetInputStates(req.ConversationID, req.UserID)),
+	}, nil
+}

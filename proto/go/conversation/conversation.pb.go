@@ -2342,6 +2342,193 @@ func (*UnsubscribeUsersOnlineStatusResp) Descriptor() ([]byte, []int) {
 	return file_conversation_proto_rawDescGZIP(), []int{47}
 }
 
+type ChangeInputStatesReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	Focus          bool   `protobuf:"varint,3,opt,name=focus,proto3" json:"focus"`
+}
+
+func (x *ChangeInputStatesReq) Reset() {
+	*x = ChangeInputStatesReq{}
+	mi := &file_conversation_proto_msgTypes[48]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeInputStatesReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeInputStatesReq) ProtoMessage() {}
+
+func (x *ChangeInputStatesReq) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[48]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeInputStatesReq.ProtoReflect.Descriptor instead.
+func (*ChangeInputStatesReq) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{48}
+}
+
+func (x *ChangeInputStatesReq) GetConversationID() string {
+	if x != nil {
+		return x.ConversationID
+	}
+	return ""
+}
+
+func (x *ChangeInputStatesReq) GetFocus() bool {
+	if x != nil {
+		return x.Focus
+	}
+	return false
+}
+
+type ChangeInputStatesResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *ChangeInputStatesResp) Reset() {
+	*x = ChangeInputStatesResp{}
+	mi := &file_conversation_proto_msgTypes[49]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeInputStatesResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeInputStatesResp) ProtoMessage() {}
+
+func (x *ChangeInputStatesResp) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[49]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeInputStatesResp.ProtoReflect.Descriptor instead.
+func (*ChangeInputStatesResp) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{49}
+}
+
+type GetInputStatesReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	UserID         string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
+}
+
+func (x *GetInputStatesReq) Reset() {
+	*x = GetInputStatesReq{}
+	mi := &file_conversation_proto_msgTypes[50]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetInputStatesReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInputStatesReq) ProtoMessage() {}
+
+func (x *GetInputStatesReq) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[50]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInputStatesReq.ProtoReflect.Descriptor instead.
+func (*GetInputStatesReq) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *GetInputStatesReq) GetConversationID() string {
+	if x != nil {
+		return x.ConversationID
+	}
+	return ""
+}
+
+func (x *GetInputStatesReq) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+type GetInputStatesResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Platforms []common.Platform `protobuf:"varint,1,rep,packed,name=platforms,proto3,enum=openim.sdk.common.Platform" json:"platforms"`
+}
+
+func (x *GetInputStatesResp) Reset() {
+	*x = GetInputStatesResp{}
+	mi := &file_conversation_proto_msgTypes[51]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetInputStatesResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInputStatesResp) ProtoMessage() {}
+
+func (x *GetInputStatesResp) ProtoReflect() protoreflect.Message {
+	mi := &file_conversation_proto_msgTypes[51]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInputStatesResp.ProtoReflect.Descriptor instead.
+func (*GetInputStatesResp) Descriptor() ([]byte, []int) {
+	return file_conversation_proto_rawDescGZIP(), []int{51}
+}
+
+func (x *GetInputStatesResp) GetPlatforms() []common.Platform {
+	if x != nil {
+		return x.Platforms
+	}
+	return nil
+}
+
 var File_conversation_proto protoreflect.FileDescriptor
 
 var file_conversation_proto_rawDesc = []byte{
@@ -2632,17 +2819,34 @@ var file_conversation_proto_rawDesc = []byte{
 	0x65, 0x72, 0x49, 0x44, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x75, 0x73, 0x65,
 	0x72, 0x49, 0x44, 0x73, 0x22, 0x22, 0x0a, 0x20, 0x55, 0x6e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72,
 	0x69, 0x62, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x53, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x2a, 0x3f, 0x0a, 0x14, 0x4b, 0x65, 0x79, 0x77,
-	0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x54, 0x79, 0x70, 0x65,
-	0x12, 0x12, 0x0a, 0x0e, 0x4b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4d, 0x61, 0x74, 0x63, 0x68,
-	0x4f, 0x72, 0x10, 0x00, 0x12, 0x13, 0x0a, 0x0f, 0x4b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4d,
-	0x61, 0x74, 0x63, 0x68, 0x41, 0x6e, 0x64, 0x10, 0x01, 0x42, 0x51, 0x5a, 0x3d, 0x67, 0x69, 0x74,
-	0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64,
-	0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72,
-	0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f, 0x63, 0x6f,
-	0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0xaa, 0x02, 0x0c, 0x4f, 0x70, 0x65,
-	0x6e, 0x49, 0x4d, 0x2e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0xba, 0x02, 0x00, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x22, 0x54, 0x0a, 0x14, 0x43, 0x68, 0x61, 0x6e,
+	0x67, 0x65, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x53, 0x74, 0x61, 0x74, 0x65, 0x73, 0x52, 0x65, 0x71,
+	0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72,
+	0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x14, 0x0a, 0x05, 0x66, 0x6f, 0x63, 0x75,
+	0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x05, 0x66, 0x6f, 0x63, 0x75, 0x73, 0x22, 0x17,
+	0x0a, 0x15, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x53, 0x74, 0x61,
+	0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x22, 0x53, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x49, 0x6e,
+	0x70, 0x75, 0x74, 0x53, 0x74, 0x61, 0x74, 0x65, 0x73, 0x52, 0x65, 0x71, 0x12, 0x26, 0x0a, 0x0e,
+	0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x22, 0x4f, 0x0a, 0x12,
+	0x47, 0x65, 0x74, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x53, 0x74, 0x61, 0x74, 0x65, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x12, 0x39, 0x0a, 0x09, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x73, 0x18,
+	0x01, 0x20, 0x03, 0x28, 0x0e, 0x32, 0x1b, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73,
+	0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f,
+	0x72, 0x6d, 0x52, 0x09, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x73, 0x2a, 0x3f, 0x0a,
+	0x14, 0x4b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x4d, 0x61, 0x74, 0x63,
+	0x68, 0x54, 0x79, 0x70, 0x65, 0x12, 0x12, 0x0a, 0x0e, 0x4b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64,
+	0x4d, 0x61, 0x74, 0x63, 0x68, 0x4f, 0x72, 0x10, 0x00, 0x12, 0x13, 0x0a, 0x0f, 0x4b, 0x65, 0x79,
+	0x77, 0x6f, 0x72, 0x64, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x41, 0x6e, 0x64, 0x10, 0x01, 0x42, 0x51,
+	0x5a, 0x3d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65,
+	0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64,
+	0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f,
+	0x67, 0x6f, 0x2f, 0x63, 0x6f, 0x6e, 0x76, 0x65, 0x72, 0x73, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0xaa,
+	0x02, 0x0c, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d, 0x2e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0xba, 0x02,
+	0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2658,7 +2862,7 @@ func file_conversation_proto_rawDescGZIP() []byte {
 }
 
 var file_conversation_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 48)
+var file_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 52)
 var file_conversation_proto_goTypes = []any{
 	(KeywordListMatchType)(0),                     // 0: openim.sdk.conversation.KeywordListMatchType
 	(*ConversationArgs)(nil),                      // 1: openim.sdk.conversation.ConversationArgs
@@ -2709,40 +2913,45 @@ var file_conversation_proto_goTypes = []any{
 	(*SubscribeUsersOnlineStatusResp)(nil),        // 46: openim.sdk.conversation.SubscribeUsersOnlineStatusResp
 	(*UnsubscribeUsersOnlineStatusReq)(nil),       // 47: openim.sdk.conversation.UnsubscribeUsersOnlineStatusReq
 	(*UnsubscribeUsersOnlineStatusResp)(nil),      // 48: openim.sdk.conversation.UnsubscribeUsersOnlineStatusResp
-	(*shared.IMMessage)(nil),                      // 49: openim.sdk.shared.IMMessage
-	(*shared.IMConversation)(nil),                 // 50: openim.sdk.shared.IMConversation
-	(common.SessionType)(0),                       // 51: openim.sdk.common.SessionType
-	(common.ConvRecvMsgOpt)(0),                    // 52: openim.sdk.common.ConvRecvMsgOpt
-	(common.ConvGroupAtType)(0),                   // 53: openim.sdk.common.ConvGroupAtType
-	(common.ContentType)(0),                       // 54: openim.sdk.common.ContentType
-	(*common.RequestPagination)(nil),              // 55: openim.sdk.common.RequestPagination
-	(common.Platform)(0),                          // 56: openim.sdk.common.Platform
+	(*ChangeInputStatesReq)(nil),                  // 49: openim.sdk.conversation.ChangeInputStatesReq
+	(*ChangeInputStatesResp)(nil),                 // 50: openim.sdk.conversation.ChangeInputStatesResp
+	(*GetInputStatesReq)(nil),                     // 51: openim.sdk.conversation.GetInputStatesReq
+	(*GetInputStatesResp)(nil),                    // 52: openim.sdk.conversation.GetInputStatesResp
+	(*shared.IMMessage)(nil),                      // 53: openim.sdk.shared.IMMessage
+	(*shared.IMConversation)(nil),                 // 54: openim.sdk.shared.IMConversation
+	(common.SessionType)(0),                       // 55: openim.sdk.common.SessionType
+	(common.ConvRecvMsgOpt)(0),                    // 56: openim.sdk.common.ConvRecvMsgOpt
+	(common.ConvGroupAtType)(0),                   // 57: openim.sdk.common.ConvGroupAtType
+	(common.ContentType)(0),                       // 58: openim.sdk.common.ContentType
+	(*common.RequestPagination)(nil),              // 59: openim.sdk.common.RequestPagination
+	(common.Platform)(0),                          // 60: openim.sdk.common.Platform
 }
 var file_conversation_proto_depIdxs = []int32{
 	3,  // 0: openim.sdk.conversation.FindMessageListCallback.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
-	49, // 1: openim.sdk.conversation.SearchByConversationResult.messageList:type_name -> openim.sdk.shared.IMMessage
-	50, // 2: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.shared.IMConversation
-	50, // 3: openim.sdk.conversation.GetConversationListSplitResp.conversationList:type_name -> openim.sdk.shared.IMConversation
-	51, // 4: openim.sdk.conversation.GetOneConversationReq.sessionType:type_name -> openim.sdk.common.SessionType
-	50, // 5: openim.sdk.conversation.GetOneConversationResp.conversation:type_name -> openim.sdk.shared.IMConversation
-	50, // 6: openim.sdk.conversation.GetMultipleConversationResp.conversationList:type_name -> openim.sdk.shared.IMConversation
-	52, // 7: openim.sdk.conversation.SetConversationReq.recvMsgOpt:type_name -> openim.sdk.common.ConvRecvMsgOpt
-	53, // 8: openim.sdk.conversation.SetConversationReq.groupAtType:type_name -> openim.sdk.common.ConvGroupAtType
-	51, // 9: openim.sdk.conversation.GetConversationIDBySessionTypeReq.sessionType:type_name -> openim.sdk.common.SessionType
+	53, // 1: openim.sdk.conversation.SearchByConversationResult.messageList:type_name -> openim.sdk.shared.IMMessage
+	54, // 2: openim.sdk.conversation.GetAllConversationListResp.conversationList:type_name -> openim.sdk.shared.IMConversation
+	54, // 3: openim.sdk.conversation.GetConversationListSplitResp.conversationList:type_name -> openim.sdk.shared.IMConversation
+	55, // 4: openim.sdk.conversation.GetOneConversationReq.sessionType:type_name -> openim.sdk.common.SessionType
+	54, // 5: openim.sdk.conversation.GetOneConversationResp.conversation:type_name -> openim.sdk.shared.IMConversation
+	54, // 6: openim.sdk.conversation.GetMultipleConversationResp.conversationList:type_name -> openim.sdk.shared.IMConversation
+	56, // 7: openim.sdk.conversation.SetConversationReq.recvMsgOpt:type_name -> openim.sdk.common.ConvRecvMsgOpt
+	57, // 8: openim.sdk.conversation.SetConversationReq.groupAtType:type_name -> openim.sdk.common.ConvGroupAtType
+	55, // 9: openim.sdk.conversation.GetConversationIDBySessionTypeReq.sessionType:type_name -> openim.sdk.common.SessionType
 	1,  // 10: openim.sdk.conversation.FindMessageListReq.conversationsArgs:type_name -> openim.sdk.conversation.ConversationArgs
 	3,  // 11: openim.sdk.conversation.FindMessageListResp.findResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
 	0,  // 12: openim.sdk.conversation.SearchLocalMessagesReq.keywordMatchType:type_name -> openim.sdk.conversation.KeywordListMatchType
-	54, // 13: openim.sdk.conversation.SearchLocalMessagesReq.messageTypes:type_name -> openim.sdk.common.ContentType
-	55, // 14: openim.sdk.conversation.SearchLocalMessagesReq.pagination:type_name -> openim.sdk.common.RequestPagination
+	58, // 13: openim.sdk.conversation.SearchLocalMessagesReq.messageTypes:type_name -> openim.sdk.common.ContentType
+	59, // 14: openim.sdk.conversation.SearchLocalMessagesReq.pagination:type_name -> openim.sdk.common.RequestPagination
 	3,  // 15: openim.sdk.conversation.SearchLocalMessagesResp.searchResultItems:type_name -> openim.sdk.conversation.SearchByConversationResult
-	50, // 16: openim.sdk.conversation.SearchConversationResp.conversationList:type_name -> openim.sdk.shared.IMConversation
-	56, // 17: openim.sdk.conversation.UserOnlinePlatform.platforms:type_name -> openim.sdk.common.Platform
+	54, // 16: openim.sdk.conversation.SearchConversationResp.conversationList:type_name -> openim.sdk.shared.IMConversation
+	60, // 17: openim.sdk.conversation.UserOnlinePlatform.platforms:type_name -> openim.sdk.common.Platform
 	44, // 18: openim.sdk.conversation.SubscribeUsersOnlineStatusResp.status:type_name -> openim.sdk.conversation.UserOnlinePlatform
-	19, // [19:19] is the sub-list for method output_type
-	19, // [19:19] is the sub-list for method input_type
-	19, // [19:19] is the sub-list for extension type_name
-	19, // [19:19] is the sub-list for extension extendee
-	0,  // [0:19] is the sub-list for field type_name
+	60, // 19: openim.sdk.conversation.GetInputStatesResp.platforms:type_name -> openim.sdk.common.Platform
+	20, // [20:20] is the sub-list for method output_type
+	20, // [20:20] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_conversation_proto_init() }
@@ -2757,7 +2966,7 @@ func file_conversation_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_conversation_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   48,
+			NumMessages:   52,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

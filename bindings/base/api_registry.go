@@ -196,6 +196,8 @@ var FuncMap = map[sdkevent.FuncRequestEventName]callFunc{
 	sdkevent.FuncRequestEventName_SearchConversation:                wrapFunc(open_im_sdk.IMUserContext.Conversation().SearchConversation),
 	sdkevent.FuncRequestEventName_SubscribeUsersOnlineStatus:        wrapFunc(open_im_sdk.IMUserContext.Conversation().SubscribeUsersOnlineStatus),
 	sdkevent.FuncRequestEventName_UnsubscribeUsersOnlineStatus:      wrapFunc(open_im_sdk.IMUserContext.Conversation().UnsubscribeUsersOnlineStatus),
+	sdkevent.FuncRequestEventName_ChangeInputStates:                 wrapFunc(open_im_sdk.IMUserContext.Conversation().ChangeInputStates),
+	sdkevent.FuncRequestEventName_GetInputStates:                    wrapFunc(open_im_sdk.IMUserContext.Conversation().GetInputStates),
 
 	sdkevent.FuncRequestEventName_CreateTextMessage:          wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateTextMessage),
 	sdkevent.FuncRequestEventName_CreateAdvancedTextMessage:  wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateAdvancedTextMessage),

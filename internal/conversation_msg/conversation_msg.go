@@ -793,14 +793,6 @@ func (c *Conversation) getUserNameAndFaceURL(ctx context.Context, userID string)
 	return userInfo.FaceURL, userInfo.Nickname, nil
 }
 
-func (c *Conversation) GetInputStates(ctx context.Context, conversationID string, userID string) ([]int32, error) {
-	return c.typing.GetInputStates(conversationID, userID), nil
-}
-
-func (c *Conversation) ChangeInputStates(ctx context.Context, conversationID string, focus bool) error {
-	return c.typing.ChangeInputStates(ctx, conversationID, focus)
-}
-
 func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversationID string, seq int64, before int64, after int64) ([]*sharedpb.IMMessage, error) {
 	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &msgpb.GetHistoryMessageListResp{})
 	res, err := c.db.GetMessagesBySeqs(ctx, conversationID, []int64{seq})
