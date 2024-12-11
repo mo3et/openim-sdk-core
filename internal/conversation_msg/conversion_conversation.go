@@ -47,6 +47,9 @@ func LocalConversationToIMConversation(conversation *model_struct.LocalConversat
 }
 
 func sdkOfflinePushInfoToServerOfflinePushInfo(offlinePushInfo *commonpb.OfflinePushInfo) *sdkws.OfflinePushInfo {
+	if offlinePushInfo == nil {
+		return nil
+	}
 	return &sdkws.OfflinePushInfo{
 		Title:         offlinePushInfo.Title,
 		Desc:          offlinePushInfo.Desc,
