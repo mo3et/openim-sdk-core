@@ -23,7 +23,7 @@ func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfo
 		HasReadTime:   attached.GetHasReadTime(),
 	}
 
-	if attached.Progress != nil {
+	if attached.GetProgress() != nil {
 		elem.Progress = &model_struct.UploadProgress{
 			Total:    attached.Progress.Total,
 			Save:     attached.Progress.Save,
