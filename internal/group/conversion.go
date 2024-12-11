@@ -143,7 +143,7 @@ func DBGroupMemberToSdk(info *model_struct.LocalGroupMember) *shared.IMGroupMemb
 		UserID:         info.UserID,
 		Nickname:       info.Nickname,
 		FaceURL:        info.FaceURL,
-		RoleLevel:      common.GroupRoleLevel(info.RoleLevel),
+		RoleLevel:      common.GroupMemberRoleLevel(info.RoleLevel),
 		JoinTime:       info.JoinTime,
 		JoinSource:     shared.GroupJoinSource(info.JoinSource),
 		InviterUserID:  info.InviterUserID,

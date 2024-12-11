@@ -3,7 +3,7 @@ package openim.sdk.common;
 
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/common";
 option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
+option swift_prefix = "";
 
 
 enum SessionType {
@@ -103,7 +103,7 @@ enum ContentType {
   CustomMsgOnlineOnly = 120;
 
   FriendApplicationApprovedNotification = 1201;
-  OANotification      = 1400;
+  OANotification = 1400;
   //  FriendApplicationRejectedNotification = 1202;
   //  FriendApplicationNotification = 1203;
   //  FriendAddedNotification = 1204;
@@ -226,10 +226,10 @@ enum UploadSDKDataMode{
 }
 
 enum RevokerRole {
-    RevokerRoleDefault = 0;
-    RevokerRoleOwner= 100;
-    RevokerRoleAdmin = 60;
-    RevokerRoleMember = 20;
+  RevokerRoleDefault = 0;
+  RevokerRoleOwner = 100;
+  RevokerRoleAdmin = 60;
+  RevokerRoleMember = 20;
 }
 
 enum FriendSource {
@@ -244,9 +244,9 @@ enum HandleResult {
   ResultAccept = 1;
 }
 
-enum GroupRoleLevel {
+enum GroupMemberRoleLevel {
   GroupRoleLevel_ = 0;
-  GroupOwner         = 100;
-  GroupAdmin         = 60;
+  GroupOwner = 100;
+  GroupAdmin = 60;
   GroupOrdinaryUsers = 20;
 }

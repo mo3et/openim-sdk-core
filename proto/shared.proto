@@ -177,7 +177,7 @@ message IMGroupMember {
   // @group_member_face_url
   string faceURL = 4;
   // @group_member_role
-  common.GroupRoleLevel roleLevel = 5;
+  common.GroupMemberRoleLevel roleLevel = 5;
   // @group_member_join_time
   int64 joinTime = 6;
   // @group_member_join_source
