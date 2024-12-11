@@ -19,7 +19,6 @@ import (
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
-	"github.com/openimsdk/tools/mw"
 )
 
 var (
@@ -137,13 +136,7 @@ func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
 }
 
 func FfiRequest(data []byte) {
-	t := time.Now()
 	go func() {
-		defer func(start time.Time) {
-			if r := recover(); r != nil {
-				mw.PanicStackToLog(context.Background(), r)
-			}
-		}(t)
 		var ffiRequest ffi.FfiRequest
 		err := serializer.GetInstance().Unmarshal(data, &ffiRequest)
 		if err != nil {

@@ -174,11 +174,68 @@ type AttachedInfoElem struct {
 	HasReadTime   int64           `json:"hasReadTime"`
 	Progress      *UploadProgress `json:"uploadProgress,omitempty"`
 }
+
+func (x *AttachedInfoElem) GetIsPrivateChat() bool {
+	if x != nil {
+		return x.IsPrivateChat
+	}
+	return false
+}
+
+func (x *AttachedInfoElem) GetBurnDuration() int32 {
+	if x != nil {
+		return x.BurnDuration
+	}
+	return 0
+}
+
+func (x *AttachedInfoElem) GetHasReadTime() int64 {
+	if x != nil {
+		return x.HasReadTime
+	}
+	return 0
+}
+
+func (x *AttachedInfoElem) GetProgress() *UploadProgress {
+	if x != nil {
+		return x.Progress
+	}
+	return nil
+}
+
 type UploadProgress struct {
 	Total    int64  `json:"total"`
 	Save     int64  `json:"save"`
 	Current  int64  `json:"current"`
 	UploadID string `json:"uploadID"`
+}
+
+func (x *UploadProgress) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *UploadProgress) GetSave() int64 {
+	if x != nil {
+		return x.Save
+	}
+	return 0
+}
+
+func (x *UploadProgress) GetCurrent() int64 {
+	if x != nil {
+		return x.Current
+	}
+	return 0
+}
+
+func (x *UploadProgress) GetUploadID() string {
+	if x != nil {
+		return x.UploadID
+	}
+	return ""
 }
 
 type LocalChatLog struct {
@@ -201,6 +258,13 @@ type LocalChatLog struct {
 	AttachedInfo     *AttachedInfoElem `gorm:"column:attached_info;type:text" json:"attachedInfo"`
 	Ex               string            `gorm:"column:ex;type:text" json:"ex"`
 	LocalEx          string            `gorm:"column:local_ex;type:text" json:"localEx"`
+}
+
+func (x *LocalChatLog) GetAttachedInfo() *AttachedInfoElem {
+	if x != nil {
+		return x.AttachedInfo
+	}
+	return nil
 }
 
 type LocalErrChatLog struct {
