@@ -292,6 +292,82 @@ func GenJS() error {
 	return nil
 }
 
+// Generate Harmony JavaScript code from protobuf files.
+// Note: please install pbjs and pbts command first
+// Reference Link: https://ohpm.openharmony.cn/#/cn/detail/@ohos%2Fprotobufjs
+func GenHarmonyTS() error {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Lshortfile)
+
+	OutDir := filepath.Join(protoDir, "HarmonyJS")
+
+	log.Println("Start Gen JS")
+	for _, module := range protoModules {
+		// 生成JS
+		inPath := fmt.Sprintf("%s\\%s.proto", "proto", module)
+		outJSFile := fmt.Sprintf("%s\\%s.js", OutDir, module)
+		jscmd := exec.Command("pbjs",
+			"-t", "static-module",
+			"-w", "es6",
+			"-o", outJSFile,
+			inPath,
+		)
+		jscmd.Env = os.Environ()
+		connectStd(jscmd)
+
+		log.Println("Run: " + jscmd.String())
+		if err := jscmd.Run(); err != nil {
+			log.Panicf("Error generating Harmony JavaScript code for module %s: %v\n", module, err)
+		}
+		// 生成TS定义
+		outTSDefFile := fmt.Sprintf("%s\\%s.d.ts", OutDir, module)
+		tscmd := exec.Command("pbts",
+			outJSFile,
+			"-o", outTSDefFile,
+		)
+		tscmd.Env = os.Environ()
+		connectStd(tscmd)
+
+		log.Println("Run: " + tscmd.String())
+		if err := tscmd.Run(); err != nil {
+			log.Panicf("Error generating Harmony TS Define code for module %s: %v\n", module, err)
+		}
+
+		// 修改生成的文件
+		// 1.将生成的js文件中的 import * as $protobuf from "protobufjs/minimal";
+		// 修改为   import { index } from "@ohos/protobufjs"; const $protobuf = index;
+
+		// 2.将生成的.d.ts文件中的 import * as $protobuf from "protobufjs";
+		// 修改为  import * as $protobuf from "@ohos/protobufjs";
+
+		// 3.在生成的js文件中 import * as $protobuf from "@ohos/protobufjs";这行代码下方添加如下代码
+		// import Long from 'long';
+		// $protobuf.util.Long=Long
+		// $protobuf.configure()
+		replaceStr := func(filePath, oldStr, newStr string) {
+			content, err := os.ReadFile(filePath)
+			if err != nil {
+				log.Panic("failed to read file: %w", err)
+			}
+
+			originalContent := string(content)
+			modifiedContent := strings.Replace(originalContent, oldStr, newStr, 1) // 只替换一次
+
+			if originalContent == modifiedContent {
+				return
+			}
+			err = os.WriteFile(filePath, []byte(modifiedContent), 0644)
+			if err != nil {
+				log.Panic("failed to write file: %w", err)
+			}
+		}
+		replaceStr(outJSFile, "import * as $protobuf from \"protobufjs/minimal\";", "import { index } from \"@ohos/protobufjs\"; \nconst $protobuf = index; \n import Long from 'long';\n$protobuf.util.Long=Long \n$protobuf.configure()")
+		replaceStr(outTSDefFile, "import * as $protobuf from \"protobufjs\";\nimport Long = require(\"long\");", "import * as $protobuf from \"@ohos/protobufjs\"\nimport Long from 'long';\n$protobuf.util.Long=Long \n$protobuf.configure()")
+	}
+
+	return nil
+}
+
 // Generate TypeScript code from protobuf files.
 func GenTS() error {
 	log.SetOutput(os.Stdout)
