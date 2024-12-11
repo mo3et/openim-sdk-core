@@ -25,21 +25,21 @@ message AddFriendReq {
 }
 message AddFriendResp {}
 
-message GetFriendRequestsReq {
+message GetFriendApplicationsReq {
   // 1. user send friend request.
   // 2. user receive friend request
   bool send = 1;
 }
-message GetFriendRequestsResp {
+message GetFriendApplicationsResp {
   repeated shared.IMFriendApplication applications = 1; // corresponding friend request list
 }
 
-message HandleFriendRequestReq {
+message HandleFriendApplicationReq {
   string userID = 1; // send friend request userid
   string handleMsg = 2; // handle message
   common.ApprovalStatus status = 3; // handle status
 }
-message HandleFriendRequestResp {}
+message HandleFriendApplicationResp {}
 
 message CheckFriendReq {
   repeated string friendUserIDs = 1; // checkFriend userid list

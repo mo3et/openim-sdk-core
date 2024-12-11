@@ -494,7 +494,7 @@ func (g *Group) GetGroupMembers(ctx context.Context, req *sdkpb.GetGroupMembersR
 	return &sdkpb.GetGroupMembersResp{Members: datautil.Batch(DBGroupMemberToSdk, res)}, nil
 }
 
-func (g *Group) GetGroupRequest(ctx context.Context, req *sdkpb.GetGroupRequestReq) (*sdkpb.GetGroupRequestResp, error) {
+func (g *Group) GetGroupApplication(ctx context.Context, req *sdkpb.GetGroupApplicationReq) (*sdkpb.GetGroupApplicationResp, error) {
 	var requests []*sharedpb.IMGroupApplication
 	if req.Send {
 		res, err := g.db.GetSendGroupApplication(ctx)
@@ -509,7 +509,7 @@ func (g *Group) GetGroupRequest(ctx context.Context, req *sdkpb.GetGroupRequestR
 		}
 		requests = datautil.Batch(DBAdminGroupRequestToSdk, res)
 	}
-	return &sdkpb.GetGroupRequestResp{Applications: requests}, nil
+	return &sdkpb.GetGroupApplicationResp{Applications: requests}, nil
 }
 
 func (g *Group) SearchGroupMembers(ctx context.Context, req *sdkpb.SearchGroupMembersReq) (*sdkpb.SearchGroupMembersResp, error) {
@@ -578,9 +578,9 @@ func (g *Group) InviteUserToGroup(ctx context.Context, req *sdkpb.InviteUserToGr
 	return &sdkpb.InviteUserToGroupResp{}, nil
 }
 
-func (g *Group) HandleGroupRequest(ctx context.Context, req *sdkpb.HandleGroupRequestReq) (*sdkpb.HandleGroupRequestResp, error) {
+func (g *Group) HandleGroupApplication(ctx context.Context, req *sdkpb.HandleGroupApplicationReq) (*sdkpb.HandleGroupApplicationResp, error) {
 	if err := g.handlerGroupApplication(ctx, &group.GroupApplicationResponseReq{GroupID: req.GroupID, FromUserID: req.FromUserID, HandledMsg: req.HandledMsg, HandleResult: int32(req.Status)}); err != nil {
 		return nil, err
 	}
-	return &sdkpb.HandleGroupRequestResp{}, nil
+	return &sdkpb.HandleGroupApplicationResp{}, nil
 }

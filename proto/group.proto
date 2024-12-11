@@ -174,10 +174,10 @@ message GetGroupMembersResp {
   repeated shared.IMGroupMember members = 1;// group member information
 }
 
-message GetGroupRequestReq {
+message GetGroupApplicationReq {
   bool send = 1;// is it the request i sent
 }
-message GetGroupRequestResp {
+message GetGroupApplicationResp {
   repeated shared.IMGroupApplication applications = 1;// group request information
 }
 
@@ -215,7 +215,7 @@ message InviteUserToGroupReq {
 }
 message InviteUserToGroupResp {}
 
-message HandleGroupRequestReq {
+message HandleGroupApplicationReq {
   /**
    * group id you want to handle1<br>
    * group id you want to handle2<br>
@@ -230,7 +230,7 @@ message HandleGroupRequestReq {
   // approval status
   openim.sdk.common.ApprovalStatus status = 4;
 }
-message HandleGroupRequestResp {}
+message HandleGroupApplicationResp {}
 
 service group {
   /**
@@ -336,7 +336,7 @@ service group {
    * Set group information
    * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
    */
-  rpc GetGroupRequest(GetGroupRequestReq) returns (GetGroupRequestResp);
+  rpc GetGroupRequest(GetGroupApplicationReq) returns (GetGroupApplicationResp);
   // todo
   /**
    * Set group information
@@ -366,5 +366,5 @@ service group {
    * Set group information
    * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
    */
-  rpc HandleGroupRequest(HandleGroupRequestReq) returns (HandleGroupRequestResp);
+  rpc HandleGroupRequest(HandleGroupApplicationReq) returns (HandleGroupApplicationResp);
 }

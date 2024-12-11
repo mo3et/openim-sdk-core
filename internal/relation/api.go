@@ -83,7 +83,7 @@ func (r *Relation) AddFriend(ctx context.Context, req *sdkpb.AddFriendReq) (*sdk
 	return &sdkpb.AddFriendResp{}, nil
 }
 
-func (r *Relation) GetFriendRequests(ctx context.Context, req *sdkpb.GetFriendRequestsReq) (*sdkpb.GetFriendRequestsResp, error) {
+func (r *Relation) GetFriendApplications(ctx context.Context, req *sdkpb.GetFriendApplicationsReq) (*sdkpb.GetFriendApplicationsResp, error) {
 	var (
 		request []*model_struct.LocalFriendRequest
 		err     error
@@ -96,10 +96,10 @@ func (r *Relation) GetFriendRequests(ctx context.Context, req *sdkpb.GetFriendRe
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.GetFriendRequestsResp{Applications: datautil.Batch(DbFriendRequestToIMFriendApplication, request)}, nil
+	return &sdkpb.GetFriendApplicationsResp{Applications: datautil.Batch(DbFriendRequestToIMFriendApplication, request)}, nil
 }
 
-func (r *Relation) HandleFriendRequest(ctx context.Context, req *sdkpb.HandleFriendRequestReq) (*sdkpb.HandleFriendRequestResp, error) {
+func (r *Relation) HandleFriendApplication(ctx context.Context, req *sdkpb.HandleFriendApplicationReq) (*sdkpb.HandleFriendApplicationResp, error) {
 	if err := r.addFriendResponse(ctx, &relation.RespondFriendApplyReq{FromUserID: req.UserID, HandleResult: int32(req.Status), HandleMsg: req.HandleMsg}); err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func (r *Relation) HandleFriendRequest(ctx context.Context, req *sdkpb.HandleFri
 		_ = r.IncrSyncFriends(ctx)
 	}
 	_ = r.SyncAllFriendApplication(ctx)
-	return &sdkpb.HandleFriendRequestResp{}, nil
+	return &sdkpb.HandleFriendApplicationResp{}, nil
 }
 
 func (r *Relation) CheckFriend(ctx context.Context, req *sdkpb.CheckFriendReq) (*sdkpb.CheckFriendResp, error) {

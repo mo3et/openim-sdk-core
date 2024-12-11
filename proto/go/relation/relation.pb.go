@@ -309,7 +309,7 @@ func (*AddFriendResp) Descriptor() ([]byte, []int) {
 	return file_relation_proto_rawDescGZIP(), []int{3}
 }
 
-type GetFriendRequestsReq struct {
+type GetFriendApplicationsReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -319,20 +319,20 @@ type GetFriendRequestsReq struct {
 	Send bool `protobuf:"varint,1,opt,name=send,proto3" json:"send"`
 }
 
-func (x *GetFriendRequestsReq) Reset() {
-	*x = GetFriendRequestsReq{}
+func (x *GetFriendApplicationsReq) Reset() {
+	*x = GetFriendApplicationsReq{}
 	mi := &file_relation_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetFriendRequestsReq) String() string {
+func (x *GetFriendApplicationsReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetFriendRequestsReq) ProtoMessage() {}
+func (*GetFriendApplicationsReq) ProtoMessage() {}
 
-func (x *GetFriendRequestsReq) ProtoReflect() protoreflect.Message {
+func (x *GetFriendApplicationsReq) ProtoReflect() protoreflect.Message {
 	mi := &file_relation_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -344,19 +344,19 @@ func (x *GetFriendRequestsReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetFriendRequestsReq.ProtoReflect.Descriptor instead.
-func (*GetFriendRequestsReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetFriendApplicationsReq.ProtoReflect.Descriptor instead.
+func (*GetFriendApplicationsReq) Descriptor() ([]byte, []int) {
 	return file_relation_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *GetFriendRequestsReq) GetSend() bool {
+func (x *GetFriendApplicationsReq) GetSend() bool {
 	if x != nil {
 		return x.Send
 	}
 	return false
 }
 
-type GetFriendRequestsResp struct {
+type GetFriendApplicationsResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -364,20 +364,20 @@ type GetFriendRequestsResp struct {
 	Applications []*shared.IMFriendApplication `protobuf:"bytes,1,rep,name=applications,proto3" json:"applications"` // corresponding friend request list
 }
 
-func (x *GetFriendRequestsResp) Reset() {
-	*x = GetFriendRequestsResp{}
+func (x *GetFriendApplicationsResp) Reset() {
+	*x = GetFriendApplicationsResp{}
 	mi := &file_relation_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetFriendRequestsResp) String() string {
+func (x *GetFriendApplicationsResp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetFriendRequestsResp) ProtoMessage() {}
+func (*GetFriendApplicationsResp) ProtoMessage() {}
 
-func (x *GetFriendRequestsResp) ProtoReflect() protoreflect.Message {
+func (x *GetFriendApplicationsResp) ProtoReflect() protoreflect.Message {
 	mi := &file_relation_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -389,19 +389,19 @@ func (x *GetFriendRequestsResp) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetFriendRequestsResp.ProtoReflect.Descriptor instead.
-func (*GetFriendRequestsResp) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetFriendApplicationsResp.ProtoReflect.Descriptor instead.
+func (*GetFriendApplicationsResp) Descriptor() ([]byte, []int) {
 	return file_relation_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *GetFriendRequestsResp) GetApplications() []*shared.IMFriendApplication {
+func (x *GetFriendApplicationsResp) GetApplications() []*shared.IMFriendApplication {
 	if x != nil {
 		return x.Applications
 	}
 	return nil
 }
 
-type HandleFriendRequestReq struct {
+type HandleFriendApplicationReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -411,20 +411,20 @@ type HandleFriendRequestReq struct {
 	Status    common.ApprovalStatus `protobuf:"varint,3,opt,name=status,proto3,enum=openim.sdk.common.ApprovalStatus" json:"status"` // handle status
 }
 
-func (x *HandleFriendRequestReq) Reset() {
-	*x = HandleFriendRequestReq{}
+func (x *HandleFriendApplicationReq) Reset() {
+	*x = HandleFriendApplicationReq{}
 	mi := &file_relation_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *HandleFriendRequestReq) String() string {
+func (x *HandleFriendApplicationReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*HandleFriendRequestReq) ProtoMessage() {}
+func (*HandleFriendApplicationReq) ProtoMessage() {}
 
-func (x *HandleFriendRequestReq) ProtoReflect() protoreflect.Message {
+func (x *HandleFriendApplicationReq) ProtoReflect() protoreflect.Message {
 	mi := &file_relation_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -436,52 +436,52 @@ func (x *HandleFriendRequestReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HandleFriendRequestReq.ProtoReflect.Descriptor instead.
-func (*HandleFriendRequestReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use HandleFriendApplicationReq.ProtoReflect.Descriptor instead.
+func (*HandleFriendApplicationReq) Descriptor() ([]byte, []int) {
 	return file_relation_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *HandleFriendRequestReq) GetUserID() string {
+func (x *HandleFriendApplicationReq) GetUserID() string {
 	if x != nil {
 		return x.UserID
 	}
 	return ""
 }
 
-func (x *HandleFriendRequestReq) GetHandleMsg() string {
+func (x *HandleFriendApplicationReq) GetHandleMsg() string {
 	if x != nil {
 		return x.HandleMsg
 	}
 	return ""
 }
 
-func (x *HandleFriendRequestReq) GetStatus() common.ApprovalStatus {
+func (x *HandleFriendApplicationReq) GetStatus() common.ApprovalStatus {
 	if x != nil {
 		return x.Status
 	}
 	return common.ApprovalStatus(0)
 }
 
-type HandleFriendRequestResp struct {
+type HandleFriendApplicationResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *HandleFriendRequestResp) Reset() {
-	*x = HandleFriendRequestResp{}
+func (x *HandleFriendApplicationResp) Reset() {
+	*x = HandleFriendApplicationResp{}
 	mi := &file_relation_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *HandleFriendRequestResp) String() string {
+func (x *HandleFriendApplicationResp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*HandleFriendRequestResp) ProtoMessage() {}
+func (*HandleFriendApplicationResp) ProtoMessage() {}
 
-func (x *HandleFriendRequestResp) ProtoReflect() protoreflect.Message {
+func (x *HandleFriendApplicationResp) ProtoReflect() protoreflect.Message {
 	mi := &file_relation_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -493,8 +493,8 @@ func (x *HandleFriendRequestResp) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HandleFriendRequestResp.ProtoReflect.Descriptor instead.
-func (*HandleFriendRequestResp) Descriptor() ([]byte, []int) {
+// Deprecated: Use HandleFriendApplicationResp.ProtoReflect.Descriptor instead.
+func (*HandleFriendApplicationResp) Descriptor() ([]byte, []int) {
 	return file_relation_proto_rawDescGZIP(), []int{7}
 }
 
@@ -1457,26 +1457,27 @@ var file_relation_proto_rawDesc = []byte{
 	0x06, 0x72, 0x65, 0x71, 0x4d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72,
 	0x65, 0x71, 0x4d, 0x73, 0x67, 0x12, 0x0e, 0x0a, 0x02, 0x65, 0x78, 0x18, 0x03, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x02, 0x65, 0x78, 0x22, 0x0f, 0x0a, 0x0d, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65,
-	0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x22, 0x2a, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x46, 0x72, 0x69,
-	0x65, 0x6e, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x73, 0x52, 0x65, 0x71, 0x12, 0x12,
-	0x0a, 0x04, 0x73, 0x65, 0x6e, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x04, 0x73, 0x65,
-	0x6e, 0x64, 0x22, 0x63, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12, 0x4a, 0x0a, 0x0c, 0x61,
-	0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
-	0x0b, 0x32, 0x26, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x73,
-	0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x49, 0x4d, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x41, 0x70,
-	0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x61, 0x70, 0x70, 0x6c, 0x69,
-	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x89, 0x01, 0x0a, 0x16, 0x48, 0x61, 0x6e, 0x64,
-	0x6c, 0x65, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52,
-	0x65, 0x71, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x1c, 0x0a, 0x09, 0x68, 0x61,
-	0x6e, 0x64, 0x6c, 0x65, 0x4d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x68,
-	0x61, 0x6e, 0x64, 0x6c, 0x65, 0x4d, 0x73, 0x67, 0x12, 0x39, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x21, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69,
-	0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x41, 0x70, 0x70,
-	0x72, 0x6f, 0x76, 0x61, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61,
-	0x74, 0x75, 0x73, 0x22, 0x19, 0x0a, 0x17, 0x48, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x46, 0x72, 0x69,
-	0x65, 0x6e, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x22, 0x36,
+	0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x22, 0x2e, 0x0a, 0x18, 0x47, 0x65, 0x74, 0x46, 0x72, 0x69,
+	0x65, 0x6e, 0x64, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52,
+	0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x65, 0x6e, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x04, 0x73, 0x65, 0x6e, 0x64, 0x22, 0x67, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x46, 0x72, 0x69,
+	0x65, 0x6e, 0x64, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x12, 0x4a, 0x0a, 0x0c, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x6f, 0x70, 0x65, 0x6e,
+	0x69, 0x6d, 0x2e, 0x73, 0x64, 0x6b, 0x2e, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x49, 0x4d,
+	0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x0c, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22,
+	0x8d, 0x01, 0x0a, 0x1a, 0x48, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64,
+	0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x16,
+	0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x1c, 0x0a, 0x09, 0x68, 0x61, 0x6e, 0x64, 0x6c, 0x65,
+	0x4d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x68, 0x61, 0x6e, 0x64, 0x6c,
+	0x65, 0x4d, 0x73, 0x67, 0x12, 0x39, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x0e, 0x32, 0x21, 0x2e, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2e, 0x73, 0x64,
+	0x6b, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x41, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61,
+	0x6c, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22,
+	0x1d, 0x0a, 0x1b, 0x48, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x41,
+	0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x22, 0x36,
 	0x0a, 0x0e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x71,
 	0x12, 0x24, 0x0a, 0x0d, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44,
 	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0d, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x55,
@@ -1594,46 +1595,46 @@ func file_relation_proto_rawDescGZIP() []byte {
 var file_relation_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_relation_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
 var file_relation_proto_goTypes = []any{
-	(CheckFriendResult)(0),             // 0: openim.sdk.relation.CheckFriendResult
-	(Relationship)(0),                  // 1: openim.sdk.relation.Relationship
-	(*GetSpecifiedFriendsReq)(nil),     // 2: openim.sdk.relation.GetSpecifiedFriendsReq
-	(*GetSpecifiedFriendsResp)(nil),    // 3: openim.sdk.relation.GetSpecifiedFriendsResp
-	(*AddFriendReq)(nil),               // 4: openim.sdk.relation.AddFriendReq
-	(*AddFriendResp)(nil),              // 5: openim.sdk.relation.AddFriendResp
-	(*GetFriendRequestsReq)(nil),       // 6: openim.sdk.relation.GetFriendRequestsReq
-	(*GetFriendRequestsResp)(nil),      // 7: openim.sdk.relation.GetFriendRequestsResp
-	(*HandleFriendRequestReq)(nil),     // 8: openim.sdk.relation.HandleFriendRequestReq
-	(*HandleFriendRequestResp)(nil),    // 9: openim.sdk.relation.HandleFriendRequestResp
-	(*CheckFriendReq)(nil),             // 10: openim.sdk.relation.CheckFriendReq
-	(*CheckFriendInfo)(nil),            // 11: openim.sdk.relation.CheckFriendInfo
-	(*CheckFriendResp)(nil),            // 12: openim.sdk.relation.CheckFriendResp
-	(*DeleteFriendReq)(nil),            // 13: openim.sdk.relation.DeleteFriendReq
-	(*DeleteFriendResp)(nil),           // 14: openim.sdk.relation.DeleteFriendResp
-	(*GetFriendsReq)(nil),              // 15: openim.sdk.relation.GetFriendsReq
-	(*GetFriendsResp)(nil),             // 16: openim.sdk.relation.GetFriendsResp
-	(*GetFriendsPageReq)(nil),          // 17: openim.sdk.relation.GetFriendsPageReq
-	(*GetFriendsPageResp)(nil),         // 18: openim.sdk.relation.GetFriendsPageResp
-	(*SearchFriendsReq)(nil),           // 19: openim.sdk.relation.SearchFriendsReq
-	(*SearchFriendsInfo)(nil),          // 20: openim.sdk.relation.SearchFriendsInfo
-	(*SearchFriendsResp)(nil),          // 21: openim.sdk.relation.SearchFriendsResp
-	(*AddBlackReq)(nil),                // 22: openim.sdk.relation.AddBlackReq
-	(*AddBlackResp)(nil),               // 23: openim.sdk.relation.AddBlackResp
-	(*DeleteBlackReq)(nil),             // 24: openim.sdk.relation.DeleteBlackReq
-	(*DeleteBlackResp)(nil),            // 25: openim.sdk.relation.DeleteBlackResp
-	(*GetBlacksReq)(nil),               // 26: openim.sdk.relation.GetBlacksReq
-	(*GetBlacksResp)(nil),              // 27: openim.sdk.relation.GetBlacksResp
-	(*UpdateFriendReq)(nil),            // 28: openim.sdk.relation.UpdateFriendReq
-	(*UpdateFriendResp)(nil),           // 29: openim.sdk.relation.UpdateFriendResp
-	(*shared.IMFriend)(nil),            // 30: openim.sdk.shared.IMFriend
-	(*shared.IMFriendApplication)(nil), // 31: openim.sdk.shared.IMFriendApplication
-	(common.ApprovalStatus)(0),         // 32: openim.sdk.common.ApprovalStatus
-	(*common.RequestPagination)(nil),   // 33: openim.sdk.common.RequestPagination
-	(*shared.IMBlack)(nil),             // 34: openim.sdk.shared.IMBlack
+	(CheckFriendResult)(0),              // 0: openim.sdk.relation.CheckFriendResult
+	(Relationship)(0),                   // 1: openim.sdk.relation.Relationship
+	(*GetSpecifiedFriendsReq)(nil),      // 2: openim.sdk.relation.GetSpecifiedFriendsReq
+	(*GetSpecifiedFriendsResp)(nil),     // 3: openim.sdk.relation.GetSpecifiedFriendsResp
+	(*AddFriendReq)(nil),                // 4: openim.sdk.relation.AddFriendReq
+	(*AddFriendResp)(nil),               // 5: openim.sdk.relation.AddFriendResp
+	(*GetFriendApplicationsReq)(nil),    // 6: openim.sdk.relation.GetFriendApplicationsReq
+	(*GetFriendApplicationsResp)(nil),   // 7: openim.sdk.relation.GetFriendApplicationsResp
+	(*HandleFriendApplicationReq)(nil),  // 8: openim.sdk.relation.HandleFriendApplicationReq
+	(*HandleFriendApplicationResp)(nil), // 9: openim.sdk.relation.HandleFriendApplicationResp
+	(*CheckFriendReq)(nil),              // 10: openim.sdk.relation.CheckFriendReq
+	(*CheckFriendInfo)(nil),             // 11: openim.sdk.relation.CheckFriendInfo
+	(*CheckFriendResp)(nil),             // 12: openim.sdk.relation.CheckFriendResp
+	(*DeleteFriendReq)(nil),             // 13: openim.sdk.relation.DeleteFriendReq
+	(*DeleteFriendResp)(nil),            // 14: openim.sdk.relation.DeleteFriendResp
+	(*GetFriendsReq)(nil),               // 15: openim.sdk.relation.GetFriendsReq
+	(*GetFriendsResp)(nil),              // 16: openim.sdk.relation.GetFriendsResp
+	(*GetFriendsPageReq)(nil),           // 17: openim.sdk.relation.GetFriendsPageReq
+	(*GetFriendsPageResp)(nil),          // 18: openim.sdk.relation.GetFriendsPageResp
+	(*SearchFriendsReq)(nil),            // 19: openim.sdk.relation.SearchFriendsReq
+	(*SearchFriendsInfo)(nil),           // 20: openim.sdk.relation.SearchFriendsInfo
+	(*SearchFriendsResp)(nil),           // 21: openim.sdk.relation.SearchFriendsResp
+	(*AddBlackReq)(nil),                 // 22: openim.sdk.relation.AddBlackReq
+	(*AddBlackResp)(nil),                // 23: openim.sdk.relation.AddBlackResp
+	(*DeleteBlackReq)(nil),              // 24: openim.sdk.relation.DeleteBlackReq
+	(*DeleteBlackResp)(nil),             // 25: openim.sdk.relation.DeleteBlackResp
+	(*GetBlacksReq)(nil),                // 26: openim.sdk.relation.GetBlacksReq
+	(*GetBlacksResp)(nil),               // 27: openim.sdk.relation.GetBlacksResp
+	(*UpdateFriendReq)(nil),             // 28: openim.sdk.relation.UpdateFriendReq
+	(*UpdateFriendResp)(nil),            // 29: openim.sdk.relation.UpdateFriendResp
+	(*shared.IMFriend)(nil),             // 30: openim.sdk.shared.IMFriend
+	(*shared.IMFriendApplication)(nil),  // 31: openim.sdk.shared.IMFriendApplication
+	(common.ApprovalStatus)(0),          // 32: openim.sdk.common.ApprovalStatus
+	(*common.RequestPagination)(nil),    // 33: openim.sdk.common.RequestPagination
+	(*shared.IMBlack)(nil),              // 34: openim.sdk.shared.IMBlack
 }
 var file_relation_proto_depIdxs = []int32{
 	30, // 0: openim.sdk.relation.GetSpecifiedFriendsResp.friends:type_name -> openim.sdk.shared.IMFriend
-	31, // 1: openim.sdk.relation.GetFriendRequestsResp.applications:type_name -> openim.sdk.shared.IMFriendApplication
-	32, // 2: openim.sdk.relation.HandleFriendRequestReq.status:type_name -> openim.sdk.common.ApprovalStatus
+	31, // 1: openim.sdk.relation.GetFriendApplicationsResp.applications:type_name -> openim.sdk.shared.IMFriendApplication
+	32, // 2: openim.sdk.relation.HandleFriendApplicationReq.status:type_name -> openim.sdk.common.ApprovalStatus
 	0,  // 3: openim.sdk.relation.CheckFriendInfo.result:type_name -> openim.sdk.relation.CheckFriendResult
 	11, // 4: openim.sdk.relation.CheckFriendResp.result:type_name -> openim.sdk.relation.CheckFriendInfo
 	30, // 5: openim.sdk.relation.GetFriendsResp.friends:type_name -> openim.sdk.shared.IMFriend
