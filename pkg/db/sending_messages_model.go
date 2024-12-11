@@ -30,7 +30,7 @@ func (d *DataBase) InsertSendingMessage(ctx context.Context, message *model_stru
 func (d *DataBase) DeleteSendingMessage(ctx context.Context, conversationID, clientMsgID string) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
-	return errs.WrapMsg(d.conn.WithContext(ctx).Model(&model_struct.LocalSendingMessages{}).Delete("conversation_id = ? AND client_msg_id = ?", conversationID, clientMsgID).Error, "DeleteSendingMessage failed")
+	return errs.WrapMsg(d.conn.WithContext(ctx).Where("conversation_id = ? AND client_msg_id = ?", conversationID, clientMsgID).Delete(&model_struct.LocalSendingMessages{}).Error, "DeleteSendingMessage failed")
 }
 
 func (d *DataBase) GetAllSendingMessages(ctx context.Context) (friendRequests []*model_struct.LocalSendingMessages, err error) {
