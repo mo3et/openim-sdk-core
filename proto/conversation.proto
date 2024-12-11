@@ -204,6 +204,8 @@ message GetInputStatesResp {
   repeated common.Platform platforms = 1;
 }
 
+
+
 // service ConversationService {
 //   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
 //   rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp) {}

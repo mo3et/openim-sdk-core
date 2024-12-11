@@ -138,7 +138,10 @@ message CreateAdvancedQuoteMessageResp {
 }
 
 message CreateCardMessageReq {
-  shared.CardElem card = 1;
+  string userID = 1;
+  string nickname = 2;
+  string faceURL = 3;
+  string ex = 4;
 }
 message CreateCardMessageResp {
   shared.IMMessage message = 1;
