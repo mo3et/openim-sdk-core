@@ -76,7 +76,7 @@ type OnMessageListener interface {
 
 type OnUserListener interface {
 	OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData)
-	OnUserStatusChanged(data *pb.EventOnUserStatusChangedData)
+	OnUserStatusChanged(data *pb.EventOnUserOnlineStatusChangedData)
 	OnUserCommandAdd(data *pb.EventOnUserCommandAddData)
 	OnUserCommandDelete(data *pb.EventOnUserCommandDeleteData)
 	OnUserCommandUpdate(data *pb.EventOnUserCommandUpdateData)

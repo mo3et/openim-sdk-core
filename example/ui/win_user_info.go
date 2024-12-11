@@ -32,52 +32,56 @@ func (w *WindowUserInfo) Update() {
 	if w.userInfo == nil {
 		return
 	}
-	if imgui.BeginV(w.Title, &w.Open, 0) {
 
-		imgui.Text("UserID:")
-		imgui.SetCursorPosX(50)
-		imgui.Text(w.userInfo.UserID)
+	imgui.SetNextWindowSizeV(w.Size, imgui.CondFirstUseEver)
+	imgui.SetNextWindowPosV(w.Pos, imgui.CondFirstUseEver, imgui.Vec2{X: 0, Y: 0})
+	imgui.BeginV(w.Title, &w.Open, imgui.WindowFlagsNoCollapse)
+	w.Size = imgui.WindowSize()
+	w.Pos = imgui.WindowPos()
 
-		imgui.Text("CreateTime:")
-		imgui.SetCursorPosX(50)
-		imgui.Text(common.TimeStampToStr(w.userInfo.CreateTime))
+	imgui.Text("UserID:")
+	imgui.SetCursorPosX(50)
+	imgui.Text(w.userInfo.UserID)
 
-		imgui.Text("Nickname:")
-		imgui.SetCursorPosX(50)
-		imgui.InputTextWithHint("##NickName", "Enter Your Nick Name", &w.userInfo.Nickname, 0, func(data imgui.InputTextCallbackData) int {
-			return 0
+	imgui.Text("CreateTime:")
+	imgui.SetCursorPosX(50)
+	imgui.Text(common.TimeStampToStr(w.userInfo.CreateTime))
+
+	imgui.Text("Nickname:")
+	imgui.SetCursorPosX(50)
+	imgui.InputTextWithHint("##NickName", "Enter Your Nick Name", &w.userInfo.Nickname, 0, func(data imgui.InputTextCallbackData) int {
+		return 0
+	})
+
+	imgui.Text("FaceURL:")
+	imgui.SetCursorPosX(50)
+	imgui.InputTextWithHint("##FaceUrl", "Face Url", &w.userInfo.FaceURL, 0, func(data imgui.InputTextCallbackData) int {
+		return 0
+	})
+
+	imgui.Text("Ex:")
+	imgui.SetCursorPosX(50)
+	imgui.InputTextWithHint("##Ex", "Ex", &w.userInfo.Ex, 0, func(data imgui.InputTextCallbackData) int {
+		return 0
+	})
+
+	imgui.Spacing()
+	imgui.SetCursorPosX(50)
+	imgui.PushIDStr("Btn_Update")
+	if imgui.Button("Update") {
+		log.Println(w.userInfo)
+		_, err := open_im_sdk.IMUserContext.User().SetSelfInfo(common.NewCallContext(), &user.SetSelfInfoReq{
+			UserID:   w.userInfo.UserID,
+			Nickname: &w.userInfo.Nickname,
+			FaceURL:  &w.userInfo.FaceURL,
+			Ex:       &w.userInfo.Ex,
 		})
-
-		imgui.Text("FaceURL:")
-		imgui.SetCursorPosX(50)
-		imgui.InputTextWithHint("##FaceUrl", "Face Url", &w.userInfo.FaceURL, 0, func(data imgui.InputTextCallbackData) int {
-			return 0
-		})
-
-		imgui.Text("Ex:")
-		imgui.SetCursorPosX(50)
-		imgui.InputTextWithHint("##Ex", "Ex", &w.userInfo.Ex, 0, func(data imgui.InputTextCallbackData) int {
-			return 0
-		})
-
-		imgui.Spacing()
-		imgui.SetCursorPosX(50)
-		imgui.PushIDStr("Btn_Update")
-		if imgui.Button("Update") {
-			log.Println(w.userInfo)
-			_, err := open_im_sdk.IMUserContext.User().SetSelfInfo(common.NewCallContext(), &user.SetSelfInfoReq{
-				UserID:   w.userInfo.UserID,
-				Nickname: &w.userInfo.Nickname,
-				FaceURL:  &w.userInfo.FaceURL,
-				Ex:       &w.userInfo.Ex,
-			})
-			if err != nil {
-				log.Panic(err.Error())
-			}
+		if err != nil {
+			log.Panic(err.Error())
 		}
-		imgui.PopID()
-		imgui.End()
 	}
+	imgui.PopID()
+	imgui.End()
 }
 
 func (w *WindowUserInfo) Destroy() {
@@ -87,10 +91,8 @@ func (w *WindowUserInfo) Destroy() {
 func newUserInfoWindow(userId string) *WindowUserInfo {
 	win := &WindowUserInfo{
 		WindowBase: WindowBase{
-			X:     100,
-			Y:     100,
-			W:     500,
-			H:     300,
+			Pos:   imgui.Vec2{X: 100, Y: 100},
+			Size:  imgui.Vec2{X: 500, Y: 300},
 			Title: "UserInfo-" + userId,
 			Id:    "UserInfo_" + userId,
 		},

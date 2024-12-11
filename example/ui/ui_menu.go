@@ -17,6 +17,9 @@ func DrawMainMenu() {
 				userId := open_im_sdk.IMUserContext.GetLoginUserID()
 				showWindow(newUserInfoWindow(userId))
 			}
+			if imgui.MenuItemBool("Search User") {
+				showWindow(newUserSearchWindow())
+			}
 			imgui.Separator()
 			if imgui.MenuItemBool("Logout") {
 				_, err := open_im_sdk.IMUserContext.Logout(common.NewCallContext(), &pb_init.LogoutReq{})
@@ -33,7 +36,7 @@ func DrawMainMenu() {
 				showWindow(newFriendListWindow())
 			}
 			if imgui.MenuItemBool("SearchFriend") {
-
+				showWindow(newFriendSearchWindow())
 			}
 			if imgui.MenuItemBool("FriendApplication") {
 
@@ -42,10 +45,10 @@ func DrawMainMenu() {
 		}
 		if imgui.BeginMenu("Group") {
 			if imgui.MenuItemBool("GroupList") {
-
+				showWindow(newGroupListWindow())
 			}
 			if imgui.MenuItemBool("CreateGroup") {
-
+				showWindow(newGroupCreateWindow())
 			}
 
 			imgui.EndMenu()
@@ -58,7 +61,13 @@ func DrawMainMenu() {
 		}
 		if imgui.BeginMenu("About") {
 			if imgui.MenuItemBool("Version") {
-
+				showWindow(newVersionWindow())
+			}
+			if imgui.MenuItemBool("Official Website") {
+				common.OpenBrowser("https://www.openim.io/en")
+			}
+			if imgui.MenuItemBool("Doc Website") {
+				common.OpenBrowser("https://docs.openim.io/")
 			}
 			imgui.EndMenu()
 		}

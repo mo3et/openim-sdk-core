@@ -222,15 +222,15 @@ func (g *Group) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalGroupRequest) error {
 		switch state {
 		case syncer.Insert:
-			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToIMGroupApplication(server)})
+			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Application: DBGroupRequestToIMGroupApplication(server)})
 		case syncer.Update:
 			switch commonpb.ApprovalStatus(server.HandleResult) {
 			case commonpb.ApprovalStatus_Approved:
-				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Request: DBGroupRequestToIMGroupApplication(server)})
+				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Application: DBGroupRequestToIMGroupApplication(server)})
 			case commonpb.ApprovalStatus_Rejected:
-				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Request: DBGroupRequestToIMGroupApplication(server)})
+				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Application: DBGroupRequestToIMGroupApplication(server)})
 			default:
-				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBGroupRequestToIMGroupApplication(server)})
+				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Application: DBGroupRequestToIMGroupApplication(server)})
 			}
 		}
 		return nil
@@ -247,15 +247,15 @@ func (g *Group) initSyncer() {
 	}, nil, func(ctx context.Context, state int, server, local *model_struct.LocalAdminGroupRequest) error {
 		switch state {
 		case syncer.Insert:
-			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBAdminGroupRequestToSdk(server)})
+			g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Application: DBAdminGroupRequestToSdk(server)})
 		case syncer.Update:
 			switch commonpb.ApprovalStatus(server.HandleResult) {
 			case commonpb.ApprovalStatus_Approved:
-				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Request: DBAdminGroupRequestToSdk(server)})
+				g.listener().OnGroupApplicationAccepted(&sdkpb.EventOnGroupApplicationAcceptedData{Application: DBAdminGroupRequestToSdk(server)})
 			case commonpb.ApprovalStatus_Rejected:
-				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Request: DBAdminGroupRequestToSdk(server)})
+				g.listener().OnGroupApplicationRejected(&sdkpb.EventOnGroupApplicationRejectedData{Application: DBAdminGroupRequestToSdk(server)})
 			default:
-				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Request: DBAdminGroupRequestToSdk(server)})
+				g.listener().OnGroupApplicationAdded(&sdkpb.EventOnGroupApplicationAddedData{Application: DBAdminGroupRequestToSdk(server)})
 			}
 		}
 		return nil

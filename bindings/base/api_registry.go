@@ -27,6 +27,10 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 			pbResp *B
 		)
 		defer func(start time.Time) {
+			if r := recover(); r != nil {
+				mw.PanicStackToLog(ctx, r)
+				return
+			}
 			if _, ignored := ignoredLogFuncMap[name]; ignored {
 				return
 			}
@@ -67,6 +71,10 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 			pbResp *B
 		)
 		defer func(start time.Time) {
+			if r := recover(); r != nil {
+				mw.PanicStackToLog(ctx, r)
+				return
+			}
 			elapsed := time.Since(start).Milliseconds()
 			if err == nil {
 				log.ZInfo(ctx, fmt.Sprintf("[%s -> Go SDK] Response Success - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
@@ -150,53 +158,54 @@ var FuncMap = map[sdkevent.FuncRequestEventName]callFunc{
 	sdkevent.FuncRequestEventName_IsJoinGroup:                     wrapFunc(open_im_sdk.IMUserContext.Group().IsJoinGroup),
 	sdkevent.FuncRequestEventName_GetUsersInGroup:                 wrapFunc(open_im_sdk.IMUserContext.Group().GetUsersInGroup),
 	sdkevent.FuncRequestEventName_InviteUserToGroup:               wrapFunc(open_im_sdk.IMUserContext.Group().InviteUserToGroup),
-	sdkevent.FuncRequestEventName_HandlerGroupRequest:             wrapFunc(open_im_sdk.IMUserContext.Group().HandlerGroupRequest),
+	sdkevent.FuncRequestEventName_HandleGroupRequest:              wrapFunc(open_im_sdk.IMUserContext.Group().HandleGroupRequest),
 
-	sdkevent.FuncRequestEventName_GetSpecifiedFriends:  wrapFunc(open_im_sdk.IMUserContext.Relation().GetSpecifiedFriends),
-	sdkevent.FuncRequestEventName_AddFriend:            wrapFunc(open_im_sdk.IMUserContext.Relation().AddFriend),
-	sdkevent.FuncRequestEventName_GetFriendRequests:    wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriendRequests),
-	sdkevent.FuncRequestEventName_HandlerFriendRequest: wrapFunc(open_im_sdk.IMUserContext.Relation().HandleFriendRequest),
-	sdkevent.FuncRequestEventName_CheckFriend:          wrapFunc(open_im_sdk.IMUserContext.Relation().CheckFriend),
-	sdkevent.FuncRequestEventName_DeleteFriend:         wrapFunc(open_im_sdk.IMUserContext.Relation().DeleteFriend),
-	sdkevent.FuncRequestEventName_GetFriends:           wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriends),
-	sdkevent.FuncRequestEventName_GetFriendsPage:       wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriendsPage),
-	sdkevent.FuncRequestEventName_SearchFriends:        wrapFunc(open_im_sdk.IMUserContext.Relation().SearchFriends),
-	sdkevent.FuncRequestEventName_AddBlack:             wrapFunc(open_im_sdk.IMUserContext.Relation().AddBlack),
-	sdkevent.FuncRequestEventName_DeleteBlack:          wrapFunc(open_im_sdk.IMUserContext.Relation().DeleteBlack),
-	sdkevent.FuncRequestEventName_GetBlacks:            wrapFunc(open_im_sdk.IMUserContext.Relation().GetBlacks),
-	sdkevent.FuncRequestEventName_UpdateFriends:        wrapFunc(open_im_sdk.IMUserContext.Relation().UpdateFriends),
+	sdkevent.FuncRequestEventName_GetSpecifiedFriends: wrapFunc(open_im_sdk.IMUserContext.Relation().GetSpecifiedFriends),
+	sdkevent.FuncRequestEventName_AddFriend:           wrapFunc(open_im_sdk.IMUserContext.Relation().AddFriend),
+	sdkevent.FuncRequestEventName_GetFriendRequests:   wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriendRequests),
+	sdkevent.FuncRequestEventName_HandleFriendRequest: wrapFunc(open_im_sdk.IMUserContext.Relation().HandleFriendRequest),
+	sdkevent.FuncRequestEventName_CheckFriend:         wrapFunc(open_im_sdk.IMUserContext.Relation().CheckFriend),
+	sdkevent.FuncRequestEventName_DeleteFriend:        wrapFunc(open_im_sdk.IMUserContext.Relation().DeleteFriend),
+	sdkevent.FuncRequestEventName_GetFriends:          wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriends),
+	sdkevent.FuncRequestEventName_GetFriendsPage:      wrapFunc(open_im_sdk.IMUserContext.Relation().GetFriendsPage),
+	sdkevent.FuncRequestEventName_SearchFriends:       wrapFunc(open_im_sdk.IMUserContext.Relation().SearchFriends),
+	sdkevent.FuncRequestEventName_AddBlack:            wrapFunc(open_im_sdk.IMUserContext.Relation().AddBlack),
+	sdkevent.FuncRequestEventName_DeleteBlack:         wrapFunc(open_im_sdk.IMUserContext.Relation().DeleteBlack),
+	sdkevent.FuncRequestEventName_GetBlacks:           wrapFunc(open_im_sdk.IMUserContext.Relation().GetBlacks),
+	sdkevent.FuncRequestEventName_UpdateFriend:        wrapFunc(open_im_sdk.IMUserContext.Relation().UpdateFriend),
 
-	sdkevent.FuncRequestEventName_GetAllConversationList:               wrapFunc(open_im_sdk.IMUserContext.Conversation().GetAllConversationList),
-	sdkevent.FuncRequestEventName_GetConversationListSplit:             wrapFunc(open_im_sdk.IMUserContext.Conversation().GetConversationListSplit),
-	sdkevent.FuncRequestEventName_HideConversation:                     wrapFunc(open_im_sdk.IMUserContext.Conversation().HideConversation),
-	sdkevent.FuncRequestEventName_GetAtAllTag:                          wrapFunc(open_im_sdk.IMUserContext.Conversation().GetAtAllTag),
-	sdkevent.FuncRequestEventName_GetOneConversation:                   wrapFunc(open_im_sdk.IMUserContext.Conversation().GetOneConversation),
-	sdkevent.FuncRequestEventName_GetMultipleConversation:              wrapFunc(open_im_sdk.IMUserContext.Conversation().GetMultipleConversation),
-	sdkevent.FuncRequestEventName_HideAllConversations:                 wrapFunc(open_im_sdk.IMUserContext.Conversation().HideAllConversations),
-	sdkevent.FuncRequestEventName_SetConversationDraft:                 wrapFunc(open_im_sdk.IMUserContext.Conversation().SetConversationDraft),
-	sdkevent.FuncRequestEventName_SetConversation:                      wrapFunc(open_im_sdk.IMUserContext.Conversation().SetConversation),
-	sdkevent.FuncRequestEventName_GetTotalUnreadMsgCount:               wrapFunc(open_im_sdk.IMUserContext.Conversation().GetTotalUnreadMsgCount),
-	sdkevent.FuncRequestEventName_GetConversationIDBySessionType:       wrapFunc(open_im_sdk.IMUserContext.Conversation().GetConversationIDBySessionType),
-	sdkevent.FuncRequestEventName_FindMessageList:                      wrapFunc(open_im_sdk.IMUserContext.Conversation().FindMessageList),
-	sdkevent.FuncRequestEventName_GetAdvancedHistoryMessageList:        wrapFunc(open_im_sdk.IMUserContext.Conversation().GetAdvancedHistoryMessageList),
-	sdkevent.FuncRequestEventName_GetAdvancedHistoryMessageListReverse: wrapFunc(open_im_sdk.IMUserContext.Conversation().GetAdvancedHistoryMessageListReverse),
-	sdkevent.FuncRequestEventName_RevokeMessage:                        wrapFunc(open_im_sdk.IMUserContext.Conversation().RevokeMessage),
-	sdkevent.FuncRequestEventName_TypingStatusUpdate:                   wrapFunc(open_im_sdk.IMUserContext.Conversation().TypingStatusUpdate),
-	sdkevent.FuncRequestEventName_MarkConversationMessageAsRead:        wrapFunc(open_im_sdk.IMUserContext.Conversation().MarkConversationMessageAsRead),
-	sdkevent.FuncRequestEventName_MarkAllConversationMessageAsRead:     wrapFunc(open_im_sdk.IMUserContext.Conversation().MarkAllConversationMessageAsRead),
-	sdkevent.FuncRequestEventName_DeleteMessageFromLocalStorage:        wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteMessageFromLocalStorage),
-	sdkevent.FuncRequestEventName_DeleteMessage:                        wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteMessage),
-	sdkevent.FuncRequestEventName_DeleteAllMsgFromLocalAndServer:       wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteAllMsgFromLocalAndServer),
-	sdkevent.FuncRequestEventName_DeleteAllMessageFromLocalStorage:     wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteAllMessageFromLocalStorage),
-	sdkevent.FuncRequestEventName_ClearConversationAndDeleteAllMsg:     wrapFunc(open_im_sdk.IMUserContext.Conversation().ClearConversationAndDeleteAllMsg),
-	sdkevent.FuncRequestEventName_DeleteConversationAndDeleteAllMsg:    wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteConversationAndDeleteAllMsg),
-	sdkevent.FuncRequestEventName_InsertSingleMessageToLocalStorage:    wrapFunc(open_im_sdk.IMUserContext.Conversation().InsertSingleMessageToLocalStorage),
-	sdkevent.FuncRequestEventName_InsertGroupMessageToLocalStorage:     wrapFunc(open_im_sdk.IMUserContext.Conversation().InsertGroupMessageToLocalStorage),
-	sdkevent.FuncRequestEventName_SearchLocalMessages:                  wrapFunc(open_im_sdk.IMUserContext.Conversation().SearchLocalMessages),
-	sdkevent.FuncRequestEventName_SetMessageLocalEx:                    wrapFunc(open_im_sdk.IMUserContext.Conversation().SetMessageLocalEx),
-	sdkevent.FuncRequestEventName_SearchConversation:                   wrapFunc(open_im_sdk.IMUserContext.Conversation().SearchConversation),
-	sdkevent.FuncRequestEventName_SubscribeUsersOnlineStatus:           wrapFunc(open_im_sdk.IMUserContext.Conversation().SubscribeUsersOnlineStatus),
-	sdkevent.FuncRequestEventName_UnsubscribeUsersOnlineStatus:         wrapFunc(open_im_sdk.IMUserContext.Conversation().UnsubscribeUsersOnlineStatus),
+	sdkevent.FuncRequestEventName_GetAllConversationList:            wrapFunc(open_im_sdk.IMUserContext.Conversation().GetAllConversationList),
+	sdkevent.FuncRequestEventName_GetConversationListSplit:          wrapFunc(open_im_sdk.IMUserContext.Conversation().GetConversationListSplit),
+	sdkevent.FuncRequestEventName_HideConversation:                  wrapFunc(open_im_sdk.IMUserContext.Conversation().HideConversation),
+	sdkevent.FuncRequestEventName_GetAtAllTag:                       wrapFunc(open_im_sdk.IMUserContext.Conversation().GetAtAllTag),
+	sdkevent.FuncRequestEventName_GetOneConversation:                wrapFunc(open_im_sdk.IMUserContext.Conversation().GetOneConversation),
+	sdkevent.FuncRequestEventName_GetMultipleConversation:           wrapFunc(open_im_sdk.IMUserContext.Conversation().GetMultipleConversation),
+	sdkevent.FuncRequestEventName_HideAllConversations:              wrapFunc(open_im_sdk.IMUserContext.Conversation().HideAllConversations),
+	sdkevent.FuncRequestEventName_SetConversationDraft:              wrapFunc(open_im_sdk.IMUserContext.Conversation().SetConversationDraft),
+	sdkevent.FuncRequestEventName_SetConversation:                   wrapFunc(open_im_sdk.IMUserContext.Conversation().SetConversation),
+	sdkevent.FuncRequestEventName_GetTotalUnreadMsgCount:            wrapFunc(open_im_sdk.IMUserContext.Conversation().GetTotalUnreadMsgCount),
+	sdkevent.FuncRequestEventName_GetConversationIDBySessionType:    wrapFunc(open_im_sdk.IMUserContext.Conversation().GetConversationIDBySessionType),
+	sdkevent.FuncRequestEventName_FindMessageList:                   wrapFunc(open_im_sdk.IMUserContext.Conversation().FindMessageList),
+	sdkevent.FuncRequestEventName_GetHistoryMessageList:             wrapFunc(open_im_sdk.IMUserContext.Conversation().GetHistoryMessageList),
+	sdkevent.FuncRequestEventName_RevokeMessage:                     wrapFunc(open_im_sdk.IMUserContext.Conversation().RevokeMessage),
+	sdkevent.FuncRequestEventName_TypingStatusUpdate:                wrapFunc(open_im_sdk.IMUserContext.Conversation().TypingStatusUpdate),
+	sdkevent.FuncRequestEventName_MarkConversationMessageAsRead:     wrapFunc(open_im_sdk.IMUserContext.Conversation().MarkConversationMessageAsRead),
+	sdkevent.FuncRequestEventName_MarkAllConversationMessageAsRead:  wrapFunc(open_im_sdk.IMUserContext.Conversation().MarkAllConversationMessageAsRead),
+	sdkevent.FuncRequestEventName_DeleteMessageFromLocal:            wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteMessageFromLocal),
+	sdkevent.FuncRequestEventName_DeleteMessage:                     wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteMessage),
+	sdkevent.FuncRequestEventName_DeleteAllMsgFromLocalAndServer:    wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteAllMsgFromLocalAndServer),
+	sdkevent.FuncRequestEventName_DeleteAllMessageFromLocal:         wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteAllMessageFromLocal),
+	sdkevent.FuncRequestEventName_ClearConversationAndDeleteAllMsg:  wrapFunc(open_im_sdk.IMUserContext.Conversation().ClearConversationAndDeleteAllMsg),
+	sdkevent.FuncRequestEventName_DeleteConversationAndDeleteAllMsg: wrapFunc(open_im_sdk.IMUserContext.Conversation().DeleteConversationAndDeleteAllMsg),
+	sdkevent.FuncRequestEventName_InsertSingleMessageToLocal:        wrapFunc(open_im_sdk.IMUserContext.Conversation().InsertSingleMessageToLocal),
+	sdkevent.FuncRequestEventName_InsertGroupMessageToLocal:         wrapFunc(open_im_sdk.IMUserContext.Conversation().InsertGroupMessageToLocal),
+	sdkevent.FuncRequestEventName_SearchLocalMessages:               wrapFunc(open_im_sdk.IMUserContext.Conversation().SearchLocalMessages),
+	sdkevent.FuncRequestEventName_SetMessageLocalEx:                 wrapFunc(open_im_sdk.IMUserContext.Conversation().SetMessageLocalEx),
+	sdkevent.FuncRequestEventName_SearchConversation:                wrapFunc(open_im_sdk.IMUserContext.Conversation().SearchConversation),
+	sdkevent.FuncRequestEventName_SubscribeUsersOnlineStatus:        wrapFunc(open_im_sdk.IMUserContext.Conversation().SubscribeUsersOnlineStatus),
+	sdkevent.FuncRequestEventName_UnsubscribeUsersOnlineStatus:      wrapFunc(open_im_sdk.IMUserContext.Conversation().UnsubscribeUsersOnlineStatus),
+	sdkevent.FuncRequestEventName_ChangeInputStates:                 wrapFunc(open_im_sdk.IMUserContext.Conversation().ChangeInputStates),
+	sdkevent.FuncRequestEventName_GetInputStates:                    wrapFunc(open_im_sdk.IMUserContext.Conversation().GetInputStates),
 
 	sdkevent.FuncRequestEventName_CreateTextMessage:          wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateTextMessage),
 	sdkevent.FuncRequestEventName_CreateAdvancedTextMessage:  wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateAdvancedTextMessage),

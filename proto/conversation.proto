@@ -21,23 +21,6 @@ message FindMessageListCallback {
   repeated SearchByConversationResult findResultItems = 2;
 }
 
-message SearchLocalMessagesParams {
-  string conversationID = 1;
-  repeated string keywordList = 2;
-  int32 keywordListMatchType = 3;
-  repeated string senderUserIDList = 4;
-  repeated int32 messageTypeList = 5;
-  int64 searchTimePosition = 6;
-  int64 searchTimePeriod = 7;
-  int32 pageIndex = 8;
-  int32 count = 9;
-}
-
-message SearchLocalMessagesCallback {
-  int32 totalCount = 1;
-  repeated SearchByConversationResult searchResultItems = 2;
-}
-
 message SearchByConversationResult {
   string conversationID = 1;
   int32 conversationType = 2;
@@ -73,7 +56,7 @@ message GetAtAllTagResp {
 }
 
 message GetOneConversationReq {
-  int32 sessionType = 1;
+  common.SessionType sessionType = 1;
   string sourceID = 2;
 }
 message GetOneConversationResp {
@@ -104,8 +87,6 @@ message SetConversationReq {
   optional bool isPrivateChat = 5;
   optional int32 burnDuration = 6;
   optional string ex = 7;
-  optional int64 msgDestructTime = 8;
-  optional bool isMsgDestruct = 9;
 }
 message SetConversationResp {}
 
@@ -116,7 +97,7 @@ message GetTotalUnreadMsgCountResp {
 
 message GetConversationIDBySessionTypeReq {
   string sourceID = 1;
-  int32 sessionType = 2;
+  common.SessionType sessionType = 2;
 }
 message GetConversationIDBySessionTypeResp {
   string conversationID = 1;
@@ -138,11 +119,11 @@ message MarkConversationMessageAsReadResp {}
 message MarkAllConversationMessageAsReadReq {}
 message MarkAllConversationMessageAsReadResp {}
 
-message DeleteMessageFromLocalStorageReq {
+message DeleteMessageFromLocalReq {
   string conversationID = 1;
   string clientMsgID = 2;
 }
-message DeleteMessageFromLocalStorageResp {}
+message DeleteMessageFromLocalResp {}
 
 message ClearConversationAndDeleteAllMsgReq {
   string conversationID = 1;
@@ -154,11 +135,24 @@ message DeleteConversationAndDeleteAllMsgReq {
 }
 message DeleteConversationAndDeleteAllMsgResp {}
 
+enum KeywordListMatchType {
+  KeywordMatchOr = 0;
+  KeywordMatchAnd = 1;
+}
+
 message SearchLocalMessagesReq {
-  SearchLocalMessagesParams searchParam = 1;
+  string conversationID = 1;
+  repeated string keywords = 2;
+  KeywordListMatchType keywordMatchType = 3;
+  repeated string senderUserIDs = 4;
+  repeated common.ContentType messageTypes = 5;
+  int64 searchTimePosition = 6;
+  int64 searchTimePeriod = 7;
+  common.RequestPagination pagination = 8;
 }
 message SearchLocalMessagesResp {
-  SearchLocalMessagesCallback searchResult = 1;
+  int64 count = 1;
+  repeated SearchByConversationResult searchResultItems = 2;
 }
 
 message SetMessageLocalExReq {
@@ -196,6 +190,19 @@ message UnsubscribeUsersOnlineStatusReq {
 
 message UnsubscribeUsersOnlineStatusResp {}
 
+message ChangeInputStatesReq {
+  string conversationID = 1;
+  bool focus = 3;
+}
+message ChangeInputStatesResp {}
+
+message GetInputStatesReq {
+  string conversationID = 1;
+  string userID = 2;
+}
+message GetInputStatesResp {
+  repeated common.Platform platforms = 1;
+}
 
 // service ConversationService {
 //   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
@@ -212,7 +219,7 @@ message UnsubscribeUsersOnlineStatusResp {}
 //   rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp) {}
 //   rpc MarkConversationMessageAsRead(MarkConversationMessageAsReadReq) returns (MarkConversationMessageAsReadResp) {}
 //   rpc MarkAllConversationMessageAsRead(MarkAllConversationMessageAsReadReq) returns (MarkAllConversationMessageAsReadResp) {}
-//   rpc DeleteMessageFromLocalStorage(DeleteMessageFromLocalStorageReq) returns (DeleteMessageFromLocalStorageResp) {}
+//   rpc DeleteMessageFromLocal(DeleteMessageFromLocalReq) returns (DeleteMessageFromLocalResp) {}
 //   rpc ClearConversationAndDeleteAllMsg(ClearConversationAndDeleteAllMsgReq) returns (ClearConversationAndDeleteAllMsgResp) {}
 //   rpc DeleteConversationAndDeleteAllMsg(DeleteConversationAndDeleteAllMsgReq) returns (DeleteConversationAndDeleteAllMsgResp) {}
 //   rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp) {}

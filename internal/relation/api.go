@@ -96,7 +96,7 @@ func (r *Relation) GetFriendRequests(ctx context.Context, req *sdkpb.GetFriendRe
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.GetFriendRequestsResp{Requests: datautil.Batch(DbFriendRequestToIMFriendApplication, request)}, nil
+	return &sdkpb.GetFriendRequestsResp{Applications: datautil.Batch(DbFriendRequestToIMFriendApplication, request)}, nil
 }
 
 func (r *Relation) HandleFriendRequest(ctx context.Context, req *sdkpb.HandleFriendRequestReq) (*sdkpb.HandleFriendRequestResp, error) {
@@ -309,7 +309,7 @@ func (r *Relation) GetBlacks(ctx context.Context, req *sdkpb.GetBlacksReq) (*sdk
 	return &sdkpb.GetBlacksResp{Blacks: datautil.Batch(DbBlackToSdk, res)}, nil
 }
 
-func (r *Relation) UpdateFriends(ctx context.Context, req *sdkpb.UpdatesFriendsReq) (*sdkpb.UpdatesFriendsResp, error) {
+func (r *Relation) UpdateFriend(ctx context.Context, req *sdkpb.UpdateFriendReq) (*sdkpb.UpdateFriendResp, error) {
 	sReq := &relation.UpdateFriendsReq{FriendUserIDs: []string{req.UserID}, IsPinned: wrapperspb.BoolPtr(req.Pinned), Remark: wrapperspb.StringPtr(req.Remark), Ex: wrapperspb.StringPtr(req.Ex)}
 	if err := r.updateFriends(ctx, sReq); err != nil {
 		return nil, err
@@ -320,5 +320,5 @@ func (r *Relation) UpdateFriends(ctx context.Context, req *sdkpb.UpdatesFriendsR
 	if err := r.IncrSyncFriends(ctx); err != nil {
 		return nil, err
 	}
-	return &sdkpb.UpdatesFriendsResp{}, nil
+	return &sdkpb.UpdateFriendResp{}, nil
 }

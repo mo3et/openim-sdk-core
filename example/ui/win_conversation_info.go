@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/AllenDang/cimgui-go/imgui"
+
 	"github.com/openimsdk/openim-sdk-core/v3/example/common"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	pb_conversation "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
@@ -35,70 +36,72 @@ func (w *WindowConversationInfo) Update() {
 	if !w.Open {
 		return
 	}
+	imgui.SetNextWindowSizeV(w.Size, imgui.CondFirstUseEver)
+	imgui.SetNextWindowPosV(w.Pos, imgui.CondFirstUseEver, imgui.Vec2{X: 0, Y: 0})
+	imgui.BeginV(w.Title, &w.Open, imgui.WindowFlagsNoCollapse|imgui.WindowFlagsHorizontalScrollbar|imgui.WindowFlagsAlwaysVerticalScrollbar)
+	w.Size = imgui.WindowSize()
+	w.Pos = imgui.WindowPos()
 
-	if imgui.BeginV(w.Title, &w.Open, imgui.WindowFlagsHorizontalScrollbar|imgui.WindowFlagsAlwaysVerticalScrollbar) {
-		if w.conversation != nil {
-			var conversation = w.conversation
+	if w.conversation != nil {
 
-			imgui.Text("ConversationID:")
-			imgui.SetCursorPosX(50)
-			imgui.Text(conversation.ConversationID)
+		var conversation = w.conversation
 
-			imgui.Text("ConversationType:")
-			imgui.SetCursorPosX(50)
-			imgui.Text(conversation.ConversationType.String())
+		imgui.Text("ConversationID:")
+		imgui.SetCursorPosX(50)
+		imgui.Text(conversation.ConversationID)
 
-			imgui.Text("UserId:")
-			imgui.SetCursorPosX(50)
-			imgui.Text(conversation.UserID)
+		imgui.Text("ConversationType:")
+		imgui.SetCursorPosX(50)
+		imgui.Text(conversation.ConversationType.String())
 
-			imgui.Text("GroupId:")
-			imgui.SetCursorPosX(50)
-			imgui.Text(conversation.GroupID)
+		imgui.Text("UserId:")
+		imgui.SetCursorPosX(50)
+		imgui.Text(conversation.UserID)
 
-			imgui.Text("ShowName:")
-			imgui.SetCursorPosX(50)
-			imgui.Text(conversation.ShowName)
+		imgui.Text("GroupId:")
+		imgui.SetCursorPosX(50)
+		imgui.Text(conversation.GroupID)
 
-			imgui.Text("FaceURL:")
-			imgui.SetCursorPosX(50)
-			imgui.Text(conversation.FaceURL)
+		imgui.Text("ShowName:")
+		imgui.SetCursorPosX(50)
+		imgui.Text(conversation.ShowName)
 
-			imgui.Text("IsPinned:")
-			imgui.SetCursorPosX(50)
-			imgui.Checkbox("##IsPinned", &conversation.IsPinned)
+		imgui.Text("FaceURL:")
+		imgui.SetCursorPosX(50)
+		imgui.Text(conversation.FaceURL)
 
-			imgui.Text("IsPrivateChat:")
-			imgui.SetCursorPosX(50)
-			imgui.Checkbox("##IsPrivateChat", &conversation.IsPrivateChat)
+		imgui.Text("IsPinned:")
+		imgui.SetCursorPosX(50)
+		imgui.Checkbox("##IsPinned", &conversation.IsPinned)
 
-			imgui.Text("Ex:")
-			imgui.SetCursorPosX(50)
-			imgui.InputTextWithHint("##Ex", "Ex", &conversation.Ex, 0, func(data imgui.InputTextCallbackData) int {
-				return 0
+		imgui.Text("IsPrivateChat:")
+		imgui.SetCursorPosX(50)
+		imgui.Checkbox("##IsPrivateChat", &conversation.IsPrivateChat)
+
+		imgui.Text("Ex:")
+		imgui.SetCursorPosX(50)
+		imgui.InputTextWithHint("##Ex", "Ex", &conversation.Ex, 0, func(data imgui.InputTextCallbackData) int {
+			return 0
+		})
+
+		imgui.Spacing()
+		imgui.SetCursorPosX(50)
+		imgui.PushIDStr("Btn_Update")
+		if imgui.Button("Update") {
+			_, err := open_im_sdk.IMUserContext.Conversation().SetConversation(common.NewCallContext(), &pb_conversation.SetConversationReq{
+				ConversationID: conversation.ConversationID,
+				RecvMsgOpt:     &conversation.RecvMsgOpt,
+				GroupAtType:    &conversation.GroupAtType,
+				IsPinned:       &conversation.IsPinned,
+				IsPrivateChat:  &conversation.IsPrivateChat,
+				BurnDuration:   &conversation.BurnDuration,
+				Ex:             &conversation.Ex,
 			})
-
-			imgui.Spacing()
-			imgui.SetCursorPosX(50)
-			imgui.PushIDStr("Btn_Update")
-			if imgui.Button("Update") {
-				_, err := open_im_sdk.IMUserContext.Conversation().SetConversation(common.NewCallContext(), &pb_conversation.SetConversationReq{
-					ConversationID:  conversation.ConversationID,
-					RecvMsgOpt:      &conversation.RecvMsgOpt,
-					GroupAtType:     &conversation.GroupAtType,
-					IsPinned:        &conversation.IsPinned,
-					IsPrivateChat:   &conversation.IsPrivateChat,
-					BurnDuration:    &conversation.BurnDuration,
-					Ex:              &conversation.Ex,
-					MsgDestructTime: &conversation.MsgDestructTime,
-					IsMsgDestruct:   &conversation.IsMsgDestruct,
-				})
-				if err != nil {
-					log.Panic(err.Error())
-				}
+			if err != nil {
+				log.Panic(err.Error())
 			}
-			imgui.PopID()
 		}
+		imgui.PopID()
 	}
 	imgui.End()
 }
@@ -110,10 +113,8 @@ func (w *WindowConversationInfo) Destroy() {
 func newConversationInfoWindow(conversationId string) *WindowConversationInfo {
 	win := &WindowConversationInfo{
 		WindowBase: WindowBase{
-			X:     100,
-			Y:     100,
-			W:     500,
-			H:     300,
+			Pos:   imgui.Vec2{X: 100, Y: 100},
+			Size:  imgui.Vec2{X: 500, Y: 800},
 			Title: "Conversation Info - " + conversationId,
 			Id:    "Conversation List_" + conversationId,
 		},

@@ -74,7 +74,6 @@ func monitorResultMapSize() {
 		}
 		mu.Unlock()
 		totalMB := float64(totalBytes) / (1024 * 1024)
-		fmt.Printf("Current resultMap size: %.2f MB\n", totalMB)
 		log.ZDebug(context.Background(), fmt.Sprintf("Current resultMap size: %.2f MB", totalMB))
 	}
 }
@@ -102,12 +101,10 @@ func ffi_request(data *C.void, length C.int) {
 func ffi_drop_handle(handleID uint64) {
 	mu.Lock()
 	defer mu.Unlock()
-	fmt.Println("ffi_drop_handle come here", handleID)
 	if result, ok := resultMap[handleID]; ok {
-		fmt.Println("free resource", handleID)
 		C.free(unsafe.Pointer(result.cData))
 		delete(resultMap, handleID)
 	} else {
-		fmt.Println("can not find resource", handleID)
+		log.ZWarn(context.Background(), "can not find resource to recycle", nil, "handleID", handleID)
 	}
 }

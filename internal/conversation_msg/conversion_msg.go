@@ -16,11 +16,13 @@ import (
 )
 
 func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfoElem {
+
 	elem := &model_struct.AttachedInfoElem{
-		IsPrivateChat: attached.IsPrivateChat,
-		BurnDuration:  attached.BurnDuration,
-		HasReadTime:   attached.HasReadTime,
+		IsPrivateChat: attached.GetIsPrivateChat(),
+		BurnDuration:  attached.GetBurnDuration(),
+		HasReadTime:   attached.GetHasReadTime(),
 	}
+
 	if attached.Progress != nil {
 		elem.Progress = &model_struct.UploadProgress{
 			Total:    attached.Progress.Total,
@@ -29,6 +31,7 @@ func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfo
 			UploadID: attached.Progress.UploadID,
 		}
 	}
+
 	return elem
 }
 
@@ -44,7 +47,7 @@ func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 		SessionType:      int32(msg.SessionType),
 		MsgFrom:          int32(msg.MsgFrom),
 		ContentType:      int32(msg.ContentType),
-		Content:          utils.StructToJsonString(getContentType(msg.ContentType).Get(msg.Content)),
+		Content:          utils.StructToJsonString(sdkpb.GetContentType(msg.ContentType).Get(msg.Content)),
 		IsRead:           msg.IsRead,
 		Status:           int32(msg.Status),
 		Seq:              msg.Seq,
@@ -79,9 +82,9 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 		Ex:               localMessage.Ex,
 		LocalEx:          localMessage.LocalEx,
 		AttachedInfoElem: &sdkpb.AttachedInfoElem{
-			IsPrivateChat: localMessage.AttachedInfo.IsPrivateChat,
-			BurnDuration:  localMessage.AttachedInfo.BurnDuration,
-			HasReadTime:   localMessage.AttachedInfo.HasReadTime,
+			IsPrivateChat: localMessage.GetAttachedInfo().GetIsPrivateChat(),
+			BurnDuration:  localMessage.GetAttachedInfo().GetBurnDuration(),
+			HasReadTime:   localMessage.GetAttachedInfo().GetHasReadTime(),
 		},
 	}
 	if localMessage.AttachedInfo.Progress != nil {
@@ -115,7 +118,7 @@ func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
 		SessionType:      int32(message.SessionType),
 		MsgFrom:          int32(message.MsgFrom),
 		ContentType:      int32(message.ContentType),
-		Content:          stringutil.StructToJsonBytes(getContentType(message.ContentType).Get(message.Content)),
+		Content:          stringutil.StructToJsonBytes(sdkpb.GetContentType(message.ContentType).Get(message.Content)),
 		IsRead:           message.IsRead,
 		Status:           int32(message.Status),
 		Seq:              message.Seq,
@@ -186,7 +189,7 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 }
 
 func stringToMsgContent(msg *sdkpb.IMMessage, content string) {
-	m, ok := contentTypeMap[msg.ContentType]
+	m, ok := sdkpb.ContentTypeMap[msg.ContentType]
 	if !ok {
 		log.ZError(context.Background(), "stringToMsgContent unknown content type", nil, "msg", msg, "contentType", msg.ContentType, "content", content)
 		return

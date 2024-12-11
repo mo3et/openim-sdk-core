@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"errors"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	"sort"
 	"sync"
 	"time"
@@ -50,9 +51,9 @@ func (c *Conversation) setConversation(ctx context.Context, apiReq *pbConversati
 	return api.SetConversations.Execute(ctx, apiReq)
 }
 
-func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *sdkpb.GetAdvancedHistoryMessageListParams, isReverse bool) (*sdkpb.GetAdvancedHistoryMessageListCallback, error) {
+func (c *Conversation) getHistoryMessageList(ctx context.Context, req *sdkpb.GetHistoryMessageListReq) (*sdkpb.GetHistoryMessageListResp, error) {
 	t := time.Now()
-	var messageListCallback sdkpb.GetAdvancedHistoryMessageListCallback
+	var messageListCallback sdkpb.GetHistoryMessageListResp
 	var conversationID string
 	var startTime int64
 	var err error
@@ -69,7 +70,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 	}
 	log.ZDebug(ctx, "Assembly conversation parameters", "cost time", time.Since(t), "conversationID",
 		conversationID, "startTime:", startTime, "count:", req.Count, "startTime", startTime)
-	list, err := c.fetchMessagesWithGapCheck(ctx, conversationID, int(req.Count), startTime, isReverse, &messageListCallback)
+	list, err := c.fetchMessagesWithGapCheck(ctx, conversationID, int(req.Count), startTime, req.IsReverse, &messageListCallback)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +81,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 	thisMinSeq, messageList = c.LocalChatLog2IMMessage(ctx, list)
 	log.ZDebug(ctx, "message convert and unmarshal", "unmarshal cost time", time.Since(t))
 	t = time.Now()
-	if !isReverse {
+	if !req.IsReverse {
 		sort.Sort(messageList)
 	}
 	log.ZDebug(ctx, "sort", "sort cost time", time.Since(t))
@@ -93,7 +94,7 @@ func (c *Conversation) getAdvancedHistoryMessageList(ctx context.Context, req *s
 }
 
 func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversationID string,
-	count int, startTime int64, isReverse bool, messageListCallback *sdkpb.GetAdvancedHistoryMessageListCallback) ([]*model_struct.LocalChatLog, error) {
+	count int, startTime int64, isReverse bool, messageListCallback *sdkpb.GetHistoryMessageListResp) ([]*model_struct.LocalChatLog, error) {
 
 	var list []*model_struct.LocalChatLog
 
@@ -230,15 +231,15 @@ func (c *Conversation) judgeMultipleSubString(keywordList []string, main string,
 }
 
 // searchLocalMessages searches for local messages based on the given search parameters.
-func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *conversationpb.SearchLocalMessagesParams) (*conversationpb.SearchLocalMessagesCallback, error) {
-	var r conversationpb.SearchLocalMessagesCallback                                   // Initialize the result structure
+func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *conversationpb.SearchLocalMessagesReq) (*conversationpb.SearchLocalMessagesResp, error) {
+	var r conversationpb.SearchLocalMessagesResp                                       // Initialize the result structure
 	var startTime, endTime int64                                                       // Variables to hold start and end times for the search
 	var list []*model_struct.LocalChatLog                                              // Slice to store the search results
 	conversationMap := make(map[string]*conversationpb.SearchByConversationResult, 10) // Map to store results grouped by conversation, with initial capacity of 10
 	var err error                                                                      // Variable to store any errors encountered
 	var conversationID string                                                          // Variable to store the current conversation ID
-	int32ToInt := func(t int32) int { return int(t) }
-	intToInt32 := func(t int) int32 { return int32(t) }
+	int32ToInt := func(t common.ContentType) int { return int(t) }
+	intToInt32 := func(t int) common.ContentType { return common.ContentType(t) }
 	// Set the end time for the search; if SearchTimePosition is 0, use the current timestamp
 	if searchParam.SearchTimePosition == 0 {
 		endTime = time.Now().Unix()
@@ -255,30 +256,31 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *con
 	endTime = utils.UnixSecondToTime(endTime).UnixNano() / 1e6
 
 	// Validate that either keyword list or message type list is provided
-	if len(searchParam.KeywordList) == 0 && len(searchParam.MessageTypeList) == 0 {
-		return nil, errors.New("keywordlist and messageTypelist all null")
+	if len(searchParam.Keywords) == 0 && len(searchParam.MessageTypes) == 0 {
+		return nil, errors.New("keywordlist and MessageTypes all null")
 	}
 
 	// Search in a specific conversation if ConversationID is provided
 	if searchParam.ConversationID != "" {
 		// Validate pagination parameters
-		if searchParam.PageIndex < 1 || searchParam.Count < 1 {
+
+		if searchParam.Pagination.PageNumber < 1 || searchParam.Pagination.ShowNumber < 1 {
 			return nil, errors.New("page or count is null")
 		}
-		offset := (searchParam.PageIndex - 1) * searchParam.Count
+		offset := (searchParam.Pagination.PageNumber - 1) * searchParam.Pagination.ShowNumber
 		_, err := c.db.GetConversation(ctx, searchParam.ConversationID)
 		if err != nil {
 			return nil, err
 		}
 
 		// Search by content type or keyword based on provided parameters
-		if len(searchParam.MessageTypeList) != 0 && len(searchParam.KeywordList) == 0 {
-			list, err = c.db.SearchMessageByContentType(ctx, datautil.Batch(int32ToInt, searchParam.MessageTypeList), searchParam.SenderUserIDList, searchParam.ConversationID, startTime, endTime, int(offset), int(searchParam.Count))
+		if len(searchParam.MessageTypes) != 0 && len(searchParam.Keywords) == 0 {
+			list, err = c.db.SearchMessageByContentType(ctx, datautil.Batch(int32ToInt, searchParam.MessageTypes), searchParam.SenderUserIDs, searchParam.ConversationID, startTime, endTime, int(offset), int(searchParam.Pagination.ShowNumber))
 			if err != nil {
 				return nil, err
 			}
 		} else {
-			newContentTypeList := func(list []int32) (result []int) {
+			newContentTypeList := func(list []common.ContentType) (result []int) {
 				for _, v := range list {
 					vv := int(v)
 					if utils.IsContainInt(vv, SearchContentType) {
@@ -286,25 +288,25 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *con
 					}
 				}
 				return result
-			}(searchParam.MessageTypeList)
+			}(searchParam.MessageTypes)
 
 			if len(newContentTypeList) == 0 {
 				newContentTypeList = SearchContentType
 			}
 
-			list, err = c.db.SearchMessageByKeyword(ctx, newContentTypeList, searchParam.SenderUserIDList, searchParam.KeywordList,
-				int(searchParam.KeywordListMatchType), searchParam.ConversationID, startTime, endTime, int(offset), int(searchParam.Count))
+			list, err = c.db.SearchMessageByKeyword(ctx, newContentTypeList, searchParam.SenderUserIDs, searchParam.Keywords,
+				int(searchParam.KeywordMatchType), searchParam.ConversationID, startTime, endTime, int(offset), int(searchParam.Pagination.ShowNumber))
 			if err != nil {
 				return nil, err
 			}
 		}
 	} else {
 		// Comprehensive search across all conversations
-		if len(searchParam.MessageTypeList) == 0 {
-			searchParam.MessageTypeList = datautil.Batch(intToInt32, SearchContentType)
+		if len(searchParam.MessageTypes) == 0 {
+			searchParam.MessageTypes = datautil.Batch(intToInt32, SearchContentType)
 		}
 
-		list, err = c.searchMessageByContentTypeAndKeyword(ctx, datautil.Batch(int32ToInt, searchParam.MessageTypeList), searchParam.SenderUserIDList, searchParam.KeywordList, int(searchParam.KeywordListMatchType), startTime, endTime)
+		list, err = c.searchMessageByContentTypeAndKeyword(ctx, datautil.Batch(int32ToInt, searchParam.MessageTypes), searchParam.SenderUserIDs, searchParam.Keywords, int(searchParam.KeywordMatchType), startTime, endTime)
 	}
 
 	// Handle any errors encountered during the search
@@ -367,7 +369,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *con
 	// Compile the results from the conversationMap into the response structure
 	for _, v := range conversationMap {
 		r.SearchResultItems = append(r.SearchResultItems, v)
-		r.TotalCount += v.MessageCount
+		r.Count += int64(v.MessageCount)
 	}
 
 	// Sort the search results based on the latest message send time
@@ -416,23 +418,23 @@ func (c *Conversation) searchMessageByContentTypeAndKeyword(ctx context.Context,
 }
 
 // true is filter, false is not filter
-func (c *Conversation) filterMsg(temp *sharedpb.IMMessage, searchParam *conversationpb.SearchLocalMessagesParams) bool {
+func (c *Conversation) filterMsg(temp *sharedpb.IMMessage, searchParam *conversationpb.SearchLocalMessagesReq) bool {
 	switch temp.ContentType {
 	case constant.Text:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_TextElem)
-		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.TextElem.Content,
-			int(searchParam.KeywordListMatchType))
+		return !c.judgeMultipleSubString(searchParam.Keywords, elem.TextElem.Content,
+			int(searchParam.KeywordMatchType))
 	case constant.AtText:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_AtTextElem)
-		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.AtTextElem.Text,
-			int(searchParam.KeywordListMatchType))
+		return !c.judgeMultipleSubString(searchParam.Keywords, elem.AtTextElem.Text,
+			int(searchParam.KeywordMatchType))
 	case constant.File:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_FileElem)
-		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.FileElem.FileName,
-			int(searchParam.KeywordListMatchType))
+		return !c.judgeMultipleSubString(searchParam.Keywords, elem.FileElem.FileName,
+			int(searchParam.KeywordMatchType))
 	case constant.Merger:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_MergeElem)
-		if !c.judgeMultipleSubString(searchParam.KeywordList, elem.MergeElem.Title, int(searchParam.KeywordListMatchType)) {
+		if !c.judgeMultipleSubString(searchParam.Keywords, elem.MergeElem.Title, int(searchParam.KeywordMatchType)) {
 			for _, msgStruct := range elem.MergeElem.MultiMessage {
 				if c.filterMsg(msgStruct, searchParam) {
 					continue
@@ -443,25 +445,25 @@ func (c *Conversation) filterMsg(temp *sharedpb.IMMessage, searchParam *conversa
 		}
 	case constant.Card:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_CardElem)
-		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.CardElem.Nickname,
-			int(searchParam.KeywordListMatchType))
+		return !c.judgeMultipleSubString(searchParam.Keywords, elem.CardElem.Nickname,
+			int(searchParam.KeywordMatchType))
 	case constant.Location:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_LocationElem)
-		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.LocationElem.Description,
-			int(searchParam.KeywordListMatchType))
+		return !c.judgeMultipleSubString(searchParam.Keywords, elem.LocationElem.Description,
+			int(searchParam.KeywordMatchType))
 	case constant.Custom:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_CustomElem)
-		return !c.judgeMultipleSubString(searchParam.KeywordList, elem.CustomElem.Description,
-			int(searchParam.KeywordListMatchType))
+		return !c.judgeMultipleSubString(searchParam.Keywords, elem.CustomElem.Description,
+			int(searchParam.KeywordMatchType))
 	case constant.Quote:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_QuoteElem)
-		if !c.judgeMultipleSubString(searchParam.KeywordList, elem.QuoteElem.Text, int(searchParam.KeywordListMatchType)) {
+		if !c.judgeMultipleSubString(searchParam.Keywords, elem.QuoteElem.Text, int(searchParam.KeywordMatchType)) {
 			return c.filterMsg(elem.QuoteElem.QuoteMessage, searchParam)
 		}
 	case constant.Picture:
 		fallthrough
 	case constant.Video:
-		if len(searchParam.KeywordList) == 0 {
+		if len(searchParam.Keywords) == 0 {
 			return false
 		} else {
 			return true

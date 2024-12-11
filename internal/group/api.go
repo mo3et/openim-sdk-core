@@ -509,7 +509,7 @@ func (g *Group) GetGroupRequest(ctx context.Context, req *sdkpb.GetGroupRequestR
 		}
 		requests = datautil.Batch(DBAdminGroupRequestToSdk, res)
 	}
-	return &sdkpb.GetGroupRequestResp{Requests: requests}, nil
+	return &sdkpb.GetGroupRequestResp{Applications: requests}, nil
 }
 
 func (g *Group) SearchGroupMembers(ctx context.Context, req *sdkpb.SearchGroupMembersReq) (*sdkpb.SearchGroupMembersResp, error) {
@@ -578,9 +578,9 @@ func (g *Group) InviteUserToGroup(ctx context.Context, req *sdkpb.InviteUserToGr
 	return &sdkpb.InviteUserToGroupResp{}, nil
 }
 
-func (g *Group) HandlerGroupRequest(ctx context.Context, req *sdkpb.HandlerGroupRequestReq) (*sdkpb.HandlerGroupRequestResp, error) {
+func (g *Group) HandleGroupRequest(ctx context.Context, req *sdkpb.HandleGroupRequestReq) (*sdkpb.HandleGroupRequestResp, error) {
 	if err := g.handlerGroupApplication(ctx, &group.GroupApplicationResponseReq{GroupID: req.GroupID, FromUserID: req.FromUserID, HandledMsg: req.HandledMsg, HandleResult: int32(req.Status)}); err != nil {
 		return nil, err
 	}
-	return &sdkpb.HandlerGroupRequestResp{}, nil
+	return &sdkpb.HandleGroupRequestResp{}, nil
 }

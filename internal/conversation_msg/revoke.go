@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"errors"
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -79,20 +80,20 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 	}
 	m := sharedpb.RevokedTips{
 		RevokerID:                   tips.RevokerUserID,
-		RevokerRole:                 revokerRole,
+		RevokerRole:                 commonpb.RevokerRole(revokerRole),
 		ClientMsgID:                 revokedMsg.ClientMsgID,
 		RevokerNickname:             revokerNickname,
 		RevokeTime:                  tips.RevokeTime,
 		SourceMessageSendTime:       revokedMsg.SendTime,
 		SourceMessageSendID:         revokedMsg.SendID,
 		SourceMessageSenderNickname: revokedMsg.SenderNickname,
-		SessionType:                 tips.SesstionType,
+		SessionType:                 commonpb.SessionType(tips.SesstionType),
 		Seq:                         tips.Seq,
 		Ex:                          revokedMsg.Ex,
 	}
 	// log.ZDebug(ctx, "callback revokeMessage", "m", m)
 	if err := c.db.UpdateMessageBySeq(ctx, tips.ConversationID, &model_struct.LocalChatLog{Seq: tips.Seq,
-		Content: utils.StructToJsonString(getContentType(constant.RevokeNotification).Get(&m)), ContentType: constant.RevokeNotification}); err != nil {
+		Content: utils.StructToJsonString(sharedpb.GetContentType(constant.RevokeNotification).Get(&m)), ContentType: constant.RevokeNotification}); err != nil {
 		log.ZError(ctx, "UpdateMessageBySeq failed", err, "tips", &tips)
 		return errs.Wrap(err)
 	}
@@ -154,7 +155,7 @@ func (c *Conversation) quoteMsgRevokeHandle(ctx context.Context, conversationID 
 
 	s.QuoteMessage.Content = &sharedpb.IMMessage_RevokedTips{RevokedTips: revokedMsg}
 	s.QuoteMessage.ContentType = constant.RevokeNotification
-	v.Content = utils.StructToJsonString(getContentType(s.QuoteMessage.ContentType).Get(s.QuoteMessage))
+	v.Content = utils.StructToJsonString(sharedpb.GetContentType(s.QuoteMessage.ContentType).Get(s.QuoteMessage))
 	if err := c.db.UpdateMessageBySeq(ctx, conversationID, v); err != nil {
 		log.ZError(ctx, "UpdateMessage failed", err, "v", v)
 		return errs.Wrap(err)

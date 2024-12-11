@@ -80,7 +80,7 @@ func (c *Conversation) GetOneConversation(ctx context.Context, req *sdkpb.GetOne
 	} else {
 		var newConversation model_struct.LocalConversation
 		newConversation.ConversationID = conversationID
-		newConversation.ConversationType = req.SessionType
+		newConversation.ConversationType = int32(req.SessionType)
 		switch req.SessionType {
 		case constant.SingleChatType:
 			newConversation.UserID = req.SourceID
@@ -163,8 +163,6 @@ func (c *Conversation) SetConversation(ctx context.Context, req *sdkpb.SetConver
 		Ex:               wrapperspb.StringPtr(req.Ex),
 		BurnDuration:     wrapperspb.Int32Ptr(req.BurnDuration),
 		GroupAtType:      wrapperspb.Int32Ptr((*int32)(req.GroupAtType)),
-		MsgDestructTime:  wrapperspb.Int64Ptr(req.MsgDestructTime),
-		IsMsgDestruct:    wrapperspb.BoolPtr(req.IsMsgDestruct),
 	}}
 	err = c.setConversation(ctx, apiReq, lc)
 	if err != nil {
@@ -769,30 +767,13 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 	return &r, nil
 }
 
-func (c *Conversation) GetAdvancedHistoryMessageList(ctx context.Context, req *msgpb.GetAdvancedHistoryMessageListReq) (*msgpb.GetAdvancedHistoryMessageListResp, error) {
-	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, false)
+func (c *Conversation) GetHistoryMessageList(ctx context.Context, req *msgpb.GetHistoryMessageListReq) (*msgpb.GetHistoryMessageListResp, error) {
+	result, err := c.getHistoryMessageList(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	if len(result.MessageList) == 0 {
-		s := make([]*sharedpb.IMMessage, 0)
-		result.MessageList = s
-	}
 	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return &msgpb.GetAdvancedHistoryMessageListResp{GetAdvancedHistoryMessageListCallback: result}, nil
-}
-
-func (c *Conversation) GetAdvancedHistoryMessageListReverse(ctx context.Context, req *msgpb.GetAdvancedHistoryMessageListReverseReq) (*msgpb.GetAdvancedHistoryMessageListReverseResp, error) {
-	result, err := c.getAdvancedHistoryMessageList(ctx, req.GetAdvancedHistoryMessageListParams, true)
-	if err != nil {
-		return nil, err
-	}
-	if len(result.MessageList) == 0 {
-		s := make([]*sharedpb.IMMessage, 0)
-		result.MessageList = s
-	}
-	c.streamMsgReplace(ctx, req.ConversationID, result.MessageList)
-	return &msgpb.GetAdvancedHistoryMessageListReverseResp{GetAdvancedHistoryMessageListCallback: result}, nil
+	return result, nil
 }
 
 func (c *Conversation) RevokeMessage(ctx context.Context, req *msgpb.RevokeMessageReq) (*msgpb.RevokeMessageResp, error) {
@@ -832,12 +813,12 @@ func (c *Conversation) MarkAllConversationMessageAsRead(ctx context.Context, req
 	return &sdkpb.MarkAllConversationMessageAsReadResp{}, nil
 }
 
-func (c *Conversation) DeleteMessageFromLocalStorage(ctx context.Context, req *sdkpb.DeleteMessageFromLocalStorageReq) (*sdkpb.DeleteMessageFromLocalStorageResp, error) {
+func (c *Conversation) DeleteMessageFromLocal(ctx context.Context, req *sdkpb.DeleteMessageFromLocalReq) (*sdkpb.DeleteMessageFromLocalResp, error) {
 	err := c.deleteMessageFromLocal(ctx, req.ConversationID, req.ClientMsgID)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.DeleteMessageFromLocalStorageResp{}, nil
+	return &sdkpb.DeleteMessageFromLocalResp{}, nil
 }
 
 func (c *Conversation) DeleteMessage(ctx context.Context, req *msgpb.DeleteMessageReq) (*msgpb.DeleteMessageResp, error) {
@@ -856,12 +837,12 @@ func (c *Conversation) DeleteAllMsgFromLocalAndServer(ctx context.Context, req *
 	return &msgpb.DeleteAllMsgFromLocalAndServerResp{}, nil
 }
 
-func (c *Conversation) DeleteAllMessageFromLocalStorage(ctx context.Context, req *msgpb.DeleteAllMessageFromLocalStorageReq) (*msgpb.DeleteAllMessageFromLocalStorageResp, error) {
+func (c *Conversation) DeleteAllMessageFromLocal(ctx context.Context, req *msgpb.DeleteAllMessageFromLocalReq) (*msgpb.DeleteAllMessageFromLocalResp, error) {
 	err := c.deleteAllMsgFromLocal(ctx, true)
 	if err != nil {
 		return nil, err
 	}
-	return &msgpb.DeleteAllMessageFromLocalStorageResp{}, nil
+	return &msgpb.DeleteAllMessageFromLocalResp{}, nil
 }
 
 func (c *Conversation) ClearConversationAndDeleteAllMsg(ctx context.Context, req *sdkpb.ClearConversationAndDeleteAllMsgReq) (*sdkpb.ClearConversationAndDeleteAllMsgResp, error) {
@@ -880,7 +861,7 @@ func (c *Conversation) DeleteConversationAndDeleteAllMsg(ctx context.Context, re
 	return &sdkpb.DeleteConversationAndDeleteAllMsgResp{}, nil
 }
 
-func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, req *msgpb.InsertSingleMessageToLocalStorageReq) (*msgpb.InsertSingleMessageToLocalStorageResp, error) {
+func (c *Conversation) InsertSingleMessageToLocal(ctx context.Context, req *msgpb.InsertSingleMessageToLocalReq) (*msgpb.InsertSingleMessageToLocalResp, error) {
 	if req.RecvID == "" || req.SendID == "" {
 		return nil, sdkerrs.ErrArgs
 	}
@@ -927,10 +908,10 @@ func (c *Conversation) InsertSingleMessageToLocalStorage(ctx context.Context, re
 		return nil, err
 	}
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: conversation}, c.GetCh())
-	return &msgpb.InsertSingleMessageToLocalStorageResp{Msg: req.Msg}, nil
+	return &msgpb.InsertSingleMessageToLocalResp{Msg: req.Msg}, nil
 }
 
-func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req *msgpb.InsertGroupMessageToLocalStorageReq) (*msgpb.InsertGroupMessageToLocalStorageResp, error) {
+func (c *Conversation) InsertGroupMessageToLocal(ctx context.Context, req *msgpb.InsertGroupMessageToLocalReq) (*msgpb.InsertGroupMessageToLocalResp, error) {
 	if req.GroupID == "" || req.SendID == "" {
 		return nil, sdkerrs.ErrArgs
 	}
@@ -967,16 +948,12 @@ func (c *Conversation) InsertGroupMessageToLocalStorage(ctx context.Context, req
 		return nil, err
 	}
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: conversation.ConversationID, Action: constant.AddConOrUpLatMsg, Args: conversation}, c.GetCh())
-	return &msgpb.InsertGroupMessageToLocalStorageResp{Msg: req.Msg}, nil
+	return &msgpb.InsertGroupMessageToLocalResp{Msg: req.Msg}, nil
 }
 
 func (c *Conversation) SearchLocalMessages(ctx context.Context, req *sdkpb.SearchLocalMessagesReq) (*sdkpb.SearchLocalMessagesResp, error) {
-	req.SearchParam.KeywordList = utils.TrimStringList(req.SearchParam.KeywordList)
-	searchResult, err := c.searchLocalMessages(ctx, req.SearchParam)
-	if err != nil {
-		return nil, err
-	}
-	return &sdkpb.SearchLocalMessagesResp{SearchResult: searchResult}, nil
+	req.Keywords = utils.TrimStringList(req.Keywords)
+	return c.searchLocalMessages(ctx, req)
 }
 
 func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMessageLocalExReq) (*sdkpb.SetMessageLocalExResp, error) {
@@ -1061,4 +1038,19 @@ func (c *Conversation) UnsubscribeUsersOnlineStatus(ctx context.Context, req *sd
 		return nil, err
 	}
 	return &sdkpb.UnsubscribeUsersOnlineStatusResp{}, nil
+}
+
+func (c *Conversation) ChangeInputStates(ctx context.Context, req *sdkpb.ChangeInputStatesReq) (*sdkpb.ChangeInputStatesResp, error) {
+	if err := c.typing.ChangeInputStates(ctx, req.ConversationID, req.Focus); err != nil {
+		return nil, err
+	}
+	return &sdkpb.ChangeInputStatesResp{}, nil
+}
+
+func (c *Conversation) GetInputStates(ctx context.Context, req *sdkpb.GetInputStatesReq) (*sdkpb.GetInputStatesResp, error) {
+	return &sdkpb.GetInputStatesResp{
+		Platforms: datautil.Batch(func(platformID int32) commonpb.Platform {
+			return commonpb.Platform(platformID)
+		}, c.typing.GetInputStates(req.ConversationID, req.UserID)),
+	}, nil
 }

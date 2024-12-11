@@ -138,17 +138,15 @@ func (c *Conversation) initSyncer() {
 		syncer.WithUpdate[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string](func(ctx context.Context, serverConversation, localConversation *model_struct.LocalConversation) error {
 			return c.db.UpdateColumnsConversation(ctx, serverConversation.ConversationID,
 				map[string]any{
-					"recv_msg_opt":      serverConversation.RecvMsgOpt,
-					"is_pinned":         serverConversation.IsPinned,
-					"is_private_chat":   serverConversation.IsPrivateChat,
-					"burn_duration":     serverConversation.BurnDuration,
-					"group_at_type":     serverConversation.GroupAtType,
-					"attached_info":     serverConversation.AttachedInfo,
-					"ex":                serverConversation.Ex,
-					"msg_destruct_time": serverConversation.MsgDestructTime,
-					"is_msg_destruct":   serverConversation.IsMsgDestruct,
-					"max_seq":           serverConversation.MaxSeq,
-					"min_seq":           serverConversation.MinSeq})
+					"recv_msg_opt":    serverConversation.RecvMsgOpt,
+					"is_pinned":       serverConversation.IsPinned,
+					"is_private_chat": serverConversation.IsPrivateChat,
+					"burn_duration":   serverConversation.BurnDuration,
+					"group_at_type":   serverConversation.GroupAtType,
+					"attached_info":   serverConversation.AttachedInfo,
+					"ex":              serverConversation.Ex,
+					"max_seq":         serverConversation.MaxSeq,
+					"min_seq":         serverConversation.MinSeq})
 		}),
 		syncer.WithUUID[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string](func(value *model_struct.LocalConversation) string {
 			return value.ConversationID
@@ -162,9 +160,7 @@ func (c *Conversation) initSyncer() {
 				server.AttachedInfo != local.AttachedInfo ||
 				server.Ex != local.Ex ||
 				server.MaxSeq != local.MaxSeq ||
-				server.MinSeq != local.MinSeq ||
-				server.MsgDestructTime != local.MsgDestructTime ||
-				server.IsMsgDestruct != local.IsMsgDestruct {
+				server.MinSeq != local.MinSeq {
 				log.ZDebug(context.Background(), "not same", "conversationID", server.ConversationID, "server", server.RecvMsgOpt, "local", local.RecvMsgOpt)
 				return false
 			}
@@ -405,8 +401,6 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 			}
 			nc.AttachedInfo = v.AttachedInfo
 			nc.Ex = v.Ex
-			nc.IsMsgDestruct = v.IsMsgDestruct
-			nc.MsgDestructTime = v.MsgDestructTime
 		}
 	}
 
@@ -799,16 +793,8 @@ func (c *Conversation) getUserNameAndFaceURL(ctx context.Context, userID string)
 	return userInfo.FaceURL, userInfo.Nickname, nil
 }
 
-func (c *Conversation) GetInputStates(ctx context.Context, conversationID string, userID string) ([]int32, error) {
-	return c.typing.GetInputStates(conversationID, userID), nil
-}
-
-func (c *Conversation) ChangeInputStates(ctx context.Context, conversationID string, focus bool) error {
-	return c.typing.ChangeInputStates(ctx, conversationID, focus)
-}
-
 func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversationID string, seq int64, before int64, after int64) ([]*sharedpb.IMMessage, error) {
-	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &msgpb.GetAdvancedHistoryMessageListCallback{})
+	c.fetchAndMergeMissingMessages(ctx, conversationID, []int64{seq}, false, 0, 0, &[]*model_struct.LocalChatLog{}, &msgpb.GetHistoryMessageListResp{})
 	res, err := c.db.GetMessagesBySeqs(ctx, conversationID, []int64{seq})
 	if err != nil {
 		return nil, err
@@ -823,12 +809,12 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 	msg := msgList[0]
 	result := make([]*sharedpb.IMMessage, 0, before+after+1)
 	if before > 0 {
-		req := &msgpb.GetAdvancedHistoryMessageListParams{
+		req := &msgpb.GetHistoryMessageListReq{
 			ConversationID:   conversationID,
 			Count:            int32(before),
 			StartClientMsgID: msg.ClientMsgID,
 		}
-		val, err := c.getAdvancedHistoryMessageList(ctx, req, false)
+		val, err := c.getHistoryMessageList(ctx, req)
 		if err != nil {
 			return nil, err
 		}
@@ -836,12 +822,12 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 	}
 	result = append(result, msg)
 	if after > 0 {
-		req := &msgpb.GetAdvancedHistoryMessageListParams{
+		req := &msgpb.GetHistoryMessageListReq{
 			ConversationID:   conversationID,
 			Count:            int32(after),
 			StartClientMsgID: msg.ClientMsgID,
 		}
-		val, err := c.getAdvancedHistoryMessageList(ctx, req, true)
+		val, err := c.getHistoryMessageList(ctx, req)
 		if err != nil {
 			return nil, err
 		}
