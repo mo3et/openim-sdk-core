@@ -8,7 +8,7 @@ type UserListener struct{}
 
 func (u *UserListener) OnSelfInfoUpdated(data *pb_event.EventOnSelfInfoUpdatedData) {}
 
-func (u *UserListener) OnUserStatusChanged(data *pb_event.EventOnUserStatusChangedData) {}
+func (u *UserListener) OnUserStatusChanged(data *pb_event.EventOnUserOnlineStatusChangedData) {}
 
 func (u *UserListener) OnUserCommandAdd(data *pb_event.EventOnUserCommandAddData) {}
 

@@ -72,9 +72,6 @@ func (w *WindowGroupCreate) Update() {
 
 	imgui.SetCursorPosX(50)
 	if imgui.Button("Create") {
-		group := shared.IMGroup{
-			GroupName: w.groupName,
-		}
 		memebers := make([]string, 0)
 		for k, v := range w.selectMember {
 			if v {
@@ -84,7 +81,7 @@ func (w *WindowGroupCreate) Update() {
 		_, err := open_im_sdk.IMUserContext.Group().CreateGroup(common.NewCallContext(), &pb_group.CreateGroupReq{
 			AdminUserIDs:  []string{},
 			MemberUserIDs: memebers,
-			GroupInfo:     &group,
+			GroupName:     w.groupName,
 		})
 		if err != nil {
 			log.Println(err.Error())

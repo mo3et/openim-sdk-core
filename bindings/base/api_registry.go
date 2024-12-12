@@ -28,8 +28,8 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 		)
 		defer func(start time.Time) {
 			if r := recover(); r != nil {
+				err = sdkerrs.ErrInternal.WrapMsg(fmt.Sprintf("panic %+v", r))
 				mw.PanicStackToLog(ctx, r)
-				return
 			}
 			if _, ignored := ignoredLogFuncMap[name]; ignored {
 				return
@@ -72,8 +72,8 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 		)
 		defer func(start time.Time) {
 			if r := recover(); r != nil {
+				err = sdkerrs.ErrInternal.WrapMsg(fmt.Sprintf("panic %+v", r))
 				mw.PanicStackToLog(ctx, r)
-				return
 			}
 			elapsed := time.Since(start).Milliseconds()
 			if err == nil {
