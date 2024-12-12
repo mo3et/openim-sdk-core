@@ -38,8 +38,7 @@ message GetAllConversationListResp {
 }
 
 message GetConversationListSplitReq {
-  int32 offset = 1;
-  int32 count = 2;
+  common.RequestPagination pagination = 1;
 }
 message GetConversationListSplitResp {
   repeated shared.IMConversation conversationList = 1;

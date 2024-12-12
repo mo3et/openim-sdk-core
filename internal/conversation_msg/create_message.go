@@ -145,7 +145,12 @@ func (c *Conversation) CreateCardMessage(ctx context.Context, req *sdkpb.CreateC
 	if err != nil {
 		return nil, err
 	}
-	s.Content = &sharedpb.IMMessage_CardElem{CardElem: req.Card}
+	s.Content = &sharedpb.IMMessage_CardElem{CardElem: &sharedpb.CardElem{
+		UserID:   req.UserID,
+		Nickname: req.Nickname,
+		FaceURL:  req.FaceURL,
+		Ex:       req.Ex,
+	}}
 	return &sdkpb.CreateCardMessageResp{Message: &s}, nil
 }
 

@@ -50,7 +50,7 @@ func (c *Conversation) GetAllConversationList(ctx context.Context, req *sdkpb.Ge
 }
 
 func (c *Conversation) GetConversationListSplit(ctx context.Context, req *sdkpb.GetConversationListSplitReq) (*sdkpb.GetConversationListSplitResp, error) {
-	conversations, err := c.db.GetConversationListSplitDB(ctx, int(req.Offset), int(req.Count))
+	conversations, err := c.db.GetConversationListSplitDB(ctx, int((req.Pagination.PageNumber-1)*req.Pagination.ShowNumber), int(req.Pagination.ShowNumber))
 	if err != nil {
 		return nil, err
 	}
