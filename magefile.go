@@ -206,7 +206,7 @@ func GenJava() error {
 
 		args := []string{
 			"--proto_path=" + protoDir,
-			"--java_out=" + filepath.Join(javaOutDir, module),
+			"--java_out=lite:" + filepath.Join(javaOutDir, module),
 			filepath.Join("proto", module) + ".proto",
 		}
 
