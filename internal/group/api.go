@@ -227,6 +227,7 @@ func (g *Group) GetJoinedGroups(ctx context.Context, req *sdkpb.GetJoinedGroupsR
 }
 
 func (g *Group) GetJoinedGroupsPage(ctx context.Context, req *sdkpb.GetJoinedGroupsPageReq) (*sdkpb.GetJoinedGroupsPageResp, error) {
+	offset := int((req.Pagination.PageNumber - 1) * req.Pagination.ShowNumber)
 	dataFetcher := datafetcher.NewDataFetcher(
 		g.db,
 		g.groupTableName(),
@@ -249,7 +250,7 @@ func (g *Group) GetJoinedGroupsPage(ctx context.Context, req *sdkpb.GetJoinedGro
 			return datautil.Batch(ServerGroupToLocalGroup, serverGroupInfo), nil
 		},
 	)
-	res, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.PageNumber), int(req.Pagination.ShowNumber))
+	res, err := dataFetcher.FetchWithPagination(ctx, offset, int(req.Pagination.ShowNumber))
 	if err != nil {
 		return nil, err
 	}
@@ -312,6 +313,7 @@ func (g *Group) GetGroupMemberOwnerAndAdmin(ctx context.Context, req *sdkpb.GetG
 }
 
 func (g *Group) GetGroupMembersByJoinTimeFilter(ctx context.Context, req *sdkpb.GetGroupMembersByJoinTimeFilterReq) (*sdkpb.GetGroupMembersByJoinTimeFilterResp, error) {
+	offset := int((req.Pagination.PageNumber - 1) * req.Pagination.ShowNumber)
 	if req.JoinTimeEnd == 0 {
 		req.JoinTimeEnd = time.Now().UnixMilli()
 	}
@@ -326,7 +328,7 @@ func (g *Group) GetGroupMembersByJoinTimeFilter(ctx context.Context, req *sdkpb.
 			return g.db.BatchInsertGroupMember(ctx, values)
 		},
 		func(ctx context.Context, userIDs []string) ([]*model_struct.LocalGroupMember, bool, error) {
-			localGroupMembers, err := g.db.GetGroupMemberListSplitByJoinTimeFilter(ctx, req.GroupID, int(req.Pagination.PageNumber), int(req.Pagination.ShowNumber), req.JoinTimeBegin, req.JoinTimeEnd, userIDs)
+			localGroupMembers, err := g.db.GetGroupMemberListSplitByJoinTimeFilter(ctx, req.GroupID, offset, int(req.Pagination.ShowNumber), req.JoinTimeBegin, req.JoinTimeEnd, userIDs)
 			return localGroupMembers, true, err
 		},
 		func(ctx context.Context, userIDs []string) ([]*model_struct.LocalGroupMember, error) {
@@ -337,7 +339,7 @@ func (g *Group) GetGroupMembersByJoinTimeFilter(ctx context.Context, req *sdkpb.
 			return datautil.Batch(ServerGroupMemberToLocalGroupMember, serverGroupMember), nil
 		},
 	)
-	res, err := dataFetcher.FetchWithPagination(ctx, int(req.Pagination.PageNumber), int(req.Pagination.ShowNumber))
+	res, err := dataFetcher.FetchWithPagination(ctx, offset, int(req.Pagination.ShowNumber))
 	if err != nil {
 		return nil, err
 	}
