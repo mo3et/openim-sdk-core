@@ -148,10 +148,12 @@ message CreateCardMessageResp {
 }
 
 message CreateImageMessageReq {
-  string imageSourcePath = 1;
-  shared.PictureBaseInfo sourcePicture = 2;
-  shared.PictureBaseInfo bigPicture = 3;
-  shared.PictureBaseInfo snapshotPicture = 4;
+  string imagePath = 1;
+  string bigPath = 2;
+  string snapshotPath = 3;
+  shared.PictureBaseInfo sourcePicture = 4;
+  shared.PictureBaseInfo bigPicture = 5;
+  shared.PictureBaseInfo snapshotPicture = 6;
 }
 message CreateImageMessageResp {
   shared.IMMessage message = 1;
