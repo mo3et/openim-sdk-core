@@ -47,7 +47,7 @@ message JoinGroupReq {
   // group id you joined
   string groupID = 1;
   // request message
-  string reqMessage = 2;
+  string reqMsg = 2;
   // join source
   shared.GroupJoinSource joinSource = 3;
   // extension field

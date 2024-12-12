@@ -53,3 +53,10 @@ message LogReq {
 }
 message LogResp {}
 
+service group {
+  /**
+   * when uploading files to s3, the file stream will not pass through the api server.
+   * in the js environment, filepath is a file object
+   */
+  rpc UploadFile(UploadFileReq) returns (UploadFileResp);
+}
