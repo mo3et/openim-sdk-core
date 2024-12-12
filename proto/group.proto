@@ -10,29 +10,29 @@ import "shared.proto";
 
 message CreateGroupReq {
   // @opt @group_id
-  string groupID = 1;
+  optional string groupID = 1;
   // @group_name
   string groupName = 2;
   // @opt @group_notification
-  string notification = 3;
+  optional string notification = 3;
   // @opt @group_introduction
-  string introduction = 4;
+  optional string introduction = 4;
   // @opt @group_face_url
-  string faceURL = 5;
+  optional string faceURL = 5;
   // @opt @group_ex
-  string ex = 6;
+  optional string ex = 6;
   // @opt @group_need_verification
-  shared.GroupNeedVerification needVerification = 7;
+  optional shared.GroupNeedVerification needVerification = 7;
   // @opt @group_look_member_info
-  shared.GroupLookMemberInfo lookMemberInfo = 8;
+  optional shared.GroupLookMemberInfo lookMemberInfo = 8;
   // @opt @group_apply_member_friend
-  shared.GroupApplyMemberFriend applyMemberFriend = 9;
+  optional shared.GroupApplyMemberFriend applyMemberFriend = 9;
   // @opt @group_notification_update_time
-  int64 notificationUpdateTime = 10;
+  optional int64 notificationUpdateTime = 10;
   // @opt @group_notification_user_id
-  string notificationUserID = 11;
+  optional string notificationUserID = 11;
   // @opt @group_attached_info
-  string attachedInfo = 12;
+  optional string attachedInfo = 12;
   // @opt list of users invited as administrators
   repeated string adminUserIDs = 13;
   // @opt list of invited group members
