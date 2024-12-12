@@ -211,3 +211,26 @@ message CreateForwardMessageReq {
 message CreateForwardMessageResp {
   shared.IMMessage message = 1;
 }
+
+service message {
+  /**
+   * create a picture message
+   * in the js environment, filepath is a file object
+   */
+  rpc CreateImageMessage(CreateImageMessageReq) returns (CreateImageMessageResp);
+  /**
+   * create a sound message
+   * in the js environment, filepath is a file object
+   */
+  rpc CreateSoundMessage(CreateSoundMessageReq) returns (CreateSoundMessageResp);
+  /**
+   * create a video message
+   * in the js environment, filepath is a file object
+   */
+  rpc CreateVideoMessage(CreateVideoMessageReq) returns (CreateVideoMessageResp);
+  /**
+   * create a file message
+   * in the js environment, filepath is a file object
+   */
+  rpc CreateFileMessage(CreateFileMessageReq) returns (CreateFileMessageResp);
+}
