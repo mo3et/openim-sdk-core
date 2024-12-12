@@ -252,7 +252,7 @@ message HandleGroupApplicationReq {
 }
 message HandleGroupApplicationResp {}
 
-service group {
+service GroupService {
   /**
   * The group creator assigns roles and adds members
   * 1. The creator establishes a group as the group owner, specifying group administrators and ordinary group members. Once successful, all roles immediately join the group.

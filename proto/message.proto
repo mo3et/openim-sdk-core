@@ -212,7 +212,7 @@ message CreateForwardMessageResp {
   shared.IMMessage message = 1;
 }
 
-service message {
+service MessageService {
   /**
    * create a picture message
    * in the js environment, filepath is a file object
