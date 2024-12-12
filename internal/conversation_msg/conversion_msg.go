@@ -63,6 +63,9 @@ func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 	return localMessage
 }
 func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
+	if localMessage == nil {
+		return nil
+	}
 	message := &sdkpb.IMMessage{
 		ClientMsgID:      localMessage.ClientMsgID,
 		ServerMsgID:      localMessage.ServerMsgID,
