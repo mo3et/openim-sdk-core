@@ -12,6 +12,12 @@ type ContentTypeMate struct {
 	Set func(msg *IMMessage, elem any)
 }
 
+var errorType = ContentTypeMate{
+	New: func() any {
+		return &ErrorElem{}
+	},
+}
+
 func GetContentType(ct common.ContentType) ContentTypeMate {
 	val, ok := ContentTypeMap[ct]
 	if !ok {

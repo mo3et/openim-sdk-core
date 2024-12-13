@@ -233,8 +233,8 @@ func (u UserCallback) OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnSelfInfoUpdated, data)
 }
 
-func (u UserCallback) OnUserStatusChanged(data *pb.EventOnUserOnlineStatusChangedData) {
-	passiveEventResp(pb.FuncRequestEventName_EventOnUserStatusChanged, data)
+func (u UserCallback) OnUserOnlineStatusChanged(data *pb.EventOnUserOnlineStatusChangedData) {
+	passiveEventResp(pb.FuncRequestEventName_EventOnUserOnlineStatusChanged, data)
 }
 
 func (u UserCallback) OnUserCommandAdd(data *pb.EventOnUserCommandAddData) {

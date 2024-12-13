@@ -3,7 +3,6 @@ package conversation_msg
 import (
 	"context"
 	"encoding/json"
-
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -153,8 +152,10 @@ func MsgDataToIMMessage(msgData *sdkws.MsgData) *sdkpb.IMMessage {
 		Ex:               msgData.Ex,
 		AttachedInfoElem: &sdkpb.AttachedInfoElem{},
 	}
-	if err := utils.JsonStringToStruct(msgData.AttachedInfo, message.AttachedInfoElem); err != nil {
-		log.ZWarn(context.Background(), "JsonStringToStruct error", err, "msgData.AttachedInfo", msgData.AttachedInfo)
+	if msgData.AttachedInfo != "" {
+		if err := utils.JsonStringToStruct(msgData.AttachedInfo, message.AttachedInfoElem); err != nil {
+			log.ZWarn(context.Background(), "JsonStringToStruct error", err, "msgData.AttachedInfo", msgData.AttachedInfo)
+		}
 	}
 	stringToMsgContent(message, string(msgData.Content))
 	return message
@@ -181,8 +182,10 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 		AttachedInfo:     &model_struct.AttachedInfoElem{},
 		Ex:               serverMessage.Ex,
 	}
-	if err := json.Unmarshal([]byte(serverMessage.AttachedInfo), localMessage.AttachedInfo); err != nil {
-		log.ZWarn(context.Background(), "json.Unmarshal error", err, "serverMessage.AttachedInfo", serverMessage.AttachedInfo)
+	if serverMessage.AttachedInfo != "" {
+		if err := json.Unmarshal([]byte(serverMessage.AttachedInfo), localMessage.AttachedInfo); err != nil {
+			log.ZWarn(context.Background(), "json.Unmarshal error", err, "serverMessage.AttachedInfo", serverMessage.AttachedInfo)
+		}
 	}
 	switch common.SessionType(serverMessage.SessionType) {
 	case common.SessionType_WriteGroup, common.SessionType_ReadGroup:

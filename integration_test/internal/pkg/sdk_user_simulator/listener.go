@@ -44,7 +44,7 @@ func (c *conversationCallBack) OnConversationUserInputStatusChanged(data *pb.Eve
 type userCallback struct {
 }
 
-func (c userCallback) OnUserStatusChanged(data *pb.EventOnUserStatusChangedData) {
+func (c userCallback) OnUserStatusChanged(data *pb.EventOnUserOnlineStatusChangedData) {
 }
 
 func (userCallback) OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData) {

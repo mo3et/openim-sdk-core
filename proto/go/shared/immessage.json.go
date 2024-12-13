@@ -101,3 +101,11 @@ func (x *IMMessage) MarshalJSON() ([]byte, error) {
 		Content:          content,
 	})
 }
+
+//func (x *ErrorTips) UnmarshalJSON(b []byte) error {
+//	return nil
+//}
+//
+//func (x *ErrorTips) MarshalJSON() ([]byte, error) {
+//	return json.Marshal(x.Data)
+//}

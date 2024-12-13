@@ -79,7 +79,7 @@ enum FuncRequestEventName {
 
   // UserCallback Events
   EventOnSelfInfoUpdated = 57;
-  EventOnUserStatusChanged = 58;
+  EventOnUserOnlineStatusChanged = 58;
   EventOnUserCommandAdd = 59;
   EventOnUserCommandDelete = 60;
   EventOnUserCommandUpdate = 61;

@@ -100,7 +100,7 @@ func (u *User) userCommandUpdateNotification(ctx context.Context, msg *sdkws.Msg
 
 func (u *User) UserOnlineStatusChange(users map[string][]int32) {
 	for userID, onlinePlatformIDs := range users {
-		u.listener().OnUserStatusChanged(&sdkpb.EventOnUserOnlineStatusChangedData{UserID: userID, Platforms: datautil.Batch(func(v int32) common.Platform {
+		u.listener().OnUserOnlineStatusChanged(&sdkpb.EventOnUserOnlineStatusChangedData{UserID: userID, Platforms: datautil.Batch(func(v int32) common.Platform {
 			return common.Platform(v)
 		}, onlinePlatformIDs)})
 	}
