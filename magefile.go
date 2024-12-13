@@ -299,72 +299,69 @@ func GenHarmonyTS() error {
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.Lshortfile)
 
-	OutDir := filepath.Join(protoDir, "HarmonyJS")
-
 	log.Println("Start Gen JS")
+	// 生成js
+	outJSFile := "proto.js"
+	args := make([]string, 0)
+	args = append(args, "-t", "static-module")
+	args = append(args, "-w", "es6")
+	args = append(args, "-o", outJSFile)
 	for _, module := range protoModules {
-		// 生成JS
-		inPath := fmt.Sprintf("%s\\%s.proto", "proto", module)
-		outJSFile := fmt.Sprintf("%s\\%s.js", OutDir, module)
-		jscmd := exec.Command("pbjs",
-			"-t", "static-module",
-			"-w", "es6",
-			"-o", outJSFile,
-			inPath,
-		)
-		jscmd.Env = os.Environ()
-		connectStd(jscmd)
+		protoFile := fmt.Sprintf("%s\\%s.proto", "proto", module)
+		args = append(args, protoFile)
+	}
+	jscmd := exec.Command("pbjs", args...)
+	jscmd.Env = os.Environ()
+	connectStd(jscmd)
 
-		log.Println("Run: " + jscmd.String())
-		if err := jscmd.Run(); err != nil {
-			log.Panicf("Error generating Harmony JavaScript code for module %s: %v\n", module, err)
-		}
-		// 生成TS定义
-		outTSDefFile := fmt.Sprintf("%s\\%s.d.ts", OutDir, module)
-		tscmd := exec.Command("pbts",
-			outJSFile,
-			"-o", outTSDefFile,
-		)
-		tscmd.Env = os.Environ()
-		connectStd(tscmd)
+	log.Println("Run: " + jscmd.String())
+	if err := jscmd.Run(); err != nil {
+		log.Panicf("Error generating Harmony JavaScript code : %v\n", err)
+	}
+	// 生成TS定义
+	outTSDefFile := "proto.d.ts"
+	tscmd := exec.Command("pbts",
+		outJSFile,
+		"-o", outTSDefFile,
+	)
+	tscmd.Env = os.Environ()
+	connectStd(tscmd)
 
-		log.Println("Run: " + tscmd.String())
-		if err := tscmd.Run(); err != nil {
-			log.Panicf("Error generating Harmony TS Define code for module %s: %v\n", module, err)
-		}
-
-		// 修改生成的文件
-		// 1.将生成的js文件中的 import * as $protobuf from "protobufjs/minimal";
-		// 修改为   import { index } from "@ohos/protobufjs"; const $protobuf = index;
-
-		// 2.将生成的.d.ts文件中的 import * as $protobuf from "protobufjs";
-		// 修改为  import * as $protobuf from "@ohos/protobufjs";
-
-		// 3.在生成的js文件中 import * as $protobuf from "@ohos/protobufjs";这行代码下方添加如下代码
-		// import Long from 'long';
-		// $protobuf.util.Long=Long
-		// $protobuf.configure()
-		replaceStr := func(filePath, oldStr, newStr string) {
-			content, err := os.ReadFile(filePath)
-			if err != nil {
-				log.Panic("failed to read file: %w", err)
-			}
-
-			originalContent := string(content)
-			modifiedContent := strings.Replace(originalContent, oldStr, newStr, 1) // 只替换一次
-
-			if originalContent == modifiedContent {
-				return
-			}
-			err = os.WriteFile(filePath, []byte(modifiedContent), 0644)
-			if err != nil {
-				log.Panic("failed to write file: %w", err)
-			}
-		}
-		replaceStr(outJSFile, "import * as $protobuf from \"protobufjs/minimal\";", "import { index } from \"@ohos/protobufjs\"; \nconst $protobuf = index; \n import Long from 'long';\n$protobuf.util.Long=Long \n$protobuf.configure()")
-		replaceStr(outTSDefFile, "import * as $protobuf from \"protobufjs\";\nimport Long = require(\"long\");", "import * as $protobuf from \"@ohos/protobufjs\"\nimport Long from 'long';\n$protobuf.util.Long=Long \n$protobuf.configure()")
+	log.Println("Run: " + tscmd.String())
+	if err := tscmd.Run(); err != nil {
+		log.Panicf("Error generating Harmony TS define code : %v\n", err)
 	}
 
+	// 修改生成的文件
+	// 1.将生成的js文件中的 import * as $protobuf from "protobufjs/minimal";
+	// 修改为   import { index } from "@ohos/protobufjs"; const $protobuf = index;
+
+	// 2.将生成的.d.ts文件中的 import * as $protobuf from "protobufjs";
+	// 修改为  import * as $protobuf from "@ohos/protobufjs";
+
+	// 3.在生成的js文件中 import * as $protobuf from "@ohos/protobufjs";这行代码下方添加如下代码
+	// import Long from 'long';
+	// $protobuf.util.Long=Long
+	// $protobuf.configure()
+	replaceStr := func(filePath, oldStr, newStr string) {
+		content, err := os.ReadFile(filePath)
+		if err != nil {
+			log.Panic("failed to read file: %w", err)
+		}
+
+		originalContent := string(content)
+		modifiedContent := strings.Replace(originalContent, oldStr, newStr, 1) // 只替换一次
+
+		if originalContent == modifiedContent {
+			return
+		}
+		err = os.WriteFile(filePath, []byte(modifiedContent), 0644)
+		if err != nil {
+			log.Panic("failed to write file: %w", err)
+		}
+	}
+	replaceStr(outJSFile, "import * as $protobuf from \"protobufjs/minimal\";", "import { index } from \"@ohos/protobufjs\"; \nconst $protobuf = index; \n import Long from 'long';\n$protobuf.util.Long=Long \n$protobuf.configure()")
+	replaceStr(outTSDefFile, "import * as $protobuf from \"protobufjs\";\nimport Long = require(\"long\");", "import * as $protobuf from \"@ohos/protobufjs\"\nimport Long from 'long';")
 	return nil
 }
 
@@ -846,7 +843,7 @@ func BuildHarmanyOS_API9() error {
 		}
 
 		if err := buildFunc(output, arch.GoArch, arch.OutArch); err != nil {
-			log.Fatalln("Failed to build for  HarmanyOS API9 %s: %v\n", arch.OutArch, err)
+			log.Fatalf("Failed to build for  HarmanyOS API9 %s: %v\n", arch.OutArch, err)
 		}
 	}
 	return nil
@@ -908,7 +905,7 @@ func BuildHarmanyOS_API12() error {
 		if err := buildFunc(output, arch.GoArch, arch.OutArch); err != nil {
 			log.Fatalf("Failed to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
 		} else {
-			log.Println("Success to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
+			log.Printf("Success to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
 		}
 	}
 	return nil
