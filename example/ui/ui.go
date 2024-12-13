@@ -20,10 +20,12 @@ func init() {
 	open_im_sdk.IMUserContext.SetCustomBusinessListener(newCustomBusinessListener())
 	initRes, err := open_im_sdk.IMUserContext.InitSDK(common.NewCallContext(), &pb_init.InitSDKReq{
 		Config: &pb_init.IMConfig{
-			AppFramework:        pb_common.AppFramework_AppFramework_,
-			Platform:            common.GetSDKPlatform(),
-			ApiAddr:             "http://127.0.0.1:10002",
-			WsAddr:              "ws://127.0.0.1:10001",
+			AppFramework: pb_common.AppFramework_AppFramework_,
+			Platform:     common.GetSDKPlatform(),
+			//ApiAddr:             "http://127.0.0.1:10002",
+			//WsAddr:              "ws://127.0.0.1:10001",
+			ApiAddr:             "http://43.134.224.79:10002",
+			WsAddr:              "ws://43.134.224.79:10001",
 			DataDir:             ".cache/",
 			DbPath:              ".cache/",
 			LogLevel:            pb_common.LogLevel_LevelDebug,

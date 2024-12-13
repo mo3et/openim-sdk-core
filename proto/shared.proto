@@ -284,6 +284,7 @@ message PictureBaseInfo {
   int32 width = 4;
   int32 height = 5;
   string url = 6;
+  string path = 7;
 }
 
 message SoundBaseInfo {
@@ -333,9 +334,11 @@ message CardElem {
 
 message PictureElem {
   string sourcePath = 1;
-  PictureBaseInfo sourcePicture = 2;
-  PictureBaseInfo bigPicture = 3;
-  PictureBaseInfo snapshotPicture = 4;
+  string bigPath = 2;
+  string snapshotPath = 3;
+  PictureBaseInfo sourcePicture = 4;
+  PictureBaseInfo bigPicture = 5;
+  PictureBaseInfo snapshotPicture = 6;
 }
 
 message SoundElem {
