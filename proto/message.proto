@@ -148,7 +148,7 @@ message CreateCardMessageResp {
 }
 
 message CreateImageMessageReq {
-  string imagePath = 1;
+  string sourcePath = 1;
   string bigPath = 2;
   string snapshotPath = 3;
   shared.PictureBaseInfo sourcePicture = 4;

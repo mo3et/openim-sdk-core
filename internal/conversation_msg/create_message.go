@@ -163,19 +163,19 @@ func (c *Conversation) CreateImageMessage(ctx context.Context, req *sdkpb.Create
 
 	// Create by file path
 	if req.SourcePicture != nil || req.BigPicture != nil || req.SnapshotPicture != nil {
-		dstFile := utils.FileTmpPath(req.ImagePath, c.DataDir)
-		_, err := utils.CopyFile(req.ImagePath, dstFile)
+		dstFile := utils.FileTmpPath(req.SourcePath, c.DataDir)
+		_, err := utils.CopyFile(req.SourcePath, dstFile)
 		if err != nil {
 			return nil, err
 		}
 
-		imageInfo, err := getImageInfo(req.ImagePath)
+		imageInfo, err := getImageInfo(req.SourcePath)
 		if err != nil {
 			return nil, err
 		}
 
 		s.Content = &sharedpb.IMMessage_PictureElem{PictureElem: &sharedpb.PictureElem{
-			SourcePath: req.ImagePath,
+			SourcePath: req.SourcePath,
 			SourcePicture: &sharedpb.PictureBaseInfo{
 				Width:  imageInfo.Width,
 				Height: imageInfo.Height,
@@ -184,7 +184,7 @@ func (c *Conversation) CreateImageMessage(ctx context.Context, req *sdkpb.Create
 		}}
 	} else { // Create by URL
 		s.Content = &sharedpb.IMMessage_PictureElem{PictureElem: &sharedpb.PictureElem{
-			SourcePath:      req.ImagePath,
+			SourcePath:      req.SourcePath,
 			SourcePicture:   req.SourcePicture,
 			BigPicture:      req.BigPicture,
 			SnapshotPicture: req.SnapshotPicture,
