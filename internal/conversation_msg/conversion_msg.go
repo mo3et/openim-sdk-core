@@ -201,13 +201,13 @@ func stringToMsgContent(msg *sdkpb.IMMessage, content string) {
 		return
 	}
 	elem := m.New()
-	var err error
-	if m.N {
-		err = utils.UnmarshalNotificationElem([]byte(content), elem)
-	} else {
-		err = utils.JsonStringToStruct(content, elem)
-	}
-	if err != nil {
+	//var err error
+	//if m.N {
+	//	err = utils.UnmarshalNotificationElem([]byte(content), elem)
+	//} else {
+	//	err = utils.JsonStringToStruct(content, elem)
+	//}
+	if err := utils.JsonStringToStruct(content, elem); err != nil {
 		log.ZError(context.Background(), "stringToMsgContent unmarshal", err, "msg", msg, "notification", m.N, "content", content)
 	}
 	m.Set(msg, elem)

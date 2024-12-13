@@ -28,6 +28,70 @@ type jsonIMMessage struct {
 	LocalEx          string                  `json:"localEx"`
 	AttachedInfoElem *AttachedInfoElem       `json:"attachedInfoElem"`
 	Content          json.RawMessage         `json:"content"`
+	TextElem         *TextElem               `json:"textElem,omitempty"`
+	CardElem         *CardElem               `json:"cardElem,omitempty"`
+	PictureElem      *PictureElem            `json:"pictureElem,omitempty"`
+	SoundElem        *SoundElem              `json:"soundElem,omitempty"`
+	VideoElem        *VideoElem              `json:"videoElem,omitempty"`
+	FileElem         *FileElem               `json:"fileElem,omitempty"`
+	MergeElem        *MergeElem              `json:"mergeElem,omitempty"`
+	AtTextElem       *AtTextElem             `json:"atTextElem,omitempty"`
+	FaceElem         *FaceElem               `json:"faceElem,omitempty"`
+	LocationElem     *LocationElem           `json:"locationElem,omitempty"`
+	CustomElem       *CustomElem             `json:"customElem,omitempty"`
+	QuoteElem        *QuoteElem              `json:"quoteElem,omitempty"`
+	AdvancedTextElem *AdvancedTextElem       `json:"advancedTextElem,omitempty"`
+	TypingElem       *TypingElem             `json:"typingElem,omitempty"`
+	StreamElem       *StreamElem             `json:"streamElem,omitempty"`
+}
+
+func (x *jsonIMMessage) getNotNilElem() any {
+	if x.TextElem != nil {
+		return x.TextElem
+	}
+	if x.CardElem != nil {
+		return x.CardElem
+	}
+	if x.PictureElem != nil {
+		return x.PictureElem
+	}
+	if x.SoundElem != nil {
+		return x.SoundElem
+	}
+	if x.VideoElem != nil {
+		return x.VideoElem
+	}
+	if x.FileElem != nil {
+		return x.FileElem
+	}
+	if x.MergeElem != nil {
+		return x.MergeElem
+	}
+	if x.AtTextElem != nil {
+		return x.AtTextElem
+	}
+	if x.FaceElem != nil {
+		return x.FaceElem
+	}
+	if x.LocationElem != nil {
+		return x.LocationElem
+	}
+	if x.CustomElem != nil {
+		return x.CustomElem
+	}
+	if x.QuoteElem != nil {
+		return x.QuoteElem
+	}
+	if x.AdvancedTextElem != nil {
+		return x.AdvancedTextElem
+	}
+	if x.TypingElem != nil {
+		return x.TypingElem
+	}
+	if x.StreamElem != nil {
+		return x.StreamElem
+	}
+	return nil
 }
 
 func (x *IMMessage) UnmarshalJSON(b []byte) error {
@@ -39,9 +103,18 @@ func (x *IMMessage) UnmarshalJSON(b []byte) error {
 	if !ok {
 		return fmt.Errorf("json unknown content type %d", x.ContentType)
 	}
-	elem := m.New()
-	if err := json.Unmarshal(tmp.Content, elem); err != nil {
-		return err
+	if len(tmp.Content) == 0 {
+		elem := tmp.getNotNilElem()
+		if elem == nil {
+			return fmt.Errorf("json content is empty clientMsgID %s", tmp.ClientMsgID)
+		}
+		m.Set(x, elem)
+	} else {
+		elem := m.New()
+		if err := json.Unmarshal(tmp.Content, elem); err != nil {
+			return err
+		}
+		m.Set(x, elem)
 	}
 	x.ClientMsgID = tmp.ClientMsgID
 	x.ServerMsgID = tmp.ServerMsgID
@@ -63,7 +136,6 @@ func (x *IMMessage) UnmarshalJSON(b []byte) error {
 	x.Ex = tmp.Ex
 	x.LocalEx = tmp.LocalEx
 	x.AttachedInfoElem = tmp.AttachedInfoElem
-	m.Set(x, elem)
 	return nil
 }
 

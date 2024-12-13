@@ -210,8 +210,8 @@ func (o *onUserListener) OnUserCommandUpdate(data *pb.EventOnUserCommandUpdateDa
 	log.ZInfo(o.ctx, "###LISTENER### OnUserCommandUpdate", "blackInfo", data.Command)
 }
 
-func (o *onUserListener) OnUserStatusChanged(data *pb.EventOnUserOnlineStatusChangedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnUserStatusChanged", "OnUserStatusChanged", data)
+func (o *onUserListener) OnUserOnlineStatusChanged(data *pb.EventOnUserOnlineStatusChangedData) {
+	log.ZInfo(o.ctx, "###LISTENER### OnUserOnlineStatusChanged", "OnUserStatusChanged", data)
 }
 
 type onConnListener struct {
