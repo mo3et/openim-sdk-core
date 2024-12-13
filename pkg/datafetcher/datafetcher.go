@@ -2,7 +2,6 @@ package datafetcher
 
 import (
 	"context"
-	"github.com/openimsdk/tools/log"
 	"sort"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/db_interface"
@@ -49,9 +48,10 @@ func (ds *DataFetcher[T]) FetchWithPagination(ctx context.Context, offset, limit
 	}
 
 	if offset > len(versionInfo.UIDList) {
-		err := errs.New("offset exceeds the length of the UID list").Wrap()
-		log.ZWarn(ctx, "DataFetcher FetchWithPagination offset > len(versionInfo.UIDList)", err, "offset", offset, "limit", limit, "len", len(versionInfo.UIDList))
-		return nil, err
+		//err := errs.New("offset exceeds the length of the UID list").Wrap()
+		//log.ZWarn(ctx, "DataFetcher FetchWithPagination offset > len(versionInfo.UIDList)", err, "offset", offset, "limit", limit, "len", len(versionInfo.UIDList))
+		//return nil, err
+		return []T{}, nil
 	}
 
 	end := offset + limit
