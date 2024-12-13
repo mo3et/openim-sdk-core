@@ -74,11 +74,11 @@ func (o *onGroupListener) OnGroupMemberDeleted(data *pb.EventOnGroupMemberDelete
 }
 
 func (o *onGroupListener) OnGroupApplicationAdded(data *pb.EventOnGroupApplicationAddedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationAdded", "groupApplication", data.Request)
+	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationAdded", "groupApplication", data.Application)
 }
 
 func (o *onGroupListener) OnGroupApplicationDeleted(data *pb.EventOnGroupApplicationDeletedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationDeleted", "groupApplication", data.Request)
+	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationDeleted", "groupApplication", data.Application)
 }
 
 func (o *onGroupListener) OnGroupInfoChanged(data *pb.EventOnGroupInfoChangedData) {
@@ -90,11 +90,11 @@ func (o *onGroupListener) OnGroupMemberInfoChanged(data *pb.EventOnGroupMemberIn
 }
 
 func (o *onGroupListener) OnGroupApplicationAccepted(data *pb.EventOnGroupApplicationAcceptedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationAccepted", "groupApplication", data.Request)
+	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationAccepted", "groupApplication", data.Application)
 }
 
 func (o *onGroupListener) OnGroupApplicationRejected(data *pb.EventOnGroupApplicationRejectedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationRejected", "groupApplication", data.Request)
+	log.ZInfo(o.ctx, "###LISTENER### OnGroupApplicationRejected", "groupApplication", data.Application)
 }
 
 type onMessageListener struct {
@@ -158,19 +158,19 @@ type onFriendshipListener struct {
 }
 
 func (o *onFriendshipListener) OnFriendApplicationAdded(data *pb.EventOnFriendApplicationAddedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnFriendApplicationAdded", "friendApplication", data.Request)
+	log.ZInfo(o.ctx, "###LISTENER### OnFriendApplicationAdded", "friendApplication", data.Application)
 }
 
 func (o *onFriendshipListener) OnFriendApplicationDeleted(data *pb.EventOnFriendApplicationDeletedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnFriendApplicationDeleted", "friendApplication", data.Request)
+	log.ZInfo(o.ctx, "###LISTENER### OnFriendApplicationDeleted", "friendApplication", data.Application)
 }
 
 func (o *onFriendshipListener) OnFriendApplicationAccepted(data *pb.EventOnFriendApplicationAcceptedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnFriendApplicationAccepted", "friendApplication", data.Request)
+	log.ZInfo(o.ctx, "###LISTENER### OnFriendApplicationAccepted", "friendApplication", data.Application)
 }
 
 func (o *onFriendshipListener) OnFriendApplicationRejected(data *pb.EventOnFriendApplicationRejectedData) {
-	log.ZInfo(o.ctx, "###LISTENER### OnFriendApplicationRejected", "friendApplication", data.Request)
+	log.ZInfo(o.ctx, "###LISTENER### OnFriendApplicationRejected", "friendApplication", data.Application)
 }
 
 func (o *onFriendshipListener) OnFriendAdded(data *pb.EventOnFriendAddedData) {
@@ -209,7 +209,8 @@ func (o *onUserListener) OnUserCommandDelete(data *pb.EventOnUserCommandDeleteDa
 func (o *onUserListener) OnUserCommandUpdate(data *pb.EventOnUserCommandUpdateData) {
 	log.ZInfo(o.ctx, "###LISTENER### OnUserCommandUpdate", "blackInfo", data.Command)
 }
-func (o *onUserListener) OnUserStatusChanged(data *pb.EventOnUserStatusChangedData) {
+
+func (o *onUserListener) OnUserStatusChanged(data *pb.EventOnUserOnlineStatusChangedData) {
 	log.ZInfo(o.ctx, "###LISTENER### OnUserStatusChanged", "OnUserStatusChanged", data)
 }
 
