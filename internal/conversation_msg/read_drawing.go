@@ -97,7 +97,7 @@ func (c *Conversation) markConversationMessageAsRead(ctx context.Context, conver
 	if err := c.db.UpdateColumnsConversation(ctx, conversationID, map[string]any{"unread_count": 0}); err != nil {
 		log.ZError(ctx, "UpdateColumnsConversation err", err, "conversationID", conversationID)
 	}
-	log.ZDebug(ctx, "update columns sucess")
+	log.ZDebug(ctx, "update columns success")
 	c.unreadChangeTrigger(ctx, conversationID, peerUserMaxSeq == maxSeq)
 	return nil
 }

@@ -17,8 +17,9 @@ package db
 import (
 	"context"
 	"errors"
-	"gorm.io/gorm"
 	"strings"
+
+	"gorm.io/gorm"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
@@ -360,7 +361,7 @@ func (d *DataBase) GetConversationNormalMsgSeq(ctx context.Context, conversation
 	d.mRWMutex.RLock()
 	defer d.mRWMutex.RUnlock()
 	var seq int64
-	err = d.conn.WithContext(ctx).Table(utils.GetConversationTableName(conversationID)).Select("seq").Order("seq DESC").Find(&seq).Error
+	err = d.conn.WithContext(ctx).Table(utils.GetConversationTableName(conversationID)).Select("seq").Order("seq DESC").First(&seq).Error
 	return seq, errs.WrapMsg(err, "GetConversationNormalMsgSeq")
 }
 

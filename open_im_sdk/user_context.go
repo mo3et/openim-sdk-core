@@ -43,10 +43,6 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-const (
-	LogoutTips = "js sdk socket close"
-)
-
 var (
 	// IMUserContext is the global user context instance
 	IMUserContext *UserContext
@@ -352,9 +348,6 @@ func (u *UserContext) UnInitSDK() {
 
 // token error recycle recourse, kicked not recycle
 func (u *UserContext) logout(ctx context.Context, isTokenValid bool) error {
-	if ccontext.Info(ctx).OperationID() == LogoutTips {
-		isTokenValid = true
-	}
 	if !isTokenValid {
 		ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 		defer cancel()
