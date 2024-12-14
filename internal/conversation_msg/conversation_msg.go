@@ -529,12 +529,6 @@ func (c *Conversation) addInitProgress(progress int) {
 	}
 }
 
-func listToMap(list []*model_struct.LocalConversation, m map[string]*model_struct.LocalConversation) {
-	for _, v := range list {
-		m[v.ConversationID] = v
-	}
-}
-
 func (c *Conversation) diff(ctx context.Context, local, generated, cc, nc map[string]*model_struct.LocalConversation) {
 	var newConversations []*model_struct.LocalConversation
 	for _, v := range generated {
