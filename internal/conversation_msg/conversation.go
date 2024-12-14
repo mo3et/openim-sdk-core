@@ -17,10 +17,11 @@ package conversation_msg
 import (
 	"context"
 	"errors"
-	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	"sort"
 	"sync"
 	"time"
+
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	conversationpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
@@ -66,7 +67,9 @@ func (c *Conversation) getHistoryMessageList(ctx context.Context, req *sdkpb.Get
 		}
 		startTime = m.SendTime
 	} else {
-		c.messagePullMinSeqMap.Delete(conversationID)
+		// Clear both maps when the user enters the conversation
+		c.messagePullForwardEndSeqMap.Delete(conversationID)
+		c.messagePullReverseEndSeqMap.Delete(conversationID)
 	}
 	log.ZDebug(ctx, "Assembly conversation parameters", "cost time", time.Since(t), "conversationID",
 		conversationID, "startTime:", startTime, "count:", req.Count, "startTime", startTime)
@@ -74,11 +77,10 @@ func (c *Conversation) getHistoryMessageList(ctx context.Context, req *sdkpb.Get
 	if err != nil {
 		return nil, err
 	}
-	log.ZDebug(ctx, "pull message", "pull cost time", time.Since(t))
+	log.ZDebug(ctx, "pull message", "pull cost time", time.Since(t).Milliseconds())
 	t = time.Now()
 
-	var thisMinSeq int64
-	thisMinSeq, messageList = c.LocalChatLog2IMMessage(ctx, list)
+	messageList = c.LocalChatLog2IMMessage(list)
 	log.ZDebug(ctx, "message convert and unmarshal", "unmarshal cost time", time.Since(t))
 	t = time.Now()
 	if !req.IsReverse {
@@ -86,32 +88,72 @@ func (c *Conversation) getHistoryMessageList(ctx context.Context, req *sdkpb.Get
 	}
 	log.ZDebug(ctx, "sort", "sort cost time", time.Since(t))
 	messageListCallback.MessageList = messageList
-	if thisMinSeq != 0 {
-		c.messagePullMinSeqMap.Store(conversationID, thisMinSeq)
-	}
-	return &messageListCallback, nil
 
+	return &messageListCallback, nil
 }
 
 func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversationID string,
 	count int, startTime int64, isReverse bool, messageListCallback *sdkpb.GetHistoryMessageListResp) ([]*model_struct.LocalChatLog, error) {
 
-	var list []*model_struct.LocalChatLog
+	var list, validMessages []*model_struct.LocalChatLog
 
-	// If all retrieved messages are either deleted or filtered out, continue fetching messages from an earlier point.
-	shouldFetchMoreMessages := func(messages []*model_struct.LocalChatLog) bool {
-		if len(messages) == 0 {
-			return false
-		}
-
-		allDeleted := true
+	// Get the number of invalid messages in this batch to recursive fetching from earlier points.
+	shouldFetchMoreMessagesNum := func(messages []*model_struct.LocalChatLog) int {
+		var thisEndSeq int64
+		// Represents the number of valid messages in the batch
+		validateMessageNum := 0
 		for _, msg := range messages {
-			if msg.Status < constant.MsgStatusHasDeleted {
-				allDeleted = false
-				break
+			if msg.Seq != 0 && thisEndSeq == 0 {
+				thisEndSeq = msg.Seq
+			}
+			if isReverse {
+				if msg.Seq > thisEndSeq && thisEndSeq != 0 {
+					thisEndSeq = msg.Seq
+				}
+
+			} else {
+				if msg.Seq < thisEndSeq && msg.Seq != 0 {
+					thisEndSeq = msg.Seq
+				}
+			}
+			if msg.Status >= constant.MsgStatusHasDeleted {
+				log.ZDebug(ctx, "this message has been deleted or exception message", "msg", msg)
+				continue
+			}
+
+			validateMessageNum++
+			validMessages = append(validMessages, msg)
+
+		}
+		if !isReverse {
+			if thisEndSeq != 0 {
+				c.messagePullForwardEndSeqMap.StoreWithFunc(conversationID, thisEndSeq, func(key string, value int64) bool {
+					lastEndSeq, _ := c.messagePullForwardEndSeqMap.Load(key)
+					if value < lastEndSeq || lastEndSeq == 0 {
+						log.ZDebug(ctx, "update the end sequence of the message", "lastEndSeq", lastEndSeq, "thisEndSeq", value)
+						return true
+					}
+					log.ZWarn(ctx, "The end sequence number of the message is more than the last end sequence number",
+						nil, "conversationID", key, "value", value, "lastEndSeq", lastEndSeq)
+					return false
+				})
+			}
+		} else {
+			if thisEndSeq != 0 {
+				c.messagePullReverseEndSeqMap.StoreWithFunc(conversationID, thisEndSeq, func(key string, value int64) bool {
+					lastEndSeq, _ := c.messagePullReverseEndSeqMap.Load(key)
+					if value > lastEndSeq || lastEndSeq == 0 {
+						log.ZDebug(ctx, "update the end sequence of the message", "lastEndSeq", lastEndSeq, "thisEndSeq", value)
+						return true
+					}
+					log.ZWarn(ctx, "The end sequence number of the message is less than the last end sequence number",
+						nil, "conversationID", key, "value", value, "lastEndSeq", lastEndSeq)
+					return false
+				})
 			}
 		}
-		return allDeleted
+
+		return count - validateMessageNum
 	}
 	getNewStartTime := func(messages []*model_struct.LocalChatLog) int64 {
 		if len(messages) == 0 {
@@ -130,40 +172,38 @@ func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversati
 		return nil, err
 	}
 	t = time.Now()
-	maxSeq := c.validateAndFillInternalGaps(ctx, conversationID, isReverse,
+	thisStartSeq := c.validateAndFillInternalGaps(ctx, conversationID, isReverse,
 		count, startTime, &list, messageListCallback)
-	log.ZDebug(ctx, "internal continuity check", "cost time", time.Since(t))
+	log.ZDebug(ctx, "internal continuity check", "cost time", time.Since(t), "thisStartSeq", thisStartSeq)
 	t = time.Now()
-	c.validateAndFillInterBlockGaps(ctx, maxSeq, conversationID,
+	c.validateAndFillInterBlockGaps(ctx, thisStartSeq, conversationID,
 		isReverse, count, startTime, &list, messageListCallback)
-	log.ZDebug(ctx, "between continuity check", "cost time", time.Since(t))
+	log.ZDebug(ctx, "between continuity check", "cost time", time.Since(t), "thisStartSeq", thisStartSeq)
 	t = time.Now()
 	c.validateAndFillEndBlockContinuity(ctx, conversationID, isReverse,
 		count, startTime, &list, messageListCallback)
 	log.ZDebug(ctx, "end continuity check", "cost time", time.Since(t))
-	// If all retrieved messages are either deleted or filtered out,
-	//continue fetching recursively until either valid messages are found or all messages have been fetched.
-	if shouldFetchMoreMessages(list) && !messageListCallback.IsEnd {
-		return c.fetchMessagesWithGapCheck(ctx, conversationID, count, getNewStartTime(list), isReverse, messageListCallback)
+	// If the number of valid messages retrieved is less than the count,
+	// continue fetching recursively until the valid messages are sufficient or all messages have been fetched.
+	missingCount := shouldFetchMoreMessagesNum(list)
+	if missingCount > 0 && !messageListCallback.IsEnd {
+		newStartTime := getNewStartTime(list)
+		log.ZDebug(ctx, "fetch more messages", "missingCount", missingCount, "conversationID",
+			conversationID, "newStartTime", newStartTime)
+		missingMessages, err := c.fetchMessagesWithGapCheck(ctx, conversationID, missingCount, newStartTime, isReverse, messageListCallback)
+		if err != nil {
+			return nil, err
+		}
+		log.ZDebug(ctx, "fetch more messages", "missingMessages", missingMessages)
+		return append(validMessages, missingMessages...), nil
 	}
 
-	return list, nil
+	return validMessages, nil
 }
 
-func (c *Conversation) LocalChatLog2IMMessage(ctx context.Context, list []*model_struct.LocalChatLog) (int64, []*sharedpb.IMMessage) {
+func (c *Conversation) LocalChatLog2IMMessage(list []*model_struct.LocalChatLog) []*sharedpb.IMMessage {
 	messageList := make([]*sharedpb.IMMessage, 0, len(list))
-	var thisMinSeq int64
 	for _, v := range list {
-		if v.Seq != 0 && thisMinSeq == 0 {
-			thisMinSeq = v.Seq
-		}
-		if v.Seq < thisMinSeq && v.Seq != 0 {
-			thisMinSeq = v.Seq
-		}
-		if v.Status >= constant.MsgStatusHasDeleted {
-			log.ZDebug(ctx, "this message has been deleted or exception message", "msg", v)
-			continue
-		}
 		temp := LocalChatLogToIMMessage(v)
 
 		if temp.AttachedInfoElem.IsPrivateChat && temp.SendTime+int64(temp.AttachedInfoElem.BurnDuration) < time.Now().Unix() {
@@ -171,7 +211,7 @@ func (c *Conversation) LocalChatLog2IMMessage(ctx context.Context, list []*model
 		}
 		messageList = append(messageList, temp)
 	}
-	return thisMinSeq, messageList
+	return messageList
 }
 
 func (c *Conversation) typingStatusUpdate(ctx context.Context, recvID, msgTip string) error {

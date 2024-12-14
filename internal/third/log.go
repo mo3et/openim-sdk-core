@@ -4,13 +4,14 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 	"io"
 	"math/rand"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 
@@ -122,8 +123,7 @@ func (t *Third) uploadSDKData(ctx context.Context, req *sdkpb.UploadSDKDataReq, 
 	}
 	ccontext.Info(ctx)
 	reqLog := &third.UploadLogsReq{
-		Platform: int32(t.platform),
-		//Todo systemType change to appFramework
+		Platform:     int32(t.platform),
 		AppFramework: pb.AppFramework_name[int32(t.appFramework)],
 		Version:      version.Version,
 		FileURLs:     []*third.FileURL{{Filename: zippath, URL: resp.Url}},

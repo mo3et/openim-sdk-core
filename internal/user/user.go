@@ -18,6 +18,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
+	"github.com/openimsdk/tools/log"
+
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
@@ -38,13 +41,8 @@ func NewUser(conversationCh chan common.Cmd2Value) *User {
 	user.UserCache = cache.NewManager[string, *model_struct.LocalUser](
 		func(value *model_struct.LocalUser) string { return value.UserID },
 		nil,
-		func(ctx context.Context, userIDs []string) ([]*model_struct.LocalUser, error) {
-			users, err := user.getUsersInfo(ctx, userIDs)
-			if err != nil {
-				return nil, err
-			}
-			return datautil.Batch(ServerUserToLocalUser, users), nil
-		},
+		user.GetLoginUser,
+		user.GetUsersInfoFromServer,
 	)
 	return user
 }
@@ -153,27 +151,42 @@ func (u *User) initSyncer() {
 }
 
 func (u *User) GetUserInfoWithCache(ctx context.Context, cacheKey string) (*model_struct.LocalUser, error) {
-	return u.UserCache.FetchGet(ctx, cacheKey)
-}
-
-func (u *User) GetUserInfoWithCacheFunc(ctx context.Context, cacheKey string, fetchFunc func(ctx context.Context, key string) (*model_struct.LocalUser, error)) (*model_struct.LocalUser, error) {
-	if userInfo, ok := u.UserCache.Load(cacheKey); ok {
-		return userInfo, nil
-	}
-
-	fetchedData, err := fetchFunc(ctx, cacheKey)
-	if err != nil {
-		return nil, err
-	}
-
-	u.UserCache.Store(cacheKey, fetchedData)
-	return fetchedData, nil
+	return u.UserCache.Fetch(ctx, cacheKey)
 }
 
 func (u *User) GetUsersInfoWithCache(ctx context.Context, cacheKeys []string) ([]*model_struct.LocalUser, error) {
-	m, err := u.UserCache.MultiFetchGet(ctx, cacheKeys)
+	m, err := u.UserCache.BatchFetch(ctx, cacheKeys)
 	if err != nil {
 		return nil, err
 	}
 	return datautil.Values(m), nil
+}
+
+// GetSingleUserFromServer retrieves user information from the server.
+func (u *User) GetSingleUserFromServer(ctx context.Context, userID string) (*model_struct.LocalUser, error) {
+	users, err := u.getUsersInfo(ctx, []string{userID})
+	if err != nil {
+		return nil, err
+	}
+	if len(users) > 0 {
+		return ServerUserToLocalUser(users[0]), nil
+	}
+	return nil, sdkerrs.ErrUserIDNotFound.WrapMsg(fmt.Sprintf("getSelfUserInfo failed, userID: %s not exist", userID))
+}
+
+// GetUsersInfoFromServer retrieves user information from the server.
+func (u *User) GetUsersInfoFromServer(ctx context.Context, userIDs []string) ([]*model_struct.LocalUser, error) {
+	var err error
+
+	serverUsersInfo, err := u.getUsersInfo(ctx, userIDs)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(serverUsersInfo) == 0 {
+		log.ZError(ctx, "serverUsersInfo is empty", err, "userIDs", userIDs)
+		return nil, err
+	}
+
+	return datautil.Batch(ServerUserToLocalUser, serverUsersInfo), nil
 }

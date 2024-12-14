@@ -9,7 +9,6 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/protocol/sdkws"
 	userPb "github.com/openimsdk/protocol/user"
 	"github.com/openimsdk/tools/log"
@@ -26,24 +25,11 @@ func (u *User) ProcessUserCommandGetAll(ctx context.Context, req *sdkpb.ProcessU
 }
 
 func (u *User) GetSelfUserInfo(ctx context.Context, _ *sdkpb.GetSelfUserInfoReq) (*sdkpb.GetSelfUserInfoResp, error) {
-	userInfo, err := u.GetLoginUser(ctx, u.loginUserID)
-	if err == nil {
-		return &sdkpb.GetSelfUserInfoResp{User: DBUserToSdk(userInfo)}, nil
-	}
-
-	userInfoFromServer, err := u.getUsersInfo(ctx, []string{u.loginUserID})
+	userInfo, err := u.GetUserInfoWithCache(ctx, u.loginUserID)
 	if err != nil {
 		return nil, err
 	}
-
-	if len(userInfoFromServer) == 0 {
-		return nil, sdkerrs.ErrUserIDNotFound
-	}
-
-	if err := u.InsertLoginUser(ctx, ServerUserToLocalUser(userInfoFromServer[0])); err != nil {
-		return nil, err
-	}
-	return &sdkpb.GetSelfUserInfoResp{User: ServerUserToSdk(userInfoFromServer[0])}, nil
+	return &sdkpb.GetSelfUserInfoResp{User: DBUserToSdk(userInfo)}, nil
 }
 
 func (u *User) SetSelfInfo(ctx context.Context, req *sdkpb.SetSelfInfoReq) (*sdkpb.SetSelfInfoResp, error) {

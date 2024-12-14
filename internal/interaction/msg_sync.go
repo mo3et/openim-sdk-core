@@ -18,13 +18,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 	"runtime/debug"
 	"strings"
 	"sync"
 	"time"
 
-	"gorm.io/gorm"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 
 	"golang.org/x/sync/errgroup"
 
@@ -93,7 +92,7 @@ func (m *MsgSyncer) LoadSeq(ctx context.Context) error {
 
 	if len(conversationIDList) == 0 {
 		version, err := m.db.GetAppSDKVersion(ctx)
-		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		if err != nil && !errors.Is(err, errs.ErrRecordNotFound) {
 			return err
 		}
 		if version == nil || !version.Installed {

@@ -53,26 +53,27 @@ var SearchContentType = []int{constant.Text, constant.AtText, constant.File}
 
 type Conversation struct {
 	*interaction.LongConnMgr
-	conversationSyncer    *syncer.Syncer[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string]
-	db                    db_interface.DataBase
-	ConversationListener  func() open_im_sdk_callback.OnConversationListener
-	messageListener       func() open_im_sdk_callback.OnMessageListener
-	businessListener      func() open_im_sdk_callback.OnCustomBusinessListener
-	recvCH                chan common.Cmd2Value
-	loginUserID           string
-	platform              commonpb.Platform
-	DataDir               string
-	relation              *relation.Relation
-	group                 *group.Group
-	user                  *user.User
-	file                  *file.File
-	cache                 *cache.Cache[string, *model_struct.LocalConversation]
-	maxSeqRecorder        MaxSeqRecorder
-	messagePullMinSeqMap  *cache.Cache[string, int64]
-	msgOffset             int
-	progress              int
-	conversationSyncMutex sync.Mutex
-	streamMsgMutex        sync.Mutex
+	conversationSyncer          *syncer.Syncer[*model_struct.LocalConversation, pbConversation.GetOwnerConversationResp, string]
+	db                          db_interface.DataBase
+	ConversationListener        func() open_im_sdk_callback.OnConversationListener
+	messageListener             func() open_im_sdk_callback.OnMessageListener
+	businessListener            func() open_im_sdk_callback.OnCustomBusinessListener
+	recvCH                      chan common.Cmd2Value
+	loginUserID                 string
+	platform                    commonpb.Platform
+	DataDir                     string
+	relation                    *relation.Relation
+	group                       *group.Group
+	user                        *user.User
+	file                        *file.File
+	cache                       *cache.Cache[string, *model_struct.LocalConversation]
+	maxSeqRecorder              MaxSeqRecorder
+	messagePullForwardEndSeqMap *cache.Cache[string, int64]
+	messagePullReverseEndSeqMap *cache.Cache[string, int64]
+	msgOffset                   int
+	progress                    int
+	conversationSyncMutex       sync.Mutex
+	streamMsgMutex              sync.Mutex
 
 	startTime time.Time
 
@@ -83,16 +84,17 @@ func NewConversation(longConnMgr *interaction.LongConnMgr,
 	ch chan common.Cmd2Value, relation *relation.Relation, group *group.Group, user *user.User,
 	file *file.File) *Conversation {
 	n := &Conversation{
-		LongConnMgr:          longConnMgr,
-		recvCH:               ch,
-		relation:             relation,
-		group:                group,
-		user:                 user,
-		file:                 file,
-		maxSeqRecorder:       NewMaxSeqRecorder(),
-		messagePullMinSeqMap: cache.NewCache[string, int64](),
-		msgOffset:            0,
-		progress:             0,
+		LongConnMgr:                 longConnMgr,
+		recvCH:                      ch,
+		relation:                    relation,
+		group:                       group,
+		user:                        user,
+		file:                        file,
+		maxSeqRecorder:              NewMaxSeqRecorder(),
+		messagePullForwardEndSeqMap: cache.NewCache[string, int64](),
+		messagePullReverseEndSeqMap: cache.NewCache[string, int64](),
+		msgOffset:                   0,
+		progress:                    0,
 	}
 	n.typing = newTyping(n)
 	n.initSyncer()
@@ -796,37 +798,37 @@ func (c *Conversation) FetchSurroundingMessages(ctx context.Context, conversatio
 	if len(res) == 0 {
 		return []*sharedpb.IMMessage{}, nil
 	}
-	_, msgList := c.LocalChatLog2IMMessage(ctx, []*model_struct.LocalChatLog{res[0]})
-	if len(msgList) == 0 {
-		return []*sharedpb.IMMessage{}, nil
-	}
-	msg := msgList[0]
+	//_, msgList := c.LocalChatLog2MsgStruct []*model_struct.LocalChatLog{res[0]})
+	//if len(msgList) == 0 {
+	//	return []*sdk_struct.MsgStruct{}, nil
+	//}
+	//msg := msgList[0]
 	result := make([]*sharedpb.IMMessage, 0, before+after+1)
-	if before > 0 {
-		req := &msgpb.GetHistoryMessageListReq{
-			ConversationID:   conversationID,
-			Count:            int32(before),
-			StartClientMsgID: msg.ClientMsgID,
-		}
-		val, err := c.getHistoryMessageList(ctx, req)
-		if err != nil {
-			return nil, err
-		}
-		result = append(result, val.MessageList...)
-	}
-	result = append(result, msg)
-	if after > 0 {
-		req := &msgpb.GetHistoryMessageListReq{
-			ConversationID:   conversationID,
-			Count:            int32(after),
-			StartClientMsgID: msg.ClientMsgID,
-		}
-		val, err := c.getHistoryMessageList(ctx, req)
-		if err != nil {
-			return nil, err
-		}
-		result = append(result, val.MessageList...)
-	}
-	sort.Sort(MsgList(result))
+	//if before > 0 {
+	//	req := sdk.GetAdvancedHistoryMessageListParams{
+	//		ConversationID:   conversationID,
+	//		Count:            int(before),
+	//		StartClientMsgID: msg.ClientMsgID,
+	//	}
+	//	val, err := c.getAdvancedHistoryMessageList(ctx, req, false)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	result = append(result, val.MessageList...)
+	//}
+	//result = append(result, msg)
+	//if after > 0 {
+	//	req := sdk.GetAdvancedHistoryMessageListParams{
+	//		ConversationID:   conversationID,
+	//		Count:            int(after),
+	//		StartClientMsgID: msg.ClientMsgID,
+	//	}
+	//	val, err := c.getAdvancedHistoryMessageList(ctx, req, true)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	result = append(result, val.MessageList...)
+	//}
+	//sort.Sort(sdk_struct.NewMsgList(result))
 	return result, nil
 }

@@ -99,14 +99,10 @@ func (c *Conversation) GetOneConversation(ctx context.Context, req *sdkpb.GetOne
 			newConversation.ShowName = g.GroupName
 			newConversation.FaceURL = g.FaceURL
 		}
-		time.Sleep(time.Millisecond * 500)
-		lc, errTemp := c.db.GetConversation(ctx, conversationID)
-		if errTemp == nil {
+		//double check if the conversation exists
+		lc, err := c.db.GetConversation(ctx, conversationID)
+		if err == nil {
 			return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToIMConversation(lc)}, nil
-		}
-		err := c.db.InsertConversation(ctx, &newConversation)
-		if err != nil {
-			return nil, err
 		}
 		return &sdkpb.GetOneConversationResp{Conversation: LocalConversationToIMConversation(&newConversation)}, nil
 	}
@@ -982,7 +978,7 @@ func (c *Conversation) initBasicInfo(ctx context.Context, message *sharedpb.IMMe
 	message.IsRead = false
 	message.Status = constant.MsgStatusSending
 	message.SendID = c.loginUserID
-	userInfo, err := c.user.GetUserInfoWithCacheFunc(ctx, c.loginUserID, c.db.GetLoginUser)
+	userInfo, err := c.user.GetUserInfoWithCache(ctx, c.loginUserID)
 	if err != nil {
 		return err
 	}
