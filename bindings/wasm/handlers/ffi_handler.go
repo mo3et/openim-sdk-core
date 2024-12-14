@@ -44,7 +44,6 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 		return nil
 	})
 	defer catchFunc.Release()
-	log.ZWarn(ctx, "sendRequestToJs", "data", data)
 	reqCallBack.Invoke(JSUint8ArrayFromGoBytes(data)).Call("then", thenFunc).Call("catch", catchFunc)
 	select {
 	case <-ctx.Done():

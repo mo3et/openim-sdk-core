@@ -32,7 +32,6 @@ type crossLangFunc[A, B any] func(ctx context.Context, req *A) (*B, error)
 var sendFfiRequest func(ctc context.Context, funcName pb.FuncRequestEventName, data []byte) ([]byte, error)
 
 func invokeFunc[A, B any](ctx context.Context, funName pb.FuncRequestEventName, req *A) (*B, error) {
-	log.ZDebug(ctx, "invokeFunc", "funName", funName, "req", req)
 	reqData, err := serializer.GetInstance().Marshal(any(req))
 	if err != nil {
 		return nil, err
@@ -40,7 +39,6 @@ func invokeFunc[A, B any](ctx context.Context, funName pb.FuncRequestEventName, 
 	if sendFfiRequest == nil {
 		return nil, sdkerrs.ErrArgs.WrapMsg("dispatchFfiResult is nil")
 	}
-	log.ZDebug(ctx, "invokeFunc", "funName", funName, "reqData", reqData)
 	respData, err := sendFfiRequest(ctx, funName, reqData)
 	if err != nil {
 		return nil, err

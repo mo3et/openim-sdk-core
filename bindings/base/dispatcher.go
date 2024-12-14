@@ -53,7 +53,6 @@ func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, 
 		FuncName:    funcName,
 		Data:        data,
 	}
-	log.ZDebug(ctx, "GoFfiRequestHandler", "ffiRequest", ffiRequest.String())
 	ffiRequestData, err := serializer.GetInstance().Marshal(ffiRequest)
 	if err != nil {
 		return nil, sdkerrs.ErrArgs.Wrap()
