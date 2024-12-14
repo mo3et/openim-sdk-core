@@ -360,8 +360,15 @@ func (d *DataBase) GetConversationNormalMsgSeq(ctx context.Context, conversation
 	}
 	d.mRWMutex.RLock()
 	defer d.mRWMutex.RUnlock()
+
 	var seq int64
-	err = d.conn.WithContext(ctx).Table(utils.GetConversationTableName(conversationID)).Select("seq").Order("seq DESC").First(&seq).Error
+	err = d.conn.WithContext(ctx).
+		Table(utils.GetConversationTableName(conversationID)).
+		Select("seq").
+		Order("seq DESC").
+		Limit(1).
+		Scan(&seq).Error
+
 	return seq, errs.WrapMsg(err, "GetConversationNormalMsgSeq")
 }
 
