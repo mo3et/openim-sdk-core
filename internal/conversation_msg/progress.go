@@ -17,7 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"encoding/json"
-
+	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	eventpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
@@ -26,14 +26,14 @@ import (
 	"github.com/openimsdk/tools/log"
 )
 
-func NewUploadFileCallback(ctx context.Context, progress func(progress *eventpb.EventOnSendMsgProgressData), msg *sdkpb.IMMessage, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
+func NewUploadFileCallback(ctx context.Context, callback open_im_sdk_callback.SendMsgCallBack, msg *sdkpb.IMMessage, conversationID string, db db_interface.DataBase) file.UploadFileCallback {
 	if msg.AttachedInfoElem == nil {
 		msg.AttachedInfoElem = &sdkpb.AttachedInfoElem{}
 	}
 	if msg.AttachedInfoElem.Progress == nil {
 		msg.AttachedInfoElem.Progress = &sdkpb.UploadProgress{}
 	}
-	return &msgUploadFileCallback{ctx: ctx, progress: progress, msg: msg, db: db, conversationID: conversationID}
+	return &msgUploadFileCallback{ctx: ctx, callback: callback, msg: msg, db: db, conversationID: conversationID}
 }
 
 type msgUploadFileCallback struct {
@@ -42,7 +42,7 @@ type msgUploadFileCallback struct {
 	msg            *sdkpb.IMMessage
 	conversationID string
 	value          int
-	progress       func(progress *eventpb.EventOnSendMsgProgressData)
+	callback       open_im_sdk_callback.SendMsgCallBack
 }
 
 func (c *msgUploadFileCallback) Open(size int64) {
@@ -85,13 +85,13 @@ func (c *msgUploadFileCallback) UploadComplete(fileSize int64, streamSize int64,
 	value := int(float64(streamSize) / float64(fileSize) * 100)
 	if c.value < value {
 		c.value = value
-		c.progress(&eventpb.EventOnSendMsgProgressData{ClientMsgID: c.msg.GetClientMsgID(), Progress: int32(value)})
+		c.callback.OnSendMsgProgress(&eventpb.EventOnSendMsgProgressData{ClientMsgID: c.msg.GetClientMsgID(), Progress: int32(value)})
 	}
 }
 
 func (c *msgUploadFileCallback) Complete(size int64, url string, typ int) {
 	if c.value != 100 {
-		c.progress(&eventpb.EventOnSendMsgProgressData{ClientMsgID: c.msg.GetClientMsgID(), Progress: 100})
+		c.callback.OnSendMsgProgress(&eventpb.EventOnSendMsgProgressData{ClientMsgID: c.msg.GetClientMsgID(), Progress: 100})
 	}
 	c.msg.AttachedInfoElem.Progress = nil
 	data, err := json.Marshal(c.msg.AttachedInfoElem)

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
@@ -337,29 +337,72 @@ func getMsgUrl(msg *sharedpb.IMMessage) string {
 }
 
 func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageReq, callback open_im_sdk_callback.SendMsgCallBack) (*msgpb.SendMessageResp, error) {
-	// Message is created by URL
-	if getMsgUrl(req.Message) != "" {
+	var uploadFileCount int
+	checkPathOrURL := func(path, rawURL string, opt bool) error {
+		if path == "" && rawURL == "" && opt == false {
+			return errs.ErrArgs.WrapMsg("filepath and source url can't be empty")
+		}
+		if path != "" && rawURL != "" {
+			return errs.ErrArgs.WrapMsg("filepath and source url can't be both not empty")
+		}
+		if rawURL != "" {
+			if _, err := url.Parse(rawURL); err != nil {
+				return errs.ErrArgs.WrapMsg("source url is invalid " + err.Error())
+			}
+		}
+		if path != "" {
+			uploadFileCount++
+		}
+		return nil
+	}
+	switch req.Message.ContentType {
+	case commonpb.ContentType_Picture:
+		elem := req.Message.Content.(*sharedpb.IMMessage_PictureElem).PictureElem
+		if err := checkPathOrURL(elem.SourcePath, elem.SourcePicture.Url, false); err != nil {
+			return nil, err
+		}
+		if err := checkPathOrURL(elem.BigPath, elem.BigPicture.Url, true); err != nil {
+			return nil, err
+		}
+		if err := checkPathOrURL(elem.SnapshotPath, elem.SnapshotPicture.Url, true); err != nil {
+			return nil, err
+		}
+	case commonpb.ContentType_Sound:
+		elem := req.Message.Content.(*sharedpb.IMMessage_SoundElem).SoundElem
+		if err := checkPathOrURL(elem.SoundPath, elem.SourceURL, false); err != nil {
+			return nil, err
+		}
+	case commonpb.ContentType_Video:
+		elem := req.Message.Content.(*sharedpb.IMMessage_VideoElem).VideoElem
+		if err := checkPathOrURL(elem.VideoPath, elem.VideoURL, false); err != nil {
+			return nil, err
+		}
+		if err := checkPathOrURL(elem.SnapshotPath, elem.SnapshotURL, false); err != nil {
+			return nil, err
+		}
+	case commonpb.ContentType_File:
+		elem := req.Message.Content.(*sharedpb.IMMessage_FileElem).FileElem
+		if err := checkPathOrURL(elem.FilePath, elem.SourceURL, false); err != nil {
+			return nil, err
+		}
+	case commonpb.ContentType_Text, commonpb.ContentType_AtText, commonpb.ContentType_Location,
+		commonpb.ContentType_Custom, commonpb.ContentType_Merge, commonpb.ContentType_Quote,
+		commonpb.ContentType_Card, commonpb.ContentType_Face, commonpb.ContentType_AdvancedText:
+	default:
+		return nil, sdkerrs.ErrMsgContentTypeNotSupport.Wrap()
+	}
+	if uploadFileCount == 0 {
 		msg, err := c.sendMessageNotOss(ctx, req.Message, req.RecvID, req.GroupID, req.Message.OfflinePush, req.IsOnlineOnly)
 		if err != nil {
 			return nil, err
 		}
 		return &msgpb.SendMessageResp{Message: msg}, nil
 	}
-
-	filepathExt := func(name ...string) string {
-		for _, path := range name {
-			if ext := filepath.Ext(path); ext != "" {
-				return ext
-			}
-		}
-		return ""
-	}
 	options := make(map[string]bool, 2)
 	lc, err := c.checkID(ctx, req.Message, req.RecvID, req.GroupID, options)
 	if err != nil {
 		return nil, err
 	}
-	log.ZDebug(ctx, "before insert message is", "message", req.Message)
 	if !req.IsOnlineOnly {
 		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, req.Message.ClientMsgID)
 		if err != nil {
@@ -393,210 +436,130 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 		log.ZDebug(ctx, "send message come here", "conversion", *lc)
 		_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: lc.ConversationID, Action: constant.AddConOrUpLatMsg, Args: *lc}, c.GetCh())
 	}
-
-	var delFile []string
-	//media file handle
-	switch req.Message.ContentType {
-	case commonpb.ContentType_Picture:
-		if req.Message.Status == commonpb.MsgStatus_SendSuccess {
-			break
-		}
-		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_PictureElem)
-		if !ok {
-			return nil, msgContentTypeErr.Wrap()
-		}
-		var sourcePath string
-		if utils.FileExist(msgElem.PictureElem.SourcePath) {
-			sourcePath = msgElem.PictureElem.SourcePath
-			delFile = append(delFile, utils.FileTmpPath(msgElem.PictureElem.SourcePath, c.DataDir))
-		} else {
-			sourcePath = utils.FileTmpPath(msgElem.PictureElem.SourcePath, c.DataDir)
-			delFile = append(delFile, sourcePath)
-		}
-		log.ZDebug(ctx, "send picture", "path", sourcePath)
-
-		res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
-			MimeType:     msgElem.PictureElem.SourcePicture.Type,
-			Filepath:     sourcePath,
-			Name:         c.fileName("picture", req.Message.ClientMsgID) + filepathExt(msgElem.PictureElem.SourcePicture.Uuid, sourcePath),
-			FileCategory: "msg-picture",
-		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
-		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
-			return nil, err
-		}
-		msgElem.PictureElem.SourcePicture.Url = res.Url
-		msgElem.PictureElem.BigPicture = msgElem.PictureElem.SourcePicture
-		u, err := url.Parse(res.Url)
-		if err == nil {
-			snapshot := u.Query()
-			snapshot.Set("type", "image")
-			snapshot.Set("width", "640")
-			snapshot.Set("height", "640")
-			u.RawQuery = snapshot.Encode()
-			msgElem.PictureElem.SnapshotPicture = &sharedpb.PictureBaseInfo{
-				Width:  640,
-				Height: 640,
-				Url:    u.String(),
+	filepathExt := func(name ...string) string {
+		for _, p := range name {
+			if ext := filepath.Ext(p); ext != "" {
+				return ext
 			}
-		} else {
-			log.ZError(ctx, "parse url failed", err, "url", res.Url, "err", err)
-			msgElem.PictureElem.SnapshotPicture = msgElem.PictureElem.SourcePicture
 		}
-
+		return ""
+	}
+	switch req.Message.ContentType {
+	case commonpb.ContentType_File:
+		elem := req.Message.Content.(*sharedpb.IMMessage_FileElem).FileElem
+		if elem.SourceURL == "" {
+			name := strings.TrimSpace(elem.FileName)
+			if name == "" {
+				name = fmt.Sprintf("msg_file_%s.unknown", req.Message.ClientMsgID)
+			}
+			res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
+				MimeType:     content_type.GetType(elem.FileType, filepath.Ext(name), filepath.Ext(elem.FilePath)),
+				Filepath:     elem.FilePath,
+				Name:         c.fileName("file", path.Join(req.Message.ClientMsgID, filepath.Base(name))),
+				FileCategory: "msg-file",
+			}, NewUploadFileCallback(ctx, callback, req.Message, lc.ConversationID, c.db))
+			if err != nil {
+				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
+				return nil, err
+			}
+			elem.SourceURL = res.Url
+		}
 	case commonpb.ContentType_Sound:
-		if req.Message.Status == commonpb.MsgStatus_SendSuccess {
-			break
+		elem := req.Message.Content.(*sharedpb.IMMessage_SoundElem).SoundElem
+		if elem.SourceURL == "" {
+			res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
+				MimeType:     elem.SoundType,
+				Filepath:     elem.SoundPath,
+				Name:         c.fileName("voice", req.Message.ClientMsgID) + filepathExt(elem.Uuid, elem.SoundPath),
+				FileCategory: "msg-voice",
+			}, NewUploadFileCallback(ctx, callback, req.Message, lc.ConversationID, c.db))
+			if err != nil {
+				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
+				return nil, err
+			}
+			elem.SourceURL = res.Url
 		}
-		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_SoundElem)
-		if !ok {
-			return nil, msgContentTypeErr.Wrap()
-		}
-		var sourcePath string
-		if utils.FileExist(msgElem.SoundElem.SoundPath) {
-			sourcePath = msgElem.SoundElem.SoundPath
-			delFile = append(delFile, utils.FileTmpPath(msgElem.SoundElem.SoundPath, c.DataDir))
-		} else {
-			sourcePath = utils.FileTmpPath(msgElem.SoundElem.SoundPath, c.DataDir)
-			delFile = append(delFile, sourcePath)
-		}
-		// log.Info("", "file", sourcePath, delFile)
-
-		res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
-			MimeType:     msgElem.SoundElem.SoundType,
-			Filepath:     sourcePath,
-			Name:         c.fileName("voice", req.Message.ClientMsgID) + filepathExt(msgElem.SoundElem.Uuid, sourcePath),
-			FileCategory: "msg-voice",
-		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
-		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
-			return nil, err
-		}
-		msgElem.SoundElem.SourceURL = res.Url
 	case commonpb.ContentType_Video:
-		if req.Message.Status == commonpb.MsgStatus_SendSuccess {
-			break
-		}
-		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_VideoElem)
-		if !ok {
-			return nil, msgContentTypeErr.Wrap()
-		}
-		var videoPath string
-		var snapPath string
-		if utils.FileExist(msgElem.VideoElem.VideoPath) {
-			videoPath = msgElem.VideoElem.VideoPath
-			snapPath = msgElem.VideoElem.SnapshotPath
-			delFile = append(delFile, utils.FileTmpPath(msgElem.VideoElem.VideoPath, c.DataDir))
-			delFile = append(delFile, utils.FileTmpPath(msgElem.VideoElem.SnapshotPath, c.DataDir))
-		} else {
-			videoPath = utils.FileTmpPath(msgElem.VideoElem.VideoPath, c.DataDir)
-			snapPath = utils.FileTmpPath(msgElem.VideoElem.SnapshotPath, c.DataDir)
-			delFile = append(delFile, videoPath)
-			delFile = append(delFile, snapPath)
-		}
-		log.ZDebug(ctx, "file", "videoPath", videoPath, "snapPath", snapPath, "delFile", delFile)
-
-		var wg sync.WaitGroup
-		wg.Add(2)
-		var putErrs error
-		go func() {
-			defer wg.Done()
-			snapRes, err := c.file.UploadFile(ctx, &third.UploadFileReq{
-				MimeType:     msgElem.VideoElem.SnapshotType,
-				Filepath:     snapPath,
-				Name:         c.fileName("videoSnapshot", req.Message.ClientMsgID) + filepathExt(msgElem.VideoElem.SnapshotUUID, snapPath),
+		elem := req.Message.Content.(*sharedpb.IMMessage_VideoElem).VideoElem
+		if elem.SnapshotPath != "" {
+			res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
+				MimeType:     elem.SnapshotType,
+				Filepath:     elem.SnapshotPath,
+				Name:         c.fileName("videoSnapshot", req.Message.ClientMsgID) + filepathExt(elem.SnapshotUUID, elem.SnapshotPath),
 				FileCategory: "msg-video-snapshot",
 			}, nil)
 			if err != nil {
-				log.ZWarn(ctx, "upload video snapshot failed", err)
-				return
-			}
-			msgElem.VideoElem.SnapshotURL = snapRes.Url
-		}()
-
-		go func() {
-			defer wg.Done()
-			res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
-				MimeType:     content_type.GetType(msgElem.VideoElem.VideoType, filepath.Ext(msgElem.VideoElem.VideoPath)),
-				Filepath:     videoPath,
-				Name:         c.fileName("video", req.Message.ClientMsgID) + filepathExt(msgElem.VideoElem.VideoUUID, videoPath),
-				FileCategory: "msg-video",
-			}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
-			if err != nil {
 				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
-				putErrs = err
-				return
-			}
-			if res != nil {
-				msgElem.VideoElem.VideoURL = res.Url
-			}
-		}()
-		wg.Wait()
-		if err := putErrs; err != nil {
-			return nil, err
-		}
-	case commonpb.ContentType_File:
-		if req.Message.Status == commonpb.MsgStatus_SendSuccess {
-			break
-		}
-		msgElem, ok := req.Message.Content.(*sharedpb.IMMessage_FileElem)
-		if !ok {
-			return nil, msgContentTypeErr.Wrap()
-		}
-		name := msgElem.FileElem.FileName
-
-		if name == "" {
-			name = msgElem.FileElem.FilePath
-		}
-		if name == "" {
-			name = fmt.Sprintf("msg_file_%s.unknown", req.Message.ClientMsgID)
-		}
-		var sourcePath string
-		if utils.FileExist(msgElem.FileElem.FilePath) {
-			sourcePath = msgElem.FileElem.FilePath
-			delFile = append(delFile, utils.FileTmpPath(msgElem.FileElem.FilePath, c.DataDir))
-		} else {
-			sourcePath = utils.FileTmpPath(msgElem.FileElem.FilePath, c.DataDir)
-			delFile = append(delFile, sourcePath)
-		}
-
-		res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
-			MimeType: content_type.GetType(msgElem.FileElem.FileType, filepath.Ext(msgElem.FileElem.FilePath),
-				filepath.Ext(msgElem.FileElem.FileName)),
-			Filepath:     sourcePath,
-			Name:         c.fileName("file", req.Message.ClientMsgID) + "/" + filepath.Base(name),
-			FileCategory: "msg-file",
-		}, NewUploadFileCallback(ctx, callback.OnSendMsgProgress, req.Message, lc.ConversationID, c.db))
-		if err != nil {
-			c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, constant.MsgStatusSendFailed, req.Message, lc, req.IsOnlineOnly)
-			return nil, err
-		}
-		msgElem.FileElem.SourceURL = res.Url
-	case commonpb.ContentType_Text:
-	case commonpb.ContentType_AtText:
-	case commonpb.ContentType_Location:
-	case commonpb.ContentType_Custom:
-	case commonpb.ContentType_Merge:
-	case commonpb.ContentType_Quote:
-	case commonpb.ContentType_Card:
-	case commonpb.ContentType_Face:
-	case commonpb.ContentType_AdvancedText:
-	case commonpb.ContentType_Stream:
-	default:
-		return nil, sdkerrs.ErrMsgContentTypeNotSupport
-	}
-	if datautil.Contain(req.Message.ContentType, commonpb.ContentType_Picture, commonpb.ContentType_Sound, commonpb.ContentType_Video, commonpb.ContentType_File) {
-		if !req.IsOnlineOnly {
-			localMessage := IMMessageToLocalChatLog(ctx, req.Message)
-			log.ZDebug(ctx, "update message is ", "localMessage", localMessage)
-			err = c.db.UpdateMessage(ctx, lc.ConversationID, localMessage)
-			if err != nil {
 				return nil, err
 			}
+			elem.SnapshotURL = res.Url
+		}
+		if elem.VideoPath != "" {
+			res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
+				MimeType:     content_type.GetType(elem.VideoType, filepath.Ext(elem.VideoPath)),
+				Filepath:     elem.VideoPath,
+				Name:         c.fileName("video", req.Message.ClientMsgID) + filepathExt(elem.VideoUUID, elem.VideoPath),
+				FileCategory: "msg-video",
+			}, NewUploadFileCallback(ctx, callback, req.Message, lc.ConversationID, c.db))
+			if err != nil {
+				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
+				return nil, err
+			}
+			elem.VideoURL = res.Url
+		}
+	case commonpb.ContentType_Picture:
+		elem := req.Message.Content.(*sharedpb.IMMessage_PictureElem).PictureElem
+		if elem.SnapshotPath != "" {
+			res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
+				MimeType:     elem.BigPicture.Type,
+				Filepath:     elem.BigPath,
+				Name:         c.fileName("picture-snapshot", req.Message.ClientMsgID) + filepathExt(elem.BigPicture.Uuid, elem.BigPath),
+				FileCategory: "msg-picture-snapshot",
+			}, nil)
+			if err != nil {
+				c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
+				return nil, err
+			}
+			elem.SnapshotPicture.Url = res.Url
+		}
+		if elem.BigPath != "" {
+			if elem.BigPath == elem.SnapshotPath {
+				elem.BigPicture.Url = elem.SnapshotPicture.Url
+			} else {
+				res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
+					MimeType:     elem.BigPicture.Type,
+					Filepath:     elem.BigPath,
+					Name:         c.fileName("picture-big", req.Message.ClientMsgID) + filepathExt(elem.BigPicture.Uuid, elem.BigPath),
+					FileCategory: "msg-picture-big",
+				}, NewUploadFileCallback(ctx, callback, req.Message, lc.ConversationID, c.db))
+				if err != nil {
+					c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
+					return nil, err
+				}
+				elem.BigPicture.Url = res.Url
+			}
+		}
+		if elem.SourcePath != "" {
+			if elem.SourcePath == elem.BigPath {
+				elem.SourcePicture.Url = elem.BigPicture.Url
+			} else if elem.SourcePath == elem.SnapshotPath {
+				elem.SourcePicture.Url = elem.SnapshotPicture.Url
+			} else {
+				res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
+					MimeType:     elem.SourcePicture.Type,
+					Filepath:     elem.SourcePath,
+					Name:         c.fileName("picture", req.Message.ClientMsgID) + filepathExt(elem.SourcePicture.Uuid, elem.SourcePath),
+					FileCategory: "msg-picture",
+				}, NewUploadFileCallback(ctx, callback, req.Message, lc.ConversationID, c.db))
+				if err != nil {
+					c.updateMsgStatusAndTriggerConversation(ctx, req.Message.ClientMsgID, "", req.Message.CreateTime, commonpb.MsgStatus_SendFailed, req.Message, lc, req.IsOnlineOnly)
+					return nil, err
+				}
+				elem.SourcePicture.Url = res.Url
+			}
 		}
 	}
-
-	msg, err := c.sendMessageToServer(ctx, req.Message, lc, delFile, req.Message.OfflinePush, options, req.IsOnlineOnly)
+	msg, err := c.sendMessageToServer(ctx, req.Message, lc, nil, req.Message.OfflinePush, options, req.IsOnlineOnly)
 	if err != nil {
 		return nil, err
 	}

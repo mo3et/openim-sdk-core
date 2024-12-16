@@ -155,43 +155,43 @@ func (c *Conversation) CreateCardMessage(ctx context.Context, req *sdkpb.CreateC
 }
 
 func (c *Conversation) CreateImageMessage(ctx context.Context, req *sdkpb.CreateImageMessageReq) (*sdkpb.CreateImageMessageResp, error) {
-	s := sharedpb.IMMessage{}
-	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Picture)
-	if err != nil {
-		return nil, err
-	}
-
-	// Create by file path
-	if req.SourcePicture != nil || req.BigPicture != nil || req.SnapshotPicture != nil {
-		dstFile := utils.FileTmpPath(req.SourcePath, c.DataDir)
-		_, err := utils.CopyFile(req.SourcePath, dstFile)
-		if err != nil {
-			return nil, err
-		}
-
-		imageInfo, err := getImageInfo(req.SourcePath)
-		if err != nil {
-			return nil, err
-		}
-
-		s.Content = &sharedpb.IMMessage_PictureElem{PictureElem: &sharedpb.PictureElem{
-			SourcePath: req.SourcePath,
-			SourcePicture: &sharedpb.PictureBaseInfo{
-				Width:  imageInfo.Width,
-				Height: imageInfo.Height,
-				Type:   imageInfo.Type,
-			},
-		}}
-	} else { // Create by URL
-		s.Content = &sharedpb.IMMessage_PictureElem{PictureElem: &sharedpb.PictureElem{
-			SourcePath:      req.SourcePath,
-			SourcePicture:   req.SourcePicture,
-			BigPicture:      req.BigPicture,
-			SnapshotPicture: req.SnapshotPicture,
-		}}
-	}
-
-	return &sdkpb.CreateImageMessageResp{Message: &s}, nil
+	//s := sharedpb.IMMessage{}
+	//err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Picture)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//
+	//// Create by file path
+	//if req.SourcePicture != nil || req.BigPicture != nil || req.SnapshotPicture != nil {
+	//	dstFile := utils.FileTmpPath(req.SourcePath, c.DataDir)
+	//	_, err := utils.CopyFile(req.SourcePath, dstFile)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//
+	//	imageInfo, err := getImageInfo(req.SourcePath)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//
+	//	s.Content = &sharedpb.IMMessage_PictureElem{PictureElem: &sharedpb.PictureElem{
+	//		SourcePath: req.SourcePath,
+	//		SourcePicture: &sharedpb.PictureBaseInfo{
+	//			Width:  imageInfo.Width,
+	//			Height: imageInfo.Height,
+	//			Type:   imageInfo.Type,
+	//		},
+	//	}}
+	//} else { // Create by URL
+	//	s.Content = &sharedpb.IMMessage_PictureElem{PictureElem: &sharedpb.PictureElem{
+	//		SourcePath:      req.SourcePath,
+	//		SourcePicture:   req.SourcePicture,
+	//		BigPicture:      req.BigPicture,
+	//		SnapshotPicture: req.SnapshotPicture,
+	//	}}
+	//}
+	//return &sdkpb.CreateImageMessageResp{Message: &s}, nil
+	return &sdkpb.CreateImageMessageResp{}, nil
 }
 
 func (c *Conversation) CreateSoundMessage(ctx context.Context, req *sdkpb.CreateSoundMessageReq) (*sdkpb.CreateSoundMessageResp, error) {
@@ -235,84 +235,84 @@ func (c *Conversation) CreateSoundMessage(ctx context.Context, req *sdkpb.Create
 }
 
 func (c *Conversation) CreateVideoMessage(ctx context.Context, req *sdkpb.CreateVideoMessageReq) (*sdkpb.CreateVideoMessageResp, error) {
-	s := sharedpb.IMMessage{}
-	err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Video)
-	if err != nil {
-		return nil, err
-	}
-
-	// Create by file path
-	if req.VideoElem == nil {
-		dstFile := utils.FileTmpPath(req.VideoSourcePath, c.DataDir) //a->b
-		written, err := utils.CopyFile(req.VideoSourcePath, dstFile)
-		if err != nil {
-			//log.Error("internal", "open file failed: ", err, videoFullPath)
-			return nil, err
-		}
-
-		log.ZDebug(ctx, "videoFullPath dstFile", "videoFullPath", req.VideoSourcePath,
-			"dstFile", dstFile, "written", written)
-
-		dstFile = utils.FileTmpPath(req.SnapshotSourcePath, c.DataDir) //a->b
-		sWritten, err := utils.CopyFile(req.SnapshotSourcePath, dstFile)
-		if err != nil {
-			//log.Error("internal", "open file failed: ", err, snapshotFullPath)
-			return nil, err
-		}
-
-		log.ZDebug(ctx, "snapshotFullPath dstFile", "snapshotFullPath", req.SnapshotSourcePath,
-			"dstFile", dstFile, "sWritten", sWritten)
-
-		elem := &sharedpb.VideoElem{
-			VideoPath: req.VideoSourcePath,
-			VideoType: req.VideoType,
-			Duration:  req.Duration,
-		}
-		s.Content = &sharedpb.IMMessage_VideoElem{VideoElem: elem}
-
-		if req.SnapshotSourcePath == "" {
-			elem.SnapshotPath = ""
-		} else {
-			elem.SnapshotPath = req.SnapshotSourcePath
-		}
-
-		fi, err := os.Stat(elem.VideoPath)
-		if err != nil {
-			//log.Error("internal", "get file Attributes error", err.Error())
-			return nil, err
-		}
-
-		elem.VideoSize = fi.Size()
-		if req.SnapshotSourcePath != "" {
-			imageInfo, err := getImageInfo(elem.SnapshotPath)
-			if err != nil {
-				log.ZError(ctx, "getImageInfo err:", err, "snapshotFullPath", req.SnapshotSourcePath)
-				return nil, err
-			}
-
-			elem.SnapshotHeight = imageInfo.Height
-			elem.SnapshotWidth = imageInfo.Width
-			elem.SnapshotSize = imageInfo.Size
-		}
-	} else { // Create by URL
-		s.Content = &sharedpb.IMMessage_VideoElem{VideoElem: &sharedpb.VideoElem{
-			VideoPath:      req.VideoElem.VideoPath,
-			VideoUUID:      req.VideoElem.VideoUUID,
-			VideoURL:       req.VideoElem.VideoURL,
-			VideoType:      req.VideoElem.VideoType,
-			VideoSize:      req.VideoElem.VideoSize,
-			Duration:       req.VideoElem.Duration,
-			SnapshotPath:   req.VideoElem.SnapshotPath,
-			SnapshotUUID:   req.VideoElem.SnapshotUUID,
-			SnapshotSize:   req.VideoElem.SnapshotSize,
-			SnapshotURL:    req.VideoElem.SnapshotURL,
-			SnapshotWidth:  req.VideoElem.SnapshotWidth,
-			SnapshotHeight: req.VideoElem.SnapshotHeight,
-			SnapshotType:   req.VideoElem.SnapshotType,
-		}}
-	}
-
-	return &sdkpb.CreateVideoMessageResp{Message: &s}, nil
+	//s := sharedpb.IMMessage{}
+	//err := c.initBasicInfo(ctx, &s, constant.UserMsgType, constant.Video)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//
+	//// Create by file path
+	//if req.VideoElem == nil {
+	//	dstFile := utils.FileTmpPath(req.VideoSourcePath, c.DataDir) //a->b
+	//	written, err := utils.CopyFile(req.VideoSourcePath, dstFile)
+	//	if err != nil {
+	//		//log.Error("internal", "open file failed: ", err, videoFullPath)
+	//		return nil, err
+	//	}
+	//
+	//	log.ZDebug(ctx, "videoFullPath dstFile", "videoFullPath", req.VideoSourcePath,
+	//		"dstFile", dstFile, "written", written)
+	//
+	//	dstFile = utils.FileTmpPath(req.SnapshotSourcePath, c.DataDir) //a->b
+	//	sWritten, err := utils.CopyFile(req.SnapshotSourcePath, dstFile)
+	//	if err != nil {
+	//		//log.Error("internal", "open file failed: ", err, snapshotFullPath)
+	//		return nil, err
+	//	}
+	//
+	//	log.ZDebug(ctx, "snapshotFullPath dstFile", "snapshotFullPath", req.SnapshotSourcePath,
+	//		"dstFile", dstFile, "sWritten", sWritten)
+	//
+	//	elem := &sharedpb.VideoElem{
+	//		VideoPath: req.VideoSourcePath,
+	//		VideoType: req.VideoType,
+	//		Duration:  req.Duration,
+	//	}
+	//	s.Content = &sharedpb.IMMessage_VideoElem{VideoElem: elem}
+	//
+	//	if req.SnapshotSourcePath == "" {
+	//		elem.SnapshotPath = ""
+	//	} else {
+	//		elem.SnapshotPath = req.SnapshotSourcePath
+	//	}
+	//
+	//	fi, err := os.Stat(elem.VideoPath)
+	//	if err != nil {
+	//		//log.Error("internal", "get file Attributes error", err.Error())
+	//		return nil, err
+	//	}
+	//
+	//	elem.VideoSize = fi.Size()
+	//	if req.SnapshotSourcePath != "" {
+	//		imageInfo, err := getImageInfo(elem.SnapshotPath)
+	//		if err != nil {
+	//			log.ZError(ctx, "getImageInfo err:", err, "snapshotFullPath", req.SnapshotSourcePath)
+	//			return nil, err
+	//		}
+	//
+	//		elem.SnapshotHeight = imageInfo.Height
+	//		elem.SnapshotWidth = imageInfo.Width
+	//		elem.SnapshotSize = imageInfo.Size
+	//	}
+	//} else { // Create by URL
+	//	s.Content = &sharedpb.IMMessage_VideoElem{VideoElem: &sharedpb.VideoElem{
+	//		VideoPath:      req.VideoElem.VideoPath,
+	//		VideoUUID:      req.VideoElem.VideoUUID,
+	//		VideoURL:       req.VideoElem.VideoURL,
+	//		VideoType:      req.VideoElem.VideoType,
+	//		VideoSize:      req.VideoElem.VideoSize,
+	//		Duration:       req.VideoElem.Duration,
+	//		SnapshotPath:   req.VideoElem.SnapshotPath,
+	//		SnapshotUUID:   req.VideoElem.SnapshotUUID,
+	//		SnapshotSize:   req.VideoElem.SnapshotSize,
+	//		SnapshotURL:    req.VideoElem.SnapshotURL,
+	//		SnapshotWidth:  req.VideoElem.SnapshotWidth,
+	//		SnapshotHeight: req.VideoElem.SnapshotHeight,
+	//		SnapshotType:   req.VideoElem.SnapshotType,
+	//	}}
+	//}
+	//return &sdkpb.CreateVideoMessageResp{Message: &s}, nil
+	return &sdkpb.CreateVideoMessageResp{}, nil
 }
 
 func (c *Conversation) CreateFileMessage(ctx context.Context, req *sdkpb.CreateFileMessageReq) (*sdkpb.CreateFileMessageResp, error) {
