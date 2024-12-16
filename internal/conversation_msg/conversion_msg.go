@@ -11,17 +11,14 @@ import (
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
-	"github.com/openimsdk/tools/utils/stringutil"
 )
 
 func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfoElem {
-
 	elem := &model_struct.AttachedInfoElem{
 		IsPrivateChat: attached.GetIsPrivateChat(),
 		BurnDuration:  attached.GetBurnDuration(),
 		HasReadTime:   attached.GetHasReadTime(),
 	}
-
 	if attached.GetProgress() != nil {
 		elem.Progress = &model_struct.UploadProgress{
 			Total:    attached.Progress.Total,
@@ -30,11 +27,14 @@ func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfo
 			UploadID: attached.Progress.UploadID,
 		}
 	}
-
 	return elem
 }
 
 func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
+	content, err := msg.FormatContent()
+	if err != nil {
+		panic(err)
+	}
 	localMessage := &model_struct.LocalChatLog{
 		ClientMsgID:      msg.ClientMsgID,
 		ServerMsgID:      msg.ServerMsgID,
@@ -46,7 +46,7 @@ func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 		SessionType:      int32(msg.SessionType),
 		MsgFrom:          int32(msg.MsgFrom),
 		ContentType:      int32(msg.ContentType),
-		Content:          utils.StructToJsonString(sdkpb.GetContentType(msg.ContentType).Get(msg.Content)),
+		Content:          string(content),
 		IsRead:           msg.IsRead,
 		Status:           int32(msg.Status),
 		Seq:              msg.Seq,
@@ -108,6 +108,10 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 }
 
 func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
+	content, err := message.FormatContent()
+	if err != nil {
+		panic(err)
+	}
 	return &sdkws.MsgData{
 		ClientMsgID:      message.ClientMsgID,
 		ServerMsgID:      message.ServerMsgID,
@@ -120,7 +124,7 @@ func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
 		SessionType:      int32(message.SessionType),
 		MsgFrom:          int32(message.MsgFrom),
 		ContentType:      int32(message.ContentType),
-		Content:          stringutil.StructToJsonBytes(sdkpb.GetContentType(message.ContentType).Get(message.Content)),
+		Content:          content,
 		IsRead:           message.IsRead,
 		Status:           int32(message.Status),
 		Seq:              message.Seq,
@@ -201,12 +205,6 @@ func stringToMsgContent(msg *sdkpb.IMMessage, content string) {
 		return
 	}
 	elem := m.New()
-	//var err error
-	//if m.N {
-	//	err = utils.UnmarshalNotificationElem([]byte(content), elem)
-	//} else {
-	//	err = utils.JsonStringToStruct(content, elem)
-	//}
 	if err := utils.JsonStringToStruct(content, elem); err != nil {
 		log.ZError(context.Background(), "stringToMsgContent unmarshal", err, "msg", msg, "notification", m.N, "content", content)
 	}

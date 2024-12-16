@@ -27,7 +27,7 @@ type jsonIMMessage struct {
 	Ex               string                  `json:"ex"`
 	LocalEx          string                  `json:"localEx"`
 	AttachedInfoElem *AttachedInfoElem       `json:"attachedInfoElem"`
-	Content          json.RawMessage         `json:"content"`
+	Content          json.RawMessage         `json:"content,omitempty"`
 	TextElem         *TextElem               `json:"textElem,omitempty"`
 	CardElem         *CardElem               `json:"cardElem,omitempty"`
 	PictureElem      *PictureElem            `json:"pictureElem,omitempty"`
@@ -94,6 +94,44 @@ func (x *jsonIMMessage) getNotNilElem() any {
 	return nil
 }
 
+func (x *IMMessage) setElem(msg *jsonIMMessage, elem any) error {
+	switch v := elem.(type) {
+	case *TextElem:
+		msg.TextElem = v
+	case *CardElem:
+		msg.CardElem = v
+	case *PictureElem:
+		msg.PictureElem = v
+	case *SoundElem:
+		msg.SoundElem = v
+	case *VideoElem:
+		msg.VideoElem = v
+	case *FileElem:
+		msg.FileElem = v
+	case *MergeElem:
+		msg.MergeElem = v
+	case *AtTextElem:
+		msg.AtTextElem = v
+	case *FaceElem:
+		msg.FaceElem = v
+	case *LocationElem:
+		msg.LocationElem = v
+	case *CustomElem:
+		msg.CustomElem = v
+	case *QuoteElem:
+		msg.QuoteElem = v
+	case *AdvancedTextElem:
+		msg.AdvancedTextElem = v
+	case *TypingElem:
+		msg.TypingElem = v
+	case *StreamElem:
+		msg.StreamElem = v
+	default:
+		return fmt.Errorf("json unknown content type %T value %+v", elem, elem)
+	}
+	return nil
+}
+
 func (x *IMMessage) UnmarshalJSON(b []byte) error {
 	var tmp jsonIMMessage
 	if err := json.Unmarshal(b, &tmp); err != nil {
@@ -139,17 +177,8 @@ func (x *IMMessage) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (x *IMMessage) MarshalJSON() ([]byte, error) {
-	ct, ok := ContentTypeMap[x.ContentType]
-	if !ok {
-		return nil, fmt.Errorf("json unknown content type %d", x.ContentType)
-	}
-	elem := ct.Get(x.Content)
-	content, err := json.Marshal(elem)
-	if err != nil {
-		return nil, err
-	}
-	return json.Marshal(&jsonIMMessage{
+func (x *IMMessage) toJsonIMMessage(content json.RawMessage) *jsonIMMessage {
+	return &jsonIMMessage{
 		ClientMsgID:      x.ClientMsgID,
 		ServerMsgID:      x.ServerMsgID,
 		CreateTime:       x.CreateTime,
@@ -171,13 +200,75 @@ func (x *IMMessage) MarshalJSON() ([]byte, error) {
 		LocalEx:          x.LocalEx,
 		AttachedInfoElem: x.AttachedInfoElem,
 		Content:          content,
-	})
+	}
 }
 
-//func (x *ErrorTips) UnmarshalJSON(b []byte) error {
-//	return nil
-//}
-//
-//func (x *ErrorTips) MarshalJSON() ([]byte, error) {
-//	return json.Marshal(x.Data)
-//}
+func (x *IMMessage) MarshalJSON() ([]byte, error) {
+	ct, ok := ContentTypeMap[x.ContentType]
+	if !ok {
+		return nil, fmt.Errorf("json unknown content type %d", x.ContentType)
+	}
+	elem := ct.Get(x.Content)
+	content, err := json.Marshal(elem)
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(x.toJsonIMMessage(content))
+}
+
+func (x *IMMessage) FormatContent() ([]byte, error) {
+	ct, ok := ContentTypeMap[x.ContentType]
+	if !ok {
+		return nil, fmt.Errorf("json unknown content type %d", x.ContentType)
+	}
+	switch v := ct.Get(x.Content).(type) {
+	case *QuoteElem:
+		elemCt, ok := ContentTypeMap[v.QuoteMessage.GetContentType()]
+		if !ok {
+			return nil, fmt.Errorf("json unknown content type %d", x.ContentType)
+		}
+		elem := elemCt.Get(v.QuoteMessage.GetContent())
+		type jsonQuoteElem struct {
+			Text              string           `json:"text"`
+			QuoteMessage      *jsonIMMessage   `json:"quoteMessage"`
+			MessageEntityList []*MessageEntity `json:"messageEntityList"`
+		}
+		quoteElem := jsonQuoteElem{
+			Text:              v.Text,
+			QuoteMessage:      x.toJsonIMMessage(nil),
+			MessageEntityList: v.MessageEntityList,
+		}
+		if err := x.setElem(quoteElem.QuoteMessage, elem); err != nil {
+			return nil, err
+		}
+		return json.Marshal(quoteElem)
+	case *MergeElem:
+		res := make([]*jsonIMMessage, 0, len(v.MultiMessage))
+		for _, message := range v.MultiMessage {
+			elemCt, ok := ContentTypeMap[message.GetContentType()]
+			if !ok {
+				return nil, fmt.Errorf("json unknown content type %d", x.ContentType)
+			}
+			val := message.toJsonIMMessage(nil)
+			elem := elemCt.Get(message.GetContent())
+			if err := x.setElem(val, elem); err != nil {
+				return nil, err
+			}
+			res = append(res, val)
+		}
+		type jsonMergeElem struct {
+			Title             string           `json:"title"`
+			AbstractList      []string         `json:"abstractList"`
+			MultiMessage      []*jsonIMMessage `json:"multiMessage"`
+			MessageEntityList []*MessageEntity `json:"messageEntityList"`
+		}
+		return json.Marshal(&jsonMergeElem{
+			Title:             v.Title,
+			AbstractList:      v.AbstractList,
+			MultiMessage:      res,
+			MessageEntityList: v.MessageEntityList,
+		})
+	default:
+		return json.Marshal(v)
+	}
+}
