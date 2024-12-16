@@ -375,7 +375,8 @@ message FileElem {
 }
 
 message ErrorElem {
-  string data = 1;
+  string type = 1;
+  string data = 2;
 }
 
 message MessageEntity {

@@ -250,10 +250,10 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 
 			isSenderConversationUpdate = utils.GetSwitchFromOptions(v.Options, constant.IsSenderConversationUpdate)
 
-			imMessage := MsgDataToIMMessage(v)
+			imMessage := MsgDataToIMMessage(ctx, v)
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally without any conversation and message update.
 			if imMessage.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, IMMessageToLocalChatLog(imMessage))
+				insertMessage = append(insertMessage, IMMessageToLocalChatLog(ctx, imMessage))
 				continue
 			}
 			imMessage.Status = constant.MsgStatusSendSuccess
@@ -284,7 +284,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						if !isConversationUpdate {
 							imMessage.Status = constant.MsgStatusFiltered
 						}
-						updateMessage = append(updateMessage, IMMessageToLocalChatLog(imMessage))
+						updateMessage = append(updateMessage, IMMessageToLocalChatLog(ctx, imMessage))
 					} else {
 						//exceptionMsg = append(exceptionMsg, c.msgStructToLocalErrChatLog(msg))
 					}
@@ -292,7 +292,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 					log.ZInfo(ctx, "sync message", "msg", imMessage)
 					lc := model_struct.LocalConversation{
 						ConversationType:  v.SessionType,
-						LatestMsg:         IMMessageToLocalChatLog(imMessage),
+						LatestMsg:         IMMessageToLocalChatLog(ctx, imMessage),
 						LatestMsgSendTime: imMessage.SendTime,
 						ConversationID:    conversationID,
 					}
@@ -310,14 +310,14 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						newMessages = append(newMessages, imMessage)
 					}
 					if isHistory {
-						selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(imMessage))
+						selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(ctx, imMessage))
 					}
 				}
 			} else { //Sent by others
 				if _, err := c.db.GetMessage(ctx, conversationID, imMessage.ClientMsgID); err != nil { //Deduplication operation
 					lc := model_struct.LocalConversation{
 						ConversationType:  v.SessionType,
-						LatestMsg:         IMMessageToLocalChatLog(imMessage),
+						LatestMsg:         IMMessageToLocalChatLog(ctx, imMessage),
 						LatestMsgSendTime: imMessage.SendTime,
 						ConversationID:    conversationID,
 					}
@@ -344,7 +344,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 						newMessages = append(newMessages, imMessage)
 					}
 					if isHistory {
-						othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(imMessage))
+						othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(ctx, imMessage))
 					}
 
 				} else {
@@ -352,7 +352,7 @@ func (c *Conversation) doMsgNew(c2v common.Cmd2Value) {
 					//log.ZWarn(ctx, "Deduplication operation ", nil, "msg", *c.msgStructToLocalErrChatLog(msg))
 					imMessage.Status = constant.MsgStatusFiltered
 					imMessage.ClientMsgID = imMessage.ClientMsgID + utils.Int64ToString(imMessage.Seq)
-					othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(imMessage))
+					othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(ctx, imMessage))
 				}
 			}
 		}
@@ -470,10 +470,10 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 		for _, v := range msgs.Msgs {
 
 			log.ZDebug(ctx, "parse message ", "conversationID", conversationID, "msg", v)
-			imMessage := MsgDataToIMMessage(v)
+			imMessage := MsgDataToIMMessage(ctx, v)
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally without any conversation and message update.
 			if imMessage.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, IMMessageToLocalChatLog(imMessage))
+				insertMessage = append(insertMessage, IMMessageToLocalChatLog(ctx, imMessage))
 				continue
 			}
 			imMessage.Status = constant.MsgStatusSendSuccess
@@ -490,9 +490,9 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 
 				latestMsg = imMessage
 
-				selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(imMessage))
+				selfInsertMessage = append(selfInsertMessage, IMMessageToLocalChatLog(ctx, imMessage))
 			} else { //Sent by others
-				othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(imMessage))
+				othersInsertMessage = append(othersInsertMessage, IMMessageToLocalChatLog(ctx, imMessage))
 
 				latestMsg = imMessage
 			}
@@ -500,7 +500,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 
 		if latestMsg != nil {
 			conversationList = append(conversationList, &model_struct.LocalConversation{
-				LatestMsg:         IMMessageToLocalChatLog(latestMsg),
+				LatestMsg:         IMMessageToLocalChatLog(ctx, latestMsg),
 				LatestMsgSendTime: latestMsg.SendTime,
 				ConversationID:    conversationID,
 			})

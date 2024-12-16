@@ -8,11 +8,9 @@ import (
 
 	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
-	"github.com/openimsdk/tools/utils/datautil"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/protocol/constant"
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/errs"
@@ -103,12 +101,12 @@ func (c *Conversation) updateConversationLastMsg(ctx context.Context, conversati
 	//	return nil
 	//}
 	oc.LatestMsgSendTime = msg.SendTime
-	//oc.LatestMsg = IMMessageToLocalChatLog(res[0])
+	//oc.LatestMsg = IMMessageToLocalChatLog(ctx,res[0])
 	if err := c.db.UpdateConversation(ctx, oc); err != nil {
 		return err
 	}
 	log.ZDebug(ctx, "setStreamMsg conversation changed", "oc", oc)
-	c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: datautil.Batch(LocalConversationToIMConversation, []*model_struct.LocalConversation{oc})})
+	c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, []*model_struct.LocalConversation{oc})})
 	return nil
 }
 

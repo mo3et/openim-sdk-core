@@ -80,7 +80,7 @@ func (c *Conversation) getHistoryMessageList(ctx context.Context, req *sdkpb.Get
 	log.ZDebug(ctx, "pull message", "pull cost time", time.Since(t).Milliseconds())
 	t = time.Now()
 
-	messageList = c.LocalChatLog2IMMessage(list)
+	messageList = c.LocalChatLog2IMMessage(ctx, list)
 	log.ZDebug(ctx, "message convert and unmarshal", "unmarshal cost time", time.Since(t))
 	t = time.Now()
 	if !req.IsReverse {
@@ -201,10 +201,10 @@ func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversati
 	return validMessages, nil
 }
 
-func (c *Conversation) LocalChatLog2IMMessage(list []*model_struct.LocalChatLog) []*sharedpb.IMMessage {
+func (c *Conversation) LocalChatLog2IMMessage(ctx context.Context, list []*model_struct.LocalChatLog) []*sharedpb.IMMessage {
 	messageList := make([]*sharedpb.IMMessage, 0, len(list))
 	for _, v := range list {
-		temp := LocalChatLogToIMMessage(v)
+		temp := LocalChatLogToIMMessage(ctx, v)
 
 		if temp.AttachedInfoElem.IsPrivateChat && temp.SendTime+int64(temp.AttachedInfoElem.BurnDuration) < time.Now().Unix() {
 			continue
@@ -366,7 +366,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *con
 	log.ZDebug(ctx, "get raw data length is", "len", len(list))
 
 	for _, v := range list {
-		temp := LocalChatLogToIMMessage(v)
+		temp := LocalChatLogToIMMessage(ctx, v)
 		if c.filterMsg(temp, searchParam) {
 			continue
 		}

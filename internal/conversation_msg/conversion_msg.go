@@ -2,7 +2,9 @@ package conversation_msg
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -12,6 +14,42 @@ import (
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
 )
+
+func newErrorElem(val any) *sdkpb.ErrorElem {
+	switch v := val.(type) {
+	case string:
+		return &sdkpb.ErrorElem{
+			Type: "string",
+			Data: v,
+		}
+	case []byte:
+		return &sdkpb.ErrorElem{
+			Type: "bytes",
+			Data: base64.StdEncoding.EncodeToString(v),
+		}
+	case sdkpb.ErrorElem:
+		return &v
+	case *sdkpb.ErrorElem:
+		return v
+	case sdkpb.IMMessage_ErrorTips:
+		return v.ErrorTips
+	case *sdkpb.IMMessage_ErrorTips:
+		return v.ErrorTips
+	default:
+		return &sdkpb.ErrorElem{
+			Type: fmt.Sprintf("%T", v),
+			Data: fmt.Sprintf("%v", v),
+		}
+	}
+}
+
+func errorElemToString(elem *sdkpb.ErrorElem) []byte {
+	data, err := json.Marshal(elem)
+	if err != nil {
+		panic(err)
+	}
+	return data
+}
 
 func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfoElem {
 	elem := &model_struct.AttachedInfoElem{
@@ -30,10 +68,11 @@ func pbToDbAttached(attached *sdkpb.AttachedInfoElem) *model_struct.AttachedInfo
 	return elem
 }
 
-func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
+func IMMessageToLocalChatLog(ctx context.Context, msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 	content, err := msg.FormatContent()
 	if err != nil {
-		panic(err)
+		log.ZWarn(ctx, "IMMessageToLocalChatLog FormatContent error", err, "msg", msg)
+		content = errorElemToString(newErrorElem(msg.Content))
 	}
 	localMessage := &model_struct.LocalChatLog{
 		ClientMsgID:      msg.ClientMsgID,
@@ -61,7 +100,8 @@ func IMMessageToLocalChatLog(msg *sdkpb.IMMessage) *model_struct.LocalChatLog {
 	}
 	return localMessage
 }
-func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
+
+func LocalChatLogToIMMessage(ctx context.Context, localMessage *model_struct.LocalChatLog) *sdkpb.IMMessage {
 	if localMessage == nil {
 		return nil
 	}
@@ -97,7 +137,7 @@ func LocalChatLogToIMMessage(localMessage *model_struct.LocalChatLog) *sdkpb.IMM
 			UploadID: localMessage.AttachedInfo.Progress.UploadID,
 		}
 	}
-	stringToMsgContent(message, localMessage.Content)
+	stringToMsgContent(ctx, message, localMessage.Content)
 	switch localMessage.SessionType {
 	case constant.WriteGroupChatType:
 		fallthrough
@@ -135,7 +175,7 @@ func IMMessageToMsgData(message *sdkpb.IMMessage) *sdkws.MsgData {
 	}
 }
 
-func MsgDataToIMMessage(msgData *sdkws.MsgData) *sdkpb.IMMessage {
+func MsgDataToIMMessage(ctx context.Context, msgData *sdkws.MsgData) *sdkpb.IMMessage {
 	message := &sdkpb.IMMessage{
 		ClientMsgID:      msgData.ClientMsgID,
 		ServerMsgID:      msgData.ServerMsgID,
@@ -158,14 +198,14 @@ func MsgDataToIMMessage(msgData *sdkws.MsgData) *sdkpb.IMMessage {
 	}
 	if msgData.AttachedInfo != "" {
 		if err := utils.JsonStringToStruct(msgData.AttachedInfo, message.AttachedInfoElem); err != nil {
-			log.ZWarn(context.Background(), "JsonStringToStruct error", err, "msgData.AttachedInfo", msgData.AttachedInfo)
+			log.ZWarn(ctx, "JsonStringToStruct error", err, "msgData.AttachedInfo", msgData.AttachedInfo)
 		}
 	}
-	stringToMsgContent(message, string(msgData.Content))
+	stringToMsgContent(ctx, message, string(msgData.Content))
 	return message
 }
 
-func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChatLog {
+func MsgDataToLocalChatLog(ctx context.Context, serverMessage *sdkws.MsgData) *model_struct.LocalChatLog {
 	localMessage := &model_struct.LocalChatLog{
 		ClientMsgID:      serverMessage.ClientMsgID,
 		ServerMsgID:      serverMessage.ServerMsgID,
@@ -188,7 +228,7 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 	}
 	if serverMessage.AttachedInfo != "" {
 		if err := json.Unmarshal([]byte(serverMessage.AttachedInfo), localMessage.AttachedInfo); err != nil {
-			log.ZWarn(context.Background(), "json.Unmarshal error", err, "serverMessage.AttachedInfo", serverMessage.AttachedInfo)
+			log.ZWarn(ctx, "json.Unmarshal error", err, "serverMessage.AttachedInfo", serverMessage.AttachedInfo)
 		}
 	}
 	switch common.SessionType(serverMessage.SessionType) {
@@ -198,15 +238,22 @@ func MsgDataToLocalChatLog(serverMessage *sdkws.MsgData) *model_struct.LocalChat
 	return localMessage
 }
 
-func stringToMsgContent(msg *sdkpb.IMMessage, content string) {
+func stringToMsgContent(ctx context.Context, msg *sdkpb.IMMessage, content string) {
 	m, ok := sdkpb.ContentTypeMap[msg.ContentType]
 	if !ok {
-		log.ZError(context.Background(), "stringToMsgContent unknown content type", nil, "msg", msg, "contentType", msg.ContentType, "content", content)
+		log.ZError(ctx, "stringToMsgContent unknown content type", nil, "msg", msg, "contentType", msg.ContentType, "content", content)
+		msg.Content = &sdkpb.IMMessage_ErrorTips{
+			ErrorTips: newErrorElem(content),
+		}
 		return
 	}
 	elem := m.New()
 	if err := utils.JsonStringToStruct(content, elem); err != nil {
-		log.ZError(context.Background(), "stringToMsgContent unmarshal", err, "msg", msg, "notification", m.N, "content", content)
+		log.ZError(ctx, "stringToMsgContent unmarshal", err, "msg", msg, "notification", m.N, "content", content)
+		msg.Content = &sdkpb.IMMessage_ErrorTips{
+			ErrorTips: newErrorElem(content),
+		}
+		return
 	}
 	m.Set(msg, elem)
 }
