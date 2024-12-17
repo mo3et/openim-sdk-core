@@ -149,11 +149,10 @@ func (l *LongConnMgr) SendReqWaitResp(ctx context.Context, m proto.Message, reqI
 	}
 	msg := Message{
 		Message: GeneralWsReq{
-			Ctx:           ctx,
 			ReqIdentifier: reqIdentifier,
 			SendID:        ccontext.Info(ctx).UserID(),
-			//OperationID:   ccontext.Info(ctx).OperationID(),
-			Data: data,
+			OperationID:   ccontext.Info(ctx).OperationID(),
+			Data:          data,
 		},
 		Resp: make(chan *GeneralWsResp, 1),
 	}
@@ -283,10 +282,10 @@ func (l *LongConnMgr) writePump(ctx context.Context) {
 			if message.Message.OperationID == "" {
 				message.Message.OperationID = mcontext.GetOperationID(ctx)
 			}
-			ctx := message.Message.Ctx
+			ctx := ccontext.WithOperationID(ctx, message.Message.OperationID)
 			log.ZDebug(ctx, "writePump recv message", "reqIdentifier", message.Message.ReqIdentifier,
 				"operationID", message.Message.OperationID, "sendID", message.Message.SendID)
-			resp, err := l.sendAndWaitResp(context.Background(), &message.Message) // todo
+			resp, err := l.sendAndWaitResp(ctx, &message.Message)
 			if err != nil {
 				resp = &GeneralWsResp{
 					ReqIdentifier: message.Message.ReqIdentifier,
@@ -432,10 +431,10 @@ func (l *LongConnMgr) writeSubInfo(ctx context.Context, subscribeUserID, unsubsc
 		return err
 	}
 	req := GeneralWsReq{
-		Ctx:           ctx,
 		ReqIdentifier: constant.WsSubUserOnlineStatus,
 		SendID:        ccontext.Info(ctx).UserID(),
 		MsgIncr:       utils.OperationIDGenerator(),
+		OperationID:   ccontext.Info(ctx).OperationID(),
 		Data:          data,
 	}
 	if lock {

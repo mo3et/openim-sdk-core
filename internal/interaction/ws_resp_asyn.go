@@ -35,7 +35,6 @@ type GeneralWsResp struct {
 }
 
 type GeneralWsReq struct {
-	Ctx           context.Context
 	ReqIdentifier int    `json:"reqIdentifier"`
 	Token         string `json:"token"`
 	SendID        string `json:"sendID"`
