@@ -3,6 +3,8 @@ package test
 import (
 	"fmt"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
+	"github.com/openimsdk/tools/utils/datautil"
 	"testing"
 	"time"
 
@@ -20,14 +22,12 @@ func Test_GetAllConversationList(t *testing.T) {
 }
 
 func Test_SetConversation(t *testing.T) {
-	isPinned := true
-	ex := fmt.Sprintf("time_%s", time.Now().Format(time.DateTime))
-	//ex = ""
-	//isPinned = false
+	conversationID := "si_3624967544_3797646014"
 	_, err := open_im_sdk.IMUserContext.Conversation().SetConversation(ctx, &sdkpb.SetConversationReq{
-		ConversationID: "si_4475057807_5143233203",
-		IsPinned:       &isPinned,
-		Ex:             &ex,
+		ConversationID: conversationID,
+		IsPinned:       datautil.ToPtr(true),
+		IsPrivateChat:  datautil.ToPtr(true),
+		Ex:             datautil.ToPtr(fmt.Sprintf("time_%s", time.Now().Format(time.DateTime))),
 	})
 	if err != nil {
 		panic(err)
@@ -38,7 +38,14 @@ func Test_SetConversation(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	t.Log(res)
+	var conversation *shared.IMConversation
+	for _, c := range res.ConversationList {
+		if c.ConversationID == conversationID {
+			conversation = c
+			break
+		}
+	}
+	t.Log(conversation)
 }
 
 //

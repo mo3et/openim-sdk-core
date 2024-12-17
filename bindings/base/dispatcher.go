@@ -15,7 +15,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/serializer"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
-	ffi "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"

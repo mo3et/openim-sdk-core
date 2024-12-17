@@ -19,8 +19,6 @@ import (
 	"fmt"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
-	"github.com/openimsdk/tools/mw"
-
 	"reflect"
 	"runtime"
 	"sync"
@@ -160,7 +158,7 @@ func (c *Conversation) doNotificationManager(c2v common.Cmd2Value) {
 func (c *Conversation) DoNotification(ctx context.Context, msg *sdkws.MsgData) {
 	go func() {
 		if err := c.doNotification(ctx, msg); err != nil {
-			log.ZWarn(ctx, "DoConversationNotification failed", mw.FormatError(err))
+			log.ZWarn(ctx, "DoConversationNotification failed", err)
 		}
 	}()
 }

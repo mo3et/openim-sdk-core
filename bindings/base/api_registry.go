@@ -11,7 +11,6 @@ import (
 	sdkcommon "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	sdkevent "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/tools/log"
-	"github.com/openimsdk/tools/mw"
 )
 
 // Functions to ignore in the process logging
@@ -29,7 +28,7 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 		defer func(start time.Time) {
 			if r := recover(); r != nil {
 				err = sdkerrs.ErrInternal.WrapMsg(fmt.Sprintf("panic %+v", r))
-				mw.PanicStackToLog(ctx, r)
+				log.ZPanic(ctx, "wrapFunc recover", err)
 			}
 			if _, ignored := ignoredLogFuncMap[name]; ignored {
 				return
@@ -40,7 +39,7 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 					sdkevent.FuncRequestEventName_name[int32(name)]), "duration", fmt.Sprintf("%d ms", elapsed), "resp", pbResp)
 			} else {
 				log.ZError(ctx, fmt.Sprintf("[%s -> Go SDK] Response Error - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
-					sdkevent.FuncRequestEventName_name[int32(name)]), mw.FormatError(err), "duration", fmt.Sprintf("%d ms", elapsed))
+					sdkevent.FuncRequestEventName_name[int32(name)]), err, "duration", fmt.Sprintf("%d ms", elapsed))
 
 			}
 		}(start)
@@ -73,7 +72,7 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 		defer func(start time.Time) {
 			if r := recover(); r != nil {
 				err = sdkerrs.ErrInternal.WrapMsg(fmt.Sprintf("panic %+v", r))
-				mw.PanicStackToLog(ctx, r)
+				log.ZPanic(ctx, "wrapFunc recover", err)
 			}
 			elapsed := time.Since(start).Milliseconds()
 			if err == nil {
@@ -81,7 +80,7 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 					sdkevent.FuncRequestEventName_name[int32(name)]), "duration", fmt.Sprintf("%d ms", elapsed), "resp", pbResp)
 			} else {
 				log.ZError(ctx, fmt.Sprintf("[%s -> Go SDK] Response Error - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
-					sdkevent.FuncRequestEventName_name[int32(name)]), mw.FormatError(err), "duration", fmt.Sprintf("%d ms", elapsed))
+					sdkevent.FuncRequestEventName_name[int32(name)]), err, "duration", fmt.Sprintf("%d ms", elapsed))
 
 			}
 		}(start)
