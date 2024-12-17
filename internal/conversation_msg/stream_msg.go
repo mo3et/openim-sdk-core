@@ -106,7 +106,9 @@ func (c *Conversation) updateConversationLastMsg(ctx context.Context, conversati
 		return err
 	}
 	log.ZDebug(ctx, "setStreamMsg conversation changed", "oc", oc)
-	c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, []*model_struct.LocalConversation{oc})})
+	c.ConversationListener().OnConversationChanged(ctx, &sdkpb.EventOnConversationChangedData{
+		ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, []*model_struct.LocalConversation{oc}),
+	})
 	return nil
 }
 

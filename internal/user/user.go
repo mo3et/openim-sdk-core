@@ -107,7 +107,7 @@ func (u *User) initSyncer() {
 		func(ctx context.Context, state int, server, local *model_struct.LocalUser) error {
 			switch state {
 			case syncer.Update:
-				u.listener().OnSelfInfoUpdated(&sdkpb.EventOnSelfInfoUpdatedData{User: DBUserToSdk(server)})
+				u.listener().OnSelfInfoUpdated(ctx, &sdkpb.EventOnSelfInfoUpdatedData{User: DBUserToSdk(server)})
 				if server.Nickname != local.Nickname || server.FaceURL != local.FaceURL {
 					_ = common.TriggerCmdUpdateMessage(ctx, common.UpdateMessageNode{Action: constant.UpdateMsgFaceUrlAndNickName,
 						Args: common.UpdateMessageInfo{SessionType: constant.SingleChatType, UserID: server.UserID, FaceURL: server.FaceURL, Nickname: server.Nickname}}, u.conversationCh)
@@ -152,11 +152,11 @@ func (u *User) initSyncer() {
 			}
 			switch state {
 			case syncer.Delete:
-				u.listener().OnUserCommandDelete(&sdkpb.EventOnUserCommandDeleteData{Command: DBCommandToSdk(serverCommand)})
+				u.listener().OnUserCommandDelete(ctx, &sdkpb.EventOnUserCommandDeleteData{Command: DBCommandToSdk(serverCommand)})
 			case syncer.Update:
-				u.listener().OnUserCommandUpdate(&sdkpb.EventOnUserCommandUpdateData{Command: DBCommandToSdk(serverCommand)})
+				u.listener().OnUserCommandUpdate(ctx, &sdkpb.EventOnUserCommandUpdateData{Command: DBCommandToSdk(serverCommand)})
 			case syncer.Insert:
-				u.listener().OnUserCommandAdd(&sdkpb.EventOnUserCommandAddData{Command: DBCommandToSdk(serverCommand)})
+				u.listener().OnUserCommandAdd(ctx, &sdkpb.EventOnUserCommandAddData{Command: DBCommandToSdk(serverCommand)})
 			}
 			return nil
 		},

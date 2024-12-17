@@ -333,8 +333,8 @@ func (u *UserContext) initResources() {
 	u.setLoginStatus(pb.LoginStatus_Default)
 }
 
-func (u *UserContext) userOnlineStatusChange(users map[string][]int32) {
-	u.User().UserOnlineStatusChange(users)
+func (u *UserContext) userOnlineStatusChange(ctx context.Context, users map[string][]int32) {
+	u.User().UserOnlineStatusChange(ctx, users)
 }
 
 func (u *UserContext) UnInitSDK() {

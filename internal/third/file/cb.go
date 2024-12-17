@@ -16,6 +16,7 @@ package file
 
 import (
 	"fmt"
+	"golang.org/x/net/context"
 
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
@@ -67,39 +68,40 @@ func (e emptyUploadCallback) Complete(size int64, url string, typ int) {
 }
 
 type simpleUploadCallback struct {
+	ctx      context.Context
 	cb       open_im_sdk_callback.UploadFileCallback
 	progress int
 }
 
-func (s simpleUploadCallback) Open(size int64) {}
+func (s *simpleUploadCallback) Open(size int64) {}
 
-func (s simpleUploadCallback) PartSize(partSize int64, num int) {}
+func (s *simpleUploadCallback) PartSize(partSize int64, num int) {}
 
-func (s simpleUploadCallback) HashPartProgress(index int, size int64, partHash string) {}
+func (s *simpleUploadCallback) HashPartProgress(index int, size int64, partHash string) {}
 
-func (s simpleUploadCallback) HashPartComplete(partsHash string, fileHash string) {}
+func (s *simpleUploadCallback) HashPartComplete(partsHash string, fileHash string) {}
 
-func (s simpleUploadCallback) UploadID(uploadID string) {}
+func (s *simpleUploadCallback) UploadID(uploadID string) {}
 
-func (s simpleUploadCallback) UploadPartComplete(index int, partSize int64, partHash string) {}
+func (s *simpleUploadCallback) UploadPartComplete(index int, partSize int64, partHash string) {}
 
-func (s simpleUploadCallback) UploadComplete(fileSize int64, streamSize int64, storageSize int64) {
+func (s *simpleUploadCallback) UploadComplete(fileSize int64, streamSize int64, storageSize int64) {
 	if s.cb == nil {
 		return
 	}
 	value := int(float64(streamSize) / float64(fileSize) * 100)
 	if s.progress < value {
 		s.progress = value
-		s.cb.OnUploadFileProgress(&pb.EventOnUploadFileProgressData{Progress: int32(value)})
+		s.cb.OnUploadFileProgress(s.ctx, &pb.EventOnUploadFileProgressData{Progress: int32(value)})
 	}
 }
 
-func (s simpleUploadCallback) Complete(size int64, url string, typ int) {
+func (s *simpleUploadCallback) Complete(size int64, url string, typ int) {
 	if s.cb == nil {
 		return
 	}
 	if s.progress < 100 {
 		s.progress = 100
-		s.cb.OnUploadFileProgress(&pb.EventOnUploadFileProgressData{Progress: 100})
+		s.cb.OnUploadFileProgress(s.ctx, &pb.EventOnUploadFileProgressData{Progress: 100})
 	}
 }

@@ -583,5 +583,5 @@ func (f *File) getPartInfo(ctx context.Context, r io.Reader, fileSize int64, cb 
 }
 
 func (f *File) UploadFileV2(ctx context.Context, req *sdkpb.UploadFileReq, cb open_im_sdk_callback.UploadFileCallback) (*sdkpb.UploadFileResp, error) {
-	return f.UploadFile(ctx, req, &simpleUploadCallback{cb: cb})
+	return f.UploadFile(ctx, req, &simpleUploadCallback{ctx: ctx, cb: cb})
 }

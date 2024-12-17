@@ -120,7 +120,7 @@ func (c *Conversation) revokeMessage(ctx context.Context, tips *sdkws.RevokeMsgT
 		}
 
 	}
-	c.messageListener().OnNewRecvMessageRevoked(&sdkpb.EventOnNewRecvMessageRevokedData{Revoked: &m})
+	c.messageListener().OnNewRecvMessageRevoked(ctx, &sdkpb.EventOnNewRecvMessageRevokedData{Revoked: &m})
 	msgList, err := c.db.SearchAllMessageByContentType(ctx, conversation.ConversationID, constant.Quote)
 	if err != nil {
 		log.ZError(ctx, "SearchAllMessageByContentType failed", err, "tips", &tips)

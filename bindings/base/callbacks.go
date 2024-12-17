@@ -1,6 +1,7 @@
 package base
 
 import (
+	"context"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
@@ -25,27 +26,27 @@ func NewConnCallback() *ConnCallback {
 	return &ConnCallback{}
 }
 
-func (c ConnCallback) OnConnecting(data *pb.EventOnConnectingData) {
+func (c ConnCallback) OnConnecting(ctx context.Context, data *pb.EventOnConnectingData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnConnecting, data)
 }
 
-func (c ConnCallback) OnConnectSuccess(data *pb.EventOnConnectSuccessData) {
+func (c ConnCallback) OnConnectSuccess(ctx context.Context, data *pb.EventOnConnectSuccessData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnConnectSuccess, data)
 }
 
-func (c ConnCallback) OnConnectFailed(data *pb.EventOnConnectFailedData) {
+func (c ConnCallback) OnConnectFailed(ctx context.Context, data *pb.EventOnConnectFailedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnConnectFailed, data)
 }
 
-func (c ConnCallback) OnKickedOffline(data *pb.EventOnKickedOfflineData) {
+func (c ConnCallback) OnKickedOffline(ctx context.Context, data *pb.EventOnKickedOfflineData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnKickedOffline, data)
 }
 
-func (c ConnCallback) OnUserTokenExpired(data *pb.EventOnUserTokenExpiredData) {
+func (c ConnCallback) OnUserTokenExpired(ctx context.Context, data *pb.EventOnUserTokenExpiredData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnUserTokenExpired, data)
 }
 
-func (c ConnCallback) OnUserTokenInvalid(data *pb.EventOnUserTokenInvalidData) {
+func (c ConnCallback) OnUserTokenInvalid(ctx context.Context, data *pb.EventOnUserTokenInvalidData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnUserTokenInvalid, data)
 }
 
@@ -55,35 +56,35 @@ func NewConversationCallback() *ConversationCallback {
 	return &ConversationCallback{}
 }
 
-func (c ConversationCallback) OnSyncServerStart(data *pb.EventOnSyncServerStartData) {
+func (c ConversationCallback) OnSyncServerStart(ctx context.Context, data *pb.EventOnSyncServerStartData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnSyncServerStart, data)
 }
 
-func (c ConversationCallback) OnSyncServerProgress(data *pb.EventOnSyncServerProgressData) {
+func (c ConversationCallback) OnSyncServerProgress(ctx context.Context, data *pb.EventOnSyncServerProgressData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnSyncServerProgress, data)
 }
 
-func (c ConversationCallback) OnSyncServerFinish(data *pb.EventOnSyncServerFinishData) {
+func (c ConversationCallback) OnSyncServerFinish(ctx context.Context, data *pb.EventOnSyncServerFinishData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnSyncServerFinish, data)
 }
 
-func (c ConversationCallback) OnSyncServerFailed(data *pb.EventOnSyncServerFailedData) {
+func (c ConversationCallback) OnSyncServerFailed(ctx context.Context, data *pb.EventOnSyncServerFailedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnSyncServerFailed, data)
 }
 
-func (c ConversationCallback) OnNewConversation(data *pb.EventOnNewConversationData) {
+func (c ConversationCallback) OnNewConversation(ctx context.Context, data *pb.EventOnNewConversationData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnNewConversation, data)
 }
 
-func (c ConversationCallback) OnConversationChanged(data *pb.EventOnConversationChangedData) {
+func (c ConversationCallback) OnConversationChanged(ctx context.Context, data *pb.EventOnConversationChangedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnConversationChanged, data)
 }
 
-func (c ConversationCallback) OnTotalUnreadMessageCountChanged(data *pb.EventOnTotalUnreadMessageCountChangedData) {
+func (c ConversationCallback) OnTotalUnreadMessageCountChanged(ctx context.Context, data *pb.EventOnTotalUnreadMessageCountChangedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnTotalUnreadMessageCountChanged, data)
 }
 
-func (c ConversationCallback) OnConversationUserInputStatusChanged(data *pb.EventOnConversationUserInputStatusChangedData) {
+func (c ConversationCallback) OnConversationUserInputStatusChanged(ctx context.Context, data *pb.EventOnConversationUserInputStatusChangedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnConversationUserInputStatusChanged, data)
 }
 
@@ -93,31 +94,31 @@ func NewMessageCallback() *MessageCallback {
 	return &MessageCallback{}
 }
 
-func (a MessageCallback) OnRecvNewMessage(data *pb.EventOnRecvNewMessageData) {
+func (a MessageCallback) OnRecvNewMessage(ctx context.Context, data *pb.EventOnRecvNewMessageData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvNewMessage, data)
 }
 
-func (a MessageCallback) OnRecvC2CReadReceipt(data *pb.EventOnRecvC2CReadReceiptData) {
+func (a MessageCallback) OnRecvC2CReadReceipt(ctx context.Context, data *pb.EventOnRecvC2CReadReceiptData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvC2CReadReceipt, data)
 }
 
-func (a MessageCallback) OnNewRecvMessageRevoked(data *pb.EventOnNewRecvMessageRevokedData) {
+func (a MessageCallback) OnNewRecvMessageRevoked(ctx context.Context, data *pb.EventOnNewRecvMessageRevokedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnNewRecvMessageRevoked, data)
 }
 
-func (a MessageCallback) OnRecvOfflineNewMessage(data *pb.EventOnRecvOfflineNewMessageData) {
+func (a MessageCallback) OnRecvOfflineNewMessage(ctx context.Context, data *pb.EventOnRecvOfflineNewMessageData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvOfflineNewMessage, data)
 }
 
-func (a MessageCallback) OnMessageDeleted(data *pb.EventOnMessageDeletedData) {
+func (a MessageCallback) OnMessageDeleted(ctx context.Context, data *pb.EventOnMessageDeletedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnMessageDeleted, data)
 }
 
-func (a MessageCallback) OnRecvOnlineOnlyMessage(data *pb.EventOnRecvOnlineOnlyMessageData) {
+func (a MessageCallback) OnRecvOnlineOnlyMessage(ctx context.Context, data *pb.EventOnRecvOnlineOnlyMessageData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvOnlineOnlyMessage, data)
 }
 
-func (a MessageCallback) OnMessageEdited(data *pb.EventOnMessageEditedData) {
+func (a MessageCallback) OnMessageEdited(ctx context.Context, data *pb.EventOnMessageEditedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnMessageEdited, data)
 }
 
@@ -127,39 +128,39 @@ func NewFriendCallback() *FriendCallback {
 	return &FriendCallback{}
 }
 
-func (f FriendCallback) OnFriendApplicationAdded(data *pb.EventOnFriendApplicationAddedData) {
+func (f FriendCallback) OnFriendApplicationAdded(ctx context.Context, data *pb.EventOnFriendApplicationAddedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnFriendApplicationAdded, data)
 }
 
-func (f FriendCallback) OnFriendApplicationDeleted(data *pb.EventOnFriendApplicationDeletedData) {
+func (f FriendCallback) OnFriendApplicationDeleted(ctx context.Context, data *pb.EventOnFriendApplicationDeletedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnFriendApplicationDeleted, data)
 }
 
-func (f FriendCallback) OnFriendApplicationAccepted(data *pb.EventOnFriendApplicationAcceptedData) {
+func (f FriendCallback) OnFriendApplicationAccepted(ctx context.Context, data *pb.EventOnFriendApplicationAcceptedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnFriendApplicationAccepted, data)
 }
 
-func (f FriendCallback) OnFriendApplicationRejected(data *pb.EventOnFriendApplicationRejectedData) {
+func (f FriendCallback) OnFriendApplicationRejected(ctx context.Context, data *pb.EventOnFriendApplicationRejectedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnFriendApplicationRejected, data)
 }
 
-func (f FriendCallback) OnFriendAdded(data *pb.EventOnFriendAddedData) {
+func (f FriendCallback) OnFriendAdded(ctx context.Context, data *pb.EventOnFriendAddedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnFriendAdded, data)
 }
 
-func (f FriendCallback) OnFriendDeleted(data *pb.EventOnFriendDeletedData) {
+func (f FriendCallback) OnFriendDeleted(ctx context.Context, data *pb.EventOnFriendDeletedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnFriendDeleted, data)
 }
 
-func (f FriendCallback) OnFriendInfoChanged(data *pb.EventOnFriendInfoChangedData) {
+func (f FriendCallback) OnFriendInfoChanged(ctx context.Context, data *pb.EventOnFriendInfoChangedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnFriendInfoChanged, data)
 }
 
-func (f FriendCallback) OnBlackAdded(data *pb.EventOnBlackAddedData) {
+func (f FriendCallback) OnBlackAdded(ctx context.Context, data *pb.EventOnBlackAddedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnBlackAdded, data)
 }
 
-func (f FriendCallback) OnBlackDeleted(data *pb.EventOnBlackDeletedData) {
+func (f FriendCallback) OnBlackDeleted(ctx context.Context, data *pb.EventOnBlackDeletedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnBlackDeleted, data)
 }
 
@@ -169,47 +170,47 @@ func NewGroupCallback() *GroupCallback {
 	return &GroupCallback{}
 }
 
-func (g GroupCallback) OnJoinedGroupAdded(data *pb.EventOnJoinedGroupAddedData) {
+func (g GroupCallback) OnJoinedGroupAdded(ctx context.Context, data *pb.EventOnJoinedGroupAddedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnJoinedGroupAdded, data)
 }
 
-func (g GroupCallback) OnJoinedGroupDeleted(data *pb.EventOnJoinedGroupDeletedData) {
+func (g GroupCallback) OnJoinedGroupDeleted(ctx context.Context, data *pb.EventOnJoinedGroupDeletedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnJoinedGroupDeleted, data)
 }
 
-func (g GroupCallback) OnGroupMemberAdded(data *pb.EventOnGroupMemberAddedData) {
+func (g GroupCallback) OnGroupMemberAdded(ctx context.Context, data *pb.EventOnGroupMemberAddedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupMemberAdded, data)
 }
 
-func (g GroupCallback) OnGroupMemberDeleted(data *pb.EventOnGroupMemberDeletedData) {
+func (g GroupCallback) OnGroupMemberDeleted(ctx context.Context, data *pb.EventOnGroupMemberDeletedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupMemberDeleted, data)
 }
 
-func (g GroupCallback) OnGroupApplicationAdded(data *pb.EventOnGroupApplicationAddedData) {
+func (g GroupCallback) OnGroupApplicationAdded(ctx context.Context, data *pb.EventOnGroupApplicationAddedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupApplicationAdded, data)
 }
 
-func (g GroupCallback) OnGroupApplicationDeleted(data *pb.EventOnGroupApplicationDeletedData) {
+func (g GroupCallback) OnGroupApplicationDeleted(ctx context.Context, data *pb.EventOnGroupApplicationDeletedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupApplicationDeleted, data)
 }
 
-func (g GroupCallback) OnGroupInfoChanged(data *pb.EventOnGroupInfoChangedData) {
+func (g GroupCallback) OnGroupInfoChanged(ctx context.Context, data *pb.EventOnGroupInfoChangedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupInfoChanged, data)
 }
 
-func (g GroupCallback) OnGroupDismissed(data *pb.EventOnGroupDismissedData) {
+func (g GroupCallback) OnGroupDismissed(ctx context.Context, data *pb.EventOnGroupDismissedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupDismissed, data)
 }
 
-func (g GroupCallback) OnGroupMemberInfoChanged(data *pb.EventOnGroupMemberInfoChangedData) {
+func (g GroupCallback) OnGroupMemberInfoChanged(ctx context.Context, data *pb.EventOnGroupMemberInfoChangedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupMemberInfoChanged, data)
 }
 
-func (g GroupCallback) OnGroupApplicationAccepted(data *pb.EventOnGroupApplicationAcceptedData) {
+func (g GroupCallback) OnGroupApplicationAccepted(ctx context.Context, data *pb.EventOnGroupApplicationAcceptedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupApplicationAccepted, data)
 }
 
-func (g GroupCallback) OnGroupApplicationRejected(data *pb.EventOnGroupApplicationRejectedData) {
+func (g GroupCallback) OnGroupApplicationRejected(ctx context.Context, data *pb.EventOnGroupApplicationRejectedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnGroupApplicationRejected, data)
 }
 
@@ -219,7 +220,7 @@ func NewCustomBusinessCallback() *CustomBusinessCallback {
 	return &CustomBusinessCallback{}
 }
 
-func (c CustomBusinessCallback) OnRecvCustomBusinessMessage(data *pb.EventOnRecvCustomBusinessMessageData) {
+func (c CustomBusinessCallback) OnRecvCustomBusinessMessage(ctx context.Context, data *pb.EventOnRecvCustomBusinessMessageData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnRecvCustomBusinessMessage, data)
 }
 
@@ -229,23 +230,23 @@ func NewUserCallback() *UserCallback {
 	return &UserCallback{}
 }
 
-func (u UserCallback) OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData) {
+func (u UserCallback) OnSelfInfoUpdated(ctx context.Context, data *pb.EventOnSelfInfoUpdatedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnSelfInfoUpdated, data)
 }
 
-func (u UserCallback) OnUserOnlineStatusChanged(data *pb.EventOnUserOnlineStatusChangedData) {
+func (u UserCallback) OnUserOnlineStatusChanged(ctx context.Context, data *pb.EventOnUserOnlineStatusChangedData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnUserOnlineStatusChanged, data)
 }
 
-func (u UserCallback) OnUserCommandAdd(data *pb.EventOnUserCommandAddData) {
+func (u UserCallback) OnUserCommandAdd(ctx context.Context, data *pb.EventOnUserCommandAddData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnUserCommandAdd, data)
 }
 
-func (u UserCallback) OnUserCommandDelete(data *pb.EventOnUserCommandDeleteData) {
+func (u UserCallback) OnUserCommandDelete(ctx context.Context, data *pb.EventOnUserCommandDeleteData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnUserCommandDelete, data)
 }
 
-func (u UserCallback) OnUserCommandUpdate(data *pb.EventOnUserCommandUpdateData) {
+func (u UserCallback) OnUserCommandUpdate(ctx context.Context, data *pb.EventOnUserCommandUpdateData) {
 	passiveEventResp(pb.FuncRequestEventName_EventOnUserCommandUpdate, data)
 }
 
@@ -257,7 +258,7 @@ func NewSendMessageCallback(handleID uint64) open_im_sdk_callback.SendMsgCallBac
 	return &SendMessageCallback{handleID: handleID}
 }
 
-func (s SendMessageCallback) OnSendMsgProgress(data *pb.EventOnSendMsgProgressData) {
+func (s SendMessageCallback) OnSendMsgProgress(ctx context.Context, data *pb.EventOnSendMsgProgressData) {
 	activeEventResp(pb.FuncRequestEventName_EventOnSendMsgProgress, s.handleID, data)
 }
 
@@ -269,7 +270,7 @@ func NewUploadFileCallback(handleID uint64) open_im_sdk_callback.UploadFileCallb
 	return &UploadFileCallback{handleID: handleID}
 }
 
-func (u UploadFileCallback) OnUploadFileProgress(data *pb.EventOnUploadFileProgressData) {
+func (u UploadFileCallback) OnUploadFileProgress(ctx context.Context, data *pb.EventOnUploadFileProgressData) {
 	activeEventResp(pb.FuncRequestEventName_EventOnUploadFileProgress, u.handleID, data)
 }
 
@@ -281,6 +282,6 @@ func NewUploadLogsCallback(handleID uint64) open_im_sdk_callback.UploadLogsCallb
 	return &UploadLogsCallback{handleID: handleID}
 }
 
-func (u UploadLogsCallback) OnUploadLogsProgress(data *pb.EventOnUploadLogsProgressData) {
+func (u UploadLogsCallback) OnUploadLogsProgress(ctx context.Context, data *pb.EventOnUploadLogsProgressData) {
 	activeEventResp(pb.FuncRequestEventName_EventOnUploadFileProgress, u.handleID, data)
 }
