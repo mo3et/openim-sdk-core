@@ -33,13 +33,13 @@ func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error)
 	}
 	var ok bool
 	dataChannel := make(chan []js.Value, 1)
-	thenFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	thenFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
 		ok = true
 		dataChannel <- args
 		return nil
 	})
 	defer thenFunc.Release()
-	catchFunc := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	catchFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
 		dataChannel <- args
 		return nil
 	})

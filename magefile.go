@@ -18,7 +18,7 @@ import (
 var Default = GenGo
 
 // Aliases is alias for mage, like `mage go` is `mage GenGo`
-var Aliases = map[string]interface{}{
+var Aliases = map[string]any{
 	"go":    GenGo,
 	"java":  GenJava,
 	"js":    GenJS,

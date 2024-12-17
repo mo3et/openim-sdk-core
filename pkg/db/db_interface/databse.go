@@ -62,7 +62,7 @@ type MessageModel interface {
 	SearchMessageByContentTypeAndKeyword(ctx context.Context, contentType []int, conversationID string, senderUserIDList []string, keywordList []string, keywordListMatchType int, startTime, endTime int64) (result []*model_struct.LocalChatLog, err error)
 	GetMessage(ctx context.Context, conversationID, clientMsgID string) (*model_struct.LocalChatLog, error)
 	GetMessageBySeq(ctx context.Context, conversationID string, seq int64) (*model_struct.LocalChatLog, error)
-	UpdateColumnsMessage(ctx context.Context, conversationID string, ClientMsgID string, args map[string]interface{}) error
+	UpdateColumnsMessage(ctx context.Context, conversationID string, ClientMsgID string, args map[string]any) error
 	UpdateMessage(ctx context.Context, conversationID string, c *model_struct.LocalChatLog) error
 	UpdateMessageBySeq(ctx context.Context, conversationID string, c *model_struct.LocalChatLog) error
 	UpdateMessageTimeAndStatus(ctx context.Context, conversationID, clientMsgID string, serverMsgID string, sendTime int64, status int32) error
@@ -107,7 +107,7 @@ type ConversationModel interface {
 	ClearConversation(ctx context.Context, conversationID string) error
 	SetConversationDraftDB(ctx context.Context, conversationID, draftText string) error
 	RemoveConversationDraft(ctx context.Context, conversationID, draftText string) error
-	UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]interface{}) error
+	UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]any) error
 	DecrConversationUnreadCount(ctx context.Context, conversationID string, count int64) (err error)
 	GetTotalUnreadMsgCountDB(ctx context.Context) (totalUnreadCount int32, err error)
 	GetMultipleConversationDB(ctx context.Context, conversationIDList []string) (result []*model_struct.LocalConversation, err error)
