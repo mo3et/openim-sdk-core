@@ -14,6 +14,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/serializer"
+	sdkcommon "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	ffi "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
@@ -106,6 +107,9 @@ func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
 		ffiResponse.ErrCode = sdkerrs.ArgsError
 		ffiResponse.ErrMsg = "data marshal error"
 	}
+
+	log.ZInfo(context.Background(), fmt.Sprintf("[Go SDK -> %s] Trigger Event - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
+		eventName), "data", data)
 
 	ffiResponse.FuncName = eventName
 	ffiResponse.HandleID = GenerateHandleID()

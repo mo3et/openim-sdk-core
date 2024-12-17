@@ -16,7 +16,6 @@ package open_im_sdk
 
 import (
 	"context"
-	"time"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
@@ -30,7 +29,7 @@ const (
 	rotationTime uint = 24
 )
 
-func (u *UserContext) InitSDK(ctx context.Context, req *pb.InitSDKReq) (*pb.InitSDKResp, error) {
+func (u *UserContext) InitSDK(_ context.Context, req *pb.InitSDKReq) (*pb.InitSDKResp, error) {
 	u.info.IMConfig = req.GetConfig()
 	if err := log.InitLoggerFromConfig("open-im-sdk-core", "",
 		commonpb.AppFramework_name[int32(req.Config.AppFramework)], commonpb.Platform_name[int32(req.Config.Platform)], int(req.Config.LogLevel),
@@ -45,8 +44,6 @@ func (u *UserContext) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginRes
 		return nil, sdkerrs.ErrLoginRepeat
 	}
 	u.setLoginStatus(pb.LoginStatus_Logging)
-	log.ZDebug(ctx, "login start... ", "userID", req.UserID, "token", req.Token)
-	t1 := time.Now()
 
 	u.info.UserID = req.UserID
 	u.info.Token = req.Token
@@ -57,7 +54,6 @@ func (u *UserContext) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginRes
 
 	u.run(ctx)
 	u.setLoginStatus(pb.LoginStatus_Logged)
-	log.ZDebug(ctx, "login success...", "login cost time: ", time.Since(t1))
 	return &pb.LoginResp{}, nil
 }
 
