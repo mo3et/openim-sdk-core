@@ -263,8 +263,16 @@ func (c *Conversation) doReadDrawing(ctx context.Context, msg *sdkws.MsgData) er
 						successMsgIDs = append(successMsgIDs, message.ClientMsgID)
 					}
 				}
-				c.messageListener().OnRecvC2CReadReceipt(&sdkpb.EventOnRecvC2CReadReceiptData{MsgReceiptList: []*sdkpb.MessageReceipt{{UserID: tips.MarkAsReadUserID, MsgIDList: successMsgIDs,
-					SessionType: conversation.ConversationType, ReadTime: msg.SendTime}}})
+				c.messageListener().OnRecvC2CReadReceipt(ctx, &sdkpb.EventOnRecvC2CReadReceiptData{
+					MsgReceiptList: []*sdkpb.MessageReceipt{
+						{
+							UserID:      tips.MarkAsReadUserID,
+							MsgIDList:   successMsgIDs,
+							SessionType: conversation.ConversationType,
+							ReadTime:    msg.SendTime,
+						},
+					},
+				})
 			}
 		}
 	} else {

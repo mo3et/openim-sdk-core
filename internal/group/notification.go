@@ -188,7 +188,7 @@ func (g *Group) doNotification(ctx context.Context, msg *sdkws.MsgData) error {
 			if err := utils.UnmarshalNotificationElem(msg.Content, &detail); err != nil {
 				return err
 			}
-			g.listener().OnGroupDismissed(&sdkpb.EventOnGroupDismissedData{Group: ServerGroupToSdk(detail.Group)})
+			g.listener().OnGroupDismissed(ctx, &sdkpb.EventOnGroupDismissedData{Group: ServerGroupToSdk(detail.Group)})
 			return g.IncrSyncJoinGroup(ctx)
 		case constant.GroupMemberMutedNotification: // 1512
 			var detail sdkws.GroupMemberMutedTips

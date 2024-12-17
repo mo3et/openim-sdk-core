@@ -16,7 +16,7 @@ import (
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/serializer"
 	sdkcommon "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
-	ffi "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi"
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
@@ -75,7 +75,7 @@ func GenerateHandleID() uint64 {
 	return handleCounter.Add(1)
 }
 
-func activeErrResp(handleID uint64, funcName pb.FuncRequestEventName, err error) {
+func activeErrResp(ctx context.Context, handleID uint64, funcName pb.FuncRequestEventName, err error) {
 	var ffiResult ffi.FfiResult
 	ffiResult.HandleID = handleID
 	ffiResult.FuncName = funcName
@@ -86,19 +86,18 @@ func activeErrResp(handleID uint64, funcName pb.FuncRequestEventName, err error)
 		ffiResult.ErrCode = sdkerrs.UnknownCode
 		ffiResult.ErrMsg = fmt.Sprintf("error %T not implement CodeError: %s", err, err)
 	}
-	dispatchFfiResult(handleID, &ffiResult)
+	dispatchFfiResult(ctx, handleID, &ffiResult)
 
 }
-func activeSuccessResp(handleID uint64, funcName pb.FuncRequestEventName, res []byte) {
-
+func activeSuccessResp(ctx context.Context, handleID uint64, funcName pb.FuncRequestEventName, res []byte) {
 	var ffiResponse ffi.FfiResult
 	ffiResponse.Data = res
 	ffiResponse.FuncName = funcName
 	ffiResponse.HandleID = handleID
-	dispatchFfiResult(handleID, &ffiResponse)
+	dispatchFfiResult(ctx, handleID, &ffiResponse)
 }
 
-func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
+func passiveEventResp(ctx context.Context, eventName pb.FuncRequestEventName, data any) {
 	var ffiResponse ffi.FfiResult
 	var err error
 
@@ -113,10 +112,10 @@ func passiveEventResp(eventName pb.FuncRequestEventName, data any) {
 
 	ffiResponse.FuncName = eventName
 	ffiResponse.HandleID = GenerateHandleID()
-	dispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
+	dispatchFfiResult(ctx, ffiResponse.HandleID, &ffiResponse)
 }
 
-func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data any) {
+func activeEventResp(ctx context.Context, eventName pb.FuncRequestEventName, handleID uint64, data any) {
 	var ffiResponse ffi.FfiResult
 	var err error
 	ffiResponse.Data, err = serializer.GetInstance().Marshal(data)
@@ -126,13 +125,13 @@ func activeEventResp(eventName pb.FuncRequestEventName, handleID uint64, data an
 	}
 	ffiResponse.FuncName = eventName
 	ffiResponse.HandleID = handleID
-	dispatchFfiResult(ffiResponse.HandleID, &ffiResponse)
+	dispatchFfiResult(ctx, ffiResponse.HandleID, &ffiResponse)
 }
 
-func dispatchFfiResult(handleID uint64, ffiResponse *ffi.FfiResult) {
+func dispatchFfiResult(ctx context.Context, handleID uint64, ffiResponse *ffi.FfiResult) {
 	data, err := serializer.GetInstance().Marshal(ffiResponse)
 	if err != nil {
-		log.ZError(context.Background(), "ffiResponse marshal error", err)
+		log.ZError(ctx, "ffiResponse marshal error", err)
 	}
 	if dispatchFfiResultFun != nil {
 		dispatchFfiResultFun(handleID, data)
@@ -145,14 +144,14 @@ func FfiRequest(data []byte) {
 		err := serializer.GetInstance().Unmarshal(data, &ffiRequest)
 		if err != nil {
 			log.ZError(context.Background(), "ffiRequest unmarshal error", err, "dataLength", len(data))
-			activeErrResp(0, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
+			activeErrResp(context.Background(), 0, ffiRequest.FuncName, errs.WrapMsg(err, "ffiRequest unmarshal error",
 				"dataLength", len(data)))
 			return
 		}
 		handleID := ffiRequest.GetHandleID()
 
 		if err := checkResourceLoad(ffiRequest.FuncName); err != nil {
-			activeErrResp(handleID, ffiRequest.FuncName, err)
+			activeErrResp(context.Background(), handleID, ffiRequest.FuncName, err)
 			return
 		}
 
@@ -161,13 +160,13 @@ func FfiRequest(data []byte) {
 				generateUniqueID(open_im_sdk.IMUserContext.Info().UserID, int32(open_im_sdk.IMUserContext.Info().Platform)))
 			res, err := fn(ctx, handleID, ffiRequest.FuncName, ffiRequest.Data)
 			if err != nil {
-				activeErrResp(handleID, ffiRequest.FuncName, err)
+				activeErrResp(ctx, handleID, ffiRequest.FuncName, err)
 				return
 			}
 			setListener(ffiRequest.FuncName)
-			activeSuccessResp(handleID, ffiRequest.FuncName, res)
+			activeSuccessResp(ctx, handleID, ffiRequest.FuncName, res)
 		} else {
-			activeErrResp(handleID, ffiRequest.FuncName, sdkerrs.ErrFuncNotFound.WrapMsg("func not found",
+			activeErrResp(context.Background(), handleID, ffiRequest.FuncName, sdkerrs.ErrFuncNotFound.WrapMsg("func not found",
 				"funcName", ffiRequest.FuncName.String()))
 		}
 	}()

@@ -19,8 +19,6 @@ import (
 	"fmt"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
-	"github.com/openimsdk/tools/mw"
-
 	"reflect"
 	"runtime"
 	"sync"
@@ -75,15 +73,15 @@ func (c *Conversation) syncFlag(c2v common.Cmd2Value) {
 	case constant.AppDataSyncStart:
 		log.ZDebug(ctx, "AppDataSyncStart")
 		c.startTime = time.Now()
-		c.ConversationListener().OnSyncServerStart(&sdkpb.EventOnSyncServerStartData{Reinstalled: true})
-		c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: 1})
+		c.ConversationListener().OnSyncServerStart(ctx, &sdkpb.EventOnSyncServerStartData{Reinstalled: true})
+		c.ConversationListener().OnSyncServerProgress(ctx, &sdkpb.EventOnSyncServerProgressData{Progress: 1})
 		asyncWaitFunctions := []func(c context.Context) error{
 			c.group.SyncAllJoinedGroupsAndMembers,
 			c.relation.IncrSyncFriends,
 		}
 		runSyncFunctions(ctx, asyncWaitFunctions, asyncWait)
-		c.addInitProgress(InitSyncProgress * 4 / 10)                                                                     // add 40% of InitSyncProgress as progress
-		c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)}) // notify server current Progress
+		c.addInitProgress(InitSyncProgress * 4 / 10)                                                                          // add 40% of InitSyncProgress as progress
+		c.ConversationListener().OnSyncServerProgress(ctx, &sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)}) // notify server current Progress
 
 		syncWaitFunctions := []func(c context.Context) error{
 			c.IncrSyncConversations,
@@ -91,8 +89,8 @@ func (c *Conversation) syncFlag(c2v common.Cmd2Value) {
 		}
 		runSyncFunctions(ctx, syncWaitFunctions, syncWait)
 		log.ZWarn(ctx, "core data sync over", nil, "cost time", time.Since(c.startTime).Seconds())
-		c.addInitProgress(InitSyncProgress * 6 / 10)                                                                     // add 60% of InitSyncProgress as progress
-		c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)}) // notify server current Progress
+		c.addInitProgress(InitSyncProgress * 6 / 10)                                                                          // add 60% of InitSyncProgress as progress
+		c.ConversationListener().OnSyncServerProgress(ctx, &sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)}) // notify server current Progress
 
 		asyncNoWaitFunctions := []func(c context.Context) error{
 			c.user.SyncLoginUserInfoWithoutNotice,
@@ -108,17 +106,17 @@ func (c *Conversation) syncFlag(c2v common.Cmd2Value) {
 	case constant.AppDataSyncFinish:
 		log.ZDebug(ctx, "AppDataSyncFinish", "time", time.Since(c.startTime).Milliseconds())
 		c.progress = 100
-		c.ConversationListener().OnSyncServerProgress(&sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)})
-		c.ConversationListener().OnSyncServerFinish(&sdkpb.EventOnSyncServerFinishData{Reinstalled: true})
+		c.ConversationListener().OnSyncServerProgress(ctx, &sdkpb.EventOnSyncServerProgressData{Progress: int32(c.progress)})
+		c.ConversationListener().OnSyncServerFinish(ctx, &sdkpb.EventOnSyncServerFinishData{Reinstalled: true})
 	case constant.MsgSyncBegin:
 		log.ZDebug(ctx, "MsgSyncBegin")
-		c.ConversationListener().OnSyncServerStart(&sdkpb.EventOnSyncServerStartData{Reinstalled: false})
+		c.ConversationListener().OnSyncServerStart(ctx, &sdkpb.EventOnSyncServerStartData{Reinstalled: false})
 		c.syncData(c2v)
 	case constant.MsgSyncFailed:
-		c.ConversationListener().OnSyncServerFailed(&sdkpb.EventOnSyncServerFailedData{Reinstalled: false})
+		c.ConversationListener().OnSyncServerFailed(ctx, &sdkpb.EventOnSyncServerFailedData{Reinstalled: false})
 	case constant.MsgSyncEnd:
 		log.ZDebug(ctx, "MsgSyncEnd", "time", time.Since(c.startTime).Milliseconds())
-		c.ConversationListener().OnSyncServerFinish(&sdkpb.EventOnSyncServerFinishData{Reinstalled: false})
+		c.ConversationListener().OnSyncServerFinish(ctx, &sdkpb.EventOnSyncServerFinishData{Reinstalled: false})
 	}
 }
 
@@ -160,7 +158,7 @@ func (c *Conversation) doNotificationManager(c2v common.Cmd2Value) {
 func (c *Conversation) DoNotification(ctx context.Context, msg *sdkws.MsgData) {
 	go func() {
 		if err := c.doNotification(ctx, msg); err != nil {
-			log.ZWarn(ctx, "DoConversationNotification failed", mw.FormatError(err))
+			log.ZWarn(ctx, "DoConversationNotification failed", err)
 		}
 	}()
 }
@@ -213,7 +211,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 				oc.LatestMsgSendTime = lc.LatestMsgSendTime
 				oc.LatestMsg = lc.LatestMsg
 				log.ZInfo(ctx, "OnConversationChanged", "conversation", oc)
-				c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{
+				c.ConversationListener().OnConversationChanged(ctx, &sdkpb.EventOnConversationChangedData{
 					ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, []*model_struct.LocalConversation{oc}),
 				})
 			}
@@ -227,7 +225,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 				log.ZWarn(ctx, "insert new conversation err", err)
 				return
 			}
-			c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{
+			c.ConversationListener().OnNewConversation(ctx, &sdkpb.EventOnNewConversationData{
 				ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, []*model_struct.LocalConversation{&lc}),
 			})
 		}
@@ -237,7 +235,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		if err != nil {
 			log.ZWarn(ctx, "GetTotalUnreadMsgCountDB err", err)
 		} else {
-			c.ConversationListener().OnTotalUnreadMessageCountChanged(&sdkpb.EventOnTotalUnreadMessageCountChangedData{TotalUnreadCount: totalUnreadCount})
+			c.ConversationListener().OnTotalUnreadMessageCountChanged(ctx, &sdkpb.EventOnTotalUnreadMessageCountChangedData{TotalUnreadCount: totalUnreadCount})
 		}
 	case constant.UpdateConFaceUrlAndNickName:
 		var lc model_struct.LocalConversation
@@ -328,7 +326,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		//}
 		lc, err := c.db.GetConversation(ctx, node.ConID)
 		if err == nil {
-			c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, []*model_struct.LocalConversation{lc})})
+			c.ConversationListener().OnConversationChanged(ctx, &sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, []*model_struct.LocalConversation{lc})})
 		} else {
 			log.ZError(ctx, "getConversation err", err, "conversationID", node.ConID)
 		}
@@ -345,7 +343,7 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 				}
 			}
 			log.ZInfo(ctx, "OnConversationChanged", "conversations", newCList)
-			c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, newCList)})
+			c.ConversationListener().OnConversationChanged(ctx, &sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, newCList)})
 		}
 	case constant.NewCon:
 		cidList := node.Args.([]string)
@@ -355,18 +353,18 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 		} else {
 			if cLists != nil {
 				log.ZDebug(ctx, "getMultipleConversationModel success", "cLists", cLists)
-				c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, cLists)})
+				c.ConversationListener().OnNewConversation(ctx, &sdkpb.EventOnNewConversationData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, cLists)})
 			}
 		}
 	case constant.ConChangeDirect:
 		cidList := node.Args.([]*model_struct.LocalConversation)
 		log.ZInfo(ctx, "ConversationChanged", "cidList", cidList)
-		c.ConversationListener().OnConversationChanged(&sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, cidList)})
+		c.ConversationListener().OnConversationChanged(ctx, &sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, cidList)})
 
 	case constant.NewConDirect:
 		cidList := node.Args.([]*model_struct.LocalConversation)
 		log.ZDebug(ctx, "NewConversation", "cidList", cidList)
-		c.ConversationListener().OnNewConversation(&sdkpb.EventOnNewConversationData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, cidList)})
+		c.ConversationListener().OnNewConversation(ctx, &sdkpb.EventOnNewConversationData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, cidList)})
 
 	}
 }
@@ -534,6 +532,6 @@ func (c *Conversation) doBusinessNotification(ctx context.Context, msg *sdkws.Ms
 	if err := utils.UnmarshalNotificationElem(msg.Content, &detail); err != nil {
 		return err
 	}
-	c.businessListener().OnRecvCustomBusinessMessage(&sdkpb.EventOnRecvCustomBusinessMessageData{BusinessMessage: detail})
+	c.businessListener().OnRecvCustomBusinessMessage(ctx, &sdkpb.EventOnRecvCustomBusinessMessageData{BusinessMessage: detail})
 	return nil
 }

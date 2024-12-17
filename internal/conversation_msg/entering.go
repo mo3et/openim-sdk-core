@@ -3,6 +3,9 @@ package conversation_msg
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
+	"math/rand"
 	"time"
 
 	"github.com/patrickmn/go-cache"
@@ -50,7 +53,8 @@ func newTyping(c *Conversation) *typing {
 		if err := json.Unmarshal([]byte(key), &data); err != nil {
 			return
 		}
-		e.changes(data.ConversationID, data.UserID)
+		ctx := ccontext.WithOperationID(context.Background(), fmt.Sprintf("typing_timeout_%d", rand.Int63()))
+		e.changes(ctx, data.ConversationID, data.UserID)
 	})
 	return e
 }
@@ -185,7 +189,7 @@ func (e *typing) onNewMsg(ctx context.Context, msg *sdkws.MsgData) {
 			e.state.Set(key, v, d)
 		} else {
 			e.state.Set(key, struct{}{}, d)
-			e.changes(conversationID, msg.SendID)
+			e.changes(ctx, conversationID, msg.SendID)
 		}
 	} else {
 		if _, ok := e.state.Get(key); ok {
@@ -200,11 +204,11 @@ type InputStatesChangedData struct {
 	PlatformIDs    []int32 `json:"platformIDs"`
 }
 
-func (e *typing) changes(conversationID string, userID string) {
+func (e *typing) changes(ctx context.Context, conversationID string, userID string) {
 	platforms := datautil.Batch(func(v int32) commonpb.Platform {
 		return commonpb.Platform(v)
 	}, e.GetInputStates(conversationID, userID))
-	e.conv.ConversationListener().OnConversationUserInputStatusChanged(
+	e.conv.ConversationListener().OnConversationUserInputStatusChanged(ctx,
 		&eventpb.EventOnConversationUserInputStatusChangedData{ConversationID: conversationID, UserID: userID, Platforms: platforms})
 }
 

@@ -24,8 +24,8 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
 	github.com/mattn/go-sqlite3 v1.14.22 // indirect
-	github.com/openimsdk/protocol v0.0.72-alpha.60 // indirect
-	github.com/openimsdk/tools v0.0.50-alpha.40 // indirect
+	github.com/openimsdk/protocol v0.0.72-alpha.63 // indirect
+	github.com/openimsdk/tools v0.0.50-alpha.56 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	go.uber.org/atomic v1.7.0 // indirect

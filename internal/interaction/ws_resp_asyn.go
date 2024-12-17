@@ -100,12 +100,14 @@ func (u *WsRespAsyn) DelCh(msgIncr string) {
 	}
 }
 
-func (u *WsRespAsyn) notifyCh(ch chan *GeneralWsResp, value *GeneralWsResp, timeout int64) error {
+func (u *WsRespAsyn) notifyCh(ctx context.Context, ch chan *GeneralWsResp, value *GeneralWsResp, timeout time.Duration) error {
+	timer := time.NewTimer(time.Second)
+	defer timer.Stop()
 	var flag = 0
 	select {
 	case ch <- value:
 		flag = 1
-	case <-time.After(time.Second * time.Duration(timeout)):
+	case <-timer.C:
 		flag = 2
 	}
 	if flag == 1 {
@@ -125,7 +127,7 @@ func (u *WsRespAsyn) NotifyResp(ctx context.Context, wsResp GeneralWsResp) error
 		return errs.WrapMsg(errors.New("no ch"), "GetCh failed "+wsResp.MsgIncr)
 	}
 	for {
-		err := u.notifyCh(ch, &wsResp, 1)
+		err := u.notifyCh(ctx, ch, &wsResp, time.Second)
 		if err != nil {
 			log.ZWarn(ctx, "TriggerCmdNewMsgCome failed ", err, "ch", ch, "wsResp", wsResp)
 			continue

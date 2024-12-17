@@ -5,10 +5,10 @@ import (
 )
 
 const (
-	APIADDR = "http://127.0.0.1:10002"
-	WSADDR  = "ws://127.0.0.1:10001"
+	APIADDR = "http://172.16.8.135:10002"
+	WSADDR  = "ws://172.16.8.135:10001"
 
-	UserID = "5143233203"
+	UserID = "3624967544"
 )
 
 //const (

@@ -521,7 +521,7 @@ func (c *Conversation) doMsgSyncByReinstalled(c2v common.Cmd2Value) {
 	log.ZDebug(ctx, "before trigger msg", "cost time", time.Since(b).Seconds(), "len", len(allMsg))
 
 	// log.ZDebug(ctx, "progress is", "msgLen", msgLen, "msgOffset", c.msgOffset, "total", total, "now progress is", (c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)
-	c.ConversationListener().OnSyncServerProgress(&eventpb.EventOnSyncServerProgressData{Progress: int32((c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)})
+	c.ConversationListener().OnSyncServerProgress(ctx, &eventpb.EventOnSyncServerProgressData{Progress: int32((c.msgOffset*(100-InitSyncProgress))/total + InitSyncProgress)})
 }
 
 func (c *Conversation) addInitProgress(progress int) {
@@ -638,10 +638,10 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList MsgList, 
 		for _, w := range newMessagesList {
 			conversationID := utils.GetConversationIDByMsg(w)
 			if v, ok := cc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.messageListener().OnRecvOfflineNewMessage(&eventpb.EventOnRecvOfflineNewMessageData{Message: w})
+				c.messageListener().OnRecvOfflineNewMessage(ctx, &eventpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 			if v, ok := nc[conversationID]; ok && v.RecvMsgOpt == constant.ReceiveMessage {
-				c.messageListener().OnRecvOfflineNewMessage(&eventpb.EventOnRecvOfflineNewMessageData{Message: w})
+				c.messageListener().OnRecvOfflineNewMessage(ctx, &eventpb.EventOnRecvOfflineNewMessageData{Message: w})
 			}
 		}
 	} else {
@@ -650,9 +650,9 @@ func (c *Conversation) newMessage(ctx context.Context, newMessagesList MsgList, 
 				continue
 			}
 			if _, ok := onlineMsg[onlineMsgKey{ClientMsgID: w.ClientMsgID, ServerMsgID: w.ServerMsgID}]; ok {
-				c.messageListener().OnRecvOnlineOnlyMessage(&eventpb.EventOnRecvOnlineOnlyMessageData{Message: w})
+				c.messageListener().OnRecvOnlineOnlyMessage(ctx, &eventpb.EventOnRecvOnlineOnlyMessageData{Message: w})
 			} else {
-				c.messageListener().OnRecvNewMessage(&eventpb.EventOnRecvNewMessageData{Message: w})
+				c.messageListener().OnRecvNewMessage(ctx, &eventpb.EventOnRecvNewMessageData{Message: w})
 			}
 		}
 	}

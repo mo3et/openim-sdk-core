@@ -17,6 +17,7 @@ package user
 import (
 	"context"
 	"fmt"
+	"sync"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
 	"github.com/openimsdk/tools/log"
@@ -38,12 +39,12 @@ func NewUser(conversationCh chan common.Cmd2Value) *User {
 	user := &User{conversationCh: conversationCh}
 	user.initSyncer()
 	//user.OnlineStatusCache = cache.NewCache[string, *userPb.OnlineStatus]()
-	user.UserCache = cache.NewManager[string, *model_struct.LocalUser](
-		func(value *model_struct.LocalUser) string { return value.UserID },
-		nil,
-		user.GetLoginUser,
-		user.GetUsersInfoFromServer,
-	)
+	//user.UserCache = cache.NewManager[string, *model_struct.LocalUser](
+	//	func(value *model_struct.LocalUser) string { return value.UserID },
+	//	nil,
+	//	user.GetLoginUser,
+	//	user.GetUsersInfoFromServer,
+	//)
 	return user
 }
 
@@ -55,9 +56,21 @@ type User struct {
 	userSyncer     *syncer.Syncer[*model_struct.LocalUser, syncer.NoResp, string]
 	commandSyncer  *syncer.Syncer[*model_struct.LocalUserCommand, syncer.NoResp, string]
 	conversationCh chan common.Cmd2Value
-	UserCache      *cache.Manager[string, *model_struct.LocalUser]
-
+	userCache      *cache.Manager[string, *model_struct.LocalUser]
+	once           sync.Once
 	//OnlineStatusCache *cache.Cache[string, *userPb.OnlineStatus]
+}
+
+func (u *User) UserCache() *cache.Manager[string, *model_struct.LocalUser] {
+	u.once.Do(func() {
+		u.userCache = cache.NewManager[string, *model_struct.LocalUser](
+			func(value *model_struct.LocalUser) string { return value.UserID },
+			nil,
+			u.GetLoginUser,
+			u.GetUsersInfoFromServer,
+		)
+	})
+	return u.userCache
 }
 
 // SetDataBase sets the DataBase field in User struct
@@ -84,7 +97,7 @@ func (u *User) initSyncer() {
 			return fmt.Errorf("not support delete user %s", value.UserID)
 		},
 		func(ctx context.Context, serverUser, localUser *model_struct.LocalUser) error {
-			u.UserCache.Delete(localUser.UserID)
+			u.UserCache().Delete(localUser.UserID)
 			return u.DataBase.UpdateLoginUser(context.Background(), serverUser)
 		},
 		func(user *model_struct.LocalUser) string {
@@ -94,7 +107,7 @@ func (u *User) initSyncer() {
 		func(ctx context.Context, state int, server, local *model_struct.LocalUser) error {
 			switch state {
 			case syncer.Update:
-				u.listener().OnSelfInfoUpdated(&sdkpb.EventOnSelfInfoUpdatedData{User: DBUserToSdk(server)})
+				u.listener().OnSelfInfoUpdated(ctx, &sdkpb.EventOnSelfInfoUpdatedData{User: DBUserToSdk(server)})
 				if server.Nickname != local.Nickname || server.FaceURL != local.FaceURL {
 					_ = common.TriggerCmdUpdateMessage(ctx, common.UpdateMessageNode{Action: constant.UpdateMsgFaceUrlAndNickName,
 						Args: common.UpdateMessageInfo{SessionType: constant.SingleChatType, UserID: server.UserID, FaceURL: server.FaceURL, Nickname: server.Nickname}}, u.conversationCh)
@@ -139,11 +152,11 @@ func (u *User) initSyncer() {
 			}
 			switch state {
 			case syncer.Delete:
-				u.listener().OnUserCommandDelete(&sdkpb.EventOnUserCommandDeleteData{Command: DBCommandToSdk(serverCommand)})
+				u.listener().OnUserCommandDelete(ctx, &sdkpb.EventOnUserCommandDeleteData{Command: DBCommandToSdk(serverCommand)})
 			case syncer.Update:
-				u.listener().OnUserCommandUpdate(&sdkpb.EventOnUserCommandUpdateData{Command: DBCommandToSdk(serverCommand)})
+				u.listener().OnUserCommandUpdate(ctx, &sdkpb.EventOnUserCommandUpdateData{Command: DBCommandToSdk(serverCommand)})
 			case syncer.Insert:
-				u.listener().OnUserCommandAdd(&sdkpb.EventOnUserCommandAddData{Command: DBCommandToSdk(serverCommand)})
+				u.listener().OnUserCommandAdd(ctx, &sdkpb.EventOnUserCommandAddData{Command: DBCommandToSdk(serverCommand)})
 			}
 			return nil
 		},
@@ -151,11 +164,11 @@ func (u *User) initSyncer() {
 }
 
 func (u *User) GetUserInfoWithCache(ctx context.Context, cacheKey string) (*model_struct.LocalUser, error) {
-	return u.UserCache.Fetch(ctx, cacheKey)
+	return u.UserCache().Fetch(ctx, cacheKey)
 }
 
 func (u *User) GetUsersInfoWithCache(ctx context.Context, cacheKeys []string) ([]*model_struct.LocalUser, error) {
-	m, err := u.UserCache.BatchFetch(ctx, cacheKeys)
+	m, err := u.UserCache().BatchFetch(ctx, cacheKeys)
 	if err != nil {
 		return nil, err
 	}

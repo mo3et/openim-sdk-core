@@ -203,7 +203,7 @@ func (d *DataBase) RemoveConversationDraft(ctx context.Context, conversationID, 
 	return errs.WrapMsg(t.Error, "RemoveConversationDraft failed")
 }
 
-func (d *DataBase) UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]interface{}) error {
+func (d *DataBase) UpdateColumnsConversation(ctx context.Context, conversationID string, args map[string]any) error {
 	d.mRWMutex.Lock()
 	defer d.mRWMutex.Unlock()
 	t := d.conn.WithContext(ctx).Model(model_struct.LocalConversation{ConversationID: conversationID}).Updates(args)

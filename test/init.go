@@ -39,13 +39,13 @@ func init() {
 		panic(err)
 	}
 	errCh := make(chan error)
-	open_im_sdk.IMUserContext.SetConnListener(&onConnListener{ctx: ctx})
-	open_im_sdk.IMUserContext.SetConversationListener(&onConversationListener{ctx: ctx, ch: errCh})
-	open_im_sdk.IMUserContext.SetMessageListener(&onMessageListener{ctx: ctx})
-	open_im_sdk.IMUserContext.SetFriendshipListener(&onFriendshipListener{ctx: ctx})
-	open_im_sdk.IMUserContext.SetGroupListener(&onGroupListener{ctx: ctx})
-	open_im_sdk.IMUserContext.SetUserListener(&onUserListener{ctx: ctx})
-	open_im_sdk.IMUserContext.SetCustomBusinessListener(&onCustomBusinessListener{ctx: ctx})
+	open_im_sdk.IMUserContext.SetConnListener(&onConnListener{})
+	open_im_sdk.IMUserContext.SetConversationListener(&onConversationListener{ch: errCh})
+	open_im_sdk.IMUserContext.SetMessageListener(&onMessageListener{})
+	open_im_sdk.IMUserContext.SetFriendshipListener(&onFriendshipListener{})
+	open_im_sdk.IMUserContext.SetGroupListener(&onGroupListener{})
+	open_im_sdk.IMUserContext.SetUserListener(&onUserListener{})
+	open_im_sdk.IMUserContext.SetCustomBusinessListener(&onCustomBusinessListener{})
 	if _, err := open_im_sdk.IMUserContext.Login(ctx, &sdkpb.LoginReq{
 		UserID: UserID,
 		Token:  token,
@@ -53,7 +53,7 @@ func init() {
 		panic(err)
 	}
 	select {
-	case <-time.After(time.Second * 99999):
+	case <-time.After(time.Second * 5):
 		panic("init timeout")
 	case err := <-errCh:
 		if err != nil {
