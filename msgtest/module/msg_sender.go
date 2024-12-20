@@ -3,6 +3,7 @@ package module
 import (
 	"context"
 	"fmt"
+
 	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
@@ -131,7 +132,7 @@ func newUserCtx(userID, token string, imConfig *initpb.IMConfig) context.Context
 func NewUser(userID, token string, timeOffset int64, p *PressureTester, imConfig *initpb.IMConfig, opts ...func(core *SendMsgUser)) *SendMsgUser {
 	pushMsgAndMaxSeqCh := make(chan common.Cmd2Value, 1000)
 	ctx := newUserCtx(userID, token, imConfig)
-	longConnMgr := interaction.NewLongConnMgr(ctx, func(m map[string][]int32) {}, pushMsgAndMaxSeqCh, nil)
+	longConnMgr := interaction.NewLongConnMgr(ctx, func(ctx context.Context, m map[string][]int32) {}, pushMsgAndMaxSeqCh, nil)
 	core := &SendMsgUser{
 		pushMsgAndMaxSeqCh:      pushMsgAndMaxSeqCh,
 		longConnMgr:             longConnMgr,

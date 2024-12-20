@@ -2,6 +2,7 @@ package sdk_user_simulator
 
 import (
 	"context"
+
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/tools/errs"
 	"github.com/openimsdk/tools/log"
@@ -37,7 +38,7 @@ func (c *conversationCallBack) OnConversationUserInputStatusChanged(data *pb.Eve
 type userCallback struct {
 }
 
-func (c userCallback) OnUserStatusChanged(data *pb.EventOnUserStatusChangedData) {
+func (c userCallback) OnUserStatusChanged(data *pb.EventOnUserOnlineStatusChangedData) {
 }
 
 func (userCallback) OnSelfInfoUpdated(data *pb.EventOnSelfInfoUpdatedData) {

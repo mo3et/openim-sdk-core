@@ -7,6 +7,7 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
 )
 
 func TestUpload(t *testing.T) {
@@ -27,14 +28,13 @@ func TestUpload(t *testing.T) {
 	//fp := `C:\Users\openIM\Desktop\log2023-10-31.log`
 	fp := `C:\Users\openIM\Desktop\protoc.zip`
 
-	resp, err := f.UploadFile(ctx, &UploadFileReq{
+	resp, err := f.UploadFile(ctx, &third.UploadFileReq{
 		Filepath: fp,
 		Name:     filepath.Base(fp),
-		Cause:    "test",
 	}, nil)
 	if err != nil {
 		t.Fatal("failed", err)
 	}
-	t.Log("success", resp.URL)
+	t.Log("success", resp.Url)
 
 }
