@@ -5,10 +5,12 @@ import (
 	"fmt"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
 	"github.com/openimsdk/tools/log"
+	"sync/atomic"
 )
 
 type onConversationListener struct {
-	ch chan error
+	first atomic.Bool
+	ch    chan error
 }
 
 func (o *onConversationListener) OnSyncServerStart(ctx context.Context, data *pb.EventOnSyncServerStartData) {
@@ -17,12 +19,18 @@ func (o *onConversationListener) OnSyncServerStart(ctx context.Context, data *pb
 
 func (o *onConversationListener) OnSyncServerFinish(ctx context.Context, data *pb.EventOnSyncServerFinishData) {
 	log.ZInfo(ctx, "###LISTENER### OnSyncServerFinish")
-	o.ch <- nil
+	if o.first.CompareAndSwap(false, true) {
+		o.ch <- nil
+		close(o.ch)
+	}
 }
 
 func (o *onConversationListener) OnSyncServerFailed(ctx context.Context, data *pb.EventOnSyncServerFailedData) {
 	log.ZInfo(ctx, "###LISTENER### OnSyncServerFailed")
-	o.ch <- fmt.Errorf("OnSyncServerFailed")
+	if o.first.CompareAndSwap(false, true) {
+		o.ch <- fmt.Errorf("OnSyncServerFailed")
+		close(o.ch)
+	}
 }
 
 func (o *onConversationListener) OnSyncServerProgress(ctx context.Context, data *pb.EventOnSyncServerProgressData) {
