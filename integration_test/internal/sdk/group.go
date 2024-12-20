@@ -2,6 +2,8 @@ package sdk
 
 import (
 	"context"
+	"time"
+
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/config"
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/pkg/utils"
 	"github.com/openimsdk/openim-sdk-core/v3/integration_test/internal/vars"
@@ -12,7 +14,6 @@ import (
 	"github.com/openimsdk/protocol/sdkws"
 	"github.com/openimsdk/tools/log"
 	"github.com/openimsdk/tools/utils/datautil"
-	"time"
 )
 
 // CreateCommonGroup create a regular group. Group members are the users with IDs
@@ -44,10 +45,8 @@ func (s *TestSDK) createGroup(ctx context.Context, memberUserIds []string, group
 
 	g, err := s.SDK.Group().CreateGroup(ctx, &group.CreateGroupReq{
 		MemberUserIDs: initialMembers,
-		GroupInfo: &sharedpb.IMGroup{
-			GroupName: utils.BuildGroupName(s.UserID, groupType),
-		},
-		AdminUserIDs: nil,
+		GroupName:     utils.BuildGroupName(s.UserID, groupType),
+		AdminUserIDs:  nil,
 	})
 	if err != nil {
 		return nil, err
