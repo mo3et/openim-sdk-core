@@ -1,14 +1,12 @@
 syntax = "proto3";
 package openim.sdk.relation;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/relation";
-option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
-
 import "common.proto";
 import "shared.proto";
 
-
+option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/relation";
+option swift_prefix = "";
 
 message GetSpecifiedFriendsReq {
   repeated string friendUserIDs = 1; // specified friend userid list
@@ -26,96 +24,203 @@ message AddFriendReq {
 message AddFriendResp {}
 
 message GetFriendApplicationReq {
-  // 1. user send friend request.
-  // 2. user receive friend request
+  /**
+   * true: user sended friend request.
+   * false: user received friend request.
+   */
   bool send = 1;
 }
 message GetFriendApplicationResp {
-  repeated shared.IMFriendApplication applications = 1; // corresponding friend request list
+  // list of corresponding friend request
+  repeated shared.IMFriendApplication applications = 1;
 }
 
 message HandleFriendApplicationReq {
-  string userID = 1; // send friend request userid
-  string handleMsg = 2; // handle message
-  common.ApprovalStatus status = 3; // handle status
+  // send friend request user id
+  string userID = 1;
+  // request handle message
+  string handleMsg = 2;
+  // @common_approval_status
+  common.ApprovalStatus status = 3;
 }
 message HandleFriendApplicationResp {}
 
 message CheckFriendReq {
-  repeated string friendUserIDs = 1; // checkFriend userid list
+  // list of check it friend user id
+  repeated string friendUserIDs = 1;
 }
 
 enum CheckFriendResult {
-  NotFriend = 0; // not friend
-  IsFriend = 1; // is friend
+  // The user is not a friend.
+  NotFriend = 0;
+  // The user is a friend.
+  IsFriend = 1;
 }
 
 message CheckFriendInfo {
-  string userID = 1; // checkFriend target userid
-  CheckFriendResult result = 2; // checkFriend result
+  // @user_id
+  string userID = 1;
+  // User relationship result.
+  CheckFriendResult result = 2;
 }
 message CheckFriendResp {
-  repeated CheckFriendInfo result = 1; // checkFriend result list
+  // checkFriend result list
+  repeated CheckFriendInfo result = 1;
 }
 
 message DeleteFriendReq {
-  string userID = 1; // need delete friend userid
+  // @user_id
+  string userID = 1;
 }
 message DeleteFriendResp {}
 
 message GetFriendsReq {
-  bool filterBlack = 1; // filter black friend, default false
+  // @relation_filter_black
+  bool filterBlack = 1;
 }
 message GetFriendsResp {
-  repeated shared.IMFriend friends = 1; // get friend list
+  // @shared_imfriends
+  repeated shared.IMFriend friends = 1;
 }
 
 message GetFriendsPageReq {
-  bool filterBlack = 1; // filter black friend, default false
-  openim.sdk.common.RequestPagination pagination = 2; // pagination, include pagenumber and pageSize
+  // @relation_filter_black
+  bool filterBlack = 1;
+  // @common_request_pagination
+  openim.sdk.common.RequestPagination pagination = 2;
 }
 message GetFriendsPageResp {
-  repeated shared.IMFriend friends = 1; // get friend list
+  // @shared_imfriends
+  repeated shared.IMFriend friends = 1;
 }
 
 message SearchFriendsReq {
-  string keyword = 1; // search keyword
-  bool searchUserID = 2; // search userid is condition
-  bool searchNickname = 3; // search nickname is condition
-  bool searchRemark = 4; // search remark is condition
+  // Search keyword
+  string keyword = 1;
+  //  Userid is a search condition
+  bool searchUserID = 2;
+  //  Nickname is a search condition
+  bool searchNickname = 3;
+  // Remark is a search condition
+  bool searchRemark = 4;
 }
 enum Relationship {
-  Black = 0; // black
-  Friend = 1; // friend
+  // The user is a black
+  Black = 0;
+  // The user is a friend
+  Friend = 1;
 }
 message SearchFriendsInfo {
-  shared.IMFriend friend = 1; // search friend info
-  Relationship relationship = 2; // friend relationship
+  // @shared_imfriend
+  shared.IMFriend friend = 1;
+  // friend relationship
+  Relationship relationship = 2;
 }
 message SearchFriendsResp {
-  repeated SearchFriendsInfo friends = 1; // search friend info list
+  // search friend info list
+  repeated SearchFriendsInfo friends = 1;
 }
 
 message AddBlackReq {
-  string userID = 1; // need add black userid
-  string ex = 2; // extension fields
+  // @user_id
+  string userID = 1;
+  // black extension fields
+  string ex = 2;
 }
 message AddBlackResp {}
 
 message DeleteBlackReq {
-  string userID = 1; // need delete black userid
+  // @user_id
+  string userID = 1;
 }
 message DeleteBlackResp {}
 
 message GetBlacksReq {}
 message GetBlacksResp {
-  repeated shared.IMBlack blacks = 1; // black list info list
+  // list of black user
+  repeated shared.IMBlack blacks = 1;
 }
 
 message UpdateFriendReq {
-  string userID = 1; // need update friend
-  optional bool pinned = 2; // update friend pinned status
-  optional string remark = 3; // update friend remark
-  optional string ex = 4; // upate friend extension fields
+  // @user_id
+  string userID = 1;
+  // @opt @user_pinned
+  optional bool pinned = 2;
+  // @opt @user_remark
+  optional string remark = 3;
+  // @opt friend extension field.
+  optional string ex = 4;
 }
 message UpdateFriendResp {}
+
+service RelationService {
+  /**
+   * Get specified friend info, including nickname, avatar, remark.
+   * This func get it from local. Recommend once to get up to 10000.
+   */
+  rpc GetSpecifiedFriends(GetSpecifiedFriendsReq) returns (GetSpecifiedFriendsResp);
+  /**
+   * Send a friend request to add someone as a friend.
+   */
+  rpc AddFriend(AddFriendReq) returns (AddFriendResp);
+  /**
+   * Get friend request list, including send of receive.
+   * If `send` is true, get user send friend request list, else get user received friend request list.
+   */
+  rpc GetFriendApplication(GetFriendApplicationReq) returns (GetFriendApplicationResp);
+  /**
+   * Handle another user sended friend request.
+   * Including `approval_statues` have a accept and refuse(1 and -1).
+   * If you accept the request, the user is a double direction friendship.
+   */
+  rpc HandleFriendApplication(HandleFriendApplicationReq) returns (HandleFriendApplicationResp);
+  /**
+   * Check the user is a friend.
+   * If user is not in friend list or in black list, return `NotFriend`.
+   * If only check the user is in friend list, please use `GetSpecifiedFriends`.
+   * Notice:
+   * The friendship is a double direction, so this function can't check you have in other user friend list.
+   */
+  rpc CheckFriend(CheckFriendReq) returns (CheckFriendResp);
+  /**
+   *
+   *
+   */
+  rpc DeleteFriend(DeleteFriendReq) returns (DeleteFriendResp);
+  /**
+   * Delete a friend.
+   * Notice:
+   * The friendship is a double direction, so this function remove the user from your friend list only.
+   */
+  rpc GetFriends(GetFriendsReq) returns (GetFriendsResp);
+  /**
+   * Get friend list by page.
+   * Recommend the sum is not hugo.
+   */
+  rpc GetFriendsPage(GetFriendsPageReq) returns (GetFriendsPageResp);
+  /**
+   * Search friends by keyword in the friend list.
+   * Notice:
+   * A search condition must be sepcified.
+   * Multiple search conditions are combined with an `OR` relationship.
+   */
+  rpc SearchFriends(SearchFriendsReq) returns (SearchFriendsResp);
+  /**
+   * Add a user to the black list.
+   * Notice:
+   * The mean of you can send message to the user, but the user can't send message to you.
+   */
+  rpc AddBlack(AddBlackReq) returns (AddBlackResp);
+  /**
+   * Delete a user from the black list.
+   */
+  rpc DeleteBlack(DeleteBlackReq) returns (DeleteBlackResp);
+  /**
+   *  Get the black list.
+   */
+  rpc GetBlacks(GetBlacksReq) returns (GetBlacksResp);
+  /**
+   * Update friend info, including remark, pinned, ex field.
+   */
+  rpc UpdateFriend(UpdateFriendReq) returns (UpdateFriendResp);
+}

@@ -1,14 +1,11 @@
 syntax = "proto3";
 package openim.ffi;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi";
-option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
-
 import "event.proto";
 
-
-
+option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/ffi";
+option swift_prefix = "";
 
 message FfiRequest {
   //note: This field is optional and is only used for interaction between Go and JS.
@@ -25,3 +22,7 @@ message FfiResult {
   bytes data = 4;
   uint64 handleID = 5;
 }
+/**
+ *
+ *
+ */

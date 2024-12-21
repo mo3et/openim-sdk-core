@@ -3,6 +3,8 @@
   "user_nickname": "user user_nickname",
   "user_face_url": "user face url",
   "user_ex": "user extension field",
+  "user_pinned": "user pinned status",
+  "user_remark": "user remark",
   "user_create_time": "user create time",
   "user_global_recv_msg_opt": "user global recv msg opt",
   "user_attached": "user attached",
@@ -33,5 +35,12 @@
   "group_member_mute_end_time": "group member mute end time",
   "group_member_operator_user_id": "group member operator user id",
   "group_member_ex": "group member extension field",
-  "group_member_attached_info": "group member attached info"
+  "group_member_attached_info": "group member attached info",
+  "common_approval_status": "Request approval status, 0: default, 1: approved, -1: rejected",
+  "relation_filter_black": "filter black list, false is not contains black, true is contains black. default is false",
+  "shared_imfriend": "friend info",
+  "shared_imfriends": "list of friend info",
+  "shared_immessage": "IM message struct, contentType refer to `common.ContentType`",
+  "common_request_pagination": "Request pagination, including page number and page size",
+  ""
 }

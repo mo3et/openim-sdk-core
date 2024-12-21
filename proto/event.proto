@@ -1,13 +1,12 @@
 syntax = "proto3";
 package openim.event;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/event";
-option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
-
-import "shared.proto";
 import "common.proto";
+import "shared.proto";
 
+option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/event";
+option swift_prefix = "";
 
 enum FuncRequestEventName {
   None = 0;
@@ -181,8 +180,6 @@ enum FuncRequestEventName {
   UnsubscribeUsersOnlineStatus = 2230;
   ChangeInputStates = 2231;
   GetInputStates = 2232;
-
-
 
   // The following functions are only used for Go and JS interaction and can be ignored by other platforms.
   JsFileOpen = 2110;
@@ -385,3 +382,8 @@ message EventOnUserCommandDeleteData {
 message EventOnUserCommandUpdateData {
   openim.sdk.shared.CommandInfo command = 1;
 }
+
+/**
+ *
+ *
+ */

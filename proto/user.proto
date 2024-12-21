@@ -1,62 +1,101 @@
 syntax = "proto3";
 package openim.sdk.user;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/user";
-option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
-
 import "common.proto";
 import "shared.proto";
 
-
+option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/user";
+option swift_prefix = "";
 
 message GetSelfUserInfoReq {}
 message GetSelfUserInfoResp {
-  shared.IMUser user = 1; // userinfo
+  // user self infomation
+  shared.IMUser user = 1;
 }
 
 message SetSelfInfoReq {
-  string userID = 1; // user id
-  optional string nickname = 2; // user nickname
-  optional string faceURL = 3; // user face url
-  optional string ex = 4; // user extension fields
-  optional common.GlobalRecvMsgOpt globalRecvMsgOpt = 7; // control global offline push.
+  // @user_id
+  string userID = 1;
+  // @opt @user_nickname
+  optional string nickname = 2;
+  // @opt @user_face_url
+  optional string faceURL = 3;
+  // @opt @user_ex
+  optional string ex = 4;
+  // @opt @user_global_recv_msg_opt
+  optional common.GlobalRecvMsgOpt globalRecvMsgOpt = 7;
 }
 message SetSelfInfoResp {}
 
 message ProcessUserCommandAddReq {
-  string userID = 1; // userid
-  int32 type = 2; // command type
-  string uuid = 3; // command uuid
-  optional string value = 4; // command value
-  optional string ex = 5; // command extension fields
+  // @user_id
+  string userID = 1;
+  // @user_command_type
+  int32 type = 2;
+  // @user_command_uuid
+  string uuid = 3;
+  // @opt @user_command_value
+  optional string value = 4;
+  // @opt @user_command_ex
+  optional string ex = 5;
 }
 message ProcessUserCommandAddResp {}
 
 message ProcessUserCommandDeleteReq {
-  string userID = 1; // userid
-  int32 type = 2; // command type
-  string uuid = 3; // command uuid
+  // @user_id
+  string userID = 1;
+  // @user_command_type
+  int32 type = 2;
+  // @user_command_uuid
+  string uuid = 3;
 }
 message ProcessUserCommandDeleteResp {}
 
 message ProcessUserCommandUpdateReq {
-  string userID = 1; // userid
-  int32 type = 2; // command type
-  string uuid = 3; // command uuid
-  optional string value = 4; // command value
-  optional string ex = 5; // command extension fields
+  // @user_id
+  string userID = 1;
+  // @user_command_type
+  int32 type = 2;
+  // @user_command_uuid
+  string uuid = 3;
+  // @opt @user_command_value
+  optional string value = 4;
+  // @opt @user_command_ex
+  optional string ex = 5;
 }
 message ProcessUserCommandUpdateResp {}
 
 message ProcessUserCommandGetAllReq {}
 message ProcessUserCommandGetAllResp {
-  repeated shared.CommandInfo commands = 1; // command info list
+  // @user_command_info
+  repeated shared.CommandInfo commands = 1;
 }
 
 message GetUsersInfoReq {
-  repeated string userIDs = 1; // userid list
+  // list of users id
+  repeated string userIDs = 1;
 }
 message GetUsersInfoResp {
-  repeated shared.IMUser users = 1; // userinfo list
+  // list of users info
+  repeated shared.IMUser users = 1;
+}
+
+service UserService {
+  /**
+   * Get the information of the currently login user
+   */
+  rpc GetSelfUserInfo(GetSelfUserInfoReq) returns (GetSelfUserInfoResp);
+  /**
+   * Set the information of the currently login user, including `ex`.
+   */
+  rpc SetSelfInfo(SetSelfInfoReq) returns (SetSelfInfoResp);
+  /**
+   * Get the public information of the specified users, including `nickname`, `faceURL`.
+   */
+  rpc GetUsersInfo(GetUsersInfoReq) returns (GetUsersInfoResp);
+  rpc ProcessUserCommandAdd(ProcessUserCommandAddReq) returns (ProcessUserCommandAddResp);
+  rpc ProcessUserCommandDelete(ProcessUserCommandDeleteReq) returns (ProcessUserCommandDeleteResp);
+  rpc ProcessUserCommandUpdate(ProcessUserCommandUpdateReq) returns (ProcessUserCommandUpdateResp);
+  rpc ProcessUserCommandGetAll(ProcessUserCommandGetAllReq) returns (ProcessUserCommandGetAllResp);
 }

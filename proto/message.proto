@@ -1,13 +1,11 @@
 syntax = "proto3";
 package openim.sdk.message;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
-option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
-
 import "shared.proto";
 
-
+option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
+option swift_prefix = "";
 
 // ------------------------------------------------------------------------------------------------------
 message SendMessageReq {
@@ -24,16 +22,14 @@ message GetHistoryMessageListReq {
   string conversationID = 1;
   string startClientMsgID = 2;
   int32 count = 3;
-  bool  isReverse = 4;
+  bool isReverse = 4;
 }
 message GetHistoryMessageListResp {
   repeated shared.IMMessage messageList = 1;
   bool isEnd = 2;
   int32 errCode = 3;
   string errMsg = 4;
-
 }
-
 
 message RevokeMessageReq {
   string conversationID = 1;
@@ -214,23 +210,81 @@ message CreateForwardMessageResp {
 
 service MessageService {
   /**
-   * create a picture message
-   * in the js environment, filepath is a file object
+   * create a text message.
+   *
+   */
+  rpc CreateTextMessage(CreateTextMessageReq) returns (CreateTextMessageResp);
+  /**
+   * create a text message with advanced features.
+   */
+  rpc CreateAdvancedTextMessage(CreateAdvancedTextMessageReq) returns (CreateAdvancedTextMessageResp);
+  /**
+   * create a At message.
+   * Now only support 10 users in one message.
+   * If you want to at all users, you need use a `AtAllTag` tag in userID field.
+   * Meanwhile, if you need to at user and quote a message, you need to pass the referenced message as a parameter.
+   */
+  rpc CreateTextAtMessage(CreateTextAtMessageReq) returns (CreateTextAtMessageResp);
+  /**
+   * create a location message. Including longitude and latitude.
+   * The longitude and latitude need you get it.
+   */
+  rpc CreateLocationMessage(CreateLocationMessageReq) returns (CreateLocationMessageResp);
+  /**
+   * create a custom message.
+   * All fields are you defination. SDK only send it.
+   */
+  rpc CreateCustomMessage(CreateCustomMessageReq) returns (CreateCustomMessageResp);
+  /**
+   * create a quote message.
+   */
+  rpc CreateQuoteMessage(CreateQuoteMessageReq) returns (CreateQuoteMessageResp);
+  /**
+   * create a advanced quote message.
+   */
+  rpc CreateAdvancedQuoteMessage(CreateAdvancedQuoteMessageReq) returns (CreateAdvancedQuoteMessageResp);
+  /**
+   * create a card message.
+   */
+  rpc CreateCardMessage(CreateCardMessageReq) returns (CreateCardMessageResp);
+  /**
+   * create a picture message.
+   * in the js environment, filepath is a file object.
    */
   rpc CreateImageMessage(CreateImageMessageReq) returns (CreateImageMessageResp);
   /**
-   * create a sound message
-   * in the js environment, filepath is a file object
+   * create a sound message.
+   * in the js environment, filepath is a file object.
    */
   rpc CreateSoundMessage(CreateSoundMessageReq) returns (CreateSoundMessageResp);
   /**
-   * create a video message
-   * in the js environment, filepath is a file object
+   * create a video message.
+   * in the js environment, filepath is a file object.
    */
   rpc CreateVideoMessage(CreateVideoMessageReq) returns (CreateVideoMessageResp);
   /**
-   * create a file message
-   * in the js environment, filepath is a file object
+   * create a file message.
+   * in the js environment, filepath is a file object.
    */
   rpc CreateFileMessage(CreateFileMessageReq) returns (CreateFileMessageResp);
+  /**
+   * create a merger message.
+   * The merger message is a message that contains multiple messages.
+   * The parameter include title, summaries and multiple messages.
+   * Notice:
+   * It is recommended that the number of merged messages does not exceed 100.
+   */
+  rpc CreateMergerMessage(CreateMergerMessageReq) returns (CreateMergerMessageResp);
+  /**
+   * create a face message.
+   * Notice:
+   * The face message is include a mod face and gif face.
+   * If you want to all platform is same, use `index` arg.
+   * If you want to not same, use `data` arg. And recommend to set `index` to -1.
+   */
+  rpc CreateFaceMessage(CreateFaceMessageReq) returns (CreateFaceMessageResp);
+  /**
+   * create a forward message.
+   */
+  rpc CreateForwardMessage(CreateForwardMessageReq) returns (CreateForwardMessageResp);
 }

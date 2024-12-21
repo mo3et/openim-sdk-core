@@ -126,9 +126,8 @@ var FuncMap = map[sdkevent.FuncRequestEventName]callFunc{
 	sdkevent.FuncRequestEventName_GetLoginStatus:         wrapFunc(open_im_sdk.IMUserContext.GetLoginStatus),
 	sdkevent.FuncRequestEventName_Version:                wrapFunc(open_im_sdk.IMUserContext.Version),
 
-	sdkevent.FuncRequestEventName_SendMessage: wrapFuncWithCallback(open_im_sdk.IMUserContext.Conversation().SendMessage),
-	sdkevent.FuncRequestEventName_UploadLogs:  wrapFuncWithCallback(open_im_sdk.IMUserContext.Third().UploadSDKData),
-	sdkevent.FuncRequestEventName_UploadFile:  wrapFuncWithCallback(open_im_sdk.IMUserContext.Third().UploadFile),
+	sdkevent.FuncRequestEventName_UploadLogs: wrapFuncWithCallback(open_im_sdk.IMUserContext.Third().UploadSDKData),
+	sdkevent.FuncRequestEventName_UploadFile: wrapFuncWithCallback(open_im_sdk.IMUserContext.Third().UploadFile),
 
 	sdkevent.FuncRequestEventName_Log:            wrapFunc(open_im_sdk.IMUserContext.Third().Log),
 	sdkevent.FuncRequestEventName_UpdateFcmToken: wrapFunc(open_im_sdk.IMUserContext.Third().UpdateFcmToken),
@@ -173,6 +172,7 @@ var FuncMap = map[sdkevent.FuncRequestEventName]callFunc{
 	sdkevent.FuncRequestEventName_GetBlacks:               wrapFunc(open_im_sdk.IMUserContext.Relation().GetBlacks),
 	sdkevent.FuncRequestEventName_UpdateFriend:            wrapFunc(open_im_sdk.IMUserContext.Relation().UpdateFriend),
 
+	sdkevent.FuncRequestEventName_SendMessage:                       wrapFuncWithCallback(open_im_sdk.IMUserContext.Conversation().SendMessage),
 	sdkevent.FuncRequestEventName_GetAllConversationList:            wrapFunc(open_im_sdk.IMUserContext.Conversation().GetAllConversationList),
 	sdkevent.FuncRequestEventName_GetConversationListSplit:          wrapFunc(open_im_sdk.IMUserContext.Conversation().GetConversationListSplit),
 	sdkevent.FuncRequestEventName_HideConversation:                  wrapFunc(open_im_sdk.IMUserContext.Conversation().HideConversation),
@@ -206,6 +206,7 @@ var FuncMap = map[sdkevent.FuncRequestEventName]callFunc{
 	sdkevent.FuncRequestEventName_ChangeInputStates:                 wrapFunc(open_im_sdk.IMUserContext.Conversation().ChangeInputStates),
 	sdkevent.FuncRequestEventName_GetInputStates:                    wrapFunc(open_im_sdk.IMUserContext.Conversation().GetInputStates),
 
+	// Message
 	sdkevent.FuncRequestEventName_CreateTextMessage:          wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateTextMessage),
 	sdkevent.FuncRequestEventName_CreateAdvancedTextMessage:  wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateAdvancedTextMessage),
 	sdkevent.FuncRequestEventName_CreateTextAtMessage:        wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateTextAtMessage),
@@ -222,11 +223,11 @@ var FuncMap = map[sdkevent.FuncRequestEventName]callFunc{
 	sdkevent.FuncRequestEventName_CreateFaceMessage:          wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateFaceMessage),
 	sdkevent.FuncRequestEventName_CreateForwardMessage:       wrapFunc(open_im_sdk.IMUserContext.Conversation().CreateForwardMessage),
 
-	sdkevent.FuncRequestEventName_ProcessUserCommandGetAll: wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandGetAll),
 	sdkevent.FuncRequestEventName_GetSelfUserInfo:          wrapFunc(open_im_sdk.IMUserContext.User().GetSelfUserInfo),
 	sdkevent.FuncRequestEventName_SetSelfInfo:              wrapFunc(open_im_sdk.IMUserContext.User().SetSelfInfo),
 	sdkevent.FuncRequestEventName_ProcessUserCommandAdd:    wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandAdd),
 	sdkevent.FuncRequestEventName_ProcessUserCommandDelete: wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandDelete),
 	sdkevent.FuncRequestEventName_ProcessUserCommandUpdate: wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandUpdate),
+	sdkevent.FuncRequestEventName_ProcessUserCommandGetAll: wrapFunc(open_im_sdk.IMUserContext.User().ProcessUserCommandGetAll),
 	sdkevent.FuncRequestEventName_GetUsersInfo:             wrapFunc(open_im_sdk.IMUserContext.User().GetUsersInfo),
 }

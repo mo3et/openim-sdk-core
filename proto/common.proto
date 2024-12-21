@@ -1,10 +1,9 @@
 syntax = "proto3";
 package openim.sdk.common;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/common";
 option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/common";
 option swift_prefix = "";
-
 
 enum SessionType {
   SessionType_ = 0;
@@ -217,8 +216,8 @@ enum LogLevel {
 // UploadSDKDataMode represents the mode of upload sdk data.
 // If multiple modes are needed, their values should be ModeA | ModeB
 // e.g. UploadLogsAndDB = UploadLogs | UploadDB
-enum UploadSDKDataMode{
-  UploadSDKDataMode_ = 0;  // invalid mode. Because the first enum value must be 0 in proto3, this field is required.
+enum UploadSDKDataMode {
+  UploadSDKDataMode_ = 0; // invalid mode. Because the first enum value must be 0 in proto3, this field is required.
   UploadLogs = 1; // only upload logs
   UploadDB = 2; // only upload db
   UploadLogsAndDB = 3; // upload db and logs

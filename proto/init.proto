@@ -1,12 +1,11 @@
 syntax = "proto3";
 package openim.init;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/init";
-option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
-
 import "common.proto";
 
+option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/init";
+option swift_prefix = "";
 
 enum LoginStatus {
   LoginStatus_ = 0;
@@ -60,3 +59,7 @@ message VersionReq {}
 message VersionResp {
   string version = 1;
 }
+/**
+ *
+ *
+ */
