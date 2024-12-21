@@ -9,17 +9,23 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/relation";
 option swift_prefix = "";
 
 message GetSpecifiedFriendsReq {
-  repeated string friendUserIDs = 1; // specified friend userid list
-  bool filterBlack = 2; // filter black, default false
+  // specified friend userid list
+  repeated string friendUserIDs = 1;
+  // @relation_filter_black
+  bool filterBlack = 2;
 }
 message GetSpecifiedFriendsResp {
-  repeated shared.IMFriend friends = 1; // get specified friend list
+  // @shared_imfriends
+  repeated shared.IMFriend friends = 1;
 }
 
 message AddFriendReq {
-  string userID = 1; // userid
-  string reqMsg = 2; // friend request message
-  string ex = 3; // extension fields
+  // @user_id
+  string userID = 1;
+  // friend request message
+  string reqMsg = 2;
+  // friend extension fields
+  string ex = 3;
 }
 message AddFriendResp {}
 
