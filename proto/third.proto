@@ -1,55 +1,72 @@
 syntax = "proto3";
 package openim.sdk.third;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/third";
-option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
-
 import "any.proto";
 import "common.proto";
 
-
+option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/third";
+option swift_prefix = "";
 
 message UpdateFcmTokenReq {
-  string fcmToken = 1; // fcm token
-  int64 expireTime = 2; // expire time
+  // fcm token
+  string fcmToken = 1;
+  // expire time
+  int64 expireTime = 2;
 }
 message UpdateFcmTokenResp {}
 
 message SetAppBadgeReq {
-  int32 appUnreadCount = 1; // app unread count
+  // app unread count
+  int32 appUnreadCount = 1;
 }
 message SetAppBadgeResp {}
 
 message UploadFileReq {
-  string filepath = 1; // file path
-  string name = 2; // file name
-  string mimeType = 3; // http mime type
-  string fileCategory = 4; // file category
+  // file path
+  string filepath = 1;
+  // file name
+  string name = 2;
+  // http mime type
+  string mimeType = 3;
+  // file category
+  string fileCategory = 4;
 }
 message UploadFileResp {
-  string url = 1; // file url
+  // file url
+  string url = 1;
 }
 
 message UploadSDKDataReq {
-  int32 line = 1; // upload line
-  string ex = 2; // upload extension fields
-  common.UploadSDKDataMode mode = 3; // upload mode
+  // upload line
+  int32 line = 1;
+  // upload extension fields
+  string ex = 2;
+  // upload mode
+  common.UploadSDKDataMode mode = 3;
 }
 message UploadSDKDataResp {}
 
 message LogKv {
-  string key = 1; // key
-  google.protobuf.Any value = 2; // value
+  // key
+  string key = 1;
+  // value
+  google.protobuf.Any value = 2;
 }
 
 message LogReq {
-  common.LogLevel logLevel = 1; // log level
-  string file = 2; // log file path
-  int32 line = 3; // log line
-  string msg = 4; // log message
-  string err = 5; // log error message
-  repeated LogKv kvs = 6; // log key-value pairs
+  // log level
+  common.LogLevel logLevel = 1;
+  // log file path
+  string file = 2;
+  // log line
+  int32 line = 3;
+  // log message
+  string msg = 4;
+  // log error message
+  string err = 5;
+  // log key-value pairs
+  repeated LogKv kvs = 6;
 }
 message LogResp {}
 
@@ -59,4 +76,22 @@ service ThirdService {
    * in the js environment, filepath is a file object
    */
   rpc UploadFile(UploadFileReq) returns (UploadFileResp);
+  // TODO
+  /**
+   * upload sdk data
+   */
+  rpc UploadSDKData(UploadSDKDataReq) returns (UploadSDKDataResp);
+  // TODO
+  /**
+   * upload log
+   */
+  rpc Log(LogReq) returns (LogResp);
+  /**
+   * update Fcm token
+   */
+  rpc UpdateFcmToken(UpdateFcmTokenReq) returns (UpdateFcmTokenResp);
+  /**
+   * set app badge, including unread count
+   */
+  rpc SetAppBadge(SetAppBadgeReq) returns (SetAppBadgeResp);
 }

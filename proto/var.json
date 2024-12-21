@@ -41,6 +41,5 @@
   "shared_imfriend": "friend info",
   "shared_imfriends": "list of friend info",
   "shared_immessage": "IM message struct, contentType refer to `common.ContentType`",
-  "common_request_pagination": "Request pagination, including page number and page size",
-  ""
+  "common_request_pagination": "Request pagination, including page number and page size"
 }
