@@ -1,6 +1,7 @@
 package interaction
 
 import (
+	"encoding/base64"
 	"errors"
 	"testing"
 )
@@ -27,5 +28,14 @@ func TestName(t *testing.T) {
 	t.Logf("unsubUserIDs: %v", unsubUserIDs)
 
 	sub.writeFailed(wait, errors.New("todo test"))
+
+}
+
+func TestName1(t *testing.T) {
+	res, err := base64.StdEncoding.DecodeString("e30=")
+	if err != nil {
+		panic(err)
+	}
+	t.Log(string(res))
 
 }

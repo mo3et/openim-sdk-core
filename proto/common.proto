@@ -232,7 +232,7 @@ enum RevokerRole {
 }
 
 enum FriendSource {
-  _ = 0;
+  FriendSource_ = 0;
   Search = 3;
   QRCode = 4;
 }
