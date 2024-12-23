@@ -28,11 +28,17 @@ message IMUser {
 }
 
 message CommandInfo {
+  // @user_id
   string userID = 1;
+  // @user_command_type
   int32 type = 2;
+  // command create time
   int64 createTime = 3;
+  // @user_command_uuid
   string uuid = 4;
+  // @user_command_value
   string value = 5;
+  // @user_command_ex
   string ex = 6;
 }
 
@@ -40,46 +46,80 @@ message CommandInfo {
 
 // IM Friend information
 message IMFriend {
-  string ownerUserID = 1; // Currently logged-in user ID
-  string friendUserID = 2; // Friend user ID
-  string remark = 3; // Friend remark
-  int64 createTime = 4; // Friend add time
-  common.FriendSource addSource = 5; // Friend add source
-  string operatorUserID = 6; // Operator user ID
-  string nickname = 7; // Friend nickname
-  string faceURL = 8; // Friend avatar URL
-  string ex = 9; // Friend extension field
-  string attachedInfo = 10; // SDK internal extension field, not currently used
-  bool isPinned = 11; // Whether the friend is pinned
+  // @shared_owner_user_id
+  string ownerUserID = 1;
+  // @relation_friend_user_id
+  string friendUserID = 2;
+  // @relation_remark
+  string remark = 3;
+  // @relation_friend_add_time
+  int64 createTime = 4;
+  // @relation_friend_add_source
+  common.FriendSource addSource = 5;
+  // @relation_friend_op_user_id
+  string operatorUserID = 6;
+  // Friend nickname
+  string nickname = 7;
+  // Friend avatar URL
+  string faceURL = 8;
+  // Friend extension field
+  string ex = 9;
+  // SDK internal extension field, not currently used
+  string attachedInfo = 10;
+  // @user_pinned
+  bool isPinned = 11;
 }
 
 message IMBlack {
-  string ownerUserID = 1; // Currently logged-in user ID
-  string blockUserID = 2; // Blocked user ID
-  string nickname = 3; // Blocked user nickname
-  string faceURL = 4; // Blocked user avatar URL
-  int64 createTime = 5; // Block time
-  common.FriendSource addSource = 6; // Block source
-  string operatorUserID = 7; // Operator user ID
-  string ex = 8; // Block extension field
-  string attached = 9; // SDK internal extension field, not currently used
+  // @shared_owner_user_id
+  string ownerUserID = 1;
+  // Blocked user ID
+  string blockUserID = 2;
+  // Blocked user nickname
+  string nickname = 3;
+  // Blocked user avatar URL
+  string faceURL = 4;
+  // @relation_black_block_time
+  int64 createTime = 5;
+  // @realtion_friend_add_source
+  common.FriendSource addSource = 6;
+  // @relation_black_op_user_id
+  string operatorUserID = 7;
+  // @relation_black_ex
+  string ex = 8;
+  // @relation_attached
+  string attached = 9;
 }
 
 message IMFriendApplication {
-  string fromUserID = 1; // Requester user ID
-  string fromNickname = 2; // Requester nickname
-  string fromFaceURL = 3; // Requester avatar URL
-  string toUserID = 4; // Receiver user ID
-  string toNickname = 5; // Receiver nickname
-  string toFaceURL = 6; // Receiver avatar URL
-  common.HandleResult handleResult = 7; // Request handle result
-  string reqMsg = 8; // Request message
-  int64 createTime = 9; // Request create time
-  string handlerUserID = 10; // Request handler user ID
-  string handleMsg = 11; // Request handle message
-  int64 handleTime = 12; // Request handle time
-  string ex = 13; // Request extension field
-  string attached = 14; // SDK internal extension field, not currently used
+  // Requester user ID
+  string fromUserID = 1;
+  // Requester nickname
+  string fromNickname = 2;
+  // Requester avatar URL
+  string fromFaceURL = 3;
+  // Receiver user ID
+  string toUserID = 4;
+  // Receiver nickname
+  string toNickname = 5;
+  // Receiver avatar URL
+  string toFaceURL = 6;
+  // Request handle result
+  common.HandleResult handleResult = 7;
+  // Request message
+  string reqMsg = 8;
+  // Request create time
+  int64 createTime = 9;
+  // Request handler user ID
+  string handlerUserID = 10;
+  // Request handle message
+  string handleMsg = 11;
+  // Request handle time
+  int64 handleTime = 12;
+  // Request extension field
+  string ex = 13;
+  // @relation_attached
+  string attached = 14;
 }
 
 // ############## group ################
@@ -87,11 +127,11 @@ message IMFriendApplication {
 enum GroupStatus {
   // normal group chat
   Default = 0;
-
+  // the group chat has been banned
   Banned = 1;
-  // the group chat has been disbanded
+  // the group chat has been dismissed
   Dismissed = 2;
-
+  // the group chat has been muted
   Muted = 3;
 }
 
@@ -246,88 +286,147 @@ message IMGroupApplication {
 // ############## conversation ################
 
 message IMConversation {
+  // @conversation_id
   string conversationID = 1;
+  // @conversation_type
   common.SessionType conversationType = 2;
+  // @user_id
   string userID = 3;
+  // @group_id
   string groupID = 4;
+  // @conversation_show_name
   string showName = 5;
+  // @user_face_url
   string faceURL = 6;
+  // @conversation_recv_msg_opt
   common.ConvRecvMsgOpt recvMsgOpt = 7;
+  // @conversation_unread_count
   int32 unreadCount = 8;
+  // @conversation_group_at_type
   common.ConvGroupAtType groupAtType = 9;
+  // @conversation_latest_msg
   IMMessage latestMsg = 10;
+  // @conversation_latest_msg_send_time
   int64 latestMsgSendTime = 11;
+  // @conversation_draft_text
   string draftText = 12;
+  // @conversation_draft_text_time
   int64 draftTextTime = 13;
+  // @conversation_is_pinned
   bool isPinned = 14;
+  // @conversation_is_private
   bool isPrivateChat = 15;
+  // @conversation_burn_duration
   int32 burnDuration = 16;
+  // @conversation_ex
   string ex = 17;
 }
 
 message AtInfo {
+  // @message_at_user_id
   string atUserID = 1;
+  // @message_group_nick_name
   string groupNickname = 2;
 }
 
 message ImageInfo {
+  // @message_image_width
   int32 width = 1;
+  // @message_image_height
   int32 height = 2;
+  // @message_image_type
   string type = 3;
+  // @message_image_size
   int64 size = 4;
 }
 
 message PictureBaseInfo {
+  // picture uuid
   string uuid = 1;
+  // picture type
   string type = 2;
+  // picture size
   int64 size = 3;
+  // picture width
   int32 width = 4;
+  // picture height
   int32 height = 5;
+  // picture url
   string url = 6;
 }
 
 message SoundBaseInfo {
+  // sound uuid
   string uuid = 1;
+  // sound local path
   string soundPath = 2;
+  // sound source URL
   string sourceURL = 3;
+  // sound size
   int64 dataSize = 4;
+  // sound duration
   int64 duration = 5;
+  // sound type
   string soundType = 6;
 }
 
 message VideoBaseInfo {
+  // video local path
   string videoPath = 1;
+  // video uuid
   string videoUUID = 2;
+  // video source URL
   string videoURL = 3;
+  // video type
   string videoType = 4;
+  // video size
   int64 videoSize = 5;
+  // video duration
   int64 duration = 6;
+  // video snapshot local path
   string snapshotPath = 7;
+  // video snapshot uuid
   string snapshotUUID = 8;
+  // video snapshot size
   int64 snapshotSize = 9;
+  // video snapshot URL
   string snapshotURL = 10;
+  // video snapshot width
   int32 snapshotWidth = 11;
+  // video snapshot height
   int32 snapshotHeight = 12;
+  // video snapshot type
   string snapshotType = 13;
 }
 
 message FileBaseInfo {
+  // file local path
   string filePath = 1;
+  // file uuid
   string uuid = 2;
+  // file source URL
   string sourceURL = 3;
+  // file name
   string fileName = 4;
+  // file size
   int64 fileSize = 5;
+  // file type
   string fileType = 6;
 }
 
 message TextElem {
+  // text content
   string content = 1;
 }
 
 message CardElem {
+  // @user_id
   string userID = 1;
+  // @user_nickname
   string nickname = 2;
+  // @user_face_url
   string faceURL = 3;
+  // @user_ex
   string ex = 4;
 }
 
@@ -441,7 +540,6 @@ message StreamElem {
   bool end = 4;
 }
 
-
 message UploadProgress {
   int64 total = 1;
   int64 save = 2;
@@ -473,6 +571,7 @@ message OaTips {
 }
 
 //////////////////////group/////////////////////
+
 //
 //	OnGroupCreated()
 message GroupCreatedTips {
@@ -483,7 +582,7 @@ message GroupCreatedTips {
   shared.IMGroupMember groupOwnerUser = 5;
 }
 
-message GroupInfoSetNameTips  {
+message GroupInfoSetNameTips {
   openim.sdk.shared.IMGroupMember opUser = 1; //who do this
   openim.sdk.shared.IMGroup group = 2;
 }
@@ -495,31 +594,6 @@ message GroupInfoSetAnnouncementTips {
   string groupMemberVersionID = 4;
 }
 
-//
-//	OnGroupInfoSet()
-//message GroupInfoSetTips {
-//  shared.IMGroupMember opUser = 1; //who do this
-//  int64 muteTime = 2;
-//  shared.IMGroup group = 3;
-//}
-//
-//message GroupInfoSetNameTips {
-//  shared.IMGroupMember opUser = 1; //who do this
-//  shared.IMGroup group = 2;
-//}
-//
-//message GroupInfoSetAnnouncementTips {
-//  shared.IMGroupMember opUser = 1; //who do this
-//  shared.IMGroup group = 2;
-//}
-//
-//	OnJoinGroupApplication()
-//message JoinGroupApplicationTips {
-//  shared.IMGroup group = 1;
-//  shared.IMUser applicant = 2;
-//  string reqMsg = 3;
-//}
-//
 //	OnQuitGroup()
 //Actively leave the group
 message MemberQuitTips {
@@ -528,22 +602,6 @@ message MemberQuitTips {
   int64 operationTime = 3;
 }
 
-//
-//	OnApplicationGroupAccepted()
-//message GroupApplicationAcceptedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  string handleMsg = 4;
-//  int32 receiverAs = 5; // admin(==1) or applicant(==0)
-//}
-//
-//	OnApplicationGroupRejected()
-//message GroupApplicationRejectedTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  string handleMsg = 4;
-//  int32 receiverAs = 5; // admin(==1) or applicant(==0)
-//}
 //
 //	OnTransferGroupOwner()
 message GroupOwnerTransferredTips {
@@ -618,169 +676,14 @@ message GroupCancelMutedTips {
   int64 operationTime = 3;
 }
 
-//
-//message GroupMemberInfoSetTips {
-//  shared.IMGroup group = 1;
-//  shared.IMGroupMember opUser = 2;
-//  int64 operationTime = 3;
-//  shared.IMGroupMember changedUser = 4;
-//}
-//
-//////////////////////friend/////////////////////
-//
-//message FriendApplication {
-//  int64 addTime = 1;
-//  common.FriendSource addSource = 2;
-//  string addWording = 3;
-//}
-//
 message FromToUserID {
   string fromUserID = 1;
   string toUserID = 2;
 }
 
-//
-//FromUserID apply to add ToUserID
-//message FriendApplicationTips {
-//  FromToUserID fromToUserID = 1;
-//}
-//
-//FromUserID accept or reject ToUserID
 message FriendApplicationApprovedTips {
   FromToUserID fromToUserID = 1;
 }
-//
-////FromUserID accept or reject ToUserID
-//message FriendApplicationRejectedTips {
-//  FromToUserID fromToUserID = 1;
-//  string handleMsg = 2;
-//}
-//
-// FromUserID  Added a friend ToUserID
-//message FriendAddedTips {
-//  shared.IMFriend friend = 1;
-//  int64 operationTime = 2;
-//  shared.IMUser opUser = 3; //who do this
-//}
-//
-//// FromUserID  deleted a friend ToUserID
-//message FriendDeletedTips {
-//  FromToUserID fromToUserID = 1; //from：owner； to：friend
-//}
-//
-//message BlackAddedTips {
-//  FromToUserID fromToUserID = 1; //from：owner； to：black
-//}
-//
-//message BlackDeletedTips {
-//  FromToUserID fromToUserID = 1; //from：owner； to：black
-//}
-//
-//message FriendInfoChangedTips {
-//  FromToUserID fromToUserID = 1; //from：changed； to：friend
-//}
-//
-//////////////////////user/////////////////////
-//message UserInfoUpdatedTips {
-//  string userID = 1;
-//}
-//
-//message UserStatusChangeTips {
-//  string fromUserID = 1;
-//  string toUserID = 2;
-//  int32 status = 3;
-//  int32 platformID = 4;
-//}
-//message UserCommandAddTips {
-//  string fromUserID = 1;
-//  string toUserID = 2;
-//}
-//message UserCommandUpdateTips {
-//  string fromUserID = 1;
-//  string toUserID = 2;
-//}
-//message UserCommandDeleteTips {
-//  string fromUserID = 1;
-//  string toUserID = 2;
-//}
-//
-////////////////////////conversation/////////////////////
-//message ConversationUpdateTips {
-//  string userID = 1;
-//  repeated string conversationIDList = 2;
-//}
-//
-//message ConversationSetPrivateTips {
-//  string recvID = 1;
-//  string sendID = 2;
-//  bool isPrivate = 3;
-//  string conversationID = 4;
-//}
-//
-//message ConversationHasReadTips {
-//  string userID = 1;
-//  string conversationID = 2;
-//  int64 hasReadSeq = 3;
-//  int64 unreadCountTime = 4;
-//}
-//
-//message DeleteMessageTips {
-//  string opUserID = 1;
-//  string userID = 2;
-//  repeated int64 seqs = 3;
-//}
-//
-//message RevokedTips {
-//  string revokerID = 1;
-//  int32 revokerRole = 2;
-//  string clientMsgID = 3;
-//  string revokerNickname = 4;
-//  int64 revokeTime = 5;
-//  int64 sourceMessageSendTime = 6;
-//  string sourceMessageSendID = 7;
-//  string sourceMessageSenderNickname = 8;
-//  int32 sessionType = 10;
-//  int64 seq = 11;
-//  string ex = 12;
-//}
-//
-//message ClearConversationTips {
-//  string userID = 1;
-//  repeated string conversationIDs = 2;
-//}
-//
-//message DeleteMsgsTips {
-//  string userID = 1;
-//  string conversationID = 2;
-//  repeated int64 seqs = 3;
-//}
-//
-//message MarkAsReadTips {
-//  string markAsReadUserID = 1;
-//  string conversationID = 2;
-//  repeated int64 seqs = 3;
-//  int64 hasReadSeq = 4;
-//}
-//
-//message FriendsInfoUpdateTips {
-//  FromToUserID fromToUserID = 1;
-//  repeated string friendIDs = 2;
-//}
-//
-//message SubUserOnlineStatusElem {
-//  string userID = 1;
-//  repeated int32 onlinePlatformIDs = 2;
-//}
-//
-//message SubUserOnlineStatusTips {
-//  repeated SubUserOnlineStatusElem subscribers = 1;
-//}
-//
-//message SubUserOnlineStatus {
-//  repeated string subscribeUserID = 1;
-//  repeated string unsubscribeUserID = 2;
-//}
-//
 
 message RevokedTips {
   string revokerID = 1;
@@ -852,13 +755,9 @@ message IMMessage {
     GroupCreatedTips groupCreatedTips = 311;
     GroupInfoSetNameTips groupInfoSetNameTips = 312;
     GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 313;
-    //    GroupInfoSetTips groupInfoSetTips = 39;
-    //    GroupInfoSetNameTips groupInfoSetNameTips = 40;
-    //    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;
-    //    JoinGroupApplicationTips joinGroupApplicationTips = 42;
+
     MemberQuitTips memberQuitTips = 43;
-    //    GroupApplicationAcceptedTips groupApplicationAcceptedTips = 44;
-    //    GroupApplicationRejectedTips groupApplicationRejectedTips = 45;
+
     GroupOwnerTransferredTips groupOwnerTransferredTips = 46;
     MemberKickedTips memberKickedTips = 47;
     MemberInvitedTips memberInvitedTips = 48;
@@ -868,31 +767,9 @@ message IMMessage {
     GroupMemberCancelMutedTips groupMemberCancelMutedTips = 52;
     GroupMutedTips groupMutedTips = 53;
     GroupCancelMutedTips groupCancelMutedTips = 54;
-    //    GroupMemberInfoSetTips groupMemberInfoSetTips = 55;
-    //    FriendApplicationTips friendApplicationTips = 56;
+
     FriendApplicationApprovedTips friendApplicationApprovedTips = 57;
-    //    FriendApplicationRejectedTips friendApplicationRejectedTips = 58;
-    //    FriendAddedTips friendAddedTips = 59;
-    //    FriendDeletedTips friendDeletedTips = 60;
-    //    BlackAddedTips blackAddedTips = 61;
-    //    BlackDeletedTips blackDeletedTips = 62;
-    //    FriendInfoChangedTips friendInfoChangedTips = 63;
-    //    UserInfoUpdatedTips userInfoUpdatedTips = 64;
-    //    UserStatusChangeTips userStatusChangeTips = 65;
-    //    UserCommandAddTips userCommandAddTips = 66;
-    //    UserCommandUpdateTips userCommandUpdateTips = 67;
-    //    UserCommandDeleteTips userCommandDeleteTips = 68;
-    //    ConversationUpdateTips conversationUpdateTips = 69;
-    //    ConversationSetPrivateTips conversationSetPrivateTips = 70;
-    //    ConversationHasReadTips conversationHasReadTips = 71;
-    //    DeleteMessageTips deleteMessageTips = 72;
-    //    RevokedTips revokedTips = 73;
-    //    ClearConversationTips clearConversationTips = 74;
-    //    DeleteMsgsTips deleteMsgsTips = 75;
-    //    MarkAsReadTips markAsReadTips = 76;
-    //    FriendsInfoUpdateTips friendsInfoUpdateTips = 77;
-    //    SubUserOnlineStatusTips subUserOnlineStatusTips = 78;
-    //    StreamMsgTips streamMsgTips = 79;
+
     ConversationPrivateChatTips conversationPrivateChatTips = 79;
     BusinessTips businessTips = 80;
     OaTips oaTips = 81;

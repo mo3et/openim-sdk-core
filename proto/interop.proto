@@ -1,57 +1,74 @@
 syntax = "proto3";
 package openim.sdk.interop;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/interop";
 option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/interop";
+option swift_prefix = "";
 
 message jsFileOpenReq {
+  // file uuid
   string uuid = 1;
 }
 message jsFileOpenResp {
+  // file size
   int64 size = 1;
 }
 
 message jsFileReadReq {
+  // file uuid
   string uuid = 1;
+  // read offset
   int64 offset = 2;
+  // read length
   int64 length = 3;
 }
 message jsFileReadResp {
+  // read data
   bytes data = 1;
 }
 
 message jsFileCloseReq {
+  // file uuid
   string uuid = 1;
 }
 message jsFileCloseResp {}
 
 message jsSqliteOpenReq {
+  // db name
   string name = 1;
 }
 message jsSqliteOpenResp {
+  // db id
   int64 id = 1;
 }
 
 message jsSqliteCloseReq {
+  // db id
   int64 id = 1;
 }
 message jsSqliteCloseResp {}
 
 message jsSqliteExecReq {
+  // db id
   int64 id = 1;
+  // sql query
   string sql = 2;
-  string args = 3; // json array
+  // query args, json array
+  string args = 3;
 }
 message jsSqliteExecResp {
   int64 affected = 1;
 }
 
 message jsSqliteQueryReq {
+  // db id
   int64 id = 1;
+  // sql query
   string sql = 2;
-  string args = 3; // json array
+  // query args, json array
+  string args = 3;
 }
 message jsSqliteQueryResp {
-  string result = 1; // json array
+  // query result, json array
+  string result = 1;
 }

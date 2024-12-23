@@ -26,10 +26,12 @@ type GroupStatus int32
 const (
 	// normal group chat
 	GroupStatus_Default GroupStatus = 0
-	GroupStatus_Banned  GroupStatus = 1
-	// the group chat has been disbanded
+	// the group chat has been banned
+	GroupStatus_Banned GroupStatus = 1
+	// the group chat has been dismissed
 	GroupStatus_Dismissed GroupStatus = 2
-	GroupStatus_Muted     GroupStatus = 3
+	// the group chat has been muted
+	GroupStatus_Muted GroupStatus = 3
 )
 
 // Enum value maps for GroupStatus.
@@ -388,12 +390,18 @@ type CommandInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID     string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
-	Type       int32  `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
-	CreateTime int64  `protobuf:"varint,3,opt,name=createTime,proto3" json:"createTime"`
-	Uuid       string `protobuf:"bytes,4,opt,name=uuid,proto3" json:"uuid"`
-	Value      string `protobuf:"bytes,5,opt,name=value,proto3" json:"value"`
-	Ex         string `protobuf:"bytes,6,opt,name=ex,proto3" json:"ex"`
+	// @user_id
+	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	// @user_command_type
+	Type int32 `protobuf:"varint,2,opt,name=type,proto3" json:"type"`
+	// command create time
+	CreateTime int64 `protobuf:"varint,3,opt,name=createTime,proto3" json:"createTime"`
+	// @user_command_uuid
+	Uuid string `protobuf:"bytes,4,opt,name=uuid,proto3" json:"uuid"`
+	// @user_command_value
+	Value string `protobuf:"bytes,5,opt,name=value,proto3" json:"value"`
+	// @user_command_ex
+	Ex string `protobuf:"bytes,6,opt,name=ex,proto3" json:"ex"`
 }
 
 func (x *CommandInfo) Reset() {
@@ -474,17 +482,28 @@ type IMFriend struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerUserID    string              `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`                                  // Currently logged-in user ID
-	FriendUserID   string              `protobuf:"bytes,2,opt,name=friendUserID,proto3" json:"friendUserID"`                                // Friend user ID
-	Remark         string              `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark"`                                            // Friend remark
-	CreateTime     int64               `protobuf:"varint,4,opt,name=createTime,proto3" json:"createTime"`                                   // Friend add time
-	AddSource      common.FriendSource `protobuf:"varint,5,opt,name=addSource,proto3,enum=openim.sdk.common.FriendSource" json:"addSource"` // Friend add source
-	OperatorUserID string              `protobuf:"bytes,6,opt,name=operatorUserID,proto3" json:"operatorUserID"`                            // Operator user ID
-	Nickname       string              `protobuf:"bytes,7,opt,name=nickname,proto3" json:"nickname"`                                        // Friend nickname
-	FaceURL        string              `protobuf:"bytes,8,opt,name=faceURL,proto3" json:"faceURL"`                                          // Friend avatar URL
-	Ex             string              `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex"`                                                    // Friend extension field
-	AttachedInfo   string              `protobuf:"bytes,10,opt,name=attachedInfo,proto3" json:"attachedInfo"`                               // SDK internal extension field, not currently used
-	IsPinned       bool                `protobuf:"varint,11,opt,name=isPinned,proto3" json:"isPinned"`                                      // Whether the friend is pinned
+	// @shared_owner_user_id
+	OwnerUserID string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`
+	// @relation_friend_user_id
+	FriendUserID string `protobuf:"bytes,2,opt,name=friendUserID,proto3" json:"friendUserID"`
+	// @relation_remark
+	Remark string `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark"`
+	// @relation_friend_add_time
+	CreateTime int64 `protobuf:"varint,4,opt,name=createTime,proto3" json:"createTime"`
+	// @relation_friend_add_source
+	AddSource common.FriendSource `protobuf:"varint,5,opt,name=addSource,proto3,enum=openim.sdk.common.FriendSource" json:"addSource"`
+	// @relation_friend_op_user_id
+	OperatorUserID string `protobuf:"bytes,6,opt,name=operatorUserID,proto3" json:"operatorUserID"`
+	// Friend nickname
+	Nickname string `protobuf:"bytes,7,opt,name=nickname,proto3" json:"nickname"`
+	// Friend avatar URL
+	FaceURL string `protobuf:"bytes,8,opt,name=faceURL,proto3" json:"faceURL"`
+	// Friend extension field
+	Ex string `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex"`
+	// SDK internal extension field, not currently used
+	AttachedInfo string `protobuf:"bytes,10,opt,name=attachedInfo,proto3" json:"attachedInfo"`
+	// @user_pinned
+	IsPinned bool `protobuf:"varint,11,opt,name=isPinned,proto3" json:"isPinned"`
 }
 
 func (x *IMFriend) Reset() {
@@ -599,15 +618,24 @@ type IMBlack struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerUserID    string              `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`                                  // Currently logged-in user ID
-	BlockUserID    string              `protobuf:"bytes,2,opt,name=blockUserID,proto3" json:"blockUserID"`                                  // Blocked user ID
-	Nickname       string              `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname"`                                        // Blocked user nickname
-	FaceURL        string              `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL"`                                          // Blocked user avatar URL
-	CreateTime     int64               `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime"`                                   // Block time
-	AddSource      common.FriendSource `protobuf:"varint,6,opt,name=addSource,proto3,enum=openim.sdk.common.FriendSource" json:"addSource"` // Block source
-	OperatorUserID string              `protobuf:"bytes,7,opt,name=operatorUserID,proto3" json:"operatorUserID"`                            // Operator user ID
-	Ex             string              `protobuf:"bytes,8,opt,name=ex,proto3" json:"ex"`                                                    // Block extension field
-	Attached       string              `protobuf:"bytes,9,opt,name=attached,proto3" json:"attached"`                                        // SDK internal extension field, not currently used
+	// @shared_owner_user_id
+	OwnerUserID string `protobuf:"bytes,1,opt,name=ownerUserID,proto3" json:"ownerUserID"`
+	// Blocked user ID
+	BlockUserID string `protobuf:"bytes,2,opt,name=blockUserID,proto3" json:"blockUserID"`
+	// Blocked user nickname
+	Nickname string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname"`
+	// Blocked user avatar URL
+	FaceURL string `protobuf:"bytes,4,opt,name=faceURL,proto3" json:"faceURL"`
+	// @relation_black_block_time
+	CreateTime int64 `protobuf:"varint,5,opt,name=createTime,proto3" json:"createTime"`
+	// @realtion_friend_add_source
+	AddSource common.FriendSource `protobuf:"varint,6,opt,name=addSource,proto3,enum=openim.sdk.common.FriendSource" json:"addSource"`
+	// @relation_black_op_user_id
+	OperatorUserID string `protobuf:"bytes,7,opt,name=operatorUserID,proto3" json:"operatorUserID"`
+	// @relation_black_ex
+	Ex string `protobuf:"bytes,8,opt,name=ex,proto3" json:"ex"`
+	// @relation_attached
+	Attached string `protobuf:"bytes,9,opt,name=attached,proto3" json:"attached"`
 }
 
 func (x *IMBlack) Reset() {
@@ -708,20 +736,34 @@ type IMFriendApplication struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FromUserID    string              `protobuf:"bytes,1,opt,name=fromUserID,proto3" json:"fromUserID"`                                          // Requester user ID
-	FromNickname  string              `protobuf:"bytes,2,opt,name=fromNickname,proto3" json:"fromNickname"`                                      // Requester nickname
-	FromFaceURL   string              `protobuf:"bytes,3,opt,name=fromFaceURL,proto3" json:"fromFaceURL"`                                        // Requester avatar URL
-	ToUserID      string              `protobuf:"bytes,4,opt,name=toUserID,proto3" json:"toUserID"`                                              // Receiver user ID
-	ToNickname    string              `protobuf:"bytes,5,opt,name=toNickname,proto3" json:"toNickname"`                                          // Receiver nickname
-	ToFaceURL     string              `protobuf:"bytes,6,opt,name=toFaceURL,proto3" json:"toFaceURL"`                                            // Receiver avatar URL
-	HandleResult  common.HandleResult `protobuf:"varint,7,opt,name=handleResult,proto3,enum=openim.sdk.common.HandleResult" json:"handleResult"` // Request handle result
-	ReqMsg        string              `protobuf:"bytes,8,opt,name=reqMsg,proto3" json:"reqMsg"`                                                  // Request message
-	CreateTime    int64               `protobuf:"varint,9,opt,name=createTime,proto3" json:"createTime"`                                         // Request create time
-	HandlerUserID string              `protobuf:"bytes,10,opt,name=handlerUserID,proto3" json:"handlerUserID"`                                   // Request handler user ID
-	HandleMsg     string              `protobuf:"bytes,11,opt,name=handleMsg,proto3" json:"handleMsg"`                                           // Request handle message
-	HandleTime    int64               `protobuf:"varint,12,opt,name=handleTime,proto3" json:"handleTime"`                                        // Request handle time
-	Ex            string              `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex"`                                                         // Request extension field
-	Attached      string              `protobuf:"bytes,14,opt,name=attached,proto3" json:"attached"`                                             // SDK internal extension field, not currently used
+	// Requester user ID
+	FromUserID string `protobuf:"bytes,1,opt,name=fromUserID,proto3" json:"fromUserID"`
+	// Requester nickname
+	FromNickname string `protobuf:"bytes,2,opt,name=fromNickname,proto3" json:"fromNickname"`
+	// Requester avatar URL
+	FromFaceURL string `protobuf:"bytes,3,opt,name=fromFaceURL,proto3" json:"fromFaceURL"`
+	// Receiver user ID
+	ToUserID string `protobuf:"bytes,4,opt,name=toUserID,proto3" json:"toUserID"`
+	// Receiver nickname
+	ToNickname string `protobuf:"bytes,5,opt,name=toNickname,proto3" json:"toNickname"`
+	// Receiver avatar URL
+	ToFaceURL string `protobuf:"bytes,6,opt,name=toFaceURL,proto3" json:"toFaceURL"`
+	// Request handle result
+	HandleResult common.HandleResult `protobuf:"varint,7,opt,name=handleResult,proto3,enum=openim.sdk.common.HandleResult" json:"handleResult"`
+	// Request message
+	ReqMsg string `protobuf:"bytes,8,opt,name=reqMsg,proto3" json:"reqMsg"`
+	// Request create time
+	CreateTime int64 `protobuf:"varint,9,opt,name=createTime,proto3" json:"createTime"`
+	// Request handler user ID
+	HandlerUserID string `protobuf:"bytes,10,opt,name=handlerUserID,proto3" json:"handlerUserID"`
+	// Request handle message
+	HandleMsg string `protobuf:"bytes,11,opt,name=handleMsg,proto3" json:"handleMsg"`
+	// Request handle time
+	HandleTime int64 `protobuf:"varint,12,opt,name=handleTime,proto3" json:"handleTime"`
+	// Request extension field
+	Ex string `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex"`
+	// @relation_attached
+	Attached string `protobuf:"bytes,14,opt,name=attached,proto3" json:"attached"`
 }
 
 func (x *IMFriendApplication) Reset() {
@@ -1436,23 +1478,40 @@ type IMConversation struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID    string                 `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
-	ConversationType  common.SessionType     `protobuf:"varint,2,opt,name=conversationType,proto3,enum=openim.sdk.common.SessionType" json:"conversationType"`
-	UserID            string                 `protobuf:"bytes,3,opt,name=userID,proto3" json:"userID"`
-	GroupID           string                 `protobuf:"bytes,4,opt,name=groupID,proto3" json:"groupID"`
-	ShowName          string                 `protobuf:"bytes,5,opt,name=showName,proto3" json:"showName"`
-	FaceURL           string                 `protobuf:"bytes,6,opt,name=faceURL,proto3" json:"faceURL"`
-	RecvMsgOpt        common.ConvRecvMsgOpt  `protobuf:"varint,7,opt,name=recvMsgOpt,proto3,enum=openim.sdk.common.ConvRecvMsgOpt" json:"recvMsgOpt"`
-	UnreadCount       int32                  `protobuf:"varint,8,opt,name=unreadCount,proto3" json:"unreadCount"`
-	GroupAtType       common.ConvGroupAtType `protobuf:"varint,9,opt,name=groupAtType,proto3,enum=openim.sdk.common.ConvGroupAtType" json:"groupAtType"`
-	LatestMsg         *IMMessage             `protobuf:"bytes,10,opt,name=latestMsg,proto3" json:"latestMsg"`
-	LatestMsgSendTime int64                  `protobuf:"varint,11,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime"`
-	DraftText         string                 `protobuf:"bytes,12,opt,name=draftText,proto3" json:"draftText"`
-	DraftTextTime     int64                  `protobuf:"varint,13,opt,name=draftTextTime,proto3" json:"draftTextTime"`
-	IsPinned          bool                   `protobuf:"varint,14,opt,name=isPinned,proto3" json:"isPinned"`
-	IsPrivateChat     bool                   `protobuf:"varint,15,opt,name=isPrivateChat,proto3" json:"isPrivateChat"`
-	BurnDuration      int32                  `protobuf:"varint,16,opt,name=burnDuration,proto3" json:"burnDuration"`
-	Ex                string                 `protobuf:"bytes,17,opt,name=ex,proto3" json:"ex"`
+	// @conversation_id
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	// @conversation_type
+	ConversationType common.SessionType `protobuf:"varint,2,opt,name=conversationType,proto3,enum=openim.sdk.common.SessionType" json:"conversationType"`
+	// @user_id
+	UserID string `protobuf:"bytes,3,opt,name=userID,proto3" json:"userID"`
+	// @group_id
+	GroupID string `protobuf:"bytes,4,opt,name=groupID,proto3" json:"groupID"`
+	// @conversation_show_name
+	ShowName string `protobuf:"bytes,5,opt,name=showName,proto3" json:"showName"`
+	// @user_face_url
+	FaceURL string `protobuf:"bytes,6,opt,name=faceURL,proto3" json:"faceURL"`
+	// @conversation_recv_msg_opt
+	RecvMsgOpt common.ConvRecvMsgOpt `protobuf:"varint,7,opt,name=recvMsgOpt,proto3,enum=openim.sdk.common.ConvRecvMsgOpt" json:"recvMsgOpt"`
+	// @conversation_unread_count
+	UnreadCount int32 `protobuf:"varint,8,opt,name=unreadCount,proto3" json:"unreadCount"`
+	// @conversation_group_at_type
+	GroupAtType common.ConvGroupAtType `protobuf:"varint,9,opt,name=groupAtType,proto3,enum=openim.sdk.common.ConvGroupAtType" json:"groupAtType"`
+	// @conversation_latest_msg
+	LatestMsg *IMMessage `protobuf:"bytes,10,opt,name=latestMsg,proto3" json:"latestMsg"`
+	// @conversation_latest_msg_send_time
+	LatestMsgSendTime int64 `protobuf:"varint,11,opt,name=latestMsgSendTime,proto3" json:"latestMsgSendTime"`
+	// @conversation_draft_text
+	DraftText string `protobuf:"bytes,12,opt,name=draftText,proto3" json:"draftText"`
+	// @conversation_draft_text_time
+	DraftTextTime int64 `protobuf:"varint,13,opt,name=draftTextTime,proto3" json:"draftTextTime"`
+	// @conversation_is_pinned
+	IsPinned bool `protobuf:"varint,14,opt,name=isPinned,proto3" json:"isPinned"`
+	// @conversation_is_private
+	IsPrivateChat bool `protobuf:"varint,15,opt,name=isPrivateChat,proto3" json:"isPrivateChat"`
+	// @conversation_burn_duration
+	BurnDuration int32 `protobuf:"varint,16,opt,name=burnDuration,proto3" json:"burnDuration"`
+	// @conversation_ex
+	Ex string `protobuf:"bytes,17,opt,name=ex,proto3" json:"ex"`
 }
 
 func (x *IMConversation) Reset() {
@@ -1609,7 +1668,9 @@ type AtInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AtUserID      string `protobuf:"bytes,1,opt,name=atUserID,proto3" json:"atUserID"`
+	// @message_at_user_id
+	AtUserID string `protobuf:"bytes,1,opt,name=atUserID,proto3" json:"atUserID"`
+	// @message_group_nick_name
 	GroupNickname string `protobuf:"bytes,2,opt,name=groupNickname,proto3" json:"groupNickname"`
 }
 
@@ -1662,10 +1723,14 @@ type ImageInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Width  int32  `protobuf:"varint,1,opt,name=width,proto3" json:"width"`
-	Height int32  `protobuf:"varint,2,opt,name=height,proto3" json:"height"`
-	Type   string `protobuf:"bytes,3,opt,name=type,proto3" json:"type"`
-	Size   int64  `protobuf:"varint,4,opt,name=size,proto3" json:"size"`
+	// @message_image_width
+	Width int32 `protobuf:"varint,1,opt,name=width,proto3" json:"width"`
+	// @message_image_height
+	Height int32 `protobuf:"varint,2,opt,name=height,proto3" json:"height"`
+	// @message_image_type
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type"`
+	// @message_image_size
+	Size int64 `protobuf:"varint,4,opt,name=size,proto3" json:"size"`
 }
 
 func (x *ImageInfo) Reset() {
@@ -1731,12 +1796,18 @@ type PictureBaseInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Uuid   string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
-	Type   string `protobuf:"bytes,2,opt,name=type,proto3" json:"type"`
-	Size   int64  `protobuf:"varint,3,opt,name=size,proto3" json:"size"`
-	Width  int32  `protobuf:"varint,4,opt,name=width,proto3" json:"width"`
-	Height int32  `protobuf:"varint,5,opt,name=height,proto3" json:"height"`
-	Url    string `protobuf:"bytes,6,opt,name=url,proto3" json:"url"`
+	// picture uuid
+	Uuid string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
+	// picture type
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type"`
+	// picture size
+	Size int64 `protobuf:"varint,3,opt,name=size,proto3" json:"size"`
+	// picture width
+	Width int32 `protobuf:"varint,4,opt,name=width,proto3" json:"width"`
+	// picture height
+	Height int32 `protobuf:"varint,5,opt,name=height,proto3" json:"height"`
+	// picture url
+	Url string `protobuf:"bytes,6,opt,name=url,proto3" json:"url"`
 }
 
 func (x *PictureBaseInfo) Reset() {
@@ -1816,11 +1887,17 @@ type SoundBaseInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Uuid      string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
+	// sound uuid
+	Uuid string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
+	// sound local path
 	SoundPath string `protobuf:"bytes,2,opt,name=soundPath,proto3" json:"soundPath"`
+	// sound source URL
 	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL"`
-	DataSize  int64  `protobuf:"varint,4,opt,name=dataSize,proto3" json:"dataSize"`
-	Duration  int64  `protobuf:"varint,5,opt,name=duration,proto3" json:"duration"`
+	// sound size
+	DataSize int64 `protobuf:"varint,4,opt,name=dataSize,proto3" json:"dataSize"`
+	// sound duration
+	Duration int64 `protobuf:"varint,5,opt,name=duration,proto3" json:"duration"`
+	// sound type
 	SoundType string `protobuf:"bytes,6,opt,name=soundType,proto3" json:"soundType"`
 }
 
@@ -1901,19 +1978,32 @@ type VideoBaseInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	VideoPath      string `protobuf:"bytes,1,opt,name=videoPath,proto3" json:"videoPath"`
-	VideoUUID      string `protobuf:"bytes,2,opt,name=videoUUID,proto3" json:"videoUUID"`
-	VideoURL       string `protobuf:"bytes,3,opt,name=videoURL,proto3" json:"videoURL"`
-	VideoType      string `protobuf:"bytes,4,opt,name=videoType,proto3" json:"videoType"`
-	VideoSize      int64  `protobuf:"varint,5,opt,name=videoSize,proto3" json:"videoSize"`
-	Duration       int64  `protobuf:"varint,6,opt,name=duration,proto3" json:"duration"`
-	SnapshotPath   string `protobuf:"bytes,7,opt,name=snapshotPath,proto3" json:"snapshotPath"`
-	SnapshotUUID   string `protobuf:"bytes,8,opt,name=snapshotUUID,proto3" json:"snapshotUUID"`
-	SnapshotSize   int64  `protobuf:"varint,9,opt,name=snapshotSize,proto3" json:"snapshotSize"`
-	SnapshotURL    string `protobuf:"bytes,10,opt,name=snapshotURL,proto3" json:"snapshotURL"`
-	SnapshotWidth  int32  `protobuf:"varint,11,opt,name=snapshotWidth,proto3" json:"snapshotWidth"`
-	SnapshotHeight int32  `protobuf:"varint,12,opt,name=snapshotHeight,proto3" json:"snapshotHeight"`
-	SnapshotType   string `protobuf:"bytes,13,opt,name=snapshotType,proto3" json:"snapshotType"`
+	// video local path
+	VideoPath string `protobuf:"bytes,1,opt,name=videoPath,proto3" json:"videoPath"`
+	// video uuid
+	VideoUUID string `protobuf:"bytes,2,opt,name=videoUUID,proto3" json:"videoUUID"`
+	// video source URL
+	VideoURL string `protobuf:"bytes,3,opt,name=videoURL,proto3" json:"videoURL"`
+	// video type
+	VideoType string `protobuf:"bytes,4,opt,name=videoType,proto3" json:"videoType"`
+	// video size
+	VideoSize int64 `protobuf:"varint,5,opt,name=videoSize,proto3" json:"videoSize"`
+	// video duration
+	Duration int64 `protobuf:"varint,6,opt,name=duration,proto3" json:"duration"`
+	// video snapshot local path
+	SnapshotPath string `protobuf:"bytes,7,opt,name=snapshotPath,proto3" json:"snapshotPath"`
+	// video snapshot uuid
+	SnapshotUUID string `protobuf:"bytes,8,opt,name=snapshotUUID,proto3" json:"snapshotUUID"`
+	// video snapshot size
+	SnapshotSize int64 `protobuf:"varint,9,opt,name=snapshotSize,proto3" json:"snapshotSize"`
+	// video snapshot URL
+	SnapshotURL string `protobuf:"bytes,10,opt,name=snapshotURL,proto3" json:"snapshotURL"`
+	// video snapshot width
+	SnapshotWidth int32 `protobuf:"varint,11,opt,name=snapshotWidth,proto3" json:"snapshotWidth"`
+	// video snapshot height
+	SnapshotHeight int32 `protobuf:"varint,12,opt,name=snapshotHeight,proto3" json:"snapshotHeight"`
+	// video snapshot type
+	SnapshotType string `protobuf:"bytes,13,opt,name=snapshotType,proto3" json:"snapshotType"`
 }
 
 func (x *VideoBaseInfo) Reset() {
@@ -2042,12 +2132,18 @@ type FileBaseInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FilePath  string `protobuf:"bytes,1,opt,name=filePath,proto3" json:"filePath"`
-	Uuid      string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid"`
+	// file local path
+	FilePath string `protobuf:"bytes,1,opt,name=filePath,proto3" json:"filePath"`
+	// file uuid
+	Uuid string `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid"`
+	// file source URL
 	SourceURL string `protobuf:"bytes,3,opt,name=sourceURL,proto3" json:"sourceURL"`
-	FileName  string `protobuf:"bytes,4,opt,name=fileName,proto3" json:"fileName"`
-	FileSize  int64  `protobuf:"varint,5,opt,name=fileSize,proto3" json:"fileSize"`
-	FileType  string `protobuf:"bytes,6,opt,name=fileType,proto3" json:"fileType"`
+	// file name
+	FileName string `protobuf:"bytes,4,opt,name=fileName,proto3" json:"fileName"`
+	// file size
+	FileSize int64 `protobuf:"varint,5,opt,name=fileSize,proto3" json:"fileSize"`
+	// file type
+	FileType string `protobuf:"bytes,6,opt,name=fileType,proto3" json:"fileType"`
 }
 
 func (x *FileBaseInfo) Reset() {
@@ -2127,6 +2223,7 @@ type TextElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// text content
 	Content string `protobuf:"bytes,1,opt,name=content,proto3" json:"content"`
 }
 
@@ -2172,10 +2269,14 @@ type CardElem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID   string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	// @user_id
+	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	// @user_nickname
 	Nickname string `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname"`
-	FaceURL  string `protobuf:"bytes,3,opt,name=faceURL,proto3" json:"faceURL"`
-	Ex       string `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex"`
+	// @user_face_url
+	FaceURL string `protobuf:"bytes,3,opt,name=faceURL,proto3" json:"faceURL"`
+	// @user_ex
+	Ex string `protobuf:"bytes,4,opt,name=ex,proto3" json:"ex"`
 }
 
 func (x *CardElem) Reset() {
@@ -3574,9 +3675,7 @@ func (x *OaTips) GetEx() string {
 	return ""
 }
 
-// ////////////////////group/////////////////////
-//
-//	OnGroupCreated()
+// OnGroupCreated()
 type GroupCreatedTips struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3776,32 +3875,6 @@ func (x *GroupInfoSetAnnouncementTips) GetGroupMemberVersionID() string {
 	return ""
 }
 
-//	OnGroupInfoSet()
-//
-//	message GroupInfoSetTips {
-//	 shared.IMGroupMember opUser = 1; //who do this
-//	 int64 muteTime = 2;
-//	 shared.IMGroup group = 3;
-//	}
-//
-//	message GroupInfoSetNameTips {
-//	 shared.IMGroupMember opUser = 1; //who do this
-//	 shared.IMGroup group = 2;
-//	}
-//
-//	message GroupInfoSetAnnouncementTips {
-//	 shared.IMGroupMember opUser = 1; //who do this
-//	 shared.IMGroup group = 2;
-//	}
-//
-//	OnJoinGroupApplication()
-//
-//	message JoinGroupApplicationTips {
-//	 shared.IMGroup group = 1;
-//	 shared.IMUser applicant = 2;
-//	 string reqMsg = 3;
-//	}
-//
 //	OnQuitGroup()
 //
 // Actively leave the group
@@ -3866,25 +3939,7 @@ func (x *MemberQuitTips) GetOperationTime() int64 {
 	return 0
 }
 
-//	OnApplicationGroupAccepted()
-//
-//	message GroupApplicationAcceptedTips {
-//	 shared.IMGroup group = 1;
-//	 shared.IMGroupMember opUser = 2;
-//	 string handleMsg = 4;
-//	 int32 receiverAs = 5; // admin(==1) or applicant(==0)
-//	}
-//
-//	OnApplicationGroupRejected()
-//
-//	message GroupApplicationRejectedTips {
-//	 shared.IMGroup group = 1;
-//	 shared.IMGroupMember opUser = 2;
-//	 string handleMsg = 4;
-//	 int32 receiverAs = 5; // admin(==1) or applicant(==0)
-//	}
-//
-//	OnTransferGroupOwner()
+// OnTransferGroupOwner()
 type GroupOwnerTransferredTips struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4509,20 +4564,6 @@ func (x *GroupCancelMutedTips) GetOperationTime() int64 {
 	return 0
 }
 
-//	message GroupMemberInfoSetTips {
-//	 shared.IMGroup group = 1;
-//	 shared.IMGroupMember opUser = 2;
-//	 int64 operationTime = 3;
-//	 shared.IMGroupMember changedUser = 4;
-//	}
-//
-// ////////////////////friend/////////////////////
-//
-//	message FriendApplication {
-//	 int64 addTime = 1;
-//	 common.FriendSource addSource = 2;
-//	 string addWording = 3;
-//	}
 type FromToUserID struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4576,13 +4617,6 @@ func (x *FromToUserID) GetToUserID() string {
 	return ""
 }
 
-// FromUserID apply to add ToUserID
-//
-//	message FriendApplicationTips {
-//	 FromToUserID fromToUserID = 1;
-//	}
-//
-// FromUserID accept or reject ToUserID
 type FriendApplicationApprovedTips struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5439,16 +5473,10 @@ type IMMessage_GroupInfoSetAnnouncementTips struct {
 }
 
 type IMMessage_MemberQuitTips struct {
-	// GroupInfoSetTips groupInfoSetTips = 39;
-	// GroupInfoSetNameTips groupInfoSetNameTips = 40;
-	// GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;
-	// JoinGroupApplicationTips joinGroupApplicationTips = 42;
 	MemberQuitTips *MemberQuitTips `protobuf:"bytes,43,opt,name=memberQuitTips,proto3,oneof"`
 }
 
 type IMMessage_GroupOwnerTransferredTips struct {
-	// GroupApplicationAcceptedTips groupApplicationAcceptedTips = 44;
-	// GroupApplicationRejectedTips groupApplicationRejectedTips = 45;
 	GroupOwnerTransferredTips *GroupOwnerTransferredTips `protobuf:"bytes,46,opt,name=groupOwnerTransferredTips,proto3,oneof"`
 }
 
@@ -5485,34 +5513,10 @@ type IMMessage_GroupCancelMutedTips struct {
 }
 
 type IMMessage_FriendApplicationApprovedTips struct {
-	// GroupMemberInfoSetTips groupMemberInfoSetTips = 55;
-	// FriendApplicationTips friendApplicationTips = 56;
 	FriendApplicationApprovedTips *FriendApplicationApprovedTips `protobuf:"bytes,57,opt,name=friendApplicationApprovedTips,proto3,oneof"`
 }
 
 type IMMessage_ConversationPrivateChatTips struct {
-	// FriendApplicationRejectedTips friendApplicationRejectedTips = 58;
-	// FriendAddedTips friendAddedTips = 59;
-	// FriendDeletedTips friendDeletedTips = 60;
-	// BlackAddedTips blackAddedTips = 61;
-	// BlackDeletedTips blackDeletedTips = 62;
-	// FriendInfoChangedTips friendInfoChangedTips = 63;
-	// UserInfoUpdatedTips userInfoUpdatedTips = 64;
-	// UserStatusChangeTips userStatusChangeTips = 65;
-	// UserCommandAddTips userCommandAddTips = 66;
-	// UserCommandUpdateTips userCommandUpdateTips = 67;
-	// UserCommandDeleteTips userCommandDeleteTips = 68;
-	// ConversationUpdateTips conversationUpdateTips = 69;
-	// ConversationSetPrivateTips conversationSetPrivateTips = 70;
-	// ConversationHasReadTips conversationHasReadTips = 71;
-	// DeleteMessageTips deleteMessageTips = 72;
-	// RevokedTips revokedTips = 73;
-	// ClearConversationTips clearConversationTips = 74;
-	// DeleteMsgsTips deleteMsgsTips = 75;
-	// MarkAsReadTips markAsReadTips = 76;
-	// FriendsInfoUpdateTips friendsInfoUpdateTips = 77;
-	// SubUserOnlineStatusTips subUserOnlineStatusTips = 78;
-	// StreamMsgTips streamMsgTips = 79;
 	ConversationPrivateChatTips *ConversationPrivateChatTips `protobuf:"bytes,79,opt,name=conversationPrivateChatTips,proto3,oneof"`
 }
 

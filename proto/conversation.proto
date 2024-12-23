@@ -168,7 +168,8 @@ message SearchConversationResp {
 }
 
 message UserOnlinePlatform {
-  string userID = 1; // userid
+  // @user_id
+  string userID = 1;
   repeated common.Platform platforms = 2;
 }
 

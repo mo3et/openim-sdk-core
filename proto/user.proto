@@ -77,7 +77,7 @@ message GetUsersInfoReq {
   repeated string userIDs = 1;
 }
 message GetUsersInfoResp {
-  // list of users info
+  // list of user info
   repeated shared.IMUser users = 1;
 }
 

@@ -1116,7 +1116,7 @@ type AddBlackReq struct {
 
 	// @user_id
 	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
-	// black extension fields
+	// @relation_black_ex
 	Ex string `protobuf:"bytes,2,opt,name=ex,proto3" json:"ex"`
 }
 

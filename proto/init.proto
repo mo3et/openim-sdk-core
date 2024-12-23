@@ -9,32 +9,45 @@ option swift_prefix = "";
 
 enum LoginStatus {
   LoginStatus_ = 0;
+  // No loggin.
   Default = 1;
+  // Logging.
   Logging = 2;
+  // Logged.
   Logged = 3;
 }
 
 message IMConfig {
+  // @common_app_framework
   openim.sdk.common.AppFramework appFramework = 1;
+  // @common_platform
   openim.sdk.common.Platform platform = 2;
+  // api address
   string apiAddr = 3;
+  // ws address
   string wsAddr = 4;
+  // data dir
   string dataDir = 5;
+  // @common_log_level
   openim.sdk.common.LogLevel logLevel = 6;
+  // Is log standard output
   bool isLogStandardOutput = 7;
+  // log file source path
   string logFilePath = 8;
+  // db file source path
   string dbPath = 9;
 }
 
 message InitSDKReq {
+  // IM configuration
   IMConfig config = 1;
 }
-message InitSDKResp {
-  bool suc = 1;
-}
+message InitSDKResp {}
 
 message LoginReq {
+  // @user_id
   string userID = 1;
+  // @user_token
   string token = 2;
 }
 message LoginResp {}
@@ -43,6 +56,7 @@ message LogoutReq {}
 message LogoutResp {}
 
 message SetAppBackgroundStatusReq {
+  // App background status
   bool isBackground = 1;
 }
 message SetAppBackgroundStatusResp {}
@@ -52,14 +66,68 @@ message NetworkStatusChangedResp {}
 
 message GetLoginStatusReq {}
 message GetLoginStatusResp {
+  // user login status
   LoginStatus status = 1;
 }
 
 message VersionReq {}
 message VersionResp {
+  // SDK version
   string version = 1;
 }
-/**
- *
- *
- */
+
+service initService {
+  /**
+   * Init SDK is the first for the client call SDK.
+   * Only call once in the lifecycle of the APP. Duplicate calls will a unknown error.
+   * Notice:
+   * 1. After initSDK is successful, set the listener and login.
+   * Ensure that call other API when wait login callback success.
+   * 2. Client log will save in specified path. Used to debug. But not recommanded to enable in production environment.
+   */
+  rpc InitSDK(InitSDKReq) returns (InitSDKResp);
+  /**
+   * User login. You need to wait for the success callback before calling other APIs.
+   * You need to call the login interface in the following scenarios:
+   * 1. After the APP starts, after re-acquiring the token from the server.
+   * 2. After the token expires post-login, after re-acquiring the token from the server.
+   * 3. After being forcibly logged out by the APP administrator, after re-acquiring the token from the server.
+   * 4. After the user voluntarily logs out, after re-acquiring the token from the server.
+   * Notice:
+   * 1. If a failure callback, you need to check error message and check args and fix it error after continue login.
+   * 2. The SDK does not support multiple accounts logging in simultaneously in one app. You need to call logout first before logging in with another account.
+   * 3. All interfaces, except for setting listeners, initialization, and getting login status, must be called after the SDK login callback is successful.
+   * 4.  A successful login callback does not necessarily mean that IM is truly logged in.
+   * You need to observe the IM connection status callback. Only when onConnectSuccess is received does it indicate that the login and IM connection are successful.
+   */
+  rpc Login(LoginReq) returns (LoginResp);
+  /**
+   * App need wait for logout callback success.
+   * If logout success, it will receive other user sent new message.
+   * If you want to switch user, you need to wait user A logout callback success, then call user B login.
+   * If APP lifecycle is same as SDK, you can call logout when user exit APP.
+   * Notice:
+   * When receive `onKickedOffline` and `onUserTokenExpired` callback,
+   * means user is kicked offline or user token expired.
+   * The SDK will automatically logout internally after triggering these events.
+   * So there is no need to call the logout function externally.
+   */
+  rpc Logout(LogoutReq) returns (LogoutResp);
+  /**
+   * Set app background status.
+   */
+  rpc SetAppBackgroundStatus(SetAppBackgroundStatusReq) returns (SetAppBackgroundStatusResp);
+  /**
+   *  Network status changed.
+   */
+  rpc NetworkStatusChanged(NetworkStatusChangedReq) returns (NetworkStatusChangedResp);
+  /**
+   * Get user login status.
+   * If this function is call before initSDK, it will return -1001(Uninitialized).
+   */
+  rpc GetLoginStatus(GetLoginStatusReq) returns (GetLoginStatusResp);
+  /**
+   * Get SDK version.
+   */
+  rpc Version(VersionReq) returns (VersionResp);
+}

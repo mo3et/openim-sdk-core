@@ -222,18 +222,30 @@ type AppFramework int32
 
 const (
 	AppFramework_AppFramework_ AppFramework = 0
-	AppFramework_Native        AppFramework = 1
-	AppFramework_Flutter       AppFramework = 2
-	AppFramework_ReactNative   AppFramework = 3
-	AppFramework_Electron      AppFramework = 4
-	AppFramework_Unity         AppFramework = 5
-	AppFramework_UnrealEngine  AppFramework = 6
-	AppFramework_Qt            AppFramework = 7
-	AppFramework_DotNet        AppFramework = 8
-	AppFramework_DotNetMAUI    AppFramework = 9
-	AppFramework_Avalonia      AppFramework = 10
-	AppFramework_Cordova       AppFramework = 11
-	AppFramework_UniApp        AppFramework = 12
+	// Native.
+	AppFramework_Native AppFramework = 1
+	// Flutter.
+	AppFramework_Flutter AppFramework = 2
+	// ReactNative.
+	AppFramework_ReactNative AppFramework = 3
+	// Electron.
+	AppFramework_Electron AppFramework = 4
+	// Unity.
+	AppFramework_Unity AppFramework = 5
+	// UnrealEngine.
+	AppFramework_UnrealEngine AppFramework = 6
+	// QT.
+	AppFramework_Qt AppFramework = 7
+	// .NET
+	AppFramework_DotNet AppFramework = 8
+	// .NET MAUI
+	AppFramework_DotNetMAUI AppFramework = 9
+	// Avalonia
+	AppFramework_Avalonia AppFramework = 10
+	// Cordova
+	AppFramework_Cordova AppFramework = 11
+	// UniApp
+	AppFramework_UniApp AppFramework = 12
 )
 
 // Enum value maps for AppFramework.
@@ -300,12 +312,17 @@ func (AppFramework) EnumDescriptor() ([]byte, []int) {
 type MsgStatus int32
 
 const (
-	MsgStatus_MsgStatus_  MsgStatus = 0
-	MsgStatus_Sending     MsgStatus = 1
+	MsgStatus_MsgStatus_ MsgStatus = 0
+	// Message Sending.
+	MsgStatus_Sending MsgStatus = 1
+	// Message sent successfully.
 	MsgStatus_SendSuccess MsgStatus = 2
-	MsgStatus_SendFailed  MsgStatus = 3
-	MsgStatus_HasDeleted  MsgStatus = 4
-	MsgStatus_Filtered    MsgStatus = 5
+	// Message send failed.
+	MsgStatus_SendFailed MsgStatus = 3
+	// Message has been deleted.
+	MsgStatus_HasDeleted MsgStatus = 4
+	// Message has been filtered.
+	MsgStatus_Filtered MsgStatus = 5
 )
 
 // Enum value maps for MsgStatus.
@@ -358,60 +375,75 @@ func (MsgStatus) EnumDescriptor() ([]byte, []int) {
 type ContentType int32
 
 const (
-	ContentType_ContentType_                          ContentType = 0
-	ContentType_Text                                  ContentType = 101
-	ContentType_Picture                               ContentType = 102
-	ContentType_Sound                                 ContentType = 103
-	ContentType_Video                                 ContentType = 104
-	ContentType_File                                  ContentType = 105
-	ContentType_AtText                                ContentType = 106
-	ContentType_Merge                                 ContentType = 107
-	ContentType_Card                                  ContentType = 108
-	ContentType_Location                              ContentType = 109
-	ContentType_Custom                                ContentType = 110
-	ContentType_Typing                                ContentType = 113
-	ContentType_Quote                                 ContentType = 114
-	ContentType_Face                                  ContentType = 115
-	ContentType_Stream                                ContentType = 116
-	ContentType_AdvancedText                          ContentType = 117
-	ContentType_CustomMsgNotTriggerConversation       ContentType = 119
-	ContentType_CustomMsgOnlineOnly                   ContentType = 120
+	ContentType_ContentType_ ContentType = 0
+	// Text message
+	ContentType_Text ContentType = 101
+	// Picture message
+	ContentType_Picture ContentType = 102
+	// Sound message
+	ContentType_Sound ContentType = 103
+	// Video message
+	ContentType_Video ContentType = 104
+	// File message
+	ContentType_File ContentType = 105
+	// At message
+	ContentType_AtText ContentType = 106
+	// Merge message
+	ContentType_Merge ContentType = 107
+	// Business card message
+	ContentType_Card ContentType = 108
+	// Location message
+	ContentType_Location ContentType = 109
+	// Custom message
+	ContentType_Custom ContentType = 110
+	// input status
+	ContentType_Typing ContentType = 113
+	// Quote message
+	ContentType_Quote ContentType = 114
+	// Face message
+	ContentType_Face ContentType = 115
+	// Stream message
+	ContentType_Stream ContentType = 116
+	// Advanced text message
+	ContentType_AdvancedText                    ContentType = 117
+	ContentType_CustomMsgNotTriggerConversation ContentType = 119
+	ContentType_CustomMsgOnlineOnly             ContentType = 120
+	// Friend request approved notification
 	ContentType_FriendApplicationApprovedNotification ContentType = 1201
-	ContentType_OANotification                        ContentType = 1400
-	// BlackAddedNotification = 1207;
-	// BlackDeletedNotification = 1208;
-	// FriendInfoUpdatedNotification = 1209;
-	// FriendsInfoUpdateNotification = 1210;
-	// ConversationChangeNotification = 1300;
-	// UserInfoUpdatedNotification = 1303;
-	// UserStatusChangeNotification = 1304;
-	// UserCommandAddNotification = 1305;
-	// UserCommandDeleteNotification = 1306;
-	// UserCommandUpdateNotification = 1307;
+	// OA system notification
+	ContentType_OANotification ContentType = 1400
+	// Group created notification
 	ContentType_GroupCreatedNotification ContentType = 1501
-	// GroupInfoSetNotification = 1502;
-	// JoinGroupApplicationNotification = 1503;
+	// Group member quit notification
 	ContentType_MemberQuitNotification ContentType = 1504
-	// GroupApplicationAcceptedNotification = 1505;
-	// GroupApplicationRejectedNotification = 1506;
-	ContentType_GroupOwnerTransferredNotification  ContentType = 1507
-	ContentType_MemberKickedNotification           ContentType = 1508
-	ContentType_MemberInvitedNotification          ContentType = 1509
-	ContentType_MemberEnterNotification            ContentType = 1510
-	ContentType_GroupDismissedNotification         ContentType = 1511
-	ContentType_GroupMemberMutedNotification       ContentType = 1512
+	// Group owner transfer notification
+	ContentType_GroupOwnerTransferredNotification ContentType = 1507
+	// Group member kicked notification
+	ContentType_MemberKickedNotification ContentType = 1508
+	// Group member invited notification
+	ContentType_MemberInvitedNotification ContentType = 1509
+	// Group member joined notification
+	ContentType_MemberEnterNotification ContentType = 1510
+	// Group dismissed notification
+	ContentType_GroupDismissedNotification ContentType = 1511
+	// Group member muted notification
+	ContentType_GroupMemberMutedNotification ContentType = 1512
+	// Group member unmuted notification
 	ContentType_GroupMemberCancelMutedNotification ContentType = 1513
-	ContentType_GroupMutedNotification             ContentType = 1514
-	ContentType_GroupCancelMutedNotification       ContentType = 1515
-	// GroupMemberInfoSetNotification = 1516;
-	// GroupMemberSetToAdminNotification = 1517;
-	// GroupMemberSetToOrdinaryUserNotification = 1518;
-	// GroupInfoSetAnnouncementNotification = 1519;
+	// Group muted notification
+	ContentType_GroupMutedNotification ContentType = 1514
+	// Group unmuted notification
+	ContentType_GroupCancelMutedNotification ContentType = 1515
+	// Group announcement update notification
 	ContentType_GroupInfoSetAnnouncementNotification ContentType = 1519
-	ContentType_GroupInfoSetNameNotification         ContentType = 1520 //  GroupNotificationEnd                     = 1599;
-	ContentType_ConversationPrivateChatNotification  ContentType = 1701 //  ClearConversationNotification = 1703;
-	ContentType_BusinessNotification                 ContentType = 2001
-	ContentType_RevokedNotification                  ContentType = 2101
+	// Group name update notification
+	ContentType_GroupInfoSetNameNotification ContentType = 1520
+	// Conversation private chat status change notification message
+	ContentType_ConversationPrivateChatNotification ContentType = 1701
+	// Custom notification
+	ContentType_BusinessNotification ContentType = 2001
+	// Revoked message notification.
+	ContentType_RevokedNotification ContentType = 2101
 )
 
 // Enum value maps for ContentType.
@@ -524,8 +556,11 @@ func (ContentType) EnumDescriptor() ([]byte, []int) {
 type ApprovalStatus int32
 
 const (
-	ApprovalStatus_Default  ApprovalStatus = 0
+	// Reserved field
+	ApprovalStatus_Default ApprovalStatus = 0
+	// Approved request
 	ApprovalStatus_Approved ApprovalStatus = 1
+	// Rejected request
 	ApprovalStatus_Rejected ApprovalStatus = -1
 )
 
@@ -570,11 +605,17 @@ func (ApprovalStatus) EnumDescriptor() ([]byte, []int) {
 	return file_common_proto_rawDescGZIP(), []int{6}
 }
 
+// *
+// In the recvMsgOpt of a ConversationInfo, in addition to controlling whether to receive offline push notifications for that session,
+// it also controls whether the unread count of that session is included in the total unread count.
 type ConvRecvMsgOpt int32
 
 const (
-	ConvRecvMsgOpt_ReceiveMessage          ConvRecvMsgOpt = 0
-	ConvRecvMsgOpt_NotReceiveMessage       ConvRecvMsgOpt = 1
+	// Normally receive messages
+	ConvRecvMsgOpt_ReceiveMessage ConvRecvMsgOpt = 0
+	// Reserved field
+	ConvRecvMsgOpt_NotReceiveMessage ConvRecvMsgOpt = 1
+	// Receive messages, but no offline push. When in conversation, this conversation's unread count is not included in the total unread count
 	ConvRecvMsgOpt_ReceiveNotNotifyMessage ConvRecvMsgOpt = 2
 )
 
@@ -622,10 +663,15 @@ func (ConvRecvMsgOpt) EnumDescriptor() ([]byte, []int) {
 type ConvGroupAtType int32
 
 const (
-	ConvGroupAtType_AtNormal          ConvGroupAtType = 0
-	ConvGroupAtType_AtMe              ConvGroupAtType = 1
-	ConvGroupAtType_AtAll             ConvGroupAtType = 2
-	ConvGroupAtType_AtAllAtMe         ConvGroupAtType = 3
+	// Normal at.
+	ConvGroupAtType_AtNormal ConvGroupAtType = 0
+	// At me.
+	ConvGroupAtType_AtMe ConvGroupAtType = 1
+	// At all.
+	ConvGroupAtType_AtAll ConvGroupAtType = 2
+	// At all and at me.
+	ConvGroupAtType_AtAllAtMe ConvGroupAtType = 3
+	// Group announcement.
 	ConvGroupAtType_GroupNotification ConvGroupAtType = 4
 )
 
@@ -674,18 +720,18 @@ func (ConvGroupAtType) EnumDescriptor() ([]byte, []int) {
 	return file_common_proto_rawDescGZIP(), []int{8}
 }
 
+// *
 // GlobalRecvMsgOpt represents the global message receive option.
-//
 // In the globalRecvMsgOpt of UserInfo, globally control whether to receive offline push notifications.
-//
-// In the recvMsgOpt of a ConversationInfo, in addition to controlling whether to receive offline push notifications for that session,
-// it also controls whether the unread count of that session is included in the total unread count.
 type GlobalRecvMsgOpt int32
 
 const (
-	GlobalRecvMsgOpt_Normal     GlobalRecvMsgOpt = 0 // Normally receive messages
-	GlobalRecvMsgOpt_NotReceive GlobalRecvMsgOpt = 1 // Reserved field
-	GlobalRecvMsgOpt_NotNotify  GlobalRecvMsgOpt = 2 // Receive messages, but no offline push. When in conversation, this conversation's unread count is not included in the total unread count
+	// Normally receive messages
+	GlobalRecvMsgOpt_Normal GlobalRecvMsgOpt = 0
+	// Reserved field
+	GlobalRecvMsgOpt_NotReceive GlobalRecvMsgOpt = 1
+	// Receive messages, but no offline push.
+	GlobalRecvMsgOpt_NotNotify GlobalRecvMsgOpt = 2
 )
 
 // Enum value maps for GlobalRecvMsgOpt.
@@ -729,18 +775,26 @@ func (GlobalRecvMsgOpt) EnumDescriptor() ([]byte, []int) {
 	return file_common_proto_rawDescGZIP(), []int{9}
 }
 
+// *
 // LogLevel represents the log level. debug -> info -> warn -> error -> fatal.
 // Default log level is LevelWarn or LevelDebug.
 type LogLevel int32
 
 const (
-	LogLevel_LevelFatal        LogLevel = 0 // only print fatal log
-	LogLevel_LevelPanic        LogLevel = 1 // print panic and fatal log
-	LogLevel_LevelError        LogLevel = 2 // print error, panic and fatal log
-	LogLevel_LevelWarn         LogLevel = 3 // print warn, error, panic and fatal log
-	LogLevel_LevelInfo         LogLevel = 4 // print info, warn, error, panic and fatal log
-	LogLevel_LevelDebug        LogLevel = 5 // print all level log
-	LogLevel_LevelDebugWithSQL LogLevel = 6 // print all level log and sql log
+	// only print fatal log
+	LogLevel_LevelFatal LogLevel = 0
+	// print panic and fatal log
+	LogLevel_LevelPanic LogLevel = 1
+	// print error, panic and fatal log
+	LogLevel_LevelError LogLevel = 2
+	// print warn, error, panic and fatal log
+	LogLevel_LevelWarn LogLevel = 3
+	// print info, warn, error, panic and fatal log
+	LogLevel_LevelInfo LogLevel = 4
+	// print all level log
+	LogLevel_LevelDebug LogLevel = 5
+	// print all level log and sql log
+	LogLevel_LevelDebugWithSQL LogLevel = 6
 )
 
 // Enum value maps for LogLevel.
@@ -792,16 +846,21 @@ func (LogLevel) EnumDescriptor() ([]byte, []int) {
 	return file_common_proto_rawDescGZIP(), []int{10}
 }
 
+// *
 // UploadSDKDataMode represents the mode of upload sdk data.
 // If multiple modes are needed, their values should be ModeA | ModeB
 // e.g. UploadLogsAndDB = UploadLogs | UploadDB
 type UploadSDKDataMode int32
 
 const (
-	UploadSDKDataMode_UploadSDKDataMode_ UploadSDKDataMode = 0 // invalid mode. Because the first enum value must be 0 in proto3, this field is required.
-	UploadSDKDataMode_UploadLogs         UploadSDKDataMode = 1 // only upload logs
-	UploadSDKDataMode_UploadDB           UploadSDKDataMode = 2 // only upload db
-	UploadSDKDataMode_UploadLogsAndDB    UploadSDKDataMode = 3 // upload db and logs
+	// invalid mode. Because the first enum value must be 0 in proto3, this field is required.
+	UploadSDKDataMode_UploadSDKDataMode_ UploadSDKDataMode = 0
+	// only upload logs
+	UploadSDKDataMode_UploadLogs UploadSDKDataMode = 1
+	// only upload db
+	UploadSDKDataMode_UploadDB UploadSDKDataMode = 2
+	// upload db and logs
+	UploadSDKDataMode_UploadLogsAndDB UploadSDKDataMode = 3
 )
 
 // Enum value maps for UploadSDKDataMode.
@@ -850,25 +909,28 @@ func (UploadSDKDataMode) EnumDescriptor() ([]byte, []int) {
 type RevokerRole int32
 
 const (
-	RevokerRole_RevokerRoleDefault RevokerRole = 0
-	RevokerRole_RevokerRoleOwner   RevokerRole = 100
-	RevokerRole_RevokerRoleAdmin   RevokerRole = 60
-	RevokerRole_RevokerRoleMember  RevokerRole = 20
+	RevokerRole_RevokerRole_ RevokerRole = 0
+	// Owner revokes the message.
+	RevokerRole_RevokerRoleOwner RevokerRole = 100
+	// Admin revokes the message.
+	RevokerRole_RevokerRoleAdmin RevokerRole = 60
+	// Member self revokes the message.
+	RevokerRole_RevokerRoleMember RevokerRole = 20
 )
 
 // Enum value maps for RevokerRole.
 var (
 	RevokerRole_name = map[int32]string{
-		0:   "RevokerRoleDefault",
+		0:   "RevokerRole_",
 		100: "RevokerRoleOwner",
 		60:  "RevokerRoleAdmin",
 		20:  "RevokerRoleMember",
 	}
 	RevokerRole_value = map[string]int32{
-		"RevokerRoleDefault": 0,
-		"RevokerRoleOwner":   100,
-		"RevokerRoleAdmin":   60,
-		"RevokerRoleMember":  20,
+		"RevokerRole_":      0,
+		"RevokerRoleOwner":  100,
+		"RevokerRoleAdmin":  60,
+		"RevokerRoleMember": 20,
 	}
 )
 
@@ -902,22 +964,24 @@ func (RevokerRole) EnumDescriptor() ([]byte, []int) {
 type FriendSource int32
 
 const (
-	FriendSource__      FriendSource = 0
+	FriendSource_FriendSource_ FriendSource = 0
+	// Join friend by search.
 	FriendSource_Search FriendSource = 3
+	// Join friend by scan QR code.
 	FriendSource_QRCode FriendSource = 4
 )
 
 // Enum value maps for FriendSource.
 var (
 	FriendSource_name = map[int32]string{
-		0: "_",
+		0: "FriendSource_",
 		3: "Search",
 		4: "QRCode",
 	}
 	FriendSource_value = map[string]int32{
-		"_":      0,
-		"Search": 3,
-		"QRCode": 4,
+		"FriendSource_": 0,
+		"Search":        3,
+		"QRCode":        4,
 	}
 )
 
@@ -951,9 +1015,12 @@ func (FriendSource) EnumDescriptor() ([]byte, []int) {
 type HandleResult int32
 
 const (
+	// wait request handle.
 	HandleResult_ResultDefault HandleResult = 0
+	// decline the request.
 	HandleResult_ResultDecline HandleResult = -1
-	HandleResult_ResultAccept  HandleResult = 1
+	// accept the request.
+	HandleResult_ResultAccept HandleResult = 1
 )
 
 // Enum value maps for HandleResult.
@@ -1000,9 +1067,13 @@ func (HandleResult) EnumDescriptor() ([]byte, []int) {
 type GroupMemberRoleLevel int32
 
 const (
-	GroupMemberRoleLevel_GroupRoleLevel_    GroupMemberRoleLevel = 0
-	GroupMemberRoleLevel_GroupOwner         GroupMemberRoleLevel = 100
-	GroupMemberRoleLevel_GroupAdmin         GroupMemberRoleLevel = 60
+	// Reserved field
+	GroupMemberRoleLevel_GroupRoleLevel_ GroupMemberRoleLevel = 0
+	// Group owner
+	GroupMemberRoleLevel_GroupOwner GroupMemberRoleLevel = 100
+	// Group admin
+	GroupMemberRoleLevel_GroupAdmin GroupMemberRoleLevel = 60
+	// Group ordinary user
 	GroupMemberRoleLevel_GroupOrdinaryUsers GroupMemberRoleLevel = 20
 )
 
@@ -1054,12 +1125,18 @@ type OfflinePushInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title         string `protobuf:"bytes,1,opt,name=title,proto3" json:"title"`
-	Desc          string `protobuf:"bytes,2,opt,name=desc,proto3" json:"desc"`
-	Ex            string `protobuf:"bytes,3,opt,name=ex,proto3" json:"ex"`
-	IOSPushSound  string `protobuf:"bytes,4,opt,name=iOSPushSound,proto3" json:"iOSPushSound"`
-	IOSBadgeCount bool   `protobuf:"varint,5,opt,name=iOSBadgeCount,proto3" json:"iOSBadgeCount"`
-	SignalInfo    string `protobuf:"bytes,6,opt,name=signalInfo,proto3" json:"signalInfo"`
+	// Offline push title
+	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title"`
+	// Offline push description
+	Desc string `protobuf:"bytes,2,opt,name=desc,proto3" json:"desc"`
+	// Offline push extension field
+	Ex string `protobuf:"bytes,3,opt,name=ex,proto3" json:"ex"`
+	// iOS offline push sound
+	IOSPushSound string `protobuf:"bytes,4,opt,name=iOSPushSound,proto3" json:"iOSPushSound"`
+	// iOS offline push badge count
+	IOSBadgeCount bool `protobuf:"varint,5,opt,name=iOSBadgeCount,proto3" json:"iOSBadgeCount"`
+	// signal info
+	SignalInfo string `protobuf:"bytes,6,opt,name=signalInfo,proto3" json:"signalInfo"`
 }
 
 func (x *OfflinePushInfo) Reset() {
@@ -1139,7 +1216,9 @@ type RequestPagination struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Page number
 	PageNumber int32 `protobuf:"varint,1,opt,name=pageNumber,proto3" json:"pageNumber"`
+	// request number sum
 	ShowNumber int32 `protobuf:"varint,2,opt,name=showNumber,proto3" json:"showNumber"`
 }
 
@@ -1335,33 +1414,33 @@ var file_common_proto_rawDesc = []byte{
 	0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x4c, 0x6f, 0x67, 0x73, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08,
 	0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x44, 0x42, 0x10, 0x02, 0x12, 0x13, 0x0a, 0x0f, 0x55, 0x70,
 	0x6c, 0x6f, 0x61, 0x64, 0x4c, 0x6f, 0x67, 0x73, 0x41, 0x6e, 0x64, 0x44, 0x42, 0x10, 0x03, 0x2a,
-	0x68, 0x0a, 0x0b, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x16,
-	0x0a, 0x12, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x44, 0x65, 0x66,
-	0x61, 0x75, 0x6c, 0x74, 0x10, 0x00, 0x12, 0x14, 0x0a, 0x10, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65,
-	0x72, 0x52, 0x6f, 0x6c, 0x65, 0x4f, 0x77, 0x6e, 0x65, 0x72, 0x10, 0x64, 0x12, 0x14, 0x0a, 0x10,
-	0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x41, 0x64, 0x6d, 0x69, 0x6e,
-	0x10, 0x3c, 0x12, 0x15, 0x0a, 0x11, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x72, 0x52, 0x6f, 0x6c,
-	0x65, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x10, 0x14, 0x2a, 0x2d, 0x0a, 0x0c, 0x46, 0x72, 0x69,
-	0x65, 0x6e, 0x64, 0x53, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x12, 0x05, 0x0a, 0x01, 0x5f, 0x10, 0x00,
-	0x12, 0x0a, 0x0a, 0x06, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x10, 0x03, 0x12, 0x0a, 0x0a, 0x06,
-	0x51, 0x52, 0x43, 0x6f, 0x64, 0x65, 0x10, 0x04, 0x2a, 0x4f, 0x0a, 0x0c, 0x48, 0x61, 0x6e, 0x64,
-	0x6c, 0x65, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x11, 0x0a, 0x0d, 0x52, 0x65, 0x73, 0x75,
-	0x6c, 0x74, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x10, 0x00, 0x12, 0x1a, 0x0a, 0x0d, 0x52,
-	0x65, 0x73, 0x75, 0x6c, 0x74, 0x44, 0x65, 0x63, 0x6c, 0x69, 0x6e, 0x65, 0x10, 0xff, 0xff, 0xff,
-	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01, 0x12, 0x10, 0x0a, 0x0c, 0x52, 0x65, 0x73, 0x75, 0x6c,
-	0x74, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x10, 0x01, 0x2a, 0x63, 0x0a, 0x14, 0x47, 0x72, 0x6f,
-	0x75, 0x70, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x4c, 0x65, 0x76, 0x65,
-	0x6c, 0x12, 0x13, 0x0a, 0x0f, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x6f, 0x6c, 0x65, 0x4c, 0x65,
-	0x76, 0x65, 0x6c, 0x5f, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4f,
-	0x77, 0x6e, 0x65, 0x72, 0x10, 0x64, 0x12, 0x0e, 0x0a, 0x0a, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x41,
-	0x64, 0x6d, 0x69, 0x6e, 0x10, 0x3c, 0x12, 0x16, 0x0a, 0x12, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4f,
-	0x72, 0x64, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x55, 0x73, 0x65, 0x72, 0x73, 0x10, 0x14, 0x42, 0x4b,
-	0x5a, 0x37, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65,
-	0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64,
-	0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f,
-	0x67, 0x6f, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0xaa, 0x02, 0x0c, 0x4f, 0x70, 0x65, 0x6e,
-	0x49, 0x4d, 0x2e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0xba, 0x02, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x62, 0x0a, 0x0b, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x10,
+	0x0a, 0x0c, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x5f, 0x10, 0x00,
+	0x12, 0x14, 0x0a, 0x10, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x4f,
+	0x77, 0x6e, 0x65, 0x72, 0x10, 0x64, 0x12, 0x14, 0x0a, 0x10, 0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65,
+	0x72, 0x52, 0x6f, 0x6c, 0x65, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x10, 0x3c, 0x12, 0x15, 0x0a, 0x11,
+	0x52, 0x65, 0x76, 0x6f, 0x6b, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x4d, 0x65, 0x6d, 0x62, 0x65,
+	0x72, 0x10, 0x14, 0x2a, 0x39, 0x0a, 0x0c, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x53, 0x6f, 0x75,
+	0x72, 0x63, 0x65, 0x12, 0x11, 0x0a, 0x0d, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x53, 0x6f, 0x75,
+	0x72, 0x63, 0x65, 0x5f, 0x10, 0x00, 0x12, 0x0a, 0x0a, 0x06, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68,
+	0x10, 0x03, 0x12, 0x0a, 0x0a, 0x06, 0x51, 0x52, 0x43, 0x6f, 0x64, 0x65, 0x10, 0x04, 0x2a, 0x4f,
+	0x0a, 0x0c, 0x48, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x11,
+	0x0a, 0x0d, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x10,
+	0x00, 0x12, 0x1a, 0x0a, 0x0d, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x44, 0x65, 0x63, 0x6c, 0x69,
+	0x6e, 0x65, 0x10, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01, 0x12, 0x10, 0x0a,
+	0x0c, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x10, 0x01, 0x2a,
+	0x63, 0x0a, 0x14, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x52, 0x6f,
+	0x6c, 0x65, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x12, 0x13, 0x0a, 0x0f, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x52, 0x6f, 0x6c, 0x65, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x5f, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x4f, 0x77, 0x6e, 0x65, 0x72, 0x10, 0x64, 0x12, 0x0e, 0x0a, 0x0a,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x10, 0x3c, 0x12, 0x16, 0x0a, 0x12,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x4f, 0x72, 0x64, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x55, 0x73, 0x65,
+	0x72, 0x73, 0x10, 0x14, 0x42, 0x4b, 0x5a, 0x37, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x69, 0x6d, 0x73, 0x64, 0x6b, 0x2f, 0x6f, 0x70, 0x65,
+	0x6e, 0x69, 0x6d, 0x2d, 0x73, 0x64, 0x6b, 0x2d, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x76, 0x33, 0x2f,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0xaa,
+	0x02, 0x0c, 0x4f, 0x70, 0x65, 0x6e, 0x49, 0x4d, 0x2e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0xba, 0x02,
+	0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (

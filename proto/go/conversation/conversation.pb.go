@@ -2115,7 +2115,8 @@ type UserOnlinePlatform struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID    string            `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"` // userid
+	// @user_id
+	UserID    string            `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
 	Platforms []common.Platform `protobuf:"varint,2,rep,packed,name=platforms,proto3,enum=openim.sdk.common.Platform" json:"platforms"`
 }
 

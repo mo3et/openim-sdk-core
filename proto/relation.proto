@@ -130,7 +130,7 @@ message SearchFriendsResp {
 message AddBlackReq {
   // @user_id
   string userID = 1;
-  // black extension fields
+  // @relation_black_ex
   string ex = 2;
 }
 message AddBlackResp {}

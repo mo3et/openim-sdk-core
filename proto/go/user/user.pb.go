@@ -691,7 +691,7 @@ type GetUsersInfoResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// list of users info
+	// list of user info
 	Users []*shared.IMUser `protobuf:"bytes,1,rep,name=users,proto3" json:"users"`
 }
 

@@ -55,7 +55,7 @@ message LogKv {
 }
 
 message LogReq {
-  // log level
+  // @common_log_level
   common.LogLevel logLevel = 1;
   // log file path
   string file = 2;
@@ -90,11 +90,11 @@ service ThirdService {
    */
   rpc Log(LogReq) returns (LogResp);
   /**
-   * update Fcm token
+   * update the Firebase user token on the server.
    */
   rpc UpdateFcmToken(UpdateFcmTokenReq) returns (UpdateFcmTokenResp);
   /**
-   * set app badge, including unread count
+   * set app unread badge, used to display the unread count badge for offline push notifications.
    */
   rpc SetAppBadge(SetAppBadgeReq) returns (SetAppBadgeResp);
 }

@@ -25,6 +25,7 @@ type JsFileOpenReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// file uuid
 	Uuid string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
 }
 
@@ -70,6 +71,7 @@ type JsFileOpenResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// file size
 	Size int64 `protobuf:"varint,1,opt,name=size,proto3" json:"size"`
 }
 
@@ -115,9 +117,12 @@ type JsFileReadReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Uuid   string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
-	Offset int64  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset"`
-	Length int64  `protobuf:"varint,3,opt,name=length,proto3" json:"length"`
+	// file uuid
+	Uuid string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
+	// read offset
+	Offset int64 `protobuf:"varint,2,opt,name=offset,proto3" json:"offset"`
+	// read length
+	Length int64 `protobuf:"varint,3,opt,name=length,proto3" json:"length"`
 }
 
 func (x *JsFileReadReq) Reset() {
@@ -176,6 +181,7 @@ type JsFileReadResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// read data
 	Data []byte `protobuf:"bytes,1,opt,name=data,proto3" json:"data"`
 }
 
@@ -221,6 +227,7 @@ type JsFileCloseReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// file uuid
 	Uuid string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid"`
 }
 
@@ -302,6 +309,7 @@ type JsSqliteOpenReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// db name
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name"`
 }
 
@@ -347,6 +355,7 @@ type JsSqliteOpenResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// db id
 	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 }
 
@@ -392,6 +401,7 @@ type JsSqliteCloseReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// db id
 	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 }
 
@@ -473,9 +483,12 @@ type JsSqliteExecReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
-	Sql  string `protobuf:"bytes,2,opt,name=sql,proto3" json:"sql"`
-	Args string `protobuf:"bytes,3,opt,name=args,proto3" json:"args"` // json array
+	// db id
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
+	// sql query
+	Sql string `protobuf:"bytes,2,opt,name=sql,proto3" json:"sql"`
+	// query args, json array
+	Args string `protobuf:"bytes,3,opt,name=args,proto3" json:"args"`
 }
 
 func (x *JsSqliteExecReq) Reset() {
@@ -579,9 +592,12 @@ type JsSqliteQueryReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
-	Sql  string `protobuf:"bytes,2,opt,name=sql,proto3" json:"sql"`
-	Args string `protobuf:"bytes,3,opt,name=args,proto3" json:"args"` // json array
+	// db id
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
+	// sql query
+	Sql string `protobuf:"bytes,2,opt,name=sql,proto3" json:"sql"`
+	// query args, json array
+	Args string `protobuf:"bytes,3,opt,name=args,proto3" json:"args"`
 }
 
 func (x *JsSqliteQueryReq) Reset() {
@@ -640,7 +656,8 @@ type JsSqliteQueryResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Result string `protobuf:"bytes,1,opt,name=result,proto3" json:"result"` // json array
+	// query result, json array
+	Result string `protobuf:"bytes,1,opt,name=result,proto3" json:"result"`
 }
 
 func (x *JsSqliteQueryResp) Reset() {

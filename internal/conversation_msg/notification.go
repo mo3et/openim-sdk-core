@@ -18,11 +18,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 	"reflect"
 	"runtime"
 	"sync"
 	"time"
+
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/types"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -169,7 +170,7 @@ func (c *Conversation) doNotification(ctx context.Context, msg *sdkws.MsgData) e
 		return c.DoConversationChangedNotification(ctx, msg)
 	case constant.ConversationPrivateChatNotification: // 1701
 		return c.DoConversationIsPrivateChangedNotification(ctx, msg)
-	case constant.BusinessNotification:
+	case constant.BusinessNotification: // 2001
 		return c.doBusinessNotification(ctx, msg)
 	case constant.RevokeNotification: // 2101
 		return c.doRevokeMsg(ctx, msg)
