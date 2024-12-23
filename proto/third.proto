@@ -76,14 +76,17 @@ service ThirdService {
    * in the js environment, filepath is a file object
    */
   rpc UploadFile(UploadFileReq) returns (UploadFileResp);
-  // TODO
   /**
-   * upload sdk data
+   * upload sdk data to server. including line, ex, mode.
+   * mode have a 3 types. 1: upload log, 2: upload db, 3: upload log and db.
+   * upload all log when line is 0.
    */
   rpc UploadSDKData(UploadSDKDataReq) returns (UploadSDKDataResp);
-  // TODO
   /**
-   * upload log
+   * print sdk stabndard log in client. Simplify unified issue analysis and troubleshooting.
+   * log level have a 6 types. 0: fatal, 1: panic, 2: error, 3: warn, 4: info, 5: debug, 6: debug with sql.
+   * The higher is contained in the lower level output.
+   *
    */
   rpc Log(LogReq) returns (LogResp);
   /**
