@@ -19,7 +19,7 @@ require golang.org/x/net v0.29.0
 require (
 	github.com/google/go-cmp v0.6.0
 	github.com/openimsdk/protocol v0.0.72-alpha.63
-	github.com/openimsdk/tools v0.0.50-alpha.56
+	github.com/openimsdk/tools v0.0.50-alpha.61
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	golang.org/x/sync v0.8.0
 	gorm.io/gorm v1.25.10

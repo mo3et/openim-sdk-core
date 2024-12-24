@@ -24,3 +24,7 @@ var (
 	Wrap    = errs.Wrap
 	WrapMsg = errs.WrapMsg
 )
+
+func ErrPanic(r any) error {
+	return errs.ErrPanicMsg(r, SdkInternalError, "panic error", 9)
+}
