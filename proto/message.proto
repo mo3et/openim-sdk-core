@@ -296,6 +296,47 @@ message CreateForwardMessageResp {
 
 service MessageService {
   /**
+   *
+   *
+   */
+  rpc GetHistoryMessageList(GetHistoryMessageListReq) returns (GetHistoryMessageListResp);
+  /**
+   *
+   *
+   */
+  rpc RevokeMessage(RevokeMessageReq) returns (RevokeMessageResp);
+  /**
+   *
+   *
+   */
+  rpc TypingStatusUpdate(TypingStatusUpdateReq) returns (TypingStatusUpdateResp);
+  /**
+   *
+   *
+   */
+  rpc DeleteMessage(DeleteMessageReq) returns (DeleteMessageResp);
+  /**
+   *
+   *
+   */
+  rpc DeleteAllMsgFromLocalAndServer(DeleteAllMsgFromLocalAndServerReq) returns (DeleteAllMsgFromLocalAndServerResp);
+  /**
+   *
+   *
+   */
+  rpc DeleteAllMessageFromLocal(DeleteAllMessageFromLocalReq) returns (DeleteAllMessageFromLocalResp);
+  /**
+   *
+   *
+   */
+  rpc InsertSingleMessageToLocal(InsertSingleMessageToLocalReq) returns (InsertSingleMessageToLocalResp);
+  /**
+   *
+   *
+   */
+  rpc InsertGroupMessageToLocal(InsertGroupMessageToLocalReq) returns (InsertGroupMessageToLocalResp);
+
+  /**
    * create a text message.
    */
   rpc CreateTextMessage(CreateTextMessageReq) returns (CreateTextMessageResp);

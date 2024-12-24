@@ -9,11 +9,14 @@ option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversati
 option swift_prefix = "";
 
 message ConversationArgs {
+  // @conversation_id
   string conversationID = 1;
+  // message client msg unique id list
   repeated string clientMsgIDList = 2;
 }
 
 message FindMessageListCallback {
+  // total count
   int32 totalCount = 1;
   repeated SearchByConversationResult findResultItems = 2;
 }
@@ -24,34 +27,42 @@ message SearchByConversationResult {
   string showName = 3;
   string faceURL = 4;
   int64 latestMsgSendTime = 5;
+  // message count
   int32 messageCount = 6;
+  // @shared_immessages
   repeated shared.IMMessage messageList = 7;
 }
 
 // -----------------------------------------------------------------------------------------------------------------
 message GetAllConversationListReq {}
 message GetAllConversationListResp {
+  // @shared_imconversations
   repeated shared.IMConversation conversationList = 1;
 }
 
 message GetConversationListSplitReq {
+  // @common_request_pagination
   common.RequestPagination pagination = 1;
 }
 message GetConversationListSplitResp {
+  // @shared_imconversations
   repeated shared.IMConversation conversationList = 1;
 }
 
 message HideConversationReq {
+  // @conversation_id
   string conversationID = 1;
 }
 message HideConversationResp {}
 
 message GetAtAllTagReq {}
 message GetAtAllTagResp {
+  // at tag
   string tag = 1;
 }
 
 message GetOneConversationReq {
+  // @message_session_type
   common.SessionType sessionType = 1;
   string sourceID = 2;
 }
@@ -207,24 +218,128 @@ message GetInputStatesResp {
  */
 
 service ConversationService {
-  rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
-  rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp) {}
-  rpc HideConversation(HideConversationReq) returns (HideConversationResp) {}
-  rpc GetAtAllTag(GetAtAllTagReq) returns (GetAtAllTagResp) {}
-  rpc GetOneConversation(GetOneConversationReq) returns (GetOneConversationResp) {}
-  rpc GetMultipleConversation(GetMultipleConversationReq) returns (GetMultipleConversationResp) {}
-  rpc HideAllConversations(HideAllConversationsReq) returns (HideAllConversationsResp) {}
-  rpc SetConversationDraft(SetConversationDraftReq) returns (SetConversationDraftResp) {}
-  rpc SetConversation(SetConversationReq) returns (SetConversationResp) {}
-  rpc GetTotalUnreadMsgCount(GetTotalUnreadMsgCountReq) returns (GetTotalUnreadMsgCountResp) {}
-  rpc GetConversationIDBySessionType(GetConversationIDBySessionTypeReq) returns (GetConversationIDBySessionTypeResp) {}
-  rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp) {}
-  rpc MarkConversationMessageAsRead(MarkConversationMessageAsReadReq) returns (MarkConversationMessageAsReadResp) {}
-  rpc MarkAllConversationMessageAsRead(MarkAllConversationMessageAsReadReq) returns (MarkAllConversationMessageAsReadResp) {}
-  rpc DeleteMessageFromLocal(DeleteMessageFromLocalReq) returns (DeleteMessageFromLocalResp) {}
-  rpc ClearConversationAndDeleteAllMsg(ClearConversationAndDeleteAllMsgReq) returns (ClearConversationAndDeleteAllMsgResp) {}
-  rpc DeleteConversationAndDeleteAllMsg(DeleteConversationAndDeleteAllMsgReq) returns (DeleteConversationAndDeleteAllMsgResp) {}
-  rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp) {}
-  rpc SetMessageLocalEx(SetMessageLocalExReq) returns (SetMessageLocalExResp) {}
-  rpc SearchConversation(SearchConversationReq) returns (SearchConversationResp) {}
+  /**
+   *
+   *
+   */
+  rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp);
+  /**
+   *
+   *
+   */
+  rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp);
+  /**
+   *
+   *
+   */
+  rpc HideConversation(HideConversationReq) returns (HideConversationResp);
+  /**
+   *
+   *
+   */
+  rpc GetAtAllTag(GetAtAllTagReq) returns (GetAtAllTagResp);
+  /**
+   *
+   *
+   */
+  rpc GetOneConversation(GetOneConversationReq) returns (GetOneConversationResp);
+  /**
+   *
+   *
+   */
+  rpc GetMultipleConversation(GetMultipleConversationReq) returns (GetMultipleConversationResp);
+  /**
+   *
+   *
+   */
+  rpc HideAllConversations(HideAllConversationsReq) returns (HideAllConversationsResp);
+  /**
+   *
+   *
+   */
+  rpc SetConversationDraft(SetConversationDraftReq) returns (SetConversationDraftResp);
+  /**
+   *
+   *
+   */
+  rpc SetConversation(SetConversationReq) returns (SetConversationResp);
+  /**
+   *
+   *
+   */
+  rpc GetTotalUnreadMsgCount(GetTotalUnreadMsgCountReq) returns (GetTotalUnreadMsgCountResp);
+  /**
+   *
+   *
+   */
+  rpc GetConversationIDBySessionType(GetConversationIDBySessionTypeReq) returns (GetConversationIDBySessionTypeResp);
+  /**
+   *
+   *
+   */
+  rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp);
+
+  /**
+   *
+   *
+   */
+  rpc MarkConversationMessageAsRead(MarkConversationMessageAsReadReq) returns (MarkConversationMessageAsReadResp);
+
+  /**
+   *
+   *
+   */
+  rpc MarkAllConversationMessageAsRead(MarkAllConversationMessageAsReadReq) returns (MarkAllConversationMessageAsReadResp);
+  /**
+   *
+   *
+   */
+  //  TODO need move to message?
+  rpc DeleteMessageFromLocal(DeleteMessageFromLocalReq) returns (DeleteMessageFromLocalResp);
+  /**
+   *
+   *
+   */
+
+  rpc ClearConversationAndDeleteAllMsg(ClearConversationAndDeleteAllMsgReq) returns (ClearConversationAndDeleteAllMsgResp);
+  /**
+   *
+   *
+   */
+  rpc DeleteConversationAndDeleteAllMsg(DeleteConversationAndDeleteAllMsgReq) returns (DeleteConversationAndDeleteAllMsgResp);
+  /**
+   *
+   *
+   */
+  rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp);
+  /**
+   *
+   *
+   */
+  rpc SetMessageLocalEx(SetMessageLocalExReq) returns (SetMessageLocalExResp);
+  /**
+   *
+   *
+   */
+  rpc SearchConversation(SearchConversationReq) returns (SearchConversationResp);
+  /**
+   *
+   *
+   */
+  rpc SubscribeUsersOnlineStatus(SubscribeUsersOnlineStatusReq) returns (SubscribeUsersOnlineStatusResp);
+  /**
+   *
+   *
+   */
+  rpc UnsubscribeUsersOnlineStatus(UnsubscribeUsersOnlineStatusReq) returns (UnsubscribeUsersOnlineStatusResp);
+  /**
+   *
+   *
+   */
+  rpc ChangeInputStates(ChangeInputStatesReq) returns (ChangeInputStatesResp);
+  /**
+   *
+   *
+   */
+  rpc GetInputStates(GetInputStatesReq) returns (GetInputStatesResp);
 }

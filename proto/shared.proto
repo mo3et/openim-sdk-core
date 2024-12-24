@@ -824,7 +824,7 @@ message RevokedTips {
   string sourceMessageSendID = 7;
   // revoked message sender nickname
   string sourceMessageSenderNickname = 8;
-  // session type
+  // @message_session_type
   common.SessionType sessionType = 10;
   // @message_seq
   int64 seq = 11;
