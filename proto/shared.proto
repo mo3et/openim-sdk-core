@@ -431,347 +431,536 @@ message CardElem {
 }
 
 message PictureElem {
+  // picture local path
   string sourcePath = 1;
+  // picture big local path
   string bigPath = 2;
+  // picture snapshot local path
   string snapshotPath = 3;
+  // source picture info
   PictureBaseInfo sourcePicture = 4;
+  // big picture info
   PictureBaseInfo bigPicture = 5;
+  // snapshot picture info
   PictureBaseInfo snapshotPicture = 6;
 }
 
 message SoundElem {
+  // sound uuid
   string uuid = 1;
+  // sound local path
   string soundPath = 2;
+  // sound source URL
   string sourceURL = 3;
+  // sound size
   int64 dataSize = 4;
+  // sound duration
   int64 duration = 5;
+  // sound type
   string soundType = 6;
 }
 
 message VideoElem {
+  // video local path
   string videoPath = 1;
+  // video uuid
   string videoUUID = 2;
+  // video source URL
   string videoURL = 3;
+  // video type
   string videoType = 4;
+  // video size
   int64 videoSize = 5;
+  // video duration
   int64 duration = 6;
+  // video snapshot local path
   string snapshotPath = 7;
+  // video snapshot uuid
   string snapshotUUID = 8;
+  // video snapshot size
   int64 snapshotSize = 9;
+  // video snapshot URL
   string snapshotURL = 10;
+  // video snapshot width
   int32 snapshotWidth = 11;
+  // video snapshot height
   int32 snapshotHeight = 12;
+  // video snapshot type
   string snapshotType = 13;
 }
 
 message FileElem {
+  // file local path
   string filePath = 1;
+  // file uuid
   string uuid = 2;
+  // file source URL
   string sourceURL = 3;
+  // file name
   string fileName = 4;
+  // file size
   int64 fileSize = 5;
+  // file type
   string fileType = 6;
 }
 
 message ErrorElem {
+  // error code
   string type = 1;
+  // error message
   string data = 2;
 }
 
 message MessageEntity {
+  // message entity type
   string type = 1;
+  // message entity offset
   int32 offset = 2;
+  // message entity length
   int32 length = 3;
+  // message entity data
   string url = 4;
+  // message entity data
   string ex = 5;
 }
 
 message MergeElem {
+  // merge message title
   string title = 1;
+  // merge message summary
   repeated string abstractList = 2;
+  // merge message message list
   repeated IMMessage multiMessage = 3;
+  // merge message entity list
   repeated MessageEntity messageEntityList = 4;
 }
 
 message AtTextElem {
+  // text content
   string text = 1;
+  // at user list
   repeated string atUserList = 2;
+  // at user info list
   repeated AtInfo atUsersInfo = 3;
+  // quote message
   IMMessage quoteMessage = 4;
+  // is at self
   bool isAtSelf = 5;
 }
 
 message FaceElem {
+  // face index
   int32 index = 1;
+  // face data
   string data = 2;
 }
 
 message LocationElem {
+  // location description
   string description = 1;
+  // location longitude
   double longitude = 2;
+  // location latitude
   double latitude = 3;
 }
 
 message CustomElem {
+  // custom message data
   string data = 1;
+  // custom message description
   string description = 2;
+  // custom message extension field
   string extension = 3;
 }
 
 message QuoteElem {
+  // message text
   string text = 1;
+  // quote message
   IMMessage quoteMessage = 2;
+  // message entity list
   repeated MessageEntity messageEntityList = 3;
 }
 
 message AdvancedTextElem {
+  // text content
   string text = 1;
+  // message entity list
   repeated MessageEntity messageEntityList = 2;
 }
 
 message TypingElem {
+  // typing status
   string msgTips = 1;
 }
 
 message StreamElem {
+  // stream type
   string type = 1;
+  // stream content
   string content = 2;
+  // stream packet list
   repeated string packets = 3;
+  // stream is end
   bool end = 4;
 }
 
 message UploadProgress {
+  // total
   int64 total = 1;
+  // save
   int64 save = 2;
+  // current
   int64 current = 3;
+  // uploadID
   string uploadID = 4;
 }
 
 message AttachedInfoElem {
+  // is private chat
   bool isPrivateChat = 1;
+  // message burn duration
   int32 burnDuration = 2;
+  // message has read time(timestamp)
   int64 hasReadTime = 3;
+  // upload progress
   UploadProgress progress = 4;
 }
 
 // ############## notification ##############
 
 message OaTips {
+  // notification name
   string notificationName = 1;
+  // notification face URL
   string notificationFaceURL = 2;
+  // notification type
   int32 notificationType = 3;
+  // notification content
   string text = 4;
+  // notification URL
   string url = 5;
+  // mix type
   int32 mixType = 6;
+  // picture message
   PictureElem pictureElem = 7;
+  // sound message
   SoundElem soundElem = 8;
+  // video message
   VideoElem videoElem = 9;
+  // file message
   FileElem fileElem = 10;
+  // OA notification extension field
   string ex = 11;
 }
 
 //////////////////////group/////////////////////
 
-//
-//	OnGroupCreated()
 message GroupCreatedTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // created group operator user info
   shared.IMGroupMember opUser = 2;
+  // group member info list
   repeated shared.IMGroupMember memberList = 3;
+  // group created time
   int64 operationTime = 4;
+  // group owner info
   shared.IMGroupMember groupOwnerUser = 5;
 }
 
 message GroupInfoSetNameTips {
-  openim.sdk.shared.IMGroupMember opUser = 1; //who do this
+  // Set group name operator user info
+  openim.sdk.shared.IMGroupMember opUser = 1;
+  // @shared_imgroup
   openim.sdk.shared.IMGroup group = 2;
 }
 
 message GroupInfoSetAnnouncementTips {
-  openim.sdk.shared.IMGroupMember opUser = 1; //who do this
+  // Set group announcement operator user info
+  openim.sdk.shared.IMGroupMember opUser = 1;
+  // @shared_imgroup
   openim.sdk.shared.IMGroup group = 2;
+  // group member incr version
   uint64 groupMemberVersion = 3;
+  // group member incr version ID
   string groupMemberVersionID = 4;
 }
 
-//	OnQuitGroup()
-//Actively leave the group
 message MemberQuitTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // quit group user info
   shared.IMGroupMember quitUser = 2;
+  // quited group time
   int64 operationTime = 3;
 }
 
-//
-//	OnTransferGroupOwner()
 message GroupOwnerTransferredTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // transfer group owner operator user info
   shared.IMGroupMember opUser = 2;
+  // new group owner info
   shared.IMGroupMember newGroupOwner = 3;
+  // old group owner user ID
   string oldGroupOwner = 4;
+  // transfer group owner time
   int64 operationTime = 5;
+  // old group owner info
   shared.IMGroupMember oldGroupOwnerInfo = 6;
 }
 
-//
-//	OnMemberKicked()
 message MemberKickedTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // operator group user info
   shared.IMGroupMember opUser = 2;
+  // kicked group member info list
   repeated shared.IMGroupMember kickedUserList = 3;
+  // kicked group member time
   int64 operationTime = 4;
 }
 
-//
-//	OnMemberInvited()
 message MemberInvitedTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // invite group operator user info
   shared.IMGroupMember opUser = 2;
+  // invited user info list
   repeated shared.IMGroupMember invitedUserList = 3;
+  // invited member time
   int64 operationTime = 4;
+  // inviter user info
   shared.IMGroupMember inviterUser = 7;
 }
 
-//
-//Actively join the group
 message MemberEnterTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // enter group user info
   shared.IMGroupMember entrantUser = 2;
+  // enter group time
   int64 operationTime = 3;
 }
 
-//
 message GroupDismissedTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // dismiss group operator user info
   shared.IMGroupMember opUser = 2;
+  // dismiss group time
   int64 operationTime = 3;
 }
 
-//
 message GroupMemberMutedTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // mute group member operator user info
   shared.IMGroupMember opUser = 2;
+  // mute group member time
   int64 operationTime = 3;
+  // muted group member info
   shared.IMGroupMember mutedUser = 4;
+  // muted seconds
   uint32 mutedSeconds = 5;
 }
 
-//
 message GroupMemberCancelMutedTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // cancel mute group operator user info
   shared.IMGroupMember opUser = 2;
+  // cancel mute group member time
   int64 operationTime = 3;
+  // cancel muted group member info
   shared.IMGroupMember mutedUser = 4;
 }
 
 message GroupMutedTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // mute group operator user info
   shared.IMGroupMember opUser = 2;
+  // mute group time
   int64 operationTime = 3;
 }
 
 message GroupCancelMutedTips {
+  // @shared_imgroup
   shared.IMGroup group = 1;
+  // cancel mute group operator user info
   shared.IMGroupMember opUser = 2;
+  // cancel mute group time
   int64 operationTime = 3;
 }
 
 message FromToUserID {
+  // sender user ID
   string fromUserID = 1;
+  // receiver user ID
   string toUserID = 2;
 }
 
 message FriendApplicationApprovedTips {
+  // request relation user ID
   FromToUserID fromToUserID = 1;
 }
 
 message RevokedTips {
+  // revoked user ID
   string revokerID = 1;
+  // revoked user role
   common.RevokerRole revokerRole = 2;
+  // @message_client_msg_id
   string clientMsgID = 3;
+  // revoked user nickname
   string revokerNickname = 4;
+  // revoked time
   int64 revokeTime = 5;
+  // revoked message send time
   int64 sourceMessageSendTime = 6;
+  // revoked message sender ID
   string sourceMessageSendID = 7;
+  // revoked message sender nickname
   string sourceMessageSenderNickname = 8;
+  // session type
   common.SessionType sessionType = 10;
+  // @message_seq
   int64 seq = 11;
+  // revoked message extension field
   string ex = 12;
 }
 
 message ConversationPrivateChatTips {
+  // @message_recv_id
   string recvID = 1;
+  // @message_send_id
   string sendID = 2;
+  // @conversation_is_private
   bool isPrivate = 3;
+  // @conversation_id
   string conversationID = 4;
 }
 
 message BusinessTips {
+  // key
   string key = 1;
+  // custom notification content
   string data = 2;
 }
 
 message IMMessage {
+  // @message_client_msg_id
   string clientMsgID = 1;
+  // @message_server_msg_id
   string serverMsgID = 2;
+  // @message_create_time
   int64 createTime = 3;
+  // @message_send_time
   int64 sendTime = 4;
+  // @message_session_type
   common.SessionType sessionType = 5;
+  // @message_send_id
   string sendID = 6;
+  // @message_recv_id
   string recvID = 7;
+  // @message_msg_from
   common.MsgFrom msgFrom = 8;
+  // @common_content_type
   common.ContentType contentType = 9;
+  // @common_platform
   common.Platform senderPlatformID = 10;
+  // sender nickname
   string senderNickname = 11;
+  // sender avatar URL
   string senderFaceURL = 12;
+  // @group_id
   string groupID = 13;
+  // @message_seq
   int64 seq = 15;
+  // message is read
   bool isRead = 16;
+  // @message_msg_status
   common.MsgStatus status = 17;
+  // offline push info
   common.OfflinePushInfo offlinePush = 18;
+  // message extension field
   string ex = 20;
+  // local extension field
   string localEx = 21;
+  // message attached info
   AttachedInfoElem attachedInfoElem = 22;
   oneof content {
+    // text message
     TextElem textElem = 23;
+    // card message
     CardElem cardElem = 24;
+    // picture message
     PictureElem pictureElem = 25;
+    // sound message
     SoundElem soundElem = 26;
+    // video message
     VideoElem videoElem = 27;
+    // file message
     FileElem fileElem = 28;
+    // merge message
     MergeElem mergeElem = 29;
+    // at text message
     AtTextElem atTextElem = 30;
+    // face message
     FaceElem faceElem = 31;
+    // location message
     LocationElem locationElem = 32;
+    // custom message
     CustomElem customElem = 33;
+    // quote message
     QuoteElem quoteElem = 34;
+    // advanced text message
     AdvancedTextElem advancedTextElem = 35;
+    // input status
     TypingElem typingElem = 36;
+    // stream message
     StreamElem streamElem = 37;
 
+    // revoke message notification
     RevokedTips revokedTips = 38;
+    // error message
     ErrorElem errorTips = 39;
 
+    // group created notification
     GroupCreatedTips groupCreatedTips = 311;
+    // group information set name notification
     GroupInfoSetNameTips groupInfoSetNameTips = 312;
+    // group information set announcement notification
     GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 313;
-
+    // member quit notification
     MemberQuitTips memberQuitTips = 43;
-
+    // group owner transferred notification
     GroupOwnerTransferredTips groupOwnerTransferredTips = 46;
+    // member kicked notification
     MemberKickedTips memberKickedTips = 47;
+    // member invited notification
     MemberInvitedTips memberInvitedTips = 48;
+    // member enter notification
     MemberEnterTips memberEnterTips = 49;
+    // group dismissed notification
     GroupDismissedTips groupDismissedTips = 50;
+    // group member muted notification
     GroupMemberMutedTips groupMemberMutedTips = 51;
+    // group member cancel muted notification
     GroupMemberCancelMutedTips groupMemberCancelMutedTips = 52;
+    // group muted notification
     GroupMutedTips groupMutedTips = 53;
+    // group unmuted notification
     GroupCancelMutedTips groupCancelMutedTips = 54;
-
+    // friend request approved notification
     FriendApplicationApprovedTips friendApplicationApprovedTips = 57;
-
+    // conversation private chat notification
     ConversationPrivateChatTips conversationPrivateChatTips = 79;
+    // custom notification
     BusinessTips businessTips = 80;
+    // OA system notification
     OaTips oaTips = 81;
   }
 }
