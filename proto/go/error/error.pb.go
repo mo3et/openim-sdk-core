@@ -25,35 +25,63 @@ type ErrorCode int32
 const (
 	// NoError is the zero value of ErrorCode.
 	ErrorCode_NoError ErrorCode = 0
-	// Common error codes.
-	ErrorCode_ServerInternal              ErrorCode = 500
-	ErrorCode_Args                        ErrorCode = 1001
-	ErrorCode_NoPermission                ErrorCode = 1002
-	ErrorCode_DuplicateKey                ErrorCode = 1003
-	ErrorCode_RecordNotFound              ErrorCode = 1004
-	ErrorCode_TokenExpired                ErrorCode = 1501
-	ErrorCode_TokenInvalid                ErrorCode = 1502
-	ErrorCode_TokenMalformed              ErrorCode = 1503
-	ErrorCode_TokenNotValidYet            ErrorCode = 1504
-	ErrorCode_TokenUnknown                ErrorCode = 1505
-	ErrorCode_TokenKicked                 ErrorCode = 1506
-	ErrorCode_TokenNotExist               ErrorCode = 1507
-	ErrorCode_SdkNetwork                  ErrorCode = 10000
-	ErrorCode_SdkNetworkTimeout           ErrorCode = 10001
-	ErrorCode_SdkArgs                     ErrorCode = 10002
-	ErrorCode_SdkCtxDeadlineExceeded      ErrorCode = 10003
-	ErrorCode_SdkResourceLoadNotComplete  ErrorCode = 10004
-	ErrorCode_SdkUnknownCode              ErrorCode = 10005
-	ErrorCode_SdkInternal                 ErrorCode = 10006
-	ErrorCode_SdkFuncNotFound             ErrorCode = 10007
-	ErrorCode_SdkNotInit                  ErrorCode = 10008
-	ErrorCode_SdkNotLogin                 ErrorCode = 10009
-	ErrorCode_SdkUserIDNotFound           ErrorCode = 10100
-	ErrorCode_SdkLoginOut                 ErrorCode = 10101
-	ErrorCode_SdkLoginRepeat              ErrorCode = 10102
-	ErrorCode_SdkFileNotFound             ErrorCode = 10200
-	ErrorCode_SdkMsgDeCompression         ErrorCode = 10201
-	ErrorCode_SdkMsgDecodeBinaryWs        ErrorCode = 10202
+	// Server internal error. Usually due to internal network issues. Check if all server nodes are running properly.
+	ErrorCode_ServerInternal ErrorCode = 500
+	// Args error. Need check body args and header args is correct.
+	ErrorCode_Args ErrorCode = 1001
+	// No permission. Uaually header token is not correct or permission d.
+	ErrorCode_NoPermission ErrorCode = 1002
+	// Database duplicate key.
+	ErrorCode_DuplicateKey ErrorCode = 1003
+	// Database record not found.
+	ErrorCode_RecordNotFound ErrorCode = 1004
+	// Token expired.
+	ErrorCode_TokenExpired ErrorCode = 1501
+	// Token invalid.
+	ErrorCode_TokenInvalid ErrorCode = 1502
+	// Token format error.
+	ErrorCode_TokenMalformed ErrorCode = 1503
+	// Token not valid yet.
+	ErrorCode_TokenNotValidYet ErrorCode = 1504
+	// Token unknown.
+	ErrorCode_TokenUnknown ErrorCode = 1505
+	// Token kicked, is invalid.
+	ErrorCode_TokenKicked ErrorCode = 1506
+	// Token not exist.
+	ErrorCode_TokenNotExist ErrorCode = 1507
+	// SDK network request error.
+	ErrorCode_SdkNetwork ErrorCode = 10000
+	// SDK network timeout.
+	ErrorCode_SdkNetworkTimeout ErrorCode = 10001
+	// SDK args error.
+	ErrorCode_SdkArgs ErrorCode = 10002
+	// SDK context deadline exceeded, usually user is logout.
+	ErrorCode_SdkCtxDeadlineExceeded ErrorCode = 10003
+	// SDK resource load not complete, usually is not init or login interface will not callback success.
+	ErrorCode_SdkResourceLoadNotComplete ErrorCode = 10004
+	// SDK unknown error. Need check error msg find reason.
+	ErrorCode_SdkUnknownCode ErrorCode = 10005
+	// SDK internal error. Need check error msg find reason.
+	ErrorCode_SdkInternal ErrorCode = 10006
+	// SDK func not found.
+	ErrorCode_SdkFuncNotFound ErrorCode = 10007
+	// SDK not init.
+	ErrorCode_SdkNotInit ErrorCode = 10008
+	// SDK not login.
+	ErrorCode_SdkNotLogin ErrorCode = 10009
+	// SDK user id not exist or not register.
+	ErrorCode_SdkUserIDNotFound ErrorCode = 10100
+	// SDK user login out.
+	ErrorCode_SdkLoginOut ErrorCode = 10101
+	// User repeated login. You can use `getloginstatus` to check user login status, avoid repeat login.
+	ErrorCode_SdkLoginRepeat ErrorCode = 10102
+	// SDK need upload file not found.
+	ErrorCode_SdkFileNotFound ErrorCode = 10200
+	// SDK message decompression error.
+	ErrorCode_SdkMsgDeCompression ErrorCode = 10201
+	// SDK message decode error.
+	ErrorCode_SdkMsgDecodeBinaryWs ErrorCode = 10202
+	// SDK not support long connection binary protocol.
 	ErrorCode_SdkMsgBinaryTypeNotSupport  ErrorCode = 10203
 	ErrorCode_SdkMsgRepeat                ErrorCode = 10204
 	ErrorCode_SdkMsgContentTypeNotSupport ErrorCode = 10205

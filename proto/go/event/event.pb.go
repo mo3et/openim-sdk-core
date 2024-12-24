@@ -559,8 +559,10 @@ type EventOnSendMsgProgressData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @message_client_msg_id
 	ClientMsgID string `protobuf:"bytes,1,opt,name=clientMsgID,proto3" json:"clientMsgID"`
-	Progress    int32  `protobuf:"varint,2,opt,name=progress,proto3" json:"progress"`
+	// send msg progress
+	Progress int32 `protobuf:"varint,2,opt,name=progress,proto3" json:"progress"`
 }
 
 func (x *EventOnSendMsgProgressData) Reset() {
@@ -612,6 +614,7 @@ type EventOnUploadFileProgressData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// upload file progress
 	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress"`
 }
 
@@ -657,6 +660,7 @@ type EventOnUploadLogsProgressData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// upload logs progress
 	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress"`
 }
 
@@ -774,8 +778,10 @@ type EventOnConnectFailedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ErrCode int32  `protobuf:"varint,1,opt,name=errCode,proto3" json:"errCode"`
-	ErrMsg  string `protobuf:"bytes,2,opt,name=errMsg,proto3" json:"errMsg"`
+	// error code
+	ErrCode int32 `protobuf:"varint,1,opt,name=errCode,proto3" json:"errCode"`
+	// error message
+	ErrMsg string `protobuf:"bytes,2,opt,name=errMsg,proto3" json:"errMsg"`
 }
 
 func (x *EventOnConnectFailedData) Reset() {
@@ -899,6 +905,7 @@ type EventOnUserTokenInvalidData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// error message
 	ErrMsg string `protobuf:"bytes,1,opt,name=errMsg,proto3" json:"errMsg"`
 }
 
@@ -944,6 +951,7 @@ type EventOnSyncServerStartData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @event_is_reinstalled
 	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled"`
 }
 
@@ -989,6 +997,7 @@ type EventOnSyncServerFinishData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @event_is_reinstalled
 	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled"`
 }
 
@@ -1034,6 +1043,7 @@ type EventOnSyncServerFailedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @event_is_reinstalled
 	Reinstalled bool `protobuf:"varint,1,opt,name=reinstalled,proto3" json:"reinstalled"`
 }
 
@@ -1079,6 +1089,7 @@ type EventOnSyncServerProgressData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @event_is_reinstalled
 	Progress int32 `protobuf:"varint,1,opt,name=progress,proto3" json:"progress"`
 }
 
@@ -1124,6 +1135,7 @@ type EventOnNewConversationData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imconversations
 	ConversationList []*shared.IMConversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList"`
 }
 
@@ -1169,6 +1181,7 @@ type EventOnConversationChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imconversations
 	ConversationList []*shared.IMConversation `protobuf:"bytes,1,rep,name=conversationList,proto3" json:"conversationList"`
 }
 
@@ -1214,6 +1227,7 @@ type EventOnTotalUnreadMessageCountChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// total unread count
 	TotalUnreadCount int32 `protobuf:"varint,1,opt,name=totalUnreadCount,proto3" json:"totalUnreadCount"`
 }
 
@@ -1259,9 +1273,12 @@ type EventOnConversationUserInputStatusChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ConversationID string            `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
-	UserID         string            `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
-	Platforms      []common.Platform `protobuf:"varint,3,rep,packed,name=platforms,proto3,enum=openim.sdk.common.Platform" json:"platforms"`
+	// @conversation_id
+	ConversationID string `protobuf:"bytes,1,opt,name=conversationID,proto3" json:"conversationID"`
+	// @user_id
+	UserID string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
+	// @common_platforms
+	Platforms []common.Platform `protobuf:"varint,3,rep,packed,name=platforms,proto3,enum=openim.sdk.common.Platform" json:"platforms"`
 }
 
 func (x *EventOnConversationUserInputStatusChangedData) Reset() {
@@ -1320,6 +1337,7 @@ type EventOnRecvNewMessageData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_immessage
 	Message *shared.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
@@ -1365,13 +1383,20 @@ type MessageReceipt struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupID     string   `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
-	UserID      string   `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
-	MsgIDList   []string `protobuf:"bytes,3,rep,name=msgIDList,proto3" json:"msgIDList"`
-	ReadTime    int64    `protobuf:"varint,4,opt,name=readTime,proto3" json:"readTime"`
-	MsgFrom     int32    `protobuf:"varint,5,opt,name=msgFrom,proto3" json:"msgFrom"`
-	ContentType int32    `protobuf:"varint,6,opt,name=contentType,proto3" json:"contentType"`
-	SessionType int32    `protobuf:"varint,7,opt,name=sessionType,proto3" json:"sessionType"`
+	// @group_id
+	GroupID string `protobuf:"bytes,1,opt,name=groupID,proto3" json:"groupID"`
+	// @user_id
+	UserID string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID"`
+	// message id list
+	MsgIDList []string `protobuf:"bytes,3,rep,name=msgIDList,proto3" json:"msgIDList"`
+	// read time
+	ReadTime int64 `protobuf:"varint,4,opt,name=readTime,proto3" json:"readTime"`
+	// @message_msg_from
+	MsgFrom int32 `protobuf:"varint,5,opt,name=msgFrom,proto3" json:"msgFrom"`
+	// @common_content_type
+	ContentType int32 `protobuf:"varint,6,opt,name=contentType,proto3" json:"contentType"`
+	// @message_session_type
+	SessionType int32 `protobuf:"varint,7,opt,name=sessionType,proto3" json:"sessionType"`
 }
 
 func (x *MessageReceipt) Reset() {
@@ -1458,6 +1483,7 @@ type EventOnRecvC2CReadReceiptData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// msg receipt list
 	MsgReceiptList []*MessageReceipt `protobuf:"bytes,1,rep,name=msgReceiptList,proto3" json:"msgReceiptList"`
 }
 
@@ -1503,6 +1529,7 @@ type EventOnNewRecvMessageRevokedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// revoked notification
 	Revoked *shared.RevokedTips `protobuf:"bytes,1,opt,name=revoked,proto3" json:"revoked"`
 }
 
@@ -1548,6 +1575,7 @@ type EventOnRecvOfflineNewMessageData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_immessage
 	Message *shared.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
@@ -1593,6 +1621,7 @@ type EventOnMessageDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_immessage
 	Message *shared.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
@@ -1638,6 +1667,7 @@ type EventOnRecvOnlineOnlyMessageData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_immessage
 	Message *shared.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
@@ -1683,6 +1713,7 @@ type EventOnMessageEditedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_immessage
 	Message *shared.IMMessage `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
@@ -1729,6 +1760,7 @@ type EventOnFriendApplicationAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imfriend_application
 	Application *shared.IMFriendApplication `protobuf:"bytes,1,opt,name=application,proto3" json:"application"`
 }
 
@@ -1774,6 +1806,7 @@ type EventOnFriendApplicationDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imfriend_application
 	Application *shared.IMFriendApplication `protobuf:"bytes,1,opt,name=application,proto3" json:"application"`
 }
 
@@ -1819,6 +1852,7 @@ type EventOnFriendApplicationAcceptedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imfriend_application
 	Application *shared.IMFriendApplication `protobuf:"bytes,1,opt,name=application,proto3" json:"application"`
 }
 
@@ -1864,6 +1898,7 @@ type EventOnFriendApplicationRejectedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imfriend_application
 	Application *shared.IMFriendApplication `protobuf:"bytes,1,opt,name=application,proto3" json:"application"`
 }
 
@@ -1909,6 +1944,7 @@ type EventOnFriendAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imfriend
 	Friend *shared.IMFriend `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend"`
 }
 
@@ -1954,6 +1990,7 @@ type EventOnFriendDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imfriend
 	Friend *shared.IMFriend `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend"`
 }
 
@@ -1999,6 +2036,7 @@ type EventOnFriendInfoChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imfriend
 	Friend *shared.IMFriend `protobuf:"bytes,1,opt,name=friend,proto3" json:"friend"`
 }
 
@@ -2044,6 +2082,7 @@ type EventOnBlackAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imblack
 	Black *shared.IMBlack `protobuf:"bytes,1,opt,name=black,proto3" json:"black"`
 }
 
@@ -2089,6 +2128,7 @@ type EventOnBlackDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imblack
 	Black *shared.IMBlack `protobuf:"bytes,1,opt,name=black,proto3" json:"black"`
 }
 
@@ -2135,6 +2175,7 @@ type EventOnJoinedGroupAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup
 	Group *shared.IMGroup `protobuf:"bytes,1,opt,name=group,proto3" json:"group"`
 }
 
@@ -2180,6 +2221,7 @@ type EventOnJoinedGroupDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup
 	Group *shared.IMGroup `protobuf:"bytes,1,opt,name=group,proto3" json:"group"`
 }
 
@@ -2225,6 +2267,7 @@ type EventOnGroupMemberAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup_member
 	Member *shared.IMGroupMember `protobuf:"bytes,1,opt,name=member,proto3" json:"member"`
 }
 
@@ -2270,6 +2313,7 @@ type EventOnGroupMemberDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup_member
 	Member *shared.IMGroupMember `protobuf:"bytes,1,opt,name=member,proto3" json:"member"`
 }
 
@@ -2315,6 +2359,7 @@ type EventOnGroupApplicationAddedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup_application
 	Application *shared.IMGroupApplication `protobuf:"bytes,1,opt,name=application,proto3" json:"application"`
 }
 
@@ -2360,6 +2405,7 @@ type EventOnGroupApplicationDeletedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup_application
 	Application *shared.IMGroupApplication `protobuf:"bytes,1,opt,name=application,proto3" json:"application"`
 }
 
@@ -2405,6 +2451,7 @@ type EventOnGroupInfoChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup
 	Group *shared.IMGroup `protobuf:"bytes,1,opt,name=group,proto3" json:"group"`
 }
 
@@ -2450,6 +2497,7 @@ type EventOnGroupDismissedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup
 	Group *shared.IMGroup `protobuf:"bytes,1,opt,name=group,proto3" json:"group"`
 }
 
@@ -2495,6 +2543,7 @@ type EventOnGroupMemberInfoChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup_member
 	Member *shared.IMGroupMember `protobuf:"bytes,1,opt,name=member,proto3" json:"member"`
 }
 
@@ -2540,6 +2589,7 @@ type EventOnGroupApplicationAcceptedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup_application
 	Application *shared.IMGroupApplication `protobuf:"bytes,1,opt,name=application,proto3" json:"application"`
 }
 
@@ -2585,6 +2635,7 @@ type EventOnGroupApplicationRejectedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @shared_imgroup_application
 	Application *shared.IMGroupApplication `protobuf:"bytes,1,opt,name=application,proto3" json:"application"`
 }
 
@@ -2631,6 +2682,7 @@ type EventOnRecvCustomBusinessMessageData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// custom message
 	BusinessMessage string `protobuf:"bytes,1,opt,name=businessMessage,proto3" json:"businessMessage"`
 }
 
@@ -2677,6 +2729,7 @@ type EventOnSelfInfoUpdatedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// self user info
 	User *shared.IMUser `protobuf:"bytes,1,opt,name=user,proto3" json:"user"`
 }
 
@@ -2722,7 +2775,9 @@ type EventOnUserOnlineStatusChangedData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID    string            `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	// @user_id
+	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID"`
+	// @common_platforms
 	Platforms []common.Platform `protobuf:"varint,2,rep,packed,name=platforms,proto3,enum=openim.sdk.common.Platform" json:"platforms"`
 }
 
@@ -2775,6 +2830,7 @@ type EventOnUserCommandAddData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @user_command_info
 	Command *shared.CommandInfo `protobuf:"bytes,1,opt,name=command,proto3" json:"command"`
 }
 
@@ -2820,6 +2876,7 @@ type EventOnUserCommandDeleteData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @user_command_info
 	Command *shared.CommandInfo `protobuf:"bytes,1,opt,name=command,proto3" json:"command"`
 }
 
@@ -2865,6 +2922,7 @@ type EventOnUserCommandUpdateData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @user_command_info
 	Command *shared.CommandInfo `protobuf:"bytes,1,opt,name=command,proto3" json:"command"`
 }
 
