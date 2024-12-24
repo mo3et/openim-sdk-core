@@ -29,7 +29,7 @@ type ResultData struct {
 }
 
 var (
-	resultMap = make(map[uint64]*ResultData)
+	resultMap = make(map[int64]*ResultData)
 	mu        sync.Mutex
 )
 
@@ -42,7 +42,7 @@ func init() {
 	go monitorResultMapSize()
 }
 
-func dispatchResultForC(handleID uint64, data []byte) {
+func dispatchResultForC(handleID int64, data []byte) {
 	cData := (*C.uint8_t)(C.malloc(C.size_t(len(data))))
 	if cData == nil {
 		log.ZWarn(context.Background(), "callback data", errs.New("Failed to allocate memory"))
@@ -83,7 +83,7 @@ func monitorResultMapSize() {
 // protocolType : The serialization protocol type (1 for JSON, 2 for Protocol Buffers, 3 for Thrift, 4 for FlatBuffers e.g.,or others)
 //
 //export ffi_init
-func ffi_init(event C.CallBack, protocolType C.int) uint64 {
+func ffi_init(event C.CallBack, protocolType C.int) int64 {
 	C.eventCallBack = event
 	base.SetProtocolType(int(protocolType))
 	return 1
@@ -91,14 +91,13 @@ func ffi_init(event C.CallBack, protocolType C.int) uint64 {
 
 //export ffi_request
 func ffi_request(data *C.void, length C.int) {
-	//t := time.Now()
 	//Synchronously copy data to prevent memory from being released prematurely after calling the Go function.
 	goData := C.GoBytes(unsafe.Pointer(data), length)
 	base.FfiRequest(goData)
 }
 
 //export ffi_drop_handle
-func ffi_drop_handle(handleID uint64) {
+func ffi_drop_handle(handleID int64) {
 	mu.Lock()
 	defer mu.Unlock()
 	if result, ok := resultMap[handleID]; ok {

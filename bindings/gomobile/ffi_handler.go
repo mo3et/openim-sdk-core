@@ -14,7 +14,7 @@ func init() {
 	base.SetDispatchFfiResultFunc(dispatchResultForGoMobile)
 }
 
-func dispatchResultForGoMobile(_ uint64, data []byte) {
+func dispatchResultForGoMobile(_ int64, data []byte) {
 	currentMobileCallback.OnData(data)
 }
 
