@@ -206,25 +206,25 @@ message GetInputStatesResp {
  *
  */
 
-// service ConversationService {
-//   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
-//   rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp) {}
-//   rpc HideConversation(HideConversationReq) returns (HideConversationResp) {}
-//   rpc GetAtAllTag(GetAtAllTagReq) returns (GetAtAllTagResp) {}
-//   rpc GetOneConversation(GetOneConversationReq) returns (GetOneConversationResp) {}
-//   rpc GetMultipleConversation(GetMultipleConversationReq) returns (GetMultipleConversationResp) {}
-//   rpc HideAllConversations(HideAllConversationsReq) returns (HideAllConversationsResp) {}
-//   rpc SetConversationDraft(SetConversationDraftReq) returns (SetConversationDraftResp) {}
-//   rpc SetConversation(SetConversationReq) returns (SetConversationResp) {}
-//   rpc GetTotalUnreadMsgCount(GetTotalUnreadMsgCountReq) returns (GetTotalUnreadMsgCountResp) {}
-//   rpc GetConversationIDBySessionType(GetConversationIDBySessionTypeReq) returns (GetConversationIDBySessionTypeResp) {}
-//   rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp) {}
-//   rpc MarkConversationMessageAsRead(MarkConversationMessageAsReadReq) returns (MarkConversationMessageAsReadResp) {}
-//   rpc MarkAllConversationMessageAsRead(MarkAllConversationMessageAsReadReq) returns (MarkAllConversationMessageAsReadResp) {}
-//   rpc DeleteMessageFromLocal(DeleteMessageFromLocalReq) returns (DeleteMessageFromLocalResp) {}
-//   rpc ClearConversationAndDeleteAllMsg(ClearConversationAndDeleteAllMsgReq) returns (ClearConversationAndDeleteAllMsgResp) {}
-//   rpc DeleteConversationAndDeleteAllMsg(DeleteConversationAndDeleteAllMsgReq) returns (DeleteConversationAndDeleteAllMsgResp) {}
-//   rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp) {}
-//   rpc SetMessageLocalEx(SetMessageLocalExReq) returns (SetMessageLocalExResp) {}
-//   rpc SearchConversation(SearchConversationReq) returns (SearchConversationResp) {}
-// }
+service ConversationService {
+  rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp) {}
+  rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp) {}
+  rpc HideConversation(HideConversationReq) returns (HideConversationResp) {}
+  rpc GetAtAllTag(GetAtAllTagReq) returns (GetAtAllTagResp) {}
+  rpc GetOneConversation(GetOneConversationReq) returns (GetOneConversationResp) {}
+  rpc GetMultipleConversation(GetMultipleConversationReq) returns (GetMultipleConversationResp) {}
+  rpc HideAllConversations(HideAllConversationsReq) returns (HideAllConversationsResp) {}
+  rpc SetConversationDraft(SetConversationDraftReq) returns (SetConversationDraftResp) {}
+  rpc SetConversation(SetConversationReq) returns (SetConversationResp) {}
+  rpc GetTotalUnreadMsgCount(GetTotalUnreadMsgCountReq) returns (GetTotalUnreadMsgCountResp) {}
+  rpc GetConversationIDBySessionType(GetConversationIDBySessionTypeReq) returns (GetConversationIDBySessionTypeResp) {}
+  rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp) {}
+  rpc MarkConversationMessageAsRead(MarkConversationMessageAsReadReq) returns (MarkConversationMessageAsReadResp) {}
+  rpc MarkAllConversationMessageAsRead(MarkAllConversationMessageAsReadReq) returns (MarkAllConversationMessageAsReadResp) {}
+  rpc DeleteMessageFromLocal(DeleteMessageFromLocalReq) returns (DeleteMessageFromLocalResp) {}
+  rpc ClearConversationAndDeleteAllMsg(ClearConversationAndDeleteAllMsgReq) returns (ClearConversationAndDeleteAllMsgResp) {}
+  rpc DeleteConversationAndDeleteAllMsg(DeleteConversationAndDeleteAllMsgReq) returns (DeleteConversationAndDeleteAllMsgResp) {}
+  rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp) {}
+  rpc SetMessageLocalEx(SetMessageLocalExReq) returns (SetMessageLocalExResp) {}
+  rpc SearchConversation(SearchConversationReq) returns (SearchConversationResp) {}
+}

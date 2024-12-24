@@ -84,15 +84,22 @@
   "message_seq": "message sequence",
   "message_msg_status": "message status",
   "shared_imfriend": "friend info",
+  "shared_imblack": "black info",
   "shared_imfriends": "list of friend info",
   "shared_imgroup": "group info",
+  "shared_imgroup_member": "group member info",
   "shared_quote_message": "quote message info",
   "shared_owner_user_id": "Currently login user id",
   "shared_immessage": "IM message struct, contentType refer to `common.ContentType`",
   "shared_immessages": "IM message struct list, contentType refer to `common.ContentType`",
+  "shared_imfriend_application": "friend request info",
+  "shared_imgroup_application": "group request info",
+  "shared_imconversations": "conversation list",
   "common_log_level": "Log level",
   "common_request_pagination": "Request pagination, including page number and page size",
   "common_content_type": "Message content type",
   "common_app_framework": "IM App framework",
-  "common_platform": "IM Platform"
+  "common_platform": "IM Platform",
+  "common_platforms": "IM Platform list",
+  "event_is_reinstalled": "app is reinstalled"
 }

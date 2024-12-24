@@ -192,198 +192,251 @@ enum FuncRequestEventName {
 }
 
 message EventOnSendMsgProgressData {
+  // @message_client_msg_id
   string clientMsgID = 1;
+  // send msg progress
   int32 progress = 2;
 }
 
 message EventOnUploadFileProgressData {
+  // upload file progress
   int32 progress = 1;
 }
 
 message EventOnUploadLogsProgressData {
+  // upload logs progress
   int32 progress = 1;
 }
 
 message EventOnConnectingData {}
 message EventOnConnectSuccessData {}
 message EventOnConnectFailedData {
+  // error code
   int32 errCode = 1;
+  // error message
   string errMsg = 2;
 }
 message EventOnKickedOfflineData {}
 message EventOnUserTokenExpiredData {}
 message EventOnUserTokenInvalidData {
+  // error message
   string errMsg = 1;
 }
 message EventOnSyncServerStartData {
+  // @event_is_reinstalled
   bool reinstalled = 1;
 }
 message EventOnSyncServerFinishData {
+  // @event_is_reinstalled
   bool reinstalled = 1;
 }
 message EventOnSyncServerFailedData {
+  // @event_is_reinstalled
   bool reinstalled = 1;
 }
 message EventOnSyncServerProgressData {
+  // @event_is_reinstalled
   int32 progress = 1;
 }
 message EventOnNewConversationData {
+  // @shared_imconversations
   repeated openim.sdk.shared.IMConversation conversationList = 1;
 }
 message EventOnConversationChangedData {
+  // @shared_imconversations
   repeated openim.sdk.shared.IMConversation conversationList = 1;
 }
 message EventOnTotalUnreadMessageCountChangedData {
+  // total unread count
   int32 totalUnreadCount = 1;
 }
 message EventOnConversationUserInputStatusChangedData {
+  // @conversation_id
   string conversationID = 1;
+  // @user_id
   string userID = 2;
+  // @common_platforms
   repeated openim.sdk.common.Platform platforms = 3;
 }
 message EventOnRecvNewMessageData {
+  // @shared_immessage
   openim.sdk.shared.IMMessage message = 1;
 }
 message MessageReceipt {
+  // @group_id
   string groupID = 1;
+  // @user_id
   string userID = 2;
+  // message id list
   repeated string msgIDList = 3;
+  // read time
   int64 readTime = 4;
+  // @message_msg_from
   int32 msgFrom = 5;
+  // @common_content_type
   int32 contentType = 6;
+  // @message_session_type
   int32 sessionType = 7;
 }
 
 message EventOnRecvC2CReadReceiptData {
+  // msg receipt list
   repeated MessageReceipt msgReceiptList = 1;
 }
 
 message EventOnNewRecvMessageRevokedData {
+  // revoked notification
   openim.sdk.shared.RevokedTips revoked = 1;
 }
 message EventOnRecvOfflineNewMessageData {
+  // @shared_immessage
   openim.sdk.shared.IMMessage message = 1;
 }
 message EventOnMessageDeletedData {
+  // @shared_immessage
   openim.sdk.shared.IMMessage message = 1;
 }
 message EventOnRecvOnlineOnlyMessageData {
+  // @shared_immessage
   openim.sdk.shared.IMMessage message = 1;
 }
 message EventOnMessageEditedData {
+  // @shared_immessage
   openim.sdk.shared.IMMessage message = 1;
 }
 
 // FriendCallback Data Types
 message EventOnFriendApplicationAddedData {
+  // @shared_imfriend_application
   openim.sdk.shared.IMFriendApplication application = 1;
 }
 
 message EventOnFriendApplicationDeletedData {
+  // @shared_imfriend_application
   openim.sdk.shared.IMFriendApplication application = 1;
 }
 
 message EventOnFriendApplicationAcceptedData {
+  // @shared_imfriend_application
   openim.sdk.shared.IMFriendApplication application = 1;
 }
 
 message EventOnFriendApplicationRejectedData {
+  // @shared_imfriend_application
   openim.sdk.shared.IMFriendApplication application = 1;
 }
 
 message EventOnFriendAddedData {
+  // @shared_imfriend
   openim.sdk.shared.IMFriend friend = 1;
 }
 
 message EventOnFriendDeletedData {
+  // @shared_imfriend
   openim.sdk.shared.IMFriend friend = 1;
 }
 
 message EventOnFriendInfoChangedData {
+  // @shared_imfriend
   openim.sdk.shared.IMFriend friend = 1;
 }
 
 message EventOnBlackAddedData {
+  // @shared_imblack
   openim.sdk.shared.IMBlack black = 1;
 }
 
 message EventOnBlackDeletedData {
+  // @shared_imblack
   openim.sdk.shared.IMBlack black = 1;
 }
 
 // GroupCallback Data Types
 message EventOnJoinedGroupAddedData {
+  // @shared_imgroup
   openim.sdk.shared.IMGroup group = 1;
 }
 
 message EventOnJoinedGroupDeletedData {
+  // @shared_imgroup
   openim.sdk.shared.IMGroup group = 1;
 }
 
 message EventOnGroupMemberAddedData {
+  // @shared_imgroup_member
   openim.sdk.shared.IMGroupMember member = 1;
 }
 
 message EventOnGroupMemberDeletedData {
+  // @shared_imgroup_member
   openim.sdk.shared.IMGroupMember member = 1;
 }
 
 message EventOnGroupApplicationAddedData {
+  // @shared_imgroup_application
   openim.sdk.shared.IMGroupApplication application = 1;
 }
 
 message EventOnGroupApplicationDeletedData {
+  // @shared_imgroup_application
   openim.sdk.shared.IMGroupApplication application = 1;
 }
 
 message EventOnGroupInfoChangedData {
+  // @shared_imgroup
   openim.sdk.shared.IMGroup group = 1;
 }
 
 message EventOnGroupDismissedData {
+  // @shared_imgroup
   openim.sdk.shared.IMGroup group = 1;
 }
 
 message EventOnGroupMemberInfoChangedData {
+  // @shared_imgroup_member
   openim.sdk.shared.IMGroupMember member = 1;
 }
 
 message EventOnGroupApplicationAcceptedData {
+  // @shared_imgroup_application
   openim.sdk.shared.IMGroupApplication application = 1;
 }
 
 message EventOnGroupApplicationRejectedData {
+  // @shared_imgroup_application
   openim.sdk.shared.IMGroupApplication application = 1;
 }
 
 // CustomBusinessCallback Data Type
 message EventOnRecvCustomBusinessMessageData {
+  // custom message
   string businessMessage = 1;
 }
 
 // UserCallback Data Types
 message EventOnSelfInfoUpdatedData {
+  // self user info
   openim.sdk.shared.IMUser user = 1;
 }
 
 message EventOnUserOnlineStatusChangedData {
+  // @user_id
   string userID = 1;
+  // @common_platforms
   repeated openim.sdk.common.Platform platforms = 2;
 }
 
 message EventOnUserCommandAddData {
+  // @user_command_info
   openim.sdk.shared.CommandInfo command = 1;
 }
 
 message EventOnUserCommandDeleteData {
+  // @user_command_info
   openim.sdk.shared.CommandInfo command = 1;
 }
 
 message EventOnUserCommandUpdateData {
+  // @user_command_info
   openim.sdk.shared.CommandInfo command = 1;
 }
-
-/**
- *
- *
- */
