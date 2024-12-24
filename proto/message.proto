@@ -7,44 +7,62 @@ option csharp_namespace = "OpenIM.Proto";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
 option swift_prefix = "";
 
-// ------------------------------------------------------------------------------------------------------
 message SendMessageReq {
+  // @shared_immessage
   shared.IMMessage message = 1;
+  // @message_recv_id
   string recvID = 2;
+  // @group_id
   string groupID = 3;
+  // is online only
   bool isOnlineOnly = 5;
 }
 message SendMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message GetHistoryMessageListReq {
+  // @conversation_id
   string conversationID = 1;
+  // start client message id
   string startClientMsgID = 2;
+  // history message count
   int32 count = 3;
+  // is reverse order
   bool isReverse = 4;
 }
 message GetHistoryMessageListResp {
+  // @shared_immessages
   repeated shared.IMMessage messageList = 1;
+  // is end
   bool isEnd = 2;
+  // error code
   int32 errCode = 3;
+  // error message
   string errMsg = 4;
 }
 
 message RevokeMessageReq {
+  // @conversation_id
   string conversationID = 1;
+  // @message_client_msg_id
   string clientMsgID = 2;
 }
 message RevokeMessageResp {}
 
 message TypingStatusUpdateReq {
+  // @message_recv_id
   string recvID = 1;
+  // input status
   string msgTip = 2;
 }
 message TypingStatusUpdateResp {}
 
 message DeleteMessageReq {
+  // @conversation_id
   string conversationID = 1;
+  // @message_client_msg_id
   string clientMsgID = 2;
 }
 message DeleteMessageResp {}
@@ -56,162 +74,229 @@ message DeleteAllMessageFromLocalReq {}
 message DeleteAllMessageFromLocalResp {}
 
 message InsertSingleMessageToLocalReq {
+  // @shared_immessage
   shared.IMMessage msg = 1;
+  // @message_recv_id
   string recvID = 2;
+  // @message_send_id
   string sendID = 3;
 }
 message InsertSingleMessageToLocalResp {
+  // @shared_immessage
   shared.IMMessage msg = 1;
 }
 
 message InsertGroupMessageToLocalReq {
+  // @shared_immessage
   shared.IMMessage msg = 1;
+  // @group_id
   string groupID = 2;
+  // @message_send_id
   string sendID = 3;
 }
 message InsertGroupMessageToLocalResp {
+  // @shared_immessage
   shared.IMMessage msg = 1;
 }
 
 message CreateTextMessageReq {
+  // text content
   string text = 1;
 }
 message CreateTextMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateAdvancedTextMessageReq {
+  // advanced text content
   string text = 1;
+  // message entity list
   repeated shared.MessageEntity messageEntities = 2;
 }
 message CreateAdvancedTextMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateTextAtMessageReq {
+  // at text content
   string text = 1;
+  // at user id list
   repeated string userIDList = 2;
+  // at user info list
   repeated shared.AtInfo usersInfo = 3;
+  // quote message
   shared.IMMessage quoteMessage = 4;
 }
 message CreateTextAtMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateLocationMessageReq {
+  // location description
   string description = 1;
+  // longitude
   double longitude = 2;
+  // latitude
   double latitude = 3;
 }
 message CreateLocationMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateCustomMessageReq {
+  // custom message data
   string data = 1;
+  // custom message extension field
   string extension = 2;
+  // custom message description
   string description = 3;
 }
 message CreateCustomMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateQuoteMessageReq {
+  // quote text content
   string text = 1;
+  // @shared_quote_message
   shared.IMMessage quoteMessage = 2;
 }
 message CreateQuoteMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateAdvancedQuoteMessageReq {
+  // advanced quote text content
   string text = 1;
+  // @shared_quote_message
   shared.IMMessage quoteMessage = 2;
+  // message entity list
   repeated shared.MessageEntity messageEntities = 3;
 }
 message CreateAdvancedQuoteMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateCardMessageReq {
+  // @user_id
   string userID = 1;
+  // @user_nickname
   string nickname = 2;
+  // @user_face_url
   string faceURL = 3;
+  // @user_ex
   string ex = 4;
 }
 message CreateCardMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateImageMessageReq {
+  // image source local path
   string sourcePath = 1;
+  // @opt image big local path
   optional string bigPath = 2;
+  // @opt image snapshot local path
   optional string snapshotPath = 3;
+  // source picture info
   shared.PictureBaseInfo sourcePicture = 4;
+  // big picture info
   shared.PictureBaseInfo bigPicture = 5;
+  // snapshot picture info
   shared.PictureBaseInfo snapshotPicture = 6;
 }
 message CreateImageMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateSoundMessageReq {
+  // sound source local path
   string soundPath = 1;
+  // sound duration
   int64 duration = 2;
+  // sound info
   shared.SoundBaseInfo soundElem = 3;
 }
 message CreateSoundMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateVideoMessageReq {
+  // video source local path
   string videoSourcePath = 1;
+  // video type
   string videoType = 2;
+  // video duration
   int64 duration = 3;
+  // snapshot source local path
   string snapshotSourcePath = 4;
+  // video info
   shared.VideoBaseInfo videoElem = 5;
 }
 message CreateVideoMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateFileMessageReq {
+  // file source local path
   string fileSourcePath = 1;
+  // file name
   string fileName = 2;
+  // file info
   shared.FileBaseInfo fileElem = 3;
 }
 message CreateFileMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateMergerMessageReq {
+  // @shared_immessages
   repeated shared.IMMessage messages = 1;
+  // merger title
   string title = 2;
+  // merger summaries list
   repeated string summaries = 3;
 }
 message CreateMergerMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateFaceMessageReq {
+  // face index
   int32 index = 1;
+  // face data
   string data = 2;
 }
 message CreateFaceMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 message CreateForwardMessageReq {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 message CreateForwardMessageResp {
+  // @shared_immessage
   shared.IMMessage message = 1;
 }
 
 service MessageService {
   /**
    * create a text message.
-   *
    */
   rpc CreateTextMessage(CreateTextMessageReq) returns (CreateTextMessageResp);
   /**
