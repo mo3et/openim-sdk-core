@@ -21,13 +21,13 @@ func init() {
 	base.SetSendFfiRequestFunc(sendRequestToJs)
 }
 
-func dispatchFfiResultForWasm(_ uint64, data []byte) {
+func dispatchFfiResultForWasm(_ int64, data []byte) {
 	if eventCallBack.Type() == js.TypeFunction {
 		eventCallBack.Invoke(JSUint8ArrayFromGoBytes(data))
 	}
 }
 
-func sendRequestToJs(ctx context.Context, _ uint64, data []byte) ([]byte, error) {
+func sendRequestToJs(ctx context.Context, _ int64, data []byte) ([]byte, error) {
 	if reqCallBack.Type() != js.TypeFunction {
 		return nil, sdkerrs.ErrInternal.WrapMsg("eventCallBack set error from javascript")
 	}
