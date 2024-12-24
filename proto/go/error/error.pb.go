@@ -27,27 +27,27 @@ const (
 	ErrorCode_NoError ErrorCode = 0
 	// Server internal error. Usually due to internal network issues. Check if all server nodes are running properly.
 	ErrorCode_ServerInternal ErrorCode = 500
-	// Args error. Need check body args and header args is correct.
+	// Server Args error. Need check body args and header args is correct.
 	ErrorCode_Args ErrorCode = 1001
-	// No permission. Uaually header token is not correct or permission d.
+	// Server nno permission. Uaually header token is not correct or permission d.
 	ErrorCode_NoPermission ErrorCode = 1002
-	// Database duplicate key.
+	// Server database duplicate key.
 	ErrorCode_DuplicateKey ErrorCode = 1003
-	// Database record not found.
+	// Server database record not found.
 	ErrorCode_RecordNotFound ErrorCode = 1004
-	// Token expired.
+	// Server token expired.
 	ErrorCode_TokenExpired ErrorCode = 1501
-	// Token invalid.
+	// Server token invalid.
 	ErrorCode_TokenInvalid ErrorCode = 1502
-	// Token format error.
+	// Server token format error.
 	ErrorCode_TokenMalformed ErrorCode = 1503
-	// Token not valid yet.
+	// Server token not valid yet.
 	ErrorCode_TokenNotValidYet ErrorCode = 1504
-	// Token unknown.
+	// Server token unknown.
 	ErrorCode_TokenUnknown ErrorCode = 1505
-	// Token kicked, is invalid.
+	// Server token kicked, is invalid.
 	ErrorCode_TokenKicked ErrorCode = 1506
-	// Token not exist.
+	// Server token not exist.
 	ErrorCode_TokenNotExist ErrorCode = 1507
 	// SDK network request error.
 	ErrorCode_SdkNetwork ErrorCode = 10000
@@ -82,40 +82,73 @@ const (
 	// SDK message decode error.
 	ErrorCode_SdkMsgDecodeBinaryWs ErrorCode = 10202
 	// SDK not support long connection binary protocol.
-	ErrorCode_SdkMsgBinaryTypeNotSupport  ErrorCode = 10203
-	ErrorCode_SdkMsgRepeat                ErrorCode = 10204
+	ErrorCode_SdkMsgBinaryTypeNotSupport ErrorCode = 10203
+	// SDK message send repeat.
+	ErrorCode_SdkMsgRepeat ErrorCode = 10204
+	// SDK message content type not support.
 	ErrorCode_SdkMsgContentTypeNotSupport ErrorCode = 10205
-	ErrorCode_SdkMsgHasNoSeq              ErrorCode = 10206
-	ErrorCode_SdkNotSupportOpt            ErrorCode = 10301
-	ErrorCode_SdkNotSupportType           ErrorCode = 10302
-	ErrorCode_SdkUnreadCount              ErrorCode = 10303
-	ErrorCode_SdkGroupIDNotFound          ErrorCode = 10400
-	ErrorCode_SdkGroupType                ErrorCode = 10401
-	ErrorCode_SrvUserIDNotFound           ErrorCode = 1101
-	ErrorCode_SrvRegisteredAlready        ErrorCode = 1102
-	ErrorCode_SrvGroupIDNotFound          ErrorCode = 1201
-	ErrorCode_SrvGroupIDExisted           ErrorCode = 1202
-	ErrorCode_SrvNotInGroupYet            ErrorCode = 1203
-	ErrorCode_SrvDismissedAlready         ErrorCode = 1204
-	ErrorCode_SrvGroupTypeNotSupport      ErrorCode = 1205
-	ErrorCode_SrvGroupRequestHandled      ErrorCode = 1206
-	ErrorCode_SrvCanNotAddYourself        ErrorCode = 1301
-	ErrorCode_SrvBlockedByPeer            ErrorCode = 1302
-	ErrorCode_SrvNotPeersFriend           ErrorCode = 1303
-	ErrorCode_SrvRelationshipAlready      ErrorCode = 1304
-	ErrorCode_SrvMessageHasReadDisable    ErrorCode = 1401
-	ErrorCode_SrvMutedInGroup             ErrorCode = 1402
-	ErrorCode_SrvMutedGroup               ErrorCode = 1403
-	ErrorCode_SrvMsgAlreadyRevoke         ErrorCode = 1404
-	ErrorCode_SrvConnOverMaxNumLimit      ErrorCode = 1601
-	ErrorCode_SrvConnArgs                 ErrorCode = 1602
-	ErrorCode_SrvPushMsg                  ErrorCode = 1603
-	ErrorCode_SrvIOSBackgroundPush        ErrorCode = 1604
-	ErrorCode_SrvFileUploadedExpired      ErrorCode = 1701
-	ErrorCode_SrvDatabase                 ErrorCode = 90002
-	ErrorCode_SrvNetwork                  ErrorCode = 90004
-	ErrorCode_SrvData                     ErrorCode = 90007
-	ErrorCode_SrvCallback                 ErrorCode = 80000
+	// SDK message has no seq.
+	ErrorCode_SdkMsgHasNoSeq ErrorCode = 10206
+	// SDK not support option.
+	ErrorCode_SdkNotSupportOpt ErrorCode = 10301
+	// SDK not support type.
+	ErrorCode_SdkNotSupportType ErrorCode = 10302
+	// SDK unread count error.
+	ErrorCode_SdkUnreadCount ErrorCode = 10303
+	// SDK group id not found.
+	ErrorCode_SdkGroupIDNotFound ErrorCode = 10400
+	// SDK group type not error.
+	ErrorCode_SdkGroupType ErrorCode = 10401
+	// Server userid not found.
+	ErrorCode_SrvUserIDNotFound ErrorCode = 1101
+	// Server user registered already.
+	ErrorCode_SrvRegisteredAlready ErrorCode = 1102
+	// Server group id not found.
+	ErrorCode_SrvGroupIDNotFound ErrorCode = 1201
+	// Server group id existed.
+	ErrorCode_SrvGroupIDExisted ErrorCode = 1202
+	// Server not in group yet.
+	ErrorCode_SrvNotInGroupYet ErrorCode = 1203
+	// Server dismissed.
+	ErrorCode_SrvDismissedAlready ErrorCode = 1204
+	// Server group type not support.
+	ErrorCode_SrvGroupTypeNotSupport ErrorCode = 1205
+	// Server request handled error, don't need repeat handle.
+	ErrorCode_SrvGroupRequestHandled ErrorCode = 1206
+	// Server can not add yourself to friend.
+	ErrorCode_SrvCanNotAddYourself ErrorCode = 1301
+	// Server blocked by other user error.
+	ErrorCode_SrvBlockedByPeer ErrorCode = 1302
+	// Server not other user's friend.
+	ErrorCode_SrvNotPeersFriend ErrorCode = 1303
+	// Server relationship already, don't need repeat request.
+	ErrorCode_SrvRelationshipAlready ErrorCode = 1304
+	// Server message has read disable.
+	ErrorCode_SrvMessageHasReadDisable ErrorCode = 1401
+	// Server you are muted in group.
+	ErrorCode_SrvMutedInGroup ErrorCode = 1402
+	// Server group has muted.
+	ErrorCode_SrvMutedGroup ErrorCode = 1403
+	// Server message already revoke.
+	ErrorCode_SrvMsgAlreadyRevoke ErrorCode = 1404
+	// Server connect over max num limit in gateway.
+	ErrorCode_SrvConnOverMaxNumLimit ErrorCode = 1601
+	// Server connect args error.
+	ErrorCode_SrvConnArgs ErrorCode = 1602
+	// Server push message error.
+	ErrorCode_SrvPushMsg ErrorCode = 1603
+	// Server ios background push error.
+	ErrorCode_SrvIOSBackgroundPush ErrorCode = 1604
+	// Server file uploaded expired.
+	ErrorCode_SrvFileUploadedExpired ErrorCode = 1701
+	// Server database error.
+	ErrorCode_SrvDatabase ErrorCode = 90002
+	// Server network error.
+	ErrorCode_SrvNetwork ErrorCode = 90004
+	// Server data error.
+	ErrorCode_SrvData ErrorCode = 90007
+	// Server callback error.
+	ErrorCode_SrvCallback ErrorCode = 80000
 )
 
 // Enum value maps for ErrorCode.

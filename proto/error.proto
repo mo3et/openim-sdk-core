@@ -10,27 +10,27 @@ enum ErrorCode {
   NoError = 0;
   // Server internal error. Usually due to internal network issues. Check if all server nodes are running properly.
   ServerInternal = 500;
-  // Args error. Need check body args and header args is correct.
+  // Server Args error. Need check body args and header args is correct.
   Args = 1001;
-  // No permission. Uaually header token is not correct or permission d.
+  // Server nno permission. Uaually header token is not correct or permission d.
   NoPermission = 1002;
-  // Database duplicate key.
+  // Server database duplicate key.
   DuplicateKey = 1003;
-  // Database record not found.
+  // Server database record not found.
   RecordNotFound = 1004;
-  // Token expired.
+  // Server token expired.
   TokenExpired = 1501;
-  // Token invalid.
+  // Server token invalid.
   TokenInvalid = 1502;
-  // Token format error.
+  // Server token format error.
   TokenMalformed = 1503;
-  // Token not valid yet.
+  // Server token not valid yet.
   TokenNotValidYet = 1504;
-  // Token unknown.
+  // Server token unknown.
   TokenUnknown = 1505;
-  // Token kicked, is invalid.
+  // Server token kicked, is invalid.
   TokenKicked = 1506;
-  // Token not exist.
+  // Server token not exist.
   TokenNotExist = 1507;
 
   // SDK network request error.
@@ -67,38 +67,71 @@ enum ErrorCode {
   SdkMsgDecodeBinaryWs = 10202;
   // SDK not support long connection binary protocol.
   SdkMsgBinaryTypeNotSupport = 10203;
+  // SDK message send repeat.
   SdkMsgRepeat = 10204;
+  // SDK message content type not support.
   SdkMsgContentTypeNotSupport = 10205;
+  // SDK message has no seq.
   SdkMsgHasNoSeq = 10206;
+  // SDK not support option.
   SdkNotSupportOpt = 10301;
+  // SDK not support type.
   SdkNotSupportType = 10302;
+  // SDK unread count error.
   SdkUnreadCount = 10303;
+  // SDK group id not found.
   SdkGroupIDNotFound = 10400;
+  // SDK group type not error.
   SdkGroupType = 10401;
 
+  // Server userid not found.
   SrvUserIDNotFound = 1101;
+  // Server user registered already.
   SrvRegisteredAlready = 1102;
+  // Server group id not found.
   SrvGroupIDNotFound = 1201;
+  // Server group id existed.
   SrvGroupIDExisted = 1202;
+  // Server not in group yet.
   SrvNotInGroupYet = 1203;
+  // Server dismissed.
   SrvDismissedAlready = 1204;
+  // Server group type not support.
   SrvGroupTypeNotSupport = 1205;
+  // Server request handled error, don't need repeat handle.
   SrvGroupRequestHandled = 1206;
+  // Server can not add yourself to friend.
   SrvCanNotAddYourself = 1301;
+  // Server blocked by other user error.
   SrvBlockedByPeer = 1302;
+  // Server not other user's friend.
   SrvNotPeersFriend = 1303;
+  // Server relationship already, don't need repeat request.
   SrvRelationshipAlready = 1304;
+  // Server message has read disable.
   SrvMessageHasReadDisable = 1401;
+  // Server you are muted in group.
   SrvMutedInGroup = 1402;
+  // Server group has muted.
   SrvMutedGroup = 1403;
+  // Server message already revoke.
   SrvMsgAlreadyRevoke = 1404;
+  // Server connect over max num limit in gateway.
   SrvConnOverMaxNumLimit = 1601;
+  // Server connect args error.
   SrvConnArgs = 1602;
+  // Server push message error.
   SrvPushMsg = 1603;
+  // Server ios background push error.
   SrvIOSBackgroundPush = 1604;
+  // Server file uploaded expired.
   SrvFileUploadedExpired = 1701;
+  // Server database error.
   SrvDatabase = 90002;
+  // Server network error.
   SrvNetwork = 90004;
+  // Server data error.
   SrvData = 90007;
+  // Server callback error.
   SrvCallback = 80000;
 }
