@@ -19,7 +19,7 @@ var ignoredLogFuncMap = map[sdkevent.FuncRequestEventName]struct{}{
 }
 
 func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFunc {
-	return func(ctx context.Context, _ uint64, name sdkevent.FuncRequestEventName, req []byte) (resp []byte, err error) {
+	return func(ctx context.Context, _ int64, name sdkevent.FuncRequestEventName, req []byte) (resp []byte, err error) {
 		start := time.Now()
 		var (
 			pbReq  A
@@ -63,7 +63,7 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 }
 
 func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, callback C) (*B, error)) callFunc {
-	return func(ctx context.Context, handlerID uint64, name sdkevent.FuncRequestEventName, req []byte) (resp []byte, err error) {
+	return func(ctx context.Context, handlerID int64, name sdkevent.FuncRequestEventName, req []byte) (resp []byte, err error) {
 		start := time.Now()
 		var (
 			pbReq  A
@@ -101,12 +101,12 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 	}
 }
 
-type callbackFunc func(handleID uint64) any
+type callbackFunc func(handleID int64) any
 
 // wrapCallbackConstructor is a helper function to wrap callback constructors for use in callbackRegistry.
 // It ensures that all callbacks adhere to the callbackFunc signature.
-func wrapCallbackConstructor[T any](fn func(handleID uint64) T) callbackFunc {
-	return func(handleID uint64) any {
+func wrapCallbackConstructor[T any](fn func(handleID int64) T) callbackFunc {
+	return func(handleID int64) any {
 		return fn(handleID)
 	}
 }

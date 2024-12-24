@@ -23,18 +23,18 @@ import (
 )
 
 var (
-	handleCounter        atomic.Uint64
-	dispatchFfiResultFun func(handleID uint64, data []byte)
-	sendFfiRequestFun    func(ctx context.Context, handleID uint64, data []byte) ([]byte, error)
+	handleCounter        atomic.Int64
+	dispatchFfiResultFun func(handleID int64, data []byte)
+	sendFfiRequestFun    func(ctx context.Context, handleID int64, data []byte) ([]byte, error)
 )
 
-type callFunc func(ctx context.Context, handlerID uint64, name pb.FuncRequestEventName, req []byte) ([]byte, error)
+type callFunc func(ctx context.Context, handlerID int64, name pb.FuncRequestEventName, req []byte) ([]byte, error)
 
-func SetDispatchFfiResultFunc(f func(handleID uint64, data []byte)) {
+func SetDispatchFfiResultFunc(f func(handleID int64, data []byte)) {
 	dispatchFfiResultFun = f
 }
 
-func SetSendFfiRequestFunc(f func(ctx context.Context, handleID uint64, data []byte) ([]byte, error)) {
+func SetSendFfiRequestFunc(f func(ctx context.Context, handleID int64, data []byte) ([]byte, error)) {
 	sendFfiRequestFun = f
 }
 
@@ -71,11 +71,11 @@ func GoFfiRequestHandler(ctx context.Context, funcName pb.FuncRequestEventName, 
 	return ffiResult.Data, nil
 }
 
-func GenerateHandleID() uint64 {
-	return handleCounter.Add(1)
+func GenerateHandleID() int64 {
+	return handleCounter.Add(-1)
 }
 
-func activeErrResp(ctx context.Context, handleID uint64, funcName pb.FuncRequestEventName, err error) {
+func activeErrResp(ctx context.Context, handleID int64, funcName pb.FuncRequestEventName, err error) {
 	var ffiResult ffi.FfiResult
 	ffiResult.HandleID = handleID
 	ffiResult.FuncName = funcName
@@ -89,7 +89,7 @@ func activeErrResp(ctx context.Context, handleID uint64, funcName pb.FuncRequest
 	dispatchFfiResult(ctx, handleID, &ffiResult)
 
 }
-func activeSuccessResp(ctx context.Context, handleID uint64, funcName pb.FuncRequestEventName, res []byte) {
+func activeSuccessResp(ctx context.Context, handleID int64, funcName pb.FuncRequestEventName, res []byte) {
 	var ffiResponse ffi.FfiResult
 	ffiResponse.Data = res
 	ffiResponse.FuncName = funcName
@@ -115,7 +115,7 @@ func passiveEventResp(ctx context.Context, eventName pb.FuncRequestEventName, da
 	dispatchFfiResult(ctx, ffiResponse.HandleID, &ffiResponse)
 }
 
-func activeEventResp(ctx context.Context, eventName pb.FuncRequestEventName, handleID uint64, data any) {
+func activeEventResp(ctx context.Context, eventName pb.FuncRequestEventName, handleID int64, data any) {
 	var ffiResponse ffi.FfiResult
 	var err error
 	ffiResponse.Data, err = serializer.GetInstance().Marshal(data)
@@ -128,7 +128,7 @@ func activeEventResp(ctx context.Context, eventName pb.FuncRequestEventName, han
 	dispatchFfiResult(ctx, ffiResponse.HandleID, &ffiResponse)
 }
 
-func dispatchFfiResult(ctx context.Context, handleID uint64, ffiResponse *ffi.FfiResult) {
+func dispatchFfiResult(ctx context.Context, handleID int64, ffiResponse *ffi.FfiResult) {
 	data, err := serializer.GetInstance().Marshal(ffiResponse)
 	if err != nil {
 		log.ZError(ctx, "ffiResponse marshal error", err)

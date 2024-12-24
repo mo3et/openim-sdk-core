@@ -251,10 +251,10 @@ func (u UserCallback) OnUserCommandUpdate(ctx context.Context, data *pb.EventOnU
 }
 
 type SendMessageCallback struct {
-	handleID uint64
+	handleID int64
 }
 
-func NewSendMessageCallback(handleID uint64) open_im_sdk_callback.SendMsgCallBack {
+func NewSendMessageCallback(handleID int64) open_im_sdk_callback.SendMsgCallBack {
 	return &SendMessageCallback{handleID: handleID}
 }
 
@@ -263,10 +263,10 @@ func (s SendMessageCallback) OnSendMsgProgress(ctx context.Context, data *pb.Eve
 }
 
 type UploadFileCallback struct {
-	handleID uint64
+	handleID int64
 }
 
-func NewUploadFileCallback(handleID uint64) open_im_sdk_callback.UploadFileCallback {
+func NewUploadFileCallback(handleID int64) open_im_sdk_callback.UploadFileCallback {
 	return &UploadFileCallback{handleID: handleID}
 }
 
@@ -275,10 +275,10 @@ func (u UploadFileCallback) OnUploadFileProgress(ctx context.Context, data *pb.E
 }
 
 type UploadLogsCallback struct {
-	handleID uint64
+	handleID int64
 }
 
-func NewUploadLogsCallback(handleID uint64) open_im_sdk_callback.UploadLogsCallback {
+func NewUploadLogsCallback(handleID int64) open_im_sdk_callback.UploadLogsCallback {
 	return &UploadLogsCallback{handleID: handleID}
 }
 

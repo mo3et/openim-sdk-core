@@ -36,7 +36,7 @@ func (u *UserContext) InitSDK(_ context.Context, req *pb.InitSDKReq) (*pb.InitSD
 		req.Config.IsLogStandardOutput, false, req.Config.LogFilePath, rotateCount, rotationTime, version.Version, true); err != nil {
 		return nil, err
 	}
-	return &pb.InitSDKResp{Suc: true}, nil
+	return &pb.InitSDKResp{}, nil
 }
 
 func (u *UserContext) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, error) {

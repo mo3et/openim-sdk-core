@@ -11,7 +11,7 @@ message FfiRequest {
   //note: This field is optional and is only used for interaction between Go and JS.
   string operationID = 1;
   // The handle ID.
-  uint64 handleID = 2;
+  int64 handleID = 2;
   // Function request event name.
   event.FuncRequestEventName funcName = 3;
   // The request data.
@@ -28,5 +28,5 @@ message FfiResult {
   // The result data.
   bytes data = 4;
   // handleID
-  uint64 handleID = 5;
+  int64 handleID = 5;
 }
