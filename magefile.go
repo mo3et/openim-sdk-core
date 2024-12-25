@@ -79,8 +79,8 @@ protoc --go_out=./${name} --go_opt=module=github.com/openimsdk/openim-sdk-core/v
 */
 
 /*
-JavaScript requires installing `protoc-gen-js` via a package manager
 TypeScript requires installing `ts-proto` via a package manager
+// JavaScript requires installing `protoc-gen-js` via a package manager (Use TypeScript first.)
 */
 
 // Generate code for all languages (Go, Java, C#, JS, TS) from protobuf files.
@@ -257,6 +257,8 @@ func GenCSharp() error {
 	return nil
 }
 
+// Use TypeScript first. JavaScript need check it useful.
+
 // Generate JavaScript code from protobuf files.
 func GenJS() error {
 	log.SetOutput(os.Stdout)
@@ -397,7 +399,7 @@ func GenTS() error {
 		args := []string{
 			"--proto_path=" + protoDir,
 			"--plugin=protoc-gen-ts_proto=" + tsProto,
-			"--ts_proto_opt=esModuleInterop=true,messages=true",
+			"--ts_proto_opt=esModuleInterop=true,messages=true,outputJsonMethods=false,outputPartialMethods=false,outputClientImpl=false,outputEncodeMethods=false,useOptionals=messages",
 			"--ts_proto_out=" + filepath.Join(tsOutDir, module),
 			filepath.Join("proto", module) + ".proto",
 		}
