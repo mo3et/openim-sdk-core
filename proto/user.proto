@@ -73,7 +73,7 @@ message ProcessUserCommandGetAllResp {
 }
 
 message GetUsersInfoReq {
-  // list of users id
+  // @user_ids
   repeated string userIDs = 1;
 }
 message GetUsersInfoResp {

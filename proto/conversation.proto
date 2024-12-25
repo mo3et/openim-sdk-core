@@ -67,13 +67,16 @@ message GetOneConversationReq {
   string sourceID = 2;
 }
 message GetOneConversationResp {
+  // @shared_imconversation
   shared.IMConversation conversation = 1;
 }
 
 message GetMultipleConversationReq {
+  // @shared_imconversations
   repeated string conversationIDList = 1;
 }
 message GetMultipleConversationResp {
+  // @shared_imconversations
   repeated shared.IMConversation conversationList = 1;
 }
 
@@ -81,24 +84,34 @@ message HideAllConversationsReq {}
 message HideAllConversationsResp {}
 
 message SetConversationDraftReq {
+  // @conversation_id
   string conversationID = 1;
+  // @conversation_draft_text
   string draftText = 2;
 }
 message SetConversationDraftResp {}
 
 message SetConversationReq {
+  // @conversation_id
   string conversationID = 1;
+  // @opt @conversation_recv_msg_opt
   optional common.ConvRecvMsgOpt recvMsgOpt = 2;
+  // @opt @conversation_group_at_type
   optional common.ConvGroupAtType groupAtType = 3;
+  // @opt @conversation_is_pinned
   optional bool isPinned = 4;
+  // @opt @conversation_is_private
   optional bool isPrivateChat = 5;
+  // @opt @conversation_burn_duration
   optional int32 burnDuration = 6;
+  // @opt @conversation_ex
   optional string ex = 7;
 }
 message SetConversationResp {}
 
 message GetTotalUnreadMsgCountReq {}
 message GetTotalUnreadMsgCountResp {
+  // @conversation_total_unread_count
   int32 totalUnreadCount = 1;
 }
 
@@ -185,41 +198,44 @@ message UserOnlinePlatform {
 }
 
 message SubscribeUsersOnlineStatusReq {
+  // @user_ids
   repeated string userIDs = 1;
 }
 
 message SubscribeUsersOnlineStatusResp {
+  // @common_platforms
   repeated UserOnlinePlatform status = 1;
 }
 
 message UnsubscribeUsersOnlineStatusReq {
+  // @user_ids
   repeated string userIDs = 1;
 }
 
 message UnsubscribeUsersOnlineStatusResp {}
 
 message ChangeInputStatesReq {
+  // @conversation_id
   string conversationID = 1;
+  // is focus
   bool focus = 3;
 }
 message ChangeInputStatesResp {}
 
 message GetInputStatesReq {
+  // @conversation_id
   string conversationID = 1;
+  // @user_id
   string userID = 2;
 }
 message GetInputStatesResp {
+  // @common_platforms
   repeated common.Platform platforms = 1;
 }
 
-/**
- *
- *
- */
-
 service ConversationService {
   /**
-   *
+   * 
    *
    */
   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp);

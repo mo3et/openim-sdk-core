@@ -296,43 +296,50 @@ message CreateForwardMessageResp {
 
 service MessageService {
   /**
-   *
-   *
+   * Get history message in conversation. Such as sroll up to load history message.
+   * Use `isReverse` to control the order of the message list.
    */
   rpc GetHistoryMessageList(GetHistoryMessageListReq) returns (GetHistoryMessageListResp);
   /**
-   *
-   *
+   * Revoke a message. Support revoke self message, and group owner and group admin can revoke group member message.
+   * Notice:
+   * Original message will be transfer ContentType to 2101 when revoke message.
+   * If revoke message is a latest message, the conversation last message will be update.
    */
   rpc RevokeMessage(RevokeMessageReq) returns (RevokeMessageResp);
   /**
-   *
-   *
+   * Send typing status, the recipient will receive it only if they are online on IM.
    */
   rpc TypingStatusUpdate(TypingStatusUpdateReq) returns (TypingStatusUpdateResp);
   /**
-   *
-   *
+   * Delete a message from local and server.
+   * Notice:
+   * If revoke message is a latest message, the conversation last message will be update.
    */
   rpc DeleteMessage(DeleteMessageReq) returns (DeleteMessageResp);
   /**
-   *
-   *
+   * Delete all message from local and server. The conversation will still be retained.
+   * Notice:
    */
   rpc DeleteAllMsgFromLocalAndServer(DeleteAllMsgFromLocalAndServerReq) returns (DeleteAllMsgFromLocalAndServerResp);
   /**
-   *
-   *
+   * Delete all message from all local conversation. The conversation will still be retained.
+   * You still can get the message when reinstall the app.
+   * Notice:
    */
   rpc DeleteAllMessageFromLocal(DeleteAllMessageFromLocalReq) returns (DeleteAllMessageFromLocalResp);
   /**
-   *
-   *
+   * Insert a single message to local. Only current device can see it.
+   * Can't sync to other platforms.
+   * Notice:
+   * Only current device can see it.
    */
   rpc InsertSingleMessageToLocal(InsertSingleMessageToLocalReq) returns (InsertSingleMessageToLocalResp);
   /**
-   *
-   *
+   * Insert a group message to local. Only current device can see it.
+   * Can't sync to other platforms.
+   * Notice:
+   * Only current device can see it.
    */
   rpc InsertGroupMessageToLocal(InsertGroupMessageToLocalReq) returns (InsertGroupMessageToLocalResp);
 
