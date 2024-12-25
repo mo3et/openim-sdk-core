@@ -737,7 +737,7 @@ func BuildWindows() error {
 	if err := os.MkdirAll(filepath.Join(goSrc, windowsOut), 0755); err != nil {
 		return err
 	}
-
+	soName := "openimsdk"
 	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(windowsOut, strings.Join([]string{soName, "dll"}, ".")), ".")
 	cmd.Dir = goSrc
 	cmd.Env = os.Environ()
@@ -846,6 +846,8 @@ func BuildHarmanyOS_API9() error {
 
 		if err := buildFunc(output, arch.GoArch, arch.OutArch); err != nil {
 			log.Fatalf("Failed to build for  HarmanyOS API9 %s: %v\n", arch.OutArch, err)
+		} else {
+			log.Printf("Success to build for  HarmanyOS API9 %s\n", arch.OutArch)
 		}
 	}
 	return nil
@@ -907,7 +909,7 @@ func BuildHarmanyOS_API12() error {
 		if err := buildFunc(output, arch.GoArch, arch.OutArch); err != nil {
 			log.Fatalf("Failed to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
 		} else {
-			log.Printf("Success to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
+			log.Printf("Success to build for  HarmanyOS API12 %s\n", arch.OutArch)
 		}
 	}
 	return nil
