@@ -2,11 +2,18 @@ syntax = "proto3";
 package openim.sdk.message;
 
 import "shared.proto";
+import "common.proto";
 
 option csharp_namespace = "OpenIM.Proto";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
 option swift_prefix = "";
 
+enum KeywordListMatchType {
+  // Keyword match OR
+  KeywordMatchOr = 0;
+  // Keyword match AND
+  KeywordMatchAnd = 1;
+}
 message SendMessageReq {
   // @shared_immessage
   shared.IMMessage message = 1;
@@ -301,6 +308,37 @@ message CreateForwardMessageResp {
   // @shared_immessage
   shared.IMMessage message = 1;
 }
+message ConversationArgs {
+  // @conversation_id
+  string conversationID = 1;
+  // message client msg unique id list
+  repeated string clientMsgIDList = 2;
+}
+message SearchByConversationResult {
+  // @conversation_id
+  string conversationID = 1;
+  // @conversation_type
+  int32 conversationType = 2;
+  //
+  string showName = 3;
+  string faceURL = 4;
+  int64 latestMsgSendTime = 5;
+  // message count
+  int32 messageCount = 6;
+  // @shared_immessages
+  repeated shared.IMMessage messageList = 7;
+}
+
+message FindMessageListReq {
+  // conversation args
+  repeated ConversationArgs conversationsArgs = 1;
+}
+message FindMessageListResp {
+  // @conversation_Search_by_conversation_results
+  repeated SearchByConversationResult findResultItems = 1;
+  // total count
+  int32 totalCount = 2;
+}
 
 message SearchLocalMessagesReq {
   // @conversation_id
@@ -490,6 +528,10 @@ service MessageService {
    * create a forward message.
    */
   rpc CreateForwardMessage(CreateForwardMessageReq) returns (CreateForwardMessageResp);
+  /**
+   * Find message list by conversation args.
+   */
+  rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp);
   /**
    * Search local messages.
    */

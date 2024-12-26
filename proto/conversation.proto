@@ -8,34 +8,10 @@ option csharp_namespace = "OpenIM.Proto";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation";
 option swift_prefix = "";
 
-message ConversationArgs {
-  // @conversation_id
-  string conversationID = 1;
-  // message client msg unique id list
-  repeated string clientMsgIDList = 2;
-}
 
-message FindMessageListCallback {
-  // total count
-  int32 totalCount = 1;
-  // @conversation_Search_by_conversation_results
-  repeated SearchByConversationResult findResultItems = 2;
-}
 
-message SearchByConversationResult {
-  // @conversation_id
-  string conversationID = 1;
-  // @conversation_type
-  int32 conversationType = 2;
-  //
-  string showName = 3;
-  string faceURL = 4;
-  int64 latestMsgSendTime = 5;
-  // message count
-  int32 messageCount = 6;
-  // @shared_immessages
-  repeated shared.IMMessage messageList = 7;
-}
+
+
 
 // -----------------------------------------------------------------------------------------------------------------
 message GetAllConversationListReq {}
@@ -130,16 +106,7 @@ message GetConversationIDBySessionTypeResp {
   string conversationID = 1;
 }
 
-message FindMessageListReq {
-  // conversation args
-  repeated ConversationArgs conversationsArgs = 1;
-}
-message FindMessageListResp {
-  // @conversation_Search_by_conversation_results
-  repeated SearchByConversationResult findResultItems = 1;
-  // total count
-  int32 totalCount = 2;
-}
+
 
 message MarkConversationMessageAsReadReq {
   // @conversation_id
@@ -162,12 +129,7 @@ message DeleteConversationAndDeleteAllMsgReq {
 }
 message DeleteConversationAndDeleteAllMsgResp {}
 
-enum KeywordListMatchType {
-  // Keyword match OR
-  KeywordMatchOr = 0;
-  // Keyword match AND
-  KeywordMatchAnd = 1;
-}
+
 
 message SearchConversationReq {
   // search param
@@ -254,10 +216,6 @@ service ConversationService {
    * Get conversation ID by session type.
    */
   rpc GetConversationIDBySessionType(GetConversationIDBySessionTypeReq) returns (GetConversationIDBySessionTypeResp);
-  /**
-   * Find message list by conversation args.
-   */
-  rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp);
   /**
    * Mark conversation message as read.
    * 1. conversation type is single, use to clear unread count and send isReaded receipt.
