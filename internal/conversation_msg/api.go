@@ -33,6 +33,7 @@ import (
 	grouppb "github.com/openimsdk/openim-sdk-core/v3/proto/go/group"
 	msgpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
 	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
+	userpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/user"
 
 	"github.com/openimsdk/protocol/sdkws"
 )
@@ -684,8 +685,8 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sharedpb.IMMe
 
 }
 
-func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessageListReq) (*sdkpb.FindMessageListResp, error) {
-	var r sdkpb.FindMessageListResp
+func (c *Conversation) FindMessageList(ctx context.Context, req *msgpb.FindMessageListReq) (*msgpb.FindMessageListResp, error) {
+	var r msgpb.FindMessageListResp
 	type tempConversationAndMessageList struct {
 		conversation *sharedpb.IMConversation
 		msgIDList    []string
@@ -710,7 +711,7 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *sdkpb.FindMessa
 				temp := LocalChatLogToIMMessage(ctx, message)
 				tempMessageList = append(tempMessageList, temp)
 			}
-			findResultItem := sdkpb.SearchByConversationResult{}
+			findResultItem := msgpb.SearchByConversationResult{}
 			findResultItem.ConversationID = v.conversation.ConversationID
 			findResultItem.FaceURL = v.conversation.FaceURL
 			findResultItem.ShowName = v.conversation.ShowName
@@ -772,12 +773,12 @@ func (c *Conversation) MarkAllConversationMessageAsRead(ctx context.Context, req
 	return &sdkpb.MarkAllConversationMessageAsReadResp{}, nil
 }
 
-func (c *Conversation) DeleteMessageFromLocal(ctx context.Context, req *sdkpb.DeleteMessageFromLocalReq) (*sdkpb.DeleteMessageFromLocalResp, error) {
+func (c *Conversation) DeleteMessageFromLocal(ctx context.Context, req *msgpb.DeleteMessageFromLocalReq) (*msgpb.DeleteMessageFromLocalResp, error) {
 	err := c.deleteMessageFromLocal(ctx, req.ConversationID, req.ClientMsgID)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.DeleteMessageFromLocalResp{}, nil
+	return &msgpb.DeleteMessageFromLocalResp{}, nil
 }
 
 func (c *Conversation) DeleteMessage(ctx context.Context, req *msgpb.DeleteMessageReq) (*msgpb.DeleteMessageResp, error) {
@@ -910,12 +911,12 @@ func (c *Conversation) InsertGroupMessageToLocal(ctx context.Context, req *msgpb
 	return &msgpb.InsertGroupMessageToLocalResp{Msg: req.Msg}, nil
 }
 
-func (c *Conversation) SearchLocalMessages(ctx context.Context, req *sdkpb.SearchLocalMessagesReq) (*sdkpb.SearchLocalMessagesResp, error) {
+func (c *Conversation) SearchLocalMessages(ctx context.Context, req *msgpb.SearchLocalMessagesReq) (*msgpb.SearchLocalMessagesResp, error) {
 	req.Keywords = utils.TrimStringList(req.Keywords)
 	return c.searchLocalMessages(ctx, req)
 }
 
-func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMessageLocalExReq) (*sdkpb.SetMessageLocalExResp, error) {
+func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *msgpb.SetMessageLocalExReq) (*msgpb.SetMessageLocalExResp, error) {
 	err := c.db.UpdateColumnsMessage(ctx, req.ConversationID, req.ClientMsgID, map[string]any{"local_ex": req.LocalEx})
 	if err != nil {
 		return nil, err
@@ -932,7 +933,7 @@ func (c *Conversation) SetMessageLocalEx(ctx context.Context, req *sdkpb.SetMess
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{req.ConversationID}}})
 	}
-	return &sdkpb.SetMessageLocalExResp{Success: true}, nil
+	return &msgpb.SetMessageLocalExResp{Success: true}, nil
 }
 
 func (c *Conversation) initBasicInfo(ctx context.Context, message *sharedpb.IMMessage, msgFrom commonpb.MsgFrom, contentType commonpb.ContentType) error {
@@ -984,19 +985,19 @@ func (c *Conversation) SearchConversation(ctx context.Context, req *sdkpb.Search
 	}, nil
 }
 
-func (c *Conversation) SubscribeUsersOnlineStatus(ctx context.Context, req *sdkpb.SubscribeUsersOnlineStatusReq) (*sdkpb.SubscribeUsersOnlineStatusResp, error) {
+func (c *Conversation) SubscribeUsersOnlineStatus(ctx context.Context, req *userpb.SubscribeUsersOnlineStatusReq) (*userpb.SubscribeUsersOnlineStatusResp, error) {
 	status, err := c.SubscribeUsersStatus(ctx, req.UserIDs)
 	if err != nil {
 		return nil, err
 	}
-	return &sdkpb.SubscribeUsersOnlineStatusResp{Status: status}, nil
+	return &userpb.SubscribeUsersOnlineStatusResp{Status: status}, nil
 }
 
-func (c *Conversation) UnsubscribeUsersOnlineStatus(ctx context.Context, req *sdkpb.UnsubscribeUsersOnlineStatusReq) (*sdkpb.UnsubscribeUsersOnlineStatusResp, error) {
+func (c *Conversation) UnsubscribeUsersOnlineStatus(ctx context.Context, req *userpb.UnsubscribeUsersOnlineStatusReq) (*userpb.UnsubscribeUsersOnlineStatusResp, error) {
 	if err := c.UnsubscribeUsersStatus(ctx, req.UserIDs); err != nil {
 		return nil, err
 	}
-	return &sdkpb.UnsubscribeUsersOnlineStatusResp{}, nil
+	return &userpb.UnsubscribeUsersOnlineStatusResp{}, nil
 }
 
 func (c *Conversation) ChangeInputStates(ctx context.Context, req *sdkpb.ChangeInputStatesReq) (*sdkpb.ChangeInputStatesResp, error) {

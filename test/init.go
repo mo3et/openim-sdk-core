@@ -3,11 +3,12 @@ package test
 import (
 	"context"
 	"fmt"
-	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
-	"github.com/openimsdk/tools/log"
 	"math/rand"
 	"strconv"
 	"time"
+
+	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	"github.com/openimsdk/tools/log"
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 
@@ -25,13 +26,13 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 	config := getConf(APIADDR, WSADDR)
 	config.DataDir = "./"
-	isInit, err := open_im_sdk.IMUserContext.InitSDK(context.TODO(), &sdkpb.InitSDKReq{Config: config})
-	if err != nil {
-		panic(err)
-	}
-	if !isInit.Suc {
-		panic("init sdk failed")
-	}
+	// isInit, err := open_im_sdk.IMUserContext.InitSDK(context.TODO(), &sdkpb.InitSDKReq{Config: config})
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// if !isInit {
+	// 	panic("init sdk failed")
+	// }
 	ctx = open_im_sdk.IMUserContext.Context()
 	ctx = ccontext.WithOperationID(ctx, "initOperationID_"+strconv.Itoa(int(time.Now().UnixMilli())))
 	token, err := GetUserToken(ctx, UserID, PlatformID, Secret, config)

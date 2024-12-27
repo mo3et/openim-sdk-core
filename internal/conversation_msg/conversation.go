@@ -23,7 +23,6 @@ import (
 
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
-	conversationpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
 	sharedpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/tools/utils/datautil"
@@ -271,13 +270,13 @@ func (c *Conversation) judgeMultipleSubString(keywordList []string, main string,
 }
 
 // searchLocalMessages searches for local messages based on the given search parameters.
-func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *conversationpb.SearchLocalMessagesReq) (*conversationpb.SearchLocalMessagesResp, error) {
-	var r conversationpb.SearchLocalMessagesResp                                       // Initialize the result structure
-	var startTime, endTime int64                                                       // Variables to hold start and end times for the search
-	var list []*model_struct.LocalChatLog                                              // Slice to store the search results
-	conversationMap := make(map[string]*conversationpb.SearchByConversationResult, 10) // Map to store results grouped by conversation, with initial capacity of 10
-	var err error                                                                      // Variable to store any errors encountered
-	var conversationID string                                                          // Variable to store the current conversation ID
+func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdkpb.SearchLocalMessagesReq) (*sdkpb.SearchLocalMessagesResp, error) {
+	var r sdkpb.SearchLocalMessagesResp                                       // Initialize the result structure
+	var startTime, endTime int64                                              // Variables to hold start and end times for the search
+	var list []*model_struct.LocalChatLog                                     // Slice to store the search results
+	conversationMap := make(map[string]*sdkpb.SearchByConversationResult, 10) // Map to store results grouped by conversation, with initial capacity of 10
+	var err error                                                             // Variable to store any errors encountered
+	var conversationID string                                                 // Variable to store the current conversation ID
 	int32ToInt := func(t common.ContentType) int { return int(t) }
 	intToInt32 := func(t int) common.ContentType { return common.ContentType(t) }
 	// Set the end time for the search; if SearchTimePosition is 0, use the current timestamp
@@ -385,7 +384,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *con
 		}
 		// Populate the conversationMap with search results
 		if oldItem, ok := conversationMap[conversationID]; !ok {
-			searchResultItem := conversationpb.SearchByConversationResult{}
+			searchResultItem := sdkpb.SearchByConversationResult{}
 			localConversation, err := c.db.GetConversation(ctx, conversationID)
 			if err != nil {
 				// log.Error("", "get conversation err ", err.Error(), conversationID)
@@ -458,7 +457,7 @@ func (c *Conversation) searchMessageByContentTypeAndKeyword(ctx context.Context,
 }
 
 // true is filter, false is not filter
-func (c *Conversation) filterMsg(temp *sharedpb.IMMessage, searchParam *conversationpb.SearchLocalMessagesReq) bool {
+func (c *Conversation) filterMsg(temp *sharedpb.IMMessage, searchParam *sdkpb.SearchLocalMessagesReq) bool {
 	switch temp.ContentType {
 	case constant.Text:
 		elem, _ := temp.Content.(*sharedpb.IMMessage_TextElem)
