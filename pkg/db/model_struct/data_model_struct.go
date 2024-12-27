@@ -158,16 +158,6 @@ type LocalBlack struct {
 	AttachedInfo   string `gorm:"column:attached_info;type:text" json:"attachedInfo"`
 }
 
-type LocalSeqData struct {
-	UserID string `gorm:"column:user_id;primary_key;type:varchar(64)"`
-	Seq    uint32 `gorm:"column:seq"`
-}
-
-type LocalSeq struct {
-	ID     string `gorm:"column:id;primary_key;type:varchar(64)"`
-	MinSeq uint32 `gorm:"column:min_seq"`
-}
-
 type AttachedInfoElem struct {
 	IsPrivateChat bool            `json:"isPrivateChat"`
 	BurnDuration  int32           `json:"burnDuration"`
@@ -346,20 +336,6 @@ type LocalConversationUnreadMessage struct {
 
 type LocalAdminGroupRequest struct {
 	LocalGroupRequest
-}
-
-type WorkMomentNotificationMsg struct {
-	NotificationMsgType int32  `json:"notificationMsgType"`
-	ReplyUserName       string `json:"replyUserName"`
-	ReplyUserID         string `json:"replyUserID"`
-	Content             string `json:"content"`
-	ContentID           string `json:"contentID"`
-	WorkMomentID        string `json:"workMomentID"`
-	UserID              string `json:"userID"`
-	UserName            string `json:"userName"`
-	FaceURL             string `json:"faceURL"`
-	WorkMomentContent   string `json:"workMomentContent"`
-	CreateTime          int32  `json:"createTime"`
 }
 
 type NotificationSeqs struct {
