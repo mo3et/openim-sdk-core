@@ -1,6 +1,8 @@
 syntax = "proto3";
 package openim.sdk.message;
 
+import "common.proto";
+import "conversation.proto";
 import "shared.proto";
 
 option csharp_namespace = "OpenIM.Proto";
@@ -307,7 +309,7 @@ message SearchLocalMessagesReq {
   string conversationID = 1;
   repeated string keywords = 2;
   // keyword match type
-  KeywordListMatchType keywordMatchType = 3;
+  conversation.KeywordListMatchType keywordMatchType = 3;
   // sender user id list
   repeated string senderUserIDs = 4;
   // @common_content_types
@@ -323,7 +325,7 @@ message SearchLocalMessagesResp {
   // total count
   int64 count = 1;
   // @conversation_Search_by_conversation_results
-  repeated SearchByConversationResult searchResultItems = 2;
+  repeated conversation.SearchByConversationResult searchResultItems = 2;
 }
 message SetMessageLocalExReq {
   // @conversation_id
