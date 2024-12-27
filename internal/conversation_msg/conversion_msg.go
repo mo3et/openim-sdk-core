@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"

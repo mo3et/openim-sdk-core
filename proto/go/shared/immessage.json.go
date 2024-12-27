@@ -3,6 +3,7 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 )
 
@@ -217,6 +218,9 @@ func (x *IMMessage) MarshalJSON() ([]byte, error) {
 }
 
 func (x *IMMessage) FormatContent() ([]byte, error) {
+	if x.GetStatus() >= common.MsgStatus_HasDeleted {
+		return nil, fmt.Errorf("json message is deleted")
+	}
 	ct, ok := ContentTypeMap[x.ContentType]
 	if !ok {
 		return nil, fmt.Errorf("json unknown content type %d", x.ContentType)
