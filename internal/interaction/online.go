@@ -2,22 +2,23 @@ package interaction
 
 import (
 	"context"
+
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
-	"github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/user"
 	"github.com/openimsdk/tools/utils/datautil"
 )
 
-func (l *LongConnMgr) subscribeUsersStatus(ctx context.Context, userIDs []string) ([]*conversation.UserOnlinePlatform, error) {
+func (l *LongConnMgr) subscribeUsersStatus(ctx context.Context, userIDs []string) ([]*user.UserOnlinePlatform, error) {
 	if len(userIDs) == 0 {
-		return []*conversation.UserOnlinePlatform{}, nil
+		return []*user.UserOnlinePlatform{}, nil
 	}
 	res, err := l.GetUserOnlinePlatformIDs(ctx, userIDs)
 	if err != nil {
 		return nil, err
 	}
-	status := make([]*conversation.UserOnlinePlatform, 0, len(res))
+	status := make([]*user.UserOnlinePlatform, 0, len(res))
 	for userID, platformIDs := range res {
-		value := &conversation.UserOnlinePlatform{
+		value := &user.UserOnlinePlatform{
 			UserID: userID,
 			Platforms: datautil.Batch(func(platformID int32) common.Platform {
 				return common.Platform(platformID)
@@ -32,7 +33,7 @@ func (l *LongConnMgr) UnsubscribeUsersStatus(ctx context.Context, userIDs []stri
 	return l.UnsubscribeUserOnlinePlatformIDs(ctx, userIDs)
 }
 
-func (l *LongConnMgr) SubscribeUsersStatus(ctx context.Context, userIDs []string) ([]*conversation.UserOnlinePlatform, error) {
+func (l *LongConnMgr) SubscribeUsersStatus(ctx context.Context, userIDs []string) ([]*user.UserOnlinePlatform, error) {
 	return l.subscribeUsersStatus(ctx, userIDs)
 }
 

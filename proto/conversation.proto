@@ -8,30 +8,10 @@ option csharp_namespace = "OpenIM.Proto";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation";
 option swift_prefix = "";
 
-message ConversationArgs {
-  // @conversation_id
-  string conversationID = 1;
-  // message client msg unique id list
-  repeated string clientMsgIDList = 2;
-}
 
-message FindMessageListCallback {
-  // total count
-  int32 totalCount = 1;
-  repeated SearchByConversationResult findResultItems = 2;
-}
 
-message SearchByConversationResult {
-  string conversationID = 1;
-  int32 conversationType = 2;
-  string showName = 3;
-  string faceURL = 4;
-  int64 latestMsgSendTime = 5;
-  // message count
-  int32 messageCount = 6;
-  // @shared_immessages
-  repeated shared.IMMessage messageList = 7;
-}
+
+
 
 // -----------------------------------------------------------------------------------------------------------------
 message GetAllConversationListReq {}
@@ -67,13 +47,16 @@ message GetOneConversationReq {
   string sourceID = 2;
 }
 message GetOneConversationResp {
+  // @shared_imconversation
   shared.IMConversation conversation = 1;
 }
 
 message GetMultipleConversationReq {
+  // @shared_imconversations
   repeated string conversationIDList = 1;
 }
 message GetMultipleConversationResp {
+  // @shared_imconversations
   repeated shared.IMConversation conversationList = 1;
 }
 
@@ -81,44 +64,52 @@ message HideAllConversationsReq {}
 message HideAllConversationsResp {}
 
 message SetConversationDraftReq {
+  // @conversation_id
   string conversationID = 1;
+  // @conversation_draft_text
   string draftText = 2;
 }
 message SetConversationDraftResp {}
 
 message SetConversationReq {
+  // @conversation_id
   string conversationID = 1;
+  // @opt @conversation_recv_msg_opt
   optional common.ConvRecvMsgOpt recvMsgOpt = 2;
+  // @opt @conversation_group_at_type
   optional common.ConvGroupAtType groupAtType = 3;
+  // @opt @conversation_is_pinned
   optional bool isPinned = 4;
+  // @opt @conversation_is_private
   optional bool isPrivateChat = 5;
+  // @opt @conversation_burn_duration
   optional int32 burnDuration = 6;
+  // @opt @conversation_ex
   optional string ex = 7;
 }
 message SetConversationResp {}
 
 message GetTotalUnreadMsgCountReq {}
 message GetTotalUnreadMsgCountResp {
+  // @conversation_total_unread_count
   int32 totalUnreadCount = 1;
 }
 
 message GetConversationIDBySessionTypeReq {
+  // session source id
   string sourceID = 1;
+  // @conversation_session_type
   common.SessionType sessionType = 2;
 }
 message GetConversationIDBySessionTypeResp {
+  // @conversation_id
   string conversationID = 1;
 }
 
-message FindMessageListReq {
-  repeated ConversationArgs conversationsArgs = 1;
-}
-message FindMessageListResp {
-  repeated SearchByConversationResult findResultItems = 1;
-  int32 totalCount = 2;
-}
+
 
 message MarkConversationMessageAsReadReq {
+  // @conversation_id
   string conversationID = 1;
 }
 message MarkConversationMessageAsReadResp {}
@@ -126,220 +117,150 @@ message MarkConversationMessageAsReadResp {}
 message MarkAllConversationMessageAsReadReq {}
 message MarkAllConversationMessageAsReadResp {}
 
-message DeleteMessageFromLocalReq {
-  string conversationID = 1;
-  string clientMsgID = 2;
-}
-message DeleteMessageFromLocalResp {}
-
 message ClearConversationAndDeleteAllMsgReq {
+  // @conversation_id
   string conversationID = 1;
 }
 message ClearConversationAndDeleteAllMsgResp {}
 
 message DeleteConversationAndDeleteAllMsgReq {
+  // @conversation_id
   string conversationID = 1;
 }
 message DeleteConversationAndDeleteAllMsgResp {}
 
-enum KeywordListMatchType {
-  KeywordMatchOr = 0;
-  KeywordMatchAnd = 1;
-}
 
-message SearchLocalMessagesReq {
-  string conversationID = 1;
-  repeated string keywords = 2;
-  KeywordListMatchType keywordMatchType = 3;
-  repeated string senderUserIDs = 4;
-  repeated common.ContentType messageTypes = 5;
-  int64 searchTimePosition = 6;
-  int64 searchTimePeriod = 7;
-  common.RequestPagination pagination = 8;
-}
-message SearchLocalMessagesResp {
-  int64 count = 1;
-  repeated SearchByConversationResult searchResultItems = 2;
-}
-
-message SetMessageLocalExReq {
-  string conversationID = 1;
-  string clientMsgID = 2;
-  string localEx = 3;
-}
-message SetMessageLocalExResp {
-  bool success = 1;
-}
 
 message SearchConversationReq {
+  // search param
   string searchParam = 1;
 }
 message SearchConversationResp {
+  // @shared_imconversations
   repeated shared.IMConversation conversationList = 1;
 }
 
-message UserOnlinePlatform {
-  // @user_id
-  string userID = 1;
-  repeated common.Platform platforms = 2;
-}
-
-message SubscribeUsersOnlineStatusReq {
-  repeated string userIDs = 1;
-}
-
-message SubscribeUsersOnlineStatusResp {
-  repeated UserOnlinePlatform status = 1;
-}
-
-message UnsubscribeUsersOnlineStatusReq {
-  repeated string userIDs = 1;
-}
-
-message UnsubscribeUsersOnlineStatusResp {}
-
 message ChangeInputStatesReq {
+  // @conversation_id
   string conversationID = 1;
+  // is focus
   bool focus = 3;
 }
 message ChangeInputStatesResp {}
 
 message GetInputStatesReq {
+  // @conversation_id
   string conversationID = 1;
+  // @user_id
   string userID = 2;
 }
 message GetInputStatesResp {
+  // @common_platforms
   repeated common.Platform platforms = 1;
 }
 
-/**
- *
- *
- */
-
 service ConversationService {
   /**
-   *
-   *
+   * Get all conversation list.
+   * Notice:
+   * If have lots of conversation, use `GetConversationListSplit` to get page.
    */
   rpc GetAllConversationList(GetAllConversationListReq) returns (GetAllConversationListResp);
   /**
-   *
-   *
+   * Get conversation list by page.
    */
   rpc GetConversationListSplit(GetConversationListSplitReq) returns (GetConversationListSplitResp);
   /**
-   *
-   *
+   * Hide a local conversation. It will not delete the message in conversation.
+   * The conversation will redisplay when a new message is received.
    */
   rpc HideConversation(HideConversationReq) returns (HideConversationResp);
   /**
-   *
-   *
+   * Get at all tag.
    */
   rpc GetAtAllTag(GetAtAllTagReq) returns (GetAtAllTagResp);
   /**
-   *
-   *
+   * Get specified conversation info.
+   * Usually get conversation by friend info or group info, and enter the chat interface will call it.
    */
   rpc GetOneConversation(GetOneConversationReq) returns (GetOneConversationResp);
   /**
-   *
-   *
+   * Get specified conversation info list by specified conversation IDs.
    */
   rpc GetMultipleConversation(GetMultipleConversationReq) returns (GetMultipleConversationResp);
   /**
-   *
-   *
+   * Hide all local conversations. It will not delete the message in conversation.
+   * The conversation will redisplay when a new message is received.
    */
   rpc HideAllConversations(HideAllConversationsReq) returns (HideAllConversationsResp);
   /**
-   *
-   *
+   * Set conversation draft.
+   * Notice:
+   * Set empty draft text will clear the draft.
+   * Related callbacks:
+   * `onConversationChanged`
    */
   rpc SetConversationDraft(SetConversationDraftReq) returns (SetConversationDraftResp);
   /**
-   *
-   *
+   * Set conversation info, including isPinned, recvMsgOpt, ex fields.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
    */
   rpc SetConversation(SetConversationReq) returns (SetConversationResp);
   /**
-   *
-   *
+   * Get all conversation unread message count.
    */
   rpc GetTotalUnreadMsgCount(GetTotalUnreadMsgCountReq) returns (GetTotalUnreadMsgCountResp);
   /**
-   *
-   *
+   * Get conversation ID by session type.
    */
   rpc GetConversationIDBySessionType(GetConversationIDBySessionTypeReq) returns (GetConversationIDBySessionTypeResp);
   /**
-   *
-   *
-   */
-  rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp);
-
-  /**
-   *
-   *
+   * Mark conversation message as read.
+   * 1. conversation type is single, use to clear unread count and send isReaded receipt.
+   * Other user send message isRead status will be updated when call it interface.
+   * 2. conversation type is group or notification, the interface only use clear unread.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
+   * `onRecvC2CReadReceipt`
    */
   rpc MarkConversationMessageAsRead(MarkConversationMessageAsReadReq) returns (MarkConversationMessageAsReadResp);
-
   /**
-   *
-   *
+   * Mark all conversation message as read.
+   * 1. conversation type is single, use to clear unread count and send isReaded receipt.
+   * Other user send message isRead status will be updated when call it interface.
+   * 2. conversation type is group or notification, the interface only use clear unread.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
+   * `onRecvC2CReadReceipt`
    */
   rpc MarkAllConversationMessageAsRead(MarkAllConversationMessageAsReadReq) returns (MarkAllConversationMessageAsReadResp);
   /**
-   *
-   *
+   * Delete specified conversation messages in local and server. The conversation will still be retained.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
    */
-  //  TODO need move to message?
-  rpc DeleteMessageFromLocal(DeleteMessageFromLocalReq) returns (DeleteMessageFromLocalResp);
-  /**
-   *
-   *
-   */
-
   rpc ClearConversationAndDeleteAllMsg(ClearConversationAndDeleteAllMsgReq) returns (ClearConversationAndDeleteAllMsgResp);
   /**
-   *
-   *
+   * Delete specified conversation messages in local and server.
    */
   rpc DeleteConversationAndDeleteAllMsg(DeleteConversationAndDeleteAllMsgReq) returns (DeleteConversationAndDeleteAllMsgResp);
   /**
-   *
-   *
-   */
-  rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp);
-  /**
-   *
-   *
-   */
-  rpc SetMessageLocalEx(SetMessageLocalExReq) returns (SetMessageLocalExResp);
-  /**
-   *
-   *
+   * Search conversation by search param.
    */
   rpc SearchConversation(SearchConversationReq) returns (SearchConversationResp);
   /**
-   *
-   *
-   */
-  rpc SubscribeUsersOnlineStatus(SubscribeUsersOnlineStatusReq) returns (SubscribeUsersOnlineStatusResp);
-  /**
-   *
-   *
-   */
-  rpc UnsubscribeUsersOnlineStatus(UnsubscribeUsersOnlineStatusReq) returns (UnsubscribeUsersOnlineStatusResp);
-  /**
-   *
-   *
+   * Change input states.
+   * Notice:
+   * When input end, set focus to false.
    */
   rpc ChangeInputStates(ChangeInputStatesReq) returns (ChangeInputStatesResp);
   /**
-   *
-   *
+   * Get user current input states.
    */
   rpc GetInputStates(GetInputStatesReq) returns (GetInputStatesResp);
 }

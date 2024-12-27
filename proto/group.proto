@@ -1,12 +1,12 @@
 syntax = "proto3";
 package openim.sdk.group;
 
-option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/group";
-option csharp_namespace = "OpenIM.Proto";
-option swift_prefix="";
-
 import "common.proto";
 import "shared.proto";
+
+option csharp_namespace = "OpenIM.Proto";
+option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/group";
+option swift_prefix = "";
 
 message CreateGroupReq {
   // @opt @group_id
@@ -44,7 +44,7 @@ message CreateGroupResp {
 }
 
 message JoinGroupReq {
-  // group id you joined
+  // want to join group id
   string groupID = 1;
   // request message
   string reqMsg = 2;
@@ -56,38 +56,44 @@ message JoinGroupReq {
 message JoinGroupResp {}
 
 message QuitGroupReq {
-  string groupID = 1;// group id you quit
+  // want to quit group id
+  string groupID = 1;
 }
 message QuitGroupResp {}
 
 message DismissGroupReq {
-  string groupID = 1;// group id you dismissed
+  // want to dismiss group id
+  string groupID = 1;
 }
 message DismissGroupResp {}
 
 message ChangeGroupMuteReq {
-  string groupID = 1;// group id you want to mute
-  bool mute = 2;// mute or cancel mute
+  // want to mute group id
+  string groupID = 1;
+  // mute or cancel mute
+  bool mute = 2;
 }
 message ChangeGroupMuteResp {}
 
 message ChangeGroupMemberMuteReq {
-  string groupID = 1;// group id you want to mute
-  string userID = 2;// user id you want to mute
-  uint32 mutedSeconds = 3;// mute time (unit: seconds), 0 cancels the mute
+  // want to mute group id
+  string groupID = 1;
+  // @group_member_user_id
+  string userID = 2; // user id you want to mute
+  uint32 mutedSeconds = 3; // mute time (unit: seconds), 0 cancels the mute
 }
 message ChangeGroupMemberMuteResp {}
 
 message TransferGroupOwnerReq {
-  string groupID = 1;// group id you want to transfer
-  string ownerUserID = 2;// new owner user id
+  string groupID = 1; // group id you want to transfer
+  string ownerUserID = 2; // new owner user id
 }
 message TransferGroupOwnerResp {}
 
 message KickGroupMemberReq {
-  string groupID = 1;// group id you want to kick
-  repeated string kickedUserIDs = 2;// user id you want to kick
-  string reason = 3;// kick reason
+  string groupID = 1; // group id you want to kick
+  repeated string kickedUserIDs = 2; // user id you want to kick
+  string reason = 3; // kick reason
 }
 message KickGroupMemberResp {}
 
@@ -114,134 +120,150 @@ message SetGroupInfoReq {
 message SetGroupInfoResp {}
 
 message SetGroupMemberInfoReq {
-  string groupID = 1;// group id you want to set
+  string groupID = 1; // group id you want to set
   // @opt @group_user_id
   string userID = 2;
-  optional string nickname = 3;// user nickname
-  optional string faceURL = 4;// user face url
-  optional common.GroupMemberRoleLevel roleLevel = 5;// user role level
-  optional string ex = 6;// extension field
+  optional string nickname = 3; // user nickname
+  optional string faceURL = 4; // user face url
+  optional common.GroupMemberRoleLevel roleLevel = 5; // user role level
+  optional string ex = 6; // extension field
 }
 message SetGroupMemberInfoResp {}
 
 message GetJoinedGroupsReq {}
 message GetJoinedGroupsResp {
-  repeated shared.IMGroup groups = 1;// group information
+  repeated shared.IMGroup groups = 1; // group information
 }
 
 message GetJoinedGroupsPageReq {
-  openim.sdk.common.RequestPagination pagination = 2;// pagination
+  openim.sdk.common.RequestPagination pagination = 2; // pagination
 }
 message GetJoinedGroupsPageResp {
-  repeated shared.IMGroup groups = 1;// group information
+  repeated shared.IMGroup groups = 1; // group information
 }
 
 message GetSpecifiedGroupsInfoReq {
-  repeated string groupIDs = 1;// group id you want to get
+  repeated string groupIDs = 1; // group id you want to get
 }
 message GetSpecifiedGroupsInfoResp {
-  repeated shared.IMGroup groups = 1;// group information
+  repeated shared.IMGroup groups = 1; // group information
 }
 
 message SearchGroupsReq {
-  string keyword = 1;// search keyword
-  bool searchGroupID = 2;// search group id
-  bool searchGroupName = 3;// search group name
+  string keyword = 1; // search keyword
+  bool searchGroupID = 2; // search group id
+  bool searchGroupName = 3; // search group name
 }
 message SearchGroupsResp {
-  repeated shared.IMGroup groups = 1;// group information
+  repeated shared.IMGroup groups = 1; // group information
 }
 
 message GetGroupMemberOwnerAndAdminReq {
-  string groupID = 1;// group id you want to get
+  string groupID = 1; // group id you want to get
 }
 message GetGroupMemberOwnerAndAdminResp {
-  repeated shared.IMGroupMember members = 1;// group member information
+  repeated shared.IMGroupMember members = 1; // group member information
 }
 
 message GetGroupMembersByJoinTimeFilterReq {
-  string groupID = 1;// group id you want to get
-  int64 joinTimeBegin = 2;// join time start
-  int64 joinTimeEnd = 3;// join time end
-  openim.sdk.common.RequestPagination pagination = 4;// pagination
+  string groupID = 1; // group id you want to get
+  int64 joinTimeBegin = 2; // join time start
+  int64 joinTimeEnd = 3; // join time end
+  openim.sdk.common.RequestPagination pagination = 4; // pagination
 }
 message GetGroupMembersByJoinTimeFilterResp {
-  repeated shared.IMGroupMember members = 1;// group member information
+  repeated shared.IMGroupMember members = 1; // group member information
 }
 
 message GetSpecifiedGroupMembersInfoReq {
-  string groupID = 1;// group id you want to get
-  repeated string userIDs = 2;// user id you want to get
+  string groupID = 1; // group id you want to get
+  repeated string userIDs = 2; // user id you want to get
 }
 message GetSpecifiedGroupMembersInfoResp {
-  repeated shared.IMGroupMember members = 1;// group member information
+  repeated shared.IMGroupMember members = 1; // group member information
 }
 
 enum GroupMemberFilter {
-  All = 0;// all users
-  Owner = 1;// owner users
-  Admin = 2;// admin users
-  OrdinaryUsers = 3;// ordinary users
-  AdminAndOrdinaryUsers = 4;// admin and ordinary users
-  OwnerAndAdmin = 5;// owner and admin users
+  All = 0; // all users
+  Owner = 1; // owner users
+  Admin = 2; // admin users
+  OrdinaryUsers = 3; // ordinary users
+  AdminAndOrdinaryUsers = 4; // admin and ordinary users
+  OwnerAndAdmin = 5; // owner and admin users
 }
 message GetGroupMembersReq {
-  string groupID = 1;// group id you want to get
-  GroupMemberFilter filter = 2;// filter
-  openim.sdk.common.RequestPagination pagination = 4;// pagination
+  // group id you want to get
+  string groupID = 1;
+  // filter
+  GroupMemberFilter filter = 2;
+  // @common_request_pagination
+  openim.sdk.common.RequestPagination pagination = 4;
 }
 message GetGroupMembersResp {
-  repeated shared.IMGroupMember members = 1;// group member information
+  // @shared_imgroup_members
+  repeated shared.IMGroupMember members = 1;
 }
 
 message GetGroupApplicationReq {
-  bool send = 1;// is it the request i sent
+  // is it the request i sent
+  bool send = 1;
 }
 message GetGroupApplicationResp {
-  repeated shared.IMGroupApplication applications = 1;// group request information
+  // @shared_imgroup_applications
+  repeated shared.IMGroupApplication applications = 1;
 }
 
 message SearchGroupMembersReq {
-  string groupID = 1;// group id you want to search
-  string keyword = 2;// search keyword
-  bool searchUserID = 3;// search user id
-  bool searchMemberNickname = 4;// search user nickname
-  openim.sdk.common.RequestPagination pagination = 5;// pagination
+  // group id you want to search
+  string groupID = 1;
+  // search keyword
+  string keyword = 2;
+  // search user id
+  bool searchUserID = 3;
+  // search user nickname
+  bool searchMemberNickname = 4;
+  // @common_request_pagination
+  openim.sdk.common.RequestPagination pagination = 5;
 }
 message SearchGroupMembersResp {
-  repeated shared.IMGroupMember members = 1;// group member information
+  // @shared_imgroup_members
+  repeated shared.IMGroupMember members = 1;
 }
 
 message IsJoinGroupReq {
-  string groupID = 1;// group id you want to check
-  string userID = 2;// user id you want to check
+  // group id you want to check
+  string groupID = 1;
+  // user id you want to check
+  string userID = 2;
 }
 message IsJoinGroupResp {
-  bool joined = 1;// whether to join the group
+  // whether to join the group
+  bool joined = 1;
 }
 
 message GetUsersInGroupReq {
-  string groupID = 1;// group id you want to get
-  repeated string userIDs = 2;// user id you want to get
+  // group id you want to get
+  string groupID = 1;
+  // user id you want to get
+  repeated string userIDs = 2;
 }
 message GetUsersInGroupResp {
-  repeated string userIDs = 1;// user id in the group
+  // user id in the group
+  repeated string userIDs = 1;
 }
 
 message InviteUserToGroupReq {
-  string groupID = 1;// group id you want to invite
-  repeated string userIDs = 2;// user id you want to invite
-  string reason = 3;// invite reason
+  // group id you want to invite
+  string groupID = 1;
+  // user id you want to invite
+  repeated string userIDs = 2;
+  // invite reason
+  string reason = 3;
 }
 message InviteUserToGroupResp {}
 
 message HandleGroupApplicationReq {
-  /**
-   * group id you want to handle1<br>
-   * group id you want to handle2<br>
-   * group id you want to handle3<br>
-   * group id you want to handle4<br>
-   */
+  // @group_id
   string groupID = 1;
   // user id you want to handle
   string fromUserID = 2;
@@ -254,137 +276,195 @@ message HandleGroupApplicationResp {}
 
 service GroupService {
   /**
-  * The group creator assigns roles and adds members
-  * 1. The creator establishes a group as the group owner, specifying group administrators and ordinary group members. Once successful, all roles immediately join the group.
-  * 2. It's recommended that the number of group members does not exceed 1000 at a time, as larger numbers may result in data packets being rejected by the backend due to their size.
-  * If a groupID is specified, it cannot be duplicated.
-  * If no groupID is specified, the server will generate a unique groupID.
-  */
+   * The group creator assigns roles and adds members
+   * 1. The creator establishes a group as the group owner, specifying group administrators and ordinary group members. Once successful, all roles immediately join the group.
+   * 2. It's recommended that the number of group members does not exceed 1000 at a time, as larger numbers may result in data packets being rejected by the backend due to their size.
+   * Notice:
+   * If a groupID is specified, it cannot be duplicated.
+   * If no groupID is specified, the server will generate a unique groupID.
+   * Related callbacks:
+   * `onJoinedGroupAdded`
+   * `onGroupMemberAdded`
+   */
   rpc CreateGroup(CreateGroupReq) returns (CreateGroupResp);
   /**
    * Apply to join a group
+   * Notice:
    * Apply to join the group. If you are allowed to join directly, you can directly enter the group chat. Otherwise, send a request to join the group, which requires the approval of the group administrator or group owner.
+   * Related callbacks:
+   * `onJoinedGroupAdded`
+   * `onGroupMemberAdded`
+   * `onGroupApplicationAdded`
    */
   rpc JoinGroup(JoinGroupReq) returns (JoinGroupResp);
   /**
    * Leave the group
+   * Notice:
    * Administrators and ordinary members can log out directly, but group owners cannot log out.
+   * Related callbacks:
+   * `onJoinedGroupDeleted`
+   * `onGroupMemberDeleted`
    */
   rpc QuitGroup(QuitGroupReq) returns (QuitGroupResp);
   /**
    * Disband the group
-   * The group status field will be set to "disbanded" in the background. When group members fetch the list of groups they've joined, this group will no longer be returned.
+   * Notice:
+   * The group status field will be set to "disbanded" in the background.
+   * When group members fetch the list of groups they've joined, this group will no longer be returned.
+   * Related callbacks:
+   * `onGroupDismissed`
    */
   rpc DismissGroup(DismissGroupReq) returns (DismissGroupResp);
   /**
    * The group owner or group admin changes the mute status of the group.
+   * Notice:
    * After being muted, regular members cannot send messages, but the group owner and admins can continue to send messages.
+   * Related callbacks:
+   * `onGroupInfoChanged`
    */
   rpc ChangeGroupMute(ChangeGroupMuteReq) returns (ChangeGroupMuteResp);
   /**
    * The group owner or group administrators can change the mute status of group members.
+   * Notice:
    * A group owner can mute both administrators and regular members, while an administrator can only mute regular members.
+   * Related callbacks:
+   * `onGroupApplicationAccepted`
    */
   rpc ChangeGroupMemberMute(ChangeGroupMemberMuteReq) returns (ChangeGroupMemberMuteResp);
   /**
    * Transfer the group owner status.
+   * Notice:
    * Transfer group owner, can only be called by group owner.
+   * Related callbacks:
+   * `onGroupInfoChanged`
+   * `onGroupMemberInfoChanged`
    */
   rpc TransferGroupOwner(TransferGroupOwnerReq) returns (TransferGroupOwnerResp);
   /**
    * Remove a member from a group.
+   * Notice:
    * The group owner and group administrators can remove group members.
+   * Related callbacks:
+   * `onJoinedGroupDeleted`
+   * `onGroupMemberDeleted`
    */
   rpc KickGroupMember(KickGroupMemberReq) returns (KickGroupMemberResp);
   /**
    * Set group information
+   * Notice:
    * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Related callbacks:
+   * `onGroupInfoChanged`
    */
   rpc SetGroupInfo(SetGroupInfoReq) returns (SetGroupInfoResp);
   /**
    * Set group information
+   * Notice:
    * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Related callbacks:
+   * `onGroupMemberInfoChanged`
    */
   rpc SetGroupMemberInfo(SetGroupMemberInfoReq) returns (SetGroupMemberInfoResp);
   /**
    * Fetch the list of groups you've joined.
    * Get joined group chat information.
+   * Notice:
+   * If joined group is dismessed, it will not be return the group.
    */
   rpc GetJoinedGroups(GetJoinedGroupsReq) returns (GetJoinedGroupsResp);
   /**
    * Split fetch the list of groups you've joined.
    * Get joined group chat information.
+   * Notice:
+   * count can not hugo. Else, the request time is too long.
    */
   rpc GetJoinedGroupsPage(GetJoinedGroupsPageReq) returns (GetJoinedGroupsPageResp);
   /**
    * Set group information
    * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Notice:
+   * Recommend once to get up to 100.
    */
   rpc GetSpecifiedGroupsInfo(GetSpecifiedGroupsInfoReq) returns (GetSpecifiedGroupsInfoResp);
-  // todo
   /**
    * Search for joined groups using keyword
+   * Notice:
+   * Must have specific once search type.
+   * Mulit search type is related in AND or OR.
    * The list of groups is recommended to have a maximum of 100 at a time.
    */
   rpc SearchGroups(SearchGroupsReq) returns (SearchGroupsResp);
-  // todo
   /**
-   * Search for joined groups using keyword
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Get specified group owner and admin.
+   * Notice:
+   * Caller must be joined the group can call this interface.
    */
   rpc GetGroupMemberOwnerAndAdmin(GetGroupMemberOwnerAndAdminReq) returns (GetGroupMemberOwnerAndAdminResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Get specified group member info. Support filter by join time.
+   * Notice:
+   * 1. Caller must be joined the group can call this interface.
+   * 2. Recommend once to get up to 10000.
    */
   rpc GetGroupMembersByJoinTimeFilter(GetGroupMembersByJoinTimeFilterReq) returns (GetGroupMembersByJoinTimeFilterResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Get specified groups and corresponding group members info.
+   * Notice:
+   * 1. Caller must be joined the group can call this interface.
+   * 2. Recommend once to get up to 10000.
    */
   rpc GetSpecifiedGroupMembersInfo(GetSpecifiedGroupMembersInfoReq) returns (GetSpecifiedGroupMembersInfoResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Get specified group member info.
+   * Notice:
+   * 1. Caller must be joined the group can call this interface.
+   * 2. Recommend once to get up to 10000.
    */
   rpc GetGroupMembers(GetGroupMembersReq) returns (GetGroupMembersResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Group owner or group admin get group application, including request and invit.
+   * Notice:
+   * Get all group applications once.
    */
   rpc GetGroupRequest(GetGroupApplicationReq) returns (GetGroupApplicationResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Search specified group's group member using keyword
+   * Notice:
+   * Only group member have search permission.
+   * Must have specific once search type.
+   * Mulit search type is related in AND or OR.
+   * The list of groups is recommended to have a maximum of 100 at a time.
    */
   rpc SearchGroupMembers(SearchGroupMembersReq) returns (SearchGroupMembersResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Check current user is join the group.
    */
   rpc IsJoinGroup(IsJoinGroupReq) returns (IsJoinGroupResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Check specified user is join the group.
    */
   rpc GetUsersInGroup(GetUsersInGroupReq) returns (GetUsersInGroupResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Invite user to group
+   * Notice:
+   * Determine the result of inviting a user to the group based on the caller's identity and the group entry verification options.
+   * Related callbacks:
+   * `onJoinedGroupAdded`
+   * `onGroupMemberAdded`
+   * `onGroupApplicationAdded`
    */
   rpc InviteUserToGroup(InviteUserToGroupReq) returns (InviteUserToGroupResp);
-  // todo
   /**
-   * Set group information
-   * Set group information, including group avatar, name, announcement, introduction, extended fields, etc. Only administrators and group owners have permission to set.
+   * Group owner or group admin handle group application.
+   * Notice:
+   * Only group owner or group admin have permission call it.
+   * If the application is handled, group owner and admin can not handle it again.
+   * Related callbacks:
+   * `onGroupApplicationAccepted`
+   * `onGroupMemberAdded`
+   * `onJoinedGroupAdded`
+   *
+   * `onGroupApplicationRejected`
    */
   rpc HandleGroupRequest(HandleGroupApplicationReq) returns (HandleGroupApplicationResp);
 }

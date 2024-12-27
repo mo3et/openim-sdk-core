@@ -79,8 +79,8 @@ protoc --go_out=./${name} --go_opt=module=github.com/openimsdk/openim-sdk-core/v
 */
 
 /*
-JavaScript requires installing `protoc-gen-js` via a package manager
 TypeScript requires installing `ts-proto` via a package manager
+// JavaScript requires installing `protoc-gen-js` via a package manager (Use TypeScript first.)
 */
 
 // Generate code for all languages (Go, Java, C#, JS, TS) from protobuf files.
@@ -257,6 +257,8 @@ func GenCSharp() error {
 	return nil
 }
 
+// Use TypeScript first. JavaScript need check it useful.
+
 // Generate JavaScript code from protobuf files.
 func GenJS() error {
 	log.SetOutput(os.Stdout)
@@ -397,7 +399,7 @@ func GenTS() error {
 		args := []string{
 			"--proto_path=" + protoDir,
 			"--plugin=protoc-gen-ts_proto=" + tsProto,
-			"--ts_proto_opt=esModuleInterop=true,messages=true",
+			"--ts_proto_opt=esModuleInterop=true,messages=true,outputJsonMethods=false,outputPartialMethods=false,outputClientImpl=false,outputEncodeMethods=false,useOptionals=messages",
 			"--ts_proto_out=" + filepath.Join(tsOutDir, module),
 			filepath.Join("proto", module) + ".proto",
 		}
@@ -735,7 +737,7 @@ func BuildWindows() error {
 	if err := os.MkdirAll(filepath.Join(goSrc, windowsOut), 0755); err != nil {
 		return err
 	}
-
+	soName := "openimsdk"
 	cmd := exec.Command("go", "build", "-buildmode=c-shared", "-trimpath", "-ldflags=-s -w", "-o", filepath.Join(windowsOut, strings.Join([]string{soName, "dll"}, ".")), ".")
 	cmd.Dir = goSrc
 	cmd.Env = os.Environ()
@@ -844,6 +846,8 @@ func BuildHarmanyOS_API9() error {
 
 		if err := buildFunc(output, arch.GoArch, arch.OutArch); err != nil {
 			log.Fatalf("Failed to build for  HarmanyOS API9 %s: %v\n", arch.OutArch, err)
+		} else {
+			log.Printf("Success to build for  HarmanyOS API9 %s\n", arch.OutArch)
 		}
 	}
 	return nil
@@ -905,7 +909,7 @@ func BuildHarmanyOS_API12() error {
 		if err := buildFunc(output, arch.GoArch, arch.OutArch); err != nil {
 			log.Fatalf("Failed to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
 		} else {
-			log.Printf("Success to build for  HarmanyOS API12 %s: %v\n", arch.OutArch, err)
+			log.Printf("Success to build for  HarmanyOS API12 %s\n", arch.OutArch)
 		}
 	}
 	return nil

@@ -1,12 +1,19 @@
 syntax = "proto3";
 package openim.sdk.message;
 
+import "common.proto";
 import "shared.proto";
 
 option csharp_namespace = "OpenIM.Proto";
 option go_package = "github.com/openimsdk/openim-sdk-core/v3/proto/go/message";
 option swift_prefix = "";
 
+enum KeywordListMatchType {
+  // Keyword match OR
+  KeywordMatchOr = 0;
+  // Keyword match AND
+  KeywordMatchAnd = 1;
+}
 message SendMessageReq {
   // @shared_immessage
   shared.IMMessage message = 1;
@@ -66,6 +73,14 @@ message DeleteMessageReq {
   string clientMsgID = 2;
 }
 message DeleteMessageResp {}
+
+message DeleteMessageFromLocalReq {
+  // @conversation_id
+  string conversationID = 1;
+  // @message_client_msg_id
+  string clientMsgID = 2;
+}
+message DeleteMessageFromLocalResp {}
 
 message DeleteAllMsgFromLocalAndServerReq {}
 message DeleteAllMsgFromLocalAndServerResp {}
@@ -293,46 +308,145 @@ message CreateForwardMessageResp {
   // @shared_immessage
   shared.IMMessage message = 1;
 }
+message ConversationArgs {
+  // @conversation_id
+  string conversationID = 1;
+  // message client msg unique id list
+  repeated string clientMsgIDList = 2;
+}
+message SearchByConversationResult {
+  // @conversation_id
+  string conversationID = 1;
+  // @conversation_type
+  int32 conversationType = 2;
+  //
+  string showName = 3;
+  string faceURL = 4;
+  int64 latestMsgSendTime = 5;
+  // message count
+  int32 messageCount = 6;
+  // @shared_immessages
+  repeated shared.IMMessage messageList = 7;
+}
+
+message FindMessageListReq {
+  // conversation args
+  repeated ConversationArgs conversationsArgs = 1;
+}
+message FindMessageListResp {
+  // @conversation_Search_by_conversation_results
+  repeated SearchByConversationResult findResultItems = 1;
+  // total count
+  int32 totalCount = 2;
+}
+
+message SearchLocalMessagesReq {
+  // @conversation_id
+  string conversationID = 1;
+  repeated string keywords = 2;
+  // keyword match type
+  KeywordListMatchType keywordMatchType = 3;
+  // sender user id list
+  repeated string senderUserIDs = 4;
+  // @common_content_types
+  repeated common.ContentType messageTypes = 5;
+  // search time position
+  int64 searchTimePosition = 6;
+  // search time period
+  int64 searchTimePeriod = 7;
+  // @common_request_pagination
+  common.RequestPagination pagination = 8;
+}
+message SearchLocalMessagesResp {
+  // total count
+  int64 count = 1;
+  // @conversation_Search_by_conversation_results
+  repeated SearchByConversationResult searchResultItems = 2;
+}
+message SetMessageLocalExReq {
+  // @conversation_id
+  string conversationID = 1;
+  // @conversation_client_msg_id
+  string clientMsgID = 2;
+  // local extension field
+  string localEx = 3;
+}
+message SetMessageLocalExResp {
+  // is success
+  bool success = 1;
+}
 
 service MessageService {
   /**
-   *
-   *
+   * Get history message in conversation. Such as sroll up to load history message.
+   * Use `isReverse` to control the order of the message list.
    */
   rpc GetHistoryMessageList(GetHistoryMessageListReq) returns (GetHistoryMessageListResp);
   /**
-   *
-   *
+   * Revoke a message. Support revoke self message, and group owner and group admin can revoke group member message.
+   * Notice:
+   * Original message will be transfer ContentType to 2101 when revoke message.
+   * Related callbacks:
+   * `onNewRecvMessageRevoked`
+   * `onConversationChanged`
+   * If revoke message is a latest message, the conversation last message will be update.
    */
   rpc RevokeMessage(RevokeMessageReq) returns (RevokeMessageResp);
   /**
-   *
-   *
+   * Send typing status, the recipient will receive it only if they are online on IM.
+   * Notice:
+   * Related callbacks:
+   * `onRecvNewMessage`
+   * `onRecvNewMessages`
    */
   rpc TypingStatusUpdate(TypingStatusUpdateReq) returns (TypingStatusUpdateResp);
   /**
-   *
-   *
+   * Delete a message from local and server.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
+   * If delete message is a latest message, the conversation last message will be update.
    */
   rpc DeleteMessage(DeleteMessageReq) returns (DeleteMessageResp);
   /**
-   *
-   *
+   * Delete a message from local. The message will be retained when reinstall app.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
+   * If delete message is a latest message, the conversation last message will be update.
+   */
+  rpc DeleteMessageFromLocal(DeleteMessageFromLocalReq) returns (DeleteMessageFromLocalResp);
+  /**
+   * Delete all message from local and server. The conversation will still be retained.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
    */
   rpc DeleteAllMsgFromLocalAndServer(DeleteAllMsgFromLocalAndServerReq) returns (DeleteAllMsgFromLocalAndServerResp);
   /**
-   *
-   *
+   * Delete all message from all local conversation. The conversation will still be retained.
+   * You still can get the message when reinstall the app.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
    */
   rpc DeleteAllMessageFromLocal(DeleteAllMessageFromLocalReq) returns (DeleteAllMessageFromLocalResp);
   /**
-   *
-   *
+   * Insert a single message to local. Only current device can see it.
+   * Can't sync to other platforms.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
+   * Only current device can see it.
    */
   rpc InsertSingleMessageToLocal(InsertSingleMessageToLocalReq) returns (InsertSingleMessageToLocalResp);
   /**
-   *
-   *
+   * Insert a group message to local. Only current device can see it.
+   * Can't sync to other platforms.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
+   * Only current device can see it.
    */
   rpc InsertGroupMessageToLocal(InsertGroupMessageToLocalReq) returns (InsertGroupMessageToLocalResp);
 
@@ -353,6 +467,7 @@ service MessageService {
   rpc CreateTextAtMessage(CreateTextAtMessageReq) returns (CreateTextAtMessageResp);
   /**
    * create a location message. Including longitude and latitude.
+   * Notice:
    * The longitude and latitude need you get it.
    */
   rpc CreateLocationMessage(CreateLocationMessageReq) returns (CreateLocationMessageResp);
@@ -413,4 +528,20 @@ service MessageService {
    * create a forward message.
    */
   rpc CreateForwardMessage(CreateForwardMessageReq) returns (CreateForwardMessageResp);
+  /**
+   * Find message list by conversation args.
+   */
+  rpc FindMessageList(FindMessageListReq) returns (FindMessageListResp);
+  /**
+   * Search local messages.
+   */
+  rpc SearchLocalMessages(SearchLocalMessagesReq) returns (SearchLocalMessagesResp);
+  /**
+   * Set local extension field for a message. Such as save file path after download file.
+   * Notice:
+   * Related callbacks:
+   * `onConversationChanged`
+   * If update message is a latest message, the conversation last message will be update.
+   */
+  rpc SetMessageLocalEx(SetMessageLocalExReq) returns (SetMessageLocalExResp);
 }

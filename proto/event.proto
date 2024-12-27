@@ -247,7 +247,7 @@ message EventOnConversationChangedData {
   repeated openim.sdk.shared.IMConversation conversationList = 1;
 }
 message EventOnTotalUnreadMessageCountChangedData {
-  // total unread count
+  // @conversation_total_unread_count
   int32 totalUnreadCount = 1;
 }
 message EventOnConversationUserInputStatusChangedData {

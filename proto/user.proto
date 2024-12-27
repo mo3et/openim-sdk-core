@@ -73,13 +73,36 @@ message ProcessUserCommandGetAllResp {
 }
 
 message GetUsersInfoReq {
-  // list of users id
+  // @user_ids
   repeated string userIDs = 1;
 }
 message GetUsersInfoResp {
   // list of user info
   repeated shared.IMUser users = 1;
 }
+
+message UserOnlinePlatform {
+  // @user_id
+  string userID = 1;
+  repeated common.Platform platforms = 2;
+}
+
+message SubscribeUsersOnlineStatusReq {
+  // @user_ids
+  repeated string userIDs = 1;
+}
+
+message SubscribeUsersOnlineStatusResp {
+  // @common_platforms
+  repeated UserOnlinePlatform status = 1;
+}
+
+message UnsubscribeUsersOnlineStatusReq {
+  // @user_ids
+  repeated string userIDs = 1;
+}
+
+message UnsubscribeUsersOnlineStatusResp {}
 
 service UserService {
   /**
@@ -88,12 +111,29 @@ service UserService {
   rpc GetSelfUserInfo(GetSelfUserInfoReq) returns (GetSelfUserInfoResp);
   /**
    * Set the information of the currently login user, including `ex`.
+   * Notice:
+   * Related callbacks:
+   * `onSelfInfoUpdated`
    */
   rpc SetSelfInfo(SetSelfInfoReq) returns (SetSelfInfoResp);
   /**
    * Get the public information of the specified users, including `nickname`, `faceURL`.
    */
   rpc GetUsersInfo(GetUsersInfoReq) returns (GetUsersInfoResp);
+  /**
+   * Subscribe specified users online status. And return the online status.
+   * Notice:
+   * Everyone user can not subscribe more than 3000 users. If more than 3000, will unsubscribe users by subscribe time.
+   * Related callbacks:
+   * `onUserStatusChanged`
+   */
+  rpc SubscribeUsersOnlineStatus(SubscribeUsersOnlineStatusReq) returns (SubscribeUsersOnlineStatusResp);
+  /**
+   * Unsubscribe specified users online status.
+   * Notice:
+   * It will not notify other user online and offline when unsubscribe.
+   */
+  rpc UnsubscribeUsersOnlineStatus(UnsubscribeUsersOnlineStatusReq) returns (UnsubscribeUsersOnlineStatusResp);
   rpc ProcessUserCommandAdd(ProcessUserCommandAddReq) returns (ProcessUserCommandAddResp);
   rpc ProcessUserCommandDelete(ProcessUserCommandDeleteReq) returns (ProcessUserCommandDeleteResp);
   rpc ProcessUserCommandUpdate(ProcessUserCommandUpdateReq) returns (ProcessUserCommandUpdateResp);

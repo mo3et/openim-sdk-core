@@ -167,6 +167,9 @@ service RelationService {
   rpc GetSpecifiedFriends(GetSpecifiedFriendsReq) returns (GetSpecifiedFriendsResp);
   /**
    * Send a friend request to add someone as a friend.
+   * Notice:
+   * Related callbacks:
+   * `onFriendApplicationAdded`
    */
   rpc AddFriend(AddFriendReq) returns (AddFriendResp);
   /**
@@ -178,6 +181,12 @@ service RelationService {
    * Handle another user sended friend request.
    * Including `approval_statues` have a accept and refuse(1 and -1).
    * If you accept the request, the user is a double direction friendship.
+   * Notice:
+   * Related callbacks:
+   * `onFriendApplicationAccepted`
+   * `onFriendAdded`
+   *
+   * `onFriendApplicationRejected`
    */
   rpc HandleFriendApplication(HandleFriendApplicationReq) returns (HandleFriendApplicationResp);
   /**
@@ -189,16 +198,17 @@ service RelationService {
    */
   rpc CheckFriend(CheckFriendReq) returns (CheckFriendResp);
   /**
-   *
-   *
+   * Get all friends list.
    */
-  rpc DeleteFriend(DeleteFriendReq) returns (DeleteFriendResp);
+  rpc GetFriends(GetFriendsReq) returns (GetFriendsResp);
   /**
    * Delete a friend.
    * Notice:
    * The friendship is a double direction, so this function remove the user from your friend list only.
+   * Related callbacks:
+   * `onFriendDeleted`
    */
-  rpc GetFriends(GetFriendsReq) returns (GetFriendsResp);
+  rpc DeleteFriend(DeleteFriendReq) returns (DeleteFriendResp);
   /**
    * Get friend list by page.
    * Recommend the sum is not hugo.
@@ -215,10 +225,15 @@ service RelationService {
    * Add a user to the black list.
    * Notice:
    * The mean of you can send message to the user, but the user can't send message to you.
+   * Related callbacks:
+   * `onBlackAdded`
    */
   rpc AddBlack(AddBlackReq) returns (AddBlackResp);
   /**
    * Delete a user from the black list.
+   * Notice:
+   * Related callbacks:
+   * `onBlackDeleted`
    */
   rpc DeleteBlack(DeleteBlackReq) returns (DeleteBlackResp);
   /**
@@ -227,6 +242,10 @@ service RelationService {
   rpc GetBlacks(GetBlacksReq) returns (GetBlacksResp);
   /**
    * Update friend info, including remark, pinned, ex field.
+   * Notice:
+   * Related callbacks:
+   * `onFriendInfoChanged`
+   * `onConversationChanged`
    */
   rpc UpdateFriend(UpdateFriendReq) returns (UpdateFriendResp);
 }
