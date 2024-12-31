@@ -107,7 +107,7 @@ func passiveEventResp(ctx context.Context, eventName pb.FuncRequestEventName, da
 		ffiResponse.ErrMsg = "data marshal error"
 	}
 
-	log.ZInfo(context.Background(), fmt.Sprintf("[Go SDK -> %s] Trigger Event - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
+	log.ZInfo(ctx, fmt.Sprintf("[Go SDK -> %s] Trigger Event - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
 		eventName), "data", data)
 
 	ffiResponse.FuncName = eventName
