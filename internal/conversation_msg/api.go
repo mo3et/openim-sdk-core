@@ -560,6 +560,9 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 			}
 		}
 	}
+	if err := c.db.UpdateMessage(ctx, lc.ConversationID, IMMessageToLocalChatLog(ctx, req.Message)); err != nil {
+		return nil, err
+	}
 	msg, err := c.sendMessageToServer(ctx, req.Message, lc, nil, req.Message.OfflinePush, options, req.IsOnlineOnly)
 	if err != nil {
 		return nil, err
