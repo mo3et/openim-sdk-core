@@ -31,7 +31,7 @@ import (
 const readBufferSize = 1024 * 1024 * 5 // 5mb
 
 func Open(ctx context.Context, filepath string) (ReadFile, error) {
-	log.ZDebug(j.ctx, "js open file", "filepath", filepath)
+	log.ZDebug(ctx, "js open file", "filepath", filepath)
 	file := &jsCallFile{ctx: ctx, uuid: filepath}
 	size, err := file.Open()
 	if err != nil {
