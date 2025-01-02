@@ -105,6 +105,7 @@ func (f *File) unlockHash(hash string) {
 }
 
 func (f *File) UploadFile(ctx context.Context, req *sdkpb.UploadFileReq, cb UploadFileCallback) (*sdkpb.UploadFileResp, error) {
+	log.ZInfo(ctx, "UploadFile", "req", req)
 	if req.Name == "" {
 		return nil, errors.New("name is empty")
 	}
@@ -114,7 +115,7 @@ func (f *File) UploadFile(ctx context.Context, req *sdkpb.UploadFileReq, cb Uplo
 	if prefix := f.loginUserID + "/"; !strings.HasPrefix(req.Name, prefix) {
 		req.Name = prefix + req.Name
 	}
-	file, err := Open(ctx, req)
+	file, err := Open(ctx, req.Filepath)
 	if err != nil {
 		return nil, err
 	}

@@ -513,7 +513,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 		if elem.SnapshotPath != "" {
 			res, err := c.file.UploadFile(ctx, &third.UploadFileReq{
 				MimeType:     elem.BigPicture.Type,
-				Filepath:     elem.BigPath,
+				Filepath:     elem.SnapshotPath,
 				Name:         c.fileName("picture-snapshot", req.Message.ClientMsgID) + filepathExt(elem.BigPicture.Uuid, elem.BigPath),
 				FileCategory: "msg-picture-snapshot",
 			}, nil)

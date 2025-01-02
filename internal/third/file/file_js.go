@@ -22,7 +22,7 @@ import (
 	"context"
 	"errors"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
-	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/third"
+	"github.com/openimsdk/tools/log"
 	"io"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
@@ -30,8 +30,9 @@ import (
 
 const readBufferSize = 1024 * 1024 * 5 // 5mb
 
-func Open(ctx context.Context, req *sdkpb.UploadFileReq) (ReadFile, error) {
-	file := &jsCallFile{ctx: ctx, uuid: req.Filepath}
+func Open(ctx context.Context, filepath string) (ReadFile, error) {
+	log.ZDebug(j.ctx, "js open file", "filepath", filepath)
+	file := &jsCallFile{ctx: ctx, uuid: filepath}
 	size, err := file.Open()
 	if err != nil {
 		return nil, err
