@@ -63,7 +63,7 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 }
 
 func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, callback C) (*B, error)) callFunc {
-	return func(ctx context.Context, handlerID int64, name sdkevent.FuncRequestEventName, req []byte) (resp []byte, err error) {
+	return func(ctx context.Context, handleID int64, name sdkevent.FuncRequestEventName, req []byte) (resp []byte, err error) {
 		start := time.Now()
 		var (
 			pbReq  A
@@ -93,7 +93,7 @@ func wrapFuncWithCallback[A, B, C any](fn func(ctx context.Context, req *A, call
 		if !ok {
 			return nil, sdkerrs.ErrInternal.WrapMsg("callback maybe not registered")
 		}
-		pbResp, err = fn(ctx, &pbReq, cb(handlerID).(C))
+		pbResp, err = fn(ctx, &pbReq, cb(handleID).(C))
 		if err != nil {
 			return nil, err
 		}

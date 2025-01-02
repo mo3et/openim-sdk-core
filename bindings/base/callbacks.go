@@ -2,6 +2,7 @@ package base
 
 import (
 	"context"
+
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
 	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
 	pb "github.com/openimsdk/openim-sdk-core/v3/proto/go/event"
@@ -259,7 +260,7 @@ func NewSendMessageCallback(handleID int64) open_im_sdk_callback.SendMsgCallBack
 }
 
 func (s SendMessageCallback) OnSendMsgProgress(ctx context.Context, data *pb.EventOnSendMsgProgressData) {
-	activeEventResp(ctx, pb.FuncRequestEventName_EventOnSendMsgProgress, s.handleID, data)
+	activeEventResp(ctx, pb.FuncRequestEventName_EventOnSendMsgProgress, data)
 }
 
 type UploadFileCallback struct {
@@ -271,7 +272,7 @@ func NewUploadFileCallback(handleID int64) open_im_sdk_callback.UploadFileCallba
 }
 
 func (u UploadFileCallback) OnUploadFileProgress(ctx context.Context, data *pb.EventOnUploadFileProgressData) {
-	activeEventResp(ctx, pb.FuncRequestEventName_EventOnUploadFileProgress, u.handleID, data)
+	activeEventResp(ctx, pb.FuncRequestEventName_EventOnUploadFileProgress, data)
 }
 
 type UploadLogsCallback struct {
@@ -283,5 +284,5 @@ func NewUploadLogsCallback(handleID int64) open_im_sdk_callback.UploadLogsCallba
 }
 
 func (u UploadLogsCallback) OnUploadLogsProgress(ctx context.Context, data *pb.EventOnUploadLogsProgressData) {
-	activeEventResp(ctx, pb.FuncRequestEventName_EventOnUploadFileProgress, u.handleID, data)
+	activeEventResp(ctx, pb.FuncRequestEventName_EventOnUploadFileProgress, data)
 }
