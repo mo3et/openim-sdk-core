@@ -27,7 +27,7 @@ import (
 	initpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/init"
 )
 
-var handleCounter atomic.Uint64
+var handleCounter atomic.Int64
 
 //export callback
 func callback(dataPtr unsafe.Pointer, len C.int) {
@@ -81,7 +81,7 @@ func callback(dataPtr unsafe.Pointer, len C.int) {
 	// Print the unmarshaled response
 	fmt.Printf("Received response: %s\n", response.String())
 }
-func GenerateHandleID() uint64 {
+func GenerateHandleID() int64 {
 	return handleCounter.Add(1)
 }
 
