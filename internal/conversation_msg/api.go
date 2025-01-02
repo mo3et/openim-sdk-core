@@ -638,7 +638,10 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sharedpb.IMMe
 		if !ok {
 			return nil, msgContentTypeErr.Wrap()
 		}
-		wsMsgData.AtUserIDList = atElem.AtTextElem.AtUserList
+		wsMsgData.AtUserIDList = datautil.Slice(atElem.AtTextElem.AtUsersInfo, func(atInfo *sharedpb.AtInfo) string {
+			return atInfo.AtUserID
+		})
+
 	}
 	wsMsgData.OfflinePushInfo = sdkOfflinePushInfoToServerOfflinePushInfo(offlinePushInfo)
 

@@ -233,14 +233,14 @@ func (x *IMMessage) FormatContent() ([]byte, error) {
 		}
 		elem := elemCt.Get(v.QuoteMessage.GetContent())
 		type jsonQuoteElem struct {
-			Text              string           `json:"text"`
-			QuoteMessage      *jsonIMMessage   `json:"quoteMessage"`
-			MessageEntityList []*MessageEntity `json:"messageEntityList"`
+			Text            string           `json:"text"`
+			QuoteMessage    *jsonIMMessage   `json:"quoteMessage"`
+			MessageEntities []*MessageEntity `json:"messageEntities"`
 		}
 		quoteElem := jsonQuoteElem{
-			Text:              v.Text,
-			QuoteMessage:      x.toJsonIMMessage(nil),
-			MessageEntityList: v.MessageEntityList,
+			Text:            v.Text,
+			QuoteMessage:    x.toJsonIMMessage(nil),
+			MessageEntities: v.MessageEntities,
 		}
 		if err := x.setElem(quoteElem.QuoteMessage, elem); err != nil {
 			return nil, err
@@ -261,16 +261,16 @@ func (x *IMMessage) FormatContent() ([]byte, error) {
 			res = append(res, val)
 		}
 		type jsonMergeElem struct {
-			Title             string           `json:"title"`
-			AbstractList      []string         `json:"abstractList"`
-			MultiMessage      []*jsonIMMessage `json:"multiMessage"`
-			MessageEntityList []*MessageEntity `json:"messageEntityList"`
+			Title           string           `json:"title"`
+			AbstractList    []string         `json:"abstractList"`
+			MultiMessage    []*jsonIMMessage `json:"multiMessage"`
+			MessageEntities []*MessageEntity `json:"messageEntities"`
 		}
 		return json.Marshal(&jsonMergeElem{
-			Title:             v.Title,
-			AbstractList:      v.AbstractList,
-			MultiMessage:      res,
-			MessageEntityList: v.MessageEntityList,
+			Title:           v.Title,
+			AbstractList:    v.AbstractList,
+			MultiMessage:    res,
+			MessageEntities: v.MessageEntities,
 		})
 	default:
 		return json.Marshal(v)
