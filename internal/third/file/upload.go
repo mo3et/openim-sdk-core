@@ -105,7 +105,10 @@ func (f *File) unlockHash(hash string) {
 }
 
 func (f *File) UploadFile(ctx context.Context, req *sdkpb.UploadFileReq, cb UploadFileCallback) (*sdkpb.UploadFileResp, error) {
-	log.ZInfo(ctx, "UploadFile", "req", req)
+	log.ZInfo(ctx, "UploadFile", "req", req, "cb", cb == nil)
+	if cb == nil {
+		cb = emptyUploadCallback{}
+	}
 	if req.Name == "" {
 		return nil, errors.New("name is empty")
 	}
