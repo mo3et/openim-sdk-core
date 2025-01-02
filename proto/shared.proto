@@ -532,20 +532,16 @@ message MergeElem {
   // merge message message list
   repeated IMMessage multiMessage = 3;
   // merge message entity list
-  repeated MessageEntity messageEntityList = 4;
+  repeated MessageEntity messageEntities = 4;
 }
 
 message AtTextElem {
   // text content
   string text = 1;
-  // at user list
-  repeated string atUserList = 2;
   // at user info list
-  repeated AtInfo atUsersInfo = 3;
+  repeated AtInfo atUsersInfo = 2;
   // quote message
-  IMMessage quoteMessage = 4;
-  // is at self
-  bool isAtSelf = 5;
+  IMMessage quoteMessage = 3;
 }
 
 message FaceElem {
@@ -579,14 +575,14 @@ message QuoteElem {
   // quote message
   IMMessage quoteMessage = 2;
   // message entity list
-  repeated MessageEntity messageEntityList = 3;
+  repeated MessageEntity messageEntities = 3;
 }
 
 message AdvancedTextElem {
   // text content
   string text = 1;
   // message entity list
-  repeated MessageEntity messageEntityList = 2;
+  repeated MessageEntity messageEntities = 2;
 }
 
 message TypingElem {

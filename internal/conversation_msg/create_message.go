@@ -34,8 +34,8 @@ func (c *Conversation) CreateAdvancedTextMessage(ctx context.Context, req *sdkpb
 		return nil, err
 	}
 	s.Content = &sharedpb.IMMessage_AdvancedTextElem{AdvancedTextElem: &sharedpb.AdvancedTextElem{
-		Text:              req.Text,
-		MessageEntityList: req.MessageEntities,
+		Text:            req.Text,
+		MessageEntities: req.MessageEntities,
 	}}
 	return &sdkpb.CreateAdvancedTextMessageResp{Message: &s}, nil
 }
@@ -44,7 +44,7 @@ func (c *Conversation) CreateTextAtMessage(ctx context.Context, req *sdkpb.Creat
 	if req.Text == "" {
 		return nil, errors.New("text can not be empty")
 	}
-	if len(req.UserIDList) > 10 {
+	if len(req.UsersInfo) > 10 {
 		return nil, sdkerrs.ErrArgs
 	}
 	s := sharedpb.IMMessage{}
@@ -63,7 +63,6 @@ func (c *Conversation) CreateTextAtMessage(ctx context.Context, req *sdkpb.Creat
 	}
 	s.Content = &sharedpb.IMMessage_AtTextElem{AtTextElem: &sharedpb.AtTextElem{
 		Text:         req.Text,
-		AtUserList:   req.UserIDList,
 		AtUsersInfo:  req.UsersInfo,
 		QuoteMessage: req.QuoteMessage,
 	}}
@@ -132,9 +131,9 @@ func (c *Conversation) CreateAdvancedQuoteMessage(ctx context.Context, req *sdkp
 		}}
 	}
 	s.Content = &sharedpb.IMMessage_QuoteElem{QuoteElem: &sharedpb.QuoteElem{
-		Text:              req.Text,
-		QuoteMessage:      req.QuoteMessage,
-		MessageEntityList: req.MessageEntities,
+		Text:            req.Text,
+		QuoteMessage:    req.QuoteMessage,
+		MessageEntities: req.MessageEntities,
 	}}
 	return &sdkpb.CreateAdvancedQuoteMessageResp{Message: &s}, nil
 }

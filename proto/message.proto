@@ -137,12 +137,10 @@ message CreateAdvancedTextMessageResp {
 message CreateTextAtMessageReq {
   // at text content
   string text = 1;
-  // at user id list
-  repeated string userIDList = 2;
   // at user info list
-  repeated shared.AtInfo usersInfo = 3;
+  repeated shared.AtInfo usersInfo = 2;
   // quote message
-  shared.IMMessage quoteMessage = 4;
+  shared.IMMessage quoteMessage = 3;
 }
 message CreateTextAtMessageResp {
   // @shared_immessage
