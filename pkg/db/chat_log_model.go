@@ -207,7 +207,7 @@ func (d *DataBase) SearchMessageByKeyword(ctx context.Context, contentType []int
 
 	condition.WriteString(subCondition.String())
 
-	if senderUserIDList != nil {
+	if len(senderUserIDList) != 0 {
 		condition.WriteString(" And send_id IN (?)")
 		args = append(args, senderUserIDList)
 	}
@@ -259,7 +259,7 @@ func (d *DataBase) SearchMessageByContentTypeAndKeyword(ctx context.Context, con
 
 	condition.WriteString(subCondition.String())
 
-	if senderUserIDList != nil {
+	if len(senderUserIDList) != 0 {
 		condition.WriteString(" And send_id IN (?)")
 		args = append(args, senderUserIDList)
 	}
