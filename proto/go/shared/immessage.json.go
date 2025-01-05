@@ -150,10 +150,14 @@ func (x *IMMessage) UnmarshalJSON(b []byte) error {
 		m.Set(x, elem)
 	} else {
 		elem := m.New()
-		if err := json.Unmarshal(tmp.Content, elem); err != nil {
-			return err
+		if string(tmp.Content) == "e30=" {
+			m.Set(x, elem)
+		} else {
+			if err := json.Unmarshal(tmp.Content, elem); err != nil {
+				return err
+			}
+			m.Set(x, elem)
 		}
-		m.Set(x, elem)
 	}
 	x.ClientMsgID = tmp.ClientMsgID
 	x.ServerMsgID = tmp.ServerMsgID
