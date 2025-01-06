@@ -240,6 +240,9 @@ func MsgDataToLocalChatLog(ctx context.Context, serverMessage *sdkws.MsgData) *m
 }
 
 func stringToMsgContent(ctx context.Context, msg *sdkpb.IMMessage, content string) {
+	if content == sdkpb.E30 {
+		content = "{}"
+	}
 	m, ok := sdkpb.ContentTypeMap[msg.ContentType]
 	if !ok {
 		log.ZError(ctx, "stringToMsgContent unknown content type", nil, "msg", msg, "contentType", msg.ContentType, "content", content)

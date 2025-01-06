@@ -3,6 +3,7 @@ package test
 import (
 	"fmt"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	"github.com/openimsdk/tools/utils/datautil"
 	"testing"
@@ -46,6 +47,27 @@ func Test_SetConversation(t *testing.T) {
 		}
 	}
 	t.Log(conversation)
+}
+
+func Test_FindMessageList(t *testing.T) {
+	res, err := open_im_sdk.IMUserContext.Conversation().FindMessageList(ctx, &message.FindMessageListReq{
+		ConversationsArgs: []*message.ConversationArgs{
+			{
+				ConversationID: "sg_3992995614",
+				ClientMsgIDList: []string{
+					"9cf632576623f5325c4a35484faa42ec",
+				},
+			},
+		},
+	})
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	for i, item := range res.FindResultItems {
+		t.Log(i, item)
+	}
+	t.Log(len(res.FindResultItems), res.TotalCount)
 }
 
 //

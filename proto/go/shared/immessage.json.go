@@ -1,14 +1,13 @@
 package shared
 
 import (
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 )
 
-var base64json = base64.StdEncoding.EncodeToString([]byte("{}"))
+const E30 = "e30=" // base64 of "{}"
 
 type jsonIMMessage struct {
 	ClientMsgID      string                  `json:"clientMsgID"`
@@ -153,7 +152,7 @@ func (x *IMMessage) UnmarshalJSON(b []byte) error {
 		m.Set(x, elem)
 	} else {
 		elem := m.New()
-		if string(tmp.Content) == "e30=" {
+		if string(tmp.Content) == E30 {
 			m.Set(x, elem)
 		} else {
 			if err := json.Unmarshal(tmp.Content, elem); err != nil {
