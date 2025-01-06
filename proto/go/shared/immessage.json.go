@@ -1,11 +1,14 @@
 package shared
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 )
+
+var base64json = base64.StdEncoding.EncodeToString([]byte("{}"))
 
 type jsonIMMessage struct {
 	ClientMsgID      string                  `json:"clientMsgID"`
@@ -44,6 +47,44 @@ type jsonIMMessage struct {
 	AdvancedTextElem *AdvancedTextElem       `json:"advancedTextElem,omitempty"`
 	TypingElem       *TypingElem             `json:"typingElem,omitempty"`
 	StreamElem       *StreamElem             `json:"streamElem,omitempty"`
+}
+
+func (x *jsonIMMessage) setElem(elem any) error {
+	switch v := elem.(type) {
+	case *TextElem:
+		x.TextElem = v
+	case *CardElem:
+		x.CardElem = v
+	case *PictureElem:
+		x.PictureElem = v
+	case *SoundElem:
+		x.SoundElem = v
+	case *VideoElem:
+		x.VideoElem = v
+	case *FileElem:
+		x.FileElem = v
+	case *MergeElem:
+		x.MergeElem = v
+	case *AtTextElem:
+		x.AtTextElem = v
+	case *FaceElem:
+		x.FaceElem = v
+	case *LocationElem:
+		x.LocationElem = v
+	case *CustomElem:
+		x.CustomElem = v
+	case *QuoteElem:
+		x.QuoteElem = v
+	case *AdvancedTextElem:
+		x.AdvancedTextElem = v
+	case *TypingElem:
+		x.TypingElem = v
+	case *StreamElem:
+		x.StreamElem = v
+	default:
+		return fmt.Errorf("json unknown content type %T value %+v", elem, elem)
+	}
+	return nil
 }
 
 func (x *jsonIMMessage) getNotNilElem() any {
@@ -91,44 +132,6 @@ func (x *jsonIMMessage) getNotNilElem() any {
 	}
 	if x.StreamElem != nil {
 		return x.StreamElem
-	}
-	return nil
-}
-
-func (x *IMMessage) setElem(msg *jsonIMMessage, elem any) error {
-	switch v := elem.(type) {
-	case *TextElem:
-		msg.TextElem = v
-	case *CardElem:
-		msg.CardElem = v
-	case *PictureElem:
-		msg.PictureElem = v
-	case *SoundElem:
-		msg.SoundElem = v
-	case *VideoElem:
-		msg.VideoElem = v
-	case *FileElem:
-		msg.FileElem = v
-	case *MergeElem:
-		msg.MergeElem = v
-	case *AtTextElem:
-		msg.AtTextElem = v
-	case *FaceElem:
-		msg.FaceElem = v
-	case *LocationElem:
-		msg.LocationElem = v
-	case *CustomElem:
-		msg.CustomElem = v
-	case *QuoteElem:
-		msg.QuoteElem = v
-	case *AdvancedTextElem:
-		msg.AdvancedTextElem = v
-	case *TypingElem:
-		msg.TypingElem = v
-	case *StreamElem:
-		msg.StreamElem = v
-	default:
-		return fmt.Errorf("json unknown content type %T value %+v", elem, elem)
 	}
 	return nil
 }
@@ -243,10 +246,10 @@ func (x *IMMessage) FormatContent() ([]byte, error) {
 		}
 		quoteElem := jsonQuoteElem{
 			Text:            v.Text,
-			QuoteMessage:    x.toJsonIMMessage(nil),
+			QuoteMessage:    v.QuoteMessage.toJsonIMMessage(nil),
 			MessageEntities: v.MessageEntities,
 		}
-		if err := x.setElem(quoteElem.QuoteMessage, elem); err != nil {
+		if err := quoteElem.QuoteMessage.setElem(elem); err != nil {
 			return nil, err
 		}
 		return json.Marshal(quoteElem)
@@ -259,7 +262,7 @@ func (x *IMMessage) FormatContent() ([]byte, error) {
 			}
 			val := message.toJsonIMMessage(nil)
 			elem := elemCt.Get(message.GetContent())
-			if err := x.setElem(val, elem); err != nil {
+			if err := val.setElem(elem); err != nil {
 				return nil, err
 			}
 			res = append(res, val)

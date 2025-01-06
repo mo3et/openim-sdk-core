@@ -1,8 +1,10 @@
 package shared
 
 import (
+	"context"
 	"fmt"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	"github.com/openimsdk/tools/log"
 )
 
 type ContentTypeMate struct {
@@ -151,6 +153,11 @@ var ContentTypeMap = map[common.ContentType]ContentTypeMate{
 			return oneof.(*IMMessage_QuoteElem).QuoteElem
 		},
 		Set: func(msg *IMMessage, elem any) {
+			tmp := elem
+			if _, ok := tmp.(*TextElem); ok {
+				log.ZWarn(context.Background(), "QuoteElem.TextElem is not supported", nil, "msg", msg, "elem", elem)
+				func() {}()
+			}
 			msg.Content = &IMMessage_QuoteElem{QuoteElem: elem.(*QuoteElem)}
 		},
 	},

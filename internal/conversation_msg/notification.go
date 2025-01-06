@@ -344,7 +344,8 @@ func (c *Conversation) doUpdateConversation(c2v common.Cmd2Value) {
 				}
 			}
 			log.ZInfo(ctx, "OnConversationChanged", "conversations", newCList)
-			c.ConversationListener().OnConversationChanged(ctx, &sdkpb.EventOnConversationChangedData{ConversationList: BatchCtx(ctx, LocalConversationToIMConversation, newCList)})
+			conversationList := BatchCtx(ctx, LocalConversationToIMConversation, newCList)
+			c.ConversationListener().OnConversationChanged(ctx, &sdkpb.EventOnConversationChangedData{ConversationList: conversationList})
 		}
 	case constant.NewCon:
 		cidList := node.Args.([]string)
