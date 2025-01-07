@@ -329,6 +329,7 @@ func (u *UserContext) initResources() {
 	u.pushMsgAndMaxSeqCh = make(chan common.Cmd2Value, 1000)
 	u.loginMgrCh = make(chan common.Cmd2Value, 1)
 	u.longConnMgr = interaction.NewLongConnMgr(u.ctx, u.userOnlineStatusChange, u.pushMsgAndMaxSeqCh, u.loginMgrCh)
+	u.longConnMgr.SetListener(u.ConnListener)
 	u.ctx = ccontext.WithApiErrCode(u.ctx, ccontext.NewApiErrCallback(u.loginMgrCh, u.ConnListener))
 	u.setLoginStatus(pb.LoginStatus_Default)
 }

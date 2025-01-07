@@ -6,8 +6,6 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
-	"github.com/openimsdk/tools/log"
-
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ffi_bridge"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/interop"
 )
@@ -43,7 +41,6 @@ func (s *Stmt) Exec(args []driver.Value) (driver.Result, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.ZWarn(s.ctx, "Stmt.Exec", nil, "id", s.id, "sql", s.query, "str", str)
 	resp, err := ffi_bridge.SqliteExec(s.ctx, &interop.JsSqliteExecReq{Id: s.id, Sql: s.query, Args: str})
 	if err != nil {
 		return nil, err
@@ -60,7 +57,6 @@ func (s *Stmt) Query(args []driver.Value) (driver.Rows, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.ZDebug(s.ctx, "Stmt.Query", "result", resp.Result)
 	decoder := json.NewDecoder(bytes.NewReader([]byte(resp.Result)))
 	decoder.UseNumber()
 	var res []rawRows

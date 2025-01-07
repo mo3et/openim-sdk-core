@@ -4,8 +4,6 @@ import (
 	"context"
 	"database/sql/driver"
 	"encoding/json"
-	"fmt"
-	"github.com/openimsdk/tools/log"
 	"io"
 	"strings"
 )
@@ -43,14 +41,13 @@ func (r *rawRows) Next(dest []driver.Value) error {
 	row := r.Values[index]
 	for i := range dest {
 		elem := row[i]
-		log.ZInfo(r.ctx, "rawRows.Next", "dbType", fmt.Sprintf("%T", elem), "dbValue", elem, "recvType", fmt.Sprintf("%T", dest[i]), "recvValue", dest[i])
+		//log.ZInfo(r.ctx, "rawRows.Next", "dbType", fmt.Sprintf("%T", elem), "dbValue", elem, "recvType", fmt.Sprintf("%T", dest[i]), "recvValue", dest[i])
 		if elem == nil {
 			dest[i] = nil
 			continue
 		}
 		if num, ok := elem.(json.Number); ok {
 			var err error
-			//log.ZDebug(context.Background(), "num.String() = %v", num.String())
 			if strings.IndexByte(num.String(), '.') >= 0 {
 				elem, err = num.Float64()
 			} else {

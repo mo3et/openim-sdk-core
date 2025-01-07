@@ -14,22 +14,6 @@ type DriverContext struct {
 	ctx context.Context
 }
 
-//func (d DriverContext) open(name string) (int64, error) {
-//	resp, err := ffi_bridge.SqliteOpen(d.ctx, &interop.JsSqliteOpenReq{Name: name})
-//	if err != nil {
-//		return 0, err
-//	}
-//	return resp.Id, nil
-//}
-//
-//func (d DriverContext) Open(name string) (driver.Conn, error) {
-//	id, err := d.open(name)
-//	if err != nil {
-//		return nil, err
-//	}
-//	return &Conn{ctx: d.ctx, name: name, id: id}, nil
-//}
-
 func (d DriverContext) Open(name string) (driver.Conn, error) {
 	id, err := dbPool.openID(d.ctx, name)
 	if err != nil {
@@ -65,10 +49,8 @@ func (c Conn) Prepare(query string) (driver.Stmt, error) {
 }
 
 func (c Conn) Close() error {
-	dbPool.close(c.ctx, c.name, c.id)
+	dbPool.close(c.ctx, c.name)
 	return nil
-	//_, err := ffi_bridge.SqliteClose(c.ctx, &interop.JsSqliteCloseReq{Id: c.id})
-	//return err
 }
 
 func (c Conn) Begin() (driver.Tx, error) {

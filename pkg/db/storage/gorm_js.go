@@ -33,5 +33,11 @@ func OpenGorm(userID string, _ string, log logger.Interface) (*gorm.DB, error) {
 		return nil, errs.WrapMsg(err, "open db failed")
 	}
 	db = db.Debug()
+	rawConn, err := db.DB()
+	if err != nil {
+		return nil, errs.WrapMsg(err, "get db failed")
+	}
+	rawConn.SetMaxIdleConns(1)
+	rawConn.SetMaxOpenConns(1)
 	return db, nil
 }
