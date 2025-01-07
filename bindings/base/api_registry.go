@@ -33,13 +33,13 @@ func wrapFunc[A, B any](fn func(ctx context.Context, req *A) (*B, error)) callFu
 			if _, ignored := ignoredLogFuncMap[name]; ignored {
 				return
 			}
-			elapsed := time.Since(start).Milliseconds()
+			elapsed := time.Since(start)
 			if err == nil {
 				log.ZInfo(ctx, fmt.Sprintf("[%s -> Go SDK] Response Success - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
-					sdkevent.FuncRequestEventName_name[int32(name)]), "duration", fmt.Sprintf("%d ms", elapsed), "resp", pbResp)
+					sdkevent.FuncRequestEventName_name[int32(name)]), "duration", elapsed, "resp", pbResp)
 			} else {
 				log.ZError(ctx, fmt.Sprintf("[%s -> Go SDK] Response Error - %s", sdkcommon.AppFramework_name[int32(open_im_sdk.IMUserContext.Info().AppFramework)],
-					sdkevent.FuncRequestEventName_name[int32(name)]), err, "duration", fmt.Sprintf("%d ms", elapsed))
+					sdkevent.FuncRequestEventName_name[int32(name)]), err, "duration", elapsed)
 
 			}
 		}(start)
