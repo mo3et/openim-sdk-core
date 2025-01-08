@@ -331,7 +331,3 @@ func (x *MergeElem) UnmarshalJSON(b []byte) error {
 	x.MessageEntities = tmp.MessageEntities
 	return nil
 }
-
-func (x *MergeElem) MarshalJSON() ([]byte, error) {
-	return json.Marshal(x)
-}
