@@ -21,6 +21,17 @@ func GetContentType(ct common.ContentType) ContentTypeMate {
 }
 
 var ContentTypeMap = map[common.ContentType]ContentTypeMate{
+	common.ContentType_Error: {
+		New: func() any {
+			return &ErrorElem{}
+		},
+		Get: func(oneof any) any {
+			return oneof.(*IMMessage_ErrorElem).ErrorElem
+		},
+		Set: func(msg *IMMessage, elem any) {
+			msg.Content = &IMMessage_ErrorElem{ErrorElem: elem.(*ErrorElem)}
+		},
+	},
 	// message
 	common.ContentType_Text: {
 		New: func() any {
