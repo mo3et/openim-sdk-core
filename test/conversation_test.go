@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/conversation"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
@@ -70,19 +71,21 @@ func Test_FindMessageList(t *testing.T) {
 	t.Log(len(res.FindResultItems), res.TotalCount)
 }
 
-//
-//func Test_GetConversationListSplit(t *testing.T) {
-//	conversations, err := open_im_sdk.IMUserContext.Conversation().GetConversationListSplit(ctx, &sdkpb.GetConversationListSplitReq{
-//		Offset: 0,
-//		Count:  20,
-//	})
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//	for _, c := range conversations.ConversationList {
-//		t.Log(c)
-//	}
-//}
+func Test_GetConversationListSplit(t *testing.T) {
+	conversations, err := open_im_sdk.IMUserContext.Conversation().GetConversationListSplit(ctx, &sdkpb.GetConversationListSplitReq{
+		Pagination: &common.RequestPagination{
+			PageNumber: 1,
+			ShowNumber: 500,
+		},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range conversations.ConversationList {
+		t.Log(c)
+	}
+}
+
 //
 //func Test_HideConversation(t *testing.T) {
 //	_, err := open_im_sdk.IMUserContext.Conversation().HideConversation(ctx, &sdkpb.HideConversationReq{ConversationID: "asdasd"})
