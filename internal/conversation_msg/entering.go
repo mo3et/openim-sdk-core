@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/msgconvert"
 	"math/rand"
 	"time"
 
@@ -131,7 +132,7 @@ func (e *typing) sendMsg(ctx context.Context, conversation *model_struct.LocalCo
 	utils.SetSwitchFromOptions(options, constant.IsSenderConversationUpdate, false)
 	utils.SetSwitchFromOptions(options, constant.IsUnreadCount, false)
 	utils.SetSwitchFromOptions(options, constant.IsOfflinePush, false)
-	wsMsgData := IMMessageToMsgData(&s)
+	wsMsgData := msgconvert.IMMessageToMsgData(ctx, &s)
 	wsMsgData.Options = options
 	var sendMsgResp sdkws.UserSendMsgResp
 	err = e.conv.LongConnMgr.SendReqWaitResp(ctx, wsMsgData, constant.SendMsg, &sendMsgResp)

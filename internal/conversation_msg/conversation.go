@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"errors"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/msgconvert"
 	"sort"
 	"sync"
 	"time"
@@ -203,7 +204,7 @@ func (c *Conversation) fetchMessagesWithGapCheck(ctx context.Context, conversati
 func (c *Conversation) LocalChatLog2IMMessage(ctx context.Context, list []*model_struct.LocalChatLog) []*sharedpb.IMMessage {
 	messageList := make([]*sharedpb.IMMessage, 0, len(list))
 	for _, v := range list {
-		temp := LocalChatLogToIMMessage(ctx, v)
+		temp := msgconvert.LocalChatLogToIMMessage(ctx, v)
 
 		if temp.AttachedInfoElem.IsPrivateChat && temp.SendTime+int64(temp.AttachedInfoElem.BurnDuration) < time.Now().Unix() {
 			continue
@@ -236,7 +237,7 @@ func (c *Conversation) typingStatusUpdate(ctx context.Context, recvID, msgTip st
 	utils.SetSwitchFromOptions(options, constant.IsUnreadCount, false)
 	utils.SetSwitchFromOptions(options, constant.IsOfflinePush, false)
 
-	wsMsgData := IMMessageToMsgData(s)
+	wsMsgData := msgconvert.IMMessageToMsgData(ctx, s)
 	wsMsgData.Options = options
 	var sendMsgResp sdkws.UserSendMsgResp
 	err = c.LongConnMgr.SendReqWaitResp(ctx, wsMsgData, constant.SendMsg, &sendMsgResp)
@@ -365,7 +366,7 @@ func (c *Conversation) searchLocalMessages(ctx context.Context, searchParam *sdk
 	log.ZDebug(ctx, "get raw data length is", "len", len(list))
 
 	for _, v := range list {
-		temp := LocalChatLogToIMMessage(ctx, v)
+		temp := msgconvert.LocalChatLogToIMMessage(ctx, v)
 		if c.filterMsg(temp, searchParam) {
 			continue
 		}

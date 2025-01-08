@@ -3,11 +3,18 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
-
 	"github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
+	"reflect"
 )
 
 const E30 = "e30=" // base64 of "{}"
+
+type jsonMergeElem struct {
+	Title           string           `json:"title"`
+	AbstractList    []string         `json:"abstractList"`
+	MultiMessage    []*jsonIMMessage `json:"multiMessage"`
+	MessageEntities []*MessageEntity `json:"messageEntities"`
+}
 
 type jsonIMMessage struct {
 	ClientMsgID      string                  `json:"clientMsgID"`
@@ -48,6 +55,32 @@ type jsonIMMessage struct {
 	StreamElem       *StreamElem             `json:"streamElem,omitempty"`
 }
 
+func (x *jsonIMMessage) toIMMessage() *IMMessage {
+	return &IMMessage{
+		ClientMsgID:      x.ClientMsgID,
+		ServerMsgID:      x.ServerMsgID,
+		CreateTime:       x.CreateTime,
+		SendTime:         x.SendTime,
+		SessionType:      x.SessionType,
+		SendID:           x.SendID,
+		RecvID:           x.RecvID,
+		MsgFrom:          x.MsgFrom,
+		ContentType:      x.ContentType,
+		SenderPlatformID: x.SenderPlatformID,
+		SenderNickname:   x.SenderNickname,
+		SenderFaceURL:    x.SenderFaceURL,
+		GroupID:          x.GroupID,
+		Seq:              x.Seq,
+		IsRead:           x.IsRead,
+		Status:           x.Status,
+		OfflinePush:      x.OfflinePush,
+		Ex:               x.Ex,
+		LocalEx:          x.LocalEx,
+		AttachedInfoElem: x.AttachedInfoElem,
+		Content:          x.getNotNil(),
+	}
+}
+
 func (x *jsonIMMessage) setElem(elem any) error {
 	switch v := elem.(type) {
 	case *TextElem:
@@ -86,53 +119,54 @@ func (x *jsonIMMessage) setElem(elem any) error {
 	return nil
 }
 
+func (x *jsonIMMessage) getNotNil() isIMMessage_Content {
+	switch {
+	case x.TextElem != nil:
+		return &IMMessage_TextElem{TextElem: x.TextElem}
+	case x.CardElem != nil:
+		return &IMMessage_CardElem{CardElem: x.CardElem}
+	case x.PictureElem != nil:
+		return &IMMessage_PictureElem{PictureElem: x.PictureElem}
+	case x.SoundElem != nil:
+		return &IMMessage_SoundElem{SoundElem: x.SoundElem}
+	case x.VideoElem != nil:
+		return &IMMessage_VideoElem{VideoElem: x.VideoElem}
+	case x.FileElem != nil:
+		return &IMMessage_FileElem{FileElem: x.FileElem}
+	case x.MergeElem != nil:
+		return &IMMessage_MergeElem{MergeElem: x.MergeElem}
+	case x.AtTextElem != nil:
+		return &IMMessage_AtTextElem{AtTextElem: x.AtTextElem}
+	case x.FaceElem != nil:
+		return &IMMessage_FaceElem{FaceElem: x.FaceElem}
+	case x.LocationElem != nil:
+		return &IMMessage_LocationElem{LocationElem: x.LocationElem}
+	case x.CustomElem != nil:
+		return &IMMessage_CustomElem{CustomElem: x.CustomElem}
+	case x.QuoteElem != nil:
+		return &IMMessage_QuoteElem{QuoteElem: x.QuoteElem}
+	case x.AdvancedTextElem != nil:
+		return &IMMessage_AdvancedTextElem{AdvancedTextElem: x.AdvancedTextElem}
+	case x.TypingElem != nil:
+		return &IMMessage_TypingElem{TypingElem: x.TypingElem}
+	case x.StreamElem != nil:
+		return &IMMessage_StreamElem{StreamElem: x.StreamElem}
+	default:
+		elem := &ErrorElem{
+			ContentType: x.ContentType,
+			Content:     string(x.Content),
+			Cause:       "all known types are nil",
+		}
+		x.ContentType = common.ContentType_Error
+		return &IMMessage_ErrorElem{
+			ErrorElem: elem,
+		}
+	}
+}
+
 func (x *jsonIMMessage) getNotNilElem() any {
-	if x.TextElem != nil {
-		return x.TextElem
-	}
-	if x.CardElem != nil {
-		return x.CardElem
-	}
-	if x.PictureElem != nil {
-		return x.PictureElem
-	}
-	if x.SoundElem != nil {
-		return x.SoundElem
-	}
-	if x.VideoElem != nil {
-		return x.VideoElem
-	}
-	if x.FileElem != nil {
-		return x.FileElem
-	}
-	if x.MergeElem != nil {
-		return x.MergeElem
-	}
-	if x.AtTextElem != nil {
-		return x.AtTextElem
-	}
-	if x.FaceElem != nil {
-		return x.FaceElem
-	}
-	if x.LocationElem != nil {
-		return x.LocationElem
-	}
-	if x.CustomElem != nil {
-		return x.CustomElem
-	}
-	if x.QuoteElem != nil {
-		return x.QuoteElem
-	}
-	if x.AdvancedTextElem != nil {
-		return x.AdvancedTextElem
-	}
-	if x.TypingElem != nil {
-		return x.TypingElem
-	}
-	if x.StreamElem != nil {
-		return x.StreamElem
-	}
-	return nil
+	val := x.getNotNil()
+	return reflect.ValueOf(val).Elem().Field(0).Interface()
 }
 
 func (x *IMMessage) UnmarshalJSON(b []byte) error {
@@ -225,11 +259,11 @@ func (x *IMMessage) MarshalJSON() ([]byte, error) {
 
 func (x *IMMessage) FormatContent() ([]byte, error) {
 	if x.GetStatus() >= common.MsgStatus_HasDeleted {
-		return nil, fmt.Errorf("json message is deleted")
+		return nil, fmt.Errorf("message is invalid state")
 	}
 	ct, ok := ContentTypeMap[x.ContentType]
 	if !ok {
-		return nil, fmt.Errorf("json unknown content type %d", x.ContentType)
+		return nil, fmt.Errorf("unknown content type %d", x.ContentType)
 	}
 	switch v := ct.Get(x.Content).(type) {
 	case *QuoteElem:
@@ -281,4 +315,23 @@ func (x *IMMessage) FormatContent() ([]byte, error) {
 	default:
 		return json.Marshal(v)
 	}
+}
+
+func (x *MergeElem) UnmarshalJSON(b []byte) error {
+	var tmp jsonMergeElem
+	if err := json.Unmarshal(b, &tmp); err != nil {
+		return err
+	}
+	x.Title = tmp.Title
+	x.AbstractList = tmp.AbstractList
+	x.MultiMessage = make([]*IMMessage, 0, len(tmp.MultiMessage))
+	for _, msg := range tmp.MultiMessage {
+		x.MultiMessage = append(x.MultiMessage, msg.toIMMessage())
+	}
+	x.MessageEntities = tmp.MessageEntities
+	return nil
+}
+
+func (x *MergeElem) MarshalJSON() ([]byte, error) {
+	return json.Marshal(x)
 }

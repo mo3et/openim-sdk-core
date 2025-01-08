@@ -3,6 +3,7 @@ package conversation_msg
 import (
 	"context"
 	"fmt"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/msgconvert"
 	"net/url"
 	"os"
 	"path"
@@ -205,7 +206,7 @@ func (c *Conversation) updateMsgStatusAndTriggerConversation(ctx context.Context
 	if err != nil {
 		log.ZWarn(ctx, "send message delete sending message error", err)
 	}
-	lc.LatestMsg = IMMessageToLocalChatLog(ctx, s)
+	lc.LatestMsg = msgconvert.IMMessageToLocalChatLog(ctx, s)
 	lc.LatestMsgSendTime = sendTime
 	_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: lc.ConversationID, Action: constant.AddConOrUpLatMsg, Args: *lc}, c.GetCh())
 }
@@ -407,7 +408,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 	if !req.IsOnlineOnly {
 		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, req.Message.ClientMsgID)
 		if err != nil {
-			localMessage := IMMessageToLocalChatLog(ctx, req.Message)
+			localMessage := msgconvert.IMMessageToLocalChatLog(ctx, req.Message)
 			err := c.db.InsertMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
 				return nil, err
@@ -433,7 +434,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 				}
 			}
 		}
-		lc.LatestMsg = IMMessageToLocalChatLog(ctx, req.Message)
+		lc.LatestMsg = msgconvert.IMMessageToLocalChatLog(ctx, req.Message)
 		log.ZDebug(ctx, "send message come here", "conversion", *lc)
 		_ = common.TriggerCmdUpdateConversation(ctx, common.UpdateConNode{ConID: lc.ConversationID, Action: constant.AddConOrUpLatMsg, Args: *lc}, c.GetCh())
 	}
@@ -560,7 +561,7 @@ func (c *Conversation) SendMessage(ctx context.Context, req *msgpb.SendMessageRe
 			}
 		}
 	}
-	if err := c.db.UpdateMessage(ctx, lc.ConversationID, IMMessageToLocalChatLog(ctx, req.Message)); err != nil {
+	if err := c.db.UpdateMessage(ctx, lc.ConversationID, msgconvert.IMMessageToLocalChatLog(ctx, req.Message)); err != nil {
 		return nil, err
 	}
 	msg, err := c.sendMessageToServer(ctx, req.Message, lc, nil, req.Message.OfflinePush, options, req.IsOnlineOnly)
@@ -580,7 +581,7 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sharedpb.IMMess
 	if !isOnlineOnly {
 		oldMessage, err := c.db.GetMessage(ctx, lc.ConversationID, s.ClientMsgID)
 		if err != nil {
-			localMessage := IMMessageToLocalChatLog(ctx, s)
+			localMessage := msgconvert.IMMessageToLocalChatLog(ctx, s)
 			err := c.db.InsertMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
 				return nil, err
@@ -607,11 +608,11 @@ func (c *Conversation) sendMessageNotOss(ctx context.Context, s *sharedpb.IMMess
 			}
 		}
 	}
-	lc.LatestMsg = IMMessageToLocalChatLog(ctx, s)
+	lc.LatestMsg = msgconvert.IMMessageToLocalChatLog(ctx, s)
 	var delFile []string
 	if utils.IsContainInt(int(s.ContentType), []int{constant.Picture, constant.Sound, constant.Video, constant.File}) {
 		if isOnlineOnly {
-			localMessage := IMMessageToLocalChatLog(ctx, s)
+			localMessage := msgconvert.IMMessageToLocalChatLog(ctx, s)
 			err = c.db.UpdateMessage(ctx, lc.ConversationID, localMessage)
 			if err != nil {
 				return nil, err
@@ -633,7 +634,7 @@ func (c *Conversation) sendMessageToServer(ctx context.Context, s *sharedpb.IMMe
 		utils.SetSwitchFromOptions(options, constant.IsOfflinePush, false)
 	}
 	//Protocol conversion
-	wsMsgData := IMMessageToMsgData(s)
+	wsMsgData := msgconvert.IMMessageToMsgData(ctx, s)
 	wsMsgData.SendTime = 0
 	wsMsgData.Options = options
 	if wsMsgData.ContentType == constant.AtText {
@@ -714,7 +715,7 @@ func (c *Conversation) FindMessageList(ctx context.Context, req *msgpb.FindMessa
 		if err == nil {
 			var tempMessageList []*sharedpb.IMMessage
 			for _, message := range messages {
-				temp := LocalChatLogToIMMessage(ctx, message)
+				temp := msgconvert.LocalChatLogToIMMessage(ctx, message)
 				tempMessageList = append(tempMessageList, temp)
 			}
 			findResultItem := msgpb.SearchByConversationResult{}
@@ -864,7 +865,7 @@ func (c *Conversation) InsertSingleMessageToLocal(ctx context.Context, req *msgp
 	req.Msg.SendTime = utils.GetCurrentTimestampByMill()
 	req.Msg.SessionType = constant.SingleChatType
 	req.Msg.Status = constant.MsgStatusSendSuccess
-	localMessage := IMMessageToLocalChatLog(ctx, req.Msg)
+	localMessage := msgconvert.IMMessageToLocalChatLog(ctx, req.Msg)
 	conversation.LatestMsg = localMessage
 	conversation.ConversationType = constant.SingleChatType
 	conversation.LatestMsgSendTime = req.Msg.SendTime
@@ -904,7 +905,7 @@ func (c *Conversation) InsertGroupMessageToLocal(ctx context.Context, req *msgpb
 	req.Msg.SendTime = utils.GetCurrentTimestampByMill()
 	req.Msg.SessionType = commonpb.SessionType(conversation.ConversationType)
 	req.Msg.Status = constant.MsgStatusSendSuccess
-	localMessage := IMMessageToLocalChatLog(ctx, req.Msg)
+	localMessage := msgconvert.IMMessageToLocalChatLog(ctx, req.Msg)
 	conversation.LatestMsg = localMessage
 	conversation.LatestMsgSendTime = req.Msg.SendTime
 	conversation.FaceURL = req.Msg.SenderFaceURL

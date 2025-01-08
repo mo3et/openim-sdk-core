@@ -17,6 +17,7 @@ package conversation_msg
 import (
 	"context"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/msgconvert"
 
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/common"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/constant"
@@ -178,7 +179,7 @@ func (c *Conversation) deleteMessageFromLocal(ctx context.Context, conversationI
 		}
 		c.doUpdateConversation(common.Cmd2Value{Value: common.UpdateConNode{Action: constant.ConChange, Args: []string{conversationID}}})
 	}
-	c.messageListener().OnMessageDeleted(ctx, &sdkpb.EventOnMessageDeletedData{Message: LocalChatLogToIMMessage(ctx, s)})
+	c.messageListener().OnMessageDeleted(ctx, &sdkpb.EventOnMessageDeletedData{Message: msgconvert.LocalChatLogToIMMessage(ctx, s)})
 	return nil
 }
 

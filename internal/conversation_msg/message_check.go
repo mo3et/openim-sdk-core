@@ -3,6 +3,7 @@ package conversation_msg
 import (
 	"context"
 	"errors"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/msgconvert"
 	"time"
 
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/message"
@@ -231,7 +232,7 @@ func (c *Conversation) fetchAndMergeMissingMessages(ctx context.Context, convers
 			if v.IsEnd {
 				c.setConversationMinSeq(ctx, isReverse, conversationID, v.EndSeq)
 			}
-			localMessage := BatchCtx(ctx, MsgDataToLocalChatLog, v.Msgs)
+			localMessage := BatchCtx(ctx, msgconvert.MsgDataToLocalChatLog, v.Msgs)
 			if !isReverse {
 				reverse(localMessage)
 			}
@@ -366,10 +367,10 @@ func (c *Conversation) pullMessageIntoTable(ctx context.Context, pullMsgData map
 			//When the message has been marked and deleted by the cloud, it is directly inserted locally
 			//without any conversation and message update.
 			if v.Status == constant.MsgStatusHasDeleted {
-				insertMessage = append(insertMessage, MsgDataToLocalChatLog(ctx, v))
+				insertMessage = append(insertMessage, msgconvert.MsgDataToLocalChatLog(ctx, v))
 				continue
 			}
-			chatLog := MsgDataToLocalChatLog(ctx, v)
+			chatLog := msgconvert.MsgDataToLocalChatLog(ctx, v)
 			// The message might be a filler provided by the server due to a gap in the sequence.
 			if chatLog.ClientMsgID == "" {
 				chatLog.ClientMsgID = utils.GetMsgID(c.loginUserID) + utils.Int64ToString(chatLog.Seq)

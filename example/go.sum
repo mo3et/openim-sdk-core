@@ -47,6 +47,7 @@ github.com/openimsdk/tools v0.0.50-alpha.40 h1:OUbqraRcNLKtXfND3umQxcA1JEeE2X0gE
 github.com/openimsdk/tools v0.0.50-alpha.40/go.mod h1:/Em/fQH46CuWf60+hcmvZyboGCQpSDEb2MdQ4nmQRAk=
 github.com/openimsdk/tools v0.0.50-alpha.56/go.mod h1:muCtxguNJv8lFwLei27UASu2Nvg4ERSeN0R4K5tivk0=
 github.com/openimsdk/tools v0.0.50-alpha.61/go.mod h1:JowL2jYr8tu4vcQe+5hJh4v3BtSx1T0CIS3pgU/Mw+U=
+github.com/openimsdk/tools v0.0.50-alpha.66/go.mod h1:B+oqV0zdewN7OiEHYJm+hW+8/Te7B8tHHgD8rK5ZLZk=
 github.com/patrickmn/go-cache v2.1.0+incompatible h1:HRMgzkcYKYpi3C8ajMPV8OFXaaRUnok+kx1WdO15EQc=
 github.com/patrickmn/go-cache v2.1.0+incompatible/go.mod h1:3Qf8kWWT7OJRJbdiICTKqZju1ZixQ/KpMGzzAfe6+WQ=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=

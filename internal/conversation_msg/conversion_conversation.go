@@ -3,6 +3,7 @@ package conversation_msg
 import (
 	"context"
 	"github.com/openimsdk/openim-sdk-core/v3/pkg/db/model_struct"
+	"github.com/openimsdk/openim-sdk-core/v3/pkg/msgconvert"
 	commonpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/common"
 	sdkpb "github.com/openimsdk/openim-sdk-core/v3/proto/go/shared"
 	pbConversation "github.com/openimsdk/protocol/conversation"
@@ -47,7 +48,7 @@ func LocalConversationToIMConversation(ctx context.Context, conversation *model_
 		RecvMsgOpt:        commonpb.ConvRecvMsgOpt(conversation.RecvMsgOpt),
 		UnreadCount:       conversation.UnreadCount,
 		GroupAtType:       commonpb.ConvGroupAtType(conversation.GroupAtType),
-		LatestMsg:         LocalChatLogToIMMessage(ctx, conversation.LatestMsg),
+		LatestMsg:         msgconvert.LocalChatLogToIMMessage(ctx, conversation.LatestMsg),
 		LatestMsgSendTime: conversation.LatestMsgSendTime,
 		DraftText:         conversation.DraftText,
 		DraftTextTime:     conversation.DraftTextTime,

@@ -505,10 +505,12 @@ message FileElem {
 }
 
 message ErrorElem {
-  // error code
-  string type = 1;
-  // error message
-  string data = 2;
+  // parsing failed for the original ContentType
+  common.ContentType contentType = 1;
+  // parsing failed for the original content
+  string content = 2;
+  // parsing failed for the original cause
+  string cause = 3;
 }
 
 message MessageEntity {
@@ -922,7 +924,7 @@ message IMMessage {
     // revoke message notification
     RevokedTips revokedTips = 38;
     // error message
-    ErrorElem errorTips = 39;
+    ErrorElem errorElem = 39;
 
     // group created notification
     GroupCreatedTips groupCreatedTips = 311;

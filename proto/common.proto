@@ -94,7 +94,7 @@ enum MsgStatus {
   Filtered = 5;
 }
 enum ContentType {
-  ContentType_ = 0;
+  Error = 0;
   // Text message
   Text = 101;
   // Picture message
