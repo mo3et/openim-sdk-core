@@ -115,6 +115,15 @@ func Test_SendMessage(t *testing.T) {
 	}
 }
 
+// func Test_SendMessageLarge(t *testing.T) {
+// 	ctx = context.WithValue(ctx, "callback", TestSendMsg{})
+// 	msg, _ := open_im_sdk.IMUserContext.Conversation().CreateTextMessage(ctx, "textMsg")
+// 	_, err := open_im_sdk.IMUserContext.Conversation().SendMessage(ctx, msg, "3411008330", "", nil, false)
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+// }
+
 func Test_SendMessageNotOss(t *testing.T) {
 	ctx = context.WithValue(ctx, "callback", TestSendMsg{})
 	msg, _ := open_im_sdk.IMUserContext.Conversation().CreateTextMessage(ctx, "textMsg")
@@ -137,7 +146,7 @@ func Test_FindMessageList(t *testing.T) {
 
 func Test_GetAdvancedHistoryMessageList(t *testing.T) {
 	msgs, err := open_im_sdk.IMUserContext.Conversation().GetAdvancedHistoryMessageList(ctx, sdk_params_callback.GetAdvancedHistoryMessageListParams{
-		ConversationID:   "si_5318543822_9511766539",
+		ConversationID:   "si_1342867570550263810_afaq-m.rizwan10005",
 		StartClientMsgID: "",
 		Count:            40,
 		ViewType:         0,

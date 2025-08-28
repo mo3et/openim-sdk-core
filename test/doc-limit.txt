@@ -1,0 +1,40 @@
+   /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:78: MongoDB 文档最大限制: 16777216 bytes (16.00 MB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:79: 每个文档最大消息数: 100
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:80: 每条消息理论最大尺寸: 167772 bytes (163.84 KB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:81: 每条消息安全尺寸 (80%): 134217 bytes (131.07 KB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:89: 文本长度: 20646 字符, 消息大小: 21184 bytes (20.69 KB), 文档大小(100条): 2118400 bytes (2.02 MB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:96: 剩余空间: 14658816 bytes (14315.25 KB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:89: 文本长度: 41323 字符, 消息大小: 41861 bytes (40.88 KB), 文档大小(100条): 4186100 bytes (3.99 MB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:96: 剩余空间: 12591116 bytes (12296.01 KB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:89: 文本长度: 103323 字符, 消息大小: 103861 bytes (101.43 KB), 文档大小(100条): 10386100 bytes (9.90 MB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:96: 剩余空间: 6391116 bytes (6241.32 KB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:89: 文本长度: 206646 字符, 消息大小: 207184 bytes (202.33 KB), 文档大小(100条): 20718400 bytes (19.76 MB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:94: 警告: 此消息尺寸超过MongoDB 16MB限制! 不建议使用此长度。
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:89: 文本长度: 248000 字符, 消息大小: 248538 bytes (242.71 KB), 文档大小(100条): 24853800 bytes (23.70 MB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:94: 警告: 此消息尺寸超过MongoDB 16MB限制! 不建议使用此长度。
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:89: 文本长度: 289323 字符, 消息大小: 289861 bytes (283.07 KB), 文档大小(100条): 28986100 bytes (27.64 MB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:94: 警告: 此消息尺寸超过MongoDB 16MB限制! 不建议使用此长度。
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:89: 文本长度: 330646 字符, 消息大小: 331184 bytes (323.42 KB), 文档大小(100条): 33118400 bytes (31.58 MB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:94: 警告: 此消息尺寸超过MongoDB 16MB限制! 不建议使用此长度。
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:101:
+        开始二分查找最佳文本长度...
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 150000, 文档大小: 29.62 MB (185.10%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 124999, 文档大小: 24.69 MB (154.29%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 112499, 文档大小: 22.22 MB (138.88%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 106249, 文档大小: 20.99 MB (131.20%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 103124, 文档大小: 20.37 MB (127.33%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 101561, 文档大小: 20.07 MB (125.41%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100780, 文档大小: 19.91 MB (124.45%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100389, 文档大小: 19.84 MB (123.97%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100194, 文档大小: 19.80 MB (123.73%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100096, 文档大小: 19.78 MB (123.62%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100047, 文档大小: 19.77 MB (123.55%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100023, 文档大小: 19.76 MB (123.53%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100011, 文档大小: 19.76 MB (123.51%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100005, 文档大小: 19.76 MB (123.51%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100002, 文档大小: 19.76 MB (123.49%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:201: 测试长度: 100000, 文档大小: 19.76 MB (123.49%)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:106: 推荐的最大文本长度: 99999 字符
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:111: 最终建议: 消息文本长度限制为 99999 字符
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:112: 单条消息大小: 207184 bytes (202.33 KB)
+    /Users/monet/monet_repo/work/fork/openim-sdk-core/test/message_size_test.go:113: 100条消息总大小: 20718400 bytes (19.76 MB), 占MongoDB限制的 123.49%
